@@ -113,6 +113,51 @@ class SiteSettingsServiceTest extends TestCase
         $this->assertDatabaseCount('site_settings', 1);
     }
 
+    public function test_it_persists_validated_updates_and_refreshes_the_cache(): void
+    {
+        $service = app(SiteSettingsService::class);
+        $service->current();
+
+        $updated = $service->update($this->payload([
+            'site_identity' => [
+                'name' => 'Updated Studio',
+                'tagline' => 'A calmer site-settings write path.',
+            ],
+            'contact_details' => [
+                'email' => 'contact@updated-studio.test',
+            ],
+            'feature_toggles' => [
+                'show_labs' => false,
+            ],
+        ]));
+
+        $this->assertSame('Updated Studio', $updated->siteIdentity->name);
+        $this->assertSame('contact@updated-studio.test', $updated->contactDetails->email);
+        $this->assertFalse($updated->featureToggles->showLabs);
+        $this->assertSame('Updated Studio', $service->current()->siteIdentity->name);
+        $this->assertDatabaseHas('site_settings', [
+            'id' => SiteSetting::SINGLETON_ID,
+        ]);
+        $this->assertSame('Updated Studio', SiteSetting::query()->findOrFail(SiteSetting::SINGLETON_ID)->site_identity['name']);
+    }
+
+    public function test_it_rejects_invalid_updates_before_persisting_changes(): void
+    {
+        $service = app(SiteSettingsService::class);
+
+        $this->expectException(InvalidSiteSettings::class);
+
+        try {
+            $service->update($this->payload([
+                'contact_details' => [
+                    'email' => 'not-an-email',
+                ],
+            ]));
+        } finally {
+            $this->assertDatabaseCount('site_settings', 0);
+        }
+    }
+
     public function test_invalid_persisted_values_are_rejected_when_the_service_hydrates_them(): void
     {
         SiteSetting::query()->create([
