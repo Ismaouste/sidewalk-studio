@@ -44,7 +44,8 @@ Draft content may exist in the filesystem without leaking into the index pages o
 ## Locale strategy
 
 - Locale folders are an internal content-source boundary for now, not a public routing guarantee.
-- Page content already resolves `pages/<locale>/<page>.md` with fallback to `pages/en/<page>.md`.
+- Page content resolves locale per request in this order: `?lang=<locale>`, then the persisted locale cookie, then the browser `Accept-Language` header, then `en`.
+- Page content still resolves `pages/<locale>/<page>.md` with fallback to `pages/en/<page>.md`.
 - Core page sources now exist in both `pages/en/` and `pages/fr/`, but routing and SEO still expose English as the stable public default.
 - Writing and case-study collections resolve localized entries first, then English entries, then temporary root-level fallback files.
 - Slug deduplication happens after resolution, so a localized entry can override the English document for the same slug.

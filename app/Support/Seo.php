@@ -12,6 +12,7 @@ class Seo
         $settings = app(SiteSettingsService::class)->current();
         $siteName = $settings->siteIdentity->name;
         $siteUrl = rtrim((string) config('site.url'), '/');
+        $locale = app()->getLocale();
         $canonical = $path === '/' ? $siteUrl : $siteUrl.$path;
         $fullTitle = $title === $siteName ? $siteName : sprintf('%s | %s', $title, $settings->seoDefaults->titleSuffix);
         $author = config('site.author');
@@ -31,7 +32,7 @@ class Seo
                 'name' => $siteName,
                 'url' => $siteUrl,
                 'description' => $settings->seoDefaults->defaultDescription,
-                'inLanguage' => config('site.locale'),
+                'inLanguage' => $locale,
             ],
         ];
 
@@ -41,7 +42,7 @@ class Seo
             'name' => $title,
             'description' => $description,
             'url' => $canonical,
-            'inLanguage' => config('site.locale'),
+            'inLanguage' => $locale,
         ];
 
         if (isset($options['published_at'])) {
@@ -85,7 +86,7 @@ class Seo
                 'type' => $options['open_graph_type'] ?? 'website',
                 'url' => $canonical,
                 'site_name' => $siteName,
-                'locale' => config('site.locale'),
+                'locale' => $locale,
             ],
             'twitter' => [
                 'card' => 'summary_large_image',

@@ -10,19 +10,22 @@ class SeoAndConsentTest extends TestCase
     public function test_home_page_renders_server_side_metadata(): void
     {
         $description = app(SiteSettingsService::class)->current()->seoDefaults->defaultDescription;
+        $canonical = rtrim((string) config('site.url'), '/');
 
         $this->get('/')
             ->assertOk()
-            ->assertSee('<link rel="canonical" href="http://sidewalk-studio.test">', false)
+            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertSee($description)
             ->assertSee('application/ld+json', false);
     }
 
     public function test_experience_page_renders_breadcrumb_metadata(): void
     {
+        $canonical = rtrim((string) config('site.url'), '/').'/experience';
+
         $this->get('/experience')
             ->assertOk()
-            ->assertSee('<link rel="canonical" href="http://sidewalk-studio.test/experience">', false)
+            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertSee('Experience | Sidewalk Studio')
             ->assertSee('BreadcrumbList', false);
     }
