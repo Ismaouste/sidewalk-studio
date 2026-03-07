@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ContentRepository;
+use App\Services\SiteSettingsService;
 use App\Support\Seo;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -11,13 +12,15 @@ class SiteController extends Controller
 {
     public function __construct(
         protected ContentRepository $content,
+        protected SiteSettingsService $siteSettings,
     ) {}
 
     public function home(): Response
     {
+        $settings = $this->siteSettings->current();
         $seo = Seo::page(
-            config('site.name'),
-            config('site.description'),
+            $settings->siteIdentity->name,
+            $settings->seoDefaults->defaultDescription,
             '/',
         );
 
@@ -130,6 +133,7 @@ class SiteController extends Controller
 
     public function contact(): Response
     {
+        $settings = $this->siteSettings->current();
         $seo = Seo::page(
             'Contact',
             'Preferred collaboration channels for privacy, SEO, and Laravel modernization work.',
@@ -144,7 +148,7 @@ class SiteController extends Controller
 
         return Inertia::render('Contact', [
             'seo' => $seo,
-            'contact' => config('site.contact'),
+            'contact' => $settings->contactDetails->toArray(),
             'services' => [
                 'Platform stabilization and legacy recovery.',
                 'Consent-safe analytics and embed architecture.',

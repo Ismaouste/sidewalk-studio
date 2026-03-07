@@ -2,16 +2,18 @@
 
 namespace App\Support;
 
+use App\Services\SiteSettingsService;
 use Carbon\CarbonImmutable;
 
 class Seo
 {
     public static function page(string $title, string $description, string $path, array $options = []): array
     {
-        $siteName = config('site.name');
+        $settings = app(SiteSettingsService::class)->current();
+        $siteName = $settings->siteIdentity->name;
         $siteUrl = rtrim((string) config('site.url'), '/');
         $canonical = $path === '/' ? $siteUrl : $siteUrl.$path;
-        $fullTitle = $title === $siteName ? $siteName : sprintf('%s | %s', $title, $siteName);
+        $fullTitle = $title === $siteName ? $siteName : sprintf('%s | %s', $title, $settings->seoDefaults->titleSuffix);
         $author = config('site.author');
 
         $schemas = [
@@ -21,14 +23,14 @@ class Seo
                 'name' => $author['name'],
                 'jobTitle' => $author['job_title'],
                 'url' => $siteUrl,
-                'sameAs' => $author['same_as'],
+                'sameAs' => $settings->socialLinks->sameAs(),
             ],
             [
                 '@context' => 'https://schema.org',
                 '@type' => 'WebSite',
                 'name' => $siteName,
                 'url' => $siteUrl,
-                'description' => config('site.description'),
+                'description' => $settings->seoDefaults->defaultDescription,
                 'inLanguage' => config('site.locale'),
             ],
         ];
@@ -76,7 +78,7 @@ class Seo
             'title' => $fullTitle,
             'description' => $description,
             'canonical' => $canonical,
-            'robots' => $options['robots'] ?? 'index,follow',
+            'robots' => $options['robots'] ?? $settings->seoDefaults->defaultRobots,
             'openGraph' => [
                 'title' => $fullTitle,
                 'description' => $description,

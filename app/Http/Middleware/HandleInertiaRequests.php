@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\SiteSettingsService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -16,21 +17,23 @@ class HandleInertiaRequests extends Middleware
 
     public function share(Request $request): array
     {
+        $settings = app(SiteSettingsService::class)->current();
+
         return [
             ...parent::share($request),
-            'name' => config('site.name'),
+            'name' => $settings->siteIdentity->name,
             'auth' => [
                 'user' => $request->user(),
             ],
             'site' => [
-                'name' => config('site.name'),
-                'tagline' => config('site.tagline'),
-                'description' => config('site.description'),
+                'name' => $settings->siteIdentity->name,
+                'tagline' => $settings->siteIdentity->tagline,
+                'description' => $settings->siteIdentity->description,
                 'locale' => config('site.locale'),
                 'url' => config('site.url'),
                 'navigation' => config('site.navigation'),
                 'author' => config('site.author'),
-                'contact' => config('site.contact'),
+                'contact' => $settings->contactDetails->toArray(),
             ],
             'consent' => [
                 'mode' => config('consent.mode'),
