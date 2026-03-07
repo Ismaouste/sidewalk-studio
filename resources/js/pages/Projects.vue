@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
@@ -36,23 +37,53 @@ const props = defineProps<{
         summary: string;
         archive_cta: string;
     };
+    latestWriting: ContentItem[];
 }>();
 
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               experienceCta: 'Lire le parcours',
-              localCta: 'Contexte local',
+              contactCta: 'Discuter un contexte similaire',
               trackPrefix: 'Piste',
               internalBuildLabel: 'Build interne',
+              roleLabel: 'Role',
+              outcomesLabel: 'Resultats',
+              outcomesSuffix: 'signaux',
+              proofNotesLabel: 'Notes de contexte',
+              proofNotesTitle: "Les notes publiques derriere l'implementation.",
+              proofNotesSummary:
+                  "Quand un cas client reste volontairement compact, les notes publiques montrent le raisonnement architecture, contenu et SEO qui l'accompagne.",
+              writingArchiveCta: 'Ouvrir les notes',
           }
         : {
               experienceCta: 'Read experience',
-              localCta: 'Local context',
+              contactCta: 'Discuss a similar context',
               trackPrefix: 'Track',
               internalBuildLabel: 'Internal build',
+              roleLabel: 'Role',
+              outcomesLabel: 'Outcomes',
+              outcomesSuffix: 'signals',
+              proofNotesLabel: 'Supporting notes',
+              proofNotesTitle: 'Public notes behind the implementation.',
+              proofNotesSummary:
+                  'When a case study stays intentionally compact, public notes show the architecture, content, and SEO reasoning that sits behind it.',
+              writingArchiveCta: 'Open writing',
           },
 );
+
+function caseStudyMeta(item: ContentItem) {
+    return [
+        {
+            label: copy.value.roleLabel,
+            value: item.role,
+        },
+        {
+            label: copy.value.outcomesLabel,
+            value: `${item.outcomes.length} ${copy.value.outcomesSuffix}`,
+        },
+    ];
+}
 </script>
 
 <template>
@@ -69,8 +100,8 @@ const copy = computed(() =>
                     <Button href="/experience" variant="secondary">
                         {{ copy.experienceCta }}
                     </Button>
-                    <Button href="/local" variant="ghost">
-                        {{ copy.localCta }}
+                    <Button href="/contact" variant="ghost">
+                        {{ copy.contactCta }}
                     </Button>
                 </template>
             </SectionIntro>
@@ -122,13 +153,19 @@ const copy = computed(() =>
                     class="projects-page__case-link"
                 >
                     <Panel class="projects-page__case" tone="grid">
-                        <LegendChip
-                            :label="item.client || copy.internalBuildLabel"
-                            tone="green"
-                        />
+                        <div class="projects-page__case-top">
+                            <LegendChip
+                                :label="item.client || copy.internalBuildLabel"
+                                tone="green"
+                            />
+                            <ContentMetaRow :items="caseStudyMeta(item)" />
+                        </div>
                         <h3 class="type-h2 projects-page__case-title">
                             {{ item.title }}
                         </h3>
+                        <p class="type-body-sm projects-page__case-role">
+                            {{ item.role }}
+                        </p>
                         <p class="type-body projects-page__case-summary">
                             {{ item.summary }}
                         </p>
@@ -141,6 +178,38 @@ const copy = computed(() =>
                                 {{ tag }}
                             </span>
                         </div>
+                    </Panel>
+                </Link>
+            </div>
+
+            <SectionDivider :label="copy.proofNotesLabel" />
+
+            <div class="projects-page__header">
+                <SectionIntro
+                    :eyebrow="copy.proofNotesLabel"
+                    :title="copy.proofNotesTitle"
+                    :description="copy.proofNotesSummary"
+                />
+                <Button href="/writing" variant="ghost">
+                    {{ copy.writingArchiveCta }}
+                </Button>
+            </div>
+
+            <div class="projects-page__notes">
+                <Link
+                    v-for="item in props.latestWriting"
+                    :key="item.slug"
+                    :href="item.url"
+                    class="projects-page__note-link"
+                >
+                    <Panel class="projects-page__note" tone="surface">
+                        <LegendChip label="Writing" tone="violet" />
+                        <h3 class="type-h2 projects-page__case-title">
+                            {{ item.title }}
+                        </h3>
+                        <p class="type-body projects-page__case-summary">
+                            {{ item.summary }}
+                        </p>
                     </Panel>
                 </Link>
             </div>
@@ -179,6 +248,11 @@ const copy = computed(() =>
     color: var(--sw-text-secondary);
 }
 
+.projects-page__case-role {
+    margin: 0;
+    color: var(--sw-text-secondary);
+}
+
 .projects-page__header {
     display: flex;
     flex-wrap: wrap;
@@ -202,6 +276,17 @@ const copy = computed(() =>
     border-radius: var(--sw-radius-lg);
 }
 
+.projects-page__notes {
+    display: grid;
+    gap: var(--sw-space-sm);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.projects-page__note-link {
+    display: block;
+    border-radius: var(--sw-radius-lg);
+}
+
 .projects-page__case {
     position: relative;
     height: 100%;
@@ -211,6 +296,26 @@ const copy = computed(() =>
         border-color var(--sw-motion-fast),
         box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
+}
+
+.projects-page__note {
+    display: grid;
+    gap: var(--sw-space-xs);
+    height: 100%;
+    padding: var(--sw-space-sm);
+    transition:
+        transform var(--sw-motion-fast),
+        border-color var(--sw-motion-fast),
+        box-shadow var(--sw-motion-fast),
+        background-color var(--sw-motion-fast);
+}
+
+.projects-page__case-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-xs);
+    align-items: center;
+    justify-content: space-between;
 }
 
 .projects-page__case::before {
@@ -250,8 +355,18 @@ const copy = computed(() =>
     outline: none;
 }
 
+.projects-page__note-link:focus-visible {
+    outline: none;
+}
+
 .projects-page__case-link:focus-visible .projects-page__case,
 .projects-page__case-link:active .projects-page__case {
+    border-color: var(--sw-border-focus);
+    box-shadow: var(--sw-shadow-md);
+}
+
+.projects-page__note-link:focus-visible .projects-page__note,
+.projects-page__note-link:active .projects-page__note {
     border-color: var(--sw-border-focus);
     box-shadow: var(--sw-shadow-md);
 }
@@ -263,6 +378,10 @@ const copy = computed(() =>
 }
 
 .projects-page__case-link:active .projects-page__case {
+    transform: translateY(1px);
+}
+
+.projects-page__note-link:active .projects-page__note {
     transform: translateY(1px);
 }
 
@@ -278,11 +397,19 @@ const copy = computed(() =>
         transform: scaleX(1);
         opacity: 1;
     }
+
+    .projects-page__note-link:hover .projects-page__note {
+        transform: translateY(-2px);
+        border-color: var(--sw-accent-violet);
+        background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
+        box-shadow: var(--sw-shadow-md);
+    }
 }
 
 @media (max-width: 960px) {
     .projects-page__tracks,
-    .projects-page__cases {
+    .projects-page__cases,
+    .projects-page__notes {
         grid-template-columns: minmax(0, 1fr);
     }
 }

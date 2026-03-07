@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
@@ -6,7 +8,9 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { SeoPayload } from '@/types';
+import type { ContentItem, SeoPayload, SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -39,10 +43,68 @@ const props = defineProps<{
         label: string;
         href: string;
     }>;
+    featuredCaseStudies: ContentItem[];
+    latestWriting: ContentItem[];
     lookingFor: string;
 }>();
 
 const trajectoryTones = ['dominant', 'green', 'coral'] as const;
+
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              projectsCta: 'Voir preuves publiques',
+              contactCta: 'Entrer en contact',
+              currentPositioningLabel: 'Positionnement actuel',
+              positioningLabel: 'Comment je travaille maintenant',
+              contextsLabel: 'Contextes typiques',
+              trajectoryLabel: 'Parcours professionnel',
+              phasePrefix: 'Phase',
+              technicalFocusLabel: 'Focus techniques selectionnes',
+              strengthsLabel: 'Forces et environnements',
+              strengthsWorkingStyleLabel: 'Forces et style de travail',
+              stackEnvironmentsLabel: 'Stack et environnements',
+              publicProofLabel: 'Preuves publiques',
+              publicProofSummary:
+                  'Des cas clients et notes publiques montrent comment le travail se traduit en decisions d architecture, de SEO technique, de privacy et de livraison.',
+              caseStudiesLabel: 'Cas clients',
+              writingLabel: 'Notes',
+              openArchiveCta: 'Ouvrir archive',
+              quickHandoffLabel: 'Handoff rapide',
+              quickHandoffSummary:
+                  'Si tu dois qualifier le profil rapidement, le CV, les roles cibles et la page contact donnent deja assez de matiere pour avancer sans premier call flou.',
+              recruiterSnapshotLabel: 'Snapshot recruteur',
+              whatLookingForLabel: 'Ce que je recherche',
+              writingCta: 'Notes',
+              caseStudiesCta: 'Cas clients',
+          }
+        : {
+              projectsCta: 'View proof',
+              contactCta: 'Start a conversation',
+              currentPositioningLabel: 'Current positioning',
+              positioningLabel: 'How I work now',
+              contextsLabel: 'Typical contexts',
+              trajectoryLabel: 'Professional trajectory',
+              phasePrefix: 'Phase',
+              technicalFocusLabel: 'Selected technical focus',
+              strengthsLabel: 'Strengths and environments',
+              strengthsWorkingStyleLabel: 'Strengths and working style',
+              stackEnvironmentsLabel: 'Stack and environments',
+              publicProofLabel: 'Public proof',
+              publicProofSummary:
+                  'Public case studies and notes show how the work translates into architecture decisions, technical SEO, privacy, and delivery discipline.',
+              caseStudiesLabel: 'Case studies',
+              writingLabel: 'Writing',
+              openArchiveCta: 'Open archive',
+              quickHandoffLabel: 'Quick handoff',
+              quickHandoffSummary:
+                  'If you need to qualify the profile quickly, the CV package, role targets, and contact page already give enough material to move without a vague first call.',
+              recruiterSnapshotLabel: 'Recruiter-ready snapshot',
+              whatLookingForLabel: 'What I am looking for',
+              writingCta: 'Writing',
+              caseStudiesCta: 'Case studies',
+          },
+);
 </script>
 
 <template>
@@ -56,9 +118,9 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                 :description="props.hero.summary"
             >
                 <template #actions>
-                    <Button href="/projects">View projects</Button>
+                    <Button href="/projects">{{ copy.projectsCta }}</Button>
                     <Button href="/contact" variant="secondary">
-                        Contact
+                        {{ copy.contactCta }}
                     </Button>
                 </template>
 
@@ -67,11 +129,87 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                 <LegendChip label="Technical SEO" tone="sun" />
             </SectionIntro>
 
-            <SectionDivider label="Current positioning" />
+            <div class="experience-page__proof-grid">
+                <Panel class="experience-page__proof-card" tone="grid">
+                    <p class="type-eyebrow">
+                        {{ copy.recruiterSnapshotLabel }}
+                    </p>
+                    <p class="type-body experience-page__copy-line">
+                        {{ props.careerSnapshot.summary }}
+                    </p>
+
+                    <div class="experience-page__stack-items">
+                        <span
+                            v-for="role in props.careerSnapshot.roles"
+                            :key="role"
+                            class="type-meta experience-page__stack-item"
+                        >
+                            {{ role }}
+                        </span>
+                    </div>
+                </Panel>
+
+                <Panel class="experience-page__proof-card" tone="surface">
+                    <p class="type-eyebrow">{{ copy.publicProofLabel }}</p>
+                    <p class="type-body experience-page__copy-line">
+                        {{ copy.publicProofSummary }}
+                    </p>
+
+                    <div class="experience-page__proof-columns">
+                        <div class="experience-page__proof-column">
+                            <p class="type-nav">
+                                {{ copy.caseStudiesLabel }}
+                            </p>
+                            <Link
+                                v-for="item in props.featuredCaseStudies"
+                                :key="item.slug"
+                                :href="item.url"
+                                class="experience-page__proof-link"
+                            >
+                                {{ item.title }}
+                            </Link>
+                        </div>
+
+                        <div class="experience-page__proof-column">
+                            <p class="type-nav">{{ copy.writingLabel }}</p>
+                            <Link
+                                v-for="item in props.latestWriting"
+                                :key="item.slug"
+                                :href="item.url"
+                                class="experience-page__proof-link"
+                            >
+                                {{ item.title }}
+                            </Link>
+                        </div>
+                    </div>
+                </Panel>
+
+                <Panel class="experience-page__proof-card" tone="grid">
+                    <p class="type-eyebrow">{{ copy.quickHandoffLabel }}</p>
+                    <p class="type-body experience-page__copy-line">
+                        {{ copy.quickHandoffSummary }}
+                    </p>
+
+                    <div class="experience-page__actions">
+                        <Button
+                            v-for="download in props.cvDownloads"
+                            :key="download.href"
+                            :href="download.href"
+                        >
+                            {{ download.label }}
+                        </Button>
+                        <Button href="/contact" variant="secondary">
+                            {{ copy.contactCta }}
+                        </Button>
+                    </div>
+                </Panel>
+            </div>
+
+            <SectionDivider :label="copy.currentPositioningLabel" />
 
             <div class="experience-page__positioning">
                 <Panel class="experience-page__panel" tone="surface">
-                    <p class="type-eyebrow">How I work now</p>
+                    <p class="type-eyebrow">{{ copy.positioningLabel }}</p>
 
                     <div class="experience-page__copy">
                         <p
@@ -85,7 +223,7 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
 
                 <Panel class="experience-page__panel" tone="grid">
-                    <p class="type-eyebrow">Typical contexts</p>
+                    <p class="type-eyebrow">{{ copy.contextsLabel }}</p>
 
                     <ul class="experience-page__list">
                         <li
@@ -102,7 +240,7 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
             </div>
 
-            <SectionDivider label="Professional trajectory" />
+            <SectionDivider :label="copy.trajectoryLabel" />
 
             <div class="experience-page__trajectory">
                 <Panel
@@ -112,7 +250,7 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                     tone="surface"
                 >
                     <LegendChip
-                        :label="`Phase 0${index + 1}`"
+                        :label="`${copy.phasePrefix} 0${index + 1}`"
                         :tone="trajectoryTones[index] ?? 'violet'"
                     />
                     <h2 class="type-h2 experience-page__title">
@@ -124,7 +262,7 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
             </div>
 
-            <SectionDivider label="Selected technical focus" />
+            <SectionDivider :label="copy.technicalFocusLabel" />
 
             <div class="experience-page__focus-grid">
                 <Panel
@@ -142,11 +280,13 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
             </div>
 
-            <SectionDivider label="Strengths and environments" />
+            <SectionDivider :label="copy.strengthsLabel" />
 
             <div class="experience-page__working-grid">
                 <Panel class="experience-page__panel" tone="surface">
-                    <p class="type-eyebrow">Strengths and working style</p>
+                    <p class="type-eyebrow">
+                        {{ copy.strengthsWorkingStyleLabel }}
+                    </p>
 
                     <ul class="experience-page__list">
                         <li
@@ -163,7 +303,9 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
 
                 <Panel class="experience-page__panel" tone="grid">
-                    <p class="type-eyebrow">Stack and environments</p>
+                    <p class="type-eyebrow">
+                        {{ copy.stackEnvironmentsLabel }}
+                    </p>
 
                     <div class="experience-page__stack-groups">
                         <section
@@ -188,7 +330,7 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
             </div>
 
-            <SectionDivider label="What I am looking for" />
+            <SectionDivider :label="copy.whatLookingForLabel" />
 
             <div class="experience-page__closing-grid">
                 <Panel class="experience-page__closing" tone="surface">
@@ -197,12 +339,15 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                     </p>
 
                     <div class="experience-page__actions">
-                        <Button href="/projects">Projects</Button>
+                        <Button href="/projects">{{ copy.projectsCta }}</Button>
+                        <Button href="/case-studies" variant="secondary">
+                            {{ copy.caseStudiesCta }}
+                        </Button>
                         <Button href="/writing" variant="secondary">
-                            Writing
+                            {{ copy.writingCta }}
                         </Button>
                         <Button href="/contact" variant="ghost">
-                            Contact
+                            {{ copy.contactCta }}
                         </Button>
                     </div>
                 </Panel>
@@ -226,12 +371,12 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
                     </div>
 
                     <div class="experience-page__actions">
-                        <Button
-                            v-for="download in props.cvDownloads"
-                            :key="download.href"
-                            :href="download.href"
-                        >
-                            {{ download.label }}
+                        <Button href="/contact">{{ copy.contactCta }}</Button>
+                        <Button href="/projects" variant="secondary">
+                            {{ copy.projectsCta }}
+                        </Button>
+                        <Button href="/writing" variant="ghost">
+                            {{ copy.openArchiveCta }}
                         </Button>
                     </div>
                 </Panel>
@@ -246,15 +391,26 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
     gap: var(--sw-space-sm);
 }
 
+.experience-page__proof-grid,
 .experience-page__positioning,
 .experience-page__working-grid,
 .experience-page__closing-grid {
     display: grid;
     gap: var(--sw-space-sm);
+}
+
+.experience-page__proof-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.experience-page__positioning,
+.experience-page__working-grid,
+.experience-page__closing-grid {
     grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
 }
 
 .experience-page__panel,
+.experience-page__proof-card,
 .experience-page__trajectory-card,
 .experience-page__focus-card,
 .experience-page__closing {
@@ -313,6 +469,23 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
     gap: var(--sw-space-sm);
 }
 
+.experience-page__proof-columns {
+    display: grid;
+    gap: var(--sw-space-sm);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.experience-page__proof-column {
+    display: grid;
+    gap: var(--sw-space-3xs);
+}
+
+.experience-page__proof-link {
+    color: var(--sw-accent-dominant);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
 .experience-page__stack-group {
     display: grid;
     gap: var(--sw-space-xs);
@@ -344,11 +517,16 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
 }
 
 @media (max-width: 960px) {
+    .experience-page__proof-grid,
     .experience-page__positioning,
     .experience-page__working-grid,
     .experience-page__closing-grid,
     .experience-page__trajectory,
     .experience-page__focus-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .experience-page__proof-columns {
         grid-template-columns: minmax(0, 1fr);
     }
 }

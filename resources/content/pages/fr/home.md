@@ -8,7 +8,7 @@ hero:
 hero_panel:
     - Des systemes e-commerce et produit complexes avec un vrai poids legacy.
     - Le SEO technique, la vie privee et la maintenabilite traites dans la livraison, pas comme des checklists paralleles.
-    - Une pratique ancree a Nancy et attentive aux interfaces civiques, a la clarte des services et au contexte public.
+    - Une surface de preuve publique avec cas clients, notes, telechargements CV et chemins de contact concrets.
 focus_areas:
     - label: Experience
       title: Stabiliser des systemes e-commerce complexes
@@ -37,5 +37,5 @@ local_teaser:
         - Communautes associatives et culturelles, dont Aremedia.
 contact_cta:
     title: Ouvert a un travail soigne dans des environnements difficiles.
-    summary: Si un produit, une plateforme e-commerce ou un systeme editorial a besoin d'une ingenierie plus calme et d'une architecture plus lisible, je suis disponible pour en parler.
+    summary: Si un produit, une plateforme e-commerce ou un systeme editorial a besoin d'une ingenierie plus calme, d'une architecture plus lisible et d'une base technique plus credible, je suis disponible pour en parler.
 ---

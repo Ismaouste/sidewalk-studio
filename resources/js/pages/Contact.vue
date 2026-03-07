@@ -73,38 +73,76 @@ const copy = computed(() =>
               dividerLabel: 'Commencer la conversation',
               privacyChipLabel: 'Missions privacy-first',
               baseChipLabel: `Base ${props.contact.location}`,
+              baseLabel: 'Base',
+              availabilityLabel: 'Disponibilite',
+              subjectPrefix: 'Echange Sidewalk Studio',
+              bodyNameLabel: 'Nom',
+              bodyEmailLabel: 'Email',
+              bodyCompanyLabel: 'Entreprise ou produit',
+              bodyBriefFallback: 'Brief projet :',
+              servicePrefix: 'Fit',
+              recruiterFitLabel: 'Fits cibles',
+              recruiterFitRoles: [
+                  'Lead developer Laravel',
+                  'Tech lead e-commerce',
+                  'Ingenieur full-stack oriente produit',
+              ],
+              recruiterDecisionLabel: 'Bon format pour',
+              recruiterDecisionCopy:
+                  "Recrutement, mise en relation rapide, audit d'architecture, modernisation freelance ou reprise d'une plateforme deja critique pour le business.",
+              cvLabel: 'CV',
           }
         : {
               experienceCta: 'Read experience',
               dividerLabel: 'Start a conversation',
               privacyChipLabel: 'Privacy-first engagements',
               baseChipLabel: `${props.contact.location} base`,
+              baseLabel: 'Base',
+              availabilityLabel: 'Availability',
+              subjectPrefix: 'Sidewalk Studio inquiry',
+              bodyNameLabel: 'Name',
+              bodyEmailLabel: 'Email',
+              bodyCompanyLabel: 'Company or product',
+              bodyBriefFallback: 'Project brief:',
+              servicePrefix: 'Fit',
+              recruiterFitLabel: 'Best fits',
+              recruiterFitRoles: [
+                  'Laravel lead developer',
+                  'E-commerce tech lead',
+                  'Product-minded full-stack engineer',
+              ],
+              recruiterDecisionLabel: 'Useful for',
+              recruiterDecisionCopy:
+                  'Hiring, faster recruiter handoff, architecture review, freelance modernization, or an existing platform that already has delivery pressure.',
+              cvLabel: 'CV',
           },
 );
 
 const inquiryMeta = computed(() => [
     {
-        label: 'Base',
+        label: copy.value.baseLabel,
         value: props.contact.location,
     },
     {
-        label: 'Availability',
+        label: copy.value.availabilityLabel,
         value: props.contact.availability,
     },
 ]);
 
 const mailtoHref = computed(() => {
     const subjectBase = inquiry.company.trim()
-        ? `Sidewalk Studio inquiry: ${inquiry.company.trim()}`
-        : 'Sidewalk Studio inquiry';
+        ? `${copy.value.subjectPrefix}: ${inquiry.company.trim()}`
+        : copy.value.subjectPrefix;
 
     const lines = [
-        inquiry.name.trim() && `Name: ${inquiry.name.trim()}`,
-        inquiry.email.trim() && `Email: ${inquiry.email.trim()}`,
+        inquiry.name.trim() &&
+            `${copy.value.bodyNameLabel}: ${inquiry.name.trim()}`,
+        inquiry.email.trim() &&
+            `${copy.value.bodyEmailLabel}: ${inquiry.email.trim()}`,
         inquiry.company.trim() &&
-            `Company or product: ${inquiry.company.trim()}`,
+            `${copy.value.bodyCompanyLabel}: ${inquiry.company.trim()}`,
         '',
-        inquiry.summary.trim() || 'Project brief:',
+        inquiry.summary.trim() || copy.value.bodyBriefFallback,
     ].filter(Boolean);
 
     return `mailto:${props.contact.email}?subject=${encodeURIComponent(
@@ -275,7 +313,7 @@ const mailtoHref = computed(() => {
                                 class="contact-page__service-item"
                             >
                                 <LegendChip
-                                    :label="`Focus 0${index + 1}`"
+                                    :label="`${copy.servicePrefix} 0${index + 1}`"
                                     :tone="serviceTones[index] ?? 'violet'"
                                 />
                                 <p class="type-body contact-page__service-copy">
@@ -293,6 +331,28 @@ const mailtoHref = computed(() => {
                             {{ props.recruiterShortcut.summary }}
                         </p>
 
+                        <div class="contact-page__fit-block">
+                            <p class="type-nav">{{ copy.recruiterFitLabel }}</p>
+                            <div class="contact-page__fit-items">
+                                <span
+                                    v-for="role in copy.recruiterFitRoles"
+                                    :key="role"
+                                    class="type-meta contact-page__fit-item"
+                                >
+                                    {{ role }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="contact-page__fit-block">
+                            <p class="type-nav">
+                                {{ copy.recruiterDecisionLabel }}
+                            </p>
+                            <p class="type-body-sm contact-page__service-copy">
+                                {{ copy.recruiterDecisionCopy }}
+                            </p>
+                        </div>
+
                         <div class="contact-page__form-actions">
                             <Button
                                 v-for="download in props.cvDownloads"
@@ -300,6 +360,12 @@ const mailtoHref = computed(() => {
                                 :href="download.href"
                             >
                                 {{ download.label }}
+                            </Button>
+                            <Button
+                                :href="`mailto:${props.contact.email}`"
+                                variant="secondary"
+                            >
+                                {{ props.form.secondary_cta }}
                             </Button>
                         </div>
                     </Panel>
@@ -405,6 +471,11 @@ const mailtoHref = computed(() => {
     gap: var(--sw-space-xs);
 }
 
+.contact-page__fit-block {
+    display: grid;
+    gap: var(--sw-space-3xs);
+}
+
 .contact-page__service-list,
 .contact-page__detail-list {
     display: grid;
@@ -437,6 +508,21 @@ const mailtoHref = computed(() => {
     color: var(--sw-accent-dominant);
     text-decoration: underline;
     text-underline-offset: 0.2em;
+}
+
+.contact-page__fit-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-3xs);
+}
+
+.contact-page__fit-item {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    border-radius: var(--sw-radius-full);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent);
+    padding-inline: var(--sw-space-2xs);
 }
 
 @media (hover: hover) {

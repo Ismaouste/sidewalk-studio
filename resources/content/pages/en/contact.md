@@ -4,11 +4,11 @@ seo_description: Preferred collaboration channels for privacy, SEO, and Laravel 
 hero:
     eyebrow: Contact
     title: Privacy, SEO, and Laravel modernization conversations.
-    summary: Open to lead developer, freelance modernization, and privacy/SEO architecture conversations.
+    summary: Open to lead developer, freelance modernization, architecture review, and recruiter conversations when an existing product needs steadier engineering.
 form:
     eyebrow: Draft your note
     title: Share the context before you open your mail client.
-    summary: This keeps the page backend-free while still giving you a cleaner way to structure the first message.
+    summary: This keeps the page backend-free while still giving you a cleaner way to structure the first message for a role, a freelance brief, or an architecture review.
     name_label: Name
     name_placeholder: Your name
     email_label: Email
@@ -28,10 +28,10 @@ details:
 services:
     eyebrow: Where I can help
     items:
-        - Platform stabilization and legacy recovery.
-        - Consent-safe analytics and embed architecture.
-        - SEO and content-model foundations for editorial sites.
+        - Platform stabilization, legacy recovery, and calmer delivery on systems with history.
+        - Consent-safe analytics, embed architecture, and privacy-aware product decisions.
+        - SEO, metadata, and content-model foundations for editorial or commerce surfaces.
 recruiter_shortcut:
     eyebrow: Recruiter shortcut
-    summary: If you need a faster handoff than a first call, the current English and French CVs are available here.
+    summary: If you need a faster handoff than a first call, the current English and French CVs are available here together with a clearer picture of role fit.
 ---
