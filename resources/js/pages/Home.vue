@@ -275,7 +275,7 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
 .home-contact {
     display: grid;
     gap: var(--sw-space-sm);
-    padding: var(--sw-space-sm);
+    padding: clamp(18px, 2.8vw, var(--sw-space-sm));
 }
 
 .home-hero__panel-title,
@@ -337,6 +337,10 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
     justify-content: space-between;
 }
 
+.home-section__header :deep(.section-intro) {
+    max-width: 46rem;
+}
+
 .home-focus-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -350,22 +354,49 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
 .home-card-link,
 .home-writing-link {
     display: block;
+    border-radius: var(--sw-radius-lg);
 }
 
 .home-card,
 .home-writing-card {
+    position: relative;
     height: 100%;
+    overflow: hidden;
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast);
+        box-shadow var(--sw-motion-fast),
+        background-color var(--sw-motion-fast);
 }
 
-.home-card-link:hover .home-card,
-.home-writing-link:hover .home-writing-card {
-    transform: translateY(-2px);
-    border-color: var(--sw-accent-dominant);
-    box-shadow: var(--sw-shadow-md);
+.home-card::before,
+.home-writing-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    transform: scaleX(0.24);
+    transform-origin: left center;
+    opacity: 0;
+    transition:
+        transform var(--sw-motion-fast),
+        opacity var(--sw-motion-fast);
+}
+
+.home-card::before {
+    background: linear-gradient(
+        90deg,
+        var(--sw-accent-dominant),
+        color-mix(in srgb, var(--sw-accent-sun) 68%, var(--sw-accent-dominant))
+    );
+}
+
+.home-writing-card::before {
+    background: linear-gradient(
+        90deg,
+        var(--sw-accent-violet),
+        color-mix(in srgb, var(--sw-accent-sun) 52%, var(--sw-accent-violet))
+    );
 }
 
 .home-card__meta {
@@ -406,6 +437,54 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
     gap: var(--sw-space-xs);
 }
 
+.home-card-link:focus-visible,
+.home-writing-link:focus-visible {
+    outline: none;
+}
+
+.home-card-link:focus-visible .home-card,
+.home-writing-link:focus-visible .home-writing-card {
+    border-color: var(--sw-border-focus);
+    box-shadow: var(--sw-shadow-md);
+}
+
+.home-card-link:focus-visible .home-card::before,
+.home-writing-link:focus-visible .home-writing-card::before,
+.home-card-link:active .home-card::before,
+.home-writing-link:active .home-writing-card::before {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+.home-card-link:active .home-card,
+.home-writing-link:active .home-writing-card {
+    transform: translateY(1px);
+}
+
+@media (hover: hover) {
+    .home-card-link:hover .home-card,
+    .home-writing-link:hover .home-writing-card {
+        transform: translateY(-2px);
+        box-shadow: var(--sw-shadow-md);
+    }
+
+    .home-card-link:hover .home-card {
+        border-color: var(--sw-accent-dominant);
+        background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
+    }
+
+    .home-writing-link:hover .home-writing-card {
+        border-color: var(--sw-accent-violet);
+        background: color-mix(in srgb, var(--sw-bg-elevated) 86%, transparent);
+    }
+
+    .home-card-link:hover .home-card::before,
+    .home-writing-link:hover .home-writing-card::before {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
 @media (min-width: 960px) {
     .home-hero {
         grid-template-columns: minmax(0, 1.45fr) minmax(18rem, 0.85fr);
@@ -420,6 +499,22 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
     .home-focus-grid,
     .home-card-grid {
         grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .home-hero,
+    .home-section {
+        gap: var(--sw-space-xs);
+    }
+
+    .home-section__header {
+        gap: var(--sw-space-xs);
+        align-items: start;
+    }
+
+    .home-writing-card__meta {
+        justify-content: flex-start;
     }
 }
 </style>
