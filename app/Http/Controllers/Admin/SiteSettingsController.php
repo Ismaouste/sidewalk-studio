@@ -46,6 +46,9 @@ class SiteSettingsController extends Controller
         }
 
         return to_route('admin.settings.edit')
-            ->with('status', 'Site settings updated.');
+            ->with(
+                'status',
+                'Site settings saved. Public reads now use the updated payload.',
+            );
     }
 }

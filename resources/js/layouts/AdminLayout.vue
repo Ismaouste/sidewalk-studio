@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import Button from '@/components/ui/Button.vue';
+import Panel from '@/components/ui/Panel.vue';
 import type { Auth, FlashProps, User } from '@/types';
 
 type AdminPageProps = {
@@ -13,10 +15,16 @@ const navigation = [
     {
         label: 'Settings',
         href: '/admin/settings',
+        note: 'Bounded runtime configuration',
     },
 ] as const;
 
 const user = page.props.auth.user as User | null;
+const currentSection = computed(
+    () =>
+        navigation.find((item) => page.url.startsWith(item.href)) ??
+        navigation[0],
+);
 </script>
 
 <template>
@@ -26,6 +34,9 @@ const user = page.props.auth.user as User | null;
                 <div class="admin-shell__brand">
                     <p class="type-eyebrow">Admin shell</p>
                     <h1 class="type-h3 admin-shell__title">Sidewalk Studio</h1>
+                    <p class="type-body-sm admin-shell__subtitle">
+                        Operator-only controls for bounded runtime settings.
+                    </p>
                 </div>
 
                 <div class="admin-shell__meta">
@@ -50,6 +61,12 @@ const user = page.props.auth.user as User | null;
         <div class="admin-shell__body">
             <aside class="admin-shell__nav">
                 <p class="type-eyebrow">Navigation</p>
+                <h2 class="type-h3 admin-shell__nav-title">
+                    {{ currentSection.label }}
+                </h2>
+                <p class="type-body-sm admin-shell__nav-copy">
+                    {{ currentSection.note }}
+                </p>
 
                 <nav class="admin-shell__nav-links" aria-label="Admin">
                     <Link
@@ -65,6 +82,19 @@ const user = page.props.auth.user as User | null;
                         {{ item.label }}
                     </Link>
                 </nav>
+
+                <Panel class="admin-shell__note" tone="grid">
+                    <p class="type-eyebrow">Operator notes</p>
+                    <p class="type-body-sm admin-shell__note-copy">
+                        This shell writes the singleton
+                        <code>site_settings</code> aggregate. Secrets and
+                        provider keys stay in <code>.env</code>.
+                    </p>
+                    <p class="type-meta admin-shell__note-meta">
+                        Future audit history can layer onto these grouped writes
+                        without changing the settings boundary.
+                    </p>
+                </Panel>
             </aside>
 
             <main class="admin-shell__main">
@@ -124,10 +154,15 @@ const user = page.props.auth.user as User | null;
 
 .admin-shell__brand {
     flex-wrap: wrap;
+    align-items: baseline;
 }
 
 .admin-shell__title {
     margin: 0;
+}
+
+.admin-shell__subtitle {
+    color: var(--sw-text-secondary);
 }
 
 .admin-shell__meta {
@@ -188,6 +223,14 @@ const user = page.props.auth.user as User | null;
     box-shadow: var(--sw-shadow-sm);
 }
 
+.admin-shell__nav-title {
+    margin: 0;
+}
+
+.admin-shell__nav-copy {
+    color: var(--sw-text-secondary);
+}
+
 .admin-shell__nav-links {
     display: grid;
     gap: 0.35rem;
@@ -214,6 +257,18 @@ const user = page.props.auth.user as User | null;
         color: var(--sw-text-primary);
         transform: translateX(2px);
     }
+}
+
+.admin-shell__note {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.35rem;
+    padding: var(--sw-space-sm);
+}
+
+.admin-shell__note-copy,
+.admin-shell__note-meta {
+    color: var(--sw-text-secondary);
 }
 
 .admin-shell__main {

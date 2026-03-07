@@ -84,7 +84,7 @@ class AdminAuthTest extends TestCase
         $this->actingAs($user)
             ->put('/admin/settings', $payload)
             ->assertRedirect('/admin/settings')
-            ->assertSessionHas('status', 'Site settings updated.');
+            ->assertSessionHas('status', 'Site settings saved. Public reads now use the updated payload.');
 
         $record = SiteSetting::query()->findOrFail(SiteSetting::SINGLETON_ID);
 
@@ -102,6 +102,24 @@ class AdminAuthTest extends TestCase
             ->assertRedirect('/admin/login');
 
         $this->assertGuest();
+    }
+
+    public function test_invalid_site_settings_update_returns_validation_errors_without_persisting(): void
+    {
+        $user = User::factory()->create();
+        $payload = $this->settingsPayload([
+            'contact_details' => [
+                'email' => 'not-an-email',
+            ],
+        ]);
+
+        $this->actingAs($user)
+            ->from('/admin/settings')
+            ->put('/admin/settings', $payload)
+            ->assertRedirect('/admin/settings')
+            ->assertSessionHasErrors('contact_details.email');
+
+        $this->assertDatabaseCount('site_settings', 0);
     }
 
     protected function settingsPayload(array $overrides = []): array
