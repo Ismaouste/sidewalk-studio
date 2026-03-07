@@ -95,10 +95,6 @@ const componentProps = computed(() => {
         box-shadow var(--sw-motion-fast);
 }
 
-.sw-button:hover {
-    transform: translateY(-1px);
-}
-
 .sw-button--md {
     min-height: 3rem;
     padding-inline: 1.2rem;
@@ -117,19 +113,10 @@ const componentProps = computed(() => {
     box-shadow: var(--sw-shadow-sm);
 }
 
-.sw-button--primary:hover {
-    background: color-mix(in srgb, var(--sw-accent-sun) 88%, white 12%);
-}
-
 .sw-button--secondary {
     border: 1px solid var(--sw-border);
     background: transparent;
     color: var(--sw-text-primary);
-}
-
-.sw-button--secondary:hover {
-    border-color: var(--sw-accent-dominant);
-    color: var(--sw-accent-dominant);
 }
 
 .sw-button--ghost {
@@ -145,5 +132,24 @@ const componentProps = computed(() => {
 .sw-button[aria-disabled='true'] {
     opacity: 0.45;
     pointer-events: none;
+}
+
+.sw-button:active {
+    transform: translateY(1px);
+}
+
+@media (hover: hover) {
+    .sw-button:hover {
+        transform: translateY(-1px);
+    }
+
+    .sw-button--primary:hover {
+        background: color-mix(in srgb, var(--sw-accent-sun) 88%, white 12%);
+    }
+
+    .sw-button--secondary:hover {
+        border-color: var(--sw-accent-dominant);
+        color: var(--sw-accent-dominant);
+    }
 }
 </style>

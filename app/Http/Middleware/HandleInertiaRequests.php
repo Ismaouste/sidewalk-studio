@@ -25,6 +25,9 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'flash' => [
+                'status' => fn () => $request->session()->get('status'),
+            ],
             'site' => [
                 'name' => $settings->siteIdentity->name,
                 'tagline' => $settings->siteIdentity->tagline,

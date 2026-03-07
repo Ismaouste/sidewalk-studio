@@ -42,6 +42,8 @@ That split is still correct, but global site values such as public contact detai
 - That service should cache the hydrated settings payload and invalidate or refresh it after writes.
 - Controllers and support classes should not duplicate fallback logic.
 - The first read-side integration now covers shared Inertia props, home/contact page reads, and default SEO metadata inputs.
+- `App\Services\SiteSettingsService::update()` is now the narrow validated write contract for the singleton aggregate.
+- The first protected admin editor now mounts on top of that service under `/admin/settings`.
 
 ## Database strategy
 

@@ -37,6 +37,18 @@ class SiteSettingsService
         ]);
     }
 
+    public function update(array $payload): SiteSettings
+    {
+        $settings = SiteSettings::fromPayload($payload);
+
+        SiteSetting::query()->updateOrCreate(
+            ['id' => SiteSetting::SINGLETON_ID],
+            $settings->toPersistenceArray(),
+        );
+
+        return $this->refresh();
+    }
+
     public function forget(): void
     {
         Cache::forget(self::CACHE_KEY);

@@ -1,7 +1,12 @@
 # Content System
 
-Content lives in `resources/content/writing` and `resources/content/case-studies`.
-Each entry is a Markdown file with required frontmatter.
+Public content lives in locale-aware Markdown folders:
+
+- `resources/content/pages/<locale>`
+- `resources/content/writing/<locale>`
+- `resources/content/case-studies/<locale>`
+
+English (`en`) is the only active locale in the public product today. The folder structure is locale-ready internally so additional locales can be introduced without reworking the repository contract.
 
 ## Shared frontmatter
 
@@ -24,15 +29,25 @@ Each entry is a Markdown file with required frontmatter.
 
 ## Rendering flow
 
-1. PHP loads and validates the frontmatter.
-2. Markdown is rendered to HTML on the backend.
-3. Inertia pages receive already-shaped content arrays.
-4. SEO and sitemap logic reuse the same content source.
+1. PHP resolves the requested locale path first.
+2. Collection content falls back to `en`, then to the legacy root folder while the migration remains in progress.
+3. Frontmatter is validated before the document enters application flows.
+4. Markdown is rendered to HTML on the backend.
+5. Inertia pages receive already-shaped content arrays with locale metadata.
+6. SEO and sitemap logic reuse the same content source.
 
 ## Publication rule
 
 Only entries with `status: published` are exposed publicly.
 Draft content may exist in the filesystem without leaking into the index pages or sitemap.
+
+## Locale strategy
+
+- Locale folders are an internal content-source boundary for now, not a public routing guarantee.
+- Page content already resolves `pages/<locale>/<page>.md` with fallback to `pages/en/<page>.md`.
+- Writing and case-study collections resolve localized entries first, then English entries, then temporary root-level fallback files.
+- Slug deduplication happens after resolution, so a localized entry can override the English document for the same slug.
+- Root-level collection files are transitional only and should be moved into `en/` when touched.
 
 ## Future remote content position
 

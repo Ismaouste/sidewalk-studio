@@ -32,12 +32,21 @@ function openPreferences() {
     transition:
         background-color var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
+        color var(--sw-motion-fast),
+        box-shadow var(--sw-motion-fast),
         transform var(--sw-motion-fast);
 }
 
-.consent-preferences-button:hover {
-    transform: translateY(-1px);
-    border-color: var(--sw-accent-green);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 64%, transparent);
+.consent-preferences-button:active {
+    transform: translateY(1px);
+}
+
+@media (hover: hover) {
+    .consent-preferences-button:hover {
+        transform: translateY(-1px);
+        border-color: var(--sw-accent-green);
+        background: color-mix(in srgb, var(--sw-bg-elevated) 64%, transparent);
+        box-shadow: var(--sw-shadow-sm);
+    }
 }
 </style>

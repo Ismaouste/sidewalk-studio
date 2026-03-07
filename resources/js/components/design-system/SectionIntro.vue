@@ -45,16 +45,18 @@ const props = withDefaults(
 <style scoped>
 .section-intro {
     display: grid;
-    gap: var(--sw-space-xs);
-    max-width: 52rem;
+    gap: clamp(14px, 2.4vw, var(--sw-space-xs));
+    max-width: 54rem;
 }
 
 .section-intro--hero {
-    gap: var(--sw-space-sm);
+    gap: clamp(var(--sw-space-xs), 3.4vw, var(--sw-space-sm));
+    max-width: 58rem;
 }
 
 .section-intro__eyebrow {
     width: fit-content;
+    margin: 0;
 }
 
 .section-intro__title {
@@ -65,21 +67,48 @@ const props = withDefaults(
 
 .section-intro__description {
     margin: 0;
-    max-width: 42rem;
+    max-width: 44rem;
     color: var(--sw-text-secondary);
+    text-wrap: pretty;
 }
 
 .section-intro__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sw-space-xs);
-    padding-top: var(--sw-space-xs);
+    gap: 10px;
+    padding-top: clamp(var(--sw-space-3xs), 1.8vw, var(--sw-space-xs));
 }
 
 .section-intro__extra {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sw-space-2xs);
-    padding-top: var(--sw-space-3xs);
+    gap: 10px;
+    padding-top: 6px;
+}
+
+@media (max-width: 640px) {
+    .section-intro {
+        gap: var(--sw-space-3xs);
+    }
+
+    .section-intro--hero {
+        gap: var(--sw-space-xs);
+    }
+
+    .section-intro__actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--sw-space-3xs);
+        padding-top: var(--sw-space-3xs);
+    }
+
+    .section-intro__actions :deep(.sw-button) {
+        width: 100%;
+    }
+
+    .section-intro__extra {
+        gap: var(--sw-space-3xs);
+        padding-top: 0;
+    }
 }
 </style>

@@ -40,21 +40,37 @@ const currentUrl = computed(() => page.url);
 <style scoped>
 .app-header {
     position: sticky;
-    top: var(--sw-space-xs);
-    z-index: 20;
-    padding-top: var(--sw-space-xs);
+    top: max(var(--sw-space-3xs), env(safe-area-inset-top));
+    z-index: 30;
+    padding-top: max(var(--sw-space-3xs), env(safe-area-inset-top));
 }
 
 .app-header__inner {
     position: relative;
     display: grid;
-    gap: var(--sw-space-sm);
+    gap: clamp(var(--sw-space-xs), 2.8vw, var(--sw-space-sm));
     overflow: visible;
-    border: 1px solid color-mix(in srgb, var(--sw-border) 80%, transparent);
-    border-radius: var(--sw-radius-lg);
-    background: var(--sw-header-bg);
-    padding: var(--sw-space-sm);
+    border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
+    border-radius: calc(var(--sw-radius-lg) + 4px);
+    background:
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--sw-bg-elevated) 36%, transparent),
+            transparent 58%
+        ),
+        var(--sw-header-bg);
+    padding: clamp(14px, 2vw, var(--sw-space-sm));
     box-shadow: var(--sw-shadow-md);
+    backdrop-filter: blur(18px);
+}
+
+.app-header__inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, white 22%, transparent);
+    pointer-events: none;
 }
 
 .app-header__brand-wrap,
@@ -65,8 +81,8 @@ const currentUrl = computed(() => page.url);
 
 .app-header__brand {
     display: inline-grid;
-    gap: var(--sw-space-3xs);
-    max-width: 28rem;
+    gap: 6px;
+    max-width: 30rem;
 }
 
 .app-header__name {
@@ -75,15 +91,27 @@ const currentUrl = computed(() => page.url);
 
 .app-header__tagline {
     font-family: var(--sw-font-body);
-    font-size: 15px;
+    font-size: clamp(13px, 2.8vw, 15px);
     font-weight: 500;
     line-height: 1.4;
-    color: var(--sw-text-primary);
+    color: color-mix(
+        in srgb,
+        var(--sw-text-primary) 80%,
+        var(--sw-text-secondary)
+    );
 }
 
 .app-header__controls {
     display: grid;
-    gap: var(--sw-space-xs);
+    gap: var(--sw-space-3xs);
+}
+
+.app-header__controls :deep(.nav-tabs) {
+    min-width: 0;
+}
+
+.app-header__controls :deep(.theme-toggle) {
+    justify-self: start;
 }
 
 @media (min-width: 960px) {
@@ -94,6 +122,11 @@ const currentUrl = computed(() => page.url);
 
     .app-header__controls {
         justify-items: end;
+        gap: var(--sw-space-xs);
+    }
+
+    .app-header__controls :deep(.theme-toggle) {
+        justify-self: end;
     }
 }
 </style>

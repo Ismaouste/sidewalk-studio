@@ -1,6 +1,8 @@
 .sw-shell {
     position: relative;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     overflow: clip;
 }
 
@@ -12,7 +14,13 @@
 .sw-main {
     position: relative;
     z-index: 1;
-    padding-block: var(--sw-space-lg) var(--sw-space-2xl);
+    flex: 1;
+    padding-block: clamp(28px, 4vw, var(--sw-space-lg)) var(--sw-space-2xl);
+}
+
+.sw-main > .sw-container {
+    display: grid;
+    gap: clamp(var(--sw-space-md), 4vw, var(--sw-space-lg));
 }
 
 .sw-section {
@@ -65,6 +73,10 @@
     .sw-grid--3 {
         grid-template-columns: minmax(0, 1fr);
     }
+
+    .sw-main > .sw-container {
+        gap: var(--sw-space-md);
+    }
 }
 
 @media (max-width: 640px) {
@@ -73,7 +85,7 @@
     }
 
     .sw-main {
-        padding-block: var(--sw-space-md) var(--sw-space-xl);
+        padding-block: var(--sw-space-sm) var(--sw-space-xl);
     }
 
     .sw-section {
@@ -81,6 +93,12 @@
     }
 
     .sw-section--hero {
-        padding-block: 80px;
+        padding-block: clamp(72px, 18vw, 96px);
+    }
+}
+
+@media (max-width: 480px) {
+    .sw-container {
+        width: min(calc(100% - 24px), 1200px);
     }
 }

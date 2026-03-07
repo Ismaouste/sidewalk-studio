@@ -106,22 +106,38 @@ function writingMeta(item: ContentItem) {
 
 .writing-index__link {
     display: block;
+    border-radius: var(--sw-radius-lg);
 }
 
 .writing-index__card {
+    position: relative;
     display: grid;
     gap: var(--sw-space-xs);
-    padding: var(--sw-space-sm);
+    overflow: hidden;
+    padding: clamp(18px, 2.8vw, var(--sw-space-sm));
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast);
+        box-shadow var(--sw-motion-fast),
+        background-color var(--sw-motion-fast);
 }
 
-.writing-index__link:hover .writing-index__card {
-    transform: translateY(-2px);
-    border-color: var(--sw-accent-violet);
-    box-shadow: var(--sw-shadow-md);
+.writing-index__card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    transform: scaleX(0.24);
+    transform-origin: left center;
+    opacity: 0;
+    background: linear-gradient(
+        90deg,
+        var(--sw-accent-violet),
+        color-mix(in srgb, var(--sw-accent-sun) 50%, var(--sw-accent-violet))
+    );
+    transition:
+        transform var(--sw-motion-fast),
+        opacity var(--sw-motion-fast);
 }
 
 .writing-index__card-top {
@@ -159,5 +175,50 @@ function writingMeta(item: ContentItem) {
     border-radius: var(--sw-radius-full);
     background: color-mix(in srgb, var(--sw-bg-grid) 72%, transparent);
     padding-inline: var(--sw-space-2xs);
+}
+
+.writing-index__link:focus-visible {
+    outline: none;
+}
+
+.writing-index__link:focus-visible .writing-index__card,
+.writing-index__link:active .writing-index__card {
+    border-color: var(--sw-border-focus);
+    box-shadow: var(--sw-shadow-md);
+}
+
+.writing-index__link:focus-visible .writing-index__card::before,
+.writing-index__link:active .writing-index__card::before {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+.writing-index__link:active .writing-index__card {
+    transform: translateY(1px);
+}
+
+@media (hover: hover) {
+    .writing-index__link:hover .writing-index__card {
+        transform: translateY(-2px);
+        border-color: var(--sw-accent-violet);
+        background: color-mix(in srgb, var(--sw-bg-elevated) 86%, transparent);
+        box-shadow: var(--sw-shadow-md);
+    }
+
+    .writing-index__link:hover .writing-index__card::before {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 640px) {
+    .writing-index {
+        gap: var(--sw-space-xs);
+    }
+
+    .writing-index__card-top {
+        align-items: start;
+        justify-content: flex-start;
+    }
 }
 </style>
