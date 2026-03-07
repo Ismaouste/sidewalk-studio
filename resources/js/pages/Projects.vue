@@ -25,7 +25,16 @@ const props = defineProps<{
                 eyebrow="Project map"
                 title="Three tracks define the v0."
                 description="Repository discipline, content structure, and privacy-aware public experience are the current proving grounds."
-            />
+            >
+                <template #actions>
+                    <Button href="/experience" variant="secondary">
+                        Read experience
+                    </Button>
+                    <Button href="/local" variant="ghost">
+                        Local context
+                    </Button>
+                </template>
+            </SectionIntro>
 
             <div class="projects-page__tracks">
                 <Panel

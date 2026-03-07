@@ -2,17 +2,29 @@
 
 namespace Tests\Feature;
 
+use App\Services\SiteSettingsService;
 use Tests\TestCase;
 
 class SeoAndConsentTest extends TestCase
 {
     public function test_home_page_renders_server_side_metadata(): void
     {
+        $description = app(SiteSettingsService::class)->current()->seoDefaults->defaultDescription;
+
         $this->get('/')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="http://sidewalk-studio.test">', false)
-            ->assertSee('Engineering portfolio exploring privacy-first analytics, structured content systems, and refined Laravel + Inertia front-end craft.')
+            ->assertSee($description)
             ->assertSee('application/ld+json', false);
+    }
+
+    public function test_experience_page_renders_breadcrumb_metadata(): void
+    {
+        $this->get('/experience')
+            ->assertOk()
+            ->assertSee('<link rel="canonical" href="http://sidewalk-studio.test/experience">', false)
+            ->assertSee('Experience | Sidewalk Studio')
+            ->assertSee('BreadcrumbList', false);
     }
 
     public function test_case_study_page_renders_article_metadata(): void

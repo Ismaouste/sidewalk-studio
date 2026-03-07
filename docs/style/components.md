@@ -23,7 +23,7 @@ Current shell composition:
 Current migration coverage:
 
 - homepage migrated to the new shell and primitives
-- `About` migrated lightly
+- `Experience` and `Local` now carry the detailed editorial/professional content
 - `Projects` migrated lightly
 - writing, case-study, contact, and labs pages now use the same shell and primitives
 - `ContentMetaRow` is the shared metadata treatment for archive cards and long-form headers

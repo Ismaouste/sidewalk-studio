@@ -7,7 +7,9 @@ use App\Http\Controllers\WritingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'home'])->name('home');
-Route::get('/about', [SiteController::class, 'about'])->name('about');
+Route::redirect('/about', '/experience', 301)->name('about');
+Route::get('/experience', [SiteController::class, 'experience'])->name('experience');
+Route::get('/local', [SiteController::class, 'local'])->name('local');
 Route::get('/projects', [SiteController::class, 'projects'])->name('projects');
 Route::get('/labs', [SiteController::class, 'labs'])->name('labs');
 Route::get('/contact', [SiteController::class, 'contact'])->name('contact');

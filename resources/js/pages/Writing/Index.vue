@@ -40,9 +40,9 @@ function writingMeta(item: ContentItem) {
                 description="Editorial notes on content systems, consent orchestration, SSR readiness, and public repo discipline."
             >
                 <template #actions>
-                    <Button href="/case-studies">Browse case studies</Button>
-                    <Button href="/contact" variant="secondary">
-                        Start a conversation
+                    <Button href="/projects">View projects</Button>
+                    <Button href="/experience" variant="secondary">
+                        Read experience
                     </Button>
                 </template>
 

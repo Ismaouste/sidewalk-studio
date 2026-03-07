@@ -9,4 +9,7 @@ The current JSON-LD set is intentionally limited to the types already needed by 
 - `BlogPosting` for writing entries
 - `Article` for case studies
 
-The payload is generated in PHP so detail pages and archive pages share the same canonical source of truth.
+Static editorial pages such as `Experience` and `Local` keep the default
+`WebPage` + `BreadcrumbList` payload. The payload is generated in PHP so static
+pages, archive pages, and detail pages share the same canonical source of
+truth.

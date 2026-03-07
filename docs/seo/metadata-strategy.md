@@ -18,3 +18,8 @@ Site-wide defaults such as the title suffix, default description, and public pro
 - JSON-LD array
 
 This keeps v0 SEO usable without turning on the SSR runtime.
+
+Static editorial pages such as `Experience` and `Local` use the same backend
+pipeline as the archives and detail pages. When public routes change, the old
+path should redirect to the new canonical path instead of exposing duplicate
+metadata.

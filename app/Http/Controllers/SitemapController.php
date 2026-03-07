@@ -11,7 +11,8 @@ class SitemapController extends Controller
     {
         $entries = collect([
             ['loc' => url('/'), 'lastmod' => now()->toDateString()],
-            ['loc' => url('/about'), 'lastmod' => now()->toDateString()],
+            ['loc' => url('/experience'), 'lastmod' => now()->toDateString()],
+            ['loc' => url('/local'), 'lastmod' => now()->toDateString()],
             ['loc' => url('/projects'), 'lastmod' => now()->toDateString()],
             ['loc' => url('/labs'), 'lastmod' => now()->toDateString()],
             ['loc' => url('/writing'), 'lastmod' => now()->toDateString()],

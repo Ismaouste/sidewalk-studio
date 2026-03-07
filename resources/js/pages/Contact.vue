@@ -31,8 +31,8 @@ const serviceTones = ['dominant', 'green', 'coral'] as const;
                     <Button :href="`mailto:${props.contact.email}`">
                         Email directly
                     </Button>
-                    <Button href="/case-studies" variant="secondary">
-                        Review case studies
+                    <Button href="/experience" variant="secondary">
+                        Read experience
                     </Button>
                 </template>
 

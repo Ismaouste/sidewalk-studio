@@ -2,13 +2,13 @@
 
 return [
     'name' => env('SITE_NAME', 'Sidewalk Studio'),
-    'tagline' => env('SITE_TAGLINE', 'Spec-driven portfolio and lab for privacy-first web systems.'),
-    'description' => env('SITE_DESCRIPTION', 'Engineering portfolio exploring privacy-first analytics, structured content systems, and refined Laravel + Inertia front-end craft.'),
+    'tagline' => env('SITE_TAGLINE', 'Calm engineering for e-commerce, privacy, and durable products.'),
+    'description' => env('SITE_DESCRIPTION', 'Engineering for maintainability, technical SEO, consent-aware analytics, readable product architecture, and complex Laravel environments.'),
     'locale' => 'en',
     'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
     'author' => [
         'name' => env('SITE_AUTHOR_NAME', 'Isma'),
-        'job_title' => env('SITE_AUTHOR_TITLE', 'PHP Tech Lead and privacy-first web systems builder'),
+        'job_title' => env('SITE_AUTHOR_TITLE', 'Laravel engineer for e-commerce, privacy, and durable product systems'),
         'email' => env('SITE_CONTACT_EMAIL', 'hello@sidewalk-studio.test'),
         'same_as' => array_values(array_filter(array_map(
             'trim',
@@ -17,11 +17,10 @@ return [
     ],
     'navigation' => [
         ['label' => 'Home', 'href' => '/'],
-        ['label' => 'About', 'href' => '/about'],
+        ['label' => 'Experience', 'href' => '/experience'],
+        ['label' => 'Local', 'href' => '/local'],
         ['label' => 'Projects', 'href' => '/projects'],
-        ['label' => 'Labs', 'href' => '/labs'],
         ['label' => 'Writing', 'href' => '/writing'],
-        ['label' => 'Case Studies', 'href' => '/case-studies'],
         ['label' => 'Contact', 'href' => '/contact'],
     ],
     'labs' => [
@@ -49,7 +48,7 @@ return [
     ],
     'contact' => [
         'email' => env('SITE_CONTACT_EMAIL', 'hello@sidewalk-studio.test'),
-        'location' => 'France',
+        'location' => 'Nancy, France',
         'availability' => 'Open to lead developer, freelance modernization, and privacy/SEO architecture conversations.',
     ],
 ];
