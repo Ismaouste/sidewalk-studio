@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import LegendChip from '@/components/design-system/LegendChip.vue';
+import SectionDivider from '@/components/design-system/SectionDivider.vue';
+import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
+import Button from '@/components/ui/Button.vue';
+import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { ContentItem, SeoPayload } from '@/types';
 
@@ -15,51 +20,168 @@ const props = defineProps<{
     <SiteLayout>
         <SeoMeta :seo="props.seo" />
 
-        <section class="panel rounded-[2.5rem] px-6 py-8 sm:px-8 sm:py-10">
-            <p class="eyebrow">Project map</p>
-            <h2
-                class="mt-4 text-4xl leading-tight font-semibold text-balance sm:text-5xl"
-            >
-                Three tracks define the v0.
-            </h2>
-            <div class="mt-8 grid gap-4 md:grid-cols-3">
-                <article
-                    v-for="track in props.tracks"
+        <section class="sw-section projects-page">
+            <SectionIntro
+                eyebrow="Project map"
+                title="Three tracks define the v0."
+                description="Repository discipline, content structure, and privacy-aware public experience are the current proving grounds."
+            />
+
+            <div class="projects-page__tracks">
+                <Panel
+                    v-for="(track, index) in props.tracks"
                     :key="track.title"
-                    class="rounded-[1.8rem] border border-[var(--border)] bg-white/70 px-5 py-5"
+                    class="projects-page__track"
+                    tone="surface"
                 >
-                    <h3 class="text-lg font-semibold">{{ track.title }}</h3>
-                    <p class="mt-3 text-sm leading-7 text-[var(--muted)]">
+                    <LegendChip
+                        :label="`Track 0${index + 1}`"
+                        :tone="
+                            index === 0
+                                ? 'dominant'
+                                : index === 1
+                                  ? 'green'
+                                  : 'coral'
+                        "
+                    />
+                    <h3 class="type-h2 projects-page__track-title">
+                        {{ track.title }}
+                    </h3>
+                    <p class="type-body projects-page__track-summary">
                         {{ track.summary }}
                     </p>
-                </article>
+                </Panel>
             </div>
-        </section>
 
-        <section class="mt-8 grid gap-4 md:grid-cols-2">
-            <Link
-                v-for="item in props.caseStudies"
-                :key="item.slug"
-                :href="item.url"
-                class="panel rounded-[2rem] px-6 py-6 transition hover:-translate-y-0.5"
-            >
-                <p class="eyebrow">{{ item.client || 'Internal' }}</p>
-                <h3 class="mt-3 text-2xl font-semibold">{{ item.title }}</h3>
-                <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
-                    {{ item.summary }}
-                </p>
-                <div
-                    class="mt-5 flex flex-wrap gap-2 text-xs tracking-[0.18em] text-[var(--muted)] uppercase"
+            <SectionDivider label="Selected case studies" />
+
+            <div class="projects-page__header">
+                <SectionIntro
+                    eyebrow="Case studies"
+                    title="A small set of public implementation slices."
+                    description="Each one documents a real decision path rather than a polished end-state alone."
+                />
+                <Button href="/case-studies" variant="ghost"
+                    >View archive</Button
                 >
-                    <span
-                        v-for="tag in item.tags"
-                        :key="tag"
-                        class="rounded-full border border-[var(--border)] px-3 py-1"
-                    >
-                        {{ tag }}
-                    </span>
-                </div>
-            </Link>
+            </div>
+
+            <div class="projects-page__cases">
+                <Link
+                    v-for="item in props.caseStudies"
+                    :key="item.slug"
+                    :href="item.url"
+                    class="projects-page__case-link"
+                >
+                    <Panel class="projects-page__case" tone="grid">
+                        <LegendChip
+                            :label="item.client || 'Internal build'"
+                            tone="green"
+                        />
+                        <h3 class="type-h2 projects-page__case-title">
+                            {{ item.title }}
+                        </h3>
+                        <p class="type-body projects-page__case-summary">
+                            {{ item.summary }}
+                        </p>
+                        <div class="projects-page__case-tags">
+                            <span
+                                v-for="tag in item.tags"
+                                :key="tag"
+                                class="type-meta projects-page__case-tag"
+                            >
+                                {{ tag }}
+                            </span>
+                        </div>
+                    </Panel>
+                </Link>
+            </div>
         </section>
     </SiteLayout>
 </template>
+
+<style scoped>
+.projects-page {
+    display: grid;
+    gap: var(--sw-space-sm);
+}
+
+.projects-page__tracks {
+    display: grid;
+    gap: var(--sw-space-sm);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.projects-page__track,
+.projects-page__case {
+    display: grid;
+    gap: var(--sw-space-xs);
+    padding: var(--sw-space-sm);
+}
+
+.projects-page__track-title,
+.projects-page__case-title {
+    margin: 0;
+    color: var(--sw-text-primary);
+}
+
+.projects-page__track-summary,
+.projects-page__case-summary {
+    margin: 0;
+    color: var(--sw-text-secondary);
+}
+
+.projects-page__header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-sm);
+    align-items: end;
+    justify-content: space-between;
+}
+
+.projects-page__cases {
+    display: grid;
+    gap: var(--sw-space-sm);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.projects-page__case-link {
+    display: block;
+}
+
+.projects-page__case {
+    height: 100%;
+    transition:
+        transform var(--sw-motion-fast),
+        border-color var(--sw-motion-fast),
+        box-shadow var(--sw-motion-fast);
+}
+
+.projects-page__case-link:hover .projects-page__case {
+    transform: translateY(-2px);
+    border-color: var(--sw-accent-dominant);
+    box-shadow: var(--sw-shadow-md);
+}
+
+.projects-page__case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-3xs);
+}
+
+.projects-page__case-tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    border-radius: var(--sw-radius-full);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent);
+    padding-inline: var(--sw-space-2xs);
+}
+
+@media (max-width: 960px) {
+    .projects-page__tracks,
+    .projects-page__cases {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+</style>
