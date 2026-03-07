@@ -1,5 +1,5 @@
 ---
-linear_issue: TODO
+linear_issue: SID-7
 github_project_item: TODO
 github_project_status: validated
 obsidian_note: docs/ai/obsidian/build-journal/2026-03-07-003-consent-orchestration.md
