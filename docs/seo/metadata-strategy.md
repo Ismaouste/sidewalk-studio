@@ -23,3 +23,7 @@ Static editorial pages such as `Experience` and `Local` use the same backend
 pipeline as the archives and detail pages. When public routes change, the old
 path should redirect to the new canonical path instead of exposing duplicate
 metadata.
+
+Binary download endpoints such as `/cv/en` and `/cv/fr` are public utility
+routes, not indexable editorial pages. They should stay out of page-level
+metadata flows and return explicit `X-Robots-Tag` headers instead.

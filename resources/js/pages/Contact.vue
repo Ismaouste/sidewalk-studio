@@ -13,6 +13,10 @@ import type { SeoPayload, SiteContact } from '@/types';
 const props = defineProps<{
     seo: SeoPayload;
     contact: SiteContact;
+    cvDownloads: Array<{
+        label: string;
+        href: string;
+    }>;
     services: string[];
 }>();
 
@@ -215,6 +219,24 @@ const mailtoHref = computed(() => {
                                 </p>
                             </li>
                         </ul>
+                    </Panel>
+
+                    <Panel class="contact-page__services" tone="grid">
+                        <p class="type-eyebrow">Recruiter shortcut</p>
+                        <p class="type-body-sm contact-page__service-copy">
+                            If you need a faster handoff than a first call, the
+                            current English and French CVs are available here.
+                        </p>
+
+                        <div class="contact-page__form-actions">
+                            <Button
+                                v-for="download in props.cvDownloads"
+                                :key="download.href"
+                                :href="download.href"
+                            >
+                                {{ download.label }}
+                            </Button>
+                        </div>
                     </Panel>
                 </div>
             </div>

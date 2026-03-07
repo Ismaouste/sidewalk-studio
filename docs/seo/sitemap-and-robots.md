@@ -10,3 +10,6 @@
 Draft content never appears in the sitemap.
 Legacy routes such as `/about` should redirect to their canonical replacement
 and stay out of the sitemap.
+
+Utility download routes such as `/cv/en` and `/cv/fr` are intentionally public
+but excluded from the sitemap and should remain non-indexable.
