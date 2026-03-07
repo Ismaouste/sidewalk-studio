@@ -16,6 +16,7 @@ That split is still correct, but global site values such as public contact detai
 
 - `.env` remains the source of truth for secrets, credentials, provider keys, mail config, DB connection, app key, and similar runtime-sensitive values.
 - `site_settings` is for bounded non-secret runtime configuration.
+- `site_settings` is not a future Sanity responsibility; remote editorial tooling must not become the source of truth for runtime configuration.
 - API keys and other secrets do not belong in `site_settings`; if admin-managed secrets are needed later, they require a separate encrypted store with tighter access rules.
 - Markdown remains the source of truth for editorial content.
 

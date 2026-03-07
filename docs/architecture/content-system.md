@@ -33,3 +33,12 @@ Each entry is a Markdown file with required frontmatter.
 
 Only entries with `status: published` are exposed publicly.
 Draft content may exist in the filesystem without leaking into the index pages or sitemap.
+
+## Future remote content position
+
+- Writing and Case Studies remain repo-versioned for the current release line.
+- Sanity is explicitly out of scope for the current content system.
+- If Sanity is explored later, it should start with a separate editorial domain rather than replacing the current Markdown collections immediately.
+- Any future remote source must normalize into application-owned content shapes before controllers, SEO, and sitemap logic consume it.
+
+See `docs/architecture/sanity-content-strategy.md` for the future adoption boundary.

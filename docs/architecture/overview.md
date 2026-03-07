@@ -20,6 +20,7 @@ The UI shell is delivered through Inertia + Vue, while the first request still r
 - stores writing and case studies as Markdown with required frontmatter
 - rejects incomplete or malformed content early in the PHP layer
 - provides stable URLs for sitemap, canonical tags, and detail pages
+- keeps Sanity deferred for now; any future remote editorial source must sit behind an application boundary instead of replacing routing and SEO ownership
 
 ### Consent layer
 - combines CookieConsent and IframeManager

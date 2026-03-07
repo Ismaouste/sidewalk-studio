@@ -58,3 +58,9 @@
 ### 012-installation-onboarding
 - Add first-run installation and onboarding for creating the initial operator account and seeding the first `site_settings` row.
 - Keep the bootstrap path compatible with local SQLite and later server onboarding without requiring PostgreSQL first.
+
+### 013-sanity-content-evaluation
+- Revisit Sanity only as a bounded editorial content layer, not as a replacement for core public pages or `site_settings`.
+- Keep `Home`, `Experience`, `Local`, and `Contact` code-driven.
+- Keep Writing and Case Studies repo-backed until a concrete editorial workflow justifies a pilot.
+- If explored later, prefer a new low-risk collection such as `local_notes` before touching existing Markdown domains.
