@@ -14,17 +14,19 @@ class ContentRepository
     /**
      * @return Collection<int, array<string, mixed>>
      */
-    public function all(string $section): Collection
+    public function all(string $section, ?string $locale = null): Collection
     {
-        $path = resource_path("content/{$section}");
+        $directories = $this->resolveDirectories($section, $locale ?? app()->getLocale());
 
-        if (! is_dir($path)) {
-            return collect();
-        }
-
-        return collect(File::files($path))
-            ->filter(fn ($file) => $file->getExtension() === 'md')
-            ->map(fn ($file) => $this->parseFile($section, $file->getPathname()))
+        return collect($directories)
+            ->flatMap(fn (string $directory) => collect(File::files($directory))
+                ->filter(fn ($file) => $file->getExtension() === 'md')
+                ->map(fn ($file) => $this->parseFile(
+                    $section,
+                    $file->getPathname(),
+                    $this->inferLocale($section, $file->getPathname()),
+                )))
+            ->unique('slug')
             ->sortByDesc(fn (array $item) => $item['published_at'])
             ->values();
     }
@@ -32,9 +34,9 @@ class ContentRepository
     /**
      * @return Collection<int, array<string, mixed>>
      */
-    public function published(string $section): Collection
+    public function published(string $section, ?string $locale = null): Collection
     {
-        return $this->all($section)
+        return $this->all($section, $locale)
             ->where('status', 'published')
             ->values();
     }
@@ -42,9 +44,9 @@ class ContentRepository
     /**
      * @return array<string, mixed>
      */
-    public function findPublished(string $section, string $slug): array
+    public function findPublished(string $section, string $slug, ?string $locale = null): array
     {
-        $item = $this->published($section)
+        $item = $this->published($section, $locale)
             ->firstWhere('slug', $slug);
 
         if (! $item) {
@@ -57,7 +59,7 @@ class ContentRepository
     /**
      * @return array<string, mixed>
      */
-    protected function parseFile(string $section, string $path): array
+    protected function parseFile(string $section, string $path, string $locale): array
     {
         $document = YamlFrontMatter::parseFile($path);
         $matter = $document->matter();
@@ -96,6 +98,7 @@ class ContentRepository
 
         return [
             'section' => $section,
+            'locale' => $locale,
             'title' => (string) $matter['title'],
             'slug' => (string) $matter['slug'],
             'summary' => (string) $matter['summary'],
@@ -114,6 +117,36 @@ class ContentRepository
             'excerpt' => Str::of(strip_tags($html))->squish()->limit(180)->toString(),
             'url' => $url,
         ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function resolveDirectories(string $section, string $locale): array
+    {
+        return collect([
+            resource_path("content/{$section}/{$locale}"),
+            resource_path("content/{$section}/en"),
+            resource_path("content/{$section}"),
+        ])
+            ->filter(fn (string $path) => File::isDirectory($path))
+            ->unique()
+            ->values()
+            ->all();
+    }
+
+    protected function inferLocale(string $section, string $path): string
+    {
+        $normalizedPath = str_replace('\\', '/', $path);
+        $basePath = str_replace('\\', '/', resource_path("content/{$section}/"));
+        $relativePath = Str::after($normalizedPath, $basePath);
+        $firstSegment = explode('/', $relativePath)[0] ?? '';
+
+        if ($firstSegment !== '' && ! str_contains($firstSegment, '.')) {
+            return $firstSegment;
+        }
+
+        return 'en';
     }
 
     /**

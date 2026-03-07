@@ -3,7 +3,8 @@ name: sidewalk-content-editor
 description: Create or update Sidewalk Studio writing and case-study Markdown entries in `resources/content/`. Use when Codex needs to edit frontmatter, preserve slug stability, or keep SEO fields aligned with the Laravel content model.
 ---
 
-Edit Markdown content under `resources/content/writing` or `resources/content/case-studies`.
+Edit Markdown content under `resources/content/writing/<locale>` or `resources/content/case-studies/<locale>`.
+Prefer `en` unless another locale is explicitly requested.
 
 Always:
 - preserve the required shared frontmatter fields
