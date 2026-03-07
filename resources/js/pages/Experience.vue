@@ -30,6 +30,15 @@ const props = defineProps<{
         title: string;
         items: string[];
     }>;
+    careerSnapshot: {
+        title: string;
+        summary: string;
+        roles: string[];
+    };
+    cvDownloads: Array<{
+        label: string;
+        href: string;
+    }>;
     lookingFor: string;
 }>();
 
@@ -181,19 +190,52 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
 
             <SectionDivider label="What I am looking for" />
 
-            <Panel class="experience-page__closing" tone="surface">
-                <p class="type-body experience-page__copy-line">
-                    {{ props.lookingFor }}
-                </p>
+            <div class="experience-page__closing-grid">
+                <Panel class="experience-page__closing" tone="surface">
+                    <p class="type-body experience-page__copy-line">
+                        {{ props.lookingFor }}
+                    </p>
 
-                <div class="experience-page__actions">
-                    <Button href="/projects">Projects</Button>
-                    <Button href="/writing" variant="secondary">
-                        Writing
-                    </Button>
-                    <Button href="/contact" variant="ghost">Contact</Button>
-                </div>
-            </Panel>
+                    <div class="experience-page__actions">
+                        <Button href="/projects">Projects</Button>
+                        <Button href="/writing" variant="secondary">
+                            Writing
+                        </Button>
+                        <Button href="/contact" variant="ghost">
+                            Contact
+                        </Button>
+                    </div>
+                </Panel>
+
+                <Panel class="experience-page__closing" tone="grid">
+                    <p class="type-eyebrow">
+                        {{ props.careerSnapshot.title }}
+                    </p>
+                    <p class="type-body experience-page__copy-line">
+                        {{ props.careerSnapshot.summary }}
+                    </p>
+
+                    <div class="experience-page__stack-items">
+                        <span
+                            v-for="role in props.careerSnapshot.roles"
+                            :key="role"
+                            class="type-meta experience-page__stack-item"
+                        >
+                            {{ role }}
+                        </span>
+                    </div>
+
+                    <div class="experience-page__actions">
+                        <Button
+                            v-for="download in props.cvDownloads"
+                            :key="download.href"
+                            :href="download.href"
+                        >
+                            {{ download.label }}
+                        </Button>
+                    </div>
+                </Panel>
+            </div>
         </section>
     </SiteLayout>
 </template>
@@ -205,7 +247,8 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
 }
 
 .experience-page__positioning,
-.experience-page__working-grid {
+.experience-page__working-grid,
+.experience-page__closing-grid {
     display: grid;
     gap: var(--sw-space-sm);
     grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
@@ -303,6 +346,7 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
 @media (max-width: 960px) {
     .experience-page__positioning,
     .experience-page__working-grid,
+    .experience-page__closing-grid,
     .experience-page__trajectory,
     .experience-page__focus-grid {
         grid-template-columns: minmax(0, 1fr);

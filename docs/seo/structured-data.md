@@ -13,3 +13,6 @@ Static editorial pages such as `Experience` and `Local` keep the default
 `WebPage` + `BreadcrumbList` payload. The payload is generated in PHP so static
 pages, archive pages, and detail pages share the same canonical source of
 truth.
+
+Binary document downloads such as the public CV files do not emit JSON-LD and
+should not be modeled as standalone content entities in the current release.

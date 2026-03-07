@@ -50,5 +50,12 @@ stack_groups:
           - Incremental delivery
           - Documentation alongside code
           - Privacy and SEO review inside implementation
+career_snapshot:
+    title: Recruiter-ready snapshot
+    summary: The current CV package is available in English and French for faster handoff when a role, project, or introduction needs a concrete profile quickly.
+    roles:
+        - Laravel lead developer
+        - E-commerce tech lead
+        - Product-minded full-stack engineer
 looking_for: I am currently most interested in product, commerce, or editorial systems that already exist, already matter, and need steadier engineering, clearer architecture, and a more durable technical foundation.
 ---

@@ -15,6 +15,9 @@ Route::get('/local', [SiteController::class, 'local'])->name('local');
 Route::get('/projects', [SiteController::class, 'projects'])->name('projects');
 Route::get('/labs', [SiteController::class, 'labs'])->name('labs');
 Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
+Route::get('/cv/{locale}', [SiteController::class, 'downloadCv'])
+    ->whereIn('locale', ['en', 'fr'])
+    ->name('career.cv.download');
 
 Route::get('/writing', [WritingController::class, 'index'])->name('writing.index');
 Route::get('/writing/{slug}', [WritingController::class, 'show'])->name('writing.show');

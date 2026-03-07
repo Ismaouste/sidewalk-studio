@@ -6,7 +6,7 @@ Public content lives in locale-aware Markdown folders:
 - `resources/content/writing/<locale>`
 - `resources/content/case-studies/<locale>`
 
-English (`en`) is the only active locale in the public product today. The folder structure is locale-ready internally so additional locales can be introduced without reworking the repository contract.
+English (`en`) is the public default today. French (`fr`) source files now exist for the core markdown-backed pages so future locale exposure can reuse the same repository contract without reshaping the content tree.
 
 ## Shared frontmatter
 
@@ -45,6 +45,7 @@ Draft content may exist in the filesystem without leaking into the index pages o
 
 - Locale folders are an internal content-source boundary for now, not a public routing guarantee.
 - Page content already resolves `pages/<locale>/<page>.md` with fallback to `pages/en/<page>.md`.
+- Core page sources now exist in both `pages/en/` and `pages/fr/`, but routing and SEO still expose English as the stable public default.
 - Writing and case-study collections resolve localized entries first, then English entries, then temporary root-level fallback files.
 - Slug deduplication happens after resolution, so a localized entry can override the English document for the same slug.
 - Root-level collection files are transitional only and should be moved into `en/` when touched.

@@ -6,8 +6,10 @@ use App\Services\ContentRepository;
 use App\Services\PageContentRepository;
 use App\Services\SiteSettingsService;
 use App\Support\Seo;
+use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class SiteController extends Controller
 {
@@ -63,6 +65,8 @@ class SiteController extends Controller
             'strengths' => $page['strengths'],
             'focusAreas' => $page['focus_areas'],
             'stackGroups' => $page['stack_groups'],
+            'careerSnapshot' => $page['career_snapshot'],
+            'cvDownloads' => $this->cvDownloads(),
             'lookingFor' => $page['looking_for'],
         ])->withViewData(['seo' => $seo]);
     }
@@ -170,11 +174,47 @@ class SiteController extends Controller
         return Inertia::render('Contact', [
             'seo' => $seo,
             'contact' => $settings->contactDetails->toArray(),
+            'cvDownloads' => $this->cvDownloads(),
             'services' => [
                 'Platform stabilization and legacy recovery.',
                 'Consent-safe analytics and embed architecture.',
                 'SEO and content-model foundations for editorial sites.',
             ],
         ])->withViewData(['seo' => $seo]);
+    }
+
+    public function downloadCv(string $locale): BinaryFileResponse
+    {
+        abort_unless(in_array($locale, ['en', 'fr'], true), 404);
+
+        $path = base_path("docs/career/output/ismael-rodmacq-cv-{$locale}.pdf");
+
+        abort_unless(File::exists($path), 404);
+
+        return response()->download(
+            $path,
+            "ismael-rodmacq-cv-{$locale}.pdf",
+            [
+                'Content-Type' => 'application/pdf',
+                'X-Robots-Tag' => 'noindex, nofollow',
+            ],
+        );
+    }
+
+    /**
+     * @return array<int, array{label: string, href: string}>
+     */
+    protected function cvDownloads(): array
+    {
+        return [
+            [
+                'label' => 'Download CV (EN)',
+                'href' => route('career.cv.download', 'en'),
+            ],
+            [
+                'label' => 'Download CV (FR)',
+                'href' => route('career.cv.download', 'fr'),
+            ],
+        ];
     }
 }
