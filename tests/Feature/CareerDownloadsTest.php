@@ -20,8 +20,14 @@ class CareerDownloadsTest extends TestCase
             ->assertHeader('x-robots-tag', 'noindex, nofollow');
     }
 
-    public function test_experience_and_contact_pages_expose_cv_download_links(): void
+    public function test_home_experience_and_contact_pages_expose_cv_download_links(): void
     {
+        $this->get('/')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('cvDownloads.0.href', fn (string $href): bool => str_ends_with($href, '/cv/en'))
+                ->where('cvDownloads.1.href', fn (string $href): bool => str_ends_with($href, '/cv/fr')));
+
         $this->get('/experience')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
@@ -37,5 +43,20 @@ class CareerDownloadsTest extends TestCase
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('cvDownloads.0.href', fn (string $href): bool => str_ends_with($href, '/cv/en'))
                 ->where('cvDownloads.1.href', fn (string $href): bool => str_ends_with($href, '/cv/fr')));
+    }
+
+    public function test_experience_and_projects_pages_expose_public_proof_links(): void
+    {
+        $this->get('/experience')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->has('featuredCaseStudies', 2)
+                ->has('latestWriting', 2));
+
+        $this->get('/projects')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->has('latestWriting', 2)
+                ->has('caseStudies', 2));
     }
 }

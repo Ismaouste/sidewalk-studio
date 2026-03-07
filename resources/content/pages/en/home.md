@@ -4,11 +4,11 @@ seo_description: 'Sidewalk Studio is the portfolio of Ismael Rodmacq: Laravel, e
 hero:
     eyebrow: Calm engineering practice
     title: Calm engineering for e-commerce, privacy, and durable products.
-    summary: I work on maintainability, technical SEO, consent-aware analytics, readable product architecture, and complex Laravel environments that need to stay useful over time.
+    summary: I work on maintainability, technical SEO, consent-aware analytics, readable product architecture, and complex Laravel environments that need to stay credible over time.
 hero_panel:
     - Complex e-commerce and product systems with real legacy weight.
     - Technical SEO, privacy, and maintainability handled inside delivery, not as parallel checklists.
-    - A practice grounded in Nancy and attentive to civic interfaces, service clarity, and public context.
+    - A public proof surface with case studies, notes, CV downloads, and concrete contact paths.
 focus_areas:
     - label: Experience
       title: Stabilize complex e-commerce systems
@@ -37,5 +37,5 @@ local_teaser:
         - Associative and cultural communities, including Aremedia.
 contact_cta:
     title: Open to careful work in difficult environments.
-    summary: If a product, commerce platform, or editorial system needs calmer engineering and clearer architecture, I am happy to talk.
+    summary: If a product, commerce platform, or editorial system needs calmer engineering, clearer architecture, and a more credible technical foundation, I am happy to talk.
 ---

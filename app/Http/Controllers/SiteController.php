@@ -23,6 +23,8 @@ class SiteController extends Controller
     {
         $settings = $this->siteSettings->current();
         $page = $this->pages->get('home');
+        $caseStudies = $this->content->published('case-studies')->values();
+        $writing = $this->content->published('writing')->values();
         $seo = Seo::page(
             $page['seo_title'],
             $page['seo_description'],
@@ -34,16 +36,19 @@ class SiteController extends Controller
             'hero' => $page['hero'],
             'heroPanel' => $page['hero_panel'],
             'focusAreas' => $page['focus_areas'],
-            'featuredCaseStudies' => $this->content->published('case-studies')->take(2)->values(),
-            'latestWriting' => $this->content->published('writing')->take(2)->values(),
+            'featuredCaseStudies' => $caseStudies->take(2)->values(),
+            'latestWriting' => $writing->take(2)->values(),
             'localTeaser' => $page['local_teaser'],
             'contactCta' => $page['contact_cta'],
+            'cvDownloads' => $this->cvDownloads(),
         ])->withViewData(['seo' => $seo]);
     }
 
     public function experience(): Response
     {
         $page = $this->pages->get('experience');
+        $caseStudies = $this->content->published('case-studies')->values();
+        $writing = $this->content->published('writing')->values();
         $seo = Seo::page(
             $page['seo_title'],
             $page['seo_description'],
@@ -67,6 +72,8 @@ class SiteController extends Controller
             'stackGroups' => $page['stack_groups'],
             'careerSnapshot' => $page['career_snapshot'],
             'cvDownloads' => $this->cvDownloads(),
+            'featuredCaseStudies' => $caseStudies->take(2)->values(),
+            'latestWriting' => $writing->take(2)->values(),
             'lookingFor' => $page['looking_for'],
         ])->withViewData(['seo' => $seo]);
     }
@@ -99,6 +106,7 @@ class SiteController extends Controller
     public function projects(): Response
     {
         $page = $this->pages->get('projects');
+        $writing = $this->content->published('writing')->values();
         $seo = Seo::page(
             $page['seo_title'],
             $page['seo_description'],
@@ -117,6 +125,7 @@ class SiteController extends Controller
             'tracksSection' => $page['tracks_section'],
             'caseStudies' => $this->content->published('case-studies')->values(),
             'caseStudiesSection' => $page['case_studies_section'],
+            'latestWriting' => $writing->take(2)->values(),
         ])->withViewData(['seo' => $seo]);
     }
 

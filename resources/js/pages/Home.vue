@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
@@ -7,7 +8,9 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { ContentItem, SeoPayload } from '@/types';
+import type { ContentItem, SeoPayload, SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -36,9 +39,86 @@ const props = defineProps<{
         title: string;
         summary: string;
     };
+    cvDownloads: Array<{
+        label: string;
+        href: string;
+    }>;
 }>();
 
 const heroPanelTones = ['dominant', 'green', 'coral'] as const;
+
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              projectsCta: 'Voir preuves',
+              experienceCta: 'Lire le parcours',
+              contactCta: 'Entrer en contact',
+              currentFrameLabel: 'Cadre actuel',
+              heroPanelTitle:
+                  'Maintenabilite et preuve dans des environnements qui ont deja une histoire.',
+              whatIDoLabel: 'Ce que je fais',
+              focusEyebrow: 'Focus',
+              focusTitle:
+                  'Une pratique lisible dans des environnements complexes.',
+              focusDescription:
+                  'Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privee et besoin de garder les systemes comprehensibles apres mise en prod.',
+              selectedWorkLabel: 'Preuves publiques',
+              projectsEyebrow: 'Projets',
+              projectsTitle:
+                  "Tranches de projet et preuves d'implementation selectionnees.",
+              projectsDescription:
+                  'Un petit ensemble de cas clients publics qui montrent comment architecture, maintenabilite et decisions de livraison se traduisent en pratique.',
+              openProjectsCta: 'Ouvrir projets',
+              internalBuildLabel: 'Build interne',
+              localGroundLabel: 'Ancrage local',
+              readLocalPageCta: 'Lire la page locale',
+              notesLabel: 'Notes',
+              writingEyebrow: 'Notes',
+              writingTitle: 'Notes issues de la construction du systeme',
+              writingDescription:
+                  "Pieces courtes sur l'architecture, les systemes de contenu, la logique de consentement et les decisions pratiques derriere des produits durables.",
+              openArchiveCta: "Ouvrir l'archive",
+              writingLabel: 'Note',
+              publishedSeparator: '·',
+              contactLabel: 'Contact',
+              startConversationCta: 'Commencer la conversation',
+              proofPackLabel: 'CV et preuves',
+          }
+        : {
+              projectsCta: 'View proof',
+              experienceCta: 'Read experience',
+              contactCta: 'Start a conversation',
+              currentFrameLabel: 'Current frame',
+              heroPanelTitle:
+                  'Maintainability and proof in environments that already have history.',
+              whatIDoLabel: 'What I do',
+              focusEyebrow: 'Focus',
+              focusTitle: 'A legible practice for complex environments.',
+              focusDescription:
+                  'The work usually sits between product delivery, legacy modernization, technical SEO, privacy, and the need to keep systems readable after launch.',
+              selectedWorkLabel: 'Selected work',
+              projectsEyebrow: 'Projects',
+              projectsTitle:
+                  'Selected project slices and implementation proof.',
+              projectsDescription:
+                  'A small set of public case studies that show how architecture, maintainability, and delivery choices play out in real work.',
+              openProjectsCta: 'Open projects',
+              internalBuildLabel: 'Internal build',
+              localGroundLabel: 'Local ground',
+              readLocalPageCta: 'Read local page',
+              notesLabel: 'Notes',
+              writingEyebrow: 'Writing',
+              writingTitle: 'Notes from the system build',
+              writingDescription:
+                  'Short pieces about architecture, content systems, consent logic, and the practical decisions behind durable products.',
+              openArchiveCta: 'Open archive',
+              writingLabel: 'Writing',
+              publishedSeparator: '·',
+              contactLabel: 'Contact',
+              startConversationCta: 'Start a conversation',
+              proofPackLabel: 'CV and proof pack',
+          },
+);
 </script>
 
 <template>
@@ -54,9 +134,9 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                     size="hero"
                 >
                     <template #actions>
-                        <Button href="/projects">View projects</Button>
-                        <Button href="/experience" variant="secondary">
-                            Read experience
+                        <Button href="/projects">{{ copy.projectsCta }}</Button>
+                        <Button href="/contact" variant="secondary">
+                            {{ copy.contactCta }}
                         </Button>
                     </template>
 
@@ -66,10 +146,9 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                 </SectionIntro>
 
                 <Panel class="home-hero__panel" tone="grid">
-                    <p class="type-eyebrow">Current frame</p>
+                    <p class="type-eyebrow">{{ copy.currentFrameLabel }}</p>
                     <h2 class="type-h2 home-hero__panel-title">
-                        Maintainability in environments that already have
-                        history.
+                        {{ copy.heroPanelTitle }}
                     </h2>
                     <ul class="home-hero__highlights">
                         <li
@@ -90,14 +169,14 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
             </div>
         </section>
 
-        <SectionDivider label="What I do" />
+        <SectionDivider :label="copy.whatIDoLabel" />
 
         <section class="sw-section home-section">
             <div class="home-section__header">
                 <SectionIntro
-                    eyebrow="Focus"
-                    title="A careful practice for complex environments."
-                    description="The work usually sits between product delivery, legacy modernization, technical SEO, privacy, and the need to keep systems readable after launch."
+                    :eyebrow="copy.focusEyebrow"
+                    :title="copy.focusTitle"
+                    :description="copy.focusDescription"
                 />
             </div>
 
@@ -122,16 +201,18 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
             </div>
         </section>
 
-        <SectionDivider label="Selected work" />
+        <SectionDivider :label="copy.selectedWorkLabel" />
 
         <section class="sw-section home-section">
             <div class="home-section__header">
                 <SectionIntro
-                    eyebrow="Projects"
-                    title="Selected project slices and implementation proof."
-                    description="A small set of public case studies that show how architecture, maintainability, and delivery choices play out in real work."
+                    :eyebrow="copy.projectsEyebrow"
+                    :title="copy.projectsTitle"
+                    :description="copy.projectsDescription"
                 />
-                <Button href="/projects" variant="ghost">Open projects</Button>
+                <Button href="/projects" variant="ghost">
+                    {{ copy.openProjectsCta }}
+                </Button>
             </div>
 
             <div class="home-card-grid">
@@ -143,12 +224,15 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                 >
                     <Panel class="home-card" tone="surface">
                         <LegendChip
-                            :label="item.client || 'Internal build'"
+                            :label="item.client || copy.internalBuildLabel"
                             tone="green"
                         />
                         <h3 class="type-h2 home-card__title">
                             {{ item.title }}
                         </h3>
+                        <p class="type-body-sm home-card__role">
+                            {{ item.role }}
+                        </p>
                         <p class="type-body home-card__summary">
                             {{ item.summary }}
                         </p>
@@ -166,7 +250,7 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
             </div>
         </section>
 
-        <SectionDivider label="Local ground" />
+        <SectionDivider :label="copy.localGroundLabel" />
 
         <section class="sw-section home-section">
             <div class="home-section__header">
@@ -175,7 +259,9 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                     :title="props.localTeaser.title"
                     :description="props.localTeaser.summary"
                 />
-                <Button href="/local" variant="ghost">Read local page</Button>
+                <Button href="/local" variant="ghost">
+                    {{ copy.readLocalPageCta }}
+                </Button>
             </div>
 
             <Panel class="home-local" tone="grid">
@@ -197,16 +283,18 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
             </Panel>
         </section>
 
-        <SectionDivider label="Notes" />
+        <SectionDivider :label="copy.notesLabel" />
 
         <section class="sw-section home-section">
             <div class="home-section__header">
                 <SectionIntro
-                    eyebrow="Writing"
-                    title="Notes from the system build"
-                    description="Short pieces about architecture, content systems, consent logic, and the practical decisions behind durable products."
+                    :eyebrow="copy.writingEyebrow"
+                    :title="copy.writingTitle"
+                    :description="copy.writingDescription"
                 />
-                <Button href="/writing" variant="ghost">Open archive</Button>
+                <Button href="/writing" variant="ghost">
+                    {{ copy.openArchiveCta }}
+                </Button>
             </div>
 
             <div class="home-writing-list">
@@ -218,9 +306,13 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                 >
                     <Panel class="home-writing-card" tone="surface">
                         <div class="home-writing-card__meta">
-                            <LegendChip label="Writing" tone="violet" />
+                            <LegendChip
+                                :label="copy.writingLabel"
+                                tone="violet"
+                            />
                             <span class="type-meta">
-                                {{ item.published_at }} ·
+                                {{ item.published_at }}
+                                {{ copy.publishedSeparator }}
                                 {{ item.reading_time }} min
                             </span>
                         </div>
@@ -235,12 +327,12 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
             </div>
         </section>
 
-        <SectionDivider label="Contact" />
+        <SectionDivider :label="copy.contactLabel" />
 
         <section class="sw-section home-section">
             <Panel class="home-contact" tone="surface">
                 <div class="home-contact__copy">
-                    <p class="type-eyebrow">Contact</p>
+                    <p class="type-eyebrow">{{ copy.contactLabel }}</p>
                     <h2 class="type-h2 home-contact__title">
                         {{ props.contactCta.title }}
                     </h2>
@@ -250,9 +342,22 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                 </div>
 
                 <div class="home-contact__actions">
-                    <Button href="/contact">Start a conversation</Button>
-                    <Button href="/local" variant="secondary">
-                        Read local ground
+                    <Button href="/contact">{{
+                        copy.startConversationCta
+                    }}</Button>
+                    <Button href="/experience" variant="secondary">
+                        {{ copy.experienceCta }}
+                    </Button>
+                    <Button
+                        v-for="download in props.cvDownloads"
+                        :key="download.href"
+                        :href="download.href"
+                        variant="ghost"
+                    >
+                        {{ download.label }}
+                    </Button>
+                    <Button href="/projects" variant="ghost">
+                        {{ copy.proofPackLabel }}
                     </Button>
                 </div>
             </Panel>
@@ -320,6 +425,11 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
 .home-writing-card__summary,
 .home-local__copy,
 .home-contact__summary {
+    margin: 0;
+    color: var(--sw-text-secondary);
+}
+
+.home-card__role {
     margin: 0;
     color: var(--sw-text-secondary);
 }
