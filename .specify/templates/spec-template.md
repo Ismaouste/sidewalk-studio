@@ -1,5 +1,9 @@
 ---
 linear_issue:
+github_project_item:
+github_project_status: proposed
+obsidian_note:
+release:
 title:
 status: proposed
 ---
@@ -39,6 +43,6 @@ What should be true once this is complete?
 ## Tracking
 
 - Linear: keep the primary issue key in `linear_issue:`
-- GitHub Project: mirror status in `docs/ai/github-project/roadmap-spec-issue-map.md`
-- Obsidian: mirror durable notes in `docs/ai/obsidian/build-journal/`
+- GitHub Project: mirror `github_project_item`, `github_project_status`, and `release` in `docs/ai/github-project/roadmap-spec-issue-map.md`
+- Obsidian: set `obsidian_note` to the repo mirror path under `docs/ai/obsidian/build-journal/`
 - Codex execution: use the file-based workflow even if native `/speckit.*` commands are unavailable

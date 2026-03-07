@@ -24,6 +24,12 @@ There is no API integration in v0.
 If a feature maps to a Linear ticket, store the key in the relevant spec frontmatter under `linear_issue:`.
 Keep the cross-tool mapping tables in `docs/ai/project-tracking.md` and the files it references.
 
+## Tracking updates
+
+1. Update the spec frontmatter first.
+2. Mirror the same values in the Linear and GitHub Project map files.
+3. Keep or create the linked Obsidian mirror note under `docs/ai/obsidian/build-journal/`.
+
 ## Release work
 
 1. Update `CHANGELOG.md` when shipped scope changes.

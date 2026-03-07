@@ -17,3 +17,12 @@ Use this folder for repo-safe summaries exported from the private Obsidian vault
 ## Promotion rule
 
 If a note becomes a real architecture decision, move the durable version into `docs/architecture/decisions/`.
+
+## Current bootstrap
+
+The first repo-safe mirrors already exist for:
+
+- `001-repo-bootstrap`
+- `002-content-system`
+- `003-consent-orchestration`
+- `004-seo-foundation`

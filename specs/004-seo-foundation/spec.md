@@ -1,5 +1,9 @@
 ---
 linear_issue:
+github_project_item:
+github_project_status: validated
+obsidian_note: docs/ai/obsidian/build-journal/2026-03-07-004-seo-foundation.md
+release: v0-foundation
 title: SEO Foundation
 status: active
 ---
@@ -42,4 +46,6 @@ The public site should serve consistent metadata and machine-readable SEO output
 ## Tracking
 
 - Linear: keep the primary key in `linear_issue:`
-- Cross-tool mirrors live under `docs/ai/`
+- GitHub Project item: keep the board item key in `github_project_item:`
+- GitHub Project status: mirror the board status in `github_project_status:`
+- Obsidian note: `docs/ai/obsidian/build-journal/2026-03-07-004-seo-foundation.md`

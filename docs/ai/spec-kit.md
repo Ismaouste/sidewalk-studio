@@ -37,5 +37,7 @@ This repo uses GitHub Spec Kit as the official specification standard and keeps 
 
 - Specs are the source of truth for intent and acceptance criteria.
 - `linear_issue:` in `spec.md` is the primary issue key when Linear exists.
+- `github_project_item:`, `github_project_status:`, and `release:` mirror the GitHub Project board state.
+- `obsidian_note:` points to the repo-safe mirror of the working note.
 - GitHub Project and Obsidian stay mirrored through the docs under `docs/ai/`.
 - Release summaries belong in `CHANGELOG.md` and any release note derived from `.specify/templates/release-note-template.md`.
