@@ -31,13 +31,14 @@ class ContentRepositoryTest extends TestCase
     public function test_repository_prefers_locale_specific_collection_entries_and_falls_back_to_english(): void
     {
         $directory = resource_path('content/writing/fr');
-        $path = "{$directory}/why-ssr-is-prepared-but-deferred.md";
+        $path = "{$directory}/editorial-locale-priority-test.md";
+        $fallbackPath = resource_path('content/writing/en/editorial-english-fallback-test.md');
 
         File::ensureDirectoryExists($directory);
         File::put($path, <<<'MD'
 ---
-title: Why SSR Stays Prepared but Deferred in French
-slug: why-ssr-is-prepared-but-deferred
+title: Editorial Locale Priority Test
+slug: editorial-locale-priority-test
 summary: A locale-specific entry should replace the English entry when both share the same slug.
 status: published
 published_at: 2026-03-08
@@ -46,25 +47,42 @@ tags:
     - ssr
     - inertia
     - strategy
-seo_title: Why SSR Stays Prepared but Deferred in French
+seo_title: Editorial Locale Priority Test
 seo_description: This entry proves that locale-specific content overrides the English fallback for the same slug.
 ---
 
 This locale-specific version should be served before the English fallback.
 MD);
+        File::put($fallbackPath, <<<'MD'
+---
+title: Editorial English Fallback Test
+slug: editorial-english-fallback-test
+summary: An English-only entry should stay available when no French translation exists.
+status: published
+published_at: 2026-03-08
+updated_at: 2026-03-08
+tags:
+    - content
+    - fallback
+seo_title: Editorial English Fallback Test
+seo_description: This entry proves English fallback remains available when French content is missing.
+---
+
+This English-only entry should still be present in a French collection response.
+MD);
 
         try {
             $items = app(ContentRepository::class)->published('writing', 'fr');
 
-            $localized = $items->firstWhere('slug', 'why-ssr-is-prepared-but-deferred');
-            $fallback = $items->firstWhere('slug', 'content-systems-routing-and-metadata');
+            $localized = $items->firstWhere('slug', 'editorial-locale-priority-test');
+            $fallback = $items->firstWhere('slug', 'editorial-english-fallback-test');
 
             $this->assertSame('fr', $localized['locale']);
             $this->assertStringContainsString('This locale-specific version should be served', $localized['body_html']);
             $this->assertSame('en', $fallback['locale']);
         } finally {
             File::delete($path);
-            File::deleteDirectory($directory);
+            File::delete($fallbackPath);
         }
     }
 
