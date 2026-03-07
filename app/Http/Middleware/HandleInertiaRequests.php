@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Services\SiteSettingsService;
+use App\Support\PublicLocale;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -37,6 +38,14 @@ class HandleInertiaRequests extends Middleware
                 'navigation' => config('site.navigation'),
                 'author' => config('site.author'),
                 'contact' => $settings->contactDetails->toArray(),
+                'languageSwitcher' => PublicLocale::switcher(
+                    $request,
+                    app()->getLocale(),
+                    (string) $request->attributes->get(
+                        'public_locale_preference',
+                        app()->getLocale(),
+                    ),
+                ),
             ],
             'consent' => [
                 'mode' => config('consent.mode'),

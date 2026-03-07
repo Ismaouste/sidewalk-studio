@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\PublicLocale;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -9,12 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResolvePublicLocale
 {
-    public const COOKIE_NAME = 'sidewalk_locale';
-
-    /**
-     * @var array<int, string>
-     */
-    protected array $supportedLocales = ['en', 'fr'];
+    public const COOKIE_NAME = PublicLocale::COOKIE_NAME;
 
     public function handle(Request $request, Closure $next): Response
     {
@@ -25,15 +21,19 @@ class ResolvePublicLocale
             return $response;
         }
 
-        $locale = $this->resolveLocale($request);
+        $preferredLocale = $this->resolveLocale($request);
+        $locale = PublicLocale::isAvailableForRequest($request, $preferredLocale)
+            ? $preferredLocale
+            : PublicLocale::default();
 
         app()->setLocale($locale);
         $request->attributes->set('public_locale', $locale);
+        $request->attributes->set('public_locale_preference', $preferredLocale);
 
         if ($this->resolveSupportedLocale($request->query('lang')) !== null) {
             Cookie::queue(Cookie::make(
                 self::COOKIE_NAME,
-                $locale,
+                $preferredLocale,
                 60 * 24 * 365,
                 '/',
                 null,
@@ -70,7 +70,7 @@ class ResolvePublicLocale
         return $this->resolveSupportedLocale($request->query('lang'))
             ?? $this->resolveSupportedLocale($request->cookie(self::COOKIE_NAME))
             ?? $this->resolveBrowserLocale($request)
-            ?? 'en';
+            ?? PublicLocale::default();
     }
 
     protected function resolveBrowserLocale(Request $request): ?string
@@ -95,7 +95,7 @@ class ResolvePublicLocale
         $normalized = strtolower(trim(explode(',', $candidate)[0]));
         $language = explode('-', $normalized)[0];
 
-        return in_array($language, $this->supportedLocales, true)
+        return in_array($language, PublicLocale::supported(), true)
             ? $language
             : null;
     }

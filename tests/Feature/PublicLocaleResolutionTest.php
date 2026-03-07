@@ -42,7 +42,8 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('hero.eyebrow', 'Ancrage local')
-                ->where('site.locale', 'fr'));
+                ->where('site.locale', 'fr')
+                ->where('site.languageSwitcher.visible', true));
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
             ->withHeaders([
@@ -53,6 +54,17 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('hero.eyebrow', "Pratique d'ingenierie calme")
                 ->where('site.locale', 'fr'));
+    }
+
+    public function test_pages_without_french_source_stay_on_english_even_with_french_preference(): void
+    {
+        $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
+            ->get('/contact')
+            ->assertOk()
+            ->assertHeader('content-language', 'en')
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.locale', 'en')
+                ->where('site.languageSwitcher.visible', false));
     }
 
     public function test_unsupported_locale_falls_back_to_english_canonical_response(): void

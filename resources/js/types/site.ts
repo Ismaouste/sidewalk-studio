@@ -68,6 +68,17 @@ export type SiteProps = {
     navigation: NavItem[];
     author: SiteAuthor;
     contact: SiteContact;
+    languageSwitcher: {
+        visible: boolean;
+        current: string;
+        preferred: string;
+        options: Array<{
+            code: string;
+            label: string;
+            available: boolean;
+            href: string | null;
+        }>;
+    };
 };
 
 export type ConsentCategory = {

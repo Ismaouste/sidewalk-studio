@@ -32,3 +32,7 @@ Public page content can now negotiate between English and French on the same
 canonical URLs. The locale policy is request-scoped and must not create
 duplicate route trees, `hreflang` output, or alternate canonical paths until a
 full multilingual SEO model exists.
+
+The public language switcher should only appear on routes that already have
+dedicated translated page sources. Unsupported routes keep the English
+canonical experience even when a French preference is stored.
