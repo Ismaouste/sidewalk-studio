@@ -1,0 +1,146 @@
+:root {
+    --sw-font-display: 'Fraunces', Georgia, serif;
+    --sw-font-heading: 'Syne', 'Trebuchet MS', sans-serif;
+    --sw-font-body: 'DM Sans', 'Segoe UI', sans-serif;
+    --sw-font-code: 'DM Mono', 'Courier New', monospace;
+
+    --sw-radius-none: 0px;
+    --sw-radius-sm: 4px;
+    --sw-radius-md: 8px;
+    --sw-radius-lg: 16px;
+    --sw-radius-xl: 9999px;
+    --sw-radius-full: 9999px;
+
+    --sw-space-4xs: 4px;
+    --sw-space-3xs: 8px;
+    --sw-space-2xs: 12px;
+    --sw-space-xs: 16px;
+    --sw-space-sm: 24px;
+    --sw-space-md: 40px;
+    --sw-space-lg: 64px;
+    --sw-space-xl: 96px;
+    --sw-space-2xl: 128px;
+    --sw-space-3xl: 192px;
+
+    --sw-motion-fast: 120ms ease;
+    --sw-motion-smooth: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    --sw-motion-reveal: 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    --sw-motion-sun: 900ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root,
+html[data-theme='morning'] {
+    color-scheme: light;
+
+    --sw-bg-base: #f4f1ea;
+    --sw-bg-surface: #fafaf6;
+    --sw-bg-grid: #eae6dc;
+    --sw-bg-elevated: #ffffff;
+
+    --sw-text-primary: #141210;
+    --sw-text-secondary: #4a4138;
+    --sw-text-muted: #8a8070;
+    --sw-text-inverse: #f4f1ea;
+
+    --sw-accent-dominant: #1e4b8f;
+    --sw-accent-green: #1a6b4a;
+    --sw-accent-sun: #c97d0a;
+    --sw-accent-coral: #b83528;
+    --sw-accent-violet: #5b21b6;
+
+    --sw-border: #d8d0c2;
+    --sw-border-focus: #c97d0a;
+    --sw-grid-line: rgba(30, 75, 143, 0.07);
+    --sw-shadow-sm: 0 1px 4px rgba(20, 18, 16, 0.06);
+    --sw-shadow-md: 0 4px 16px rgba(20, 18, 16, 0.09);
+    --sw-header-bg: linear-gradient(160deg, #b4cbe4, #d0e4f2, #ebf3fb);
+    --sw-sun-gradient: radial-gradient(
+        circle at 38% 38%,
+        #fbbf24ee,
+        #c97d0a88 45%,
+        transparent 85%
+    );
+    --sw-sun-glow: rgba(201, 125, 10, 0.28);
+    --sw-sun-size: 200px;
+    --sw-sun-top: -48px;
+    --sw-sun-left: -48px;
+    --sw-sun-bottom: auto;
+    --sw-sun-right: auto;
+    --sw-tab-active: #141210;
+    --sw-tab-inactive: rgba(20, 18, 16, 0.38);
+    --sw-tab-line: #c97d0a;
+
+    --background: var(--sw-bg-base);
+    --background-alt: color-mix(
+        in srgb,
+        var(--sw-bg-grid) 82%,
+        var(--sw-bg-base)
+    );
+    --surface: color-mix(in srgb, var(--sw-bg-surface) 88%, transparent);
+    --surface-strong: var(--sw-bg-elevated);
+    --ink: var(--sw-text-primary);
+    --muted: var(--sw-text-secondary);
+    --border-strong: color-mix(in srgb, var(--sw-border) 84%, transparent);
+    --accent-green: var(--sw-accent-green);
+    --accent-red: var(--sw-accent-coral);
+    --accent-sand: var(--sw-accent-sun);
+    --shadow-soft: var(--sw-shadow-md);
+}
+
+html[data-theme='sunset'] {
+    color-scheme: dark;
+
+    --sw-bg-base: #0d0f1c;
+    --sw-bg-surface: #141728;
+    --sw-bg-grid: #1a1d32;
+    --sw-bg-elevated: #20243c;
+
+    --sw-text-primary: #e8e2f2;
+    --sw-text-secondary: #867ea0;
+    --sw-text-muted: #443e5a;
+    --sw-text-inverse: #0d0f1c;
+
+    --sw-accent-dominant: #7c5ce8;
+    --sw-accent-green: #2dd4a0;
+    --sw-accent-sun: #f0700a;
+    --sw-accent-coral: #d95880;
+    --sw-accent-violet: #5290e8;
+
+    --sw-border: #252840;
+    --sw-border-focus: #f0700a;
+    --sw-grid-line: rgba(124, 92, 232, 0.08);
+    --sw-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.25);
+    --sw-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
+    --sw-header-bg: linear-gradient(160deg, #1a0f3c, #1e1640, #0c0e1a);
+    --sw-sun-gradient: radial-gradient(
+        circle at 62% 62%,
+        #f0700aee,
+        #7c5ce888 45%,
+        transparent 85%
+    );
+    --sw-sun-glow: rgba(240, 112, 10, 0.25);
+    --sw-sun-size: 240px;
+    --sw-sun-top: auto;
+    --sw-sun-left: auto;
+    --sw-sun-bottom: -48px;
+    --sw-sun-right: -48px;
+    --sw-tab-active: #e8e2f2;
+    --sw-tab-inactive: rgba(232, 226, 242, 0.32);
+    --sw-tab-line: #f0700a;
+
+    --background: var(--sw-bg-base);
+    --background-alt: color-mix(
+        in srgb,
+        var(--sw-bg-grid) 86%,
+        var(--sw-bg-base)
+    );
+    --surface: color-mix(in srgb, var(--sw-bg-surface) 90%, transparent);
+    --surface-strong: var(--sw-bg-elevated);
+    --ink: var(--sw-text-primary);
+    --muted: var(--sw-text-secondary);
+    --border-strong: color-mix(in srgb, var(--sw-border) 84%, transparent);
+    --accent-green: var(--sw-accent-green);
+    --accent-red: var(--sw-accent-coral);
+    --accent-sand: var(--sw-accent-sun);
+    --shadow-soft: var(--sw-shadow-md);
+}

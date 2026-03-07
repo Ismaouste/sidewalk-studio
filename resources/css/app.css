@@ -1,163 +1,41 @@
-@import '@fontsource-variable/space-grotesk';
-@import '@fontsource/source-serif-4/400.css';
-@import '@fontsource/source-serif-4/600.css';
+@import '@fontsource/fraunces/300-italic.css';
+@import '@fontsource/fraunces/400-italic.css';
+@import '@fontsource/syne/700.css';
+@import '@fontsource/syne/800.css';
+@import '@fontsource/dm-sans/300.css';
+@import '@fontsource/dm-sans/400.css';
+@import '@fontsource/dm-sans/500.css';
+@import '@fontsource/dm-sans/600.css';
+@import '@fontsource/dm-mono/400.css';
 @import 'tailwindcss';
+@import './tokens.css';
+@import './reset.css';
+@import './typography.css';
+@import './layout.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme inline {
-    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-    --font-serif: 'Source Serif 4', Georgia, serif;
-}
-
-:root {
-    --background: #edf1e6;
-    --background-alt: #d7dfd0;
-    --surface: rgba(255, 255, 255, 0.72);
-    --surface-strong: rgba(255, 255, 255, 0.88);
-    --ink: #183129;
-    --muted: #4f6259;
-    --border: rgba(24, 49, 41, 0.14);
-    --border-strong: rgba(24, 49, 41, 0.3);
-    --accent-green: #155d4a;
-    --accent-red: #b13c2e;
-    --accent-sand: #d7b478;
-    --shadow-soft: 0 24px 80px rgba(24, 49, 41, 0.08);
-}
-
-* {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    min-height: 100vh;
-    font-family: var(--font-sans);
-    color: var(--ink);
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(215, 180, 120, 0.32),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at top right,
-            rgba(21, 93, 74, 0.18),
-            transparent 28%
-        ),
-        linear-gradient(
-            180deg,
-            var(--background) 0%,
-            var(--background-alt) 100%
-        );
-}
-
-body::selection {
-    color: white;
-    background: var(--accent-green);
-}
-
-button,
-a {
-    cursor: pointer;
-}
-
-.ambient-grid {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.28;
-    background-image:
-        linear-gradient(rgba(24, 49, 41, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(24, 49, 41, 0.08) 1px, transparent 1px);
-    background-size: 4rem 4rem;
-    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 88%);
-}
-
-.panel {
-    backdrop-filter: blur(18px);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-soft);
-}
-
-.eyebrow {
-    font-size: 0.74rem;
-    text-transform: uppercase;
-    letter-spacing: 0.28em;
-    color: var(--accent-red);
-}
-
-.serif {
-    font-family: var(--font-serif);
-}
-
-.prose-copy {
-    display: grid;
-    gap: 1rem;
-    color: var(--muted);
-}
-
-.prose-copy h2,
-.prose-copy h3 {
-    font-family: var(--font-serif);
-    color: var(--ink);
-    line-height: 1.1;
-}
-
-.prose-copy p,
-.prose-copy li {
-    font-size: 1.05rem;
-    line-height: 1.85;
-}
-
-.prose-copy ul {
-    padding-left: 1.25rem;
-    list-style: square;
-}
-
-.prose-copy code {
-    border-radius: 999px;
-    background: rgba(24, 49, 41, 0.08);
-    padding: 0.15rem 0.5rem;
-    font-size: 0.95em;
-}
-
-.prose-copy pre {
-    overflow-x: auto;
-    border-radius: 1.5rem;
-    background: rgba(24, 49, 41, 0.08);
-    padding: 1rem;
+    --font-sans: var(--sw-font-body);
+    --font-display: var(--sw-font-display);
+    --font-heading: var(--sw-font-heading);
+    --font-mono: var(--sw-font-code);
 }
 
 .cc--darkmode,
 .cm__body {
-    --cc-bg: #183129;
-    --cc-primary-color: #edf1e6;
-    --cc-secondary-color: #c6d0c2;
-    --cc-btn-primary-bg: #155d4a;
-    --cc-btn-primary-border-color: #155d4a;
-    --cc-btn-primary-hover-bg: #0f4a3a;
-    --cc-btn-primary-hover-border-color: #0f4a3a;
+    --cc-bg: var(--sw-bg-surface);
+    --cc-primary-color: var(--sw-text-primary);
+    --cc-secondary-color: var(--sw-text-secondary);
+    --cc-btn-primary-bg: var(--sw-accent-dominant);
+    --cc-btn-primary-border-color: var(--sw-accent-dominant);
+    --cc-btn-primary-hover-bg: var(--sw-accent-sun);
+    --cc-btn-primary-hover-border-color: var(--sw-accent-sun);
     --cc-btn-secondary-bg: transparent;
-    --cc-btn-secondary-border-color: rgba(237, 241, 230, 0.35);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+    --cc-btn-secondary-border-color: color-mix(
+        in srgb,
+        var(--sw-border) 80%,
+        transparent
+    );
 }

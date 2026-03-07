@@ -3,6 +3,22 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script>
+            (() => {
+                const stored = window.localStorage.getItem('sidewalk-theme');
+                const theme =
+                    stored === 'morning' || stored === 'sunset'
+                        ? stored
+                        : window.matchMedia('(prefers-color-scheme: dark)')
+                                .matches
+                          ? 'sunset'
+                          : 'morning';
+
+                document.documentElement.setAttribute('data-theme', theme);
+                document.documentElement.style.colorScheme =
+                    theme === 'sunset' ? 'dark' : 'light';
+            })();
+        </script>
 
         <title inertia>{{ $seo['title'] ?? config('site.name') }}</title>
         <meta name="description" content="{{ $seo['description'] ?? config('site.description') }}">
@@ -33,7 +49,7 @@
         @vite(['resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
-    <body class="antialiased">
+    <body>
         @inertia
     </body>
 </html>
