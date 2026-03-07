@@ -9,7 +9,7 @@ The UI shell is delivered through Inertia + Vue, while the first request still r
 - defines routes for public pages, writing, case studies, `robots.txt`, and `sitemap.xml`
 - loads Markdown content from `resources/content/`
 - generates SEO payloads and injects them into both Inertia props and Blade view data
-- will eventually centralize bounded non-secret runtime configuration through the `site_settings` domain described in `docs/architecture/site-settings.md`
+- centralizes bounded non-secret runtime configuration through the `site_settings` domain described in `docs/architecture/site-settings.md`
 
 ### Inertia + Vue shell
 - renders page navigation and content cards

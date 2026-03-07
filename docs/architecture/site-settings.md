@@ -33,12 +33,14 @@ That split is still correct, but global site values such as public contact detai
 - The first persisted payload should bootstrap from the current config and env-backed defaults.
 - The bootstrap must be idempotent so it can seed an empty install without overwriting later edits.
 - Public reads should still have safe defaults if no persisted row exists yet.
+- The current runtime path uses `App\Services\SiteSettingsService` for reads and `Database\Seeders\SiteSettingsSeeder` as the first explicit bootstrap helper.
 
 ## Consumption and cache
 
 - Public pages should read site-wide values through one application service.
 - That service should cache the hydrated settings payload and invalidate or refresh it after writes.
 - Controllers and support classes should not duplicate fallback logic.
+- The first read-side integration now covers shared Inertia props, home/contact page reads, and default SEO metadata inputs.
 
 ## Database strategy
 
