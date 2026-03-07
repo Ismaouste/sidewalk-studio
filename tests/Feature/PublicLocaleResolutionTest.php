@@ -71,12 +71,88 @@ class PublicLocaleResolutionTest extends TestCase
     public function test_pages_without_french_source_stay_on_english_even_with_french_preference(): void
     {
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/writing')
+            ->get('/case-studies')
             ->assertOk()
             ->assertHeader('content-language', 'en')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'en')
                 ->where('site.languageSwitcher.visible', false));
+    }
+
+    public function test_writing_index_renders_french_entries_when_french_locale_is_resolved(): void
+    {
+        $canonical = rtrim((string) config('site.url'), '/').'/writing';
+
+        $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
+            ->get('/writing')
+            ->assertOk()
+            ->assertHeader('content-language', 'fr')
+            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertDontSee('hreflang', false)
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.locale', 'fr')
+                ->where('items.0.locale', 'fr')
+                ->where('items.0.title', 'Pourquoi le SSR reste pret mais differe')
+                ->where('site.languageSwitcher.visible', true)
+                ->where('seo.canonical', $canonical));
+    }
+
+    public function test_writing_detail_renders_localized_french_entry_with_stable_canonical_url(): void
+    {
+        $canonical = rtrim((string) config('site.url'), '/').'/writing/content-systems-routing-and-metadata';
+
+        $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
+            ->get('/writing/content-systems-routing-and-metadata')
+            ->assertOk()
+            ->assertHeader('content-language', 'fr')
+            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertDontSee('hreflang', false)
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.locale', 'fr')
+                ->where('item.locale', 'fr')
+                ->where('item.title', 'Les systemes de contenu commencent par le routage et les metadonnees')
+                ->where('seo.canonical', $canonical)
+                ->where('seo.openGraph.locale', 'fr'));
+    }
+
+    public function test_writing_detail_falls_back_to_english_when_no_french_entry_exists(): void
+    {
+        $path = resource_path('content/writing/en/editorial-english-fallback-public-test.md');
+
+        file_put_contents($path, <<<'MD'
+---
+title: Editorial English Fallback Public Test
+slug: editorial-english-fallback-public-test
+summary: This published writing entry exists only in English and should stay safely reachable.
+status: published
+published_at: 2026-03-08
+updated_at: 2026-03-08
+tags:
+    - content
+    - fallback
+seo_title: Editorial English Fallback Public Test
+seo_description: This entry proves public writing routes still fall back to English when a French translation does not exist.
+---
+
+This English-only public writing entry should stay reachable even when the preferred locale is French.
+MD);
+
+        try {
+            $canonical = rtrim((string) config('site.url'), '/').'/writing/editorial-english-fallback-public-test';
+
+            $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
+                ->get('/writing/editorial-english-fallback-public-test')
+                ->assertOk()
+                ->assertHeader('content-language', 'en')
+                ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+                ->assertInertia(fn (Assert $page): Assert => $page
+                    ->where('site.locale', 'en')
+                    ->where('item.locale', 'en')
+                    ->where('site.languageSwitcher.visible', false)
+                    ->where('seo.canonical', $canonical));
+        } finally {
+            unlink($path);
+        }
     }
 
     public function test_unsupported_locale_falls_back_to_english_canonical_response(): void
