@@ -1,0 +1,46 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Services\SiteSettingsService;
+use Tests\TestCase;
+
+class SeoAndConsentTest extends TestCase
+{
+    public function test_home_page_renders_server_side_metadata(): void
+    {
+        $description = app(SiteSettingsService::class)->current()->seoDefaults->defaultDescription;
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('<link rel="canonical" href="http://sidewalk-studio.test">', false)
+            ->assertSee($description)
+            ->assertSee('application/ld+json', false);
+    }
+
+    public function test_experience_page_renders_breadcrumb_metadata(): void
+    {
+        $this->get('/experience')
+            ->assertOk()
+            ->assertSee('<link rel="canonical" href="http://sidewalk-studio.test/experience">', false)
+            ->assertSee('Experience | Sidewalk Studio')
+            ->assertSee('BreadcrumbList', false);
+    }
+
+    public function test_case_study_page_renders_article_metadata(): void
+    {
+        $this->get('/case-studies/repo-bootstrap-foundation')
+            ->assertOk()
+            ->assertSee('Repository Bootstrap for a Spec-Driven Portfolio | Sidewalk Studio')
+            ->assertSee('article', false)
+            ->assertSee('BreadcrumbList', false);
+    }
+
+    public function test_labs_page_ships_embed_placeholder_without_loading_third_party_iframe(): void
+    {
+        $this->get('/labs')
+            ->assertOk()
+            ->assertSee('&quot;service&quot;:&quot;youtube&quot;', false)
+            ->assertDontSee('youtube-nocookie.com', false);
+    }
+}

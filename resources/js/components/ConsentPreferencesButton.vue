@@ -1,0 +1,43 @@
+<script setup lang="ts">
+function openPreferences() {
+    window.SidewalkConsent?.showPreferences();
+}
+</script>
+
+<template>
+    <button
+        type="button"
+        class="consent-preferences-button"
+        @click="openPreferences"
+    >
+        Privacy controls
+    </button>
+</template>
+
+<style scoped>
+.consent-preferences-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    gap: var(--sw-space-3xs);
+    border: 1px solid var(--sw-border);
+    border-radius: var(--sw-radius-full);
+    background: transparent;
+    padding-inline: 1rem;
+    font-family: var(--sw-font-body);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--sw-text-primary);
+    transition:
+        background-color var(--sw-motion-fast),
+        border-color var(--sw-motion-fast),
+        transform var(--sw-motion-fast);
+}
+
+.consent-preferences-button:hover {
+    transform: translateY(-1px);
+    border-color: var(--sw-accent-green);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 64%, transparent);
+}
+</style>

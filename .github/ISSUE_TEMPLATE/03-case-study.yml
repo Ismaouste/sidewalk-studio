@@ -1,0 +1,39 @@
+name: Case study
+description: Add or improve a case study
+title: "[Case Study] "
+labels: ["documentation", "case-study"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Case study title
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this case study matters
+      description: What engineering lesson or demonstration value does it provide?
+    validations:
+      required: true
+
+  - type: textarea
+    id: content
+    attributes:
+      label: Planned content
+      placeholder: |
+        - Context
+        - Problem
+        - Constraints
+        - Decisions
+        - Outcome
+        - Lessons learned
+    validations:
+      required: true
+
+  - type: input
+    id: related_spec
+    attributes:
+      label: Related spec or roadmap block
+      placeholder: 002-content-system
