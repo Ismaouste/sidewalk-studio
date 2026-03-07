@@ -2,11 +2,11 @@
 
 ## One-line version
 
-Laravel and e-commerce engineer focused on legacy modernization, technical SEO, privacy-safe analytics, and durable product systems.
+Full-stack e-commerce developer focused on Laravel, technical SEO, privacy-safe analytics, and gradual modernization of existing systems.
 
 ## Recruiter version
 
-I am most useful on products that already exist, already matter, and need calmer engineering. That usually means Laravel or PHP systems with real business pressure, technical debt, SEO constraints, and a need for steadier delivery rather than another dramatic rebuild.
+I am most useful on products that already exist, already matter, and need steadier engineering. That usually means Laravel or PHP systems with real business pressure, technical debt, SEO constraints, business integrations, and a need for clearer execution rather than another dramatic rebuild.
 
 ## Hiring-manager version
 

@@ -1,27 +1,27 @@
-# Ismael Rodmacq
+# Ismaël Rodmacq
 
-**E-commerce Tech Lead / Lead PHP Developer**  
-Laravel · WooCommerce · PrestaShop · Technical SEO · Privacy · Consent-aware analytics
+**Full-Stack E-commerce Developer**
+Laravel · WooCommerce · PrestaShop · Technical SEO · Privacy · Business integrations
 
-Nancy, France  
-+33 6 84 90 76 98  
-ismael.rodmacq@gmail.com  
-GitHub: github.com/Ismaouste  
+Nancy, France
++33 6 84 90 76 98
+ismael.rodmacq@gmail.com
+GitHub: github.com/Ismaouste
 LinkedIn: linkedin.com/in/ismaelrodmacq
 
 ## Profile
 
-Senior web engineer with a strong technical lead orientation, working on e-commerce and product environments where clarity, reliability, and maintainability matter as much as delivery. My best-fit context is existing systems: platforms with history, traffic, business pressure, SEO constraints, marketing scripts, compliance needs, and a real need to improve without creating unnecessary noise.
+Full-stack e-commerce developer working on PHP environments where maintainability, production stability, technical SEO, business integrations, and compliance cannot be treated as side concerns.
 
-I am particularly strong in legacy rescue, progressive modernization, production reliability, technical SEO, consent-aware analytics, and Laravel architecture that stays readable over time.
+My best-fit context is an existing system: e-commerce platforms, business ecosystems, catalog flows, product data, and codebases with history that need to improve without breaking what already works. I am especially strong in progressive modernization, clearer boundaries, and calmer delivery.
 
 ## Positioning
 
-- Stabilizing and evolving complex e-commerce platforms
-- Modernizing legacy codebases without dogmatic rewrites
+- Building and evolving e-commerce platforms and business-facing web products
+- Modernizing PHP / Laravel codebases without dogmatic rewrites
 - Technical SEO, metadata, structured data, and editorial architecture
 - Consent, privacy, analytics, and script governance
-- Maintainable web interfaces with Laravel, Inertia, Vue, and TypeScript
+- Catalog flows, product data, and ERP / PIM / DAM / CRM integrations
 - Working across product, SEO, design, marketing, and non-technical teams
 
 ## Core skills
@@ -63,26 +63,26 @@ I am particularly strong in legacy rescue, progressive modernization, production
 - SQL / MySQL
 - Logs, production debugging, and pragmatic observability
 
-## Selected experience
+## Experience
 
-### E-commerce Tech Lead / Lead PHP Developer
-**Premium, legacy, and high-constraint environments**  
-**Recent years**
+### Full-Stack E-commerce Developer
+**Jewely HBJO**
+**June 2024 - Present**
 
-Worked on e-commerce and product systems requiring gradual technical improvement without breaking business continuity. Focus areas included application structure, business flows, production stability, technical SEO, marketing scripts, consent boundaries, code readability, and delivery discipline.
+Full-stack development within a business-specific digital ecosystem for the jewelry and watch industry, at the intersection of e-commerce, catalog flows, product data, and business software needs. The context combines product and SaaS concerns around e-commerce and adjacent tools such as ERP, PIM, DAM, and CRM.
 
 Typical contributions:
-- taking over platforms with significant technical debt
-- implementing or reworking sensitive business features
-- improving SEO structure and structured data
-- designing tracking and conditional script-loading boundaries
-- raising code and front-end quality in real production contexts
+- evolving e-commerce and business-facing features
+- working on catalog flows, product data quality, and integrations
+- improving application structure and maintainability
+- taking SEO, performance, and product clarity into account
+- contributing to the digital transformation of HBJO businesses
 
-### Software and network project lead / web developer
-**Flippad**  
-**2021 - 2022**
+### Web Developer
+**Flippad Digital Solutions**
+**September 2021 - May 2024**
 
-Worked in a digital agency / platform environment spanning website and e-commerce maintenance, internal platforms, R&D, and product rebuild efforts.
+Worked in an apprenticeship and multi-client environment on websites, e-commerce platforms, business tools, and product-oriented R&D.
 
 Notable contributions:
 - maintaining and optimizing existing websites and e-commerce platforms
@@ -93,43 +93,43 @@ Notable contributions:
 - exploring jewelry ERP needs
 - contributing to the Flippad.com rebuild
 
-### Internal survey tool for a health nonprofit
-**Aremedia**  
-**2021**
+### Web Developer
+**AREMEDIA**
+**June 2020 - January 2021**
 
-Implemented a self-hosted LimeSurvey-based internal survey tool in a context involving medical and socio-demographic data.
+Analyzed needs and usage around a digital tool, deployed a self-hosted LimeSurvey stack (PHP + MySQL), worked within health-data legal constraints, and contributed to a new website direction.
 
-- deployed a self-hosted open-source solution
-- worked within GDPR-sensitive constraints
-- coordinated with third-party technical support
+### Support Officer
+**Parcours le Monde Grand-Est**
+**January 2018 - January 2019**
 
-### Project coordination and community work
-**Parcours le Monde Grand Est / ICN ARTEM / associative work**  
-**2016 - 2019**
+Public-facing support, project guidance, and awareness work around European citizenship and mobility projects.
 
-Earlier experience in coordination, communication, partnerships, events, public-facing operations, and practical digital structuring.
+### Mediator
+**ARTEM (Alliance Artem)**
+**October 2016 - July 2017**
 
-Long-term impact on my engineering profile:
-- operating in complex contexts
-- communicating with non-technical stakeholders
-- structuring and prioritizing work
-- calm, cross-functional leadership
+Mediation between campus schools and partner institutions, with responsibility for a sustainable-development awareness day for 170 students and 15 partners.
 
 ## Selected projects
+
+### Jewely HBJO
+Business-specific digital ecosystem for jewelry, watches, and related retail operations, combining e-commerce concerns with product data and business-tool workflows.
 
 ### Sidewalk Studio
 A Laravel-based portfolio and reference implementation focused on architecture, SEO, consent orchestration, editorial content, design systems, and delivery discipline.
 
-### Crown DP
-Work on a premium e-commerce platform with attention to architecture, internal dashboards, statistics, execution quality, and long-term readability.
-
 ### Godechot Pauliet
-Work around audience tracking, catalog synchronization, and e-commerce / marketing data in a jewelry retail context.
+Audience tracking, catalog synchronization, and e-commerce / marketing data work in a jewelry retail context.
 
 ### YTMusic Liked Sorter
 A tooling / CLI project showing a structured engineering mindset: typing, cache, logging, dry-run behavior, reliability, and developer experience.
 
 ## Education
+
+### Bachelor's degree, Full-Stack Development
+**Metz Numeric School**
+**September 2021 - October 2022**
 
 ### Web and mobile development
 **Meshwork Academy**  

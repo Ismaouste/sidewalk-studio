@@ -1,27 +1,27 @@
-# Ismael Rodmacq
+# Ismaël Rodmacq
 
-**Tech Lead e-commerce / Lead Developer PHP**  
-Laravel · WooCommerce · PrestaShop · SEO technique · RGPD · analytics respectueux du consentement
+**Développeur Full Stack e-commerce**
+Laravel · WooCommerce · PrestaShop · SEO technique · RGPD · intégrations métier
 
-Nancy, France  
-+33 6 84 90 76 98  
-ismael.rodmacq@gmail.com  
-GitHub: github.com/Ismaouste  
+Nancy, France
++33 6 84 90 76 98
+ismael.rodmacq@gmail.com
+GitHub: github.com/Ismaouste
 LinkedIn: linkedin.com/in/ismaelrodmacq
 
 ## Profil
 
-Développeur web senior orienté lead technique, j'interviens sur des environnements e-commerce et produits où la clarté, la fiabilité et la maintenabilité comptent autant que la livraison. Mon terrain naturel: les plateformes existantes, les contextes legacy, les systèmes en production qui doivent évoluer sans casse, et les sujets où performance, SEO, conformité et enjeux métier se croisent.
+Développeur full stack e-commerce, j'interviens sur des environnements PHP où la maintenabilité, la stabilité en production, le SEO technique, les intégrations métier et la conformité ne peuvent pas être traités comme des sujets annexes.
 
-Je suis particulièrement à l'aise dans la reprise de projets complexes, la modernisation progressive, la stabilisation de production, l'architecture Laravel lisible dans le temps, et la mise en place de dispositifs SEO / consentement / analytics réellement propres.
+Je travaille surtout sur des systèmes existants: plateformes e-commerce, produits métier, flux catalogue, données produit et outils qui doivent évoluer sans casser le fonctionnement réel. Mon objectif est de rendre ces environnements plus lisibles, plus fiables et plus durables.
 
 ## Positionnement
 
-- Stabilisation et évolution de plateformes e-commerce complexes
-- Modernisation progressive de codebases legacy
+- Développement et évolution de plateformes e-commerce et produits métier
+- Modernisation progressive de codebases PHP / Laravel
 - SEO technique, métadonnées, structured data et architecture éditoriale
 - Consentement, RGPD, tracking et gouvernance des scripts
-- Interfaces web maintenables avec Laravel, Inertia, Vue et TypeScript
+- Flux catalogue, données produit et intégrations ERP / PIM / DAM / CRM
 - Collaboration fluide avec produit, SEO, design, marketing et équipes non techniques
 
 ## Compétences clés
@@ -63,26 +63,26 @@ Je suis particulièrement à l'aise dans la reprise de projets complexes, la mod
 - SQL / MySQL
 - Logs, débogage de production et observabilité pragmatique
 
-## Expériences sélectionnées
+## Expérience
 
-### Tech Lead e-commerce / Lead Developer PHP
-**Environnements premium, legacy et multi-contraintes**  
-**Période récente**
+### Développeur Full Stack e-commerce
+**Jewely HBJO**
+**juin 2024 - aujourd'hui**
 
-Intervention sur des plateformes e-commerce et produits web nécessitant une amélioration progressive de la qualité technique sans casser la continuité business. Travail sur la structure applicative, les flux métier, la stabilité en production, le SEO technique, les scripts marketing, les frontières de consentement, la lisibilité du code et la discipline de livraison.
+Développement full stack d'un écosystème digital métier pour le secteur HBJO, à l'intersection de l'e-commerce, des flux catalogue, des besoins métier et de la qualité d'exécution. Travail dans un contexte produit et SaaS autour d'une plateforme e-commerce et de briques connexes type ERP, PIM, DAM et CRM.
 
-Contributions types:
-- reprise de plateformes à forte dette technique
-- implémentation ou refonte de fonctionnalités métier sensibles
-- amélioration de la structure SEO et des données structurées
-- cadrage du tracking et du chargement conditionnel de scripts
-- montée en qualité du front et du back dans des contextes réels
+Contributions typiques:
+- évolution de fonctionnalités e-commerce et métier
+- travail sur les flux catalogue, la qualité des données et les intégrations
+- amélioration de la structure applicative et de la maintenabilité
+- prise en compte des enjeux SEO, performance et lisibilité produit
+- contribution à la digitalisation métier de professionnels HBJO
 
-### Chef de projet logiciel et réseau / développeur web
-**Flippad**  
-**2021 - 2022**
+### Web Developer
+**Flippad Digital Solutions**
+**sept. 2021 - mai 2024**
 
-Travail au sein d'une agence / plateforme web sur la maintenance de sites et e-commerces, les plateformes métier, la R&D et la refonte produit.
+Travail en alternance puis en environnement multi-clients sur la maintenance et l'évolution de sites web, e-commerces et plateformes métier.
 
 Réalisations notables:
 - maintenance et optimisation de sites et e-commerces existants
@@ -93,35 +93,31 @@ Réalisations notables:
 - exploration ERP bijouterie
 - participation à la refonte de Flippad.com
 
-### Outil interne d'enquête pour association santé
-**Aremedia**  
-**2021**
+### Développeur web
+**AREMEDIA**
+**juin 2020 - janv. 2021**
 
-Mise en place d'une solution self-hosted autour de LimeSurvey dans un contexte sensible mêlant données médicales et socio-démographiques.
+Analyse des besoins et des usages pour la création d'un outil numérique, déploiement d'un LimeSurvey auto-hébergé (PHP + MySQL), cadrage dans le contexte légal des données de santé, et contribution à la conception d'un nouveau site.
 
-- déploiement d'un outil open source auto-hébergé
-- prise en compte des contraintes RGPD
-- coordination avec une assistance technique tierce
+### Chargé d'accompagnement
+**Parcours le Monde Grand-Est**
+**janv. 2018 - janv. 2019**
 
-### Coordination de projets et médiation
-**Parcours le Monde Grand Est / ICN ARTEM / engagements associatifs**  
-**2016 - 2019**
+Animation, accompagnement de publics et sensibilisation à la citoyenneté européenne et aux projets de mobilité, avec une forte dimension coordination / médiation.
 
-Expériences structurantes en coordination, communication, partenariats, évènementiel, accompagnement de publics et premiers sujets concrets de structuration numérique.
+### Médiateur
+**ARTEM (Alliance Artem)**
+**oct. 2016 - juil. 2017**
 
-Apports durables:
-- gestion de contexte complexe
-- communication avec des acteurs non techniques
-- structuration et priorisation
-- leadership calme et transversal
+Médiation entre les écoles du campus et les établissements partenaires, organisation d'une journée d'information et de sensibilisation au développement durable pour 170 élèves avec 15 partenaires.
 
 ## Projets sélectionnés
 
+### Jewely HBJO
+Écosystème digital métier pour la bijouterie, l'horlogerie et la joaillerie, articulé autour de problématiques e-commerce, catalogue, données produit et outils métier.
+
 ### Sidewalk Studio
 Portfolio et référence Laravel orientée architecture, SEO, consentement, contenu éditorial, design system et rigueur de livraison.
-
-### Crown DP
-Travail sur une plateforme e-commerce premium avec attention portée à l'architecture, aux dashboards internes, aux statistiques, à la qualité d'exécution et à la lisibilité long terme.
 
 ### Godechot Pauliet
 Travail autour du suivi d'audience, de la synchronisation catalogue et de sujets e-commerce / marketing data dans un contexte bijouterie.
@@ -130,6 +126,10 @@ Travail autour du suivi d'audience, de la synchronisation catalogue et de sujets
 Projet outillage / CLI illustrant une approche structurée: typage, cache, logs, dry-run, fiabilité et expérience développeur.
 
 ## Formation
+
+### Bachelor's degree, Développeur Full Stack
+**Metz Numeric School**
+**sept. 2021 - oct. 2022**
 
 ### Développement web et mobile
 **Meshwork Academy**  
@@ -148,4 +148,4 @@ Projet outillage / CLI illustrant une approche structurée: typage, cache, logs,
 
 ## Ce que je recherche
 
-Des contextes où l'on attend plus que de l'exécution: clarté technique, stabilisation, modernisation, arbitrages solides, et capacité à améliorer des produits existants sans perdre le sens du réel.
+Des contextes où l'on attend plus que de l'exécution pure: qualité technique, clarté, modernisation progressive, sens produit et capacité à faire évoluer des systèmes existants sans perdre le sens du réel.
