@@ -2,7 +2,7 @@
 
 ## Summary
 
-A draft spec package now exists for a protected internal site settings surface that can manage bounded runtime configuration without introducing a full CMS.
+A draft spec package now exists for a bounded `site_settings` domain that can support future admin editing without introducing a full CMS.
 
 ## Related tracking
 
@@ -14,7 +14,9 @@ A draft spec package now exists for a protected internal site settings surface t
 ## Decisions
 
 - Keep SQLite as the first persistence layer if the feature is implemented.
-- Limit the scope to a small, typed settings surface instead of replacing Markdown content or env-driven bootstrap data wholesale.
+- Keep `.env` for secrets and infrastructure while using `site_settings` for bounded non-secret runtime configuration.
+- Keep API keys and other secrets out of `site_settings`; a separate encrypted store would be needed if that requirement appears later.
+- Limit the scope to a small typed settings domain and leave the protected admin shell to a later dedicated feature.
 
 ## Validation
 
