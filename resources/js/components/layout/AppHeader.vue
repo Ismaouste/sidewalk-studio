@@ -2,6 +2,7 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import SunAnchor from '@/components/design-system/SunAnchor.vue';
+import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import NavTabs from '@/components/layout/NavTabs.vue';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
 import type { SiteProps } from '@/types';
@@ -30,7 +31,11 @@ const currentUrl = computed(() => page.url);
 
                 <div class="app-header__controls">
                     <NavTabs :items="navigation" :current-url="currentUrl" />
-                    <ThemeToggle />
+
+                    <div class="app-header__utilities">
+                        <LocaleSwitcher />
+                        <ThemeToggle />
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,10 +111,18 @@ const currentUrl = computed(() => page.url);
     gap: var(--sw-space-3xs);
 }
 
+.app-header__utilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-3xs);
+    align-items: center;
+}
+
 .app-header__controls :deep(.nav-tabs) {
     min-width: 0;
 }
 
+.app-header__controls :deep(.locale-switcher),
 .app-header__controls :deep(.theme-toggle) {
     justify-self: start;
 }
@@ -125,6 +138,11 @@ const currentUrl = computed(() => page.url);
         gap: var(--sw-space-xs);
     }
 
+    .app-header__utilities {
+        justify-content: flex-end;
+    }
+
+    .app-header__controls :deep(.locale-switcher),
     .app-header__controls :deep(.theme-toggle) {
         justify-self: end;
     }
