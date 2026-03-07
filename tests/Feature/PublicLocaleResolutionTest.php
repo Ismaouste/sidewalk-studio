@@ -71,7 +71,7 @@ class PublicLocaleResolutionTest extends TestCase
     public function test_pages_without_french_source_stay_on_english_even_with_french_preference(): void
     {
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/case-studies')
+            ->get('/labs')
             ->assertOk()
             ->assertHeader('content-language', 'en')
             ->assertInertia(fn (Assert $page): Assert => $page
@@ -142,6 +142,88 @@ MD);
 
             $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
                 ->get('/writing/editorial-english-fallback-public-test')
+                ->assertOk()
+                ->assertHeader('content-language', 'en')
+                ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+                ->assertInertia(fn (Assert $page): Assert => $page
+                    ->where('site.locale', 'en')
+                    ->where('item.locale', 'en')
+                    ->where('site.languageSwitcher.visible', false)
+                    ->where('seo.canonical', $canonical));
+        } finally {
+            unlink($path);
+        }
+    }
+
+    public function test_case_study_index_renders_french_entries_when_french_locale_is_resolved(): void
+    {
+        $canonical = rtrim((string) config('site.url'), '/').'/case-studies';
+
+        $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
+            ->get('/case-studies')
+            ->assertOk()
+            ->assertHeader('content-language', 'fr')
+            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertDontSee('hreflang', false)
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.locale', 'fr')
+                ->where('items.0.locale', 'fr')
+                ->where('items.0.title', 'Orchestration du consentement avant les analytics')
+                ->where('site.languageSwitcher.visible', true)
+                ->where('seo.canonical', $canonical));
+    }
+
+    public function test_case_study_detail_renders_localized_french_entry_with_stable_canonical_url(): void
+    {
+        $canonical = rtrim((string) config('site.url'), '/').'/case-studies/repo-bootstrap-foundation';
+
+        $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
+            ->get('/case-studies/repo-bootstrap-foundation')
+            ->assertOk()
+            ->assertHeader('content-language', 'fr')
+            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertDontSee('hreflang', false)
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.locale', 'fr')
+                ->where('item.locale', 'fr')
+                ->where('item.title', 'Bootstrap du repository pour un portfolio pilote par les specs')
+                ->where('seo.canonical', $canonical)
+                ->where('seo.openGraph.locale', 'fr'));
+    }
+
+    public function test_case_study_detail_falls_back_to_english_when_no_french_entry_exists(): void
+    {
+        $path = resource_path('content/case-studies/en/case-study-english-fallback-public-test.md');
+
+        file_put_contents($path, <<<'MD'
+---
+title: Case Study English Fallback Public Test
+slug: case-study-english-fallback-public-test
+summary: This published case study exists only in English and should stay safely reachable.
+status: published
+published_at: 2026-03-09
+updated_at: 2026-03-09
+tags:
+    - fallback
+    - architecture
+seo_title: Case Study English Fallback Public Test
+seo_description: This entry proves public case-study routes still fall back to English when a French translation does not exist.
+client: Sidewalk Studio
+role: Architecture
+stack:
+    - Laravel 12
+outcomes:
+    - English fallback remains public
+---
+
+This English-only public case study should stay reachable even when the preferred locale is French.
+MD);
+
+        try {
+            $canonical = rtrim((string) config('site.url'), '/').'/case-studies/case-study-english-fallback-public-test';
+
+            $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
+                ->get('/case-studies/case-study-english-fallback-public-test')
                 ->assertOk()
                 ->assertHeader('content-language', 'en')
                 ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)

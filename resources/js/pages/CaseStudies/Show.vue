@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
@@ -9,7 +10,9 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { ContentItem, SeoPayload } from '@/types';
+import type { ContentItem, SeoPayload, SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -18,18 +21,56 @@ const props = defineProps<{
 
 const caseStudyMeta = computed(() => [
     {
-        label: 'Published',
+        label: copy.value.publishedLabel,
         value: props.item.published_at,
     },
     {
-        label: 'Updated',
+        label: copy.value.updatedLabel,
         value: props.item.updated_at,
     },
     {
-        label: 'Outcomes',
-        value: `${props.item.outcomes.length} signals`,
+        label: copy.value.outcomesLabel,
+        value: `${props.item.outcomes.length} ${copy.value.signalsSuffix}`,
     },
 ]);
+
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              backCta: 'Retour aux cas clients',
+              eyebrow: 'Cas client',
+              internalBuildLabel: 'Build interne',
+              implementationToolsLabel: `${props.item.stack.length} outils implementation`,
+              dividerLabel: "Journal d'implementation",
+              projectFrameLabel: 'Cadre projet',
+              clientLabel: 'Client',
+              roleLabel: 'Role',
+              stackLabel: 'Stack',
+              contactCta: 'Discuter un brief similaire',
+              outcomesTitle: 'Resultats',
+              publishedLabel: 'Publie',
+              updatedLabel: 'Maj',
+              outcomesLabel: 'Resultats',
+              signalsSuffix: 'signaux',
+          }
+        : {
+              backCta: 'Back to case studies',
+              eyebrow: 'Case study',
+              internalBuildLabel: 'Internal build',
+              implementationToolsLabel: `${props.item.stack.length} implementation tools`,
+              dividerLabel: 'Implementation log',
+              projectFrameLabel: 'Project frame',
+              clientLabel: 'Client',
+              roleLabel: 'Role',
+              stackLabel: 'Stack',
+              contactCta: 'Discuss a similar brief',
+              outcomesTitle: 'Outcomes',
+              publishedLabel: 'Published',
+              updatedLabel: 'Updated',
+              outcomesLabel: 'Outcomes',
+              signalsSuffix: 'signals',
+          },
+);
 </script>
 
 <template>
@@ -39,20 +80,20 @@ const caseStudyMeta = computed(() => [
         <section class="sw-section case-study-show">
             <div class="case-study-show__lead">
                 <Button href="/case-studies" variant="ghost" size="sm">
-                    Back to case studies
+                    {{ copy.backCta }}
                 </Button>
 
                 <SectionIntro
-                    eyebrow="Case study"
+                    :eyebrow="copy.eyebrow"
                     :title="props.item.title"
                     :description="props.item.summary"
                 >
                     <LegendChip
-                        :label="props.item.client || 'Internal build'"
+                        :label="props.item.client || copy.internalBuildLabel"
                         tone="green"
                     />
                     <LegendChip
-                        :label="`${props.item.stack.length} implementation tools`"
+                        :label="copy.implementationToolsLabel"
                         tone="dominant"
                     />
                 </SectionIntro>
@@ -60,7 +101,7 @@ const caseStudyMeta = computed(() => [
                 <ContentMetaRow :items="caseStudyMeta" />
             </div>
 
-            <SectionDivider label="Implementation log" />
+            <SectionDivider :label="copy.dividerLabel" />
 
             <div class="case-study-show__layout">
                 <Panel
@@ -73,25 +114,28 @@ const caseStudyMeta = computed(() => [
 
                 <aside class="case-study-show__aside">
                     <Panel class="case-study-show__sidebar-card" tone="grid">
-                        <p class="type-eyebrow">Project frame</p>
+                        <p class="type-eyebrow">{{ copy.projectFrameLabel }}</p>
 
                         <dl class="case-study-show__details">
                             <div class="case-study-show__detail">
-                                <dt class="type-nav">Client</dt>
+                                <dt class="type-nav">{{ copy.clientLabel }}</dt>
                                 <dd class="type-body-sm">
-                                    {{ props.item.client || 'Internal build' }}
+                                    {{
+                                        props.item.client ||
+                                        copy.internalBuildLabel
+                                    }}
                                 </dd>
                             </div>
 
                             <div class="case-study-show__detail">
-                                <dt class="type-nav">Role</dt>
+                                <dt class="type-nav">{{ copy.roleLabel }}</dt>
                                 <dd class="type-body-sm">
                                     {{ props.item.role }}
                                 </dd>
                             </div>
 
                             <div class="case-study-show__detail">
-                                <dt class="type-nav">Stack</dt>
+                                <dt class="type-nav">{{ copy.stackLabel }}</dt>
                                 <dd class="case-study-show__stack">
                                     <span
                                         v-for="tech in props.item.stack"
@@ -110,13 +154,13 @@ const caseStudyMeta = computed(() => [
                                 variant="secondary"
                                 size="sm"
                             >
-                                Discuss a similar brief
+                                {{ copy.contactCta }}
                             </Button>
                         </div>
                     </Panel>
 
                     <Panel class="case-study-show__sidebar-card" tone="surface">
-                        <p class="type-eyebrow">Outcomes</p>
+                        <p class="type-eyebrow">{{ copy.outcomesTitle }}</p>
 
                         <ul class="case-study-show__outcomes">
                             <li

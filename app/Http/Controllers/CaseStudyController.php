@@ -15,14 +15,17 @@ class CaseStudyController extends Controller
 
     public function index(): Response
     {
+        $isFrench = app()->getLocale() === 'fr';
         $seo = Seo::page(
-            'Case Studies',
-            'Detailed walkthroughs of repository bootstrap, consent orchestration, and SEO architecture decisions.',
+            $isFrench ? 'Cas clients' : 'Case Studies',
+            $isFrench
+                ? "Retours detailles sur le bootstrap du repository, l'orchestration du consentement et les choix d'architecture SEO."
+                : 'Detailed walkthroughs of repository bootstrap, consent orchestration, and SEO architecture decisions.',
             '/case-studies',
             [
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
-                    ['name' => 'Case Studies', 'path' => '/case-studies'],
+                    ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => $isFrench ? 'Cas clients' : 'Case Studies', 'path' => '/case-studies'],
                 ],
             ],
         );
@@ -36,6 +39,7 @@ class CaseStudyController extends Controller
     public function show(string $slug): Response
     {
         $item = $this->content->findPublished('case-studies', $slug);
+        $isFrench = app()->getLocale() === 'fr';
         $seo = Seo::page(
             $item['seo_title'],
             $item['seo_description'],
@@ -45,10 +49,10 @@ class CaseStudyController extends Controller
                 'open_graph_type' => 'article',
                 'published_at' => $item['published_at'],
                 'updated_at' => $item['updated_at'],
-                'section' => 'Case Studies',
+                'section' => $isFrench ? 'Cas clients' : 'Case Studies',
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
-                    ['name' => 'Case Studies', 'path' => '/case-studies'],
+                    ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => $isFrench ? 'Cas clients' : 'Case Studies', 'path' => '/case-studies'],
                     ['name' => $item['title'], 'path' => '/case-studies/'.$item['slug']],
                 ],
             ],

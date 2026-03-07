@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
@@ -8,7 +9,9 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { ContentItem, SeoPayload } from '@/types';
+import type { ContentItem, SeoPayload, SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -18,15 +21,49 @@ const props = defineProps<{
 function caseStudyMeta(item: ContentItem) {
     return [
         {
-            label: 'Published',
+            label: copy.value.publishedLabel,
             value: item.published_at,
         },
         {
-            label: 'Stack',
-            value: `${item.stack.length} tools`,
+            label: copy.value.stackLabel,
+            value: `${item.stack.length} ${copy.value.toolsSuffix}`,
         },
     ];
 }
+
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              eyebrow: 'Cas clients',
+              title: 'Decisions detaillees derriere la premiere release Sidewalk Studio.',
+              description:
+                  "Walkthroughs structures du bootstrap repository, de l'orchestration du consentement et des choix d'architecture SEO.",
+              projectsCta: 'Voir pistes projet',
+              contactCta: 'Discuter un build similaire',
+              reviewLabel: 'Format revue technique',
+              publicSlicesLabel: `${props.items.length} tranches publiques`,
+              dividerLabel: 'Archive cas clients',
+              internalBuildLabel: 'Build interne',
+              publishedLabel: 'Publie',
+              stackLabel: 'Stack',
+              toolsSuffix: 'outils',
+          }
+        : {
+              eyebrow: 'Case studies',
+              title: 'Detailed decisions behind the first Sidewalk Studio release.',
+              description:
+                  'Structured walkthroughs of repository bootstrap, consent orchestration, and SEO architecture choices.',
+              projectsCta: 'View project tracks',
+              contactCta: 'Discuss a similar build',
+              reviewLabel: 'Technical review format',
+              publicSlicesLabel: `${props.items.length} public slices`,
+              dividerLabel: 'Case archive',
+              internalBuildLabel: 'Internal build',
+              publishedLabel: 'Published',
+              stackLabel: 'Stack',
+              toolsSuffix: 'tools',
+          },
+);
 </script>
 
 <template>
@@ -35,25 +72,22 @@ function caseStudyMeta(item: ContentItem) {
 
         <section class="sw-section case-studies-index">
             <SectionIntro
-                eyebrow="Case studies"
-                title="Detailed decisions behind the first Sidewalk Studio release."
-                description="Structured walkthroughs of repository bootstrap, consent orchestration, and SEO architecture choices."
+                :eyebrow="copy.eyebrow"
+                :title="copy.title"
+                :description="copy.description"
             >
                 <template #actions>
-                    <Button href="/projects">View project tracks</Button>
+                    <Button href="/projects">{{ copy.projectsCta }}</Button>
                     <Button href="/contact" variant="secondary">
-                        Discuss a similar build
+                        {{ copy.contactCta }}
                     </Button>
                 </template>
 
-                <LegendChip label="Technical review format" tone="green" />
-                <LegendChip
-                    :label="`${props.items.length} public slices`"
-                    tone="sun"
-                />
+                <LegendChip :label="copy.reviewLabel" tone="green" />
+                <LegendChip :label="copy.publicSlicesLabel" tone="sun" />
             </SectionIntro>
 
-            <SectionDivider label="Case archive" />
+            <SectionDivider :label="copy.dividerLabel" />
 
             <div class="case-studies-index__grid">
                 <Link
@@ -65,7 +99,7 @@ function caseStudyMeta(item: ContentItem) {
                     <Panel class="case-studies-index__card" tone="grid">
                         <div class="case-studies-index__card-top">
                             <LegendChip
-                                :label="item.client || 'Internal build'"
+                                :label="item.client || copy.internalBuildLabel"
                                 tone="green"
                             />
                             <ContentMetaRow :items="caseStudyMeta(item)" />

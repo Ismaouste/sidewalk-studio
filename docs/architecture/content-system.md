@@ -6,7 +6,7 @@ Public content lives in locale-aware Markdown folders:
 - `resources/content/writing/<locale>`
 - `resources/content/case-studies/<locale>`
 
-English (`en`) is the public default today. French (`fr`) source files now exist for the core markdown-backed pages that are safe to expose through the current switcher model: `home`, `experience`, `local`, `projects`, and `contact`.
+English (`en`) is the public default today. French (`fr`) source files now exist for the core markdown-backed pages that are safe to expose through the current switcher model: `home`, `experience`, `local`, `projects`, and `contact`. The first localized editorial footprint also exists for selected `writing` and `case-studies` entries.
 
 ## Shared frontmatter
 
@@ -47,7 +47,7 @@ Draft content may exist in the filesystem without leaking into the index pages o
 - Page content resolves locale per request in this order: `?lang=<locale>`, then the persisted locale cookie, then the browser `Accept-Language` header, then `en`.
 - Page content still resolves `pages/<locale>/<page>.md` with fallback to `pages/en/<page>.md`.
 - Core page sources now exist in both `pages/en/` and `pages/fr/` for `home`, `experience`, `local`, `projects`, and `contact`, but routing and SEO still expose English as the stable public default.
-- The public language switcher is only exposed on routes that already have dedicated French page sources. Other public routes stay visibly English until translated content exists.
+- The public language switcher is only exposed on routes that already have dedicated French page sources or localized collection entries for the current route. Unsupported routes stay visibly English until translated content exists.
 - Writing and case-study collections resolve localized entries first, then English entries, then temporary root-level fallback files.
 - Slug deduplication happens after resolution, so a localized entry can override the English document for the same slug.
 - Root-level collection files are transitional only and should be moved into `en/` when touched.
