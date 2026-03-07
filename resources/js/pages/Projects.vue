@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
@@ -7,13 +8,51 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { ContentItem, SeoPayload } from '@/types';
+import type { ContentItem, SeoPayload, SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
+    hero: {
+        eyebrow: string;
+        title: string;
+        summary: string;
+    };
+    tracksSection: {
+        label: string;
+        intro: {
+            eyebrow: string;
+            title: string;
+            summary: string;
+        };
+        items: { title: string; summary: string }[];
+    };
     caseStudies: ContentItem[];
-    tracks: { title: string; summary: string }[];
+    caseStudiesSection: {
+        label: string;
+        eyebrow: string;
+        title: string;
+        summary: string;
+        archive_cta: string;
+    };
 }>();
+
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              experienceCta: 'Lire le parcours',
+              localCta: 'Contexte local',
+              trackPrefix: 'Piste',
+              internalBuildLabel: 'Build interne',
+          }
+        : {
+              experienceCta: 'Read experience',
+              localCta: 'Local context',
+              trackPrefix: 'Track',
+              internalBuildLabel: 'Internal build',
+          },
+);
 </script>
 
 <template>
@@ -22,29 +61,29 @@ const props = defineProps<{
 
         <section class="sw-section projects-page">
             <SectionIntro
-                eyebrow="Project map"
-                title="Three tracks define the v0."
-                description="Repository discipline, content structure, and privacy-aware public experience are the current proving grounds."
+                :eyebrow="props.hero.eyebrow"
+                :title="props.hero.title"
+                :description="props.hero.summary"
             >
                 <template #actions>
                     <Button href="/experience" variant="secondary">
-                        Read experience
+                        {{ copy.experienceCta }}
                     </Button>
                     <Button href="/local" variant="ghost">
-                        Local context
+                        {{ copy.localCta }}
                     </Button>
                 </template>
             </SectionIntro>
 
             <div class="projects-page__tracks">
                 <Panel
-                    v-for="(track, index) in props.tracks"
+                    v-for="(track, index) in props.tracksSection.items"
                     :key="track.title"
                     class="projects-page__track"
                     tone="surface"
                 >
                     <LegendChip
-                        :label="`Track 0${index + 1}`"
+                        :label="`${copy.trackPrefix} 0${index + 1}`"
                         :tone="
                             index === 0
                                 ? 'dominant'
@@ -62,17 +101,17 @@ const props = defineProps<{
                 </Panel>
             </div>
 
-            <SectionDivider label="Selected case studies" />
+            <SectionDivider :label="props.caseStudiesSection.label" />
 
             <div class="projects-page__header">
                 <SectionIntro
-                    eyebrow="Case studies"
-                    title="A small set of public implementation slices."
-                    description="Each one documents a real decision path rather than a polished end-state alone."
+                    :eyebrow="props.caseStudiesSection.eyebrow"
+                    :title="props.caseStudiesSection.title"
+                    :description="props.caseStudiesSection.summary"
                 />
-                <Button href="/case-studies" variant="ghost"
-                    >View archive</Button
-                >
+                <Button href="/case-studies" variant="ghost">
+                    {{ props.caseStudiesSection.archive_cta }}
+                </Button>
             </div>
 
             <div class="projects-page__cases">
@@ -84,7 +123,7 @@ const props = defineProps<{
                 >
                     <Panel class="projects-page__case" tone="grid">
                         <LegendChip
-                            :label="item.client || 'Internal build'"
+                            :label="item.client || copy.internalBuildLabel"
                             tone="green"
                         />
                         <h3 class="type-h2 projects-page__case-title">

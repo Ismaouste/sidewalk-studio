@@ -68,6 +68,17 @@ export type SiteProps = {
     navigation: NavItem[];
     author: SiteAuthor;
     contact: SiteContact;
+    shell: {
+        localeSwitcherLabel: string;
+        navAriaLabel: string;
+        navMenuLabel: string;
+        navFallbackLabel: string;
+        navCurrentLabel: string;
+        navOpenLabel: string;
+        footerDividerLabel: string;
+        footerNote: string;
+        privacyControlsLabel: string;
+    };
     languageSwitcher: {
         visible: boolean;
         current: string;

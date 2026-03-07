@@ -35,9 +35,10 @@ class HandleInertiaRequests extends Middleware
                 'description' => $settings->siteIdentity->description,
                 'locale' => app()->getLocale(),
                 'url' => config('site.url'),
-                'navigation' => config('site.navigation'),
+                'navigation' => PublicLocale::navigation(app()->getLocale()),
                 'author' => config('site.author'),
                 'contact' => $settings->contactDetails->toArray(),
+                'shell' => PublicLocale::shellCopy(app()->getLocale()),
                 'languageSwitcher' => PublicLocale::switcher(
                     $request,
                     app()->getLocale(),

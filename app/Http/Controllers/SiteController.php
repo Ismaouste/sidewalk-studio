@@ -98,9 +98,10 @@ class SiteController extends Controller
 
     public function projects(): Response
     {
+        $page = $this->pages->get('projects');
         $seo = Seo::page(
-            'Projects',
-            'Selected case studies and system-building tracks that shape the first public release of Sidewalk Studio.',
+            $page['seo_title'],
+            $page['seo_description'],
             '/projects',
             [
                 'breadcrumb' => [
@@ -112,21 +113,10 @@ class SiteController extends Controller
 
         return Inertia::render('Projects', [
             'seo' => $seo,
+            'hero' => $page['hero'],
+            'tracksSection' => $page['tracks_section'],
             'caseStudies' => $this->content->published('case-studies')->values(),
-            'tracks' => [
-                [
-                    'title' => 'Repository Foundation',
-                    'summary' => 'Bootstrap a repo that can host public specs, docs, and reusable skills without collapsing into a demo-only scaffold.',
-                ],
-                [
-                    'title' => 'Content System',
-                    'summary' => 'Use versioned Markdown to publish case studies and writing with explicit metadata and stable routing.',
-                ],
-                [
-                    'title' => 'Consent + SEO',
-                    'summary' => 'Prove that privacy and discoverability can coexist in a calm, maintainable front-end architecture.',
-                ],
-            ],
+            'caseStudiesSection' => $page['case_studies_section'],
         ])->withViewData(['seo' => $seo]);
     }
 
@@ -159,9 +149,10 @@ class SiteController extends Controller
     public function contact(): Response
     {
         $settings = $this->siteSettings->current();
+        $page = $this->pages->get('contact');
         $seo = Seo::page(
-            'Contact',
-            'Preferred collaboration channels for privacy, SEO, and Laravel modernization work.',
+            $page['seo_title'],
+            $page['seo_description'],
             '/contact',
             [
                 'breadcrumb' => [
@@ -174,12 +165,12 @@ class SiteController extends Controller
         return Inertia::render('Contact', [
             'seo' => $seo,
             'contact' => $settings->contactDetails->toArray(),
+            'hero' => $page['hero'],
+            'form' => $page['form'],
+            'details' => $page['details'],
             'cvDownloads' => $this->cvDownloads(),
-            'services' => [
-                'Platform stabilization and legacy recovery.',
-                'Consent-safe analytics and embed architecture.',
-                'SEO and content-model foundations for editorial sites.',
-            ],
+            'services' => $page['services'],
+            'recruiterShortcut' => $page['recruiter_shortcut'],
         ])->withViewData(['seo' => $seo]);
     }
 
@@ -206,13 +197,15 @@ class SiteController extends Controller
      */
     protected function cvDownloads(): array
     {
+        $isFrench = app()->getLocale() === 'fr';
+
         return [
             [
-                'label' => 'Download CV (EN)',
+                'label' => $isFrench ? 'CV anglais' : 'Download CV (EN)',
                 'href' => route('career.cv.download', 'en'),
             ],
             [
-                'label' => 'Download CV (FR)',
+                'label' => $isFrench ? 'CV francais' : 'Download CV (FR)',
                 'href' => route('career.cv.download', 'fr'),
             ],
         ];

@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { usePage } from '@inertiajs/vue3';
+import type { SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
+
 function openPreferences() {
     window.SidewalkConsent?.showPreferences();
 }
@@ -10,7 +15,7 @@ function openPreferences() {
         class="consent-preferences-button"
         @click="openPreferences"
     >
-        Privacy controls
+        {{ page.props.site.shell.privacyControlsLabel }}
     </button>
 </template>
 
