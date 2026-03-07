@@ -1,6 +1,6 @@
-import { chromium } from "playwright";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { chromium } from "playwright";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const jobs = [
