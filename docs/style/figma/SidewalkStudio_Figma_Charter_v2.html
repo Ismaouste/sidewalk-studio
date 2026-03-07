@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidewalk Studio — Design System Charter</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#141210; --stone:#F4F1EA; --mid:#8A8070; --border:#D8D0C2;
+    --amber:#C97D0A; --green:#1A6B4A; --blue:#1E4B8F;
+    --mono:'DM Mono',monospace;
+  }
+  body{font-family:'DM Sans',sans-serif;background:#F4F1EA;color:#141210;font-size:14px;line-height:1.6}
+
+  /* ── LAYOUT ── */
+  .page{max-width:1120px;margin:0 auto;padding:0 48px 120px}
+  .cover{background:linear-gradient(160deg,#B4CBE4 0%,#D0E4F2 50%,#E8F1F8 100%);padding:80px 48px 60px;position:relative;overflow:hidden;margin-bottom:0}
+  .cover-sun{position:absolute;top:-48px;left:-48px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 38% 38%,#FBBF24EE,#C97D0A88 45%,#E09A2018 70%,transparent 85%);box-shadow:0 0 100px rgba(201,125,10,.28)}
+  .cover-inner{position:relative;z-index:1;max-width:1120px;margin:0 auto}
+  .cover-label{font-family:'Syne',sans-serif;font-weight:700;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(20,18,16,.42);margin-bottom:10px}
+  .cover-title{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:56px;color:#141210;line-height:1;margin-bottom:16px}
+  .cover-sub{font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(20,18,16,.56);margin-bottom:40px}
+  .cover-meta{display:flex;gap:40px}
+  .cover-meta span{font-family:'Syne',sans-serif;font-weight:700;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,18,16,.35)}
+
+  /* ── TOC ── */
+  .toc{background:#141210;padding:40px 48px;margin-bottom:0}
+  .toc-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:0 60px}
+  .toc-section{margin-bottom:4px}
+  .toc-num{font-family:'DM Mono',monospace;font-size:10px;color:#C97D0A;margin-right:8px}
+  .toc-item{font-family:'Syne',sans-serif;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,234,.55);padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);display:block}
+  .toc-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#C97D0A;margin-bottom:16px}
+
+  /* ── SECTIONS ── */
+  .section{padding:60px 0 0;border-top:2px solid #141210;margin-top:60px}
+  .section:first-of-type{border-top:none;margin-top:0;padding-top:60px}
+  .section-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--amber);display:block;margin-bottom:8px}
+  .section-title{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:38px;color:#141210;line-height:1.05;margin-bottom:10px}
+  .section-desc{font-family:'DM Sans',sans-serif;font-size:14px;color:#5A5248;max-width:640px;line-height:1.7;margin-bottom:40px}
+
+  /* ── SUBSECTIONS ── */
+  .sub{margin-bottom:36px}
+  .sub-title{font-family:'Syne',sans-serif;font-weight:700;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#8A8070;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #D8D0C2}
+
+  /* ── GRIDS ── */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}
+
+  /* ── CARD / PANEL ── */
+  .panel{background:#FAFAF6;border:1px solid #D8D0C2;border-radius:8px;padding:22px}
+  .panel-dark{background:#141210;border:1px solid #2A2820;border-radius:8px;padding:22px}
+  .panel-tinted{background:#EAE6DC;border:1px solid #D8D0C2;border-radius:8px;padding:22px}
+
+  /* ── COLOR SWATCHES ── */
+  .swatch-row{display:flex;gap:0;border:1px solid #D8D0C2;border-radius:8px;overflow:hidden;margin-bottom:8px}
+  .swatch{flex:1;padding:14px 12px;border-right:1px solid #D8D0C2}
+  .swatch:last-child{border-right:none}
+  .swatch-dot{width:32px;height:32px;border-radius:50%;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  .swatch-name{font-family:'Syne',sans-serif;font-weight:700;font-size:10px;color:#141210;margin-bottom:2px}
+  .swatch-hex{font-family:'DM Mono',monospace;font-size:10px;color:#8A8070;margin-bottom:2px}
+  .swatch-token{font-family:'DM Mono',monospace;font-size:9px;color:#B4A890}
+  .swatch-role{font-family:'DM Sans',sans-serif;font-size:11px;color:#5A5248;margin-top:4px}
+
+  /* ── TABLES ── */
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{font-family:'Syne',sans-serif;font-weight:700;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#8A8070;padding:8px 12px;text-align:left;background:#EAE6DC;border-bottom:1px solid #D8D0C2}
+  td{padding:8px 12px;border-bottom:1px solid #D8D0C2;color:#5A5248;vertical-align:top}
+  td:first-child{font-family:'DM Mono',monospace;font-size:11px;color:#C97D0A}
+  tr:last-child td{border-bottom:none}
+  tr:nth-child(even) td{background:rgba(234,230,220,.3)}
+
+  /* ── TYPE SPECIMENS ── */
+  .type-row{display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:center;padding:14px 0;border-bottom:1px solid #D8D0C2}
+  .type-row:last-child{border-bottom:none}
+  .type-meta{font-family:'DM Mono',monospace;font-size:10px;color:#B4A890;line-height:1.7}
+  .type-meta strong{color:#8A8070;font-family:'Syne',sans-serif;font-weight:700;font-size:10px;font-style:normal;display:block;margin-bottom:2px}
+
+  /* ── COMPONENT SPECS ── */
+  .comp{background:#FAFAF6;border:1px solid #D8D0C2;border-radius:8px;padding:22px;margin-bottom:16px}
+  .comp-name{font-family:'Syne',sans-serif;font-weight:700;font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:#141210;margin-bottom:4px}
+  .comp-desc{font-family:'DM Sans',sans-serif;font-size:13px;color:#5A5248;line-height:1.6;margin-bottom:12px}
+  .comp-props{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #D8D0C2;border-radius:6px;overflow:hidden;font-size:11px}
+  .comp-prop{padding:7px 12px;border-bottom:1px solid #D8D0C2;display:flex;gap:10px}
+  .comp-prop:nth-child(even){background:#F4F1EA}
+  .comp-prop-k{font-family:'Syne',sans-serif;font-weight:700;font-size:9px;letter-spacing:.10em;text-transform:uppercase;color:#8A8070;width:90px;flex-shrink:0}
+  .comp-prop-v{font-family:'DM Mono',monospace;font-size:10px;color:#5A5248}
+
+  /* ── PAGE TEMPLATE CARDS ── */
+  .page-card{background:#141210;border-radius:10px;padding:24px;color:#F4F1EA}
+  .page-card-label{font-family:'Syne',sans-serif;font-weight:700;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#C97D0A;margin-bottom:8px}
+  .page-card-name{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:22px;color:#F4F1EA;margin-bottom:12px}
+  .page-card-sections{font-family:'DM Mono',monospace;font-size:10px;color:rgba(244,241,234,.45);line-height:1.9}
+
+  /* ── FIGMA BLOCK ── */
+  .figma-page{display:flex;align-items:flex-start;gap:16px;padding:12px 0;border-bottom:1px solid #D8D0C2}
+  .figma-icon{width:28px;height:28px;border-radius:4px;background:#141210;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:2px}
+  .figma-page-name{font-family:'Syne',sans-serif;font-weight:700;font-size:11px;color:#141210;margin-bottom:3px}
+  .figma-page-desc{font-family:'DM Sans',sans-serif;font-size:12px;color:#8A8070;line-height:1.5}
+
+  /* ── LABELS / CHIPS ── */
+  .chip{display:inline-flex;align-items:center;font-family:'Syne',sans-serif;font-weight:700;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #D8D0C2;border-left:3px solid;color:#5A5248;background:#EAE6DC;margin:3px}
+  .note{background:#EAE6DC;border-left:3px solid #C97D0A;padding:12px 16px;border-radius:0 6px 6px 0;font-size:12px;color:#5A5248;line-height:1.6;margin:14px 0}
+  .note strong{color:#141210;font-weight:500}
+  .divider-label{display:flex;align-items:center;gap:12px;margin:32px 0}
+  .divider-label::before,.divider-label::after{content:'';flex:1;height:1px;background:#D8D0C2}
+  .divider-label span{font-family:'Syne',sans-serif;font-weight:700;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#B4A890}
+
+  /* ── HOMEPAGE WIREFRAME ── */
+  .wf-section{border:1px solid #D8D0C2;border-radius:6px;margin-bottom:6px;overflow:hidden}
+  .wf-header{background:#141210;padding:8px 14px;display:flex;justify-content:space-between;align-items:center}
+  .wf-num{font-family:'DM Mono',monospace;font-size:9px;color:#C97D0A}
+  .wf-name{font-family:'Syne',sans-serif;font-weight:700;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,234,.7)}
+  .wf-density{font-family:'Syne',sans-serif;font-weight:700;font-size:8px;letter-spacing:.12em;text-transform:uppercase}
+  .wf-body{padding:12px 14px;background:#FAFAF6}
+  .wf-desc{font-family:'DM Sans',sans-serif;font-size:12px;color:#5A5248;line-height:1.5}
+  .wf-spec{font-family:'DM Mono',monospace;font-size:10px;color:#B4A890;margin-top:4px}
+
+  /* ── SUNSET DEMO PANEL ── */
+  .sunset-panel{background:linear-gradient(135deg,#0D0F1C,#141728);border:1px solid #252840;border-radius:8px;padding:22px}
+
+  @media print{
+    body{background:#fff}
+    .cover,.toc{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ══════════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-sun"></div>
+  <div class="cover-inner">
+    <p class="cover-label">Design System Charter · Figma-Ready · v2.0 · March 2026</p>
+    <h1 class="cover-title">Sidewalk Studio</h1>
+    <p class="cover-sub">Morning Grid · Sunset Signal — One visual system, two atmospheric states.<br>Urban, editorial, luminous, precise.</p>
+    <div class="cover-meta">
+      <span>Author — Ismael Rodmacq</span>
+      <span>Stack — Laravel 12 · Inertia · Vue 3 · Tailwind v4</span>
+      <span>Base — Nancy, Grand Est</span>
+      <span>Status — Figma v1 ready</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOC ══════════════════════════════════════════════════════════════════ -->
+<div class="toc">
+  <div class="toc-inner">
+    <div>
+      <p class="toc-title">Contents</p>
+      <a class="toc-item"><span class="toc-num">01</span>Color Tokens</a>
+      <a class="toc-item"><span class="toc-num">02</span>Typography Styles</a>
+      <a class="toc-item"><span class="toc-num">03</span>Spacing System</a>
+      <a class="toc-item"><span class="toc-num">04</span>Radius &amp; Border Rules</a>
+      <a class="toc-item"><span class="toc-num">05</span>Signature Components (11)</a>
+    </div>
+    <div>
+      <p class="toc-title">&nbsp;</p>
+      <a class="toc-item"><span class="toc-num">06</span>Homepage Structure</a>
+      <a class="toc-item"><span class="toc-num">07</span>Page Template Family (8)</a>
+      <a class="toc-item"><span class="toc-num">08</span>Figma File Structure</a>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ═══ 01 — COLOR TOKENS ══════════════════════════════════════════════════ -->
+<div class="section">
+  <span class="section-num">01</span>
+  <h2 class="section-title">Color Tokens</h2>
+  <p class="section-desc">Two atmospheric states built from one coherent token architecture. Shared structural tokens hold constants; theme-specific tokens override surfaces, text, accents. The dominant accent (blue / violet) provides UI structure; the sun accent (amber / orange) provides CTA and warmth; green is a persistent identity accent in both themes.</p>
+
+  <!-- ── SHARED ── -->
+  <div class="sub">
+    <p class="sub-title">Shared — Constant Across Both Themes</p>
+    <table>
+      <tr><th>Token</th><th>Value</th><th>Role</th><th>Usage</th></tr>
+      <tr><td>--sw-color-green-600</td><td>#1A6B4A</td><td>Forest Green</td><td>Persistent identity accent — mobility, links, success states (morning)</td></tr>
+      <tr><td>--sw-color-green-400</td><td>#2DD4A0</td><td>Neon Mint</td><td>Persistent identity accent — mobility, links, success states (sunset)</td></tr>
+      <tr><td>--sw-color-amber-morning</td><td>#C97D0A</td><td>Amber Morning</td><td>Sun component, CTA hover, warm detail (morning)</td></tr>
+      <tr><td>--sw-color-amber-sunset</td><td>#F0700A</td><td>Orange Sunset</td><td>Sun component, CTA hover, warm detail (sunset)</td></tr>
+      <tr><td>--sw-radius-sm</td><td>4px</td><td>—</td><td>Chip, badge, tag</td></tr>
+      <tr><td>--sw-radius-md</td><td>8px</td><td>—</td><td>Card, input, panel</td></tr>
+      <tr><td>--sw-radius-lg</td><td>16px</td><td>—</td><td>Modal, large overlay</td></tr>
+      <tr><td>--sw-radius-xl</td><td>24px</td><td>—</td><td>Sun component only</td></tr>
+      <tr><td>--sw-font-display</td><td>'Fraunces', serif</td><td>—</td><td>Display moments only</td></tr>
+      <tr><td>--sw-font-heading</td><td>'Syne', sans-serif</td><td>—</td><td>Labels, nav, eyebrow only</td></tr>
+      <tr><td>--sw-font-body</td><td>'DM Sans', sans-serif</td><td>—</td><td>All body text and primary UI</td></tr>
+      <tr><td>--sw-font-code</td><td>'DM Mono', monospace</td><td>—</td><td>Code only</td></tr>
+    </table>
+  </div>
+
+  <!-- ── MORNING ── -->
+  <div class="sub">
+    <p class="sub-title">Morning Grid — Surface Tokens</p>
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#F4F1EA;border:1px solid #D8D0C2"></div>
+        <p class="swatch-name">Stone Warm</p>
+        <p class="swatch-hex">#F4F1EA</p>
+        <p class="swatch-token">--sw-bg-base</p>
+        <p class="swatch-role">Global background</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#FAFAF6;border:1px solid #D8D0C2"></div>
+        <p class="swatch-name">Paper White</p>
+        <p class="swatch-hex">#FAFAF6</p>
+        <p class="swatch-token">--sw-bg-surface</p>
+        <p class="swatch-role">Cards, panels, raised surfaces</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#EAE6DC"></div>
+        <p class="swatch-name">Grid Sand</p>
+        <p class="swatch-hex">#EAE6DC</p>
+        <p class="swatch-token">--sw-bg-grid</p>
+        <p class="swatch-role">Alternating rows, subtle grid</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#FFFFFF;border:1px solid #D8D0C2"></div>
+        <p class="swatch-name">True White</p>
+        <p class="swatch-hex">#FFFFFF</p>
+        <p class="swatch-token">--sw-bg-elevated</p>
+        <p class="swatch-role">Top-elevation panels, tooltips</p>
+      </div>
+    </div>
+    <p class="sub-title" style="margin-top:24px">Morning Grid — Text Tokens</p>
+    <table>
+      <tr><th>Token</th><th>Value</th><th>Role</th><th>Min contrast</th></tr>
+      <tr><td>--sw-text-primary</td><td>#141210</td><td>Ink Black — primary body text</td><td>AAA on --sw-bg-base</td></tr>
+      <tr><td>--sw-text-secondary</td><td>#4A4138</td><td>Warm Slate — secondary text, captions</td><td>AA on --sw-bg-base</td></tr>
+      <tr><td>--sw-text-muted</td><td>#8A8070</td><td>Stone Muted — dates, hints, disabled</td><td>AA large on --sw-bg-surface</td></tr>
+      <tr><td>--sw-text-inverse</td><td>#F4F1EA</td><td>Reversed — on dark backgrounds</td><td>AAA on --sw-text-primary</td></tr>
+    </table>
+    <p class="sub-title" style="margin-top:24px">Morning Grid — Accent Tokens</p>
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#1E4B8F"></div>
+        <p class="swatch-name">Blue Structural</p>
+        <p class="swatch-hex">#1E4B8F</p>
+        <p class="swatch-token">--sw-accent-dominant</p>
+        <p class="swatch-role">UI structure, active links, buttons</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#1A6B4A"></div>
+        <p class="swatch-name">Forest Green</p>
+        <p class="swatch-hex">#1A6B4A</p>
+        <p class="swatch-token">--sw-accent-green</p>
+        <p class="swatch-role">Identity accent, mobility, success</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#C97D0A"></div>
+        <p class="swatch-name">Amber Sun</p>
+        <p class="swatch-hex">#C97D0A</p>
+        <p class="swatch-token">--sw-accent-sun</p>
+        <p class="swatch-role">Sun component, CTA, hover state</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#B83528"></div>
+        <p class="swatch-name">Civic Red</p>
+        <p class="swatch-hex">#B83528</p>
+        <p class="swatch-token">--sw-accent-coral</p>
+        <p class="swatch-role">Culture, alert, error</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#5B21B6"></div>
+        <p class="swatch-name">Deep Violet</p>
+        <p class="swatch-hex">#5B21B6</p>
+        <p class="swatch-token">--sw-accent-violet</p>
+        <p class="swatch-role">Labs, secondary accent</p>
+      </div>
+    </div>
+    <p class="sub-title" style="margin-top:24px">Morning Grid — Structure Tokens</p>
+    <table>
+      <tr><th>Token</th><th>Value</th><th>Role</th></tr>
+      <tr><td>--sw-border</td><td>#D8D0C2</td><td>All borders, separators, card outlines</td></tr>
+      <tr><td>--sw-border-focus</td><td>#C97D0A</td><td>Focus ring color</td></tr>
+      <tr><td>--sw-grid-line</td><td>rgba(30,75,143,.07)</td><td>Background grid overlay (AmbientGrid component)</td></tr>
+      <tr><td>--sw-shadow-sm</td><td>0 1px 4px rgba(20,18,16,.06)</td><td>Card subtle lift</td></tr>
+      <tr><td>--sw-shadow-md</td><td>0 4px 16px rgba(20,18,16,.09)</td><td>Elevated panel, dropdown</td></tr>
+      <tr><td>--sw-header-bg</td><td>linear-gradient(160deg,#B4CBE4 0%,#D0E4F2 55%,#EBF3FB 100%)</td><td>Header gradient — sky morning</td></tr>
+      <tr><td>--sw-sun-gradient</td><td>radial-gradient(circle at 38% 38%, #FBBF24EE, #C97D0A88 45%, transparent 85%)</td><td>Sun component fill</td></tr>
+      <tr><td>--sw-sun-glow</td><td>rgba(201,125,10,.28)</td><td>Sun component box-shadow</td></tr>
+      <tr><td>--sw-sun-position</td><td>top-left (−48px, −48px)</td><td>SunAnchor placement</td></tr>
+    </table>
+  </div>
+
+  <!-- ── SUNSET ── -->
+  <div class="sub">
+    <p class="sub-title">Sunset Signal — Surface Tokens</p>
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#0D0F1C"></div>
+        <p class="swatch-name">Night Ink</p>
+        <p class="swatch-hex">#0D0F1C</p>
+        <p class="swatch-token">--sw-bg-base</p>
+        <p class="swatch-role">Global background</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#141728;border:1px solid #252840"></div>
+        <p class="swatch-name">Slate Night</p>
+        <p class="swatch-hex">#141728</p>
+        <p class="swatch-token">--sw-bg-surface</p>
+        <p class="swatch-role">Cards, panels, raised surfaces</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#1A1D32;border:1px solid #252840"></div>
+        <p class="swatch-name">Night Grid</p>
+        <p class="swatch-hex">#1A1D32</p>
+        <p class="swatch-token">--sw-bg-grid</p>
+        <p class="swatch-role">Alternating rows</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#20243C;border:1px solid #252840"></div>
+        <p class="swatch-name">Elevated Night</p>
+        <p class="swatch-hex">#20243C</p>
+        <p class="swatch-token">--sw-bg-elevated</p>
+        <p class="swatch-role">Tooltips, modals</p>
+      </div>
+    </div>
+    <p class="sub-title" style="margin-top:24px">Sunset Signal — Text Tokens</p>
+    <table>
+      <tr><th>Token</th><th>Value</th><th>Role</th></tr>
+      <tr><td>--sw-text-primary</td><td>#E8E2F2</td><td>Lavender White — primary body text</td></tr>
+      <tr><td>--sw-text-secondary</td><td>#867EA0</td><td>Muted Purple — secondary text, captions</td></tr>
+      <tr><td>--sw-text-muted</td><td>#443E5A</td><td>Dark Muted — dates, hints, disabled</td></tr>
+      <tr><td>--sw-text-inverse</td><td>#0D0F1C</td><td>Reversed — on light accent backgrounds</td></tr>
+    </table>
+    <p class="sub-title" style="margin-top:24px">Sunset Signal — Accent Tokens</p>
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#7C5CE8"></div>
+        <p class="swatch-name">Violet Signal</p>
+        <p class="swatch-hex">#7C5CE8</p>
+        <p class="swatch-token">--sw-accent-dominant</p>
+        <p class="swatch-role">UI structure, active links, editorial</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#2DD4A0"></div>
+        <p class="swatch-name">Neon Mint</p>
+        <p class="swatch-hex">#2DD4A0</p>
+        <p class="swatch-token">--sw-accent-green</p>
+        <p class="swatch-role">Identity accent, mobility, success</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#F0700A"></div>
+        <p class="swatch-name">Sunset Orange</p>
+        <p class="swatch-hex">#F0700A</p>
+        <p class="swatch-token">--sw-accent-sun</p>
+        <p class="swatch-role">Sun component, CTA, hover state</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#D95880"></div>
+        <p class="swatch-name">Dusk Rose</p>
+        <p class="swatch-hex">#D95880</p>
+        <p class="swatch-token">--sw-accent-coral</p>
+        <p class="swatch-role">Culture, alert — editorial, not neon</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#5290E8"></div>
+        <p class="swatch-name">Sky Night</p>
+        <p class="swatch-hex">#5290E8</p>
+        <p class="swatch-token">--sw-accent-blue</p>
+        <p class="swatch-role">Plans, info, secondary accent</p>
+      </div>
+    </div>
+    <p class="sub-title" style="margin-top:24px">Sunset Signal — Structure Tokens</p>
+    <table>
+      <tr><th>Token</th><th>Value</th><th>Role</th></tr>
+      <tr><td>--sw-border</td><td>#252840</td><td>All borders, separators</td></tr>
+      <tr><td>--sw-border-focus</td><td>#F0700A</td><td>Focus ring color</td></tr>
+      <tr><td>--sw-grid-line</td><td>rgba(124,92,232,.08)</td><td>Background grid overlay</td></tr>
+      <tr><td>--sw-shadow-sm</td><td>0 1px 4px rgba(0,0,0,.25)</td><td>Card subtle lift</td></tr>
+      <tr><td>--sw-shadow-md</td><td>0 4px 20px rgba(0,0,0,.35)</td><td>Elevated panel</td></tr>
+      <tr><td>--sw-header-bg</td><td>linear-gradient(160deg,#1A0F3C 0%,#1E1640 45%,#0C0E1A 100%)</td><td>Header gradient — violet night</td></tr>
+      <tr><td>--sw-sun-gradient</td><td>radial-gradient(circle at 62% 62%, #F0700AEE, #7C5CE888 45%, transparent 85%)</td><td>Sun component fill</td></tr>
+      <tr><td>--sw-sun-glow</td><td>rgba(240,112,10,.25)</td><td>Sun component box-shadow</td></tr>
+      <tr><td>--sw-sun-position</td><td>bottom-right (−48px, −48px)</td><td>SunAnchor placement</td></tr>
+    </table>
+  </div>
+
+  <div class="note"><strong>Figma variables setup:</strong> Create two Variable Collections — <code>Tokens/Shared</code> (no modes) and <code>Tokens/Theme</code> (2 modes: Morning Grid / Sunset Signal). Map every --sw-* token to a variable. Use Figma variable aliases so component fills reference Tokens/Theme variables, enabling instant theme swap.</div>
+</div>
+
+<!-- ═══ 02 — TYPOGRAPHY ════════════════════════════════════════════════════ -->
+<div class="section">
+  <span class="section-num">02</span>
+  <h2 class="section-title">Typography Styles</h2>
+  <p class="section-desc">Three families. Strict territorial assignment. No typographic noise: Fraunces only when a moment calls for editorial weight. Syne only for labeling and navigation. DM Sans everywhere else. DM Mono for code only.</p>
+
+  <div class="sub">
+    <p class="sub-title">Family Assignment — Non-Negotiable</p>
+    <table>
+      <tr><th>Family</th><th>Territory</th><th>Forbidden in</th><th>Google Fonts</th></tr>
+      <tr><td>Fraunces (italic, 300)</td><td>Display, hero H1, pull quotes, section hero titles</td><td>Body text, UI labels, nav, code</td><td>Variable · opsz + wght axes</td></tr>
+      <tr><td>Syne (700, 800)</td><td>Eyebrow labels, nav items, table headers, chips, badges</td><td>Body text, long-form paragraphs, code</td><td>Variable · wght axis</td></tr>
+      <tr><td>DM Sans (300–500)</td><td>All body text, UI labels, buttons, captions, metadata, descriptions</td><td>Display moments, code blocks</td><td>Variable · wght axis</td></tr>
+      <tr><td>DM Mono (400)</td><td>Code blocks, CLI snippets, token values, version numbers</td><td>Everything else</td><td>Static · 400 only needed</td></tr>
+    </table>
+  </div>
+
+  <div class="sub">
+    <p class="sub-title">Complete Type Scale — Figma Text Styles</p>
+    <div class="panel">
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">display/xl</strong>
+          <p class="type-meta">Fraunces · italic · 300<br>72–88px · −0.02em track<br>Line-height 100% · opsz 72</p>
+        </div>
+        <p style="font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:52px;color:#141210;line-height:1;letter-spacing:-0.02em">Sidewalk Studio</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">display/l</strong>
+          <p class="type-meta">Fraunces · italic · 300<br>48–56px · −0.01em track<br>Line-height 105%</p>
+        </div>
+        <p style="font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:40px;color:#141210;line-height:1.05;letter-spacing:-0.01em">Engineering & Urbanism</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">heading/h1</strong>
+          <p class="type-meta">DM Sans · 600<br>32–40px · −0.01em track<br>Line-height 115%</p>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-weight:600;font-size:32px;color:#141210;line-height:1.15;letter-spacing:-0.01em">Projects & Case Studies</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">heading/h2</strong>
+          <p class="type-meta">DM Sans · 600<br>24–28px · 0em track<br>Line-height 122%</p>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-weight:600;font-size:24px;color:#141210;line-height:1.22">Architecture & Decisions</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">heading/h3</strong>
+          <p class="type-meta">DM Sans · 500<br>18–20px · 0.005em track<br>Line-height 130%</p>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:18px;color:#141210;line-height:1.3">Consent Orchestration Layer</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">body/large</strong>
+          <p class="type-meta">DM Sans · 400<br>18px · 0em track<br>Line-height 165%</p>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:16px;color:#4A4138;line-height:1.65">Calm engineering for e-commerce, privacy, and durable products built to last.</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">body/default</strong>
+          <p class="type-meta">DM Sans · 400<br>16px · 0em track<br>Line-height 158%</p>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:15px;color:#4A4138;line-height:1.58">A full-stack engineer specialised in complex environments, legacy modernisation, SEO architecture, and privacy-aware systems.</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">body/small</strong>
+          <p class="type-meta">DM Sans · 400<br>14px · 0em track<br>Line-height 150%</p>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:13px;color:#8A8070;line-height:1.5">All routing logic is handled server-side and hydrated via Inertia. No client router.</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">label/eyebrow</strong>
+          <p class="type-meta">Syne · 700<br>10px · 0.22em track<br>Uppercase · Line-height 130%</p>
+        </div>
+        <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#C97D0A">Spec Kit · 009 Admin Settings</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">label/nav</strong>
+          <p class="type-meta">Syne · 700<br>9–10px · 0.14em track<br>Uppercase · Line-height 130%</p>
+        </div>
+        <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#141210">Projects · Writing · Local · Contact</p>
+      </div>
+      <div class="type-row">
+        <div>
+          <strong class="type-meta">label/meta</strong>
+          <p class="type-meta">DM Sans · 400<br>12px · 0.01em track<br>Line-height 140%</p>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:12px;letter-spacing:0.01em;color:#8A8070">Last updated March 2026 · Nancy, Grand Est · 4 min read</p>
+      </div>
+      <div class="type-row" style="border-bottom:none">
+        <div>
+          <strong class="type-meta">code/inline</strong>
+          <p class="type-meta">DM Mono · 400<br>13px · 0em track<br>Line-height 145%</p>
+        </div>
+        <p style="font-family:'DM Mono',monospace;font-weight:400;font-size:13px;color:#5A5248;background:#EAE6DC;padding:2px 8px;border-radius:4px;display:inline">php artisan site-settings:seed --force</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note"><strong>Figma setup:</strong> 11 named Text Styles in the Styles panel. Naming convention: <code>display/xl</code>, <code>display/l</code>, <code>heading/h1</code>, <code>heading/h2</code>, <code>heading/h3</code>, <code>body/large</code>, <code>body/default</code>, <code>body/small</code>, <code>label/eyebrow</code>, <code>label/nav</code>, <code>label/meta</code>, <code>code/inline</code>. Do not create intermediate weights or variant styles beyond this list.</div>
+</div>
+
+<!-- ═══ 03 — SPACING ═══════════════════════════════════════════════════════ -->
+<div class="section">
+  <span class="section-num">03</span>
+  <h2 class="section-title">Spacing System</h2>
+  <p class="section-desc">Base unit: 8px. All spacing values are multiples of 8 except the 4px micro-unit. Desktop-first, mobile-scale applied to section rhythm and grid gutters.</p>
+
+  <div class="g2">
+    <div class="sub">
+      <p class="sub-title">Spacing Tokens</p>
+      <table>
+        <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+        <tr><td>--sw-space-4xs</td><td>4px</td><td>Dot separator, icon gap micro</td></tr>
+        <tr><td>--sw-space-3xs</td><td>8px</td><td>Icon + label gap, tight pair</td></tr>
+        <tr><td>--sw-space-2xs</td><td>12px</td><td>Chip/badge padding inline</td></tr>
+        <tr><td>--sw-space-xs</td><td>16px</td><td>Grid gap tight, intra-block</td></tr>
+        <tr><td>--sw-space-sm</td><td>24px</td><td>Card padding, component gap</td></tr>
+        <tr><td>--sw-space-md</td><td>40px</td><td>Column gap, section sub-blocks</td></tr>
+        <tr><td>--sw-space-lg</td><td>64px</td><td>Standard section padding-y</td></tr>
+        <tr><td>--sw-space-xl</td><td>96px</td><td>Major section separation</td></tr>
+        <tr><td>--sw-space-2xl</td><td>128px</td><td>Hero zone padding, intro</td></tr>
+        <tr><td>--sw-space-3xl</td><td>192px</td><td>Full-bleed atmospheric sections</td></tr>
+      </table>
+    </div>
+    <div class="sub">
+      <p class="sub-title">Section Vertical Rhythm</p>
+      <table>
+        <tr><th>Section Type</th><th>Desktop py</th><th>Mobile py</th></tr>
+        <tr><td>Hero / Cover</td><td>128px (2xl)</td><td>80px</td></tr>
+        <tr><td>Standard section</td><td>96px (xl)</td><td>64px</td></tr>
+        <tr><td>Dense section</td><td>64px (lg)</td><td>48px</td></tr>
+        <tr><td>Footer</td><td>64px (lg)</td><td>48px</td></tr>
+        <tr><td>Card internal</td><td>24px (sm)</td><td>20px</td></tr>
+        <tr><td>Panel internal</td><td>22–28px</td><td>16–20px</td></tr>
+        <tr><td>Nav internal</td><td>10px 16px</td><td>10px 14px</td></tr>
+      </table>
+      <p class="sub-title" style="margin-top:24px">Grid Configuration</p>
+      <table>
+        <tr><th>Property</th><th>Desktop</th><th>Mobile</th></tr>
+        <tr><td>Columns</td><td>12</td><td>4</td></tr>
+        <tr><td>Max-width</td><td>1200px</td><td>—</td></tr>
+        <tr><td>Page padding</td><td>48px</td><td>20px</td></tr>
+        <tr><td>Column gap</td><td>24px</td><td>16px</td></tr>
+        <tr><td>Breakpoint tablet</td><td>640px</td><td>2 cols · 20px gap</td></tr>
+        <tr><td>Breakpoint desktop</td><td>1024px</td><td>full grid</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 04 — RADIUS & BORDERS ═════════════════════════════════════════════ -->
+<div class="section">
+  <span class="section-num">04</span>
+  <h2 class="section-title">Radius &amp; Border Rules</h2>
+  <p class="section-desc">Subtle, discreet rounding. The system reads as structured and civic, not soft or consumer-app. radius-sm for micro-elements, radius-md for cards and inputs, radius-lg only for large overlays. No blob UI.</p>
+
+  <div class="g2">
+    <div class="sub">
+      <p class="sub-title">Radius Scale</p>
+      <table>
+        <tr><th>Token</th><th>Value</th><th>Applied to</th></tr>
+        <tr><td>--sw-radius-none</td><td>0px</td><td>Table rows, inline dividers, transit lines</td></tr>
+        <tr><td>--sw-radius-sm</td><td>4px</td><td>LegendChip, badge, tag, code block, small button</td></tr>
+        <tr><td>--sw-radius-md</td><td>8px</td><td>ProjectCard, WritingCard, Panel, Input, standard Button</td></tr>
+        <tr><td>--sw-radius-lg</td><td>16px</td><td>Modal overlay, large feature panel, MetricStrip ends</td></tr>
+        <tr><td>--sw-radius-xl</td><td>24px</td><td>SunAnchor component only — never reused elsewhere</td></tr>
+        <tr><td>--sw-radius-full</td><td>9999px</td><td>Avatar, dot indicator, circular toggle only</td></tr>
+      </table>
+    </div>
+    <div class="sub">
+      <p class="sub-title">Border Rules</p>
+      <table>
+        <tr><th>Context</th><th>Rule</th></tr>
+        <tr><td>Card default</td><td>1px solid --sw-border · radius-md</td></tr>
+        <tr><td>Card accent</td><td>1px solid --sw-border + bottom 2px solid --sw-accent-dominant</td></tr>
+        <tr><td>Panel elevated</td><td>1px solid --sw-border · radius-md · shadow-sm</td></tr>
+        <tr><td>Input default</td><td>1px solid --sw-border · radius-md</td></tr>
+        <tr><td>Input focus</td><td>2px solid --sw-border-focus (no outline offset)</td></tr>
+        <tr><td>LegendChip</td><td>1px solid --sw-border · border-left 3px solid [accent] · radius-sm</td></tr>
+        <tr><td>Section divider</td><td>1px solid --sw-border · no radius · width 100%</td></tr>
+        <tr><td>Table row</td><td>1px solid --sw-border bottom only · radius-none</td></tr>
+        <tr><td>Transit line</td><td>2px solid [accent-color] left · radius-none · left-padding 20px</td></tr>
+        <tr><td>Focus ring</td><td>2px solid --sw-border-focus · offset 2px · radius matches element</td></tr>
+      </table>
+      <div class="note"><strong>Forbidden:</strong> radius &gt; 16px on any card or panel. Full-radius on rectangular content blocks. Mixing radius values on the same component. Shadows on the sun component — glow only via box-shadow blur, no offset.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 05 — COMPONENTS ════════════════════════════════════════════════════ -->
+<div class="section">
+  <span class="section-num">05</span>
+  <h2 class="section-title">Signature Components</h2>
+  <p class="section-desc">Eleven named components. Each has a single responsibility. Naming is final — use these exact names in Figma, in Vue components, and in class/token references.</p>
+
+  <!-- SunAnchor -->
+  <div class="comp">
+    <p class="comp-name">SunAnchor</p>
+    <p class="comp-desc">Atmospheric signature component. A radial gradient circle that anchors the emotional temperature of the page. Lives in the header, positioned absolutely. Its position, size, and gradient respond to the active theme. Motion is a slow, looping drift — interrupted by a position transition on theme change.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Morning pos</span><span class="comp-prop-v">top: −48px · left: −48px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Sunset pos</span><span class="comp-prop-v">bottom: −48px · right: −48px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Size morning</span><span class="comp-prop-v">200×200px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Size sunset</span><span class="comp-prop-v">240×240px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Fill</span><span class="comp-prop-v">--sw-sun-gradient</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Shadow</span><span class="comp-prop-v">0 0 80px --sw-sun-glow</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Border-radius</span><span class="comp-prop-v">--sw-radius-xl (9999px)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Z-index</span><span class="comp-prop-v">0 (behind header content)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Position transition</span><span class="comp-prop-v">all 0.9s cubic-bezier(0.4,0,0.2,1)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Drift animation</span><span class="comp-prop-v">sunDrift 14s ease-in-out infinite</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Reduced motion</span><span class="comp-prop-v">keep visual · remove animation</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Pointer events</span><span class="comp-prop-v">none</span></div>
+    </div>
+  </div>
+
+  <!-- AmbientGrid -->
+  <div class="comp">
+    <p class="comp-name">AmbientGrid</p>
+    <p class="comp-desc">A full-bleed background grid overlay applied to the page layout shell. Provides the cartographic texture without interfering with content. Always decorative — never interactive.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Technique</span><span class="comp-prop-v">repeating-linear-gradient on ::before or wrapper div</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Morning fill</span><span class="comp-prop-v">--sw-grid-line (rgba(30,75,143,.07))</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Sunset fill</span><span class="comp-prop-v">--sw-grid-line (rgba(124,92,232,.08))</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Column count</span><span class="comp-prop-v">12 (matches layout grid)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Position</span><span class="comp-prop-v">absolute · inset 0 · z-index 0</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Pointer events</span><span class="comp-prop-v">none</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Visibility</span><span class="comp-prop-v">Subtle background texture only — must not compete with content</span></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="comp">
+    <p class="comp-name">Header</p>
+    <p class="comp-desc">Full-width site header. Contains SunAnchor (absolute), site wordmark, optional tagline, ThemeToggle (right), and NavTabs (bottom). Background is the theme header gradient — changes on theme switch with a 0.9s transition.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Background</span><span class="comp-prop-v">--sw-header-bg · transition 0.9s ease</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Overflow</span><span class="comp-prop-v">hidden (clips SunAnchor bleed)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Position</span><span class="comp-prop-v">relative</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Wordmark font</span><span class="comp-prop-v">display/xl · Fraunces italic 300</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Wordmark color</span><span class="comp-prop-v">--sw-text-primary · transition 0.7s</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Tagline font</span><span class="comp-prop-v">body/small · DM Sans · --sw-text-muted</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Top padding</span><span class="comp-prop-v">40px desktop · 24px mobile</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Bottom</span><span class="comp-prop-v">NavTabs flush at bottom edge</span></div>
+    </div>
+  </div>
+
+  <!-- ThemeToggle -->
+  <div class="comp">
+    <p class="comp-name">ThemeToggle</p>
+    <p class="comp-desc">Compact segmented control. Two states: Morning Grid / Sunset Signal. Positioned top-right of the header. Active pill uses header text color as background with inverted label. Respects system preference as default — user override persists in localStorage.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Container bg</span><span class="comp-prop-v">rgba(128,128,128,.12) · backdrop-filter blur(8px)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Container border</span><span class="comp-prop-v">1px solid --sw-header-border</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Active pill bg</span><span class="comp-prop-v">--sw-text-primary (header text)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Active label color</span><span class="comp-prop-v">--sw-text-inverse</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Inactive label</span><span class="comp-prop-v">--sw-tab-inactive (38–42% opacity)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Font</span><span class="comp-prop-v">label/nav · Syne · 9px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Padding pill</span><span class="comp-prop-v">8px 14px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Radius</span><span class="comp-prop-v">Container --sw-radius-md · Pill --sw-radius-sm</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Transition</span><span class="comp-prop-v">all 0.28s ease</span></div>
+    </div>
+  </div>
+
+  <!-- NavTabs -->
+  <div class="comp">
+    <p class="comp-name">NavTabs</p>
+    <p class="comp-desc">Horizontal scrollable tab strip at the bottom of the Header. Single active indicator: a 2px solid bottom border in --sw-accent-sun color. Labels in Syne uppercase. Sits on a 1px top border separator from the header content.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Font</span><span class="comp-prop-v">label/nav · Syne 700 · 9–10px · 0.14em track</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Active color</span><span class="comp-prop-v">--sw-tab-active (header text)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Active indicator</span><span class="comp-prop-v">2px bottom border · --sw-accent-sun</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Inactive color</span><span class="comp-prop-v">--sw-tab-inactive</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Padding per tab</span><span class="comp-prop-v">10px 16px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Top border</span><span class="comp-prop-v">1px solid --sw-header-border</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Overflow</span><span class="comp-prop-v">auto (horizontal scroll on mobile)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Transition</span><span class="comp-prop-v">color 0.28s ease · border-color 0.28s ease</span></div>
+    </div>
+  </div>
+
+  <!-- SectionIntro -->
+  <div class="comp">
+    <p class="comp-name">SectionIntro</p>
+    <p class="comp-desc">Standardised section opening block. Used to introduce every major page section. Contains: eyebrow label (optional), headline (Fraunces or DM Sans h1/h2), and a short descriptor paragraph. Max-width 640px on the text block.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Eyebrow</span><span class="comp-prop-v">label/eyebrow · Syne · --sw-accent-sun</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Headline hero</span><span class="comp-prop-v">display/xl or display/l · Fraunces italic</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Headline section</span><span class="comp-prop-v">heading/h1 · DM Sans 600</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Descriptor</span><span class="comp-prop-v">body/large · DM Sans 400 · --sw-text-secondary</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Text max-width</span><span class="comp-prop-v">640px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Bottom margin</span><span class="comp-prop-v">40px to next element</span></div>
+    </div>
+  </div>
+
+  <!-- ProjectCard -->
+  <div class="comp">
+    <p class="comp-name">ProjectCard</p>
+    <p class="comp-desc">Card for a project or case study. Contains: project number (monospace), category chip (LegendChip), title (DM Sans h3), short description, and a 2px bottom accent strip in the category color. Hover state: slight elevation shift via shadow-md.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Background</span><span class="comp-prop-v">--sw-bg-surface</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Border</span><span class="comp-prop-v">1px solid --sw-border · radius-md</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Padding</span><span class="comp-prop-v">24px (--sw-space-sm)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Number font</span><span class="comp-prop-v">code/inline · DM Mono · --sw-text-muted</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Number bg</span><span class="comp-prop-v">--sw-text-primary · color --sw-text-inverse · radius-sm · padding 2px 7px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Title font</span><span class="comp-prop-v">heading/h3 · DM Sans 500</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Description</span><span class="comp-prop-v">body/small · --sw-text-secondary</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Bottom strip</span><span class="comp-prop-v">2px · gradient --sw-accent-* to transparent · absolute bottom</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Hover</span><span class="comp-prop-v">shadow-md · transform translateY(−2px) · 0.2s ease</span></div>
+    </div>
+  </div>
+
+  <!-- WritingCard -->
+  <div class="comp">
+    <p class="comp-name">WritingCard</p>
+    <p class="comp-desc">Compact article teaser. Horizontal layout on desktop (meta left / title right), stacked on mobile. Contains: date, read-time, title (DM Sans h3), excerpt (2 lines max), and one LegendChip tag.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Layout desktop</span><span class="comp-prop-v">grid 120px + 1fr · gap 24px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Layout mobile</span><span class="comp-prop-v">stack · gap 8px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Date / readtime</span><span class="comp-prop-v">label/meta · DM Sans · --sw-text-muted</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Title</span><span class="comp-prop-v">heading/h3 · DM Sans 500 · --sw-text-primary</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Excerpt</span><span class="comp-prop-v">body/small · --sw-text-secondary · 2-line clamp</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Border</span><span class="comp-prop-v">1px bottom only · --sw-border · no card rounding</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Padding</span><span class="comp-prop-v">16px 0</span></div>
+    </div>
+  </div>
+
+  <!-- LocalBlock -->
+  <div class="comp">
+    <p class="comp-name">LocalBlock</p>
+    <p class="comp-desc">Civic/local section. Not a sidebar — an integrated content section with its own identity. Uses TransitLine sub-component for listing local commitments. Contains: SectionIntro (civic flavor), TransitLine (3 threads: mobility, local orgs, culture), LocalFootnote.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Layout</span><span class="comp-prop-v">3-column grid on desktop · stack on mobile</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Background</span><span class="comp-prop-v">--sw-bg-grid (slight tint vs base)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">TransitLine</span><span class="comp-prop-v">2px vertical line [accent] · 8px node dots · Syne labels</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">LocalFootnote</span><span class="comp-prop-v">DM Sans 12px · 📍 · border-left 3px solid --sw-accent-blue</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Thread colors</span><span class="comp-prop-v">green (mobility) · amber (culture) · dominant (civic)</span></div>
+    </div>
+  </div>
+
+  <!-- LegendChip -->
+  <div class="comp">
+    <p class="comp-name">LegendChip</p>
+    <p class="comp-desc">Categorical label inspired by map legend entries. Short, uppercase, bold. Always rendered with a 3px left accent border in the category color. Used on cards, articles, filter lists.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Font</span><span class="comp-prop-v">label/eyebrow · Syne 700 · 9px · 0.15em</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Background</span><span class="comp-prop-v">--sw-bg-grid</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Border</span><span class="comp-prop-v">1px solid --sw-border · border-left 3px solid [accent]</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Radius</span><span class="comp-prop-v">--sw-radius-sm (4px)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Padding</span><span class="comp-prop-v">3px 9px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Color</span><span class="comp-prop-v">--sw-text-secondary (label text)</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Variants</span><span class="comp-prop-v">green / amber / coral / dominant / violet / blue — by left border color only</span></div>
+    </div>
+  </div>
+
+  <!-- MetricStrip -->
+  <div class="comp">
+    <p class="comp-name">MetricStrip</p>
+    <p class="comp-desc">Horizontal band of 4–6 KPI cells. Used in the hero section to anchor credibility immediately. Each cell: large display number (Fraunces) + short uppercase label (Syne). Flat, no shadows. Divided by 1px vertical borders.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Container</span><span class="comp-prop-v">flex · border 1px solid --sw-border · radius-lg · overflow hidden</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Cell background</span><span class="comp-prop-v">Alternating --sw-bg-surface / --sw-bg-grid</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Cell divider</span><span class="comp-prop-v">1px solid --sw-border · no radius</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Number font</span><span class="comp-prop-v">display/l · Fraunces italic 300 · --sw-accent-sun · 28px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Label font</span><span class="comp-prop-v">label/eyebrow · Syne 700 · 8px · --sw-text-muted</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Cell padding</span><span class="comp-prop-v">16px 20px · text-align center</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Max cells</span><span class="comp-prop-v">6 (beyond 6 break into 2-row grid on mobile)</span></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="comp">
+    <p class="comp-name">Footer</p>
+    <p class="comp-desc">Minimal site footer. Left: wordmark + tagline (small). Right: nav links (Syne, 9px) + social links. Bottom bar: copyright line + privacy/consent action area. No heavy styling — background is --sw-bg-grid, 1px top border.</p>
+    <div class="comp-props">
+      <div class="comp-prop"><span class="comp-prop-k">Background</span><span class="comp-prop-v">--sw-bg-grid</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Top border</span><span class="comp-prop-v">1px solid --sw-border</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Padding</span><span class="comp-prop-v">64px top · 40px bottom</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Wordmark</span><span class="comp-prop-v">display/l reduced to 24px · Fraunces italic</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Nav links</span><span class="comp-prop-v">label/nav · Syne · --sw-text-secondary · gap 24px</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Bottom bar</span><span class="comp-prop-v">label/meta · DM Sans · --sw-text-muted · space-between</span></div>
+      <div class="comp-prop"><span class="comp-prop-k">Privacy area</span><span class="comp-prop-v">DM Sans 11px · "Manage cookies" link · --sw-accent-dominant underline</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 06 — HOMEPAGE STRUCTURE ════════════════════════════════════════════ -->
+<div class="section">
+  <span class="section-num">06</span>
+  <h2 class="section-title">Homepage Structure</h2>
+  <p class="section-desc">Eight sections. Density descends from high to low. The emotional peak is the hero. The credibility anchor is the metric strip immediately below. Pacing opens up from section 3 onward.</p>
+
+  <!-- Desktop -->
+  <div class="sub">
+    <p class="sub-title">Desktop Layout — Section Order</p>
+    <div class="wf-section">
+      <div class="wf-header">
+        <span class="wf-num">00</span>
+        <span class="wf-name">Header — always present · not counted as section</span>
+        <span class="wf-density" style="color:#C97D0A">—</span>
+      </div>
+      <div class="wf-body">
+        <p class="wf-desc">SunAnchor + wordmark + ThemeToggle + NavTabs. Background: --sw-header-bg. Position: sticky on scroll.</p>
+        <p class="wf-spec">Height ~120px desktop · 72px mobile. Stacks to icon + hamburger on mobile.</p>
+      </div>
+    </div>
+    <div class="wf-section">
+      <div class="wf-header">
+        <span class="wf-num">01</span>
+        <span class="wf-name">Hero</span>
+        <span class="wf-density" style="color:#B83528">High — Peak visual moment</span>
+      </div>
+      <div class="wf-body">
+        <p class="wf-desc">Full-width, min-height 80vh. SunAnchor bleed from the header into this section. Display XL headline in Fraunces italic. One body/large descriptor. One primary CTA (Projects) + one ghost CTA (Writing). No image — typography and atmosphere carry this.</p>
+        <p class="wf-spec">Columns: 8/12 centered · py: 128px · Background: --sw-bg-base (seamless from header)</p>
+      </div>
+    </div>
+    <div class="wf-section">
+      <div class="wf-header">
+        <span class="wf-num">02</span>
+        <span class="wf-name">MetricStrip</span>
+        <span class="wf-density" style="color:#1A6B4A">Low — Credibility band</span>
+      </div>
+      <div class="wf-body">
+        <p class="wf-desc">5–6 metrics. Immediate credibility signal. Full 12-column width. No section padding — flush to section above and below.</p>
+        <p class="wf-spec">12/12 · py: 0 (internal padding 20px) · Metrics: years exp, sites, Lighthouse, RGPD score, CMS count</p>
+      </div>
+    </div>
+    <div class="wf-section">
+      <div class="wf-header">
+        <span class="wf-num">03</span>
+        <span class="wf-name">What I care about</span>
+        <span class="wf-density" style="color:#C97D0A">Medium — Identity anchoring</span>
+      </div>
+      <div class="wf-body">
+        <p class="wf-desc">3-column grid. SectionIntro (Fraunces headline) + 3 equal blocks: Engineering / Privacy / Cities. Short prose paragraphs (no bullet lists). No cards — plain type with a thin left accent border per column.</p>
+        <p class="wf-spec">4/12 × 3 · py: 96px · Left border: 3px solid [accent per column]</p>
+      </div>
+    </div>
+    <div class="wf-section">
+      <div class="wf-header">
+        <span class="wf-num">04</span>
+        <span class="wf-name">Selected Projects</span>
+        <span class="wf-density" style="color:#B83528">High — Portfolio evidence</span>
+      </div>
+      <div class="wf-body">
+        <p class="wf-desc">SectionIntro + 3–4 ProjectCards in a grid. "All projects →" ghost link at bottom right. Cards have a 2px accent bottom strip in the project category color.</p>
+        <p class="wf-spec">4/12 × 3 (or 6+3+3) · py: 96px · Max 4 cards on home</p>
+      </div>
+    </div>
+    <div class="wf-section">
+      <div class="wf-header">
+        <span class="wf-num">05</span>
+        <span class="wf-name">Writing Teaser</span>
+        <span class="wf-density" style="color:#C97D0A">Medium — Content credibility</span>
+      </div>
+      <div class="wf-body">
+        <p class="wf-desc">SectionIntro (tight) + 3 WritingCards stacked. Full-width list, no grid. "All writing →" link at end.</p>
+        <p class="wf-spec">8/12 centered · py: 80px</p>
+      </div>
+    </div>
+    <div class="wf-section">
+      <div class="wf-header">
+        <span class="wf-num">06</span>
+        <span class="wf-name">LocalBlock — Civic &amp; Situated</span>
+        <span class="wf-density" style="color:#1A6B4A">Low — Personality layer</span>
+      </div>
+      <div class="wf-body">
+        <p class="wf-desc">Integrated local section. NOT a sidebar or aside. SectionIntro + 3 TransitLines (mobility / orgs / culture) + LocalFootnote. Background: --sw-bg-grid for visual separation.</p>
+        <p class="wf-spec">4/12 × 3 · py: 96px · bg: --sw-bg-grid</p>
+      </div>
+    </div>
+    <div class="wf-section">
+      <div class="wf-header">
+        <span class="wf-num">07</span>
+        <span class="wf-name">Contact</span>
+        <span class="wf-density" style="color:#1A6B4A">Low — Restrained close</span>
+      </div>
+      <div class="wf-body">
+        <p class="wf-desc">Minimal. SectionIntro + email link (large, styled as display/l) + GitHub / LinkedIn / Mastodon social links as text links. No form in v0. No heavy card layout.</p>
+        <p class="wf-spec">6/12 centered · py: 96px</p>
+      </div>
+    </div>
+    <div class="wf-section">
+      <div class="wf-header">
+        <span class="wf-num">—</span>
+        <span class="wf-name">Footer</span>
+        <span class="wf-density">—</span>
+      </div>
+      <div class="wf-body">
+        <p class="wf-desc">Footer component with privacy/consent area.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile -->
+  <div class="sub">
+    <p class="sub-title">Mobile Layout — Adaptations</p>
+    <table>
+      <tr><th>Section</th><th>Mobile change</th></tr>
+      <tr><td>Header</td><td>Hamburger menu · ThemeToggle moves to nav drawer · SunAnchor scales to 120px</td></tr>
+      <tr><td>Hero (01)</td><td>display/xl → 40px · py 80px · CTA stack vertically</td></tr>
+      <tr><td>MetricStrip (02)</td><td>2×3 grid (not flex row) · scrollable or wrapped</td></tr>
+      <tr><td>What I care about (03)</td><td>Stack 3 columns → single column · left border persists</td></tr>
+      <tr><td>Projects (04)</td><td>4 cards → scroll to see all (1 col) or 2×2 grid</td></tr>
+      <tr><td>Writing (05)</td><td>Full width · same stack · no change</td></tr>
+      <tr><td>LocalBlock (06)</td><td>3 transit lines → stack · py 64px</td></tr>
+      <tr><td>Contact (07)</td><td>Single column · email at 28px · py 64px</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 07 — PAGE TEMPLATES ════════════════════════════════════════════════ -->
+<div class="section">
+  <span class="section-num">07</span>
+  <h2 class="section-title">Page Template Family</h2>
+  <p class="section-desc">Eight page types. Each inherits the Header and Footer. Section composition varies by purpose. All templates use the 12-column grid with max-width 1200px.</p>
+
+  <div class="g2">
+    <div class="page-card">
+      <p class="page-card-label">Template 01</p>
+      <p class="page-card-name">Home</p>
+      <p class="page-card-sections">Hero · MetricStrip · What I care about<br>Projects (4) · Writing (3) · LocalBlock · Contact</p>
+    </div>
+    <div class="page-card">
+      <p class="page-card-label">Template 02</p>
+      <p class="page-card-name">About</p>
+      <p class="page-card-sections">SectionIntro (large) · Bio narrative<br>Skills TransitLine · LocalBlock (minimal)<br>Values 3-col · Contact CTA</p>
+    </div>
+    <div class="page-card">
+      <p class="page-card-label">Template 03</p>
+      <p class="page-card-name">Projects Index</p>
+      <p class="page-card-sections">SectionIntro · Filter chips (categories)<br>ProjectCard grid (3-col) · Pagination or load-more</p>
+    </div>
+    <div class="page-card">
+      <p class="page-card-label">Template 04</p>
+      <p class="page-card-name">Case Study Detail</p>
+      <p class="page-card-sections">Hero (8/12 title + eyebrow + meta)<br>Problem · Approach · Constraints<br>Implementation (full-width code blocks)<br>Outcome + MetricStrip (local)<br>Next project CTA</p>
+    </div>
+    <div class="page-card">
+      <p class="page-card-label">Template 05</p>
+      <p class="page-card-name">Writing Index</p>
+      <p class="page-card-sections">SectionIntro · WritingCard list (8/12)<br>Category filter chips · Pagination</p>
+    </div>
+    <div class="page-card">
+      <p class="page-card-label">Template 06</p>
+      <p class="page-card-name">Writing Detail (Article)</p>
+      <p class="page-card-sections">Article header (title · date · read-time · tags)<br>Body (7/12 max-width · body/default)<br>Code blocks (DM Mono · --sw-bg-grid)<br>Related articles footer</p>
+    </div>
+    <div class="page-card">
+      <p class="page-card-label">Template 07</p>
+      <p class="page-card-name">Local</p>
+      <p class="page-card-sections">SectionIntro (civic tone)<br>Full LocalBlock (expanded)<br>Map embed (optional · gated by consent)<br>Association list · Cultural footnotes</p>
+    </div>
+    <div class="page-card">
+      <p class="page-card-label">Template 08</p>
+      <p class="page-card-name">Contact</p>
+      <p class="page-card-sections">SectionIntro · Email (display link)<br>Social links · Availability status<br>Services CTA (4 cards: audit / pack / RGPD / retainer)</p>
+    </div>
+  </div>
+
+  <div style="margin-top:24px">
+    <div class="sub">
+      <p class="sub-title">Article Body Typography Rules</p>
+      <table>
+        <tr><th>Element</th><th>Style</th><th>Notes</th></tr>
+        <tr><td>Article h2</td><td>heading/h2 · DM Sans 600</td><td>Not Fraunces — keep body article in DM Sans hierarchy</td></tr>
+        <tr><td>Article h3</td><td>heading/h3 · DM Sans 500</td><td>Same rule</td></tr>
+        <tr><td>Body paragraph</td><td>body/default · 16px · 158% line-height</td><td>Max 68ch width</td></tr>
+        <tr><td>Pull quote</td><td>display/l · Fraunces italic · border-left 4px --sw-accent-sun</td><td>Fraunces allowed here as pull quote = display moment</td></tr>
+        <tr><td>Code block</td><td>code/inline · DM Mono · bg --sw-bg-grid · radius-md · padding 20px</td><td>Full-width or 10/12</td></tr>
+        <tr><td>Inline code</td><td>code/inline · bg --sw-bg-grid · radius-sm · padding 1px 6px</td><td>Never Fraunces</td></tr>
+        <tr><td>Footnote</td><td>body/small · --sw-text-muted</td><td>Below article, border-top 1px</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 08 — FIGMA FILE STRUCTURE ══════════════════════════════════════════ -->
+<div class="section">
+  <span class="section-num">08</span>
+  <h2 class="section-title">Figma File Structure</h2>
+  <p class="section-desc">One Figma file. Named: <code style="font-family:'DM Mono',monospace;font-size:13px;background:#EAE6DC;padding:2px 8px;border-radius:4px">Sidewalk Studio — Design System</code>. The structure below is final — follow it exactly to keep the file usable across sessions and hand-offs.</p>
+
+  <div class="sub">
+    <p class="sub-title">Pages — Ordered</p>
+    <div class="figma-page">
+      <div class="figma-icon">🔖</div>
+      <div><p class="figma-page-name">00 · Cover + Changelog</p><p class="figma-page-desc">Project cover frame (1600×900). Version history table. Do not put any components here.</p></div>
+    </div>
+    <div class="figma-page">
+      <div class="figma-icon">🎨</div>
+      <div><p class="figma-page-name">01 · Foundations</p><p class="figma-page-desc">Color styles overview. Text styles overview. Spacing scale. Radius scale. All shown as annotated swatches and type specimens. Reference page — no interactive frames.</p></div>
+    </div>
+    <div class="figma-page">
+      <div class="figma-icon">☀︎</div>
+      <div><p class="figma-page-name">02 · Morning Grid</p><p class="figma-page-desc">All component variants rendered in Morning Grid theme. Includes Header, all 11 signature components, type specimens on morning backgrounds. Desktop frame: 1440px wide.</p></div>
+    </div>
+    <div class="figma-page">
+      <div class="figma-icon">◐</div>
+      <div><p class="figma-page-name">03 · Sunset Signal</p><p class="figma-page-desc">Identical structure to 02 but Sunset Signal mode active. Demonstrates that every component handles both themes without layout change.</p></div>
+    </div>
+    <div class="figma-page">
+      <div class="figma-icon">🧩</div>
+      <div><p class="figma-page-name">04 · Components</p><p class="figma-page-desc">All components in their Figma component sets. Variants: theme (morning/sunset) + state (default/hover/active/disabled) where applicable. This is the only source-of-truth for component specs.</p></div>
+    </div>
+    <div class="figma-page">
+      <div class="figma-icon">🏠</div>
+      <div><p class="figma-page-name">05 · Home — Desktop</p><p class="figma-page-desc">Full homepage at 1440px width. Both theme versions side by side. Section labels as sticky annotations. This is the primary design review frame.</p></div>
+    </div>
+    <div class="figma-page">
+      <div class="figma-icon">📱</div>
+      <div><p class="figma-page-name">06 · Home — Mobile</p><p class="figma-page-desc">Full homepage at 390px (iPhone 14 width). Both theme versions. Focus on section ordering and typography scaling.</p></div>
+    </div>
+    <div class="figma-page">
+      <div class="figma-icon">📄</div>
+      <div><p class="figma-page-name">07 · Page Templates</p><p class="figma-page-desc">One frame per template (desktop only). Skeleton structure — not fully designed, enough to define section composition and column usage. 8 templates from the Page Template Family.</p></div>
+    </div>
+    <div class="figma-page">
+      <div class="figma-icon">⚙</div>
+      <div><p class="figma-page-name">08 · Admin Shell (deferred — 010)</p><p class="figma-page-desc">Reserved page. Empty. Do not design yet. Placeholder for the protected admin UI when spec 010 is implemented.</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <p class="sub-title">Variable Collections</p>
+    <table>
+      <tr><th>Collection name</th><th>Modes</th><th>Contents</th></tr>
+      <tr><td>Tokens/Shared</td><td>None (single value)</td><td>Font families · radius scale · spacing scale · shared motion values · DM Mono code font</td></tr>
+      <tr><td>Tokens/Theme</td><td>Morning Grid · Sunset Signal</td><td>All --sw-bg-* · --sw-text-* · --sw-accent-* · --sw-border · --sw-grid-line · --sw-shadow-* · --sw-header-bg · --sw-sun-gradient · --sw-sun-glow</td></tr>
+    </table>
+    <div class="note"><strong>Variable alias rule:</strong> Every component fill, stroke, and text color must reference a <code>Tokens/Theme</code> variable — never a raw hex. This enables the theme switch to propagate instantly across the entire file via the mode toggle.</div>
+  </div>
+
+  <div class="sub">
+    <p class="sub-title">Color Styles — Naming Convention</p>
+    <table>
+      <tr><th>Category</th><th>Naming pattern</th><th>Examples</th></tr>
+      <tr><td>Surfaces</td><td>Surface/[name]/[theme]</td><td>Surface/Base/Morning · Surface/Base/Sunset</td></tr>
+      <tr><td>Text</td><td>Text/[role]/[theme]</td><td>Text/Primary/Morning · Text/Muted/Sunset</td></tr>
+      <tr><td>Accents</td><td>Accent/[name]/[theme]</td><td>Accent/Sun/Morning · Accent/Dominant/Sunset</td></tr>
+      <tr><td>Borders</td><td>Border/[type]/[theme]</td><td>Border/Default/Morning · Border/Focus/Sunset</td></tr>
+      <tr><td>Special</td><td>Special/[name]</td><td>Special/SunGradientMorning · Special/GridLineSunset</td></tr>
+    </table>
+  </div>
+
+  <div class="sub">
+    <p class="sub-title">Text Styles — Naming Convention</p>
+    <table>
+      <tr><th>Style</th><th>Figma name</th><th>Alias check</th></tr>
+      <tr><td>Display XL</td><td>Display/XL</td><td>Fraunces italic 300 · 72px</td></tr>
+      <tr><td>Display L</td><td>Display/L</td><td>Fraunces italic 300 · 48px</td></tr>
+      <tr><td>H1</td><td>Heading/H1</td><td>DM Sans 600 · 36px</td></tr>
+      <tr><td>H2</td><td>Heading/H2</td><td>DM Sans 600 · 24px</td></tr>
+      <tr><td>H3</td><td>Heading/H3</td><td>DM Sans 500 · 18px</td></tr>
+      <tr><td>Body Large</td><td>Body/Large</td><td>DM Sans 400 · 18px</td></tr>
+      <tr><td>Body Default</td><td>Body/Default</td><td>DM Sans 400 · 16px</td></tr>
+      <tr><td>Body Small</td><td>Body/Small</td><td>DM Sans 400 · 14px</td></tr>
+      <tr><td>Eyebrow</td><td>Label/Eyebrow</td><td>Syne 700 · 10px · 0.22em · uppercase</td></tr>
+      <tr><td>Nav</td><td>Label/Nav</td><td>Syne 700 · 9px · 0.14em · uppercase</td></tr>
+      <tr><td>Meta</td><td>Label/Meta</td><td>DM Sans 400 · 12px</td></tr>
+      <tr><td>Code</td><td>Code/Inline</td><td>DM Mono 400 · 13px</td></tr>
+    </table>
+  </div>
+
+  <div class="sub">
+    <p class="sub-title">Component Sets in Figma</p>
+    <table>
+      <tr><th>Component set name</th><th>Variants</th><th>Notes</th></tr>
+      <tr><td>SunAnchor</td><td>theme=morning, theme=sunset</td><td>No interactive states — purely presentational</td></tr>
+      <tr><td>Header</td><td>theme × page (home, inner)</td><td>Contains SunAnchor, ThemeToggle, NavTabs as nested instances</td></tr>
+      <tr><td>ThemeToggle</td><td>active=morning, active=sunset</td><td>Standalone for docs; also nested in Header</td></tr>
+      <tr><td>NavTabs</td><td>active-tab × theme</td><td>6 tab variants: Concept, Themes, Colors, Typo, Components, CSS</td></tr>
+      <tr><td>ProjectCard</td><td>theme × category (5 colors)</td><td>Hover state included</td></tr>
+      <tr><td>WritingCard</td><td>theme × has-tag (true/false)</td><td>Horizontal desktop / stacked mobile</td></tr>
+      <tr><td>LegendChip</td><td>theme × color (6 variants)</td><td>Color variant changes left border only</td></tr>
+      <tr><td>MetricStrip</td><td>theme × count (4, 5, 6 cells)</td><td>Cell count drives layout</td></tr>
+      <tr><td>SectionIntro</td><td>theme × size (hero/default) × has-eyebrow</td><td>Size=hero uses Fraunces; size=default uses DM Sans h1</td></tr>
+      <tr><td>LocalBlock</td><td>theme × expanded (true/false)</td><td>false = homepage condensed; true = Local page full</td></tr>
+      <tr><td>Footer</td><td>theme</td><td>Includes privacy/consent area at base</td></tr>
+      <tr><td>Button</td><td>theme × variant (primary/secondary/ghost) × state (default/hover/disabled)</td><td>Primary uses --sw-accent-sun fill; secondary uses border only</td></tr>
+    </table>
+  </div>
+
+  <div class="sub">
+    <p class="sub-title">First Frames to Build — Priority Order</p>
+    <table>
+      <tr><th>Priority</th><th>Frame</th><th>Why first</th></tr>
+      <tr><td>1</td><td>Foundations — color swatches + text specimens</td><td>Validates all tokens before any component work</td></tr>
+      <tr><td>2</td><td>Header (morning + sunset side by side)</td><td>SunAnchor transition is the system's signature — validate early</td></tr>
+      <tr><td>3</td><td>LegendChip + MetricStrip + SectionIntro</td><td>Atomic pieces used everywhere</td></tr>
+      <tr><td>4</td><td>ProjectCard + WritingCard</td><td>Core content cards</td></tr>
+      <tr><td>5</td><td>Homepage Desktop — Morning Grid</td><td>First full layout validation</td></tr>
+      <tr><td>6</td><td>Homepage Desktop — Sunset Signal</td><td>Theme switch proof of coherence</td></tr>
+      <tr><td>7</td><td>Homepage Mobile — both themes</td><td>Responsive validation</td></tr>
+      <tr><td>8</td><td>Page templates (skeleton level)</td><td>Content structure, not visual polish</td></tr>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:32px">
+    <strong>CSS implementation alignment:</strong> All --sw-* tokens map directly to Tailwind v4 CSS custom properties in <code>resources/css/app.css</code>. The Tailwind config extends the default theme with these tokens under the <code>colors.*</code>, <code>spacing.*</code>, <code>borderRadius.*</code>, and <code>fontFamily.*</code> keys. The Vue component for each Figma component lives at <code>resources/js/components/[ComponentName].vue</code>. The ThemeToggle stores user preference in <code>localStorage.sidewalk-theme</code> and falls back to <code>prefers-color-scheme</code>.
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div style="margin-top:80px;padding-top:40px;border-top:2px solid #141210;display:flex;justify-content:space-between;align-items:baseline">
+  <p style="font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:22px;color:#141210">Sidewalk Studio</p>
+  <p style="font-family:'DM Mono',monospace;font-size:11px;color:#8A8070">Design System Charter v2.0 · March 2026 · Ismael Rodmacq</p>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>
