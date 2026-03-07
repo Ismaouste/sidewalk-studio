@@ -13,3 +13,6 @@ and stay out of the sitemap.
 
 Utility download routes such as `/cv/en` and `/cv/fr` are intentionally public
 but excluded from the sitemap and should remain non-indexable.
+
+Request-level locale negotiation does not add sitemap entries. The sitemap
+continues to advertise the single canonical route tree only.

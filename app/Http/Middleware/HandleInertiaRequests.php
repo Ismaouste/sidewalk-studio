@@ -32,7 +32,7 @@ class HandleInertiaRequests extends Middleware
                 'name' => $settings->siteIdentity->name,
                 'tagline' => $settings->siteIdentity->tagline,
                 'description' => $settings->siteIdentity->description,
-                'locale' => config('site.locale'),
+                'locale' => app()->getLocale(),
                 'url' => config('site.url'),
                 'navigation' => config('site.navigation'),
                 'author' => config('site.author'),
