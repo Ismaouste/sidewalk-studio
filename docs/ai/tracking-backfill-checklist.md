@@ -17,6 +17,7 @@ Use this checklist when a spec moves from placeholder tracking to real Linear an
 3. Update the matching row in `docs/ai/github-project/roadmap-spec-issue-map.md`.
 4. Update the linked Obsidian mirror note if the tracking header still contains placeholders.
 5. Update the GitHub Project row so it mirrors the same values.
+6. Check whether `CHANGELOG.md` and `README.md` already describe the shipped scope accurately before marking the row complete.
 
 ## Fields to backfill
 
@@ -35,3 +36,4 @@ Use this checklist when a spec moves from placeholder tracking to real Linear an
 ## Final check
 
 Search the spec and the two map files for the spec ID and confirm the same values appear in all three places.
+If the branch includes shipped work outside the currently tracked specs, keep that scope in `CHANGELOG.md` and the release checkpoint docs until dedicated specs exist.

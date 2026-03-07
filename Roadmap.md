@@ -2,6 +2,12 @@
 
 ## Active foundation
 
+### Current release checkpoint
+- The current `v0-foundation` branch already includes the public shell, token-based theme system, reusable design-system primitives, and the current public information architecture.
+- `Home`, `Experience`, `Local`, `Projects`, `Writing`, `Case Studies`, `Contact`, and `Labs` are in place as public routes/pages.
+- Writing and Case Studies remain repo-backed Markdown collections.
+- Consent, SEO, and the `site_settings` read-side foundation are already integrated into the public app.
+
 ### 001-repo-bootstrap
 - Normalize the repo around Laravel, `.specify/`, `specs/`, and the docs tree.
 - Keep development local-first on Windows with SQLite.
@@ -31,10 +37,10 @@
 - Defer any server database migration until that need is explicit.
 
 ### 005-theme-and-motion
-- Expand the visual system, motion primitives, and theme toggle.
+- Continue refining motion and visual details on top of the shipped token/theme and public design-system foundation.
 
 ### 006-case-studies
-- Add richer editorial content and longer walkthroughs.
+- Add richer editorial content and longer walkthroughs on top of the existing case-study pages and Markdown pipeline.
 
 ### 007-ci-cd-foundation
 - Add GitHub Actions, release checks, and automated validation.
@@ -45,6 +51,7 @@
 ### 009-admin-site-settings
 - Add the bounded `site_settings` domain for site metadata, contact details, consent copy, and future runtime toggles.
 - Keep SQLite as the first persistence layer and stay migration-friendly for a later PostgreSQL path if product needs justify it.
+- The read-side service/bootstrap foundation already exists; the deferred work is the protected write surface and admin workflow around it.
 - Do not replace `.env`, store API keys in `site_settings`, replace Markdown content, introduce a full CMS, or collapse the future admin shell/auth work into this phase.
 
 ### 010-admin-shell-and-auth

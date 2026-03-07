@@ -11,6 +11,17 @@ GitHub Spec Kit is the specification standard; Codex is the current execution wo
 - `specs/<id>/spec.md` stores the tracking fields that mirror the current delivery state.
 - Repo docs store stable coordination notes; local tools can sync or mirror them later.
 
+## Current release nuance
+
+The current `codex/release-v0-foundation` branch includes real shipped work beyond the earliest tracked specs:
+
+- token-based theme and public design-system implementation
+- public page refinement for `Home`, `Experience`, `Local`, and the broader public information architecture
+- `site_settings` read-side integration
+
+Those changes are real release scope and are captured in `CHANGELOG.md` and the commit history.
+If they need first-class board tracking later, add dedicated specs instead of overloading the older `001` to `004` rows.
+
 ## Spec frontmatter tracking contract
 
 Keep these fields in each `spec.md` once a feature enters active tracking:
@@ -66,6 +77,7 @@ Use GitHub Project as the release and delivery board, not as the spec source.
 
 Use `docs/ai/tracking-backfill-checklist.md` as the canonical order of operations for replacing `TODO` values.
 The checklist is intentionally shared by Linear, GitHub Project, and Obsidian so the repo only has one backfill workflow to maintain.
+Use `docs/ai/release-tracking-checklist.md` when the branch is ready for a real release-oriented project/tracking checkpoint.
 
 ## Current bootstrap
 
