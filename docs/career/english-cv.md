@@ -1,6 +1,6 @@
 # Ismael Rodmacq
 
-Nancy, France  
+Nancy, France
 Laravel lead developer | e-commerce tech lead | product-minded full-stack engineer
 
 ## Summary
