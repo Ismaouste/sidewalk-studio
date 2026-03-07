@@ -1,6 +1,7 @@
 # V0 Foundation Linear Issues
 
 Copy these titles and descriptions directly into Linear for specs `001` to `004`.
+Once the real issues exist, follow `docs/ai/tracking-backfill-checklist.md` to replace the placeholder values in the repo.
 
 ## 001
 

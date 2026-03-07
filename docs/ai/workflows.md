@@ -29,6 +29,7 @@ Keep the cross-tool mapping tables in `docs/ai/project-tracking.md` and the file
 1. Update the spec frontmatter first.
 2. Mirror the same values in the Linear and GitHub Project map files.
 3. Keep or create the linked Obsidian mirror note under `docs/ai/obsidian/build-journal/`.
+4. Use `docs/ai/tracking-backfill-checklist.md` when replacing placeholder values with real IDs.
 
 ## Release work
 

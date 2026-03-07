@@ -40,4 +40,5 @@ This repo uses GitHub Spec Kit as the official specification standard and keeps 
 - `github_project_item:`, `github_project_status:`, and `release:` mirror the GitHub Project board state.
 - `obsidian_note:` points to the repo-safe mirror of the working note.
 - GitHub Project and Obsidian stay mirrored through the docs under `docs/ai/`.
+- `docs/ai/tracking-backfill-checklist.md` defines the shared manual order for replacing placeholders.
 - Release summaries belong in `CHANGELOG.md` and any release note derived from `.specify/templates/release-note-template.md`.

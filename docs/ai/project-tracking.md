@@ -15,14 +15,15 @@ GitHub Spec Kit is the specification standard; Codex is the current execution wo
 
 Keep these fields in each `spec.md` once a feature enters active tracking:
 
-- `linear_issue:` primary Linear issue key, for example `SIDE-12`
-- `github_project_item:` GitHub Project item identifier or stable title reference
+- `linear_issue:` primary Linear issue key, or `TODO` until the real issue exists
+- `github_project_item:` GitHub Project item identifier or stable title reference, or `TODO` until the board item exists
 - `github_project_status:` mirror of the board status, using the repo vocabulary
 - `obsidian_note:` path to the repo-safe build journal mirror
 - `release:` shipped or target milestone, for example `v0-foundation`
 
 ## File map
 
+- `docs/ai/tracking-backfill-checklist.md` is the canonical manual workflow for replacing placeholder tracking values.
 - `docs/ai/linear/spec-issue-map.md` mirrors spec and Linear relationships.
 - `docs/ai/linear/issue-bootstrap.md` gives the first manual Linear setup for specs `001` to `004`.
 - `docs/ai/linear/v0-foundation-issues.md` stores copy-paste-ready Linear issue titles and descriptions.
@@ -40,6 +41,7 @@ Use Linear as the execution tracker once tickets exist, but keep the feature con
 - Keep the cross-spec summary in `docs/ai/linear/spec-issue-map.md`.
 - If one spec expands into multiple Linear issues later, keep the primary key in `spec.md` and list the breakdown in the map file.
 - Use `docs/ai/linear/issue-bootstrap.md` as the initial working setup for specs `001` to `004`.
+- Use `docs/ai/tracking-backfill-checklist.md` after the real issue exists.
 
 ## Obsidian
 
@@ -58,20 +60,16 @@ Use GitHub Project as the release and delivery board, not as the spec source.
 - Use one row per roadmap/spec item so the mapping stays readable during release prep.
 - Keep status labels aligned with the repo language: `proposed`, `active`, `validated`, `deferred`.
 - Use `docs/ai/github-project/field-schema.md` as the initial field contract for the first board.
+- Use `docs/ai/tracking-backfill-checklist.md` when the real item exists and the repo needs backfilled values.
 
-## Suggested next step
+## Manual handoff
 
-When the first external tooling pass starts, wire the simplest path first:
-
-1. Fill `linear_issue:` in the existing spec frontmatter.
-2. Fill `github_project_item:`, `github_project_status:`, and `release:` in the same spec.
-3. Create or update the matching Obsidian mirror note and store its repo path in `obsidian_note:`.
-4. Mirror the same values in the map files under `docs/ai/`.
-5. Only then evaluate lightweight export/import automation if the manual flow becomes noisy.
+Use `docs/ai/tracking-backfill-checklist.md` as the canonical order of operations for replacing `TODO` values.
+The checklist is intentionally shared by Linear, GitHub Project, and Obsidian so the repo only has one backfill workflow to maintain.
 
 ## Current bootstrap
 
-Specs `001` to `004` now have:
+Specs `001` to `004` and `009` now have:
 
 - tracking-ready frontmatter fields in each `spec.md`
 - placeholder rows in the Linear and GitHub Project map files

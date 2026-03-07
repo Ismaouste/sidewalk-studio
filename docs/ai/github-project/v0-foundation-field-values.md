@@ -1,6 +1,7 @@
 # V0 Foundation GitHub Project Field Values
 
 Use this file to populate the first GitHub Project rows for specs `001` to `004`.
+Replace `TODO` in the `Linear Issue` field after the real Linear issue keys exist and then backfill the repo using `docs/ai/tracking-backfill-checklist.md`.
 
 | Item title | Status | Spec ID | Linear Issue | Obsidian Note | Release | Roadmap Block |
 | --- | --- | --- | --- | --- | --- | --- |

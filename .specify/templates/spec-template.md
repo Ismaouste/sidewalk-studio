@@ -1,9 +1,9 @@
 ---
-linear_issue:
-github_project_item:
+linear_issue: TODO
+github_project_item: TODO
 github_project_status: proposed
-obsidian_note:
-release:
+obsidian_note: TODO
+release: TODO
 title:
 status: proposed
 ---

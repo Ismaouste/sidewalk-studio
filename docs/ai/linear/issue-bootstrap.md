@@ -18,7 +18,4 @@ Use `docs/ai/linear/v0-foundation-issues.md` when you need the full copy-paste-r
 
 ## After issue creation
 
-1. Copy the real Linear issue key into `linear_issue:` in the matching `spec.md`.
-2. Mirror the same key in `docs/ai/linear/spec-issue-map.md`.
-3. Mirror the same key in `docs/ai/github-project/roadmap-spec-issue-map.md`.
-4. Keep the linked Obsidian mirror note updated with the working summary.
+Follow `docs/ai/tracking-backfill-checklist.md`.
