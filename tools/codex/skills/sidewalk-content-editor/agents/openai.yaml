@@ -1,0 +1,3 @@
+display_name: Sidewalk Content Editor
+short_description: Maintain Sidewalk Studio Markdown content and its frontmatter contract.
+default_prompt: Create or update a Sidewalk Studio writing or case-study entry while preserving the frontmatter schema.

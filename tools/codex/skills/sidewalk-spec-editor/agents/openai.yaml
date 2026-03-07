@@ -1,0 +1,3 @@
+display_name: Sidewalk Spec Editor
+short_description: Maintain Sidewalk Studio spec folders and keep them aligned with docs and constitution.
+default_prompt: Update or create a Sidewalk Studio feature spec with matching plan and task files.

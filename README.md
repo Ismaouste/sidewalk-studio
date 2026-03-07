@@ -1,142 +1,79 @@
 # Sidewalk Studio
 
-A spec-driven engineering portfolio exploring modern web architecture, privacy-first analytics and elegant front-end craft.
+Sidewalk Studio is a local-first Laravel portfolio and engineering lab.
 
-Sidewalk Studio is both:
+The repository is intentionally built as two things at once:
 
-• a **portfolio website**
-• a **living engineering playground**
-• a **demonstration of spec-driven development**
+- a public-facing portfolio site
+- a reference implementation for privacy-safe, spec-driven web architecture
 
-The goal is to showcase engineering maturity through:
+## Specification standard
 
-- modern web architecture
-- privacy-first analytics
-- SEO excellence
-- reproducible CI/CD pipelines
-- clear documentation
+The repo uses GitHub Spec Kit as the official specification standard for constitutions, feature specs, plans, and task lists.
+Codex remains the current execution workflow in this repo, but the workflow is file-based: do not assume native `/speckit.*` slash commands are available in this Codex environment.
 
----
+## Current v0 scope
 
-# Philosophy
+The first release focuses on four concrete areas:
 
-Software should be:
+- repository bootstrap and project governance
+- Markdown-driven content for writing and case studies
+- consent orchestration for scripts and iframe-based media
+- SEO foundations with canonical tags, sitemap, robots, and JSON-LD
 
-• **Readable**  
-• **Respectful of users** (privacy & accessibility)  
-• **Technically elegant**
+Out of scope for now:
 
-This repository demonstrates a full stack approach combining:
+- Docker-based development
+- CI/CD workflows
+- deployment automation
+- production analytics integrations
+- full SSR runtime activation
 
-- Laravel
+## Stack
+
+- Laravel 12
 - Inertia.js
 - Vue 3 + TypeScript
-- TailwindCSS
-- Spec-Driven Development
-- CI/CD automation
+- Tailwind CSS v4
+- SQLite for local development
+- CookieConsent + IframeManager for consent and embeds
 
----
+## Local development on Windows
 
-# Key Features
+Use PowerShell.
 
-### Spec-Driven Development
-
-This project uses **Spec-Kit** to structure development through specifications, plans and tasks rather than ad-hoc coding. :contentReference[oaicite:0]{index=0}
-
-Each feature is implemented through:
-
-
-spec → plan → tasks → implementation
-
-
----
-
-### Privacy-First Tracking
-
-Analytics is implemented with a **strict GDPR approach**:
-
-• CookieConsent (orestbida)  
-• IframeManager (orestbida)  
-• Script orchestration by consent category  
-
-CookieConsent blocks tracking scripts until explicit user consent. :contentReference[oaicite:1]{index=1}
-
-Supported analytics modes:
-
-- **Matomo (privacy-first)**
-- **PostHog (opt-in session analytics)**
-
----
-
-### Case Studies
-
-Engineering case studies are versioned directly in the repository using Markdown files.
-
-Examples:
-
-- SEO & structured data architecture
-- Consent orchestration system
-- Engineering CI/CD pipeline
-
----
-
-# Stack
-
-Backend
-
-
-Laravel (latest stable)
-PHP 8.3
-MySQL
-
-
-Frontend
-
-
-Inertia.js
-Vue 3
-TypeScript
-Vite
-TailwindCSS
-
-
-Dev tooling
-
-
-Spec-Kit
-Pest
-ESLint
-Prettier
-GitHub Actions
-Docker
-
-
----
-
-# Repository Goals
-
-This project aims to demonstrate:
-
-• strong engineering practices  
-• privacy-respecting web architecture  
-• structured documentation  
-• production-ready workflows  
-
-It also serves as a **playground for reusable components and experiments**.
-
----
-
-# Local development
-
-```bash
-git clone https://github.com/<username>/sidewalk-studio
-cd sidewalk-studio
-
-docker compose up -d
+```powershell
+Copy-Item .env.example .env
+New-Item -ItemType File -Force database\database.sqlite | Out-Null
+composer install
 npm install
+php artisan key:generate
 php artisan migrate
 npm run dev
 ```
 
-MIT License — reuse anything you like.
-If it helped you build something cool, I'd love to hear about it.
+If you run the app with `php artisan serve`, update `APP_URL` in `.env` to `http://127.0.0.1:8000`.
+If you serve it through Herd or a custom local domain, keep `APP_URL` aligned with that hostname.
+
+## Useful commands
+
+```powershell
+php artisan test
+composer run ci:check
+npm run types:check
+npm run build
+php artisan route:list
+```
+
+## Repository map
+
+- `.specify/` holds the GitHub Spec Kit-aligned constitution, templates, and reserved script location.
+- `specs/` holds feature-level `spec.md`, `plan.md`, and `tasks.md` files.
+- `docs/` explains architecture, consent, SEO, AI workflow, release planning, and tracking conventions.
+- `resources/content/` stores versioned Markdown for writing and case studies.
+- `tools/codex/skills/` stores repo-local skills that can be synced into `$CODEX_HOME/skills` if needed.
+
+## Status
+
+The v0 foundation already boots locally and passes `php artisan test`, `composer run ci:check`, and `npm run build`.
+The next layer after this foundation is theme/motion polish, richer case study content, CI/CD, and real analytics drivers.

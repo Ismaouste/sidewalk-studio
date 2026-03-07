@@ -1,0 +1,62 @@
+name: Feature
+description: Propose a new feature or improvement
+title: "[Feature] "
+labels: ["feature"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / opportunity
+      description: What user or project need does this solve?
+      placeholder: Describe the problem or opportunity.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+      description: What should exist or happen once this is complete?
+      placeholder: Describe the expected result.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed scope
+      description: What is in scope and what is explicitly out of scope?
+      placeholder: In scope / Out of scope
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List clear acceptance criteria.
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+    validations:
+      required: true
+
+  - type: input
+    id: spec_id
+    attributes:
+      label: Planned spec ID
+      description: Use the expected `specs/<id>/` folder name if known
+      placeholder: 005-theme-and-motion
+
+  - type: input
+    id: roadmap_block
+    attributes:
+      label: Roadmap block
+      description: Which roadmap block should own this work?
+      placeholder: 005-theme-and-motion
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Architecture, UX, RGPD, SEO, performance, content, or tracking notes
