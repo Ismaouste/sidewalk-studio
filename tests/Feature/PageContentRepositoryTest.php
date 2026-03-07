@@ -21,11 +21,24 @@ class PageContentRepositoryTest extends TestCase
         );
     }
 
+    public function test_it_loads_localized_page_content_when_locale_file_exists(): void
+    {
+        $page = app(PageContentRepository::class)->get('experience', 'fr');
+
+        $this->assertSame('Experience', $page['seo_title']);
+        $this->assertSame(
+            'Un parcours faconne par les systemes complexes.',
+            $page['hero']['title'],
+        );
+        $this->assertSame(
+            'Snapshot recruteur',
+            $page['career_snapshot']['title'],
+        );
+    }
+
     public function test_it_falls_back_to_english_when_locale_file_is_missing(): void
     {
-        app()->setLocale('fr');
-
-        $page = app(PageContentRepository::class)->get('local');
+        $page = app(PageContentRepository::class)->get('local', 'de');
 
         $this->assertSame('Local', $page['seo_title']);
         $this->assertSame('Local ground', $page['hero']['eyebrow']);
