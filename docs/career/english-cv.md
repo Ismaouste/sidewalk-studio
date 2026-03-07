@@ -1,77 +1,151 @@
 # Ismael Rodmacq
 
-Nancy, France
-Laravel lead developer | e-commerce tech lead | product-minded full-stack engineer
+**E-commerce Tech Lead / Lead PHP Developer**  
+Laravel · WooCommerce · PrestaShop · Technical SEO · Privacy · Consent-aware analytics
 
-## Summary
+Nancy, France  
++33 6 84 90 76 98  
+ismael.rodmacq@gmail.com  
+GitHub: github.com/Ismaouste  
+LinkedIn: linkedin.com/in/ismaelrodmacq
 
-Engineer focused on established Laravel, PHP, and e-commerce systems that already matter to a business and need steadier delivery. Strongest in legacy modernization, technical SEO, privacy-safe analytics and consent architecture, and making complex systems more maintainable without theatrical rewrites.
+## Profile
 
-## Core strengths
+Senior web engineer with a strong technical lead orientation, working on e-commerce and product environments where clarity, reliability, and maintainability matter as much as delivery. My best-fit context is existing systems: platforms with history, traffic, business pressure, SEO constraints, marketing scripts, compliance needs, and a real need to improve without creating unnecessary noise.
 
-- Stabilize revenue-critical or content-heavy systems under active delivery pressure
-- Translate between product needs, SEO, privacy, and implementation constraints
-- Turn messy legacy surfaces into clearer boundaries, safer conventions, and cheaper maintenance
-- Write code and documentation together so the system remains readable after handoff
+I am particularly strong in legacy rescue, progressive modernization, production reliability, technical SEO, consent-aware analytics, and Laravel architecture that stays readable over time.
 
-## Typical scope
+## Positioning
 
-- Laravel and PHP modernization
-- E-commerce maintenance and recovery work
-- Technical SEO foundations: routing, metadata, canonical logic, sitemaps, structured data
-- Consent-safe analytics and embed orchestration
-- Public content systems with explicit contracts and durable publishing flows
+- Stabilizing and evolving complex e-commerce platforms
+- Modernizing legacy codebases without dogmatic rewrites
+- Technical SEO, metadata, structured data, and editorial architecture
+- Consent, privacy, analytics, and script governance
+- Maintainable web interfaces with Laravel, Inertia, Vue, and TypeScript
+- Working across product, SEO, design, marketing, and non-technical teams
 
-## Experience profile
+## Core skills
 
-### E-commerce engineering in agency-style environments
-
-Worked on multi-client and production-sensitive commerce stacks where delivery quality, operational stability, search visibility, and maintainability were tightly connected.
-
-Representative themes:
-
-- platform maintenance and upgrades
-- feature delivery on live stores
-- technical SEO and metadata discipline
-- tracking and privacy/compliance adjustments
-- integrations tied to catalog, audience, and marketing workflows
-
-### Product and architecture direction through Sidewalk Studio
-
-Built Sidewalk Studio as both a portfolio and a reusable Laravel reference implementation.
-
-Representative proof points:
-
-- repo bootstrap with spec-driven workflow, architecture docs, and AI-operational context
-- Markdown-driven public content system with locale-ready file structure
-- consent orchestration before analytics-provider integration
-- server-shaped SEO metadata, sitemap, and structured-data foundations
-- bounded `site_settings` domain with typed reads, validated writes, and cache refresh behavior
-
-## Stack
-
-- Laravel
+### Architecture and back-end
 - PHP
+- Laravel
+- WordPress / WooCommerce
+- PrestaShop
+- REST APIs
+- Catalog, ERP, PIM, and marketing integrations
+- Progressive refactoring and application structuring
+- Commands, cron jobs, business automation, utility scripts
+
+### Front-end and product
 - Inertia.js
-- Vue
+- Vue 3
 - TypeScript
-- SQL
-- Technical SEO and structured data
-- Consent orchestration and privacy-safe analytics patterns
+- Pragmatic design systems
+- Editorial page templates and content systems
+- Responsive design and restrained UX
+- Vite
 
-## Working style
+### SEO, reliability, and privacy
+- Technical SEO
+- Canonicals, metadata, Open Graph, Twitter Cards
+- JSON-LD / structured data
+- Sitemaps and crawl architecture
+- CMP / consent management
+- Conditional script loading and privacy-aware analytics
+- Incident diagnosis and production hardening
 
-- Incremental delivery over full rewrites
-- Explicit architecture and source-of-truth docs
-- Local-first development discipline
-- Calm communication in complex environments
+### Environments and tools
+- Docker / Docker Compose
+- Linux
+- Nginx / Apache
+- Git / GitHub
+- AWS
+- SQL / MySQL
+- Logs, production debugging, and pragmatic observability
 
-## Current targets
+## Selected experience
 
-- Laravel lead developer
-- E-commerce tech lead
-- Product-minded full-stack engineer
+### E-commerce Tech Lead / Lead PHP Developer
+**Premium, legacy, and high-constraint environments**  
+**Recent years**
 
-## Location and collaboration
+Worked on e-commerce and product systems requiring gradual technical improvement without breaking business continuity. Focus areas included application structure, business flows, production stability, technical SEO, marketing scripts, consent boundaries, code readability, and delivery discipline.
 
-Based in Nancy, open to local, hybrid, or remote work with teams that value maintainability, clarity, and delivery discipline.
+Typical contributions:
+- taking over platforms with significant technical debt
+- implementing or reworking sensitive business features
+- improving SEO structure and structured data
+- designing tracking and conditional script-loading boundaries
+- raising code and front-end quality in real production contexts
+
+### Software and network project lead / web developer
+**Flippad**  
+**2021 - 2022**
+
+Worked in a digital agency / platform environment spanning website and e-commerce maintenance, internal platforms, R&D, and product rebuild efforts.
+
+Notable contributions:
+- maintaining and optimizing existing websites and e-commerce platforms
+- implementing client-specific business features
+- integrating audience tracking and product-catalog synchronization
+- supporting CMP and compliance-related implementations
+- R&D around SPA / Jamstack-like e-commerce approaches
+- exploring jewelry ERP needs
+- contributing to the Flippad.com rebuild
+
+### Internal survey tool for a health nonprofit
+**Aremedia**  
+**2021**
+
+Implemented a self-hosted LimeSurvey-based internal survey tool in a context involving medical and socio-demographic data.
+
+- deployed a self-hosted open-source solution
+- worked within GDPR-sensitive constraints
+- coordinated with third-party technical support
+
+### Project coordination and community work
+**Parcours le Monde Grand Est / ICN ARTEM / associative work**  
+**2016 - 2019**
+
+Earlier experience in coordination, communication, partnerships, events, public-facing operations, and practical digital structuring.
+
+Long-term impact on my engineering profile:
+- operating in complex contexts
+- communicating with non-technical stakeholders
+- structuring and prioritizing work
+- calm, cross-functional leadership
+
+## Selected projects
+
+### Sidewalk Studio
+A Laravel-based portfolio and reference implementation focused on architecture, SEO, consent orchestration, editorial content, design systems, and delivery discipline.
+
+### Crown DP
+Work on a premium e-commerce platform with attention to architecture, internal dashboards, statistics, execution quality, and long-term readability.
+
+### Godechot Pauliet
+Work around audience tracking, catalog synchronization, and e-commerce / marketing data in a jewelry retail context.
+
+### YTMusic Liked Sorter
+A tooling / CLI project showing a structured engineering mindset: typing, cache, logging, dry-run behavior, reliability, and developer experience.
+
+## Education
+
+### Web and mobile development
+**Meshwork Academy**  
+**2020 - 2021**
+
+### Biology degree
+**University of Lorraine**  
+**2012 - 2016**
+
+## Languages
+
+- French: native
+- English: advanced professional
+- Spanish: intermediate
+- Chinese: basic
+
+## What I am looking for
+
+Contexts where engineering is expected to bring clarity, stability, modernization, and sound judgment rather than just implementation throughput.
