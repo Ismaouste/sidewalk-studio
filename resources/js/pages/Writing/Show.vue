@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
@@ -9,7 +10,9 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { ContentItem, SeoPayload } from '@/types';
+import type { ContentItem, SeoPayload, SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -18,18 +21,54 @@ const props = defineProps<{
 
 const writingMeta = computed(() => [
     {
-        label: 'Published',
+        label: copy.value.publishedLabel,
         value: props.item.published_at,
     },
     {
-        label: 'Updated',
+        label: copy.value.updatedLabel,
         value: props.item.updated_at,
     },
     {
-        label: 'Read',
+        label: copy.value.readLabel,
         value: `${props.item.reading_time} min`,
     },
 ]);
+
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              backCta: 'Retour aux notes',
+              eyebrow: 'Note',
+              editorialLabel: 'Note editoriale',
+              taggedThreadsLabel: `${props.item.tags.length} fils etiquetes`,
+              dividerLabel: 'Entree',
+              entryFrameLabel: "Cadre d'entree",
+              continueLabel: 'Poursuivre le fil',
+              continueDescription:
+                  "Les cas clients montrent comment les memes choix d'architecture se comportent sous pression de livraison et contraintes parties prenantes.",
+              caseStudiesCta: 'Ouvrir cas clients',
+              contactCta: 'Contact',
+              publishedLabel: 'Publie',
+              updatedLabel: 'Maj',
+              readLabel: 'Lecture',
+          }
+        : {
+              backCta: 'Back to writing',
+              eyebrow: 'Writing entry',
+              editorialLabel: 'Editorial note',
+              taggedThreadsLabel: `${props.item.tags.length} tagged threads`,
+              dividerLabel: 'Entry',
+              entryFrameLabel: 'Entry frame',
+              continueLabel: 'Continue the thread',
+              continueDescription:
+                  'Case studies show how the same architectural choices behave under delivery pressure and stakeholder constraints.',
+              caseStudiesCta: 'Open case studies',
+              contactCta: 'Contact',
+              publishedLabel: 'Published',
+              updatedLabel: 'Updated',
+              readLabel: 'Read',
+          },
+);
 </script>
 
 <template>
@@ -39,25 +78,22 @@ const writingMeta = computed(() => [
         <section class="sw-section writing-show">
             <div class="writing-show__lead">
                 <Button href="/writing" variant="ghost" size="sm">
-                    Back to writing
+                    {{ copy.backCta }}
                 </Button>
 
                 <SectionIntro
-                    eyebrow="Writing entry"
+                    :eyebrow="copy.eyebrow"
                     :title="props.item.title"
                     :description="props.item.excerpt || props.item.summary"
                 >
-                    <LegendChip label="Editorial note" tone="violet" />
-                    <LegendChip
-                        :label="`${props.item.tags.length} tagged threads`"
-                        tone="sun"
-                    />
+                    <LegendChip :label="copy.editorialLabel" tone="violet" />
+                    <LegendChip :label="copy.taggedThreadsLabel" tone="sun" />
                 </SectionIntro>
 
                 <ContentMetaRow :items="writingMeta" />
             </div>
 
-            <SectionDivider label="Entry" />
+            <SectionDivider :label="copy.dividerLabel" />
 
             <div class="writing-show__layout">
                 <Panel
@@ -70,7 +106,7 @@ const writingMeta = computed(() => [
 
                 <aside class="writing-show__aside">
                     <Panel class="writing-show__sidebar-card" tone="surface">
-                        <p class="type-eyebrow">Entry frame</p>
+                        <p class="type-eyebrow">{{ copy.entryFrameLabel }}</p>
                         <p class="type-body-sm writing-show__sidebar-copy">
                             {{ props.item.summary }}
                         </p>
@@ -87,23 +123,21 @@ const writingMeta = computed(() => [
                     </Panel>
 
                     <Panel class="writing-show__sidebar-card" tone="grid">
-                        <p class="type-eyebrow">Continue the thread</p>
+                        <p class="type-eyebrow">{{ copy.continueLabel }}</p>
                         <p class="type-body-sm writing-show__sidebar-copy">
-                            Case studies show how the same architectural choices
-                            behave under delivery pressure and stakeholder
-                            constraints.
+                            {{ copy.continueDescription }}
                         </p>
 
                         <div class="writing-show__actions">
                             <Button href="/case-studies" size="sm">
-                                Open case studies
+                                {{ copy.caseStudiesCta }}
                             </Button>
                             <Button
                                 href="/contact"
                                 variant="secondary"
                                 size="sm"
                             >
-                                Contact
+                                {{ copy.contactCta }}
                             </Button>
                         </div>
                     </Panel>
