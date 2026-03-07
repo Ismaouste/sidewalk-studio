@@ -16,6 +16,49 @@ export type SiteContact = {
     availability: string;
 };
 
+export type SiteIdentitySettings = {
+    name: string;
+    tagline: string;
+    description: string;
+};
+
+export type SocialLinksSettings = {
+    github_url: string | null;
+    linkedin_url: string | null;
+};
+
+export type SeoDefaultsSettings = {
+    title_suffix: string;
+    default_description: string;
+    default_robots: string;
+};
+
+export type ConsentCopySettings = {
+    preferences_title: string;
+    preferences_description: string;
+    media_notice_title: string;
+    media_notice_description: string;
+};
+
+export type FeatureTogglesSettings = {
+    show_labs: boolean;
+    show_writing: boolean;
+    show_case_studies: boolean;
+};
+
+export type SiteSettingsPayload = {
+    site_identity: SiteIdentitySettings;
+    contact_details: SiteContact;
+    social_links: SocialLinksSettings;
+    seo_defaults: SeoDefaultsSettings;
+    consent_copy: ConsentCopySettings;
+    feature_toggles: FeatureTogglesSettings;
+};
+
+export type FlashProps = {
+    status?: string | null;
+};
+
 export type SiteProps = {
     name: string;
     tagline: string;
@@ -55,6 +98,7 @@ export type SeoPayload = {
 
 export type ContentItem = {
     section: 'writing' | 'case-studies';
+    locale: string;
     title: string;
     slug: string;
     summary: string;

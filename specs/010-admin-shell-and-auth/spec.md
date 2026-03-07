@@ -1,11 +1,11 @@
 ---
 linear_issue: TODO
 github_project_item: TODO
-github_project_status: proposed
+github_project_status: in_progress
 obsidian_note: docs/ai/obsidian/build-journal/2026-03-07-010-admin-shell-and-auth.md
 release: post-v0
 title: Admin Shell and Auth
-status: proposed
+status: active
 ---
 
 # Feature Specification: Admin Shell and Auth

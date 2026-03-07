@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\SiteSettingsController as AdminSiteSettingsController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SitemapController;
@@ -19,6 +21,20 @@ Route::get('/writing/{slug}', [WritingController::class, 'show'])->name('writing
 
 Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-studies.index');
 Route::get('/case-studies/{slug}', [CaseStudyController::class, 'show'])->name('case-studies.show');
+
+Route::prefix('admin')->name('admin.')->group(function (): void {
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+        ->middleware('throttle:6,1')
+        ->name('authenticate');
+
+    Route::middleware('admin.auth')->group(function (): void {
+        Route::redirect('/', '/admin/settings')->name('index');
+        Route::get('/settings', [AdminSiteSettingsController::class, 'edit'])->name('settings.edit');
+        Route::put('/settings', [AdminSiteSettingsController::class, 'update'])->name('settings.update');
+        Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    });
+});
 
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/robots.txt', function () {

@@ -43,7 +43,7 @@ That split is still correct, but global site values such as public contact detai
 - Controllers and support classes should not duplicate fallback logic.
 - The first read-side integration now covers shared Inertia props, home/contact page reads, and default SEO metadata inputs.
 - `App\Services\SiteSettingsService::update()` is now the narrow validated write contract for the singleton aggregate.
-- A future admin UI can mount on top of that service, but no protected routes or admin shell should be added until `010-admin-shell-and-auth` is specified.
+- The first protected admin editor now mounts on top of that service under `/admin/settings`.
 
 ## Database strategy
 
