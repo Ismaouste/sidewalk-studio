@@ -56,10 +56,22 @@ class PublicLocaleResolutionTest extends TestCase
                 ->where('site.locale', 'fr'));
     }
 
-    public function test_pages_without_french_source_stay_on_english_even_with_french_preference(): void
+    public function test_newly_localized_contact_page_renders_french_content(): void
     {
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
             ->get('/contact')
+            ->assertOk()
+            ->assertHeader('content-language', 'fr')
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.locale', 'fr')
+                ->where('hero.title', 'Conversations autour de la vie privee, du SEO et de la modernisation Laravel.')
+                ->where('site.languageSwitcher.visible', true));
+    }
+
+    public function test_pages_without_french_source_stay_on_english_even_with_french_preference(): void
+    {
+        $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
+            ->get('/writing')
             ->assertOk()
             ->assertHeader('content-language', 'en')
             ->assertInertia(fn (Assert $page): Assert => $page

@@ -10,14 +10,13 @@ const page = usePage<{ site: SiteProps }>();
 <template>
     <footer class="app-footer">
         <div class="sw-container app-footer__inner">
-            <SectionDivider label="Public build log" />
+            <SectionDivider :label="page.props.site.shell.footerDividerLabel" />
 
             <div class="app-footer__content">
                 <div class="app-footer__copy">
                     <p class="type-eyebrow">Sidewalk Studio</p>
                     <p class="app-footer__note">
-                        Local-first Laravel portfolio. Consent-aware embeds.
-                        Structured content. SSR-ready shell.
+                        {{ page.props.site.shell.footerNote }}
                     </p>
                 </div>
 

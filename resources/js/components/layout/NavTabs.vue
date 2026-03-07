@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import type { SiteProps } from '@/types';
 
 type NavItem = {
     label: string;
@@ -12,6 +13,7 @@ const props = defineProps<{
     currentUrl: string;
 }>();
 
+const page = usePage<{ site: SiteProps }>();
 const menuId = 'primary-navigation';
 const mobileMenuOpen = ref(false);
 
@@ -71,7 +73,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <nav class="nav-tabs" aria-label="Primary navigation">
+    <nav class="nav-tabs" :aria-label="page.props.site.shell.navAriaLabel">
         <button
             type="button"
             class="nav-tabs__trigger"
@@ -81,9 +83,14 @@ onBeforeUnmount(() => {
             @click="toggleMenu"
         >
             <span class="nav-tabs__trigger-copy">
-                <span class="nav-tabs__trigger-label">Menu</span>
+                <span class="nav-tabs__trigger-label">
+                    {{ page.props.site.shell.navMenuLabel }}
+                </span>
                 <span class="nav-tabs__trigger-current">
-                    {{ activeItem?.label ?? 'Navigation' }}
+                    {{
+                        activeItem?.label ??
+                        page.props.site.shell.navFallbackLabel
+                    }}
                 </span>
             </span>
             <span class="nav-tabs__trigger-icon" aria-hidden="true">
@@ -108,7 +115,11 @@ onBeforeUnmount(() => {
                 >
                     <span class="nav-tabs__link-label">{{ item.label }}</span>
                     <span class="nav-tabs__link-meta">
-                        {{ isActive(item) ? 'Current' : 'Open' }}
+                        {{
+                            isActive(item)
+                                ? page.props.site.shell.navCurrentLabel
+                                : page.props.site.shell.navOpenLabel
+                        }}
                     </span>
                 </Link>
             </div>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { usePage } from '@inertiajs/vue3';
 import { computed, reactive } from 'vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
@@ -8,16 +9,52 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { SeoPayload, SiteContact } from '@/types';
+import type { SeoPayload, SiteContact, SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
     contact: SiteContact;
+    hero: {
+        eyebrow: string;
+        title: string;
+        summary: string;
+    };
+    form: {
+        eyebrow: string;
+        title: string;
+        summary: string;
+        name_label: string;
+        name_placeholder: string;
+        email_label: string;
+        email_placeholder: string;
+        company_label: string;
+        company_placeholder: string;
+        summary_label: string;
+        summary_placeholder: string;
+        summary_meta: string;
+        primary_cta: string;
+        secondary_cta: string;
+    };
+    details: {
+        eyebrow: string;
+        email_label: string;
+        location_label: string;
+        availability_label: string;
+    };
     cvDownloads: Array<{
         label: string;
         href: string;
     }>;
-    services: string[];
+    services: {
+        eyebrow: string;
+        items: string[];
+    };
+    recruiterShortcut: {
+        eyebrow: string;
+        summary: string;
+    };
 }>();
 
 const serviceTones = ['dominant', 'green', 'coral'] as const;
@@ -28,6 +65,22 @@ const inquiry = reactive({
     company: '',
     summary: '',
 });
+
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              experienceCta: 'Lire le parcours',
+              dividerLabel: 'Commencer la conversation',
+              privacyChipLabel: 'Missions privacy-first',
+              baseChipLabel: `Base ${props.contact.location}`,
+          }
+        : {
+              experienceCta: 'Read experience',
+              dividerLabel: 'Start a conversation',
+              privacyChipLabel: 'Privacy-first engagements',
+              baseChipLabel: `${props.contact.location} base`,
+          },
+);
 
 const inquiryMeta = computed(() => [
     {
@@ -66,115 +119,122 @@ const mailtoHref = computed(() => {
 
         <section class="sw-section contact-page">
             <SectionIntro
-                eyebrow="Contact"
-                title="Privacy, SEO, and Laravel modernization conversations."
-                :description="props.contact.availability"
+                :eyebrow="props.hero.eyebrow"
+                :title="props.hero.title"
+                :description="props.hero.summary"
             >
                 <template #actions>
                     <Button :href="`mailto:${props.contact.email}`">
-                        Email directly
+                        {{ props.form.secondary_cta }}
                     </Button>
                     <Button href="/experience" variant="secondary">
-                        Read experience
+                        {{ copy.experienceCta }}
                     </Button>
                 </template>
 
-                <LegendChip label="Privacy-first engagements" tone="green" />
-                <LegendChip
-                    :label="`${props.contact.location} base`"
-                    tone="sun"
-                />
+                <LegendChip :label="copy.privacyChipLabel" tone="green" />
+                <LegendChip :label="copy.baseChipLabel" tone="sun" />
             </SectionIntro>
 
-            <SectionDivider label="Start a conversation" />
+            <SectionDivider :label="copy.dividerLabel" />
 
             <div class="contact-page__grid">
                 <Panel class="contact-page__form-panel" tone="surface">
                     <div class="contact-page__form-intro">
-                        <p class="type-eyebrow">Draft your note</p>
+                        <p class="type-eyebrow">{{ props.form.eyebrow }}</p>
                         <h2 class="type-h2 contact-page__panel-title">
-                            Share the context before you open your mail client.
+                            {{ props.form.title }}
                         </h2>
                         <p class="type-body-sm contact-page__panel-copy">
-                            This keeps the page backend-free while still giving
-                            you a cleaner way to structure the first message.
+                            {{ props.form.summary }}
                         </p>
                     </div>
 
                     <form class="contact-page__form" @submit.prevent>
                         <label class="contact-page__field">
-                            <span class="type-nav">Name</span>
+                            <span class="type-nav">
+                                {{ props.form.name_label }}
+                            </span>
                             <input
                                 v-model="inquiry.name"
                                 class="contact-page__input"
                                 type="text"
                                 name="name"
                                 autocomplete="name"
-                                placeholder="Your name"
+                                :placeholder="props.form.name_placeholder"
                             />
                         </label>
 
                         <label class="contact-page__field">
-                            <span class="type-nav">Email</span>
+                            <span class="type-nav">
+                                {{ props.form.email_label }}
+                            </span>
                             <input
                                 v-model="inquiry.email"
                                 class="contact-page__input"
                                 type="email"
                                 name="email"
                                 autocomplete="email"
-                                placeholder="you@example.com"
+                                :placeholder="props.form.email_placeholder"
                             />
                         </label>
 
                         <label class="contact-page__field">
-                            <span class="type-nav">Company or product</span>
+                            <span class="type-nav">
+                                {{ props.form.company_label }}
+                            </span>
                             <input
                                 v-model="inquiry.company"
                                 class="contact-page__input"
                                 type="text"
                                 name="company"
                                 autocomplete="organization"
-                                placeholder="Brand, product, or team"
+                                :placeholder="props.form.company_placeholder"
                             />
                         </label>
 
                         <label
                             class="contact-page__field contact-page__field--full"
                         >
-                            <span class="type-nav">Project brief</span>
+                            <span class="type-nav">
+                                {{ props.form.summary_label }}
+                            </span>
                             <textarea
                                 v-model="inquiry.summary"
                                 class="contact-page__input contact-page__input--textarea"
                                 name="summary"
                                 rows="6"
-                                placeholder="Scope, constraints, timeline, and what is currently painful."
+                                :placeholder="props.form.summary_placeholder"
                             />
                             <span class="type-meta contact-page__field-meta">
-                                Keep it short. The button below opens a drafted
-                                email with these details.
+                                {{ props.form.summary_meta }}
                             </span>
                         </label>
                     </form>
 
                     <div class="contact-page__form-actions">
-                        <Button :href="mailtoHref">Compose email</Button>
+                        <Button :href="mailtoHref">
+                            {{ props.form.primary_cta }}
+                        </Button>
                         <Button
                             :href="`mailto:${props.contact.email}`"
                             variant="secondary"
                         >
-                            Email directly
+                            {{ props.form.secondary_cta }}
                         </Button>
                     </div>
                 </Panel>
 
                 <div class="contact-page__aside">
                     <Panel class="contact-page__details" tone="grid">
-                        <p class="type-eyebrow">Details</p>
+                        <p class="type-eyebrow">{{ props.details.eyebrow }}</p>
                         <ContentMetaRow :items="inquiryMeta" />
 
                         <dl class="contact-page__detail-list">
                             <div class="contact-page__detail">
-                                <dt class="type-nav">Email</dt>
+                                <dt class="type-nav">
+                                    {{ props.details.email_label }}
+                                </dt>
                                 <dd class="type-body-sm">
                                     <a
                                         class="contact-page__detail-link"
@@ -186,14 +246,18 @@ const mailtoHref = computed(() => {
                             </div>
 
                             <div class="contact-page__detail">
-                                <dt class="type-nav">Location</dt>
+                                <dt class="type-nav">
+                                    {{ props.details.location_label }}
+                                </dt>
                                 <dd class="type-body-sm">
                                     {{ props.contact.location }}
                                 </dd>
                             </div>
 
                             <div class="contact-page__detail">
-                                <dt class="type-nav">Availability</dt>
+                                <dt class="type-nav">
+                                    {{ props.details.availability_label }}
+                                </dt>
                                 <dd class="type-body-sm">
                                     {{ props.contact.availability }}
                                 </dd>
@@ -202,11 +266,11 @@ const mailtoHref = computed(() => {
                     </Panel>
 
                     <Panel class="contact-page__services" tone="surface">
-                        <p class="type-eyebrow">Where I can help</p>
+                        <p class="type-eyebrow">{{ props.services.eyebrow }}</p>
 
                         <ul class="contact-page__service-list">
                             <li
-                                v-for="(service, index) in props.services"
+                                v-for="(service, index) in props.services.items"
                                 :key="service"
                                 class="contact-page__service-item"
                             >
@@ -222,10 +286,11 @@ const mailtoHref = computed(() => {
                     </Panel>
 
                     <Panel class="contact-page__services" tone="grid">
-                        <p class="type-eyebrow">Recruiter shortcut</p>
+                        <p class="type-eyebrow">
+                            {{ props.recruiterShortcut.eyebrow }}
+                        </p>
                         <p class="type-body-sm contact-page__service-copy">
-                            If you need a faster handoff than a first call, the
-                            current English and French CVs are available here.
+                            {{ props.recruiterShortcut.summary }}
                         </p>
 
                         <div class="contact-page__form-actions">

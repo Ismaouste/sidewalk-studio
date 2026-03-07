@@ -28,8 +28,76 @@ class PublicLocale
             'home' => 'home',
             'experience' => 'experience',
             'local' => 'local',
+            'projects' => 'projects',
+            'contact' => 'contact',
             default => null,
         };
+    }
+
+    /**
+     * @return array<int, array{label: string, href: string}>
+     */
+    public static function navigation(string $locale): array
+    {
+        $labels = $locale === 'fr'
+            ? [
+                '/' => 'Accueil',
+                '/experience' => 'Experience',
+                '/local' => 'Local',
+                '/projects' => 'Projets',
+                '/writing' => 'Notes',
+                '/contact' => 'Contact',
+            ]
+            : [];
+
+        return collect(config('site.navigation'))
+            ->map(fn (array $item): array => [
+                'label' => $labels[$item['href']] ?? $item['label'],
+                'href' => $item['href'],
+            ])
+            ->all();
+    }
+
+    /**
+     * @return array{
+     *     localeSwitcherLabel: string,
+     *     navAriaLabel: string,
+     *     navMenuLabel: string,
+     *     navFallbackLabel: string,
+     *     navCurrentLabel: string,
+     *     navOpenLabel: string,
+     *     footerDividerLabel: string,
+     *     footerNote: string,
+     *     privacyControlsLabel: string
+     * }
+     */
+    public static function shellCopy(string $locale): array
+    {
+        if ($locale === 'fr') {
+            return [
+                'localeSwitcherLabel' => 'Langue',
+                'navAriaLabel' => 'Navigation principale',
+                'navMenuLabel' => 'Menu',
+                'navFallbackLabel' => 'Navigation',
+                'navCurrentLabel' => 'Actif',
+                'navOpenLabel' => 'Ouvrir',
+                'footerDividerLabel' => 'Journal public',
+                'footerNote' => 'Portfolio Laravel local-first. Embeds soumis au consentement. Contenu structure. Shell pret pour le SSR.',
+                'privacyControlsLabel' => 'Reglages vie privee',
+            ];
+        }
+
+        return [
+            'localeSwitcherLabel' => 'Language',
+            'navAriaLabel' => 'Primary navigation',
+            'navMenuLabel' => 'Menu',
+            'navFallbackLabel' => 'Navigation',
+            'navCurrentLabel' => 'Current',
+            'navOpenLabel' => 'Open',
+            'footerDividerLabel' => 'Public build log',
+            'footerNote' => 'Local-first Laravel portfolio. Consent-aware embeds. Structured content. SSR-ready shell.',
+            'privacyControlsLabel' => 'Privacy controls',
+        ];
     }
 
     public static function isAvailableForRequest(Request $request, string $locale): bool

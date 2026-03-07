@@ -8,7 +8,11 @@ const switcher = computed(() => page.props.site.languageSwitcher);
 </script>
 
 <template>
-    <nav v-if="switcher.visible" class="locale-switcher" aria-label="Language">
+    <nav
+        v-if="switcher.visible"
+        class="locale-switcher"
+        :aria-label="page.props.site.shell.localeSwitcherLabel"
+    >
         <Link
             v-for="option in switcher.options"
             :key="option.code"

@@ -26,9 +26,21 @@ class PublicLanguageSwitcherTest extends TestCase
                 ));
     }
 
-    public function test_unsupported_pages_hide_the_language_switcher(): void
+    public function test_newly_localized_contact_page_exposes_the_language_switcher(): void
     {
         $this->get('/contact')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.languageSwitcher.visible', true)
+                ->where(
+                    'site.languageSwitcher.options.1.href',
+                    fn (string $href): bool => str_ends_with($href, '/contact?lang=fr'),
+                ));
+    }
+
+    public function test_unsupported_pages_hide_the_language_switcher(): void
+    {
+        $this->get('/writing')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', false)
