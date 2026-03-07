@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
@@ -8,7 +9,9 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { ContentItem, SeoPayload } from '@/types';
+import type { ContentItem, SeoPayload, SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -18,15 +21,47 @@ const props = defineProps<{
 function writingMeta(item: ContentItem) {
     return [
         {
-            label: 'Published',
+            label: copy.value.publishedLabel,
             value: item.published_at,
         },
         {
-            label: 'Read',
+            label: copy.value.readLabel,
             value: `${item.reading_time} min`,
         },
     ];
 }
+
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              eyebrow: 'Archive notes',
+              title: "Notes de build, memos de strategie et decisions d'architecture.",
+              description:
+                  "Notes editoriales sur les systemes de contenu, l'orchestration du consentement, la preparation au SSR et la discipline de repo public.",
+              projectsCta: 'Voir projets',
+              experienceCta: 'Lire le parcours',
+              editorialLabel: 'Journal editorial',
+              publishedEntriesLabel: `${props.items.length} notes publiees`,
+              dividerLabel: 'Notes publiees',
+              itemLabel: 'Note',
+              publishedLabel: 'Publie',
+              readLabel: 'Lecture',
+          }
+        : {
+              eyebrow: 'Writing archive',
+              title: 'Build notes, strategy memos, and architecture rationale.',
+              description:
+                  'Editorial notes on content systems, consent orchestration, SSR readiness, and public repo discipline.',
+              projectsCta: 'View projects',
+              experienceCta: 'Read experience',
+              editorialLabel: 'Editorial log',
+              publishedEntriesLabel: `${props.items.length} published entries`,
+              dividerLabel: 'Published entries',
+              itemLabel: 'Writing',
+              publishedLabel: 'Published',
+              readLabel: 'Read',
+          },
+);
 </script>
 
 <template>
@@ -35,25 +70,22 @@ function writingMeta(item: ContentItem) {
 
         <section class="sw-section writing-index">
             <SectionIntro
-                eyebrow="Writing archive"
-                title="Build notes, strategy memos, and architecture rationale."
-                description="Editorial notes on content systems, consent orchestration, SSR readiness, and public repo discipline."
+                :eyebrow="copy.eyebrow"
+                :title="copy.title"
+                :description="copy.description"
             >
                 <template #actions>
-                    <Button href="/projects">View projects</Button>
+                    <Button href="/projects">{{ copy.projectsCta }}</Button>
                     <Button href="/experience" variant="secondary">
-                        Read experience
+                        {{ copy.experienceCta }}
                     </Button>
                 </template>
 
-                <LegendChip label="Editorial log" tone="violet" />
-                <LegendChip
-                    :label="`${props.items.length} published entries`"
-                    tone="sun"
-                />
+                <LegendChip :label="copy.editorialLabel" tone="violet" />
+                <LegendChip :label="copy.publishedEntriesLabel" tone="sun" />
             </SectionIntro>
 
-            <SectionDivider label="Published entries" />
+            <SectionDivider :label="copy.dividerLabel" />
 
             <div class="writing-index__list">
                 <Link
@@ -64,7 +96,7 @@ function writingMeta(item: ContentItem) {
                 >
                     <Panel class="writing-index__card" tone="surface">
                         <div class="writing-index__card-top">
-                            <LegendChip label="Writing" tone="violet" />
+                            <LegendChip :label="copy.itemLabel" tone="violet" />
                             <ContentMetaRow :items="writingMeta(item)" />
                         </div>
 

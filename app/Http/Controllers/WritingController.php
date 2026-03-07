@@ -15,14 +15,17 @@ class WritingController extends Controller
 
     public function index(): Response
     {
+        $isFrench = app()->getLocale() === 'fr';
         $seo = Seo::page(
-            'Writing',
-            'Notes on architecture, consent orchestration, content modeling, and portfolio system design.',
+            $isFrench ? 'Notes' : 'Writing',
+            $isFrench
+                ? "Notes sur l'architecture, l'orchestration du consentement, la modelisation de contenu et la conception d'un portfolio systeme."
+                : 'Notes on architecture, consent orchestration, content modeling, and portfolio system design.',
             '/writing',
             [
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
-                    ['name' => 'Writing', 'path' => '/writing'],
+                    ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => $isFrench ? 'Notes' : 'Writing', 'path' => '/writing'],
                 ],
             ],
         );
@@ -36,6 +39,7 @@ class WritingController extends Controller
     public function show(string $slug): Response
     {
         $item = $this->content->findPublished('writing', $slug);
+        $isFrench = app()->getLocale() === 'fr';
         $seo = Seo::page(
             $item['seo_title'],
             $item['seo_description'],
@@ -45,10 +49,10 @@ class WritingController extends Controller
                 'open_graph_type' => 'article',
                 'published_at' => $item['published_at'],
                 'updated_at' => $item['updated_at'],
-                'section' => 'Writing',
+                'section' => $isFrench ? 'Notes' : 'Writing',
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
-                    ['name' => 'Writing', 'path' => '/writing'],
+                    ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => $isFrench ? 'Notes' : 'Writing', 'path' => '/writing'],
                     ['name' => $item['title'], 'path' => '/writing/'.$item['slug']],
                 ],
             ],

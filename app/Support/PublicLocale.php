@@ -34,6 +34,14 @@ class PublicLocale
         };
     }
 
+    public static function writingSlugForRequest(Request $request): ?string
+    {
+        return match ($request->route()?->getName()) {
+            'writing.show' => (string) $request->route('slug'),
+            default => null,
+        };
+    }
+
     /**
      * @return array<int, array{label: string, href: string}>
      */
@@ -108,11 +116,40 @@ class PublicLocale
 
         $pageKey = self::pageKeyForRequest($request);
 
-        if ($pageKey === null) {
+        if ($pageKey !== null) {
+            return File::exists(resource_path("content/pages/{$locale}/{$pageKey}.md"));
+        }
+
+        return match ($request->route()?->getName()) {
+            'writing.index' => self::localizedCollectionExists('writing', $locale),
+            'writing.show' => self::localizedCollectionSlugExists(
+                'writing',
+                self::writingSlugForRequest($request),
+                $locale,
+            ),
+            default => false,
+        };
+    }
+
+    protected static function localizedCollectionExists(string $section, string $locale): bool
+    {
+        $directory = resource_path("content/{$section}/{$locale}");
+
+        if (! File::isDirectory($directory)) {
             return false;
         }
 
-        return File::exists(resource_path("content/pages/{$locale}/{$pageKey}.md"));
+        return collect(File::files($directory))
+            ->contains(fn ($file): bool => $file->getExtension() === 'md');
+    }
+
+    protected static function localizedCollectionSlugExists(string $section, ?string $slug, string $locale): bool
+    {
+        if ($slug === null || $slug === '') {
+            return false;
+        }
+
+        return File::exists(resource_path("content/{$section}/{$locale}/{$slug}.md"));
     }
 
     /**
