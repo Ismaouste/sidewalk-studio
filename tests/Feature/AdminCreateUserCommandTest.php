@@ -23,5 +23,11 @@ class AdminCreateUserCommandTest extends TestCase
             'email' => 'operator@example.test',
             'name' => 'Operator',
         ]);
+
+        $this->assertDatabaseHas('admin_audit_logs', [
+            'actor_type' => 'console',
+            'action' => 'operator.created',
+            'subject' => 'operator_account',
+        ]);
     }
 }

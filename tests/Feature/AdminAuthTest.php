@@ -84,7 +84,7 @@ class AdminAuthTest extends TestCase
         $this->actingAs($user)
             ->put('/admin/settings', $payload)
             ->assertRedirect('/admin/settings')
-            ->assertSessionHas('status', 'Site settings saved. Public reads now use the updated payload.');
+            ->assertSessionHas('status', 'Site settings saved. Public reads now use the updated payload and the change was added to the audit log.');
 
         $record = SiteSetting::query()->findOrFail(SiteSetting::SINGLETON_ID);
 

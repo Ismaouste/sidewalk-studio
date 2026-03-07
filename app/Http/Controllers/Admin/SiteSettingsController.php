@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Services\AdminAuditLogService;
 use App\Services\SiteSettingsService;
 use App\SiteSettings\InvalidSiteSettings;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -14,6 +17,7 @@ use Inertia\Response;
 class SiteSettingsController extends Controller
 {
     public function __construct(
+        protected AdminAuditLogService $auditLogs,
         protected SiteSettingsService $siteSettings,
     ) {}
 
@@ -34,9 +38,10 @@ class SiteSettingsController extends Controller
             'consent_copy',
             'feature_toggles',
         ]);
+        $before = $this->siteSettings->current()->toPersistenceArray();
 
         try {
-            $this->siteSettings->update($payload);
+            $settings = $this->siteSettings->hydrate($payload);
         } catch (InvalidSiteSettings $exception) {
             if ($exception->getPrevious() instanceof ValidationException) {
                 throw $exception->getPrevious();
@@ -45,10 +50,21 @@ class SiteSettingsController extends Controller
             throw $exception;
         }
 
+        DB::transaction(function () use ($before, $request, $settings): void {
+            $this->siteSettings->store($settings);
+            $this->auditLogs->recordSettingsUpdated(
+                $request->user() instanceof User ? $request->user() : null,
+                $before,
+                $settings->toPersistenceArray(),
+            );
+        });
+
+        $this->siteSettings->refresh();
+
         return to_route('admin.settings.edit')
             ->with(
                 'status',
-                'Site settings saved. Public reads now use the updated payload.',
+                'Site settings saved. Public reads now use the updated payload and the change was added to the audit log.',
             );
     }
 }

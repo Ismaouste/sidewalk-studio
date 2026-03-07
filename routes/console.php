@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\User;
+use App\Services\AdminAuditLogService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Command\Command;
 
 use function Laravel\Prompts\password;
@@ -29,11 +31,17 @@ Artisan::command('admin:create-user {email} {--name=} {--password=}', function (
         required: true,
     );
 
-    $user = User::query()->create([
-        'name' => $name,
-        'email' => $email,
-        'password' => $password,
-    ]);
+    $user = DB::transaction(function () use ($email, $name, $password): User {
+        $user = User::query()->create([
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+        ]);
+
+        app(AdminAuditLogService::class)->recordOperatorCreated($user);
+
+        return $user;
+    });
 
     $this->info("Created operator [{$user->email}].");
 

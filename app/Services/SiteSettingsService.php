@@ -39,14 +39,24 @@ class SiteSettingsService
 
     public function update(array $payload): SiteSettings
     {
-        $settings = SiteSettings::fromPayload($payload);
+        $settings = $this->hydrate($payload);
 
+        $this->store($settings);
+
+        return $this->refresh();
+    }
+
+    public function hydrate(array $payload): SiteSettings
+    {
+        return SiteSettings::fromPayload($payload);
+    }
+
+    public function store(SiteSettings $settings): void
+    {
         SiteSetting::query()->updateOrCreate(
             ['id' => SiteSetting::SINGLETON_ID],
             $settings->toPersistenceArray(),
         );
-
-        return $this->refresh();
     }
 
     public function forget(): void

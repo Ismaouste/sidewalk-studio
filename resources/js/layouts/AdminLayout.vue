@@ -17,6 +17,11 @@ const navigation = [
         href: '/admin/settings',
         note: 'Bounded runtime configuration',
     },
+    {
+        label: 'Audit log',
+        href: '/admin/audit-log',
+        note: 'Recent sensitive operator actions',
+    },
 ] as const;
 
 const user = page.props.auth.user as User | null;
@@ -91,8 +96,8 @@ const currentSection = computed(
                         provider keys stay in <code>.env</code>.
                     </p>
                     <p class="type-meta admin-shell__note-meta">
-                        Future audit history can layer onto these grouped writes
-                        without changing the settings boundary.
+                        Audit entries now track sensitive writes without storing
+                        raw secrets or payload values.
                     </p>
                 </Panel>
             </aside>

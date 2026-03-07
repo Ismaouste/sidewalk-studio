@@ -44,6 +44,8 @@ That split is still correct, but global site values such as public contact detai
 - The first read-side integration now covers shared Inertia props, home/contact page reads, and default SEO metadata inputs.
 - `App\Services\SiteSettingsService::update()` is now the narrow validated write contract for the singleton aggregate.
 - The first protected admin editor now mounts on top of that service under `/admin/settings`.
+- successful admin writes now add a compact audit entry under `/admin/audit-log`
+- audit summaries record changed groups and field names only; they do not store raw settings values or secrets
 
 ## Database strategy
 

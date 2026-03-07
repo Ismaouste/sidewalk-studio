@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAuditLogController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\SiteSettingsController as AdminSiteSettingsController;
 use App\Http\Controllers\CaseStudyController;
@@ -34,6 +35,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
 
     Route::middleware('admin.auth')->group(function (): void {
         Route::redirect('/', '/admin/settings')->name('index');
+        Route::get('/audit-log', [AdminAuditLogController::class, 'index'])->name('audit-log.index');
         Route::get('/settings', [AdminSiteSettingsController::class, 'edit'])->name('settings.edit');
         Route::put('/settings', [AdminSiteSettingsController::class, 'update'])->name('settings.update');
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

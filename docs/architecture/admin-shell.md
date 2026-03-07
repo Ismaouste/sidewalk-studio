@@ -8,6 +8,7 @@ The admin shell is a minimal operator boundary for Sidewalk Studio.
 - protected `/admin` routes
 - a dedicated Inertia admin layout separate from the public shell
 - the first bounded editor for `site_settings`
+- a read-only audit log for recent sensitive operator actions
 
 ## Route boundary
 
@@ -32,4 +33,11 @@ If `--name` or `--password` is omitted, the command prompts interactively.
 - the admin settings page reads from `SiteSettingsService::current()`
 - updates go through `SiteSettingsService::update()`
 - validation still lives in the existing `SiteSettings` payload contract
-- successful writes refresh the cache and redirect back with a flash status message
+- successful writes refresh the cache, create an audit entry, and redirect back with a flash status message
+
+## Audit trail
+
+- `/admin/audit-log` is a protected read-only view over recent admin audit entries
+- the first milestone records successful `site_settings` updates and successful `admin:create-user` operator bootstrap actions
+- audit entries persist actor, action, subject, a compact summary, and the write timestamp
+- raw secrets, raw settings payload values, and operator passwords are intentionally excluded from the audit summary
