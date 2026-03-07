@@ -4,6 +4,34 @@
     --sw-font-body: 'DM Sans', 'Segoe UI', sans-serif;
     --sw-font-code: 'DM Mono', 'Courier New', monospace;
 
+    /* Reference-only breakpoint tokens. Keep media queries explicit because
+       custom properties cannot be used directly in native @media rules. */
+    --sw-breakpoint-xs: 480px;
+    --sw-breakpoint-sm: 640px;
+    --sw-breakpoint-md: 768px;
+    --sw-breakpoint-lg: 1024px;
+    --sw-breakpoint-xl: 1280px;
+
+    --sw-container-sm: 720px;
+    --sw-container-md: 960px;
+    --sw-container-lg: 1200px;
+    --sw-container-xl: 1280px;
+    --sw-shell-max-width: var(--sw-container-lg);
+    --sw-admin-shell-max-width: 1180px;
+    --sw-admin-nav-width: 220px;
+
+    --sw-layout-gutter-lg: 40px;
+    --sw-layout-gutter-md: 32px;
+    --sw-layout-gutter-sm: 24px;
+
+    --sw-header-offset: 90px;
+
+    --sw-z-base: 0;
+    --sw-z-content: 1;
+    --sw-z-header: 5;
+    --sw-z-overlay: 40;
+    --sw-z-modal: 50;
+
     --sw-radius-none: 0px;
     --sw-radius-sm: 4px;
     --sw-radius-md: 8px;

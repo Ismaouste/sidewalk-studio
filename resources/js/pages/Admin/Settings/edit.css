@@ -1,0 +1,125 @@
+.admin-settings {
+    display: grid;
+    gap: clamp(var(--sw-space-md), 4vw, var(--sw-space-lg));
+}
+
+.admin-settings__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--sw-space-sm);
+}
+
+.admin-settings__title,
+.admin-settings__workflow-title {
+    margin: 0;
+}
+
+.admin-settings__copy,
+.admin-settings__workflow-note {
+    max-width: 62ch;
+    color: var(--sw-text-secondary);
+}
+
+.admin-settings__actions {
+    display: grid;
+    justify-items: end;
+    gap: 0.6rem;
+}
+
+.admin-settings__action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-xs);
+}
+
+.admin-settings__status {
+    color: var(--sw-accent-green);
+}
+
+.admin-settings__status--draft {
+    color: color-mix(in srgb, var(--sw-accent-sun) 78%, black 18%);
+}
+
+.admin-settings__status--error,
+.admin-settings__error {
+    color: var(--sw-accent-coral);
+}
+
+.admin-settings__grid {
+    display: grid;
+    gap: var(--sw-space-md);
+}
+
+.admin-settings__workflow,
+.admin-settings__summary {
+    display: grid;
+    gap: var(--sw-space-sm);
+    padding: clamp(var(--sw-space-sm), 3vw, var(--sw-space-md));
+}
+
+.admin-settings__workflow-copy {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.admin-settings__workflow-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.admin-settings__pill {
+    border: 1px solid color-mix(in srgb, var(--sw-border) 78%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sw-bg-base) 78%, transparent);
+    padding: 0.35rem 0.65rem;
+    color: var(--sw-text-secondary);
+}
+
+.admin-settings__field {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.admin-settings__input {
+    min-height: 3rem;
+    border: 1px solid var(--sw-border);
+    border-radius: var(--sw-radius-md);
+    background: color-mix(in srgb, var(--sw-bg-base) 92%, transparent);
+    padding-inline: 0.95rem;
+    transition:
+        border-color var(--sw-motion-fast),
+        box-shadow var(--sw-motion-fast),
+        background-color var(--sw-motion-fast);
+}
+
+.admin-settings__input--textarea {
+    min-height: 7.5rem;
+    resize: vertical;
+    padding-block: 0.85rem;
+}
+
+.admin-settings__input:focus-visible {
+    border-color: var(--sw-accent-dominant);
+    outline: none;
+    box-shadow: 0 0 0 4px
+        color-mix(in srgb, var(--sw-accent-dominant) 14%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .admin-settings__input {
+        transition: none;
+    }
+}
+
+@media (max-width: 720px) {
+    .admin-settings__header {
+        flex-direction: column;
+    }
+
+    .admin-settings__actions {
+        width: 100%;
+        justify-items: start;
+    }
+}

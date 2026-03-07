@@ -124,7 +124,7 @@ const currentSection = computed(
 .admin-shell__header {
     position: sticky;
     top: 0;
-    z-index: 5;
+    z-index: var(--sw-z-header);
     border-bottom: 1px solid
         color-mix(in srgb, var(--sw-border) 82%, transparent);
     background: color-mix(in srgb, var(--sw-bg-base) 88%, transparent);
@@ -133,7 +133,10 @@ const currentSection = computed(
 
 .admin-shell__bar,
 .admin-shell__body {
-    width: min(calc(100% - 40px), 1180px);
+    width: min(
+        calc(100% - var(--sw-layout-gutter-lg)),
+        var(--sw-admin-shell-max-width)
+    );
     margin-inline: auto;
 }
 
@@ -205,14 +208,14 @@ const currentSection = computed(
 
 .admin-shell__body {
     display: grid;
-    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, var(--sw-admin-nav-width)) minmax(0, 1fr);
     gap: clamp(var(--sw-space-md), 4vw, var(--sw-space-lg));
     padding-block: clamp(var(--sw-space-md), 4vw, var(--sw-space-xl));
 }
 
 .admin-shell__nav {
     position: sticky;
-    top: 90px;
+    top: var(--sw-header-offset);
     display: grid;
     gap: var(--sw-space-xs);
     align-self: start;
@@ -295,7 +298,10 @@ const currentSection = computed(
 @media (max-width: 640px) {
     .admin-shell__bar,
     .admin-shell__body {
-        width: min(calc(100% - 24px), 1180px);
+        width: min(
+            calc(100% - var(--sw-layout-gutter-sm)),
+            var(--sw-admin-shell-max-width)
+        );
     }
 
     .admin-shell__bar {
