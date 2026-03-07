@@ -6,6 +6,7 @@
 - Inertia + Vue 3 + TypeScript for the public shell because the repo is also meant to demonstrate modern app ergonomics
 - SQLite for local development because it removes service friction on Windows
 - Tailwind v4 with local font packages to avoid remote font requests
+- `.env` for secrets and runtime infrastructure, with a later bounded `site_settings` layer reserved for non-secret runtime configuration
 
 ## Explicitly deferred
 

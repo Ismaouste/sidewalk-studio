@@ -43,6 +43,18 @@
 - Add real Matomo and/or PostHog adapters on top of the existing consent registry.
 
 ### 009-admin-site-settings
-- Add a small protected settings surface for site metadata, contact details, consent copy, and future runtime toggles.
+- Add the bounded `site_settings` domain for site metadata, contact details, consent copy, and future runtime toggles.
 - Keep SQLite as the first persistence layer and stay migration-friendly for a later PostgreSQL path if product needs justify it.
-- Do not replace Markdown content or introduce a full CMS in this phase.
+- Do not replace `.env`, store API keys in `site_settings`, replace Markdown content, introduce a full CMS, or collapse the future admin shell/auth work into this phase.
+
+### 010-admin-shell-and-auth
+- Add the protected admin route group, operator authentication, and the internal shell that future operational features can reuse.
+- Mount `009-admin-site-settings` behind this boundary instead of coupling settings persistence to ad-hoc route protection.
+
+### 011-admin-audit-log
+- Add an audit trail for settings writes and later admin actions.
+- Keep the first scope narrow and readable: actor, action, subject, payload summary, and timestamp.
+
+### 012-installation-onboarding
+- Add first-run installation and onboarding for creating the initial operator account and seeding the first `site_settings` row.
+- Keep the bootstrap path compatible with local SQLite and later server onboarding without requiring PostgreSQL first.

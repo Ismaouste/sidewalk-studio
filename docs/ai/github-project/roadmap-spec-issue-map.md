@@ -13,4 +13,7 @@ It keeps the roadmap order, spec folders, and future issue trackers aligned with
 | `006-case-studies` | `TBD` | `TBD` | `TBD` | `deferred` | `TBD` | `post-v0` | Richer editorial content and walkthrough depth. |
 | `007-ci-cd-foundation` | `TBD` | `TBD` | `TBD` | `deferred` | `TBD` | `post-v0` | Validation automation after the local workflow is settled. |
 | `008-analytics-modes` | `TBD` | `TBD` | `TBD` | `deferred` | `TBD` | `post-v0` | Real analytics adapters on top of the existing consent registry. |
-| `009-admin-site-settings` | `specs/009-admin-site-settings/` | `TODO` | `TODO` | `proposed` | `docs/ai/obsidian/build-journal/2026-03-07-009-admin-site-settings.md` | `post-v0` | Draft spec for a protected internal settings surface. |
+| `009-admin-site-settings` | `specs/009-admin-site-settings/` | `TODO` | `TODO` | `proposed` | `docs/ai/obsidian/build-journal/2026-03-07-009-admin-site-settings.md` | `post-v0` | Draft spec for a bounded settings domain and future protected write surface. |
+| `010-admin-shell-and-auth` | `TBD` | `TBD` | `TBD` | `proposed` | `TBD` | `post-v0` | Planned admin boundary for protected operational features. |
+| `011-admin-audit-log` | `TBD` | `TBD` | `TBD` | `proposed` | `TBD` | `post-v0` | Planned audit trail for settings and later admin actions. |
+| `012-installation-onboarding` | `TBD` | `TBD` | `TBD` | `proposed` | `TBD` | `post-v0` | Planned first-run onboarding and initial operator bootstrap. |
