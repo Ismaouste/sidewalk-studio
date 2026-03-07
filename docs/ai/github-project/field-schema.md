@@ -22,3 +22,4 @@ Use this as the initial field contract for the first project board.
 - Update the spec frontmatter first.
 - Mirror the same values into the GitHub Project row.
 - Keep the repo map in `docs/ai/github-project/roadmap-spec-issue-map.md` aligned with the board.
+- Use `docs/ai/github-project/v0-foundation-field-values.md` for the first exact row values.

@@ -25,8 +25,10 @@ Keep these fields in each `spec.md` once a feature enters active tracking:
 
 - `docs/ai/linear/spec-issue-map.md` mirrors spec and Linear relationships.
 - `docs/ai/linear/issue-bootstrap.md` gives the first manual Linear setup for specs `001` to `004`.
+- `docs/ai/linear/v0-foundation-issues.md` stores copy-paste-ready Linear issue titles and descriptions.
 - `docs/ai/github-project/roadmap-spec-issue-map.md` mirrors roadmap/spec/release status.
 - `docs/ai/github-project/field-schema.md` defines the initial GitHub Project fields.
+- `docs/ai/github-project/v0-foundation-field-values.md` stores the first exact board values for specs `001` to `004`.
 - `docs/ai/obsidian/build-journal/` stores repo-safe note mirrors.
 - `.specify/templates/` stores the templates that feed those files.
 

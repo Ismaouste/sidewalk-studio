@@ -26,3 +26,4 @@ The first repo-safe mirrors already exist for:
 - `002-content-system`
 - `003-consent-orchestration`
 - `004-seo-foundation`
+- `009-admin-site-settings`

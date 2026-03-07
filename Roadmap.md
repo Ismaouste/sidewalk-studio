@@ -41,3 +41,8 @@
 
 ### 008-analytics-modes
 - Add real Matomo and/or PostHog adapters on top of the existing consent registry.
+
+### 009-admin-site-settings
+- Add a small protected settings surface for site metadata, contact details, consent copy, and future runtime toggles.
+- Keep SQLite as the first persistence layer and stay migration-friendly for a later PostgreSQL path if product needs justify it.
+- Do not replace Markdown content or introduce a full CMS in this phase.

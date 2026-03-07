@@ -1,6 +1,7 @@
 # Linear Issue Bootstrap
 
 Use this file to create the first real Linear issues for specs `001` to `004`.
+Use `docs/ai/linear/v0-foundation-issues.md` when you need the full copy-paste-ready body text.
 
 ## Title format
 

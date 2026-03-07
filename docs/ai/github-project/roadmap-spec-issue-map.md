@@ -13,3 +13,4 @@ It keeps the roadmap order, spec folders, and future issue trackers aligned with
 | `006-case-studies` | `TBD` | `TBD` | `TBD` | `deferred` | `TBD` | `post-v0` | Richer editorial content and walkthrough depth. |
 | `007-ci-cd-foundation` | `TBD` | `TBD` | `TBD` | `deferred` | `TBD` | `post-v0` | Validation automation after the local workflow is settled. |
 | `008-analytics-modes` | `TBD` | `TBD` | `TBD` | `deferred` | `TBD` | `post-v0` | Real analytics adapters on top of the existing consent registry. |
+| `009-admin-site-settings` | `specs/009-admin-site-settings/` | `TODO` | `TODO` | `proposed` | `docs/ai/obsidian/build-journal/2026-03-07-009-admin-site-settings.md` | `post-v0` | Draft spec for a protected internal settings surface. |
