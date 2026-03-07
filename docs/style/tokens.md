@@ -22,5 +22,5 @@ Current token families:
 - accents and chrome: `--sw-accent-*`, `--sw-border`, `--sw-grid-line`, `--sw-shadow-*`
 - atmospheric shell tokens: `--sw-header-bg`, `--sw-sun-*`, `--sw-tab-*`
 
-Temporary compatibility aliases remain in `tokens.css` for older public pages
-that still read legacy variables. New work should use `--sw-*` only.
+The temporary compatibility aliases used during the migration have been removed.
+Public code should read `--sw-*` tokens directly.

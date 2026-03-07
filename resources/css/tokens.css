@@ -69,22 +69,6 @@ html[data-theme='morning'] {
     --sw-tab-active: #141210;
     --sw-tab-inactive: rgba(20, 18, 16, 0.38);
     --sw-tab-line: #c97d0a;
-
-    --background: var(--sw-bg-base);
-    --background-alt: color-mix(
-        in srgb,
-        var(--sw-bg-grid) 82%,
-        var(--sw-bg-base)
-    );
-    --surface: color-mix(in srgb, var(--sw-bg-surface) 88%, transparent);
-    --surface-strong: var(--sw-bg-elevated);
-    --ink: var(--sw-text-primary);
-    --muted: var(--sw-text-secondary);
-    --border-strong: color-mix(in srgb, var(--sw-border) 84%, transparent);
-    --accent-green: var(--sw-accent-green);
-    --accent-red: var(--sw-accent-coral);
-    --accent-sand: var(--sw-accent-sun);
-    --shadow-soft: var(--sw-shadow-md);
 }
 
 html[data-theme='sunset'] {
@@ -127,20 +111,4 @@ html[data-theme='sunset'] {
     --sw-tab-active: #e8e2f2;
     --sw-tab-inactive: rgba(232, 226, 242, 0.32);
     --sw-tab-line: #f0700a;
-
-    --background: var(--sw-bg-base);
-    --background-alt: color-mix(
-        in srgb,
-        var(--sw-bg-grid) 86%,
-        var(--sw-bg-base)
-    );
-    --surface: color-mix(in srgb, var(--sw-bg-surface) 90%, transparent);
-    --surface-strong: var(--sw-bg-elevated);
-    --ink: var(--sw-text-primary);
-    --muted: var(--sw-text-secondary);
-    --border-strong: color-mix(in srgb, var(--sw-border) 84%, transparent);
-    --accent-green: var(--sw-accent-green);
-    --accent-red: var(--sw-accent-coral);
-    --accent-sand: var(--sw-accent-sun);
-    --shadow-soft: var(--sw-shadow-md);
 }

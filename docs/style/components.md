@@ -3,7 +3,7 @@
 The public design system is now organized into three small layers under
 `resources/js/components/`:
 
-- `design-system/`: `SunAnchor`, `AmbientGrid`, `SectionIntro`, `SectionDivider`, `LegendChip`, `MetricStrip`
+- `design-system/`: `SunAnchor`, `AmbientGrid`, `SectionIntro`, `SectionDivider`, `LegendChip`, `MetricStrip`, `ContentMetaRow`
 - `layout/`: `AppHeader`, `ThemeToggle`, `NavTabs`, `AppFooter`
 - `ui/`: `Button`, `Panel`
 
@@ -25,7 +25,8 @@ Current migration coverage:
 - homepage migrated to the new shell and primitives
 - `About` migrated lightly
 - `Projects` migrated lightly
-- long-form writing and case-study pages still rely on the new shell plus legacy-compatible tokens
+- writing, case-study, contact, and labs pages now use the same shell and primitives
+- `ContentMetaRow` is the shared metadata treatment for archive cards and long-form headers
 
 Component rules:
 

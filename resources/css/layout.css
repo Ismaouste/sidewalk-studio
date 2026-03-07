@@ -47,13 +47,6 @@
     box-shadow: var(--sw-shadow-sm);
 }
 
-.panel {
-    border: 1px solid var(--sw-border);
-    border-radius: var(--sw-radius-lg);
-    background: var(--sw-bg-surface);
-    box-shadow: var(--sw-shadow-sm);
-}
-
 .ambient-grid {
     position: fixed;
     inset: 0;

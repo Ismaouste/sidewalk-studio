@@ -58,8 +58,7 @@ body,
     line-height: 1.5;
 }
 
-.type-eyebrow,
-.eyebrow {
+.type-eyebrow {
     font-family: var(--sw-font-heading);
     font-size: 10px;
     font-weight: 700;
