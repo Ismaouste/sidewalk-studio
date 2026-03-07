@@ -28,6 +28,74 @@ class ContentRepositoryTest extends TestCase
         $this->assertStringContainsString('The first iteration of Sidewalk Studio started from a mismatch', $item['body_html']);
     }
 
+    public function test_repository_prefers_locale_specific_case_studies_and_falls_back_to_english(): void
+    {
+        $directory = resource_path('content/case-studies/fr');
+        $path = "{$directory}/case-study-locale-priority-test.md";
+        $fallbackPath = resource_path('content/case-studies/en/case-study-english-fallback-test.md');
+
+        File::ensureDirectoryExists($directory);
+        File::put($path, <<<'MD'
+---
+title: Case Study Locale Priority Test
+slug: case-study-locale-priority-test
+summary: A localized case study should replace the English version when both share the same slug.
+status: published
+published_at: 2026-03-09
+updated_at: 2026-03-09
+tags:
+    - privacy
+    - architecture
+seo_title: Case Study Locale Priority Test
+seo_description: This case study proves locale-specific case studies override the English fallback for the same slug.
+client: Sidewalk Studio
+role: Architecture
+stack:
+    - Laravel 12
+outcomes:
+    - Locale-specific case studies win
+---
+
+This localized case study should be served before the English fallback.
+MD);
+        File::put($fallbackPath, <<<'MD'
+---
+title: Case Study English Fallback Test
+slug: case-study-english-fallback-test
+summary: An English-only case study should stay available when no French translation exists.
+status: published
+published_at: 2026-03-09
+updated_at: 2026-03-09
+tags:
+    - fallback
+seo_title: Case Study English Fallback Test
+seo_description: This case study proves English fallback remains available when French case studies are missing.
+client: Sidewalk Studio
+role: Architecture
+stack:
+    - Laravel 12
+outcomes:
+    - English fallback remains visible
+---
+
+This English-only case study should still be present in a French collection response.
+MD);
+
+        try {
+            $items = app(ContentRepository::class)->published('case-studies', 'fr');
+
+            $localized = $items->firstWhere('slug', 'case-study-locale-priority-test');
+            $fallback = $items->firstWhere('slug', 'case-study-english-fallback-test');
+
+            $this->assertSame('fr', $localized['locale']);
+            $this->assertStringContainsString('This localized case study should be served', $localized['body_html']);
+            $this->assertSame('en', $fallback['locale']);
+        } finally {
+            File::delete($path);
+            File::delete($fallbackPath);
+        }
+    }
+
     public function test_repository_prefers_locale_specific_collection_entries_and_falls_back_to_english(): void
     {
         $directory = resource_path('content/writing/fr');

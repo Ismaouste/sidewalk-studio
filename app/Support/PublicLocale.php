@@ -42,6 +42,14 @@ class PublicLocale
         };
     }
 
+    public static function caseStudySlugForRequest(Request $request): ?string
+    {
+        return match ($request->route()?->getName()) {
+            'case-studies.show' => (string) $request->route('slug'),
+            default => null,
+        };
+    }
+
     /**
      * @return array<int, array{label: string, href: string}>
      */
@@ -125,6 +133,12 @@ class PublicLocale
             'writing.show' => self::localizedCollectionSlugExists(
                 'writing',
                 self::writingSlugForRequest($request),
+                $locale,
+            ),
+            'case-studies.index' => self::localizedCollectionExists('case-studies', $locale),
+            'case-studies.show' => self::localizedCollectionSlugExists(
+                'case-studies',
+                self::caseStudySlugForRequest($request),
                 $locale,
             ),
             default => false,

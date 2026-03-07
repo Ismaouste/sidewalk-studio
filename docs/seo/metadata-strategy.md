@@ -34,6 +34,8 @@ duplicate route trees, `hreflang` output, or alternate canonical paths until a
 full multilingual SEO model exists.
 
 The public language switcher should only appear on routes that already have
-dedicated translated page sources. Today that safe surface is limited to `/`,
-`/experience`, `/local`, `/projects`, and `/contact`. Unsupported routes keep
-the English canonical experience even when a French preference is stored.
+dedicated translated page sources or localized collection entries for the
+current slug/archive. Today that safe surface includes `/`, `/experience`,
+`/local`, `/projects`, `/contact`, the translated writing routes, and the
+translated case-study routes. Unsupported routes keep the English canonical
+experience even when a French preference is stored.

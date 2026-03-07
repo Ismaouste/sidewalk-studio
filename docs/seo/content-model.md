@@ -42,5 +42,6 @@ The PHP repository adds:
 - English is the baseline locale for the current release line.
 - Page content resolves the requested locale first, then `en`.
 - Dedicated French page sources currently exist for `home`, `experience`, `local`, `projects`, and `contact`.
+- Dedicated French collection entries now also exist for selected `writing` and `case-studies` slugs.
 - Writing and case-study collections resolve the requested locale first, then `en`, then temporary root-level files.
 - If multiple collection files share the same slug, the first match in that fallback order wins.

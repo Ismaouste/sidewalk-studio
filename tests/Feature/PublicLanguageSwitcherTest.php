@@ -59,9 +59,30 @@ class PublicLanguageSwitcherTest extends TestCase
                 ));
     }
 
-    public function test_unsupported_pages_hide_the_language_switcher(): void
+    public function test_case_study_routes_expose_the_language_switcher_when_a_french_entry_exists(): void
     {
         $this->get('/case-studies')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.languageSwitcher.visible', true)
+                ->where(
+                    'site.languageSwitcher.options.1.href',
+                    fn (string $href): bool => str_ends_with($href, '/case-studies?lang=fr'),
+                ));
+
+        $this->get('/case-studies/repo-bootstrap-foundation')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.languageSwitcher.visible', true)
+                ->where(
+                    'site.languageSwitcher.options.1.href',
+                    fn (string $href): bool => str_ends_with($href, '/case-studies/repo-bootstrap-foundation?lang=fr'),
+                ));
+    }
+
+    public function test_unsupported_pages_hide_the_language_switcher(): void
+    {
+        $this->get('/labs')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', false)
