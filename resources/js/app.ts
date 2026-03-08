@@ -3,13 +3,13 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { initializeTheme } from '@/composables/useTheme';
-import { usePageTransitions } from '@/composables/usePageTransitions';
-import type { ConsentConfig } from '@/types';
+import { configurePageTransitions } from '@/composables/usePageTransitions';
+import { initializeStaticPreviewNavigation } from '@/lib/staticPreview';
+import type { ConsentConfig, SiteProps } from '@/types';
 import '../css/app.css';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Sidewalk Studio';
 initializeTheme();
-usePageTransitions();
 
 function scheduleIdleTask(task: () => void) {
     if (typeof window === 'undefined') {
@@ -35,9 +35,21 @@ createInertiaApp({
             import.meta.glob<DefineComponent>('./pages/**/*.vue'),
         ),
     setup({ el, App, props, plugin }) {
+        const site = props.initialPage.props.site as SiteProps;
+
+        configurePageTransitions({
+            staticPreview: site.runtime.staticPreview,
+        });
+
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .mount(el);
+
+        if (site.runtime.staticPreview) {
+            initializeStaticPreviewNavigation(true);
+
+            return;
+        }
 
         scheduleIdleTask(() => {
             void import('@/lib/webVitals')

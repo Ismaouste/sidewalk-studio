@@ -1,5 +1,6 @@
 import { router } from '@inertiajs/vue3';
 import { computed, reactive } from 'vue';
+import { clearStaticPreviewNavigation } from '@/lib/staticPreview';
 
 const SHOW_DELAY_MS = 180;
 const MIN_OVERLAY_MS = 320;
@@ -13,6 +14,8 @@ const state = reactive({
 });
 
 let listenersInstalled = false;
+let staticPreviewListenersInstalled = false;
+let transitionMode: 'unset' | 'inertia' | 'static' = 'unset';
 let lastStart = 0;
 let shownAt = 0;
 let showTimer: number | undefined;
@@ -48,6 +51,7 @@ function releaseOverlay() {
     state.isSettling = true;
     state.isReady = true;
     shownAt = 0;
+    clearStaticPreviewNavigation();
     window.dispatchEvent(new CustomEvent('sidewalk:navigation-settle'));
 
     settlingTimer = window.setTimeout(() => {
@@ -75,6 +79,19 @@ function startTransition() {
             releaseOverlay();
         }, MAX_OVERLAY_MS);
     }, SHOW_DELAY_MS);
+}
+
+function startTransitionImmediately() {
+    clearTimers();
+    lastStart = window.performance.now();
+    state.isSettling = false;
+    state.isLoading = true;
+    state.isReady = true;
+    shownAt = window.performance.now();
+    safetyTimer = window.setTimeout(() => {
+        releaseOverlay();
+    }, MAX_OVERLAY_MS);
+    window.dispatchEvent(new CustomEvent('sidewalk:navigation-start'));
 }
 
 function finishTransition() {
@@ -114,9 +131,60 @@ function installTransitionListeners() {
     });
 }
 
-export function usePageTransitions() {
-    installTransitionListeners();
+function installStaticPreviewTransitionListeners() {
+    if (staticPreviewListenersInstalled || typeof window === 'undefined') {
+        return;
+    }
 
+    staticPreviewListenersInstalled = true;
+
+    window.addEventListener('sidewalk:static-preview-start', () => {
+        startTransition();
+    });
+
+    window.addEventListener('sidewalk:static-preview-arrive', (event) => {
+        const detail =
+            event instanceof CustomEvent &&
+            event.detail &&
+            typeof event.detail.startedAt === 'number'
+                ? event.detail
+                : null;
+
+        if (!detail) {
+            clearStaticPreviewNavigation();
+
+            return;
+        }
+
+        const elapsed = Date.now() - detail.startedAt;
+
+        if (elapsed < SHOW_DELAY_MS) {
+            clearStaticPreviewNavigation();
+
+            return;
+        }
+
+        startTransitionImmediately();
+        settleAfter(Math.max(MIN_OVERLAY_MS, 520 - elapsed));
+    });
+}
+
+export function configurePageTransitions(options?: { staticPreview?: boolean }) {
+    if (options?.staticPreview) {
+        transitionMode = 'static';
+        installStaticPreviewTransitionListeners();
+
+        return;
+    }
+
+    if (transitionMode === 'unset') {
+        transitionMode = 'inertia';
+    }
+
+    installTransitionListeners();
+}
+
+export function usePageTransitions() {
     return {
         isLoading: computed(() => state.isLoading),
         isSettling: computed(() => state.isSettling),

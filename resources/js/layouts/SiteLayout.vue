@@ -114,6 +114,10 @@ let previousLoaderIndex = -1;
 let localSafetyTimer: number | undefined;
 
 function setScrollLock(enabled: boolean) {
+    if (typeof document === 'undefined') {
+        return;
+    }
+
     document.documentElement.toggleAttribute('data-scroll-lock', enabled);
     document.body.toggleAttribute('data-scroll-lock', enabled);
 }
