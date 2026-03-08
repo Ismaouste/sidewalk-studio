@@ -39,9 +39,9 @@ const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               eyebrow: 'Cas clients',
-              title: 'Decisions detaillees derriere la premiere release Sidewalk Studio.',
+              title: 'Des tranches de build qui montrent comment les decisions ont ete prises.',
               description:
-                  "Walkthroughs structures du bootstrap repository, de l'orchestration du consentement et des choix d'architecture SEO.",
+                  "Walkthroughs structures du bootstrap repository, de l'orchestration du consentement et des choix d'architecture SEO quand les contraintes sont encore proches de l'implementation.",
               projectsCta: 'Voir pistes projet',
               contactCta: 'Discuter un build similaire',
               reviewLabel: 'Format revue technique',
@@ -55,9 +55,9 @@ const copy = computed(() =>
           }
         : {
               eyebrow: 'Case studies',
-              title: 'Detailed decisions behind the first Sidewalk Studio release.',
+              title: 'Build slices that show how the decisions were actually made.',
               description:
-                  'Structured walkthroughs of repository bootstrap, consent orchestration, and SEO architecture choices.',
+                  'Structured walkthroughs of repository bootstrap, consent orchestration, and SEO architecture choices while the implementation constraints are still visible.',
               projectsCta: 'View project tracks',
               contactCta: 'Discuss a similar build',
               reviewLabel: 'Technical review format',

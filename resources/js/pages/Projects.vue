@@ -51,9 +51,10 @@ const copy = computed(() =>
               outcomesLabel: 'Resultats',
               outcomesSuffix: 'signaux',
               proofNotesLabel: 'Notes de contexte',
-              proofNotesTitle: "Les notes publiques derriere l'implementation.",
+              proofNotesTitle:
+                  'Les notes publiques qui montrent le raisonnement derriere le build.',
               proofNotesSummary:
-                  "Quand un cas client reste volontairement compact, les notes publiques montrent le raisonnement architecture, contenu et SEO qui l'accompagne.",
+                  "Quand un cas client reste volontairement compact, les notes publiques montrent la discipline de sequencing, de modelisation et de livraison qui l'accompagne.",
               writingArchiveCta: 'Ouvrir les notes',
               publishedLabel: 'Publie',
               readLabel: 'Lecture',
@@ -68,9 +69,10 @@ const copy = computed(() =>
               outcomesLabel: 'Outcomes',
               outcomesSuffix: 'signals',
               proofNotesLabel: 'Supporting notes',
-              proofNotesTitle: 'Public notes behind the implementation.',
+              proofNotesTitle:
+                  'Public notes that show the reasoning behind the build.',
               proofNotesSummary:
-                  'When a case study stays intentionally compact, public notes show the architecture, content, and SEO reasoning that sits behind it.',
+                  'When a case study stays intentionally compact, public notes show the sequencing, modeling, and delivery reasoning that sits behind it.',
               writingArchiveCta: 'Open writing',
               publishedLabel: 'Published',
               readLabel: 'Read',

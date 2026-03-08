@@ -4,25 +4,25 @@ seo_description: Parcours professionnel autour de l'e-commerce, Laravel, le SEO 
 hero:
     eyebrow: Experience
     title: Un parcours faconne par les systemes complexes.
-    summary: Mon parcours est ancre dans l'ingenierie web avec une forte orientation e-commerce, maintenabilite, SEO technique, contraintes de conformite et systemes reellement en production.
+    summary: Mon parcours est ancre dans des produits existants ou checkout, qualite catalogue, routing, consentement, SEO et maintenabilite doivent tenir ensemble sous vraie pression de livraison.
 positioning:
-    - Je suis le plus utile sur des produits et des plateformes commerce deja importants pour un business et qui ont besoin d'une ingenierie plus calme plutot que d'une reinitialisation theatrale.
+    - Je suis le plus utile sur des produits et des plateformes commerce deja importants pour un business, deja charges de legacy, et qui ont besoin d'une ingenierie plus calme plutot qu'une nouvelle promesse de rewrite.
     - Le role combine souvent implementation, architecture et traduction entre contraintes produit, SEO technique, vie privee, analytics respectueux du consentement, flux catalogue et maintenabilite a long terme.
 contexts:
-    - E-commerce et flux critiques avec une vraie memoire operationnelle.
-    - Systemes Laravel et PHP qui ont besoin d'une modernisation progressive du legacy plutot qu'un cycle de reinitialisation.
-    - Surfaces editoriales, catalogues et marketing ou routing, metadonnees, structure de contenu et conformite deviennent des sujets produit.
+    - E-commerce et flux critiques ou visibilite de recherche, qualite catalogue et conversion sont tous des sujets operationnels.
+    - Systemes Laravel et PHP qui ont besoin d'une modernisation progressive, de meilleures limites et de moins de conventions fragiles sans arreter de livrer.
+    - Surfaces editoriales, catalogues et marketing ou routing, metadonnees, structure de contenu et conformite ont un impact produit direct.
 trajectory:
     - title: Plateformes commerce sous pression
-      summary: J'ai travaille dans des environnements ou les releases, les parcours de conversion, la qualite catalogue, la visibilite de recherche et la stabilite operationnelle etaient etroitement lies. C'est la que j'ai appris a preferer une conception soignee a la purete abstraite.
+      summary: J'ai travaille dans des environnements ou releases, parcours de conversion, qualite catalogue, visibilite de recherche et stabilite operationnelle etaient etroitement lies. C'est la que j'ai appris a preferer le changement previsible, les compromis explicites et une conception soignee a la purete abstraite.
     - title: Laravel comme couche de livraison durable
-      summary: J'ai utilise Laravel pour apporter de meilleures limites, des refactors plus surs et des conventions internes plus lisibles a des produits deja charges de complexite critique.
+      summary: J'ai utilise Laravel pour apporter de meilleures limites, des refactors plus surs et des conventions internes plus lisibles a des produits deja charges de complexite critique et de trop nombreuses regles implicites.
     - title: La documentation comme partie de l'implementation
-      summary: J'ai transforme des decisions d'architecture en specs publiques, notes et references internes afin que la maintenabilite survive aux changements d'equipe, aux handoffs recruteur et aux cycles suivants.
+      summary: J'ai transforme des decisions d'architecture en specs, notes et references afin que la maintenabilite survive aux changements d'equipe, aux handoffs recruteur et aux cycles suivants au lieu de rester prisonniere de la memoire orale.
 strengths:
-    - Cartographier une surface legacy confuse vers une architecture plus petite et plus claire.
-    - Relier produit, SEO technique, vie privee, integrations business et ingenierie sans les separer en silos.
-    - Ecrire du code et de la documentation qui rendent la maintenance future moins couteuse.
+    - Cartographier une surface legacy confuse vers une architecture plus petite, plus claire et avec moins d'hypotheses cachees.
+    - Relier produit, SEO technique, vie privee, integrations business et ingenierie sans les separer en silos ou en ceremonies inutiles.
+    - Ecrire du code et de la documentation qui reduisent le cout de la prochaine feature, pas seulement de la livraison en cours.
 focus_areas:
     - title: Laravel et modernisation du legacy
       summary: Refactors progressifs, meilleures limites et conventions pratiques pour des systemes PHP durables qui ne peuvent pas arreter de livrer.
@@ -52,7 +52,7 @@ stack_groups:
           - Revue vie privee et SEO dans l'implementation
 career_snapshot:
     title: Snapshot recruteur
-    summary: Le package de CV actuel est disponible en anglais et en français pour accelerer les mises en relation quand un recruteur, un manager ou un client a besoin d'un profil concret rapidement.
+    summary: Le package de CV actuel est disponible en anglais et en français pour accelerer les mises en relation quand un recruteur, un manager ou un client a besoin d'un profil concret avec des preuves publiques reliees.
     roles:
         - Lead developer Laravel
         - Tech lead e-commerce

@@ -45,7 +45,7 @@ const copy = computed(() =>
               entryFrameLabel: "Cadre d'entree",
               continueLabel: 'Poursuivre le fil',
               continueDescription:
-                  "Les cas clients montrent comment les memes choix d'architecture se comportent sous pression de livraison et contraintes parties prenantes.",
+                  "Les cas clients montrent comment les memes choix d'architecture tiennent quand on ajoute pression de livraison, contraintes parties prenantes et discipline produit.",
               caseStudiesCta: 'Ouvrir cas clients',
               projectsCta: 'Projets',
               experienceCta: 'Parcours',
@@ -63,7 +63,7 @@ const copy = computed(() =>
               entryFrameLabel: 'Entry frame',
               continueLabel: 'Continue the thread',
               continueDescription:
-                  'Case studies show how the same architectural choices behave under delivery pressure and stakeholder constraints.',
+                  'Case studies show how the same architectural choices hold up once delivery pressure, stakeholder constraints, and product discipline enter the picture.',
               caseStudiesCta: 'Open case studies',
               projectsCta: 'Projects',
               experienceCta: 'Experience',

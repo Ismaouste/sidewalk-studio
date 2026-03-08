@@ -35,9 +35,9 @@ const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               eyebrow: 'Archive notes',
-              title: "Notes de build, memos de strategie et decisions d'architecture.",
+              title: "Notes de build qui servent de preuve d'architecture et de sequencing.",
               description:
-                  "Notes editoriales sur les systemes de contenu, l'orchestration du consentement, la preparation au SSR et la discipline de repo public.",
+                  "Notes editoriales sur les systemes de contenu, l'orchestration du consentement, la preparation au SSR et la discipline de repo public quand ces sujets ont encore une consequence concrete sur le build.",
               projectsCta: 'Voir projets',
               experienceCta: 'Lire le parcours',
               editorialLabel: 'Journal editorial',
@@ -46,7 +46,7 @@ const copy = computed(() =>
               itemLabel: 'Note',
               publishedLabel: 'Publie',
               readLabel: 'Lecture',
-              evidenceLabel: 'Ce que la note soutient',
+              evidenceLabel: 'Cette note renforce',
           }
         : {
               eyebrow: 'Writing archive',
@@ -61,7 +61,7 @@ const copy = computed(() =>
               itemLabel: 'Writing',
               publishedLabel: 'Published',
               readLabel: 'Read',
-              evidenceLabel: 'What this note supports',
+              evidenceLabel: 'This note strengthens',
           },
 );
 </script>

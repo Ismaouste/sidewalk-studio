@@ -4,24 +4,24 @@ seo_description: Cas d'etude selectionnes et pistes de construction systeme qui 
 hero:
     eyebrow: Carte des projets
     title: Preuves publiques pour l'architecture, la livraison et le jugement produit.
-    summary: Discipline de repo, structure de contenu, experience publique respectueuse de la vie privee et SEO technique sont les terrains de preuve actuels.
+    summary: Cette surface de preuve publique montre comment discipline de repo, structure de contenu, comportement frontend respectueux de la vie privee et decisions de SEO technique se traduisent en vraies tranches d'implementation.
 tracks_section:
     label: Pistes
     intro:
         eyebrow: Focus
         title: La construction actuelle du systeme en trois pistes.
-        summary: Chaque piste sert a rendre la livraison, la maintenabilite et la preuve publique plus durables.
+        summary: Chaque piste existe parce qu'elle a resolu un vrai probleme de sequencing du build, pas pour remplir une rubrique portfolio generique.
     items:
         - title: Fondation du repository
-          summary: Poser un repo capable d'heberger specs publiques, docs et skills reutilisables sans retomber dans un simple scaffold de demo.
+          summary: Remplacer une coquille publique minimale par un workspace Laravel capable de porter specs, docs et livraison suivante sans retomber dans du code de demo.
         - title: Systeme de contenu
-          summary: Utiliser du Markdown versionne pour publier cas d'etude et notes avec metadonnees explicites, routing stable et assez de structure pour une croissance bilingue future.
+          summary: Transformer du Markdown versionne en vraie couche de publication avec routing stable, metadonnees explicites, etat de publication et fallback locale fiable.
         - title: Consentement + SEO
-          summary: Montrer que vie privee, decouvrabilite et maintenabilite peuvent coexister dans une architecture front calme.
+          summary: Garder vie privee, decouvrabilite et maintenabilite dans le meme chemin d'implementation au lieu de laisser integrations et SEO partir chacun de leur cote.
 case_studies_section:
     label: Cas d'etude selectionnes
     eyebrow: Cas d'etude
     title: Un petit ensemble de tranches d'implementation publique.
-    summary: Chacune documente un vrai chemin de decision, son contexte d'implementation et ses compromis de livraison, pas seulement un resultat poli.
+    summary: Chacune documente le cadrage du probleme, la contrainte d'implementation et le compromis de livraison, pas seulement un resultat poli.
     archive_cta: Voir l'archive
 ---

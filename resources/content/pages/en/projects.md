@@ -4,24 +4,24 @@ seo_description: Selected case studies and system-building tracks that shape the
 hero:
     eyebrow: Project map
     title: Public proof for architecture, delivery, and product judgment.
-    summary: Repository discipline, content structure, privacy-aware public experience, and technical SEO are the current proving grounds.
+    summary: This public proof surface shows how repository discipline, content structure, privacy-aware frontend behavior, and technical SEO decisions land in actual implementation slices.
 tracks_section:
     label: Tracks
     intro:
         eyebrow: Focus
         title: The current system build in three tracks.
-        summary: Each track exists to make delivery, maintainability, and public proof more durable.
+        summary: Each track exists because it solved a real sequencing problem in the build rather than filling a generic portfolio section.
     items:
         - title: Repository Foundation
-          summary: Bootstrap a repo that can host public specs, docs, and reusable skills without collapsing into a demo-only scaffold.
+          summary: Replace a thin public shell with a Laravel workspace that can carry specs, docs, and follow-up delivery without collapsing into demo code.
         - title: Content System
-          summary: Use versioned Markdown to publish case studies and writing with explicit metadata, stable routing, and enough structure to support future bilingual growth.
+          summary: Turn versioned Markdown into a real publishing layer with stable routing, explicit metadata, publication state, and safe locale fallback.
         - title: Consent + SEO
-          summary: Prove that privacy, discoverability, and maintainability can coexist in a calm front-end architecture.
+          summary: Keep privacy, discoverability, and maintainability in the same implementation path instead of letting integrations or SEO concerns drift apart.
 case_studies_section:
     label: Selected case studies
     eyebrow: Case studies
     title: A small set of public implementation slices.
-    summary: Each one documents a real decision path, the implementation context, and the delivery tradeoffs rather than a polished end-state alone.
+    summary: Each one documents the problem framing, the implementation constraint, and the delivery tradeoff, not just a polished end-state.
     archive_cta: View archive
 ---

@@ -50,7 +50,7 @@ const copy = computed(() =>
               outcomesTitle: 'Resultats',
               continueLabel: 'Poursuivre la preuve',
               continueDescription:
-                  "Le projet, l'experience et les notes publiques montrent comment ce meme travail s'insere dans une pratique plus large.",
+                  "Projet, parcours et notes publiques montrent comment ce meme travail tient entre cadrage produit, contraintes d'implementation et decisions d'architecture plus larges.",
               projectsCta: 'Projets',
               experienceCta: 'Parcours',
               writingCta: 'Notes',
@@ -73,7 +73,7 @@ const copy = computed(() =>
               outcomesTitle: 'Outcomes',
               continueLabel: 'Continue through the proof surface',
               continueDescription:
-                  'Projects, experience, and public notes show how the same work fits inside a broader delivery practice.',
+                  'Projects, experience, and public notes show how the same work holds together across product framing, implementation constraints, and broader architectural judgment.',
               projectsCta: 'Projects',
               experienceCta: 'Experience',
               writingCta: 'Writing',

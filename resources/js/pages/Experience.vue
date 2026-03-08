@@ -67,7 +67,7 @@ const copy = computed(() =>
               stackEnvironmentsLabel: 'Stack et environnements',
               publicProofLabel: 'Preuves publiques',
               publicProofSummary:
-                  'Des cas clients et notes publiques montrent comment le travail se traduit en decisions d architecture, de SEO technique, de privacy et de livraison.',
+                  'Les cas clients montrent le cadrage, les contraintes et les compromis. Les notes publiques montrent ensuite le raisonnement technique qui rend ces choix defendables.',
               caseStudiesLabel: 'Cas clients',
               writingLabel: 'Notes',
               outcomesLabel: 'Resultats',
@@ -75,7 +75,7 @@ const copy = computed(() =>
               openArchiveCta: 'Ouvrir archive',
               quickHandoffLabel: 'Handoff rapide',
               quickHandoffSummary:
-                  'Si tu dois qualifier le profil rapidement, le CV, les roles cibles et la page contact donnent deja assez de matiere pour avancer sans premier call flou.',
+                  'Si tu dois qualifier le profil rapidement, le CV, les roles cibles et les preuves publiques donnent deja assez de matiere pour avancer sans premier call flou.',
               recruiterSnapshotLabel: 'Snapshot recruteur',
               whatLookingForLabel: 'Ce que je recherche',
               writingCta: 'Notes',
@@ -98,7 +98,7 @@ const copy = computed(() =>
               stackEnvironmentsLabel: 'Stack and environments',
               publicProofLabel: 'Public proof',
               publicProofSummary:
-                  'Public case studies and notes show how the work translates into architecture decisions, technical SEO, privacy, and delivery discipline.',
+                  'Case studies show the framing, constraints, and tradeoffs. Public notes then show the technical reasoning that makes those decisions defensible.',
               caseStudiesLabel: 'Case studies',
               writingLabel: 'Writing',
               outcomesLabel: 'Outcomes',
@@ -106,7 +106,7 @@ const copy = computed(() =>
               openArchiveCta: 'Open archive',
               quickHandoffLabel: 'Quick handoff',
               quickHandoffSummary:
-                  'If you need to qualify the profile quickly, the CV package, role targets, and contact page already give enough material to move without a vague first call.',
+                  'If you need to qualify the profile quickly, the CV package, role targets, and public proof already give enough material to move without a vague first call.',
               recruiterSnapshotLabel: 'Recruiter-ready snapshot',
               whatLookingForLabel: 'What I am looking for',
               writingCta: 'Writing',
