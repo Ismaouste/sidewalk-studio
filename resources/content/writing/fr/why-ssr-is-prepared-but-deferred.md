@@ -9,6 +9,9 @@ tags:
     - ssr
     - inertia
     - strategy
+    - notes-dev
+category: journal
+accent_tone: violet
 seo_title: Pourquoi le SSR reste prêt mais diffère
 seo_description: Sidewalk Studio reste compatible avec le SSR plus tard, sans ajouter trop tôt la complexité d'exploitation tant que les fondations de contenu et de SEO ne sont pas stabilisées.
 ---

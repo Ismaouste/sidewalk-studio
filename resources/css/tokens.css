@@ -54,6 +54,11 @@
     --sw-motion-smooth: 280ms cubic-bezier(0.4, 0, 0.2, 1);
     --sw-motion-reveal: 600ms cubic-bezier(0.22, 1, 0.36, 1);
     --sw-motion-sun: 900ms cubic-bezier(0.4, 0, 0.2, 1);
+    --sw-sun-vx: 14%;
+    --sw-sun-vy: 10%;
+    --sw-sun-blur-global: 124px;
+    --sw-sun-opacity-global: 0.72;
+    --sw-sun-ray-angle: 32deg;
 }
 
 :root,

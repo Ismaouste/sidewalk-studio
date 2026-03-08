@@ -16,6 +16,9 @@ class ContentRepositoryTest extends TestCase
         $this->assertCount(2, $items);
         $this->assertContains('content-systems-routing-and-metadata', $items->pluck('slug')->all());
         $this->assertTrue($items->every(fn (array $item) => $item['status'] === 'published'));
+        $this->assertSame('journal', $items->first()['category']);
+        $this->assertSame('note', $items->first()['publication_type']);
+        $this->assertStringContainsString('/content-visuals/writing/', $items->first()['image_url']);
     }
 
     public function test_repository_returns_case_study_details(): void
@@ -25,7 +28,23 @@ class ContentRepositoryTest extends TestCase
         $this->assertSame('Sidewalk Studio', $item['client']);
         $this->assertSame('en', $item['locale']);
         $this->assertContains('Laravel 12', $item['stack']);
+        $this->assertSame('work', $item['category']);
+        $this->assertSame('reference', $item['publication_type']);
+        $this->assertStringContainsString('/content-visuals/case-studies/', $item['image_url']);
         $this->assertStringContainsString('The first iteration of Sidewalk Studio started from a mismatch', $item['body_html']);
+    }
+
+    public function test_repository_feed_can_filter_publications_by_tag_and_category(): void
+    {
+        $items = app(ContentRepository::class)->feed(['writing', 'case-studies'], [
+            'tag' => 'notes-dev',
+            'category' => 'journal',
+            'limit' => 2,
+        ]);
+
+        $this->assertCount(2, $items);
+        $this->assertTrue($items->every(fn (array $item): bool => $item['section'] === 'writing'));
+        $this->assertTrue($items->every(fn (array $item): bool => in_array('notes-dev', $item['tags'], true)));
     }
 
     public function test_repository_prefers_locale_specific_case_studies_and_falls_back_to_english(): void

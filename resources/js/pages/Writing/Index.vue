@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import ContentVisual from '@/components/content/ContentVisual.vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
@@ -34,12 +35,12 @@ function writingMeta(item: ContentItem) {
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              eyebrow: 'Archive notes',
+              eyebrow: 'Archive des notes',
               title: "Notes de build, mémos de stratégie et décisions d'architecture.",
               description:
                   "Notes éditoriales sur les systèmes de contenu, l'orchestration du consentement, la préparation au SSR et la discipline de repo public.",
-              projectsCta: 'Voir projets',
-              experienceCta: 'Lire le parcours',
+              projectsCta: 'Voir les références',
+              contactCta: 'Prendre contact',
               editorialLabel: 'Journal éditorial',
               publishedEntriesLabel: `${props.items.length} notes publiées`,
               dividerLabel: 'Notes publiées',
@@ -52,8 +53,8 @@ const copy = computed(() =>
               title: 'Build notes, strategy memos, and architecture rationale.',
               description:
                   'Editorial notes on content systems, consent orchestration, SSR readiness, and public repo discipline.',
-              projectsCta: 'View projects',
-              experienceCta: 'Read experience',
+              projectsCta: 'Browse references',
+              contactCta: 'Contact',
               editorialLabel: 'Editorial log',
               publishedEntriesLabel: `${props.items.length} published entries`,
               dividerLabel: 'Published entries',
@@ -76,8 +77,8 @@ const copy = computed(() =>
             >
                 <template #actions>
                     <Button href="/projects">{{ copy.projectsCta }}</Button>
-                    <Button href="/experience" variant="secondary">
-                        {{ copy.experienceCta }}
+                    <Button href="/contact" variant="secondary">
+                        {{ copy.contactCta }}
                     </Button>
                 </template>
 
@@ -95,6 +96,7 @@ const copy = computed(() =>
                     class="writing-index__link"
                 >
                     <Panel class="writing-index__card" tone="surface">
+                        <ContentVisual :item="item" compact />
                         <div class="writing-index__card-top">
                             <LegendChip :label="copy.itemLabel" tone="violet" />
                             <ContentMetaRow :items="writingMeta(item)" />

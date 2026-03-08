@@ -9,6 +9,9 @@ tags:
     - content
     - seo
     - laravel
+    - notes-dev
+category: journal
+accent_tone: violet
 seo_title: Content Systems Should Start With Routing and Metadata
 seo_description: Markdown is only the storage layer. The real system starts with routing, publication state, and metadata discipline.
 ---

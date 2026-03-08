@@ -9,6 +9,9 @@ tags:
     - ssr
     - inertia
     - strategy
+    - notes-dev
+category: journal
+accent_tone: violet
 seo_title: Why SSR Is Prepared but Deferred
 seo_description: Sidewalk Studio stays compatible with SSR later, but avoids adding the runtime complexity before the first content and SEO foundations exist.
 ---

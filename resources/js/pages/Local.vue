@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import PublicationWidget from '@/components/content/PublicationWidget.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
@@ -6,7 +9,9 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { SeoPayload } from '@/types';
+import type { PublicationWidget as PublicationWidgetData, SeoPayload, SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -32,9 +37,50 @@ const props = defineProps<{
         summary: string;
         items: string[];
     }>;
+    journalWidget: PublicationWidgetData;
 }>();
 
 const localTones = ['dominant', 'green', 'coral'] as const;
+
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              projectsCta: 'Voir les références',
+              contactCta: 'Prendre contact',
+              heroChipBase: 'Sillon lorrain',
+              heroChipCivic: 'Systèmes civiques',
+              heroChipHealth: 'Santé publique',
+              baseDivider: 'Terrain',
+              signalsLabel: "Signaux que je regarde",
+              signalPrefix: 'Signal',
+              cityDivider: 'Villes et systèmes',
+              communityDivider: 'Associations et engagements',
+              supportDivider: 'Sujets que je soutiens',
+              supportPoint: 'Point',
+              closingDivider: 'Retour au travail',
+              closingCopy:
+                  "Cette page sert à rendre visible le terrain depuis lequel je travaille. Les mêmes sujets réapparaissent ailleurs sous forme de références, de journal et de contextes de collaboration.",
+              writingCta: 'Ouvrir le journal',
+          }
+        : {
+              projectsCta: 'Browse references',
+              contactCta: 'Contact',
+              heroChipBase: 'Lorraine corridor',
+              heroChipCivic: 'Civic systems',
+              heroChipHealth: 'Public health',
+              baseDivider: 'Ground',
+              signalsLabel: 'Signals I pay attention to',
+              signalPrefix: 'Signal',
+              cityDivider: 'Cities and systems',
+              communityDivider: 'Communities and commitments',
+              supportDivider: 'Projects and civic questions',
+              supportPoint: 'Point',
+              closingDivider: 'Back into the work',
+              closingCopy:
+                  'This page makes the ground visible. The same concerns return elsewhere as work references, journal entries, and collaboration contexts.',
+              writingCta: 'Open the journal',
+          },
+);
 </script>
 
 <template>
@@ -48,18 +94,18 @@ const localTones = ['dominant', 'green', 'coral'] as const;
                 :description="props.hero.summary"
             >
                 <template #actions>
-                    <Button href="/projects">Projects</Button>
+                    <Button href="/projects">{{ copy.projectsCta }}</Button>
                     <Button href="/contact" variant="secondary">
-                        Contact
+                        {{ copy.contactCta }}
                     </Button>
                 </template>
 
-                <LegendChip label="Nancy base" tone="dominant" />
-                <LegendChip label="Civic systems" tone="green" />
-                <LegendChip label="Aremedia" tone="sun" />
+                <LegendChip :label="copy.heroChipBase" tone="dominant" />
+                <LegendChip :label="copy.heroChipCivic" tone="green" />
+                <LegendChip :label="copy.heroChipHealth" tone="sun" />
             </SectionIntro>
 
-            <SectionDivider label="Nancy as a base" />
+            <SectionDivider :label="copy.baseDivider" />
 
             <div class="local-page__base">
                 <Panel class="local-page__panel" tone="surface">
@@ -75,7 +121,7 @@ const localTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
 
                 <Panel class="local-page__panel" tone="grid">
-                    <p class="type-eyebrow">Signals I pay attention to</p>
+                    <p class="type-eyebrow">{{ copy.signalsLabel }}</p>
 
                     <ul class="local-page__list">
                         <li
@@ -83,7 +129,10 @@ const localTones = ['dominant', 'green', 'coral'] as const;
                             :key="signal"
                             class="local-page__list-item"
                         >
-                            <LegendChip label="Signal" tone="green" />
+                            <LegendChip
+                                :label="copy.signalPrefix"
+                                tone="green"
+                            />
                             <p class="type-body local-page__copy-line">
                                 {{ signal }}
                             </p>
@@ -92,7 +141,7 @@ const localTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
             </div>
 
-            <SectionDivider label="Cities and digital systems" />
+            <SectionDivider :label="copy.cityDivider" />
 
             <div class="local-page__grid">
                 <Panel
@@ -102,7 +151,7 @@ const localTones = ['dominant', 'green', 'coral'] as const;
                     tone="surface"
                 >
                     <LegendChip
-                        :label="`Track 0${index + 1}`"
+                        :label="`${copy.signalPrefix} 0${index + 1}`"
                         :tone="localTones[index] ?? 'violet'"
                     />
                     <h2 class="type-h2 local-page__title">
@@ -114,7 +163,7 @@ const localTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
             </div>
 
-            <SectionDivider label="Commitments and communities" />
+            <SectionDivider :label="copy.communityDivider" />
 
             <div class="local-page__grid">
                 <Panel
@@ -132,9 +181,7 @@ const localTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
             </div>
 
-            <SectionDivider
-                label="Projects I support, open-source curiosity, and civic questions"
-            />
+            <SectionDivider :label="copy.supportDivider" />
 
             <div class="local-page__grid">
                 <Panel
@@ -156,7 +203,10 @@ const localTones = ['dominant', 'green', 'coral'] as const;
                             :key="item"
                             class="local-page__list-item"
                         >
-                            <LegendChip label="Point" tone="coral" />
+                            <LegendChip
+                                :label="copy.supportPoint"
+                                tone="coral"
+                            />
                             <p class="type-body local-page__copy-line">
                                 {{ item }}
                             </p>
@@ -165,24 +215,25 @@ const localTones = ['dominant', 'green', 'coral'] as const;
                 </Panel>
             </div>
 
-            <SectionDivider label="Back into the work" />
+            <SectionDivider :label="copy.closingDivider" />
 
             <Panel class="local-page__closing" tone="grid">
                 <p class="type-body local-page__copy-line">
-                    This page is here to make the ground visible. The same
-                    concerns show up elsewhere on the site as project
-                    references,
-                    technical writing, and concrete collaboration.
+                    {{ copy.closingCopy }}
                 </p>
 
                 <div class="local-page__actions">
-                    <Button href="/projects">Projects</Button>
+                    <Button href="/projects">{{ copy.projectsCta }}</Button>
                     <Button href="/writing" variant="secondary">
-                        Writing
+                        {{ copy.writingCta }}
                     </Button>
-                    <Button href="/contact" variant="ghost">Contact</Button>
+                    <Button href="/contact" variant="ghost">{{
+                        copy.contactCta
+                    }}</Button>
                 </div>
             </Panel>
+
+            <PublicationWidget :widget="props.journalWidget" tone="surface" />
         </section>
     </SiteLayout>
 </template>

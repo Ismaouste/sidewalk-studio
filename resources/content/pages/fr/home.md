@@ -10,17 +10,17 @@ hero_panel:
     - Le SEO technique, la qualité catalogue, les flux produit et la vie privée traités dans la livraison, pas en chantier annexe.
     - Des références publiques, des notes de travail, des CV téléchargeables et des points de contact clairs.
 focus_areas:
-    - label: Parcours
-      title: Stabiliser des plateformes e-commerce déjà exposées
-      summary: Reprendre des environnements Laravel ou PHP avec de l'histoire, réduire le risque opérationnel et remettre de la clarté sans faire semblant que le legacy n'existe pas.
-      href: /experience
-      cta: Lire le parcours
+    - label: Surface de travail
+      title: Reprendre des plateformes e-commerce déjà en charge
+      summary: Une seule page pour lire le cadre, les contextes, les repères recruteur et la manière dont j'aborde des environnements Laravel ou PHP avec de l'histoire.
+      href: /projects
+      cta: Voir la surface de travail
       tone: dominant
     - label: Références
       title: Montrer le travail sans théâtre
       summary: Des cas clients et des références structurées pour rendre visibles les arbitrages d'architecture, de SEO technique, de catalogue et de livraison.
-      href: /projects
-      cta: Voir les références
+      href: /case-studies
+      cta: Voir les cas d'étude
       tone: green
     - label: Local
       title: Garder un ancrage hors des slides

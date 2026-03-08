@@ -19,14 +19,14 @@ class SeoAndConsentTest extends TestCase
             ->assertSee('application/ld+json', false);
     }
 
-    public function test_experience_page_renders_breadcrumb_metadata(): void
+    public function test_projects_page_renders_breadcrumb_metadata(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/experience';
+        $canonical = rtrim((string) config('site.url'), '/').'/projects';
 
-        $this->get('/experience')
+        $this->get('/projects')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertSee('Experience | Sidewalk Studio')
+            ->assertSee('Projects | Sidewalk Studio')
             ->assertSee('BreadcrumbList', false);
     }
 
@@ -36,6 +36,7 @@ class SeoAndConsentTest extends TestCase
             ->assertOk()
             ->assertSee('Repository Bootstrap for a Spec-Driven Portfolio | Sidewalk Studio')
             ->assertSee('article', false)
+            ->assertSee('/content-visuals/case-studies/repo-bootstrap-foundation.svg', false)
             ->assertSee('BreadcrumbList', false);
     }
 

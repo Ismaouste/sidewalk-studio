@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import ContentVisual from '@/components/content/ContentVisual.vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
@@ -97,6 +98,7 @@ const copy = computed(() =>
                     class="case-studies-index__link"
                 >
                     <Panel class="case-studies-index__card" tone="grid">
+                        <ContentVisual :item="item" compact />
                         <div class="case-studies-index__card-top">
                             <LegendChip
                                 :label="item.client || copy.internalBuildLabel"

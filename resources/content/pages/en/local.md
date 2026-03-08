@@ -1,18 +1,19 @@
 ---
 seo_title: Local
-seo_description: Editorial context about Nancy, civic systems, local information design, supported communities, and the place from which the work is done.
+seo_description: Editorial context around Nancy, the wider Lorraine corridor, civic systems, cultural scenes, supported associations, and the place from which the work is done.
 hero:
     eyebrow: Local ground
     title: Work grounded in place, public space, and readable local systems.
-    summary: Nancy is not a backdrop. It is the civic and cultural base from which I think about service design, urban interfaces, community life, and the everyday quality of digital systems.
+    summary: Nancy is my base within the wider Lorraine corridor, with Metz and Luxembourg part of the weekly reality. That is the axis from which I think about services, mobility, cultural scenes, and the lived quality of public-facing interfaces.
 nancy:
     body:
-        - Nancy is my real base. That matters because it keeps the work close to actual streets, transport habits, cultural institutions, associations, and service friction rather than an abstract idea of users.
-        - I pay attention to how people move through a city, how information is exposed, and how small interface decisions affect trust, orientation, and access.
+        - Nancy remains the base, but the real ground is broader. I move often between Nancy, Metz, and Luxembourg, and that corridor matters both for job opportunities and for how I observe services, urban rhythms, and actual usage.
+        - I know the public venues that shape that everyday cultural life, from L'Autre Canal in Nancy to BAM, Trinitaires, Rotondes, Rockhal, and the Francofolies on the Luxembourg side. It keeps the work tied to concrete audiences rather than abstract personas.
+        - I have volunteered with Nancy Jazz Pulsations for years, and I also stay close to questions of urbanism, cycling, mobility, and digital rights because they directly affect how a city and its services are experienced.
     signals:
-        - Street-level public space and service legibility.
-        - Regional mobility, transport logic, and local information flows.
-        - Cultural and associative ecosystems that keep knowledge close to the city.
+        - Legibility across public space, venues, and service touchpoints.
+        - Regional mobility between Nancy, Metz, and Luxembourg, including transport logic and local information flows.
+        - Associative, cultural, and rights-oriented ecosystems that keep issues tied to real ground.
 city_systems:
     - title: Urban interfaces
       summary: Wayfinding, timetables, booking flows, maps, and service pages are product systems too. They deserve the same clarity and maintainability as any commerce surface.
@@ -22,18 +23,18 @@ city_systems:
       summary: 'The same discipline that matters on the web matters in cities: clear affordances, understandable states, and interfaces that respect people’s attention.'
 communities:
     - title: Aremedia
-      summary: I support Aremedia as part of a wider interest in accessible cultural work, community-oriented media, and durable local knowledge networks.
-    - title: Nancy associations and local initiatives
-      summary: I pay attention to projects that keep culture, mutual support, and public usefulness close to the city rather than abstracting them away.
-    - title: Paris-linked communities
-      summary: Some conversations extend to Paris-linked associations and communities around documentation, civic tech, and public-interest digital services, without breaking the local anchor.
+      summary: Aremedia is not a cultural organization in this context but a harm-reduction and public-health one. I built them a self-hosted reporting tool, aligned with health-data constraints, to support outreach work with queer people and crack users around Stalingrad.
+    - title: EDEN Nancy
+      summary: I support EDEN in Nancy on urbanism and cycling issues. That matters because a city is also shaped by its routes, street design, and whether ordinary movement is treated seriously.
+    - title: La Quadrature du Net
+      summary: I am a member of La Quadrature du Net. That aligns directly with the work here on privacy, system boundaries, consent, and digital rights that people can actually understand.
 support_areas:
     - title: Projects I support
-      summary: The projects I gravitate toward tend to make information clearer, community work more visible, or local services easier to navigate.
+      summary: The projects I gravitate toward tend to make information clearer, associative work more visible, or local services easier to navigate.
       items:
-          - Community-oriented media and cultural initiatives.
-          - Local public-interest digital services.
-          - Readable editorial and informational systems for small organizations.
+          - Harm-reduction, public-health, and field outreach work that needs sober, safe tools.
+          - Local or regional public-interest digital services.
+          - Readable editorial and informational systems for associations, venues, and small organizations.
     - title: Open-source curiosity
       summary: I follow tools that help map, document, and expose public information in a way that stays inspectable and reusable.
       items:
@@ -45,5 +46,5 @@ support_areas:
       items:
           - How local APIs and public datasets are surfaced.
           - How transport and service logic are explained rather than hidden.
-          - How digital public space can remain calm, useful, and culturally aware.
+          - How culture, mobility, public health, and digital rights remain treated as concrete service questions rather than decorative themes.
 ---

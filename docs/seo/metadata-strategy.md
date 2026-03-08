@@ -19,10 +19,14 @@ Site-wide defaults such as the title suffix, default description, and public pro
 
 This keeps v0 SEO usable without turning on the SSR runtime.
 
-Static editorial pages such as `Experience` and `Local` use the same backend
+Static editorial pages such as `Projects` and `Local` use the same backend
 pipeline as the archives and detail pages. When public routes change, the old
 path should redirect to the new canonical path instead of exposing duplicate
 metadata.
+
+Collection detail pages can now carry a content image in metadata. When no
+real featured asset is present, the backend falls back to a generated SVG
+placeholder so Open Graph, Twitter, and JSON-LD still expose a stable visual.
 
 Binary download endpoints such as `/cv/en` and `/cv/fr` are public utility
 routes, not indexable editorial pages. They should stay out of page-level
@@ -39,7 +43,7 @@ full multilingual SEO model exists.
 
 The public language switcher should only appear on routes that already have
 dedicated translated page sources or localized collection entries for the
-current slug/archive. Today that safe surface includes `/`, `/experience`,
-`/local`, `/projects`, `/contact`, the translated writing routes, and the
-translated case-study routes. Unsupported routes keep the English canonical
-experience even when a French preference is stored.
+current slug/archive. Today that safe surface includes `/`, `/local`,
+`/projects`, `/contact`, the translated writing routes, and the translated
+case-study routes. Unsupported routes keep the English canonical experience
+even when a French preference is stored.

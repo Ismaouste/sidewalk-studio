@@ -6,13 +6,14 @@ use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\SiteSettingsController as AdminSiteSettingsController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\ContactSubmissionController;
+use App\Http\Controllers\ContentVisualController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\WritingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'home'])->name('home');
-Route::redirect('/about', '/experience', 301)->name('about');
+Route::redirect('/about', '/projects', 301)->name('about');
 Route::get('/experience', [SiteController::class, 'experience'])->name('experience');
 Route::get('/local', [SiteController::class, 'local'])->name('local');
 Route::get('/projects', [SiteController::class, 'projects'])->name('projects');
@@ -28,6 +29,7 @@ Route::get('/writing/{slug}', [WritingController::class, 'show'])->name('writing
 
 Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-studies.index');
 Route::get('/case-studies/{slug}', [CaseStudyController::class, 'show'])->name('case-studies.show');
+Route::get('/content-visuals/{section}/{slug}.svg', ContentVisualController::class)->name('content-visuals.show');
 
 Route::get('/cv/{locale}', [SiteController::class, 'downloadCv'])
     ->whereIn('locale', ['en', 'fr'])

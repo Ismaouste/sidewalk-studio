@@ -9,6 +9,9 @@ tags:
     - laravel
     - architecture
     - spec-driven
+    - work-sample
+category: work
+accent_tone: dominant
 seo_title: Repository Bootstrap for a Spec-Driven Portfolio
 seo_description: 'A walkthrough of the first Sidewalk Studio milestone: repo normalization, Laravel bootstrap, and spec-first project framing.'
 client: Sidewalk Studio

@@ -10,17 +10,17 @@ hero_panel:
     - Technical SEO, product data, catalog feeds, and privacy handled inside delivery, not as parallel checklists.
     - Public references through case studies, notes, CV downloads, and concrete contact paths.
 focus_areas:
-    - label: Experience
-      title: Stabilize complex e-commerce systems
-      summary: Take over Laravel or PHP environments with history, reduce operational risk, and improve delivery confidence without pretending the legacy does not exist.
-      href: /experience
-      cta: Read experience
+    - label: Work surface
+      title: Take over live e-commerce systems with less theater
+      summary: One work page now carries the frame, contexts, recruiter snapshot, and concrete way I approach Laravel or PHP systems that already have history.
+      href: /projects
+      cta: Open work surface
       tone: dominant
-    - label: Projects
+    - label: References
       title: Make architecture legible in public
       summary: Use case studies and structured references to show how technical SEO, privacy, and maintainability decisions fit together in real product systems.
-      href: /projects
-      cta: View projects
+      href: /case-studies
+      cta: Open case studies
       tone: green
     - label: Local
       title: Keep product work connected to place

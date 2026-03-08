@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import SunAnchor from '@/components/design-system/SunAnchor.vue';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import NavTabs from '@/components/layout/NavTabs.vue';
 import type { SiteProps } from '@/types';
@@ -15,8 +14,6 @@ const currentUrl = computed(() => page.url);
     <header class="app-header">
         <div class="sw-container">
             <div class="app-header__inner">
-                <SunAnchor />
-
                 <div class="app-header__topline">
                     <Link href="/" class="app-header__brand">
                         <span class="type-eyebrow app-header__name">
@@ -56,13 +53,41 @@ const currentUrl = computed(() => page.url);
     background:
         linear-gradient(
             180deg,
-            color-mix(in srgb, var(--sw-bg-elevated) 36%, transparent),
+            color-mix(in srgb, var(--sw-bg-elevated) 24%, transparent),
             transparent 58%
         ),
-        var(--sw-header-bg);
+        linear-gradient(
+            160deg,
+            color-mix(in srgb, var(--sw-bg-surface) 52%, transparent),
+            color-mix(in srgb, var(--sw-bg-elevated) 36%, transparent)
+        );
     padding: clamp(10px, 1.8vw, var(--sw-space-xs));
-    box-shadow: var(--sw-shadow-md);
-    backdrop-filter: blur(18px);
+    box-shadow:
+        0 14px 42px color-mix(in srgb, var(--sw-text-primary) 12%, transparent),
+        var(--sw-shadow-md);
+    -webkit-backdrop-filter: blur(30px) saturate(150%);
+    backdrop-filter: blur(30px) saturate(150%);
+}
+
+.app-header__inner::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background:
+        radial-gradient(
+            circle at var(--sw-sun-vx, 14%) var(--sw-sun-vy, 10%),
+            color-mix(in srgb, var(--sw-accent-sun) 22%, transparent),
+            transparent 34%
+        ),
+        linear-gradient(
+            var(--sw-sun-ray-angle, 32deg),
+            color-mix(in srgb, var(--sw-accent-dominant) 12%, transparent),
+            transparent 58%
+        );
+    filter: blur(calc(var(--sw-sun-blur-global, 120px) * 0.24));
+    opacity: calc(var(--sw-sun-opacity-global, 0.68) * 1.08);
+    pointer-events: none;
 }
 
 .app-header__inner::after {

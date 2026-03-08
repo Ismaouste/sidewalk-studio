@@ -135,10 +135,32 @@ export type ContentItem = {
     role: string;
     stack: string[];
     outcomes: string[];
+    category: string;
+    publication_type: 'note' | 'reference';
+    accent_tone: string;
+    featured_image: string;
+    featured_image_alt: string;
+    featured_video: string;
+    image: {
+        url: string;
+        alt: string;
+        kind: 'image' | 'placeholder';
+    };
+    image_url: string;
+    image_alt: string;
     reading_time: number;
     body_html: string;
     excerpt: string;
     url: string;
+};
+
+export type PublicationWidget = {
+    eyebrow: string;
+    title: string;
+    description: string;
+    ctaLabel: string;
+    ctaHref: string;
+    items: ContentItem[];
 };
 
 export type LabItem = {

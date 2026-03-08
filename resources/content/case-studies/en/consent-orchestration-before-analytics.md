@@ -9,6 +9,9 @@ tags:
     - privacy
     - consent
     - architecture
+    - work-sample
+category: work
+accent_tone: green
 seo_title: Consent Orchestration Before Analytics
 seo_description: Building the consent layer first keeps analytics providers optional and prevents privacy logic from leaking through the app.
 client: Sidewalk Studio

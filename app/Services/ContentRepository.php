@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Support\ContentVisual;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -39,6 +40,38 @@ class ContentRepository
         return $this->all($section, $locale)
             ->where('status', 'published')
             ->values();
+    }
+
+    /**
+     * @param  array<int, string>  $sections
+     * @return Collection<int, array<string, mixed>>
+     */
+    public function feed(array $sections, array $filters = []): Collection
+    {
+        $items = collect($sections)
+            ->flatMap(fn (string $section) => $this->published($section, $filters['locale'] ?? null))
+            ->sortByDesc(fn (array $item) => $item['published_at'])
+            ->values();
+
+        if (! empty($filters['tag'])) {
+            $items = $items->filter(
+                fn (array $item): bool => in_array((string) $filters['tag'], $item['tags'], true),
+            )->values();
+        }
+
+        if (! empty($filters['category'])) {
+            $items = $items->where('category', (string) $filters['category'])->values();
+        }
+
+        if (! empty($filters['publication_type'])) {
+            $items = $items->where('publication_type', (string) $filters['publication_type'])->values();
+        }
+
+        if (! empty($filters['limit'])) {
+            $items = $items->take((int) $filters['limit'])->values();
+        }
+
+        return $items->values();
     }
 
     /**
@@ -91,12 +124,15 @@ class ContentRepository
 
         $publishedAt = $this->parseDate($matter['published_at']);
         $updatedAt = $this->parseDate($matter['updated_at']);
+        $category = (string) ($matter['category'] ?? ($section === 'writing' ? 'journal' : 'work'));
+        $accentTone = (string) ($matter['accent_tone'] ?? '');
+        $publicationType = (string) ($matter['publication_type'] ?? ($section === 'writing' ? 'note' : 'reference'));
 
         $url = $section === 'writing'
             ? route('writing.show', $matter['slug'])
             : route('case-studies.show', $matter['slug']);
 
-        return [
+        $item = [
             'section' => $section,
             'locale' => $locale,
             'title' => (string) $matter['title'],
@@ -116,7 +152,21 @@ class ContentRepository
             'body_html' => $html,
             'excerpt' => Str::of(strip_tags($html))->squish()->limit(180)->toString(),
             'url' => $url,
+            'category' => $category,
+            'publication_type' => $publicationType,
+            'accent_tone' => $accentTone,
+            'featured_image' => (string) ($matter['featured_image'] ?? ''),
+            'featured_image_alt' => (string) ($matter['featured_image_alt'] ?? ''),
+            'featured_video' => (string) ($matter['featured_video'] ?? ''),
         ];
+
+        $image = ContentVisual::image($item);
+
+        $item['image'] = $image;
+        $item['image_url'] = $image['url'];
+        $item['image_alt'] = $image['alt'];
+
+        return $item;
     }
 
     /**

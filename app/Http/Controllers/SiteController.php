@@ -7,6 +7,7 @@ use App\Services\PageContentRepository;
 use App\Services\SiteSettingsService;
 use App\Support\Seo;
 use Illuminate\Support\Facades\File;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -24,7 +25,6 @@ class SiteController extends Controller
         $settings = $this->siteSettings->current();
         $page = $this->pages->get('home');
         $caseStudies = $this->content->published('case-studies')->values();
-        $writing = $this->content->published('writing')->values();
         $seo = Seo::page(
             $page['seo_title'],
             $page['seo_description'],
@@ -37,45 +37,30 @@ class SiteController extends Controller
             'heroPanel' => $page['hero_panel'],
             'focusAreas' => $page['focus_areas'],
             'featuredCaseStudies' => $caseStudies->take(2)->values(),
-            'latestWriting' => $writing->take(2)->values(),
+            'journalWidget' => $this->publicationWidget([
+                'eyebrow' => app()->getLocale() === 'fr' ? 'Journal' : 'Journal',
+                'title' => app()->getLocale() === 'fr'
+                    ? "Notes de dev à relire dans le flux du site."
+                    : 'Development notes threaded back into the site.',
+                'description' => app()->getLocale() === 'fr'
+                    ? "Des notes liées au build, au contenu et à l'architecture pour prolonger la visite sans renvoyer vers une archive froide."
+                    : 'Notes about build work, content systems, and architecture, meant to continue the visit without dropping people into a cold archive.',
+                'ctaLabel' => app()->getLocale() === 'fr' ? 'Voir toutes les notes' : 'Browse all notes',
+                'ctaHref' => '/writing',
+                'sections' => ['writing'],
+                'tag' => 'notes-dev',
+                'category' => 'journal',
+                'limit' => 2,
+            ]),
             'localTeaser' => $page['local_teaser'],
             'contactCta' => $page['contact_cta'],
             'cvDownloads' => $this->cvDownloads(),
         ])->withViewData(['seo' => $seo]);
     }
 
-    public function experience(): Response
+    public function experience(): RedirectResponse
     {
-        $page = $this->pages->get('experience');
-        $caseStudies = $this->content->published('case-studies')->values();
-        $writing = $this->content->published('writing')->values();
-        $seo = Seo::page(
-            $page['seo_title'],
-            $page['seo_description'],
-            '/experience',
-            [
-                'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
-                    ['name' => 'Experience', 'path' => '/experience'],
-                ],
-            ],
-        );
-
-        return Inertia::render('Experience', [
-            'seo' => $seo,
-            'hero' => $page['hero'],
-            'positioning' => $page['positioning'],
-            'contexts' => $page['contexts'],
-            'trajectory' => $page['trajectory'],
-            'strengths' => $page['strengths'],
-            'focusAreas' => $page['focus_areas'],
-            'stackGroups' => $page['stack_groups'],
-            'careerSnapshot' => $page['career_snapshot'],
-            'cvDownloads' => $this->cvDownloads(),
-            'featuredCaseStudies' => $caseStudies->take(2)->values(),
-            'latestWriting' => $writing->take(2)->values(),
-            'lookingFor' => $page['looking_for'],
-        ])->withViewData(['seo' => $seo]);
+        return redirect('/projects', 301);
     }
 
     public function local(): Response
@@ -100,13 +85,31 @@ class SiteController extends Controller
             'citySystems' => $page['city_systems'],
             'communities' => $page['communities'],
             'supportAreas' => $page['support_areas'],
+            'journalWidget' => $this->publicationWidget([
+                'eyebrow' => app()->getLocale() === 'fr' ? 'Journal' : 'Journal',
+                'title' => app()->getLocale() === 'fr'
+                    ? 'Notes liées au produit, au terrain et aux systèmes.'
+                    : 'Notes tied back to product, place, and systems.',
+                'description' => app()->getLocale() === 'fr'
+                    ? "Le journal reste ici une couche de fond reliée au reste du site, pas une section à part."
+                    : 'The journal stays as a transversal support layer, not an isolated section.',
+                'ctaLabel' => app()->getLocale() === 'fr' ? 'Ouvrir le journal' : 'Open the journal',
+                'ctaHref' => '/writing',
+                'sections' => ['writing'],
+                'tag' => 'notes-dev',
+                'category' => 'journal',
+                'limit' => 2,
+            ]),
         ])->withViewData(['seo' => $seo]);
     }
 
     public function projects(): Response
     {
         $page = $this->pages->get('projects');
-        $writing = $this->content->published('writing')->values();
+        $experience = $this->pages->get('experience');
+        $caseStudies = $this->content->feed(['case-studies'], [
+            'category' => 'work',
+        ])->values();
         $seo = Seo::page(
             $page['seo_title'],
             $page['seo_description'],
@@ -122,10 +125,44 @@ class SiteController extends Controller
         return Inertia::render('Projects', [
             'seo' => $seo,
             'hero' => $page['hero'],
+            'positioning' => $experience['positioning'],
+            'contexts' => $experience['contexts'],
+            'stackGroups' => $experience['stack_groups'],
+            'careerSnapshot' => $experience['career_snapshot'],
+            'lookingFor' => $experience['looking_for'],
+            'cvDownloads' => $this->cvDownloads(),
             'tracksSection' => $page['tracks_section'],
-            'caseStudies' => $this->content->published('case-studies')->values(),
+            'caseStudies' => $caseStudies,
             'caseStudiesSection' => $page['case_studies_section'],
-            'latestWriting' => $writing->take(2)->values(),
+            'journalWidget' => $this->publicationWidget([
+                'eyebrow' => app()->getLocale() === 'fr' ? 'Journal' : 'Journal',
+                'title' => app()->getLocale() === 'fr'
+                    ? 'Notes de dev qui prolongent les références.'
+                    : 'Development notes that continue the work references.',
+                'description' => app()->getLocale() === 'fr'
+                    ? "Le journal reste proche des références pour rendre le raisonnement accessible, pas seulement le résultat."
+                    : 'The journal stays close to the work surface so the reasoning remains reachable, not just the outcome.',
+                'ctaLabel' => app()->getLocale() === 'fr' ? 'Voir le journal' : 'Open the journal',
+                'ctaHref' => '/writing',
+                'sections' => ['writing'],
+                'tag' => 'notes-dev',
+                'category' => 'journal',
+                'limit' => 2,
+            ]),
+            'referenceWidget' => $this->publicationWidget([
+                'eyebrow' => app()->getLocale() === 'fr' ? 'Références' : 'References',
+                'title' => app()->getLocale() === 'fr'
+                    ? 'Autres références à consulter depuis cette page.'
+                    : 'More references reachable from the same work surface.',
+                'description' => app()->getLocale() === 'fr'
+                    ? "La distinction entre expérience et projets disparaît ici au profit d'une seule surface de travail public."
+                    : 'The split between experience and projects is intentionally collapsed into one public work surface.',
+                'ctaLabel' => app()->getLocale() === 'fr' ? "Voir toutes les références" : 'Browse all references',
+                'ctaHref' => '/case-studies',
+                'sections' => ['case-studies'],
+                'category' => 'work',
+                'limit' => 2,
+            ]),
         ])->withViewData(['seo' => $seo]);
     }
 
@@ -242,6 +279,36 @@ class SiteController extends Controller
                 'label' => $isFrench ? 'CV français' : 'Download CV (FR)',
                 'href' => route('career.cv.download', 'fr'),
             ],
+        ];
+    }
+
+    /**
+     * @param  array{
+     *   eyebrow: string,
+     *   title: string,
+     *   description: string,
+     *   ctaLabel: string,
+     *   ctaHref: string,
+     *   sections: array<int, string>,
+     *   tag?: string,
+     *   category?: string,
+     *   limit?: int
+     * }  $options
+     * @return array<string, mixed>
+     */
+    protected function publicationWidget(array $options): array
+    {
+        return [
+            'eyebrow' => $options['eyebrow'],
+            'title' => $options['title'],
+            'description' => $options['description'],
+            'ctaLabel' => $options['ctaLabel'],
+            'ctaHref' => $options['ctaHref'],
+            'items' => $this->content->feed($options['sections'], [
+                'tag' => $options['tag'] ?? null,
+                'category' => $options['category'] ?? null,
+                'limit' => $options['limit'] ?? 2,
+            ])->values(),
         ];
     }
 }

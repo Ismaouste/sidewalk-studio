@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import ContentVisual from '@/components/content/ContentVisual.vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
@@ -101,6 +102,7 @@ const copy = computed(() =>
                     class="writing-show__article"
                     tone="elevated"
                 >
+                    <ContentVisual :item="props.item" />
                     <RichText :html="props.item.body_html" />
                 </Panel>
 
@@ -166,6 +168,8 @@ const copy = computed(() =>
 }
 
 .writing-show__article {
+    display: grid;
+    gap: var(--sw-space-sm);
     padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 

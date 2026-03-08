@@ -57,6 +57,10 @@ class Seo
             $pageSchema['articleSection'] = $options['section'];
         }
 
+        if (! empty($options['image']['url'])) {
+            $pageSchema['image'] = $options['image']['url'];
+        }
+
         $schemas[] = $pageSchema;
 
         if (! empty($options['breadcrumb'])) {
@@ -87,11 +91,14 @@ class Seo
                 'url' => $canonical,
                 'site_name' => $siteName,
                 'locale' => $locale,
+                'image' => $options['image']['url'] ?? '',
+                'image_alt' => $options['image']['alt'] ?? '',
             ],
             'twitter' => [
                 'card' => 'summary_large_image',
                 'title' => $fullTitle,
                 'description' => $description,
+                'image' => $options['image']['url'] ?? '',
             ],
             'jsonLd' => $schemas,
         ];

@@ -17,9 +17,8 @@ return [
     ],
     'navigation' => [
         ['label' => 'Home', 'href' => '/'],
-        ['label' => 'Experience', 'href' => '/experience'],
         ['label' => 'Local', 'href' => '/local'],
-        ['label' => 'Projects', 'href' => '/projects'],
+        ['label' => 'Work', 'href' => '/projects'],
         ['label' => 'Writing', 'href' => '/writing'],
         ['label' => 'Contact', 'href' => '/contact'],
     ],

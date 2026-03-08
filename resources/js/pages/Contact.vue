@@ -69,7 +69,7 @@ const inquiry = useForm({
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              experienceCta: 'Lire le parcours',
+              workCta: 'Voir les références',
               dividerLabel: 'Prendre contact',
               privacyChipLabel: 'Consentement et vie privée',
               baseChipLabel: `Base ${props.contact.location}`,
@@ -93,7 +93,7 @@ const copy = computed(() =>
               cvLabel: 'CV',
           }
         : {
-              experienceCta: 'Read experience',
+              workCta: 'Browse references',
               dividerLabel: 'Start a conversation',
               privacyChipLabel: 'Privacy-first engagements',
               baseChipLabel: `${props.contact.location} base`,
@@ -173,8 +173,8 @@ function submitInquiry(): void {
                     <Button :href="`mailto:${props.contact.email}`">
                         {{ props.form.secondary_cta }}
                     </Button>
-                    <Button href="/experience" variant="secondary">
-                        {{ copy.experienceCta }}
+                    <Button href="/projects" variant="secondary">
+                        {{ copy.workCta }}
                     </Button>
                 </template>
 

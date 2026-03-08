@@ -49,6 +49,10 @@ class WritingController extends Controller
                 'open_graph_type' => 'article',
                 'published_at' => $item['published_at'],
                 'updated_at' => $item['updated_at'],
+                'image' => [
+                    'url' => $item['image_url'],
+                    'alt' => $item['image_alt'],
+                ],
                 'section' => $isFrench ? 'Notes' : 'Writing',
                 'breadcrumb' => [
                     ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],

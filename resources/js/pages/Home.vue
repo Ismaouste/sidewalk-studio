@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import ContentVisual from '@/components/content/ContentVisual.vue';
+import PublicationWidget from '@/components/content/PublicationWidget.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
@@ -8,7 +10,12 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { ContentItem, SeoPayload, SiteProps } from '@/types';
+import type {
+    ContentItem,
+    PublicationWidget as PublicationWidgetData,
+    SeoPayload,
+    SiteProps,
+} from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
 
@@ -29,7 +36,7 @@ const props = defineProps<{
         tone: 'dominant' | 'green' | 'sun' | 'coral' | 'violet';
     }>;
     featuredCaseStudies: ContentItem[];
-    latestWriting: ContentItem[];
+    journalWidget: PublicationWidgetData;
     localTeaser: {
         title: string;
         summary: string;
@@ -51,7 +58,6 @@ const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               projectsCta: 'Voir les références',
-              experienceCta: 'Lire le parcours',
               contactCta: 'Prendre contact',
               currentFrameLabel: 'Cadre actuel',
               heroPanelTitle:
@@ -67,22 +73,16 @@ const copy = computed(() =>
               projectsTitle: 'Quelques références choisies.',
               projectsDescription:
                   "Des cas publics compacts pour montrer comment architecture, catalogue, SEO technique et décisions de livraison se traduisent en pratique.",
-              openProjectsCta: 'Voir les références',
+              openProjectsCta: "Voir les cas d'étude",
               internalBuildLabel: 'Interne',
               localGroundLabel: 'Ancrage local',
               localEyebrow: 'Ancrage local',
               readLocalPageCta: 'Lire la page locale',
               notesLabel: 'Notes',
-              writingEyebrow: 'Notes',
-              writingTitle: 'Notes de travail et de construction',
-              writingDescription:
-                  "Textes courts sur l'architecture, les systèmes de contenu, la logique de consentement et les décisions pratiques derrière des catalogues et des plateformes en production.",
-              openArchiveCta: "Voir l'archive",
-              writingLabel: 'Note',
-              publishedSeparator: '·',
               contactLabel: 'Contact',
               startConversationCta: 'Prendre contact',
-              proofPackLabel: 'Références',
+              referencesCta: 'Voir la surface de travail',
+              archiveCta: "Voir les cas d'étude",
               heroChipCommerceLabel: 'Sites marchands',
               heroChipFrameworkLabel: 'Laravel',
               heroChipSeoLabel: 'Catalogue et SEO',
@@ -91,7 +91,6 @@ const copy = computed(() =>
           }
         : {
               projectsCta: 'Browse references',
-              experienceCta: 'Read experience',
               contactCta: 'Start a conversation',
               currentFrameLabel: 'Current frame',
               heroPanelTitle:
@@ -102,26 +101,20 @@ const copy = computed(() =>
               focusDescription:
                   'The work usually sits between product delivery, legacy modernization, technical SEO, privacy, and the need to keep systems readable after launch.',
               selectedWorkLabel: 'References',
-              projectsEyebrow: 'Projects',
+              projectsEyebrow: 'References',
               projectsTitle:
                   'A few build and implementation references.',
               projectsDescription:
                   'A small set of public case studies that show how architecture, catalog work, technical SEO, and delivery choices play out in real work.',
-              openProjectsCta: 'Open projects',
+              openProjectsCta: 'Open case studies',
               internalBuildLabel: 'Internal build',
               localGroundLabel: 'Local ground',
               readLocalPageCta: 'Read local page',
               notesLabel: 'Notes',
-              writingEyebrow: 'Writing',
-              writingTitle: 'Notes from the system build',
-              writingDescription:
-                  'Short pieces about architecture, content systems, consent logic, and the practical decisions behind live catalogs and delivery systems.',
-              openArchiveCta: 'Open archive',
-              writingLabel: 'Writing',
-              publishedSeparator: '·',
               contactLabel: 'Contact',
               startConversationCta: 'Start a conversation',
-              proofPackLabel: 'References',
+              referencesCta: 'Open work surface',
+              archiveCta: 'Open case studies',
               heroChipCommerceLabel: 'E-commerce',
               heroChipFrameworkLabel: 'Laravel',
               heroChipSeoLabel: 'Catalogs and SEO',
@@ -248,7 +241,7 @@ const copy = computed(() =>
                     :title="copy.projectsTitle"
                     :description="copy.projectsDescription"
                 />
-                <Button href="/projects" variant="ghost">
+                <Button href="/case-studies" variant="ghost">
                     {{ copy.openProjectsCta }}
                 </Button>
             </div>
@@ -261,6 +254,7 @@ const copy = computed(() =>
                     class="home-card-link"
                 >
                     <Panel class="home-card" tone="surface">
+                        <ContentVisual :item="item" compact />
                         <LegendChip
                             :label="item.client || copy.internalBuildLabel"
                             tone="green"
@@ -328,47 +322,7 @@ const copy = computed(() =>
 
         <SectionDivider :label="copy.notesLabel" />
 
-        <section class="sw-section home-section">
-            <div class="home-section__header">
-                <SectionIntro
-                    :eyebrow="copy.writingEyebrow"
-                    :title="copy.writingTitle"
-                    :description="copy.writingDescription"
-                />
-                <Button href="/writing" variant="ghost">
-                    {{ copy.openArchiveCta }}
-                </Button>
-            </div>
-
-            <div class="home-writing-list">
-                <Link
-                    v-for="item in props.latestWriting"
-                    :key="item.slug"
-                    :href="item.url"
-                    class="home-writing-link"
-                >
-                    <Panel class="home-writing-card" tone="surface">
-                        <div class="home-writing-card__meta">
-                            <LegendChip
-                                :label="copy.writingLabel"
-                                tone="violet"
-                            />
-                            <span class="type-meta">
-                                {{ item.published_at }}
-                                {{ copy.publishedSeparator }}
-                                {{ item.reading_time }} min
-                            </span>
-                        </div>
-                        <h3 class="type-h2 home-writing-card__title">
-                            {{ item.title }}
-                        </h3>
-                        <p class="type-body home-writing-card__summary">
-                            {{ item.summary }}
-                        </p>
-                    </Panel>
-                </Link>
-            </div>
-        </section>
+        <PublicationWidget :widget="props.journalWidget" tone="surface" />
 
         <SectionDivider :label="copy.contactLabel" />
 
@@ -388,8 +342,8 @@ const copy = computed(() =>
                     <Button href="/contact">{{
                         copy.startConversationCta
                     }}</Button>
-                    <Button href="/experience" variant="secondary">
-                        {{ copy.experienceCta }}
+                    <Button href="/projects" variant="secondary">
+                        {{ copy.referencesCta }}
                     </Button>
                     <Button
                         v-for="download in props.cvDownloads"
@@ -399,8 +353,8 @@ const copy = computed(() =>
                     >
                         {{ download.label }}
                     </Button>
-                    <Button href="/projects" variant="ghost">
-                        {{ copy.proofPackLabel }}
+                    <Button href="/case-studies" variant="ghost">
+                        {{ copy.archiveCta }}
                     </Button>
                 </div>
             </Panel>
@@ -418,7 +372,6 @@ const copy = computed(() =>
 .home-hero__panel,
 .home-focus-card,
 .home-card,
-.home-writing-card,
 .home-local,
 .home-contact {
     display: grid;
@@ -440,15 +393,13 @@ const copy = computed(() =>
 .home-hero__panel-title,
 .home-focus-card__title,
 .home-card__title,
-.home-writing-card__title,
 .home-contact__title {
     margin: 0;
     color: var(--sw-text-primary);
 }
 
 .home-hero__highlights,
-.home-focus-grid,
-.home-writing-list {
+.home-focus-grid {
     display: grid;
     gap: var(--sw-space-sm);
 }
@@ -476,7 +427,6 @@ const copy = computed(() =>
 .home-hero__highlight-copy,
 .home-focus-card__summary,
 .home-card__summary,
-.home-writing-card__summary,
 .home-local__copy,
 .home-contact__summary {
     margin: 0;
@@ -515,15 +465,14 @@ const copy = computed(() =>
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.home-card-link,
-.home-writing-link {
+.home-card-link {
     display: block;
     border-radius: var(--sw-radius-lg);
 }
 
-.home-card,
-.home-writing-card {
+.home-card {
     position: relative;
+    display: grid;
     height: 100%;
     overflow: hidden;
     transition:
@@ -531,10 +480,10 @@ const copy = computed(() =>
         border-color var(--sw-motion-fast),
         box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
+    border-radius: inherit;
 }
 
-.home-card::before,
-.home-writing-card::before {
+.home-card::before {
     content: '';
     position: absolute;
     inset: 0 0 auto;
@@ -545,21 +494,10 @@ const copy = computed(() =>
     transition:
         transform var(--sw-motion-fast),
         opacity var(--sw-motion-fast);
-}
-
-.home-card::before {
     background: linear-gradient(
         90deg,
         var(--sw-accent-dominant),
         color-mix(in srgb, var(--sw-accent-sun) 68%, var(--sw-accent-dominant))
-    );
-}
-
-.home-writing-card::before {
-    background: linear-gradient(
-        90deg,
-        var(--sw-accent-violet),
-        color-mix(in srgb, var(--sw-accent-sun) 52%, var(--sw-accent-violet))
     );
 }
 
@@ -581,14 +519,6 @@ const copy = computed(() =>
     color: var(--sw-accent-dominant);
 }
 
-.home-writing-card__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sw-space-2xs);
-    align-items: center;
-    justify-content: space-between;
-}
-
 .home-contact {
     align-items: end;
 }
@@ -599,33 +529,27 @@ const copy = computed(() =>
     gap: var(--sw-space-xs);
 }
 
-.home-card-link:focus-visible,
-.home-writing-link:focus-visible {
+.home-card-link:focus-visible {
     outline: none;
 }
 
-.home-card-link:focus-visible .home-card,
-.home-writing-link:focus-visible .home-writing-card {
+.home-card-link:focus-visible .home-card {
     border-color: var(--sw-border-focus);
     box-shadow: var(--sw-shadow-md);
 }
 
 .home-card-link:focus-visible .home-card::before,
-.home-writing-link:focus-visible .home-writing-card::before,
-.home-card-link:active .home-card::before,
-.home-writing-link:active .home-writing-card::before {
+.home-card-link:active .home-card::before {
     transform: scaleX(1);
     opacity: 1;
 }
 
-.home-card-link:active .home-card,
-.home-writing-link:active .home-writing-card {
+.home-card-link:active .home-card {
     transform: translateY(1px);
 }
 
 @media (hover: hover) {
-    .home-card-link:hover .home-card,
-    .home-writing-link:hover .home-writing-card {
+    .home-card-link:hover .home-card {
         transform: translateY(-2px);
         box-shadow: var(--sw-shadow-md);
     }
@@ -635,13 +559,7 @@ const copy = computed(() =>
         background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
     }
 
-    .home-writing-link:hover .home-writing-card {
-        border-color: var(--sw-accent-violet);
-        background: color-mix(in srgb, var(--sw-bg-elevated) 86%, transparent);
-    }
-
-    .home-card-link:hover .home-card::before,
-    .home-writing-link:hover .home-writing-card::before {
+    .home-card-link:hover .home-card::before {
         transform: scaleX(1);
         opacity: 1;
     }
@@ -673,10 +591,6 @@ const copy = computed(() =>
     .home-section__header {
         gap: var(--sw-space-xs);
         align-items: start;
-    }
-
-    .home-writing-card__meta {
-        justify-content: flex-start;
     }
 }
 </style>

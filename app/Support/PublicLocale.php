@@ -59,9 +59,8 @@ class PublicLocale
         $labels = $locale === 'fr'
             ? [
                 '/' => 'Accueil',
-                '/experience' => 'Expérience',
                 '/local' => 'Local',
-                '/projects' => 'Projets',
+                '/projects' => 'Références',
                 '/writing' => 'Notes',
                 '/contact' => 'Contact',
             ]

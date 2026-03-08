@@ -9,6 +9,9 @@ tags:
     - privacy
     - consent
     - architecture
+    - work-sample
+category: work
+accent_tone: green
 seo_title: Orchestration du consentement avant les analytics
 seo_description: Construire d'abord la couche de consentement garde les providers analytics optionnels et empêche la logique privacy de fuiter partout dans l'app.
 client: Sidewalk Studio

@@ -9,6 +9,9 @@ tags:
     - content
     - seo
     - laravel
+    - notes-dev
+category: journal
+accent_tone: violet
 seo_title: Les systèmes de contenu commencent par le routage et les métadonnées
 seo_description: Le Markdown n'est que la couche de stockage. Le vrai système commence avec le routage, l'état de publication et la discipline metadata.
 ---

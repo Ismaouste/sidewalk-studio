@@ -20,7 +20,7 @@ class CareerDownloadsTest extends TestCase
             ->assertHeader('x-robots-tag', 'noindex, nofollow');
     }
 
-    public function test_home_experience_and_contact_pages_expose_cv_download_links(): void
+    public function test_home_projects_and_contact_pages_expose_cv_download_links(): void
     {
         $this->get('/')
             ->assertOk()
@@ -28,7 +28,7 @@ class CareerDownloadsTest extends TestCase
                 ->where('cvDownloads.0.href', fn (string $href): bool => str_ends_with($href, '/cv/en'))
                 ->where('cvDownloads.1.href', fn (string $href): bool => str_ends_with($href, '/cv/fr')));
 
-        $this->get('/experience')
+        $this->get('/projects')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('cvDownloads.0.href', fn (string $href): bool => str_ends_with($href, '/cv/en'))
@@ -45,18 +45,19 @@ class CareerDownloadsTest extends TestCase
                 ->where('cvDownloads.1.href', fn (string $href): bool => str_ends_with($href, '/cv/fr')));
     }
 
-    public function test_experience_and_projects_pages_expose_public_proof_links(): void
+    public function test_home_and_projects_pages_expose_public_navigation_widgets(): void
     {
-        $this->get('/experience')
+        $this->get('/')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->has('featuredCaseStudies', 2)
-                ->has('latestWriting', 2));
+                ->has('journalWidget.items', 2));
 
         $this->get('/projects')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->has('latestWriting', 2)
+                ->has('journalWidget.items', 2)
+                ->has('referenceWidget.items', 2)
                 ->has('caseStudies', 2));
     }
 }

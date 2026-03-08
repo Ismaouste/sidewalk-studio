@@ -31,12 +31,27 @@ const jsonLdPayloads = computed(() =>
             :content="props.seo.openGraph.site_name"
         />
         <meta property="og:locale" :content="props.seo.openGraph.locale" />
+        <meta
+            v-if="props.seo.openGraph.image"
+            property="og:image"
+            :content="props.seo.openGraph.image"
+        />
+        <meta
+            v-if="props.seo.openGraph.image_alt"
+            property="og:image:alt"
+            :content="props.seo.openGraph.image_alt"
+        />
 
         <meta name="twitter:card" :content="props.seo.twitter.card" />
         <meta name="twitter:title" :content="props.seo.twitter.title" />
         <meta
             name="twitter:description"
             :content="props.seo.twitter.description"
+        />
+        <meta
+            v-if="props.seo.twitter.image"
+            name="twitter:image"
+            :content="props.seo.twitter.image"
         />
 
         <component

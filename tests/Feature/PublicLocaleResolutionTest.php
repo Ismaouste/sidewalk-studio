@@ -10,10 +10,10 @@ class PublicLocaleResolutionTest extends TestCase
 {
     public function test_browser_language_prefers_french_page_content(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/experience';
+        $canonical = rtrim((string) config('site.url'), '/').'/projects';
         $response = $this->withHeaders([
             'Accept-Language' => 'fr-FR,fr;q=0.9,en;q=0.8',
-        ])->get('/experience');
+        ])->get('/projects');
 
         $this->assertStringContainsString(
             'Accept-Language',
@@ -29,7 +29,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Un parcours façonné par les systèmes complexes.')
+                ->where('hero.title', 'Quelques réalisations pour parler architecture, mise en œuvre et jugement produit.')
                 ->where('site.locale', 'fr')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
@@ -239,17 +239,17 @@ MD);
 
     public function test_unsupported_locale_falls_back_to_english_canonical_response(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/experience';
+        $canonical = rtrim((string) config('site.url'), '/').'/projects';
 
         $this->withHeaders([
             'Accept-Language' => 'de-DE,de;q=0.9',
-        ])->get('/experience')
+        ])->get('/projects')
             ->assertOk()
             ->assertHeader('content-language', 'en')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Laravel, e-commerce, technical SEO, and privacy-aware product systems.')
+                ->where('hero.title', 'Build references for architecture, delivery, and product judgment.')
                 ->where('site.locale', 'en')
                 ->where('seo.openGraph.locale', 'en'));
     }
