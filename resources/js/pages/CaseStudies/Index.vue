@@ -31,6 +31,10 @@ function caseStudyMeta(item: ContentItem) {
     ];
 }
 
+function previewOutcomes(item: ContentItem) {
+    return item.outcomes.slice(0, 2);
+}
+
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
@@ -47,6 +51,7 @@ const copy = computed(() =>
               publishedLabel: 'Publie',
               stackLabel: 'Stack',
               toolsSuffix: 'outils',
+              outcomesPreviewLabel: 'Ce que cela a change',
           }
         : {
               eyebrow: 'Case studies',
@@ -62,6 +67,7 @@ const copy = computed(() =>
               publishedLabel: 'Published',
               stackLabel: 'Stack',
               toolsSuffix: 'tools',
+              outcomesPreviewLabel: 'What changed',
           },
 );
 </script>
@@ -116,6 +122,23 @@ const copy = computed(() =>
                         <p class="type-body case-studies-index__summary">
                             {{ item.summary }}
                         </p>
+
+                        <div class="case-studies-index__outcomes">
+                            <p
+                                class="type-meta case-studies-index__outcomes-label"
+                            >
+                                {{ copy.outcomesPreviewLabel }}
+                            </p>
+                            <ul class="case-studies-index__outcomes-list">
+                                <li
+                                    v-for="outcome in previewOutcomes(item)"
+                                    :key="outcome"
+                                    class="type-body-sm case-studies-index__outcome"
+                                >
+                                    {{ outcome }}
+                                </li>
+                            </ul>
+                        </div>
 
                         <div class="case-studies-index__stack">
                             <span
@@ -213,6 +236,28 @@ const copy = computed(() =>
     display: flex;
     flex-wrap: wrap;
     gap: var(--sw-space-3xs);
+}
+
+.case-studies-index__outcomes {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.case-studies-index__outcomes-label {
+    color: var(--sw-text-secondary);
+}
+
+.case-studies-index__outcomes-list {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.case-studies-index__outcome {
+    margin: 0;
+    color: var(--sw-text-secondary);
 }
 
 .case-studies-index__stack-item {

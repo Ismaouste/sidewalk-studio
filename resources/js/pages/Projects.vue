@@ -55,6 +55,9 @@ const copy = computed(() =>
               proofNotesSummary:
                   "Quand un cas client reste volontairement compact, les notes publiques montrent le raisonnement architecture, contenu et SEO qui l'accompagne.",
               writingArchiveCta: 'Ouvrir les notes',
+              publishedLabel: 'Publie',
+              readLabel: 'Lecture',
+              outcomesPreviewLabel: 'Ce que cela prouve',
           }
         : {
               experienceCta: 'Read experience',
@@ -69,6 +72,9 @@ const copy = computed(() =>
               proofNotesSummary:
                   'When a case study stays intentionally compact, public notes show the architecture, content, and SEO reasoning that sits behind it.',
               writingArchiveCta: 'Open writing',
+              publishedLabel: 'Published',
+              readLabel: 'Read',
+              outcomesPreviewLabel: 'What it proves',
           },
 );
 
@@ -81,6 +87,23 @@ function caseStudyMeta(item: ContentItem) {
         {
             label: copy.value.outcomesLabel,
             value: `${item.outcomes.length} ${copy.value.outcomesSuffix}`,
+        },
+    ];
+}
+
+function caseStudyPreviewOutcomes(item: ContentItem) {
+    return item.outcomes.slice(0, 2);
+}
+
+function writingMeta(item: ContentItem) {
+    return [
+        {
+            label: copy.value.publishedLabel,
+            value: item.published_at,
+        },
+        {
+            label: copy.value.readLabel,
+            value: `${item.reading_time} min`,
         },
     ];
 }
@@ -169,6 +192,24 @@ function caseStudyMeta(item: ContentItem) {
                         <p class="type-body projects-page__case-summary">
                             {{ item.summary }}
                         </p>
+                        <div class="projects-page__case-proof">
+                            <p
+                                class="type-meta projects-page__case-proof-label"
+                            >
+                                {{ copy.outcomesPreviewLabel }}
+                            </p>
+                            <ul class="projects-page__case-outcomes">
+                                <li
+                                    v-for="outcome in caseStudyPreviewOutcomes(
+                                        item,
+                                    )"
+                                    :key="outcome"
+                                    class="type-body-sm projects-page__case-outcome"
+                                >
+                                    {{ outcome }}
+                                </li>
+                            </ul>
+                        </div>
                         <div class="projects-page__case-tags">
                             <span
                                 v-for="tag in item.tags"
@@ -204,12 +245,22 @@ function caseStudyMeta(item: ContentItem) {
                 >
                     <Panel class="projects-page__note" tone="surface">
                         <LegendChip label="Writing" tone="violet" />
+                        <ContentMetaRow :items="writingMeta(item)" />
                         <h3 class="type-h2 projects-page__case-title">
                             {{ item.title }}
                         </h3>
                         <p class="type-body projects-page__case-summary">
                             {{ item.summary }}
                         </p>
+                        <div class="projects-page__case-tags">
+                            <span
+                                v-for="tag in item.tags"
+                                :key="tag"
+                                class="type-meta projects-page__case-tag"
+                            >
+                                {{ tag }}
+                            </span>
+                        </div>
                     </Panel>
                 </Link>
             </div>
@@ -340,6 +391,28 @@ function caseStudyMeta(item: ContentItem) {
     display: flex;
     flex-wrap: wrap;
     gap: var(--sw-space-3xs);
+}
+
+.projects-page__case-proof {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.projects-page__case-proof-label {
+    color: var(--sw-text-secondary);
+}
+
+.projects-page__case-outcomes {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.projects-page__case-outcome {
+    margin: 0;
+    color: var(--sw-text-secondary);
 }
 
 .projects-page__case-tag {

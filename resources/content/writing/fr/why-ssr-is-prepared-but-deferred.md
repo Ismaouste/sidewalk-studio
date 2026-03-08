@@ -1,7 +1,7 @@
 ---
 title: Pourquoi le SSR reste pret mais differe
 slug: why-ssr-is-prepared-but-deferred
-summary: Le repo garde une voie vers le SSR sans payer le cout operationnel d'un runtime SSR dans le premier jalon local-first.
+summary: Le repo garde une voie propre vers le SSR sans payer le cout operationnel d'un runtime SSR avant que le contenu, le routage, les metadonnees et les surfaces de preuve soient stabilises.
 status: published
 published_at: 2026-03-08
 updated_at: 2026-03-08
@@ -24,3 +24,24 @@ Le repo choisit donc une voie mediane :
 - garder le fichier SSR et l'affordance de build en place
 - fournir les metadonnees cote serveur pour la premiere requete
 - differer le runtime SSR complet a une spec ulterieure une fois l'architecture de l'information stabilisee
+
+## Pourquoi le differer etait la decision disciplinee
+
+Le projet portait deja assez de sujets couples :
+
+- Laravel, Inertia et Vue comme base runtime
+- contenu structure et payloads SEO
+- comportement public sensible au consentement
+- repository public cense rester lisible
+
+Ajouter un runtime SSR complet par-dessus aurait ete techniquement possible, mais ce n'etait pas le risque le plus utile a traiter d'abord.
+
+## Ce que cela a prouve
+
+Pret mais differe n'est pas un compromis vague ici. C'est une decision explicite de sequencing.
+
+Cela a prouve que le repo peut :
+
+- preserver des options d'architecture futures sans les payer trop tot
+- garder le local-first simple tout en respectant les besoins SEO
+- expliquer pourquoi une capacite est differee, ce qui vaut souvent plus qu'une revendication prematuree de maturite

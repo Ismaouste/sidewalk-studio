@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
@@ -69,6 +70,8 @@ const copy = computed(() =>
                   'Des cas clients et notes publiques montrent comment le travail se traduit en decisions d architecture, de SEO technique, de privacy et de livraison.',
               caseStudiesLabel: 'Cas clients',
               writingLabel: 'Notes',
+              outcomesLabel: 'Resultats',
+              outcomesSuffix: 'signaux',
               openArchiveCta: 'Ouvrir archive',
               quickHandoffLabel: 'Handoff rapide',
               quickHandoffSummary:
@@ -77,6 +80,9 @@ const copy = computed(() =>
               whatLookingForLabel: 'Ce que je recherche',
               writingCta: 'Notes',
               caseStudiesCta: 'Cas clients',
+              proofArchiveCta: 'Voir archive',
+              publishedLabel: 'Publie',
+              readLabel: 'Lecture',
           }
         : {
               projectsCta: 'View proof',
@@ -95,6 +101,8 @@ const copy = computed(() =>
                   'Public case studies and notes show how the work translates into architecture decisions, technical SEO, privacy, and delivery discipline.',
               caseStudiesLabel: 'Case studies',
               writingLabel: 'Writing',
+              outcomesLabel: 'Outcomes',
+              outcomesSuffix: 'signals',
               openArchiveCta: 'Open archive',
               quickHandoffLabel: 'Quick handoff',
               quickHandoffSummary:
@@ -103,8 +111,37 @@ const copy = computed(() =>
               whatLookingForLabel: 'What I am looking for',
               writingCta: 'Writing',
               caseStudiesCta: 'Case studies',
+              proofArchiveCta: 'View archive',
+              publishedLabel: 'Published',
+              readLabel: 'Read',
           },
 );
+
+function proofCaseStudyMeta(item: ContentItem) {
+    return [
+        {
+            label: copy.value.publishedLabel,
+            value: item.published_at,
+        },
+        {
+            label: copy.value.outcomesLabel,
+            value: `${item.outcomes.length} ${copy.value.outcomesSuffix}`,
+        },
+    ];
+}
+
+function proofWritingMeta(item: ContentItem) {
+    return [
+        {
+            label: copy.value.publishedLabel,
+            value: item.published_at,
+        },
+        {
+            label: copy.value.readLabel,
+            value: `${item.reading_time} min`,
+        },
+    ];
+}
 </script>
 
 <template>
@@ -164,10 +201,29 @@ const copy = computed(() =>
                                 v-for="item in props.featuredCaseStudies"
                                 :key="item.slug"
                                 :href="item.url"
-                                class="experience-page__proof-link"
+                                class="experience-page__proof-entry"
                             >
-                                {{ item.title }}
+                                <p
+                                    class="type-nav experience-page__proof-title"
+                                >
+                                    {{ item.title }}
+                                </p>
+                                <p
+                                    class="type-body-sm experience-page__proof-copy"
+                                >
+                                    {{ item.summary }}
+                                </p>
+                                <ContentMetaRow
+                                    :items="proofCaseStudyMeta(item)"
+                                />
                             </Link>
+                            <Button
+                                href="/case-studies"
+                                variant="ghost"
+                                size="sm"
+                            >
+                                {{ copy.proofArchiveCta }}
+                            </Button>
                         </div>
 
                         <div class="experience-page__proof-column">
@@ -176,10 +232,25 @@ const copy = computed(() =>
                                 v-for="item in props.latestWriting"
                                 :key="item.slug"
                                 :href="item.url"
-                                class="experience-page__proof-link"
+                                class="experience-page__proof-entry"
                             >
-                                {{ item.title }}
+                                <p
+                                    class="type-nav experience-page__proof-title"
+                                >
+                                    {{ item.title }}
+                                </p>
+                                <p
+                                    class="type-body-sm experience-page__proof-copy"
+                                >
+                                    {{ item.summary }}
+                                </p>
+                                <ContentMetaRow
+                                    :items="proofWritingMeta(item)"
+                                />
                             </Link>
+                            <Button href="/writing" variant="ghost" size="sm">
+                                {{ copy.proofArchiveCta }}
+                            </Button>
                         </div>
                     </div>
                 </Panel>
@@ -480,10 +551,29 @@ const copy = computed(() =>
     gap: var(--sw-space-3xs);
 }
 
-.experience-page__proof-link {
-    color: var(--sw-accent-dominant);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+.experience-page__proof-entry {
+    display: grid;
+    gap: 0.35rem;
+    border-top: 1px solid var(--sw-border);
+    padding-top: var(--sw-space-xs);
+}
+
+.experience-page__proof-entry:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.experience-page__proof-title,
+.experience-page__proof-copy {
+    margin: 0;
+}
+
+.experience-page__proof-title {
+    color: var(--sw-text-primary);
+}
+
+.experience-page__proof-copy {
+    color: var(--sw-text-secondary);
 }
 
 .experience-page__stack-group {

@@ -47,6 +47,8 @@ const copy = computed(() =>
               continueDescription:
                   "Les cas clients montrent comment les memes choix d'architecture se comportent sous pression de livraison et contraintes parties prenantes.",
               caseStudiesCta: 'Ouvrir cas clients',
+              projectsCta: 'Projets',
+              experienceCta: 'Parcours',
               contactCta: 'Contact',
               publishedLabel: 'Publie',
               updatedLabel: 'Maj',
@@ -63,6 +65,8 @@ const copy = computed(() =>
               continueDescription:
                   'Case studies show how the same architectural choices behave under delivery pressure and stakeholder constraints.',
               caseStudiesCta: 'Open case studies',
+              projectsCta: 'Projects',
+              experienceCta: 'Experience',
               contactCta: 'Contact',
               publishedLabel: 'Published',
               updatedLabel: 'Updated',
@@ -133,10 +137,20 @@ const copy = computed(() =>
                                 {{ copy.caseStudiesCta }}
                             </Button>
                             <Button
-                                href="/contact"
+                                href="/projects"
                                 variant="secondary"
                                 size="sm"
                             >
+                                {{ copy.projectsCta }}
+                            </Button>
+                            <Button
+                                href="/experience"
+                                variant="secondary"
+                                size="sm"
+                            >
+                                {{ copy.experienceCta }}
+                            </Button>
+                            <Button href="/contact" variant="ghost" size="sm">
                                 {{ copy.contactCta }}
                             </Button>
                         </div>

@@ -1,7 +1,7 @@
 ---
 title: Content Systems Should Start With Routing and Metadata
 slug: content-systems-routing-and-metadata
-summary: A short note on why Markdown-driven publishing only becomes useful once slugs, metadata, and publication state are modeled explicitly.
+summary: Markdown only becomes a usable publishing system once routing, metadata, and publication state are treated as part of the application contract rather than as editorial afterthoughts.
 status: published
 published_at: 2026-03-07
 updated_at: 2026-03-07
@@ -23,4 +23,25 @@ That decision lets the application do three things safely:
 - expose stable URLs for sitemap and canonical generation
 - separate draft content from public content without extra infrastructure
 
+## Why this matters in a Laravel and Inertia app
+
+Once the frontend renders public archives and detail pages, content stops being a static file concern.
+
+The application needs to know:
+
+- whether a document is public
+- which canonical path it owns
+- which metadata belongs in the first response
+- how locale fallback should behave when translated content is incomplete
+
+That is why the content contract has to start before the editorial volume grows.
+
+## What this proved
+
 A content file is not just text. It is a contract between editorial intent and application behavior.
+
+That framing made later features easier:
+
+- case studies and writing could share one repository pattern
+- locale fallback could be added without rewriting every content consumer
+- public proof pages could stay honest because draft or incomplete documents never leaked into the runtime
