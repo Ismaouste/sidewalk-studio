@@ -322,7 +322,11 @@ const copy = computed(() =>
 
         <SectionDivider :label="copy.notesLabel" />
 
-        <PublicationWidget :widget="props.journalWidget" tone="surface" />
+        <PublicationWidget
+            :widget="props.journalWidget"
+            tone="surface"
+            class="home-journal-widget"
+        />
 
         <SectionDivider :label="copy.contactLabel" />
 
@@ -527,6 +531,10 @@ const copy = computed(() =>
     display: flex;
     flex-wrap: wrap;
     gap: var(--sw-space-xs);
+}
+
+.home-journal-widget {
+    margin-bottom: var(--sw-space-2xs);
 }
 
 .home-card-link:focus-visible {

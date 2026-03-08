@@ -8,6 +8,7 @@ import ThemeToggle from '@/components/layout/ThemeToggle.vue';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
+const isStaticPreview = computed(() => page.props.site.runtime.staticPreview);
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
@@ -16,12 +17,16 @@ const copy = computed(() =>
               controlsLabel: 'Préférences',
               consentNote:
                   'Analytics et heatmaps doivent rester opt-in explicite.',
+              staticPreviewNote:
+                  'Preview statique : formulaire et préférences avancées désactivés.',
           }
         : {
               dataLabel: 'Data processing',
               contactLabel: 'Direct contact',
               controlsLabel: 'Preferences',
               consentNote: 'Analytics and heatmaps must remain explicit opt-in.',
+              staticPreviewNote:
+                  'Static preview: form handling and advanced preferences are disabled.',
           },
 );
 </script>
@@ -38,7 +43,11 @@ const copy = computed(() =>
                         {{ page.props.site.shell.footerNote }}
                     </p>
                     <p class="type-meta app-footer__consent-note">
-                        {{ copy.consentNote }}
+                        {{
+                            isStaticPreview
+                                ? copy.staticPreviewNote
+                                : copy.consentNote
+                        }}
                     </p>
                 </div>
 
@@ -76,9 +85,11 @@ const copy = computed(() =>
                             <span class="type-nav app-footer__controls-label">
                                 {{ copy.controlsLabel }}
                             </span>
-                            <LocaleSwitcher />
+                            <LocaleSwitcher v-if="!isStaticPreview" />
                             <ThemeToggle compact />
-                            <ConsentPreferencesButton />
+                            <ConsentPreferencesButton
+                                v-if="!isStaticPreview"
+                            />
                         </div>
                     </div>
                 </div>

@@ -96,6 +96,9 @@ export type SiteProps = {
             href: string | null;
         }>;
     };
+    runtime: {
+        staticPreview: boolean;
+    };
 };
 
 export type ConsentCategory = {

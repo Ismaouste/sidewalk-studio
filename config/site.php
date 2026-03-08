@@ -46,7 +46,7 @@ return [
     ],
     'contact' => [
         'email' => env('SITE_CONTACT_EMAIL', 'hello@sidewalk-studio.test'),
-        'location' => 'Nancy, France',
+        'location' => 'Nancy, Grand-Est',
         'availability' => 'Open to lead developer, freelance modernization, and privacy/SEO architecture conversations.',
     ],
 ];

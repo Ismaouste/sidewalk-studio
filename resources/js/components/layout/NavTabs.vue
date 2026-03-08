@@ -30,6 +30,9 @@ function isActive(item: NavItem): boolean {
 const activeItem = computed(
     () => props.items.find((item) => isActive(item)) ?? props.items[0] ?? null,
 );
+const inactiveItems = computed(() =>
+    props.items.filter((item) => !isActive(item)),
+);
 
 function linkAction(item: NavItem): string {
     if (page.props.site.locale === 'fr') {
@@ -129,19 +132,20 @@ onBeforeUnmount(() => {
             class="nav-tabs__viewport"
             :class="{ 'nav-tabs__viewport--open': mobileMenuOpen }"
         >
-            <div :id="menuId" class="nav-tabs__panel">
+            <div
+                v-if="inactiveItems.length"
+                :id="menuId"
+                class="nav-tabs__panel"
+            >
                 <Link
-                    v-for="item in props.items"
+                    v-for="item in inactiveItems"
                     :key="item.href"
                     :href="item.href"
                     class="nav-tabs__link"
-                    :class="{ 'nav-tabs__link--active': isActive(item) }"
-                    :aria-current="isActive(item) ? 'page' : undefined"
                     @click="closeMenu"
                 >
                     <span class="nav-tabs__link-label">{{ item.label }}</span>
                     <span
-                        v-if="!isActive(item)"
                         class="nav-tabs__link-meta"
                         :class="{
                             'nav-tabs__link-meta--contact': isContact(item),
@@ -169,12 +173,17 @@ onBeforeUnmount(() => {
     position: relative;
     display: grid;
     gap: var(--sw-space-3xs);
+    width: 100%;
+    max-width: 380px;
+    justify-self: start;
+    justify-items: stretch;
 }
 
 .nav-tabs__trigger {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     min-height: 3.25rem;
     gap: var(--sw-space-xs);
     border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
@@ -186,7 +195,8 @@ onBeforeUnmount(() => {
     transition:
         border-color 90ms ease,
         background-color 90ms ease,
-        box-shadow 90ms ease;
+        box-shadow 90ms ease,
+        color 90ms ease;
 }
 
 .nav-tabs__trigger-copy {
@@ -246,11 +256,20 @@ onBeforeUnmount(() => {
     transform: translateY(-3px) rotate(-45deg);
 }
 
+.nav-tabs__trigger--open {
+    border-color: color-mix(in srgb, var(--sw-border) 92%, transparent);
+    background: color-mix(in srgb, var(--sw-bg-grid) 82%, transparent);
+    color: color-mix(in srgb, var(--sw-text-secondary) 88%, var(--sw-text-primary));
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 56%, transparent);
+}
+
 .nav-tabs__viewport {
     position: absolute;
     top: calc(100% + var(--sw-space-3xs));
     left: 0;
-    right: 0;
+    right: auto;
+    width: 100%;
+    min-width: 100%;
     max-height: 0;
     opacity: 0;
     pointer-events: none;
@@ -270,49 +289,56 @@ onBeforeUnmount(() => {
 .nav-tabs__panel {
     display: grid;
     gap: var(--sw-space-3xs);
-    padding: var(--sw-space-3xs);
-    border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
-    border-radius: calc(var(--sw-radius-lg) + 2px);
-    background:
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--sw-bg-elevated) 18%, transparent),
-            transparent 72%
-        ),
-        color-mix(in srgb, var(--sw-bg-surface) 92%, transparent);
-    box-shadow:
-        0 16px 34px color-mix(in srgb, var(--sw-text-primary) 12%, transparent),
-        var(--sw-shadow-md);
-    -webkit-backdrop-filter: blur(20px) saturate(145%);
-    backdrop-filter: blur(20px) saturate(145%);
-}
-
-.nav-tabs__viewport--open .nav-tabs__panel {
-    padding-top: var(--sw-space-3xs);
+    width: 100%;
+    padding: var(--sw-space-xs);
 }
 
 .nav-tabs__link {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 3rem;
+    width: 100%;
+    min-height: 3.25rem;
     gap: var(--sw-space-xs);
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
-    border-radius: calc(var(--sw-radius-md) + 2px);
-    background: color-mix(in srgb, var(--sw-bg-surface) 82%, transparent);
-    padding: 0.85rem 1rem;
-    color: var(--sw-text-secondary);
-    box-shadow: var(--sw-shadow-sm);
+    border-radius: var(--sw-radius-full);
+    background: color-mix(in srgb, var(--sw-bg-surface) 84%, transparent);
+    padding: 0.9rem 1rem;
+    color: var(--sw-text-primary);
+    box-shadow:
+        0 14px 22px color-mix(in srgb, var(--sw-text-primary) 8%, transparent),
+        var(--sw-shadow-sm);
+    opacity: 0;
+    transform: translateY(-6px);
     transition:
         background-color 90ms ease,
         border-color 90ms ease,
         box-shadow 90ms ease,
-        color 90ms ease;
+        color 90ms ease,
+        opacity 140ms ease,
+        transform 140ms ease;
+}
+
+.nav-tabs__viewport--open .nav-tabs__link {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-tabs__viewport--open .nav-tabs__link:nth-child(1) {
+    transition-delay: 10ms;
+}
+
+.nav-tabs__viewport--open .nav-tabs__link:nth-child(2) {
+    transition-delay: 20ms;
+}
+
+.nav-tabs__viewport--open .nav-tabs__link:nth-child(3) {
+    transition-delay: 30ms;
 }
 
 .nav-tabs__link-label {
     font-family: var(--sw-font-body);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 1.2;
 }
@@ -380,8 +406,11 @@ onBeforeUnmount(() => {
 @media (min-width: 960px) {
     .nav-tabs {
         display: flex;
+        width: auto;
+        max-width: none;
         flex-wrap: wrap;
         justify-content: flex-end;
+        justify-items: stretch;
         gap: var(--sw-space-2xs);
     }
 
@@ -418,6 +447,7 @@ onBeforeUnmount(() => {
     .nav-tabs__link {
         position: relative;
         min-height: 0;
+        width: auto;
         border: 0;
         border-radius: var(--sw-radius-full);
         background: transparent;
@@ -462,13 +492,11 @@ onBeforeUnmount(() => {
 
     .nav-tabs__panel,
     .nav-tabs__viewport--open .nav-tabs__panel {
-        border-radius: calc(var(--sw-radius-lg) + 2px);
-        padding-top: var(--sw-space-3xs);
+        padding: var(--sw-space-sm);
     }
 
     .nav-tabs__link {
-        min-height: 3.1rem;
-        border-radius: calc(var(--sw-radius-md) + 2px);
+        min-height: 3rem;
         padding-inline: 1rem;
     }
 }

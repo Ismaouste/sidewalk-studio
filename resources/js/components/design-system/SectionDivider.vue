@@ -15,7 +15,8 @@ defineProps<{
     display: flex;
     align-items: center;
     gap: var(--sw-space-2xs);
-    padding-block: 6px 2px;
+    margin-top: clamp(10px, 2vw, var(--sw-space-xs));
+    padding-block: 4px 0;
 }
 
 .section-divider::before,

@@ -12,6 +12,7 @@ import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { FlashProps, SeoPayload, SiteContact, SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps; flash: FlashProps }>();
+const isStaticPreview = computed(() => page.props.site.runtime.staticPreview);
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -69,11 +70,11 @@ const inquiry = useForm({
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              workCta: 'Voir les références',
+              workCta: "Voir l'expérience",
               dividerLabel: 'Prendre contact',
               privacyChipLabel: 'Consentement et vie privée',
-              baseChipLabel: `Base ${props.contact.location}`,
-              baseLabel: 'Base',
+              locationChipLabel: props.contact.location,
+              locationLabel: props.details.location_label,
               availabilityLabel: 'Disponibilité',
               subjectPrefix: 'Prise de contact Sidewalk Studio',
               bodyNameLabel: 'Nom',
@@ -92,13 +93,16 @@ const copy = computed(() =>
                   "Recrutement, mise en relation rapide, revue d'architecture, reprise de plateforme ou mission freelance sur un produit déjà en charge.",
               cvLabel: 'CV',
               portraitAlt: "Portrait illustré d'Ismael Rodmacq",
+              staticPreviewTitle: 'Preview statique',
+              staticPreviewSummary:
+                  "Le formulaire est volontairement retiré de ce package HTML. Pour échanger, le plus direct reste l'email.",
           }
         : {
-              workCta: 'Browse references',
+              workCta: 'View experience',
               dividerLabel: 'Start a conversation',
               privacyChipLabel: 'Privacy-first engagements',
-              baseChipLabel: `${props.contact.location} base`,
-              baseLabel: 'Base',
+              locationChipLabel: props.contact.location,
+              locationLabel: props.details.location_label,
               availabilityLabel: 'Availability',
               subjectPrefix: 'Sidewalk Studio inquiry',
               bodyNameLabel: 'Name',
@@ -117,12 +121,15 @@ const copy = computed(() =>
                   'Hiring, faster recruiter handoff, architecture review, freelance modernization, or an existing platform that already has delivery pressure.',
               cvLabel: 'CV',
               portraitAlt: 'Illustrated portrait of Ismael Rodmacq',
+              staticPreviewTitle: 'Static preview',
+              staticPreviewSummary:
+                  'The contact form is intentionally removed from this HTML package. Email remains the direct path.',
           },
 );
 
 const inquiryMeta = computed(() => [
     {
-        label: copy.value.baseLabel,
+        label: copy.value.locationLabel,
         value: props.contact.location,
     },
     {
@@ -171,35 +178,51 @@ function submitInquiry(): void {
                     :eyebrow="props.hero.eyebrow"
                     :title="props.hero.title"
                     :description="props.hero.summary"
-                >
-                    <template #actions>
-                        <Button :href="`mailto:${props.contact.email}`">
-                            {{ props.form.secondary_cta }}
-                        </Button>
-                        <Button href="/projects" variant="secondary">
-                            {{ copy.workCta }}
-                        </Button>
-                    </template>
+                />
 
-                    <LegendChip :label="copy.privacyChipLabel" tone="green" />
-                    <LegendChip :label="copy.baseChipLabel" tone="sun" />
-                </SectionIntro>
+                <div class="contact-page__hero-toolbar">
+                    <figure class="contact-page__portrait">
+                        <img
+                            src="/images/contact-avatar.png"
+                            :alt="copy.portraitAlt"
+                            class="contact-page__portrait-image"
+                            loading="eager"
+                            decoding="async"
+                        />
+                    </figure>
 
-                <figure class="contact-page__portrait">
-                    <img
-                        src="/images/contact-avatar.png"
-                        :alt="copy.portraitAlt"
-                        class="contact-page__portrait-image"
-                        loading="eager"
-                        decoding="async"
-                    />
-                </figure>
+                    <div class="contact-page__hero-toolbar-body">
+                        <div class="contact-page__hero-actions">
+                            <Button :href="`mailto:${props.contact.email}`">
+                                {{ props.form.secondary_cta }}
+                            </Button>
+                            <Button href="/projects" variant="secondary">
+                                {{ copy.workCta }}
+                            </Button>
+                        </div>
+
+                        <div class="contact-page__hero-signals">
+                            <LegendChip
+                                :label="copy.locationChipLabel"
+                                tone="sun"
+                            />
+                            <LegendChip
+                                :label="copy.privacyChipLabel"
+                                tone="green"
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <SectionDivider :label="copy.dividerLabel" />
 
             <div class="contact-page__grid">
-                <Panel class="contact-page__form-panel" tone="surface">
+                <Panel
+                    v-if="!isStaticPreview"
+                    class="contact-page__form-panel"
+                    tone="surface"
+                >
                     <p
                         v-if="statusMessage"
                         class="type-body-sm contact-page__status"
@@ -316,6 +339,31 @@ function submitInquiry(): void {
                             variant="secondary"
                         >
                             {{ props.form.secondary_cta }}
+                        </Button>
+                    </div>
+                </Panel>
+
+                <Panel
+                    v-else
+                    class="contact-page__form-panel"
+                    tone="surface"
+                >
+                    <div class="contact-page__form-intro">
+                        <p class="type-eyebrow">{{ copy.staticPreviewTitle }}</p>
+                        <h2 class="type-h2 contact-page__panel-title">
+                            {{ props.form.title }}
+                        </h2>
+                        <p class="type-body-sm contact-page__panel-copy">
+                            {{ copy.staticPreviewSummary }}
+                        </p>
+                    </div>
+
+                    <div class="contact-page__form-actions">
+                        <Button :href="`mailto:${props.contact.email}`">
+                            {{ props.form.secondary_cta }}
+                        </Button>
+                        <Button href="/projects" variant="secondary">
+                            {{ copy.workCta }}
                         </Button>
                     </div>
                 </Panel>
@@ -445,37 +493,38 @@ function submitInquiry(): void {
     display: grid;
     align-items: start;
     gap: var(--sw-space-sm);
-    grid-template-columns: minmax(0, 1fr) minmax(12rem, 15rem);
+}
+
+.contact-page__hero-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--sw-space-xs);
+    flex-wrap: wrap;
+}
+
+.contact-page__hero-toolbar-body {
+    display: grid;
+    gap: 10px;
+    min-width: min(30rem, 100%);
+}
+
+.contact-page__hero-actions,
+.contact-page__hero-signals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .contact-page__portrait {
-    position: relative;
+    flex: none;
     margin: 0;
-    border-radius: calc(var(--sw-radius-lg) + 10px);
-    background:
-        radial-gradient(
-            circle at 78% 22%,
-            color-mix(in srgb, var(--sw-accent-sun) 22%, transparent),
-            transparent 42%
-        ),
-        linear-gradient(
-            155deg,
-            color-mix(in srgb, var(--sw-bg-surface) 88%, transparent),
-            color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent)
-        );
-    padding: clamp(10px, 2vw, 14px);
-    box-shadow:
-        inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 68%, transparent),
-        var(--sw-shadow-md);
-    -webkit-backdrop-filter: blur(16px) saturate(130%);
-    backdrop-filter: blur(16px) saturate(130%);
 }
 
 .contact-page__portrait-image {
     display: block;
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: calc(var(--sw-radius-lg) + 4px);
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
     object-fit: cover;
 }
 
@@ -658,13 +707,8 @@ function submitInquiry(): void {
 }
 
 @media (max-width: 960px) {
-    .contact-page__hero,
     .contact-page__grid {
         grid-template-columns: minmax(0, 1fr);
-    }
-
-    .contact-page__portrait {
-        max-width: 14rem;
     }
 }
 
@@ -673,8 +717,12 @@ function submitInquiry(): void {
         gap: var(--sw-space-xs);
     }
 
-    .contact-page__portrait {
-        max-width: 11.5rem;
+    .contact-page__hero-toolbar {
+        align-items: start;
+    }
+
+    .contact-page__hero-toolbar-body {
+        min-width: 0;
     }
 
     .contact-page__form {

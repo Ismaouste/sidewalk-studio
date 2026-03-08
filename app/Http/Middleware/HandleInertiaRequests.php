@@ -47,6 +47,9 @@ class HandleInertiaRequests extends Middleware
                         app()->getLocale(),
                     ),
                 ),
+                'runtime' => [
+                    'staticPreview' => $request->headers->get('X-Static-Preview') === '1',
+                ],
             ],
             'consent' => [
                 'mode' => config('consent.mode'),
