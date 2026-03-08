@@ -22,6 +22,7 @@ let showTimer: number | undefined;
 let finishTimer: number | undefined;
 let settlingTimer: number | undefined;
 let safetyTimer: number | undefined;
+let intentListenerInstalled = false;
 
 function clearTimers() {
     if (showTimer !== undefined) {
@@ -66,6 +67,10 @@ function settleAfter(delay: number) {
 }
 
 function startTransition() {
+    if (state.isLoading) {
+        return;
+    }
+
     clearTimers();
     lastStart = window.performance.now();
     state.isSettling = false;
@@ -131,6 +136,22 @@ function installTransitionListeners() {
     });
 }
 
+function installNavigationIntentListener() {
+    if (intentListenerInstalled || typeof window === 'undefined') {
+        return;
+    }
+
+    intentListenerInstalled = true;
+
+    window.addEventListener('sidewalk:navigation-intent', () => {
+        if (transitionMode !== 'inertia' || state.isLoading) {
+            return;
+        }
+
+        startTransitionImmediately();
+    });
+}
+
 function installStaticPreviewTransitionListeners() {
     if (staticPreviewListenersInstalled || typeof window === 'undefined') {
         return;
@@ -173,6 +194,7 @@ export function configurePageTransitions(options?: { staticPreview?: boolean }) 
     if (options?.staticPreview) {
         transitionMode = 'static';
         installStaticPreviewTransitionListeners();
+        installNavigationIntentListener();
 
         return;
     }
@@ -182,6 +204,7 @@ export function configurePageTransitions(options?: { staticPreview?: boolean }) 
     }
 
     installTransitionListeners();
+    installNavigationIntentListener();
 }
 
 export function usePageTransitions() {

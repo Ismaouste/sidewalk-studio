@@ -17,7 +17,7 @@ const page = usePage<{ site: SiteProps }>();
 const menuId = 'primary-navigation';
 const mobileMenuOpen = ref(false);
 const isDesktopViewport = ref(false);
-const optimisticActiveHref = ref<string | null>(null);
+const pendingMobileHref = ref<string | null>(null);
 
 let desktopMediaQuery: MediaQueryList | null = null;
 let optimisticResetTimer: number | undefined;
@@ -44,13 +44,8 @@ function normalizePath(value: string): string {
     return pathname === '' ? '/' : pathname;
 }
 
-const currentPath = computed(() =>
-    normalizePath(optimisticActiveHref.value ?? props.currentUrl),
-);
-
-function isActive(item: NavItem): boolean {
-    const resolvedCurrentPath = currentPath.value;
-    const itemPath = normalizePath(item.href);
+function matchesPath(currentPath: string, href: string): boolean {
+    const itemPath = normalizePath(href);
 
     if (itemPath === '/') {
         return !props.items.some((navItem) => {
@@ -61,28 +56,48 @@ function isActive(item: NavItem): boolean {
             }
 
             return (
-                resolvedCurrentPath === navPath ||
-                resolvedCurrentPath.endsWith(navPath) ||
-                resolvedCurrentPath.includes(`${navPath}/`)
+                currentPath === navPath ||
+                currentPath.endsWith(navPath) ||
+                currentPath.includes(`${navPath}/`)
             );
         });
     }
 
     return (
-        resolvedCurrentPath === itemPath ||
-        resolvedCurrentPath.endsWith(itemPath) ||
-        resolvedCurrentPath.includes(`${itemPath}/`)
+        currentPath === itemPath ||
+        currentPath.endsWith(itemPath) ||
+        currentPath.includes(`${itemPath}/`)
     );
 }
 
-const activeItem = computed(
-    () => props.items.find((item) => isActive(item)) ?? props.items[0] ?? null,
+const resolvedDesktopPath = computed(() => normalizePath(props.currentUrl));
+const resolvedMobilePath = computed(() =>
+    normalizePath(pendingMobileHref.value ?? props.currentUrl),
 );
-const inactiveItems = computed(() =>
-    props.items.filter((item) => !isActive(item)),
+
+function isDesktopActive(item: NavItem): boolean {
+    return matchesPath(resolvedDesktopPath.value, item.href);
+}
+
+const activeItem = computed(
+    () =>
+        props.items.find((item) =>
+            matchesPath(
+                isDesktopViewport.value
+                    ? resolvedDesktopPath.value
+                    : resolvedMobilePath.value,
+                item.href,
+            ),
+        ) ??
+        props.items[0] ??
+        null,
 );
 const panelItems = computed(() =>
-    isDesktopViewport.value ? props.items : inactiveItems.value,
+    isDesktopViewport.value
+        ? props.items
+        : props.items.filter(
+              (item) => !matchesPath(resolvedMobilePath.value, item.href),
+          ),
 );
 
 function linkAction(item: NavItem): string {
@@ -123,12 +138,19 @@ function clearOptimisticTimer(): void {
 }
 
 function handleLinkClick(item: NavItem): void {
-    optimisticActiveHref.value = item.href;
+    if (!isDesktopViewport.value) {
+        pendingMobileHref.value = item.href;
+    }
+
     closeMenu();
     clearOptimisticTimer();
 
+    if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('sidewalk:navigation-intent'));
+    }
+
     optimisticResetTimer = window.setTimeout(() => {
-        optimisticActiveHref.value = null;
+        pendingMobileHref.value = null;
     }, 2000);
 }
 
@@ -153,7 +175,7 @@ function handleKeydown(event: KeyboardEvent): void {
 watch(
     () => props.currentUrl,
     () => {
-        optimisticActiveHref.value = null;
+        pendingMobileHref.value = null;
         clearOptimisticTimer();
         closeMenu();
     },
@@ -221,7 +243,10 @@ onBeforeUnmount(() => {
                     :key="item.href"
                     :href="item.href"
                     class="nav-tabs__link"
-                    :class="{ 'nav-tabs__link--active': isActive(item) }"
+                    :class="{
+                        'nav-tabs__link--active':
+                            isDesktopViewport && isDesktopActive(item),
+                    }"
                     @click="handleLinkClick(item)"
                 >
                     <span class="nav-tabs__link-label">{{ item.label }}</span>
