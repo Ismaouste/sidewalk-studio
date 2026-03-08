@@ -17,16 +17,16 @@ class CaseStudyController extends Controller
     {
         $isFrench = app()->getLocale() === 'fr';
         $seo = Seo::page(
-            $isFrench ? 'Cas clients' : 'Case Studies',
+            $isFrench ? 'Études de cas' : 'Case Studies',
             $isFrench
-                ? "Retours detailles sur le bootstrap du repository, l'orchestration du consentement et les choix d'architecture SEO."
-                : 'Detailed walkthroughs of repository bootstrap, consent orchestration, and SEO architecture decisions.',
+                ? "Études de cas sur les flux produit, l'auto-hébergement, le consentement, le SEO technique et d'autres systèmes web sous contrainte."
+                : 'Case studies about product-data flows, self-hosting, consent, technical SEO, and other constrained web systems.',
             '/case-studies',
             [
                 'breadcrumb' => [
                     ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
                     ['name' => $isFrench ? 'Projets' : 'Projects', 'path' => '/projects'],
-                    ['name' => $isFrench ? 'Cas clients' : 'Case Studies', 'path' => '/case-studies'],
+                    ['name' => $isFrench ? 'Études de cas' : 'Case Studies', 'path' => '/case-studies'],
                 ],
             ],
         );
@@ -58,7 +58,7 @@ class CaseStudyController extends Controller
                 'breadcrumb' => [
                     ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
                     ['name' => $isFrench ? 'Projets' : 'Projects', 'path' => '/projects'],
-                    ['name' => $isFrench ? 'Cas clients' : 'Case Studies', 'path' => '/case-studies'],
+                    ['name' => $isFrench ? 'Études de cas' : 'Case Studies', 'path' => '/case-studies'],
                     ['name' => $item['title'], 'path' => '/case-studies/'.$item['slug']],
                 ],
             ],

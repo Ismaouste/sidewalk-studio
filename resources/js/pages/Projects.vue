@@ -86,7 +86,7 @@ const props = defineProps<{
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              overviewCta: "Découvrir les cas d'étude",
+              overviewCta: "Découvrir toutes les études de cas",
               contactCta: "Discuter d'un contexte proche",
               internalBuildLabel: 'Interne',
               roleLabel: 'Rôle',
@@ -108,7 +108,7 @@ const copy = computed(() =>
               outcomesSuffix: 'points',
           }
         : {
-              overviewCta: 'Open case studies',
+              overviewCta: 'Browse all case studies',
               contactCta: 'Discuss a similar context',
               internalBuildLabel: 'Internal build',
               roleLabel: 'Role',

@@ -34,11 +34,11 @@ function caseStudyMeta(item: ContentItem) {
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              eyebrow: 'Cas clients',
-              title: 'Décisions détaillées derrière la première release Sidewalk Studio.',
+              eyebrow: 'Études de cas',
+              title: 'Décisions techniques, outils utiles, détails qui comptent.',
               description:
-                  "Walkthroughs structurés du bootstrap repository, de l'orchestration du consentement et des choix d'architecture SEO.",
-              projectsCta: 'Voir pistes projet',
+                  "Des cas plus précis autour des flux produit, de l'auto-hébergement, du consentement, du SEO technique et des systèmes web qui demandent de la tenue.",
+              projectsCta: 'Lire les expériences',
               contactCta: 'Discuter un build similaire',
               reviewLabel: 'Format revue technique',
               publicSlicesLabel: `${props.items.length} tranches publiques`,
@@ -49,10 +49,10 @@ const copy = computed(() =>
           }
         : {
               eyebrow: 'Case studies',
-              title: 'Detailed decisions behind the first Sidewalk Studio release.',
+              title: 'Technical decisions, useful tools, details that matter.',
               description:
-                  'Structured walkthroughs of repository bootstrap, consent orchestration, and SEO architecture choices.',
-              projectsCta: 'View project tracks',
+                  'More focused cases around product-data flows, self-hosting, consent, technical SEO, and web systems that need real staying power.',
+              projectsCta: 'Read the experience',
               contactCta: 'Discuss a similar build',
               reviewLabel: 'Technical review format',
               publicSlicesLabel: `${props.items.length} public slices`,

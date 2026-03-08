@@ -458,7 +458,7 @@ onBeforeUnmount(() => {
 }
 
 .nav-tabs__link-meta::after {
-    content: '→';
+    content: '\2192';
     display: inline-block;
     font-size: 12px;
     line-height: 1;
@@ -684,7 +684,7 @@ onBeforeUnmount(() => {
     }
 }
 
-:global(html[data-motion='reduced'] .nav-tabs__link-arrow--contact) {
+:global(html[data-motion='reduced'] .nav-tabs__link-meta--contact::after) {
     animation: none;
 }
 </style>
