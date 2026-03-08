@@ -235,14 +235,6 @@ class ExportStaticPreviewCommand extends Command
 
         $xpath = new DOMXPath($dom);
 
-        foreach ($xpath->query('//script[@type="module"]') ?: [] as $node) {
-            $node->parentNode?->removeChild($node);
-        }
-
-        foreach ($xpath->query('//link[@rel="modulepreload"]') ?: [] as $node) {
-            $node->parentNode?->removeChild($node);
-        }
-
         $htmlElement = $dom->documentElement;
 
         if ($htmlElement instanceof DOMElement) {

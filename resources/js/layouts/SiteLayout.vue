@@ -264,6 +264,8 @@ onBeforeUnmount(() => {
                     class="sw-main__content"
                     :class="{
                         'sw-main__content--settling': isSettling,
+                        'sw-main__content--with-breadcrumb':
+                            breadcrumbs.length > 0,
                     }"
                 >
                     <slot />
@@ -394,11 +396,23 @@ onBeforeUnmount(() => {
 }
 
 .sw-main__breadcrumb {
-    margin-bottom: var(--sw-space-xs);
+    margin-bottom: clamp(2px, 0.5vw, 6px);
 }
 
 .sw-main__content {
     transition: opacity 140ms ease;
+}
+
+.sw-main__content--with-breadcrumb :deep(.sw-section:first-child) {
+    padding-top: clamp(16px, 2.4vw, 28px);
+}
+
+.sw-main__content :deep(.sw-section--hero:first-child) {
+    padding-top: clamp(44px, 8vw, 72px);
+}
+
+.sw-main__content--with-breadcrumb :deep(.sw-section--hero:first-child) {
+    padding-top: clamp(16px, 2.4vw, 28px);
 }
 
 .sw-main__content--settling {

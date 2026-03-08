@@ -80,14 +80,14 @@ onBeforeUnmount(() => {
 <style scoped>
 .app-header {
     position: sticky;
-    top: max(var(--sw-space-3xs), env(safe-area-inset-top));
+    top: max(clamp(10px, 1.4vw, 16px), env(safe-area-inset-top));
     z-index: var(--sw-z-header);
-    padding-top: max(var(--sw-space-3xs), env(safe-area-inset-top));
+    padding-top: max(clamp(10px, 1.4vw, 16px), env(safe-area-inset-top));
 }
 
 .app-header__shell {
     width: min(
-        calc(100% - var(--sw-layout-gutter-lg)),
+        calc(100% - var(--sw-layout-gutter-md)),
         calc(var(--sw-shell-max-width) + 112px)
     );
     margin-inline: auto;
@@ -320,7 +320,7 @@ html[data-theme='sunset'] .app-header__mark::after {
 @media (max-width: 1024px) {
     .app-header__shell {
         width: min(
-            calc(100% - calc(var(--sw-layout-gutter-md) + 8px)),
+            calc(100% - var(--sw-layout-gutter-sm)),
             calc(var(--sw-shell-max-width) + 72px)
         );
     }

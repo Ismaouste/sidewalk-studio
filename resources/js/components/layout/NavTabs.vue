@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
 .nav-tabs {
     position: relative;
     display: grid;
-    gap: var(--sw-space-3xs);
+    gap: 6px;
     width: 100%;
     max-width: 380px;
     justify-self: start;
@@ -265,7 +265,7 @@ onBeforeUnmount(() => {
 
 .nav-tabs__viewport {
     position: absolute;
-    top: calc(100% + var(--sw-space-3xs));
+    top: calc(100% + 4px);
     left: 0;
     right: auto;
     width: 100%;
@@ -288,9 +288,9 @@ onBeforeUnmount(() => {
 
 .nav-tabs__panel {
     display: grid;
-    gap: var(--sw-space-3xs);
+    gap: 10px;
     width: 100%;
-    padding: var(--sw-space-xs);
+    padding: 12px;
 }
 
 .nav-tabs__link {
@@ -487,12 +487,12 @@ onBeforeUnmount(() => {
     }
 
     .nav-tabs__viewport {
-        top: calc(100% + var(--sw-space-2xs));
+        top: calc(100% + 4px);
     }
 
     .nav-tabs__panel,
     .nav-tabs__viewport--open .nav-tabs__panel {
-        padding: var(--sw-space-sm);
+        padding: 12px;
     }
 
     .nav-tabs__link {
