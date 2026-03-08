@@ -17,7 +17,8 @@ use Throwable;
 class ExportStaticPreviewCommand extends Command
 {
     protected $signature = 'site:export-static-preview
-        {--locale=fr : Locale to export}
+        {--locale=fr : Single locale to export}
+        {--locales= : Comma-separated locales to export}
         {--output=dist/static-preview : Output directory, relative to the repo root}
         {--base= : Public base path used by the static host}
         {--host=127.0.0.1 : Host used by the local export server}
@@ -30,7 +31,7 @@ class ExportStaticPreviewCommand extends Command
 
     public function handle(ContentRepository $content): int
     {
-        $locale = (string) $this->option('locale');
+        $locales = $this->localesToExport();
         $outputPath = base_path((string) $this->option('output'));
         $basePath = $this->normalizeBasePath((string) ($this->option('base') ?: '/'.basename(base_path()).'/'));
         $host = (string) $this->option('host');
@@ -63,14 +64,18 @@ class ExportStaticPreviewCommand extends Command
             $this->waitForApplication($serverUrl);
             $this->waitForSsr();
 
-            $routes = $this->routesToExport($content, $locale);
+            foreach ($locales as $locale) {
+                $routes = $this->routesToExport($content, $locale);
 
-            foreach ($routes as $route) {
-                $this->exportRoute($serverUrl, $route, $locale, $basePath, $outputPath);
+                foreach ($routes as $route) {
+                    $this->exportRoute($serverUrl, $route, $locale, $basePath, $outputPath);
+                }
             }
 
             $this->copyStaticAssets($outputPath, $basePath);
-            $this->generatePlaceholderAssets($content, $outputPath, $locale);
+            foreach ($locales as $locale) {
+                $this->generatePlaceholderAssets($content, $outputPath, $locale);
+            }
             $this->copyCareerPdf($outputPath, 'en');
             $this->copyCareerPdf($outputPath, 'fr');
 
@@ -224,14 +229,19 @@ class ExportStaticPreviewCommand extends Command
             throw new \RuntimeException("Failed to render [{$route}] for static export.");
         }
 
-        $html = $this->rewriteHtml($response->body(), $basePath, $serverUrl);
-        $targetPath = $this->targetPathForRoute($outputPath, $route);
+        $html = $this->rewriteHtml($response->body(), $basePath, $serverUrl, $locale);
+        $targetPath = $this->targetPathForRoute($outputPath, $route, $locale);
 
         File::ensureDirectoryExists(dirname($targetPath));
         File::put($targetPath, $html);
     }
 
-    protected function rewriteHtml(string $html, string $basePath, string $serverUrl): string
+    protected function rewriteHtml(
+        string $html,
+        string $basePath,
+        string $serverUrl,
+        string $locale,
+    ): string
     {
         $dom = new DOMDocument('1.0', 'UTF-8');
         @$dom->loadHTML($html, LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED | LIBXML_NOERROR | LIBXML_NOWARNING);
@@ -251,7 +261,7 @@ class ExportStaticPreviewCommand extends Command
                 }
 
                 $value = $node->getAttribute($attribute);
-                $rewritten = $this->rewriteStringValue($value, $basePath, $serverUrl);
+                $rewritten = $this->rewriteStringValue($value, $basePath, $serverUrl, $locale);
 
                 if ($rewritten !== $value) {
                     $node->setAttribute($attribute, $rewritten);
@@ -270,7 +280,7 @@ class ExportStaticPreviewCommand extends Command
                 continue;
             }
 
-            $rewrittenPage = $this->rewritePayloadValue($page, $basePath, $serverUrl);
+                $rewrittenPage = $this->rewritePayloadValue($page, $basePath, $serverUrl, $locale);
             $node->setAttribute(
                 'data-page',
                 json_encode(
@@ -294,13 +304,18 @@ class ExportStaticPreviewCommand extends Command
         return $rendered === false ? $html : $rendered;
     }
 
-    protected function rewritePayloadValue(mixed $value, string $basePath, string $serverUrl): mixed
+    protected function rewritePayloadValue(
+        mixed $value,
+        string $basePath,
+        string $serverUrl,
+        string $locale,
+    ): mixed
     {
         if (is_array($value)) {
             $rewritten = [];
 
             foreach ($value as $key => $item) {
-                $rewritten[$key] = $this->rewritePayloadValue($item, $basePath, $serverUrl);
+                $rewritten[$key] = $this->rewritePayloadValue($item, $basePath, $serverUrl, $locale);
             }
 
             return $rewritten;
@@ -310,10 +325,15 @@ class ExportStaticPreviewCommand extends Command
             return $value;
         }
 
-        return $this->rewriteStringValue($value, $basePath, $serverUrl);
+        return $this->rewriteStringValue($value, $basePath, $serverUrl, $locale);
     }
 
-    protected function rewriteStringValue(string $value, string $basePath, string $serverUrl): string
+    protected function rewriteStringValue(
+        string $value,
+        string $basePath,
+        string $serverUrl,
+        string $locale,
+    ): string
     {
         if ($value === '') {
             return $value;
@@ -323,7 +343,7 @@ class ExportStaticPreviewCommand extends Command
             return (string) preg_replace_callback(
                 '/(?<prefix>(?:href|src)=["\'])(?<path>\/[^"\']*)(?<suffix>["\'])/',
                 fn (array $matches): string => $matches['prefix']
-                    .$this->rewritePath($matches['path'], $basePath)
+                    .$this->rewritePath($matches['path'], $basePath, $locale)
                     .$matches['suffix'],
                 $value,
             );
@@ -331,9 +351,15 @@ class ExportStaticPreviewCommand extends Command
 
         if (Str::startsWith($value, 'http://') || Str::startsWith($value, 'https://')) {
             if (Str::startsWith($value, $serverUrl)) {
+                $parsed = parse_url($value);
+                $path = $parsed['path'] ?? '/';
+                $query = isset($parsed['query']) ? '?'.$parsed['query'] : '';
+                $fragment = isset($parsed['fragment']) ? '#'.$parsed['fragment'] : '';
+
                 return $this->rewritePath(
-                    Str::after($value, $serverUrl),
+                    $path.$query.$fragment,
                     $basePath,
+                    $locale,
                 );
             }
 
@@ -344,10 +370,10 @@ class ExportStaticPreviewCommand extends Command
             return $value;
         }
 
-        return $this->rewritePath($value, $basePath);
+        return $this->rewritePath($value, $basePath, $locale);
     }
 
-    protected function rewritePath(string $path, string $basePath): string
+    protected function rewritePath(string $path, string $basePath, string $locale): string
     {
         if ($path === '' || Str::startsWith($path, ['mailto:', 'tel:', '#', 'data:', 'javascript:'])) {
             return $path;
@@ -358,6 +384,8 @@ class ExportStaticPreviewCommand extends Command
         }
 
         [$cleanPath, $suffix] = $this->splitPathSuffix($path);
+        [$targetLocale, $suffix] = $this->extractTargetLocale($suffix, $locale);
+        $localePrefix = $this->localePrefix($targetLocale);
 
         if ($cleanPath === '/cv/en') {
             return $basePath.'assets/cv/ismael-rodmacq-cv-en.pdf'.$suffix;
@@ -377,7 +405,11 @@ class ExportStaticPreviewCommand extends Command
             return rtrim($basePath, '/').$cleanPath.$suffix;
         }
 
-        return rtrim($basePath, '/').rtrim($cleanPath, '/').'/'.$suffix;
+        if ($cleanPath === '/') {
+            return rtrim($basePath, '/').$localePrefix.'/'.$suffix;
+        }
+
+        return rtrim($basePath, '/').$localePrefix.rtrim($cleanPath, '/').'/'.$suffix;
     }
 
     protected function isAssetPath(string $path): bool
@@ -416,13 +448,21 @@ class ExportStaticPreviewCommand extends Command
         return [$path, $query.$hash];
     }
 
-    protected function targetPathForRoute(string $outputPath, string $route): string
+    protected function targetPathForRoute(string $outputPath, string $route, string $locale): string
     {
+        $prefix = ltrim($this->localePrefix($locale), '/');
+
         if ($route === '/') {
-            return $outputPath.'/index.html';
+            return $prefix === ''
+                ? $outputPath.'/index.html'
+                : $outputPath.'/'.$prefix.'/index.html';
         }
 
-        return $outputPath.'/'.trim($route, '/').'/index.html';
+        $relativePath = trim($route, '/');
+
+        return $prefix === ''
+            ? $outputPath.'/'.$relativePath.'/index.html'
+            : $outputPath.'/'.$prefix.'/'.$relativePath.'/index.html';
     }
 
     protected function copyStaticAssets(string $outputPath, string $basePath): void
@@ -521,6 +561,68 @@ class ExportStaticPreviewCommand extends Command
         }
 
         return '/'.trim($trimmed, '/').'/';
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function localesToExport(): array
+    {
+        $localesOption = trim((string) $this->option('locales'));
+
+        if ($localesOption === '') {
+            return [(string) $this->option('locale')];
+        }
+
+        return collect(explode(',', $localesOption))
+            ->map(fn (string $locale): string => trim($locale))
+            ->filter(fn (string $locale): bool => $locale !== '')
+            ->unique()
+            ->values()
+            ->all();
+    }
+
+    protected function localePrefix(string $locale): string
+    {
+        return $locale === 'fr' ? '' : '/'.$locale;
+    }
+
+    /**
+     * @return array{0: string, 1: string}
+     */
+    protected function extractTargetLocale(string $suffix, string $fallbackLocale): array
+    {
+        if ($suffix === '' || ! str_contains($suffix, '?')) {
+            return [$fallbackLocale, $suffix];
+        }
+
+        $hash = '';
+        $query = $suffix;
+
+        if (str_contains($suffix, '#')) {
+            [$query, $hashPart] = explode('#', $suffix, 2);
+            $hash = '#'.$hashPart;
+        }
+
+        parse_str(ltrim($query, '?'), $parameters);
+
+        $targetLocale = $fallbackLocale;
+
+        if (
+            isset($parameters['lang']) &&
+            in_array($parameters['lang'], ['fr', 'en'], true)
+        ) {
+            $targetLocale = $parameters['lang'];
+        }
+
+        unset($parameters['lang']);
+
+        $rebuiltQuery = http_build_query($parameters);
+
+        return [
+            $targetLocale,
+            ($rebuiltQuery !== '' ? '?'.$rebuiltQuery : '').$hash,
+        ];
     }
 
     protected function npmBinary(): string

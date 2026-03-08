@@ -97,7 +97,7 @@ class PublicLocale
                 'navMenuLabel' => 'Menu',
                 'navFallbackLabel' => 'Navigation',
                 'navCurrentLabel' => 'Actif',
-                'navOpenLabel' => 'Lire plus →',
+                'navOpenLabel' => 'Lire plus',
                 'footerNote' => "Développement web, donnée produit, connecteurs, outils internes et SEO technique pour des équipes qui ont déjà du réel à faire tourner.",
                 'privacyControlsLabel' => 'Réglages vie privée',
             ];
@@ -110,7 +110,7 @@ class PublicLocale
             'navMenuLabel' => 'Menu',
             'navFallbackLabel' => 'Navigation',
             'navCurrentLabel' => 'Current',
-            'navOpenLabel' => 'Read more →',
+            'navOpenLabel' => 'Read more',
             'footerNote' => 'Web engineering for product data, integrations, internal tools, and technical SEO in teams already running real operations.',
             'privacyControlsLabel' => 'Privacy controls',
         ];

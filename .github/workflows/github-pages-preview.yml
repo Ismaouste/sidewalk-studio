@@ -66,7 +66,7 @@ jobs:
           php artisan db:seed --force
 
       - name: Export static preview
-        run: php artisan site:export-static-preview --locale=fr --output=dist/static-preview --base=/${{ github.event.repository.name }}/
+        run: php artisan site:export-static-preview --locales=fr,en --output=dist/static-preview --base=/${{ github.event.repository.name }}/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

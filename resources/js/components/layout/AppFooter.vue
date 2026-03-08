@@ -34,6 +34,7 @@ const copy = computed(() =>
               dataLabel: 'Traitement des données',
               contactLabel: 'Mail',
               linkedinLabel: 'LinkedIn',
+              backToTopLabel: 'Retour en haut',
               consentNote: 'Mesure d’audience en opt-in explicite.',
               staticPreviewNote:
                   'Preview statique : formulaire et préférences avancées désactivés.',
@@ -42,11 +43,26 @@ const copy = computed(() =>
               dataLabel: 'Data processing',
               contactLabel: 'Direct contact',
               linkedinLabel: 'LinkedIn',
+              backToTopLabel: 'Back to top',
               consentNote: 'Analytics stays explicit opt-in.',
               staticPreviewNote:
                   'Static preview: form handling and advanced preferences are disabled.',
           },
 );
+
+function backToTop(): void {
+    if (typeof window === 'undefined') {
+        return;
+    }
+
+    const prefersReducedMotion =
+        document.documentElement.getAttribute('data-motion') === 'reduced';
+
+    window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
+}
 </script>
 
 <template>
@@ -93,6 +109,13 @@ const copy = computed(() =>
                         >
                             {{ copy.dataLabel }}
                         </a>
+                        <button
+                            type="button"
+                            class="app-footer__link app-footer__link--button"
+                            @click="backToTop"
+                        >
+                            {{ copy.backToTopLabel }}
+                        </button>
                     </div>
 
                     <div class="app-footer__meta">
@@ -109,7 +132,7 @@ const copy = computed(() =>
                         </div>
 
                         <div class="app-footer__controls">
-                            <LocaleSwitcher v-if="!isStaticPreview" />
+                            <LocaleSwitcher />
                             <ThemeToggle compact />
                             <AccessibilityPanel />
                             <ConsentPreferencesButton
@@ -226,6 +249,13 @@ const copy = computed(() =>
     color: var(--sw-accent-dominant);
     text-decoration: underline;
     text-underline-offset: 0.18em;
+}
+
+.app-footer__link--button {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    font: inherit;
 }
 
 .app-footer__mail {
