@@ -97,6 +97,12 @@
     }
 }
 
+@media (min-width: 960px) {
+    .sw-main > .sw-container {
+        max-width: calc(var(--sw-shell-max-width) - 48px);
+    }
+}
+
 @media (max-width: 640px) {
     .sw-container {
         width: min(

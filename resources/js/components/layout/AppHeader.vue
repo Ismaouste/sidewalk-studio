@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
 <style scoped>
 .app-header {
     position: sticky;
-    top: max(clamp(10px, 1.4vw, 16px), env(safe-area-inset-top));
+    top: env(safe-area-inset-top);
     z-index: var(--sw-z-header);
     padding-top: max(clamp(10px, 1.4vw, 16px), env(safe-area-inset-top));
 }
