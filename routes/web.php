@@ -24,8 +24,12 @@ Route::post('/contact', [ContactSubmissionController::class, 'store'])
     ->name('contact.store');
 Route::get('/data-processing', [SiteController::class, 'dataProcessing'])->name('data-processing');
 
-Route::get('/writing', [WritingController::class, 'index'])->name('writing.index');
-Route::get('/writing/{slug}', [WritingController::class, 'show'])->name('writing.show');
+Route::redirect('/writing', '/journal', 301);
+Route::get('/writing/{slug}', function (string $slug) {
+    return redirect("/journal/{$slug}", 301);
+})->name('writing.legacy.show');
+Route::get('/journal', [WritingController::class, 'index'])->name('writing.index');
+Route::get('/journal/{slug}', [WritingController::class, 'show'])->name('writing.show');
 
 Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-studies.index');
 Route::get('/case-studies/{slug}', [CaseStudyController::class, 'show'])->name('case-studies.show');

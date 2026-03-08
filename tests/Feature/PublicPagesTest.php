@@ -11,9 +11,9 @@ class PublicPagesTest extends TestCase
         $pages = [
             '/' => 'Sidewalk Studio',
             '/local' => 'Local | Sidewalk Studio',
-            '/projects' => 'Projects | Sidewalk Studio',
+            '/projects' => 'Experience | Sidewalk Studio',
             '/labs' => 'Labs | Sidewalk Studio',
-            '/writing' => 'Writing | Sidewalk Studio',
+            '/journal' => 'Journal | Sidewalk Studio',
             '/case-studies' => 'Case Studies | Sidewalk Studio',
             '/contact' => 'Contact | Sidewalk Studio',
         ];
@@ -32,6 +32,12 @@ class PublicPagesTest extends TestCase
 
         $this->get('/experience')
             ->assertRedirect('/projects');
+
+        $this->get('/writing')
+            ->assertRedirect('/journal');
+
+        $this->get('/writing/content-systems-routing-and-metadata')
+            ->assertRedirect('/journal/content-systems-routing-and-metadata');
     }
 
     public function test_machine_readable_endpoints_are_available(): void
@@ -46,7 +52,7 @@ class PublicPagesTest extends TestCase
             ->assertDontSee(url('/experience'), false)
             ->assertSee(url('/projects'), false)
             ->assertSee(url('/local'), false)
-            ->assertSee(url('/writing/content-systems-routing-and-metadata'), false);
+            ->assertSee(url('/journal/content-systems-routing-and-metadata'), false);
     }
 
     public function test_placeholder_visual_endpoints_are_publicly_available(): void

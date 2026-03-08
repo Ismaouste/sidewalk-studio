@@ -3,7 +3,7 @@ seo_title: Contact
 seo_description: Preferred collaboration channels for privacy, SEO, and Laravel modernization work.
 hero:
     eyebrow: Contact
-    title: Technical SEO, product catalog, and Laravel modernization conversations.
+    title: Product data, technical SEO, and Laravel modernization conversations.
     summary: Open to lead developer, freelance modernization, architecture review, and recruiter conversations when an existing product needs clearer engineering.
 form:
     eyebrow: Share the context
@@ -29,10 +29,10 @@ services:
     eyebrow: Where I can help
     items:
         - Platform stabilization, legacy recovery, and clearer delivery on systems with history.
-        - Structured data, technical SEO, Google Merchant Center, and catalog hygiene for commerce surfaces.
+        - Structured data, technical SEO, Google Merchant Center, Meta Catalog, and reliable product-data flows for commerce surfaces.
         - Consent-safe analytics, embed architecture, and privacy-aware product decisions.
         - SEO, metadata, routing, and content-model foundations for editorial or commerce surfaces.
 recruiter_shortcut:
     eyebrow: Recruiter shortcut
-    summary: If you need a faster handoff than a first call, the current English and French CVs are available here together with a clearer picture of role fit.
+    summary: CV in English and French, plain and simple.
 ---

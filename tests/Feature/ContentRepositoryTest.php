@@ -13,8 +13,9 @@ class ContentRepositoryTest extends TestCase
     {
         $items = app(ContentRepository::class)->published('writing');
 
-        $this->assertCount(2, $items);
+        $this->assertCount(4, $items);
         $this->assertContains('content-systems-routing-and-metadata', $items->pluck('slug')->all());
+        $this->assertContains('opensurvey-nonprofit-health-data', $items->pluck('slug')->all());
         $this->assertTrue($items->every(fn (array $item) => $item['status'] === 'published'));
         $this->assertSame('journal', $items->first()['category']);
         $this->assertSame('note', $items->first()['publication_type']);

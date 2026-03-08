@@ -1,10 +1,10 @@
 ---
-seo_title: Projects
-seo_description: Selected case studies and system-building tracks that shape the first public release of Sidewalk Studio.
+seo_title: Experience
+seo_description: Professional experience, demanding e-commerce environments, and a few public references that make the level of execution visible.
 hero:
-    eyebrow: Project map
-    title: Build references for architecture, delivery, and product judgment.
-    summary: Repository discipline, content structure, privacy-aware public experience, and technical SEO serve here as concrete references.
+    eyebrow: Experience
+    title: Professional experience, real projects, demanding delivery contexts.
+    summary: A single page to show where I worked, what I built, and how product data, technical SEO, integrations, and tracking turn into delivery work.
 tracks_section:
     label: Tracks
     intro:
@@ -19,9 +19,9 @@ tracks_section:
         - title: Consent + SEO
           summary: Keep privacy, discoverability, and maintainability on the same implementation path instead of letting integrations and SEO drift apart.
 case_studies_section:
-    label: Selected case studies
-    eyebrow: Case studies
-    title: A small set of public implementation references.
-    summary: Each one documents a real decision path, the implementation context, and the delivery tradeoffs rather than a polished end-state alone.
+    label: Public references
+    eyebrow: References
+    title: A few published projects alongside the formal experience list.
+    summary: Public case studies that show how I frame, implement, and document work when a live system needs to become clearer without breaking what already runs.
     archive_cta: View archive
 ---

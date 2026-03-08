@@ -29,7 +29,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Quelques réalisations pour parler architecture, mise en œuvre et jugement produit.')
+                ->where('hero.title', 'Expériences pro, projets concrets, environnements exigeants.')
                 ->where('site.locale', 'fr')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
@@ -41,7 +41,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertOk()
             ->assertCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.eyebrow', 'Ancrage local')
+                ->where('hero.eyebrow', 'Où suis-je ?')
                 ->where('site.locale', 'fr')
                 ->where('site.languageSwitcher.visible', true));
 
@@ -52,7 +52,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.eyebrow', 'E-commerce, catalogue et SEO technique')
+                ->where('hero.eyebrow', 'E-commerce, donnée produit et SEO technique')
                 ->where('site.locale', 'fr'));
     }
 
@@ -64,7 +64,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
-                ->where('hero.title', "Échanges autour du SEO technique, des catalogues produit et de la modernisation Laravel.")
+                ->where('hero.title', "Échanges autour de la donnée produit, du SEO technique et de la modernisation Laravel.")
                 ->where('site.languageSwitcher.visible', true));
     }
 
@@ -81,16 +81,22 @@ class PublicLocaleResolutionTest extends TestCase
 
     public function test_writing_index_renders_french_entries_when_french_locale_is_resolved(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/writing';
+        $canonical = rtrim((string) config('site.url'), '/').'/journal';
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/writing')
+            ->get('/journal')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
+                ->where(
+                    'items',
+                    fn ($items): bool => collect($items)->every(
+                        fn (array $item): bool => $item['locale'] === 'fr',
+                    ),
+                )
                 ->where('items.0.locale', 'fr')
                 ->where('items.0.title', 'Pourquoi le SSR reste prêt mais diffère')
                 ->where('site.languageSwitcher.visible', true)
@@ -99,10 +105,10 @@ class PublicLocaleResolutionTest extends TestCase
 
     public function test_writing_detail_renders_localized_french_entry_with_stable_canonical_url(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/writing/content-systems-routing-and-metadata';
+        $canonical = rtrim((string) config('site.url'), '/').'/journal/content-systems-routing-and-metadata';
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/writing/content-systems-routing-and-metadata')
+            ->get('/journal/content-systems-routing-and-metadata')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
@@ -138,10 +144,10 @@ This English-only public writing entry should stay reachable even when the prefe
 MD);
 
         try {
-            $canonical = rtrim((string) config('site.url'), '/').'/writing/editorial-english-fallback-public-test';
+            $canonical = rtrim((string) config('site.url'), '/').'/journal/editorial-english-fallback-public-test';
 
             $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-                ->get('/writing/editorial-english-fallback-public-test')
+                ->get('/journal/editorial-english-fallback-public-test')
                 ->assertOk()
                 ->assertHeader('content-language', 'en')
                 ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
@@ -249,7 +255,7 @@ MD);
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Build references for architecture, delivery, and product judgment.')
+                ->where('hero.title', 'Professional experience, real projects, demanding delivery contexts.')
                 ->where('site.locale', 'en')
                 ->where('seo.openGraph.locale', 'en'));
     }

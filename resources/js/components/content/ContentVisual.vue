@@ -41,6 +41,7 @@ const copy = computed(() => {
             :src="props.item.image_url"
             :alt="props.item.image_alt"
             loading="lazy"
+            decoding="async"
         />
         <div class="content-visual__overlay">
             <span class="content-visual__section">

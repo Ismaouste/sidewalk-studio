@@ -16,6 +16,7 @@ Site-wide defaults such as the title suffix, default description, and public pro
 - Open Graph payload
 - Twitter payload
 - JSON-LD array
+- UI breadcrumb payload derived from the same backend breadcrumb source
 
 This keeps v0 SEO usable without turning on the SSR runtime.
 
@@ -44,6 +45,15 @@ full multilingual SEO model exists.
 The public language switcher should only appear on routes that already have
 dedicated translated page sources or localized collection entries for the
 current slug/archive. Today that safe surface includes `/`, `/local`,
-`/projects`, `/contact`, the translated writing routes, and the translated
+`/projects`, `/contact`, the translated journal routes, and the translated
 case-study routes. Unsupported routes keep the English canonical experience
 even when a French preference is stored.
+
+`/journal` is exposed from the primary navigation, and the archive route
+keeps its own canonical metadata because journal entries remain indexable and
+directly linkable. The legacy `/writing` paths must redirect to `/journal`
+instead of emitting duplicate metadata.
+
+The public breadcrumb visible in the UI must resolve from the same backend
+breadcrumb array used for `BreadcrumbList` JSON-LD. Do not maintain a separate
+front-only breadcrumb map.

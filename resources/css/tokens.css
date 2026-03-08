@@ -28,7 +28,7 @@
 
     --sw-z-base: 0;
     --sw-z-content: 1;
-    --sw-z-header: 5;
+    --sw-z-header: 45;
     --sw-z-overlay: 40;
     --sw-z-modal: 50;
 
@@ -59,6 +59,21 @@
     --sw-sun-blur-global: 124px;
     --sw-sun-opacity-global: 0.72;
     --sw-sun-ray-angle: 32deg;
+    --sw-ambient-sun-x: 14%;
+    --sw-ambient-sun-y: 10%;
+    --sw-ambient-sun-scale: 1.04;
+    --sw-ambient-sun-blur: 124px;
+    --sw-ambient-sun-opacity: 0.72;
+    --sw-ambient-grid-x: -1.4%;
+    --sw-ambient-grid-y: -0.5%;
+    --sw-ambient-grid-rotate: -22deg;
+    --sw-ambient-grid-scale: 1.08;
+    --sw-ambient-shadow-x: 5.6%;
+    --sw-ambient-shadow-y: 2.2%;
+    --sw-ambient-shadow-scale: 1.12;
+    --sw-ambient-shadow-blur: 52px;
+    --sw-ambient-shadow-opacity: 0.24;
+    --sw-ambient-ray-angle: 32deg;
 }
 
 :root,
@@ -75,73 +90,78 @@ html[data-theme='morning'] {
     --sw-text-muted: #8a8070;
     --sw-text-inverse: #f4f1ea;
 
-    --sw-accent-dominant: #1e4b8f;
+    --sw-accent-dominant: #6e5a46;
     --sw-accent-green: #1a6b4a;
-    --sw-accent-sun: #c97d0a;
+    --sw-accent-sun: #8a7258;
     --sw-accent-coral: #b83528;
     --sw-accent-violet: #5b21b6;
 
     --sw-border: #d8d0c2;
-    --sw-border-focus: #c97d0a;
-    --sw-grid-line: rgba(30, 75, 143, 0.07);
+    --sw-border-focus: #8a7258;
+    --sw-grid-line: rgba(110, 90, 70, 0.08);
     --sw-shadow-sm: 0 1px 4px rgba(20, 18, 16, 0.06);
     --sw-shadow-md: 0 4px 16px rgba(20, 18, 16, 0.09);
-    --sw-header-bg: linear-gradient(160deg, #b4cbe4, #d0e4f2, #ebf3fb);
+    --sw-header-bg: linear-gradient(160deg, #ece1cf, #f3e9da, #fbf7f1);
     --sw-sun-gradient: radial-gradient(
         circle at 38% 38%,
-        #fbbf24ee,
-        #c97d0a88 45%,
+        #d8c3a5ee,
+        #8a725888 45%,
         transparent 85%
     );
-    --sw-sun-glow: rgba(201, 125, 10, 0.28);
-    --sw-sun-size: 200px;
-    --sw-sun-top: -48px;
-    --sw-sun-left: -48px;
+    --sw-sun-glow: rgba(138, 114, 88, 0.28);
+    --sw-sun-size: 224px;
+    --sw-sun-top: -72px;
+    --sw-sun-left: -72px;
     --sw-sun-bottom: auto;
     --sw-sun-right: auto;
+    --sw-header-glow-opacity: 1.16;
+    --sw-header-glow-blur-factor: 0.34;
     --sw-tab-active: #141210;
-    --sw-tab-inactive: rgba(20, 18, 16, 0.38);
-    --sw-tab-line: #c97d0a;
+    --sw-tab-inactive: rgba(20, 18, 16, 0.44);
+    --sw-tab-surface: rgba(110, 90, 70, 0.12);
 }
 
 html[data-theme='sunset'] {
     color-scheme: dark;
 
-    --sw-bg-base: #0d0f1c;
-    --sw-bg-surface: #141728;
-    --sw-bg-grid: #1a1d32;
-    --sw-bg-elevated: #20243c;
+    --sw-bg-base: #110f18;
+    --sw-bg-surface: #171521;
+    --sw-bg-grid: #211d2b;
+    --sw-bg-elevated: #262133;
 
-    --sw-text-primary: #e8e2f2;
-    --sw-text-secondary: #867ea0;
-    --sw-text-muted: #443e5a;
-    --sw-text-inverse: #0d0f1c;
+    --sw-text-primary: #f3ebf2;
+    --sw-text-secondary: #c9b9c9;
+    --sw-text-muted: #9e8d9e;
+    --sw-text-inverse: #110f18;
 
-    --sw-accent-dominant: #7c5ce8;
-    --sw-accent-green: #2dd4a0;
-    --sw-accent-sun: #f0700a;
-    --sw-accent-coral: #d95880;
-    --sw-accent-violet: #5290e8;
+    --sw-accent-dominant: #dd7a35;
+    --sw-accent-green: #36c39a;
+    --sw-accent-sun: #f08b46;
+    --sw-accent-coral: #e17a9e;
+    --sw-accent-violet: #9f7ad8;
 
-    --sw-border: #252840;
-    --sw-border-focus: #f0700a;
-    --sw-grid-line: rgba(124, 92, 232, 0.08);
+    --sw-border: #332c42;
+    --sw-border-focus: #f08b46;
+    --sw-grid-line: rgba(225, 122, 158, 0.09);
     --sw-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.25);
     --sw-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
-    --sw-header-bg: linear-gradient(160deg, #1a0f3c, #1e1640, #0c0e1a);
+    --sw-header-bg: linear-gradient(160deg, #241329, #23172c, #110f18);
     --sw-sun-gradient: radial-gradient(
         circle at 62% 62%,
-        #f0700aee,
-        #7c5ce888 45%,
+        #f08b46ee,
+        #df7a9199 34%,
+        #9f7ad855 58%,
         transparent 85%
     );
-    --sw-sun-glow: rgba(240, 112, 10, 0.25);
+    --sw-sun-glow: rgba(240, 139, 70, 0.28);
     --sw-sun-size: 240px;
     --sw-sun-top: auto;
     --sw-sun-left: auto;
     --sw-sun-bottom: -48px;
     --sw-sun-right: -48px;
+    --sw-header-glow-opacity: 0.42;
+    --sw-header-glow-blur-factor: 0.16;
     --sw-tab-active: #e8e2f2;
     --sw-tab-inactive: rgba(232, 226, 242, 0.32);
-    --sw-tab-line: #f0700a;
+    --sw-tab-line: #f08b46;
 }

@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
+import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
 import type { SiteProps } from '@/types';
 
@@ -12,14 +13,14 @@ const copy = computed(() =>
         ? {
               dataLabel: 'Traitement des données',
               contactLabel: 'Contact direct',
-              themeLabel: 'Thème',
+              controlsLabel: 'Préférences',
               consentNote:
                   'Analytics et heatmaps doivent rester opt-in explicite.',
           }
         : {
               dataLabel: 'Data processing',
               contactLabel: 'Direct contact',
-              themeLabel: 'Theme',
+              controlsLabel: 'Preferences',
               consentNote: 'Analytics and heatmaps must remain explicit opt-in.',
           },
 );
@@ -72,9 +73,10 @@ const copy = computed(() =>
                         </div>
 
                         <div class="app-footer__controls">
-                            <span class="type-nav app-footer__theme-label">
-                                {{ copy.themeLabel }}
+                            <span class="type-nav app-footer__controls-label">
+                                {{ copy.controlsLabel }}
                             </span>
+                            <LocaleSwitcher />
                             <ThemeToggle compact />
                             <ConsentPreferencesButton />
                         </div>
@@ -181,7 +183,7 @@ const copy = computed(() =>
     min-height: 2rem;
 }
 
-.app-footer__theme-label {
+.app-footer__controls-label {
     color: var(--sw-text-muted);
 }
 

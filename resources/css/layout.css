@@ -12,7 +12,7 @@
         ),
         linear-gradient(
             140deg,
-            color-mix(in srgb, #cfe4f5 58%, var(--sw-bg-base)) 0%,
+            color-mix(in srgb, #ede0cf 58%, var(--sw-bg-base)) 0%,
             var(--sw-bg-base) 56%,
             color-mix(in srgb, #ece1cf 46%, var(--sw-bg-base)) 100%
         );

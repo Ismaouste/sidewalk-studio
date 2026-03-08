@@ -11,7 +11,26 @@ declare module 'vite/client' {
 }
 
 declare global {
+    interface IdleDeadline {
+        didTimeout: boolean;
+        timeRemaining: () => number;
+    }
+
+    type SidewalkWebVital = {
+        id: string;
+        name: 'CLS' | 'FCP' | 'INP' | 'LCP' | 'TTFB';
+        value: number;
+        delta: number;
+        rating: 'good' | 'needs-improvement' | 'poor';
+        navigationType: string;
+    };
+
     interface Window {
+        requestIdleCallback?: (
+            callback: (deadline: IdleDeadline) => void,
+            options?: { timeout: number },
+        ) => number;
+        cancelIdleCallback?: (handle: number) => void;
         iframemanager?: () => {
             run: (config: Record<string, unknown>) => void;
             acceptService: (service: string | string[]) => void;
@@ -20,6 +39,7 @@ declare global {
         SidewalkConsent?: {
             showPreferences: () => void;
         };
+        __SIDEWALK_WEB_VITALS__?: SidewalkWebVital[];
     }
 }
 

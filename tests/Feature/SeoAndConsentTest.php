@@ -26,7 +26,7 @@ class SeoAndConsentTest extends TestCase
         $this->get('/projects')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertSee('Projects | Sidewalk Studio')
+            ->assertSee('Experience | Sidewalk Studio')
             ->assertSee('BreadcrumbList', false);
     }
 

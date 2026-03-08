@@ -1,10 +1,10 @@
 ---
-seo_title: Projets
-seo_description: Cas d'étude sélectionnés et pistes de construction système qui structurent la première release publique de Sidewalk Studio.
+seo_title: Expérience
+seo_description: Expériences professionnelles, environnements e-commerce exigeants et quelques références publiques pour rendre le niveau d'exécution lisible.
 hero:
-    eyebrow: Références
-    title: Quelques réalisations pour parler architecture, mise en œuvre et jugement produit.
-    summary: Discipline de repo, structure de contenu, consentement et SEO technique servent ici d'exemples concrets.
+    eyebrow: Expérience
+    title: Expériences pro, projets concrets, environnements exigeants.
+    summary: Une page pour montrer où j'ai travaillé, ce que j'ai construit et comment la donnée produit, le SEO technique, les flux et les intégrations deviennent des sujets de delivery.
 tracks_section:
     label: Pistes
     intro:
@@ -19,9 +19,9 @@ tracks_section:
         - title: Consentement et SEO
           summary: Garder vie privée, découvrabilité et maintenabilité dans le même chemin de mise en œuvre au lieu de laisser intégrations et SEO diverger.
 case_studies_section:
-    label: Cas d'étude sélectionnés
-    eyebrow: Cas d'étude
-    title: Un premier ensemble de références publiques.
-    summary: Chaque cas documente un vrai chemin de décision, son contexte de mise en œuvre et ses compromis de livraison, pas seulement un résultat bien présenté.
+    label: Références publiques
+    eyebrow: Références
+    title: Quelques projets publiés en plus des expériences listées.
+    summary: Des cas publics plus détaillés pour montrer la manière de cadrer, décider, implémenter et documenter quand il faut rendre un système plus net sans casser ce qui tourne.
     archive_cta: Voir l'archive
 ---

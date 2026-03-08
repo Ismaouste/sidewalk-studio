@@ -14,12 +14,12 @@ class SitemapController extends Controller
             ['loc' => url('/local'), 'lastmod' => now()->toDateString()],
             ['loc' => url('/projects'), 'lastmod' => now()->toDateString()],
             ['loc' => url('/labs'), 'lastmod' => now()->toDateString()],
-            ['loc' => url('/writing'), 'lastmod' => now()->toDateString()],
+            ['loc' => url('/journal'), 'lastmod' => now()->toDateString()],
             ['loc' => url('/case-studies'), 'lastmod' => now()->toDateString()],
             ['loc' => url('/contact'), 'lastmod' => now()->toDateString()],
         ])
             ->merge($content->published('writing')->map(fn (array $item) => [
-                'loc' => url('/writing/'.$item['slug']),
+                'loc' => url('/journal/'.$item['slug']),
                 'lastmod' => $item['updated_at'],
             ]))
             ->merge($content->published('case-studies')->map(fn (array $item) => [

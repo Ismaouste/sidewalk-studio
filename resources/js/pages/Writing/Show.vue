@@ -38,7 +38,6 @@ const writingMeta = computed(() => [
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              backCta: 'Retour aux notes',
               eyebrow: 'Note',
               editorialLabel: 'Note éditoriale',
               taggedThreadsLabel: `${props.item.tags.length} fils étiquetés`,
@@ -54,7 +53,6 @@ const copy = computed(() =>
               readLabel: 'Lecture',
           }
         : {
-              backCta: 'Back to writing',
               eyebrow: 'Writing entry',
               editorialLabel: 'Editorial note',
               taggedThreadsLabel: `${props.item.tags.length} tagged threads`,
@@ -78,10 +76,6 @@ const copy = computed(() =>
 
         <section class="sw-section writing-show">
             <div class="writing-show__lead">
-                <Button href="/writing" variant="ghost" size="sm">
-                    {{ copy.backCta }}
-                </Button>
-
                 <SectionIntro
                     :eyebrow="copy.eyebrow"
                     :title="props.item.title"

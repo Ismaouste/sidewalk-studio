@@ -38,7 +38,7 @@ class PublicLocale
     public static function writingSlugForRequest(Request $request): ?string
     {
         return match ($request->route()?->getName()) {
-            'writing.show' => (string) $request->route('slug'),
+            'writing.show', 'writing.legacy.show' => (string) $request->route('slug'),
             default => null,
         };
     }
@@ -58,11 +58,11 @@ class PublicLocale
     {
         $labels = $locale === 'fr'
             ? [
-                '/' => 'Accueil',
+                '/' => 'Hello',
                 '/local' => 'Local',
-                '/projects' => 'Références',
-                '/writing' => 'Notes',
-                '/contact' => 'Contact',
+                '/projects' => 'Expériences',
+                '/journal' => 'Journal',
+                '/contact' => 'Contact 🤙🏽',
             ]
             : [];
 
@@ -92,13 +92,13 @@ class PublicLocale
     {
         if ($locale === 'fr') {
             return [
-                'headerTagline' => "Ingénierie web pour l'e-commerce, les catalogues produit, la vie privée et le SEO technique.",
+                'headerTagline' => "Ingénierie web pour l'e-commerce, la donnée produit, le tracking et le SEO technique.",
                 'localeSwitcherLabel' => 'Langue',
                 'navAriaLabel' => 'Navigation principale',
                 'navMenuLabel' => 'Menu',
                 'navFallbackLabel' => 'Navigation',
                 'navCurrentLabel' => 'Actif',
-                'navOpenLabel' => 'Ouvrir',
+                'navOpenLabel' => 'Lire plus →',
                 'footerDividerLabel' => 'Journal public',
                 'footerNote' => 'Portfolio Laravel local-first. Embeds soumis au consentement. Contenu structuré. Shell prêt pour le SSR.',
                 'privacyControlsLabel' => 'Réglages vie privée',
@@ -106,13 +106,13 @@ class PublicLocale
         }
 
         return [
-            'headerTagline' => 'Engineering for e-commerce, product catalogs, privacy, and technical SEO.',
+            'headerTagline' => 'Engineering for e-commerce, product data, tracking, and technical SEO.',
             'localeSwitcherLabel' => 'Language',
             'navAriaLabel' => 'Primary navigation',
             'navMenuLabel' => 'Menu',
             'navFallbackLabel' => 'Navigation',
             'navCurrentLabel' => 'Current',
-            'navOpenLabel' => 'Open',
+            'navOpenLabel' => 'Read more →',
             'footerDividerLabel' => 'Public build log',
             'footerNote' => 'Local-first Laravel portfolio. Consent-aware embeds. Structured content. SSR-ready shell.',
             'privacyControlsLabel' => 'Privacy controls',

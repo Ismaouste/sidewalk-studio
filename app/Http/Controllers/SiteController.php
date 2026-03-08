@@ -24,7 +24,7 @@ class SiteController extends Controller
     {
         $settings = $this->siteSettings->current();
         $page = $this->pages->get('home');
-        $caseStudies = $this->content->published('case-studies')->values();
+        $caseStudies = $this->content->published('case-studies', app()->getLocale(), false)->values();
         $seo = Seo::page(
             $page['seo_title'],
             $page['seo_description'],
@@ -45,8 +45,8 @@ class SiteController extends Controller
                 'description' => app()->getLocale() === 'fr'
                     ? "Des notes liées au build, au contenu et à l'architecture pour prolonger la visite sans renvoyer vers une archive froide."
                     : 'Notes about build work, content systems, and architecture, meant to continue the visit without dropping people into a cold archive.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? 'Voir toutes les notes' : 'Browse all notes',
-                'ctaHref' => '/writing',
+                'ctaLabel' => app()->getLocale() === 'fr' ? 'Voir les notes' : 'Browse notes',
+                'ctaHref' => '/journal',
                 'sections' => ['writing'],
                 'tag' => 'notes-dev',
                 'category' => 'journal',
@@ -82,24 +82,19 @@ class SiteController extends Controller
             'seo' => $seo,
             'hero' => $page['hero'],
             'nancy' => $page['nancy'],
-            'citySystems' => $page['city_systems'],
-            'communities' => $page['communities'],
-            'supportAreas' => $page['support_areas'],
-            'journalWidget' => $this->publicationWidget([
-                'eyebrow' => app()->getLocale() === 'fr' ? 'Journal' : 'Journal',
-                'title' => app()->getLocale() === 'fr'
-                    ? 'Notes liées au produit, au terrain et aux systèmes.'
-                    : 'Notes tied back to product, place, and systems.',
-                'description' => app()->getLocale() === 'fr'
-                    ? "Le journal reste ici une couche de fond reliée au reste du site, pas une section à part."
-                    : 'The journal stays as a transversal support layer, not an isolated section.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? 'Ouvrir le journal' : 'Open the journal',
-                'ctaHref' => '/writing',
-                'sections' => ['writing'],
+            'signals' => $page['signals'],
+            'journalSection' => $page['journal_section'],
+            'journalItems' => $this->content->feed(['writing'], [
                 'tag' => 'notes-dev',
                 'category' => 'journal',
-                'limit' => 2,
-            ]),
+                'limit' => 3,
+            ])->values(),
+            'engagementsIntro' => $page['engagements_intro'],
+            'engagements' => $page['engagements'],
+            'notesSection' => $page['notes_section'],
+            'notes' => $this->content->feed(['writing'], [
+                'tag' => 'notes-dev',
+            ])->values(),
         ])->withViewData(['seo' => $seo]);
     }
 
@@ -130,10 +125,47 @@ class SiteController extends Controller
             'stackGroups' => $experience['stack_groups'],
             'careerSnapshot' => $experience['career_snapshot'],
             'lookingFor' => $experience['looking_for'],
+            'professionalSections' => $experience['professional_sections'],
+            'associativeSections' => $experience['associative_sections'],
+            'sideProjectSections' => $experience['side_project_sections'],
             'cvDownloads' => $this->cvDownloads(),
             'tracksSection' => $page['tracks_section'],
             'caseStudies' => $caseStudies,
             'caseStudiesSection' => $page['case_studies_section'],
+            'associativeNoteWidget' => [
+                'eyebrow' => $experience['associative_note_widget']['eyebrow'],
+                'title' => $experience['associative_note_widget']['title'],
+                'description' => $experience['associative_note_widget']['description'],
+                'ctaLabel' => $experience['associative_note_widget']['cta_label'],
+                'ctaHref' => app()->getLocale() === 'fr'
+                    ? '/journal/opensurvey-associatif-donnees-sante'
+                    : '/journal/opensurvey-nonprofit-health-data',
+                'items' => [
+                    $this->content->findPublished(
+                        'writing',
+                        app()->getLocale() === 'fr'
+                            ? 'opensurvey-associatif-donnees-sante'
+                            : 'opensurvey-nonprofit-health-data',
+                    ),
+                ],
+            ],
+            'sideProjectsWidget' => [
+                'eyebrow' => $experience['side_projects_widget']['eyebrow'],
+                'title' => $experience['side_projects_widget']['title'],
+                'description' => $experience['side_projects_widget']['description'],
+                'ctaLabel' => $experience['side_projects_widget']['cta_label'],
+                'ctaHref' => app()->getLocale() === 'fr'
+                    ? '/journal/volontariat-njp-et-petits-outils'
+                    : '/journal/njp-volunteering-and-small-tools',
+                'items' => [
+                    $this->content->findPublished(
+                        'writing',
+                        app()->getLocale() === 'fr'
+                            ? 'volontariat-njp-et-petits-outils'
+                            : 'njp-volunteering-and-small-tools',
+                    ),
+                ],
+            ],
             'journalWidget' => $this->publicationWidget([
                 'eyebrow' => app()->getLocale() === 'fr' ? 'Journal' : 'Journal',
                 'title' => app()->getLocale() === 'fr'
@@ -142,8 +174,8 @@ class SiteController extends Controller
                 'description' => app()->getLocale() === 'fr'
                     ? "Le journal reste proche des références pour rendre le raisonnement accessible, pas seulement le résultat."
                     : 'The journal stays close to the work surface so the reasoning remains reachable, not just the outcome.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? 'Voir le journal' : 'Open the journal',
-                'ctaHref' => '/writing',
+                'ctaLabel' => app()->getLocale() === 'fr' ? 'Voir les notes' : 'Browse notes',
+                'ctaHref' => '/journal',
                 'sections' => ['writing'],
                 'tag' => 'notes-dev',
                 'category' => 'journal',
@@ -155,7 +187,7 @@ class SiteController extends Controller
                     ? 'Autres références à consulter depuis cette page.'
                     : 'More references reachable from the same work surface.',
                 'description' => app()->getLocale() === 'fr'
-                    ? "La distinction entre expérience et projets disparaît ici au profit d'une seule surface de travail public."
+                    ? "La page rassemble expériences, missions et références sur une seule surface de travail public."
                     : 'The split between experience and projects is intentionally collapsed into one public work surface.',
                 'ctaLabel' => app()->getLocale() === 'fr' ? "Voir toutes les références" : 'Browse all references',
                 'ctaHref' => '/case-studies',
@@ -272,11 +304,11 @@ class SiteController extends Controller
 
         return [
             [
-                'label' => $isFrench ? 'CV anglais' : 'Download CV (EN)',
+                'label' => 'CV EN 🇬🇧',
                 'href' => route('career.cv.download', 'en'),
             ],
             [
-                'label' => $isFrench ? 'CV français' : 'Download CV (FR)',
+                'label' => 'CV FR 🇫🇷',
                 'href' => route('career.cv.download', 'fr'),
             ],
         ];
@@ -305,6 +337,8 @@ class SiteController extends Controller
             'ctaLabel' => $options['ctaLabel'],
             'ctaHref' => $options['ctaHref'],
             'items' => $this->content->feed($options['sections'], [
+                'locale' => app()->getLocale(),
+                'include_fallback' => false,
                 'tag' => $options['tag'] ?? null,
                 'category' => $options['category'] ?? null,
                 'limit' => $options['limit'] ?? 2,

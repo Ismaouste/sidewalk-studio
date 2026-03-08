@@ -69,24 +69,25 @@ function widgetChipLabel(section: string, category: string, client: string): str
             >
                 <Panel class="publication-widget__card" :tone="props.tone ?? 'surface'">
                     <ContentVisual :item="item" compact />
+                    <div class="publication-widget__body">
+                        <div class="publication-widget__meta">
+                            <LegendChip
+                                :label="widgetChipLabel(item.section, item.category, item.client)"
+                                :tone="widgetChipTone(item.accent_tone, item.section)"
+                            />
+                            <span class="type-meta">
+                                {{ item.published_at }}
+                            </span>
+                        </div>
 
-                    <div class="publication-widget__meta">
-                        <LegendChip
-                            :label="widgetChipLabel(item.section, item.category, item.client)"
-                            :tone="widgetChipTone(item.accent_tone, item.section)"
-                        />
-                        <span class="type-meta">
-                            {{ item.published_at }}
-                        </span>
+                        <h3 class="type-h2 publication-widget__title">
+                            {{ item.title }}
+                        </h3>
+
+                        <p class="type-body publication-widget__summary">
+                            {{ item.summary }}
+                        </p>
                     </div>
-
-                    <h3 class="type-h2 publication-widget__title">
-                        {{ item.title }}
-                    </h3>
-
-                    <p class="type-body publication-widget__summary">
-                        {{ item.summary }}
-                    </p>
                 </Panel>
             </Link>
         </div>
@@ -127,11 +128,18 @@ function widgetChipLabel(section: string, category: string, client: string): str
     gap: var(--sw-space-xs);
     height: 100%;
     padding: var(--sw-space-sm);
+    align-items: start;
+    contain: layout paint style;
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
         box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
+}
+
+.publication-widget__body {
+    display: grid;
+    gap: var(--sw-space-xs);
 }
 
 .publication-widget__meta {
@@ -179,6 +187,30 @@ function widgetChipLabel(section: string, category: string, client: string): str
 @media (max-width: 960px) {
     .publication-widget__grid {
         grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (min-width: 720px) and (max-width: 1100px) {
+    .publication-widget__card {
+        grid-template-columns: minmax(8.5rem, 10.5rem) minmax(0, 1fr);
+        column-gap: var(--sw-space-sm);
+    }
+
+    .publication-widget__card :deep(.content-visual) {
+        min-height: 7.5rem;
+    }
+
+    .publication-widget__card:nth-child(even) {
+        grid-template-columns: minmax(0, 1fr) minmax(8.5rem, 10.5rem);
+    }
+
+    .publication-widget__link:nth-child(even) .publication-widget__card
+        :deep(.content-visual) {
+        order: 2;
+    }
+
+    .publication-widget__link:nth-child(even) .publication-widget__body {
+        order: 1;
     }
 }
 </style>

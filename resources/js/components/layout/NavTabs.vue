@@ -31,6 +31,32 @@ const activeItem = computed(
     () => props.items.find((item) => isActive(item)) ?? props.items[0] ?? null,
 );
 
+function linkAction(item: NavItem): string {
+    if (page.props.site.locale === 'fr') {
+        return (
+            {
+                '/': 'Commencer la visite',
+                '/projects': 'Lire plus',
+                '/journal': 'Découvrir',
+                '/contact': 'Échanger',
+            }[item.href] ?? page.props.site.shell.navOpenLabel
+        );
+    }
+
+    return (
+        {
+            '/': 'Start the visit',
+            '/projects': 'Read more',
+            '/journal': 'Discover',
+            '/contact': 'Reach out',
+        }[item.href] ?? page.props.site.shell.navOpenLabel
+    );
+}
+
+function isContact(item: NavItem): boolean {
+    return item.href === '/contact';
+}
+
 function closeMenu(): void {
     mobileMenuOpen.value = false;
 }
@@ -114,12 +140,23 @@ onBeforeUnmount(() => {
                     @click="closeMenu"
                 >
                     <span class="nav-tabs__link-label">{{ item.label }}</span>
-                    <span class="nav-tabs__link-meta">
-                        {{
-                            isActive(item)
-                                ? page.props.site.shell.navCurrentLabel
-                                : page.props.site.shell.navOpenLabel
-                        }}
+                    <span
+                        v-if="!isActive(item)"
+                        class="nav-tabs__link-meta"
+                        :class="{
+                            'nav-tabs__link-meta--contact': isContact(item),
+                        }"
+                    >
+                        <span>{{ linkAction(item) }}</span>
+                        <span
+                            class="nav-tabs__link-arrow"
+                            :class="{
+                                'nav-tabs__link-arrow--contact': isContact(item),
+                            }"
+                            aria-hidden="true"
+                        >
+                            →
+                        </span>
                     </span>
                 </Link>
             </div>
@@ -129,6 +166,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .nav-tabs {
+    position: relative;
     display: grid;
     gap: var(--sw-space-3xs);
 }
@@ -146,10 +184,9 @@ onBeforeUnmount(() => {
     color: var(--sw-text-primary);
     box-shadow: var(--sw-shadow-sm);
     transition:
-        border-color var(--sw-motion-fast),
-        background-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast),
-        transform var(--sw-motion-fast);
+        border-color 90ms ease,
+        background-color 90ms ease,
+        box-shadow 90ms ease;
 }
 
 .nav-tabs__trigger-copy {
@@ -189,8 +226,8 @@ onBeforeUnmount(() => {
     border-radius: var(--sw-radius-full);
     background: currentColor;
     transition:
-        transform var(--sw-motion-fast),
-        opacity var(--sw-motion-fast);
+        transform 90ms ease,
+        opacity 90ms ease;
 }
 
 .nav-tabs__trigger-icon span:first-child {
@@ -210,17 +247,22 @@ onBeforeUnmount(() => {
 }
 
 .nav-tabs__viewport {
-    display: grid;
-    grid-template-rows: 0fr;
+    position: absolute;
+    top: calc(100% + var(--sw-space-3xs));
+    left: 0;
+    right: 0;
+    max-height: 0;
     opacity: 0;
     pointer-events: none;
+    overflow: hidden;
+    z-index: 6;
     transition:
-        grid-template-rows var(--sw-motion-smooth),
-        opacity var(--sw-motion-fast);
+        max-height 140ms ease,
+        opacity 90ms ease;
 }
 
 .nav-tabs__viewport--open {
-    grid-template-rows: 1fr;
+    max-height: 22rem;
     opacity: 1;
     pointer-events: auto;
 }
@@ -228,12 +270,25 @@ onBeforeUnmount(() => {
 .nav-tabs__panel {
     display: grid;
     gap: var(--sw-space-3xs);
-    min-height: 0;
-    overflow: hidden;
+    padding: var(--sw-space-3xs);
+    border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
+    border-radius: calc(var(--sw-radius-lg) + 2px);
+    background:
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--sw-bg-elevated) 18%, transparent),
+            transparent 72%
+        ),
+        color-mix(in srgb, var(--sw-bg-surface) 92%, transparent);
+    box-shadow:
+        0 16px 34px color-mix(in srgb, var(--sw-text-primary) 12%, transparent),
+        var(--sw-shadow-md);
+    -webkit-backdrop-filter: blur(20px) saturate(145%);
+    backdrop-filter: blur(20px) saturate(145%);
 }
 
 .nav-tabs__viewport--open .nav-tabs__panel {
-    padding-top: var(--sw-space-2xs);
+    padding-top: var(--sw-space-3xs);
 }
 
 .nav-tabs__link {
@@ -249,11 +304,10 @@ onBeforeUnmount(() => {
     color: var(--sw-text-secondary);
     box-shadow: var(--sw-shadow-sm);
     transition:
-        background-color var(--sw-motion-fast),
-        border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast),
-        color var(--sw-motion-fast),
-        transform var(--sw-motion-fast);
+        background-color 90ms ease,
+        border-color 90ms ease,
+        box-shadow 90ms ease,
+        color 90ms ease;
 }
 
 .nav-tabs__link-label {
@@ -264,6 +318,9 @@ onBeforeUnmount(() => {
 }
 
 .nav-tabs__link-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     font-family: var(--sw-font-heading);
     font-size: 9px;
     font-weight: 700;
@@ -272,28 +329,34 @@ onBeforeUnmount(() => {
     color: var(--sw-accent-sun);
 }
 
+.nav-tabs__link-arrow {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1;
+    transform: translateY(-1px);
+}
+
+.nav-tabs__link-arrow--contact {
+    transform-origin: center;
+    animation: nav-tabs-phone-ring 1.6s ease-in-out infinite;
+}
+
 .nav-tabs__link--active {
     border-color: color-mix(
         in srgb,
         var(--sw-accent-dominant) 22%,
         var(--sw-border)
     );
-    background: var(--sw-bg-elevated);
-    color: var(--sw-text-primary);
+    background: color-mix(in srgb, var(--sw-tab-surface, var(--sw-bg-elevated)) 100%, transparent);
+    color: var(--sw-tab-active);
     box-shadow: var(--sw-shadow-md);
 }
 
-.nav-tabs__link:active,
-.nav-tabs__trigger:active {
-    transform: translateY(1px);
+.nav-tabs__link--active .nav-tabs__link-label {
+    font-weight: 700;
 }
 
 @media (hover: hover) {
-    .nav-tabs__trigger:hover,
-    .nav-tabs__link:hover {
-        transform: translateY(-1px);
-    }
-
     .nav-tabs__trigger:hover {
         border-color: color-mix(
             in srgb,
@@ -328,8 +391,12 @@ onBeforeUnmount(() => {
 
     .nav-tabs__viewport {
         display: block;
+        position: static;
+        max-height: none;
         opacity: 1;
         pointer-events: auto;
+        overflow: visible;
+        z-index: auto;
     }
 
     .nav-tabs__panel,
@@ -338,7 +405,13 @@ onBeforeUnmount(() => {
         flex-wrap: wrap;
         justify-content: flex-end;
         gap: var(--sw-space-2xs);
-        padding-top: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
         overflow: visible;
     }
 
@@ -346,9 +419,9 @@ onBeforeUnmount(() => {
         position: relative;
         min-height: 0;
         border: 0;
-        border-radius: 0;
+        border-radius: var(--sw-radius-full);
         background: transparent;
-        padding: var(--sw-space-3xs) 0;
+        padding: calc(var(--sw-space-4xs) + 2px) var(--sw-space-xs);
         font-family: var(--sw-font-heading);
         font-size: 9px;
         font-weight: 700;
@@ -356,19 +429,6 @@ onBeforeUnmount(() => {
         text-transform: uppercase;
         color: var(--sw-tab-inactive);
         box-shadow: none;
-    }
-
-    .nav-tabs__link::after {
-        content: '';
-        position: absolute;
-        right: 0;
-        bottom: -4px;
-        left: 0;
-        height: 2px;
-        transform: scaleX(0);
-        transform-origin: center;
-        background: var(--sw-tab-line);
-        transition: transform var(--sw-motion-fast);
     }
 
     .nav-tabs__link-label {
@@ -383,20 +443,61 @@ onBeforeUnmount(() => {
     }
 
     .nav-tabs__link--active {
-        background: transparent;
+        background: var(--sw-tab-surface, transparent);
         color: var(--sw-tab-active);
+        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-tab-active) 10%, transparent);
+    }
+}
+
+@media (max-width: 640px) {
+    .nav-tabs__trigger {
+        min-height: 3rem;
+        border-radius: var(--sw-radius-full);
+        padding-inline: var(--sw-space-sm);
     }
 
-    .nav-tabs__link--active::after {
-        transform: scaleX(1);
+    .nav-tabs__viewport {
+        top: calc(100% + var(--sw-space-2xs));
+    }
+
+    .nav-tabs__panel,
+    .nav-tabs__viewport--open .nav-tabs__panel {
+        border-radius: calc(var(--sw-radius-lg) + 2px);
+        padding-top: var(--sw-space-3xs);
+    }
+
+    .nav-tabs__link {
+        min-height: 3.1rem;
+        border-radius: calc(var(--sw-radius-md) + 2px);
+        padding-inline: 1rem;
     }
 }
 
 @media (min-width: 960px) and (hover: hover) {
     .nav-tabs__link:hover {
-        background: transparent;
+        background: color-mix(in srgb, var(--sw-tab-surface, transparent) 72%, transparent);
         border-color: transparent;
         color: var(--sw-tab-active);
+    }
+}
+
+@keyframes nav-tabs-phone-ring {
+    0%,
+    82%,
+    100% {
+        transform: translateY(-1px) rotate(0deg);
+    }
+
+    86% {
+        transform: translateY(-1px) rotate(16deg);
+    }
+
+    90% {
+        transform: translateY(-1px) rotate(-12deg);
+    }
+
+    94% {
+        transform: translateY(-1px) rotate(10deg);
     }
 }
 </style>

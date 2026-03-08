@@ -14,10 +14,17 @@ Static editorial pages such as `Projects` and `Local` keep the default
 pages, archive pages, and detail pages share the same canonical source of
 truth.
 
+The public breadcrumb trail should reuse that same PHP breadcrumb source so the
+visible UI and the emitted `BreadcrumbList` never drift apart.
+
 Writing and case-study detail pages may now expose an `image` property in
 their `BlogPosting` or `Article` schema. The value can point either to a real
 featured asset or to the generated SVG placeholder route when no image has
 been authored yet.
+
+Journal archive and detail schema now resolve on the `/journal` route tree.
+Legacy `/writing` URLs should redirect rather than emit a second structured
+data surface for the same content.
 
 Binary document downloads such as the public CV files do not emit JSON-LD and
 should not be modeled as standalone content entities in the current release.

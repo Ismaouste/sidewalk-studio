@@ -84,6 +84,13 @@ class Seo
             'description' => $description,
             'canonical' => $canonical,
             'robots' => $options['robots'] ?? $settings->seoDefaults->defaultRobots,
+            'breadcrumbs' => collect($options['breadcrumb'] ?? [])
+                ->values()
+                ->map(fn (array $item): array => [
+                    'label' => $item['name'],
+                    'href' => $item['path'],
+                ])
+                ->all(),
             'openGraph' => [
                 'title' => $fullTitle,
                 'description' => $description,

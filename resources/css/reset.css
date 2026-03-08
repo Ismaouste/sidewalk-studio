@@ -12,6 +12,8 @@ html {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
     transition:
         background-color var(--sw-motion-sun),
         color var(--sw-motion-smooth);
@@ -36,6 +38,12 @@ body {
     transition:
         background-color var(--sw-motion-sun),
         color var(--sw-motion-smooth);
+}
+
+html[data-scroll-lock='true'],
+body[data-scroll-lock='true'] {
+    overflow: hidden;
+    overscroll-behavior: none;
 }
 
 ::selection {

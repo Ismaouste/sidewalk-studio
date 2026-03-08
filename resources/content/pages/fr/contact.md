@@ -3,7 +3,7 @@ seo_title: Contact
 seo_description: Canaux de contact privilégiés pour les sujets vie privée, SEO et modernisation Laravel.
 hero:
     eyebrow: Contact
-    title: Échanges autour du SEO technique, des catalogues produit et de la modernisation Laravel.
+    title: Échanges autour de la donnée produit, du SEO technique et de la modernisation Laravel.
     summary: Disponible pour discuter d'un poste lead developer, d'une reprise technique freelance, d'une revue d'architecture ou d'un recrutement quand un produit existant a besoin d'y voir plus clair.
 form:
     eyebrow: Partager le contexte
@@ -29,10 +29,10 @@ services:
     eyebrow: Où je peux aider
     items:
         - Stabilisation de plateforme, reprise de legacy et livraison plus nette sur des systèmes avec de l'histoire.
-        - Données structurées, SEO technique, Google Merchant Center et hygiène catalogue pour surfaces commerce.
+        - Données structurées, SEO technique, Google Merchant Center, Meta Catalog et circulation fiable de la donnée produit pour surfaces commerce.
         - Architecture analytics et embeds respectueuse du consentement, avec des décisions produit explicites.
         - Fondations metadata, routage et modèle de contenu pour surfaces éditoriales ou commerce.
 recruiter_shortcut:
     eyebrow: Raccourci recruteur
-    summary: Si un premier appel n'est pas le bon format, les CV anglais et français sont disponibles ici avec une lecture plus directe des rôles visés.
+    summary: CV français et anglais, tout simplement.
 ---

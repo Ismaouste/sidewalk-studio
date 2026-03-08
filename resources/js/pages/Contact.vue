@@ -83,9 +83,9 @@ const copy = computed(() =>
               servicePrefix: 'Sujet',
               recruiterFitLabel: 'Rôles cibles',
               recruiterFitRoles: [
-                  'Lead developer Laravel',
-                  'Tech lead e-commerce',
-                  'Ingénieur full stack orienté produit',
+                  'Lead Laravel',
+                  'Tech e-commerce',
+                  'Full stack produit',
               ],
               recruiterDecisionLabel: 'Pertinent pour',
               recruiterDecisionCopy:
@@ -107,9 +107,9 @@ const copy = computed(() =>
               servicePrefix: 'Fit',
               recruiterFitLabel: 'Best fits',
               recruiterFitRoles: [
-                  'Laravel lead developer',
-                  'E-commerce tech lead',
-                  'Product-minded full-stack engineer',
+                  'Laravel lead',
+                  'E-commerce tech',
+                  'Product full-stack',
               ],
               recruiterDecisionLabel: 'Useful for',
               recruiterDecisionCopy:
@@ -370,7 +370,10 @@ function submitInquiry(): void {
                         <p class="type-eyebrow">
                             {{ props.recruiterShortcut.eyebrow }}
                         </p>
-                        <p class="type-body-sm contact-page__service-copy">
+                        <p
+                            v-if="props.recruiterShortcut.summary"
+                            class="type-body-sm contact-page__service-copy"
+                        >
                             {{ props.recruiterShortcut.summary }}
                         </p>
 
@@ -577,8 +580,10 @@ function submitInquiry(): void {
     align-items: center;
     min-height: 1.75rem;
     border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 84%, transparent);
     padding-inline: var(--sw-space-2xs);
+    color: var(--sw-text-primary);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 72%, transparent);
 }
 
 @media (hover: hover) {

@@ -56,7 +56,7 @@ Draft content may exist in the filesystem without leaking into the index pages o
 - Page content still resolves `pages/<locale>/<page>.md` with fallback to `pages/en/<page>.md`.
 - Core page sources now exist in both `pages/en/` and `pages/fr/` for `home`, `experience`, `local`, `projects`, and `contact`, but the public work surface is now consolidated on `/projects`.
 - The public language switcher is only exposed on routes that already have dedicated French page sources or localized collection entries for the current route. Unsupported routes stay visibly English until translated content exists.
-- Writing and case-study collections resolve localized entries first, then English entries, then temporary root-level fallback files.
+- Writing and case-study detail routes can still fall back to English, but collection and widget listings should stay locale-pure instead of mixing FR and EN in the same index view.
 - Slug deduplication happens after resolution, so a localized entry can override the English document for the same slug.
 - Root-level collection files are transitional only and should be moved into `en/` when touched.
 
@@ -65,6 +65,13 @@ Draft content may exist in the filesystem without leaking into the index pages o
 - `/projects` is the canonical public work page.
 - `/experience` remains as a legacy redirect only.
 - The `experience` page markdown source still exists as a content fragment reused by the `/projects` controller so recruiter-facing and project-facing material can stay modular without exposing two public routes.
+
+## Public editorial surface
+
+- `/local` now acts as the main editorial page for place, civic context, journal highlights, and the simple notes listing.
+- `/journal` is the canonical journal archive and is exposed from the primary navigation.
+- Legacy `/writing` URLs redirect to `/journal`.
+- Page frontmatter can therefore include structural fragments such as `professional_sections`, `associative_sections`, `associative_note_widget`, `side_project_sections`, `side_projects_widget`, `journal_section`, `engagements_intro`, `engagements`, and `notes_section` to compose public pages from repo-owned content blocks instead of adding more routes.
 
 ## Future remote content position
 

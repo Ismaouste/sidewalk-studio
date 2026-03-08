@@ -3,11 +3,29 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { initializeTheme } from '@/composables/useTheme';
+import { usePageTransitions } from '@/composables/usePageTransitions';
 import type { ConsentConfig } from '@/types';
 import '../css/app.css';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Sidewalk Studio';
 initializeTheme();
+usePageTransitions();
+
+function scheduleIdleTask(task: () => void) {
+    if (typeof window === 'undefined') {
+        return;
+    }
+
+    if (window.requestIdleCallback) {
+        window.requestIdleCallback(() => {
+            task();
+        }, { timeout: 1200 });
+
+        return;
+    }
+
+    window.setTimeout(task, 1);
+}
 
 createInertiaApp({
     title: (title) => (title ? `${title} | ${appName}` : appName),
@@ -20,6 +38,19 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .mount(el);
+
+        scheduleIdleTask(() => {
+            void import('@/lib/webVitals')
+                .then(({ initializeWebVitals }) => {
+                    initializeWebVitals();
+                })
+                .catch((error: unknown) => {
+                    console.warn(
+                        'Web Vitals instrumentation could not be initialized.',
+                        error,
+                    );
+                });
+        });
 
         void import('@/lib/consent')
             .then(({ initializeConsent }) =>
@@ -47,6 +78,6 @@ createInertiaApp({
             });
     },
     progress: {
-        color: '#c97d0a',
+        color: '#8a7258',
     },
 });

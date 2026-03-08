@@ -32,7 +32,7 @@ class CaseStudyController extends Controller
 
         return Inertia::render('CaseStudies/Index', [
             'seo' => $seo,
-            'items' => $this->content->published('case-studies')->values(),
+            'items' => $this->content->published('case-studies', app()->getLocale(), false)->values(),
         ])->withViewData(['seo' => $seo]);
     }
 

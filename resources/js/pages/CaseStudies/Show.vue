@@ -38,7 +38,6 @@ const caseStudyMeta = computed(() => [
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              backCta: 'Retour aux cas clients',
               eyebrow: 'Cas client',
               internalBuildLabel: 'Build interne',
               implementationToolsLabel: `${props.item.stack.length} outils implémentation`,
@@ -55,7 +54,6 @@ const copy = computed(() =>
               signalsSuffix: 'signaux',
           }
         : {
-              backCta: 'Back to case studies',
               eyebrow: 'Case study',
               internalBuildLabel: 'Internal build',
               implementationToolsLabel: `${props.item.stack.length} implementation tools`,
@@ -80,10 +78,6 @@ const copy = computed(() =>
 
         <section class="sw-section case-study-show">
             <div class="case-study-show__lead">
-                <Button href="/case-studies" variant="ghost" size="sm">
-                    {{ copy.backCta }}
-                </Button>
-
                 <SectionIntro
                     :eyebrow="copy.eyebrow"
                     :title="props.item.title"

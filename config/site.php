@@ -2,13 +2,13 @@
 
 return [
     'name' => env('SITE_NAME', 'Sidewalk Studio'),
-    'tagline' => env('SITE_TAGLINE', 'Engineering for e-commerce, product catalogs, privacy, and technical SEO.'),
-    'description' => env('SITE_DESCRIPTION', 'Engineering for catalog operations, structured data, technical SEO, consent-aware analytics, and readable product architecture in complex Laravel environments.'),
+    'tagline' => env('SITE_TAGLINE', 'Engineering for e-commerce, product data, tracking, and technical SEO.'),
+    'description' => env('SITE_DESCRIPTION', 'Engineering for product-data operations, structured data, API and file-based integrations, consent-aware analytics, and readable product architecture in complex Laravel environments.'),
     'locale' => 'en',
     'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
     'author' => [
         'name' => env('SITE_AUTHOR_NAME', 'Isma'),
-        'job_title' => env('SITE_AUTHOR_TITLE', 'Laravel engineer for e-commerce, catalog operations, privacy, and technical SEO'),
+        'job_title' => env('SITE_AUTHOR_TITLE', 'Laravel engineer for e-commerce, product data, tracking, and technical SEO'),
         'email' => env('SITE_CONTACT_EMAIL', 'hello@sidewalk-studio.test'),
         'same_as' => array_values(array_filter(array_map(
             'trim',
@@ -16,11 +16,10 @@ return [
         ))),
     ],
     'navigation' => [
-        ['label' => 'Home', 'href' => '/'],
-        ['label' => 'Local', 'href' => '/local'],
-        ['label' => 'Work', 'href' => '/projects'],
-        ['label' => 'Writing', 'href' => '/writing'],
-        ['label' => 'Contact', 'href' => '/contact'],
+        ['label' => 'Hello', 'href' => '/'],
+        ['label' => 'Experience', 'href' => '/projects'],
+        ['label' => 'Journal', 'href' => '/journal'],
+        ['label' => 'Contact 🤙🏽', 'href' => '/contact'],
     ],
     'labs' => [
         [

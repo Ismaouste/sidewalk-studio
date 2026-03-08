@@ -18,6 +18,17 @@ import type {
     SiteProps,
 } from '@/types';
 
+type ExperienceSection = {
+    title: string;
+    eyebrow: string;
+    summary: string;
+    paragraphs: string[];
+    detail_groups: Array<{
+        title: string;
+        items: string[];
+    }>;
+};
+
 const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
@@ -39,6 +50,9 @@ const props = defineProps<{
         roles: string[];
     };
     lookingFor: string;
+    professionalSections: ExperienceSection[];
+    associativeSections: ExperienceSection[];
+    sideProjectSections: ExperienceSection[];
     cvDownloads: Array<{
         label: string;
         href: string;
@@ -60,6 +74,8 @@ const props = defineProps<{
         summary: string;
         archive_cta: string;
     };
+    associativeNoteWidget: PublicationWidgetData;
+    sideProjectsWidget: PublicationWidgetData;
     journalWidget: PublicationWidgetData;
     referenceWidget: PublicationWidgetData;
 }>();
@@ -69,30 +85,34 @@ const copy = computed(() =>
         ? {
               overviewCta: "Voir les cas d'étude",
               contactCta: "Discuter d'un contexte proche",
-              trackPrefix: 'Piste',
               internalBuildLabel: 'Interne',
               roleLabel: 'Rôle',
               contextTagLabel: 'Contexte',
-              workFrameLabel: 'Surface de travail',
+              workFrameLabel: 'Cadre',
               positioningLabel: 'Comment je travaille',
               contextsLabel: 'Contextes',
               recruiterLabel: 'Repère rapide',
+              experienceLabel: 'Expériences pro',
+              associativeLabel: 'Aremedia',
+              sideProjectsLabel: 'Projets amis / fun',
               stackLabel: 'Stack',
               lookingForLabel: 'Ce que je recherche',
-              outcomesLabel: 'Points saillants',
+              outcomesLabel: 'Résultats',
               outcomesSuffix: 'points',
           }
         : {
               overviewCta: 'Open case studies',
               contactCta: 'Discuss a similar context',
-              trackPrefix: 'Track',
               internalBuildLabel: 'Internal build',
               roleLabel: 'Role',
               contextTagLabel: 'Context',
-              workFrameLabel: 'Work surface',
+              workFrameLabel: 'Frame',
               positioningLabel: 'How I work',
               contextsLabel: 'Contexts',
               recruiterLabel: 'Quick snapshot',
+              experienceLabel: 'Professional experience',
+              associativeLabel: 'Aremedia',
+              sideProjectsLabel: 'Friends / fun projects',
               stackLabel: 'Stack',
               lookingForLabel: 'What I am looking for',
               outcomesLabel: 'Outcomes',
@@ -111,6 +131,18 @@ function caseStudyMeta(item: ContentItem) {
             value: `${item.outcomes.length} ${copy.value.outcomesSuffix}`,
         },
     ];
+}
+
+function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant' | 'coral' | 'sun' {
+    if (label === 'associative') {
+        return 'coral';
+    }
+
+    if (label === 'side') {
+        return 'sun';
+    }
+
+    return 'dominant';
 }
 </script>
 
@@ -171,7 +203,10 @@ function caseStudyMeta(item: ContentItem) {
 
                 <Panel class="projects-page__work-panel" tone="surface">
                     <p class="type-eyebrow">{{ copy.recruiterLabel }}</p>
-                    <p class="type-body projects-page__copy-line">
+                    <p
+                        v-if="props.careerSnapshot.summary"
+                        class="type-body projects-page__copy-line"
+                    >
                         {{ props.careerSnapshot.summary }}
                     </p>
 
@@ -198,31 +233,171 @@ function caseStudyMeta(item: ContentItem) {
                 </Panel>
             </div>
 
-            <div class="projects-page__tracks">
-                <Panel
-                    v-for="(track, index) in props.tracksSection.items"
-                    :key="track.title"
-                    class="projects-page__track"
-                    tone="surface"
+            <SectionDivider :label="copy.experienceLabel" />
+
+            <div class="projects-page__section-list">
+                <article
+                    v-for="section in props.professionalSections"
+                    :key="section.title"
+                    class="projects-page__story"
                 >
-                    <LegendChip
-                        :label="`${copy.trackPrefix} 0${index + 1}`"
-                        :tone="
-                            index === 0
-                                ? 'dominant'
-                                : index === 1
-                                  ? 'green'
-                                  : 'coral'
-                        "
-                    />
-                    <h3 class="type-h2 projects-page__track-title">
-                        {{ track.title }}
-                    </h3>
-                    <p class="type-body projects-page__track-summary">
-                        {{ track.summary }}
-                    </p>
-                </Panel>
+                    <div class="projects-page__story-head">
+                        <LegendChip
+                            :label="section.eyebrow"
+                            :tone="sectionTone('professional')"
+                        />
+                        <h2 class="type-h2 projects-page__story-title">
+                            {{ section.title }}
+                        </h2>
+                        <p class="type-body projects-page__story-summary">
+                            {{ section.summary }}
+                        </p>
+                    </div>
+
+                    <div class="projects-page__story-body">
+                        <p
+                            v-for="paragraph in section.paragraphs"
+                            :key="paragraph"
+                            class="type-body projects-page__copy-line"
+                        >
+                            {{ paragraph }}
+                        </p>
+
+                        <div
+                            v-for="group in section.detail_groups"
+                            :key="group.title"
+                            class="projects-page__detail-group"
+                        >
+                            <p class="type-nav projects-page__detail-title">
+                                {{ group.title }}
+                            </p>
+                            <ul class="projects-page__detail-list">
+                                <li
+                                    v-for="item in group.items"
+                                    :key="item"
+                                    class="projects-page__detail-item"
+                                >
+                                    <p class="type-body projects-page__copy-line">
+                                        {{ item }}
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
             </div>
+
+            <SectionDivider :label="copy.associativeLabel" />
+
+            <div class="projects-page__section-list">
+                <article
+                    v-for="section in props.associativeSections"
+                    :key="section.title"
+                    class="projects-page__story"
+                >
+                    <div class="projects-page__story-head">
+                        <LegendChip
+                            :label="section.eyebrow"
+                            :tone="sectionTone('associative')"
+                        />
+                        <h2 class="type-h2 projects-page__story-title">
+                            {{ section.title }}
+                        </h2>
+                        <p class="type-body projects-page__story-summary">
+                            {{ section.summary }}
+                        </p>
+                    </div>
+
+                    <div class="projects-page__story-body">
+                        <p
+                            v-for="paragraph in section.paragraphs"
+                            :key="paragraph"
+                            class="type-body projects-page__copy-line"
+                        >
+                            {{ paragraph }}
+                        </p>
+
+                        <div
+                            v-for="group in section.detail_groups"
+                            :key="group.title"
+                            class="projects-page__detail-group"
+                        >
+                            <p class="type-nav projects-page__detail-title">
+                                {{ group.title }}
+                            </p>
+                            <ul class="projects-page__detail-list">
+                                <li
+                                    v-for="item in group.items"
+                                    :key="item"
+                                    class="projects-page__detail-item"
+                                >
+                                    <p class="type-body projects-page__copy-line">
+                                        {{ item }}
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <PublicationWidget :widget="props.associativeNoteWidget" tone="grid" />
+
+            <SectionDivider :label="copy.sideProjectsLabel" />
+
+            <div class="projects-page__section-list">
+                <article
+                    v-for="section in props.sideProjectSections"
+                    :key="section.title"
+                    class="projects-page__story"
+                >
+                    <div class="projects-page__story-head">
+                        <LegendChip
+                            :label="section.eyebrow"
+                            :tone="sectionTone('side')"
+                        />
+                        <h2 class="type-h2 projects-page__story-title">
+                            {{ section.title }}
+                        </h2>
+                        <p class="type-body projects-page__story-summary">
+                            {{ section.summary }}
+                        </p>
+                    </div>
+
+                    <div class="projects-page__story-body">
+                        <p
+                            v-for="paragraph in section.paragraphs"
+                            :key="paragraph"
+                            class="type-body projects-page__copy-line"
+                        >
+                            {{ paragraph }}
+                        </p>
+
+                        <div
+                            v-for="group in section.detail_groups"
+                            :key="group.title"
+                            class="projects-page__detail-group"
+                        >
+                            <p class="type-nav projects-page__detail-title">
+                                {{ group.title }}
+                            </p>
+                            <ul class="projects-page__detail-list">
+                                <li
+                                    v-for="item in group.items"
+                                    :key="item"
+                                    class="projects-page__detail-item"
+                                >
+                                    <p class="type-body projects-page__copy-line">
+                                        {{ item }}
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <PublicationWidget :widget="props.sideProjectsWidget" tone="surface" />
 
             <SectionDivider :label="props.caseStudiesSection.label" />
 
@@ -314,19 +489,18 @@ function caseStudyMeta(item: ContentItem) {
     gap: var(--sw-space-sm);
 }
 
-.projects-page__work-grid,
-.projects-page__tracks {
+.projects-page__work-grid {
     display: grid;
     gap: var(--sw-space-sm);
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .projects-page__work-panel,
-.projects-page__track,
 .projects-page__case,
 .projects-page__closing {
     display: grid;
-    gap: var(--sw-space-sm);
+    align-content: start;
+    gap: var(--sw-space-xs);
     padding: var(--sw-space-sm);
 }
 
@@ -337,19 +511,45 @@ function caseStudyMeta(item: ContentItem) {
 }
 
 .projects-page__copy-line,
-.projects-page__track-summary,
 .projects-page__case-summary,
-.projects-page__case-role {
+.projects-page__case-role,
+.projects-page__story-summary {
     margin: 0;
     color: var(--sw-text-secondary);
 }
 
-.projects-page__track-title,
+.projects-page__section-list {
+    display: grid;
+    gap: var(--sw-space-md);
+}
+
+.projects-page__story {
+    display: grid;
+    gap: var(--sw-space-sm);
+    max-width: 64rem;
+    padding-bottom: var(--sw-space-sm);
+    border-bottom: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
+}
+
+.projects-page__story-head,
+.projects-page__story-body,
+.projects-page__detail-group {
+    display: grid;
+    gap: var(--sw-space-xs);
+}
+
+.projects-page__story-title,
 .projects-page__case-title {
     margin: 0;
     color: var(--sw-text-primary);
 }
 
+.projects-page__detail-title {
+    margin: 0;
+    color: var(--sw-text-primary);
+}
+
+.projects-page__detail-list,
 .projects-page__list {
     display: grid;
     gap: var(--sw-space-xs);
@@ -358,6 +558,7 @@ function caseStudyMeta(item: ContentItem) {
     list-style: none;
 }
 
+.projects-page__detail-item,
 .projects-page__list-item {
     display: grid;
     gap: var(--sw-space-3xs);
@@ -365,6 +566,7 @@ function caseStudyMeta(item: ContentItem) {
     padding-top: var(--sw-space-xs);
 }
 
+.projects-page__detail-item:first-child,
 .projects-page__list-item:first-child {
     border-top: 0;
     padding-top: 0;
@@ -405,11 +607,10 @@ function caseStudyMeta(item: ContentItem) {
 }
 
 .projects-page__case-top {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sw-space-xs);
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    gap: var(--sw-space-3xs);
+    align-items: start;
+    justify-items: start;
 }
 
 .projects-page__case::before {
@@ -438,14 +639,16 @@ function caseStudyMeta(item: ContentItem) {
     gap: var(--sw-space-3xs);
 }
 
-.projects-page__case-tag,
-.projects-page__stack-item {
+.projects-page__stack-item,
+.projects-page__case-tag {
     display: inline-flex;
     align-items: center;
     min-height: 1.75rem;
     border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 84%, transparent);
     padding-inline: var(--sw-space-2xs);
+    color: var(--sw-text-primary);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 72%, transparent);
 }
 
 .projects-page__case-link:focus-visible {
@@ -484,7 +687,6 @@ function caseStudyMeta(item: ContentItem) {
 
 @media (max-width: 960px) {
     .projects-page__work-grid,
-    .projects-page__tracks,
     .projects-page__cases {
         grid-template-columns: minmax(0, 1fr);
     }

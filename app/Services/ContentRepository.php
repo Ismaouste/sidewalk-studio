@@ -15,9 +15,13 @@ class ContentRepository
     /**
      * @return Collection<int, array<string, mixed>>
      */
-    public function all(string $section, ?string $locale = null): Collection
+    public function all(string $section, ?string $locale = null, bool $includeFallback = true): Collection
     {
-        $directories = $this->resolveDirectories($section, $locale ?? app()->getLocale());
+        $directories = $this->resolveDirectories(
+            $section,
+            $locale ?? app()->getLocale(),
+            $includeFallback,
+        );
 
         return collect($directories)
             ->flatMap(fn (string $directory) => collect(File::files($directory))
@@ -35,9 +39,9 @@ class ContentRepository
     /**
      * @return Collection<int, array<string, mixed>>
      */
-    public function published(string $section, ?string $locale = null): Collection
+    public function published(string $section, ?string $locale = null, bool $includeFallback = true): Collection
     {
-        return $this->all($section, $locale)
+        return $this->all($section, $locale, $includeFallback)
             ->where('status', 'published')
             ->values();
     }
@@ -49,7 +53,11 @@ class ContentRepository
     public function feed(array $sections, array $filters = []): Collection
     {
         $items = collect($sections)
-            ->flatMap(fn (string $section) => $this->published($section, $filters['locale'] ?? null))
+            ->flatMap(fn (string $section) => $this->published(
+                $section,
+                $filters['locale'] ?? app()->getLocale(),
+                (bool) ($filters['include_fallback'] ?? false),
+            ))
             ->sortByDesc(fn (array $item) => $item['published_at'])
             ->values();
 
@@ -172,13 +180,16 @@ class ContentRepository
     /**
      * @return array<int, string>
      */
-    protected function resolveDirectories(string $section, string $locale): array
+    protected function resolveDirectories(string $section, string $locale, bool $includeFallback = true): array
     {
-        return collect([
-            resource_path("content/{$section}/{$locale}"),
-            resource_path("content/{$section}/en"),
-            resource_path("content/{$section}"),
-        ])
+        $paths = [resource_path("content/{$section}/{$locale}")];
+
+        if ($locale === 'en' || $includeFallback) {
+            $paths[] = resource_path("content/{$section}/en");
+            $paths[] = resource_path("content/{$section}");
+        }
+
+        return collect($paths)
             ->filter(fn (string $path) => File::isDirectory($path))
             ->unique()
             ->values()

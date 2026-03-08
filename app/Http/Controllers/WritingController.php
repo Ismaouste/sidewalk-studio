@@ -17,22 +17,22 @@ class WritingController extends Controller
     {
         $isFrench = app()->getLocale() === 'fr';
         $seo = Seo::page(
-            $isFrench ? 'Notes' : 'Writing',
+            'Journal',
             $isFrench
                 ? "Notes sur l'architecture, l'orchestration du consentement, la modelisation de contenu et la conception d'un portfolio systeme."
                 : 'Notes on architecture, consent orchestration, content modeling, and portfolio system design.',
-            '/writing',
+            '/journal',
             [
                 'breadcrumb' => [
                     ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
-                    ['name' => $isFrench ? 'Notes' : 'Writing', 'path' => '/writing'],
+                    ['name' => 'Journal', 'path' => '/journal'],
                 ],
             ],
         );
 
         return Inertia::render('Writing/Index', [
             'seo' => $seo,
-            'items' => $this->content->published('writing')->values(),
+            'items' => $this->content->published('writing', app()->getLocale(), false)->values(),
         ])->withViewData(['seo' => $seo]);
     }
 
@@ -43,7 +43,7 @@ class WritingController extends Controller
         $seo = Seo::page(
             $item['seo_title'],
             $item['seo_description'],
-            '/writing/'.$item['slug'],
+            '/journal/'.$item['slug'],
             [
                 'schema_type' => 'BlogPosting',
                 'open_graph_type' => 'article',
@@ -53,11 +53,11 @@ class WritingController extends Controller
                     'url' => $item['image_url'],
                     'alt' => $item['image_alt'],
                 ],
-                'section' => $isFrench ? 'Notes' : 'Writing',
+                'section' => 'Journal',
                 'breadcrumb' => [
                     ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
-                    ['name' => $isFrench ? 'Notes' : 'Writing', 'path' => '/writing'],
-                    ['name' => $item['title'], 'path' => '/writing/'.$item['slug']],
+                    ['name' => 'Journal', 'path' => '/journal'],
+                    ['name' => $item['title'], 'path' => '/journal/'.$item['slug']],
                 ],
             ],
         );

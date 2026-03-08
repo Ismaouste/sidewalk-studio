@@ -5,46 +5,45 @@ hero:
     eyebrow: Local ground
     title: Work grounded in place, public space, and readable local systems.
     summary: Nancy is my base within the wider Lorraine corridor, with Metz and Luxembourg part of the weekly reality. That is the axis from which I think about services, mobility, cultural scenes, and the lived quality of public-facing interfaces.
+signals:
+    - Legibility across public space, venues, and service touchpoints.
+    - Regional mobility between Nancy, Metz, and Luxembourg, including transport logic and local information flows.
+    - Associative, cultural, and rights-oriented ecosystems that keep issues tied to real ground.
 nancy:
     body:
         - Nancy remains the base, but the real ground is broader. I move often between Nancy, Metz, and Luxembourg, and that corridor matters both for job opportunities and for how I observe services, urban rhythms, and actual usage.
+        - I also worked with OFAJ and on European mobility topics across the Greater Region. That shapes how I look at circulation, networks, services, and cross-border constraints.
         - I know the public venues that shape that everyday cultural life, from L'Autre Canal in Nancy to BAM, Trinitaires, Rotondes, Rockhal, and the Francofolies on the Luxembourg side. It keeps the work tied to concrete audiences rather than abstract personas.
         - I have volunteered with Nancy Jazz Pulsations for years, and I also stay close to questions of urbanism, cycling, mobility, and digital rights because they directly affect how a city and its services are experienced.
-    signals:
-        - Legibility across public space, venues, and service touchpoints.
-        - Regional mobility between Nancy, Metz, and Luxembourg, including transport logic and local information flows.
-        - Associative, cultural, and rights-oriented ecosystems that keep issues tied to real ground.
-city_systems:
-    - title: Urban interfaces
-      summary: Wayfinding, timetables, booking flows, maps, and service pages are product systems too. They deserve the same clarity and maintainability as any commerce surface.
-    - title: Local data and APIs
-      summary: I am curious about transport data, mapping logic, local APIs, and the small technical contracts that make civic information reusable instead of opaque.
-    - title: Readable service systems
-      summary: 'The same discipline that matters on the web matters in cities: clear affordances, understandable states, and interfaces that respect people’s attention.'
-communities:
+journal_section:
+    eyebrow: Journal
+    title: A few publications that extend this ground.
+    summary: Short notes about product work, data circulation, structural decisions, and the site build, shown here as an integrated editorial layer.
+engagements_intro:
+    eyebrow: Commitments
+    title: Associations, civic interests, and the ground I actually stay close to.
+    summary: These are not badges to collect. They are places, causes, and situations that genuinely shape how I work.
+engagements:
     - title: Aremedia
-      summary: Aremedia is not a cultural organization in this context but a harm-reduction and public-health one. I built them a self-hosted reporting tool, aligned with health-data constraints, to support outreach work with queer people and crack users around Stalingrad.
-    - title: EDEN Nancy
-      summary: I support EDEN in Nancy on urbanism and cycling issues. That matters because a city is also shaped by its routes, street design, and whether ordinary movement is treated seriously.
-    - title: La Quadrature du Net
-      summary: I am a member of La Quadrature du Net. That aligns directly with the work here on privacy, system boundaries, consent, and digital rights that people can actually understand.
-support_areas:
-    - title: Projects I support
-      summary: The projects I gravitate toward tend to make information clearer, associative work more visible, or local services easier to navigate.
+      summary: Aremedia works on harm reduction and public health. I designed and shipped a self-hosted reporting tool there, compatible with health-data constraints, for outreach work with queer people and crack users around Stalingrad.
       items:
-          - Harm-reduction, public-health, and field outreach work that needs sober, safe tools.
-          - Local or regional public-interest digital services.
-          - Readable editorial and informational systems for associations, venues, and small organizations.
-    - title: Open-source curiosity
-      summary: I follow tools that help map, document, and expose public information in a way that stays inspectable and reusable.
+          - Built for field teams rather than office-only workflows.
+          - Secured an open survey setup with external support on sensitive issues.
+          - Focused on structure, collection, and reporting that actually helps action.
+    - title: Nancy Jazz Pulsations, EDEN, La Quadrature du Net
+      summary: I have volunteered with Nancy Jazz Pulsations for years, support EDEN in Nancy on urbanism and cycling questions, and remain a member of La Quadrature du Net around digital rights.
       items:
-          - Mapping and transport-adjacent tooling.
-          - Open data and public information publishing workflows.
-          - Documentation-heavy tools that make service systems easier to understand.
-    - title: Civic questions
-      summary: 'The recurring question is simple: how do interfaces stay legible when budgets, legacy systems, and institutional constraints are all real?'
+          - Real involvement with associative and cultural life across the region.
+          - Continued attention to mobility, cycling, public space, and digital rights.
+          - The same requirement for clarity as on e-commerce or service products.
+    - title: What I keep looking at
+      summary: I often return to public-interest digital services, local information systems, useful open data, mapping, APIs, and the small flows that make a city easier to read.
       items:
-          - How local APIs and public datasets are surfaced.
-          - How transport and service logic are explained rather than hidden.
-          - How culture, mobility, public health, and digital rights remain treated as concrete service questions rather than decorative themes.
+          - Regional mobility and traveller information between Nancy, Metz, and Luxembourg.
+          - Readable editorial systems for associations, venues, and local organizations.
+          - Culture, public health, and digital rights treated as concrete service topics.
+notes_section:
+    eyebrow: Notes
+    title: Simple notes, easy to browse.
+    summary: A direct list of publications, meant to extend the visit without creating one more disconnected section.
 ---

@@ -40,22 +40,22 @@ class PublicLanguageSwitcherTest extends TestCase
 
     public function test_writing_routes_expose_the_language_switcher_when_a_french_entry_exists(): void
     {
-        $this->get('/writing')
+        $this->get('/journal')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/writing?lang=fr'),
+                    fn (string $href): bool => str_ends_with($href, '/journal?lang=fr'),
                 ));
 
-        $this->get('/writing/content-systems-routing-and-metadata')
+        $this->get('/journal/content-systems-routing-and-metadata')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/writing/content-systems-routing-and-metadata?lang=fr'),
+                    fn (string $href): bool => str_ends_with($href, '/journal/content-systems-routing-and-metadata?lang=fr'),
                 ));
     }
 

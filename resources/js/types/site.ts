@@ -3,6 +3,11 @@ export type NavItem = {
     href: string;
 };
 
+export type BreadcrumbItem = {
+    label: string;
+    href: string;
+};
+
 export type SiteAuthor = {
     name: string;
     job_title: string;
@@ -117,6 +122,7 @@ export type SeoPayload = {
     openGraph: Record<string, string>;
     twitter: Record<string, string>;
     jsonLd: Record<string, unknown>[];
+    breadcrumbs: BreadcrumbItem[];
 };
 
 export type ContentItem = {

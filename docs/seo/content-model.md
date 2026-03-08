@@ -58,3 +58,12 @@ The PHP repository adds:
 - Dedicated French collection entries now also exist for selected `writing` and `case-studies` slugs.
 - Writing and case-study collections resolve the requested locale first, then `en`, then temporary root-level files.
 - If multiple collection files share the same slug, the first match in that fallback order wins.
+
+## Page composition fields
+
+Page markdown is allowed to carry structured sections used by the Inertia pages directly. Current examples include:
+
+- `professional_sections`, `associative_sections`, `associative_note_widget`, `side_project_sections`, and `side_projects_widget` inside the internal `experience` content source reused by `/projects`
+- `journal_section`, `engagements_intro`, `engagements`, and `notes_section` inside `local`
+
+These are page-specific blocks, not collection-wide requirements, but they are treated as repo-owned content model and should stay documented when extended.
