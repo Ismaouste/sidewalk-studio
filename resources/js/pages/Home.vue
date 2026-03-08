@@ -478,31 +478,12 @@ const copy = computed(() =>
     position: relative;
     display: grid;
     height: 100%;
-    overflow: hidden;
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
         box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
     border-radius: inherit;
-}
-
-.home-card::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto;
-    height: 3px;
-    transform: scaleX(0.24);
-    transform-origin: left center;
-    opacity: 0;
-    transition:
-        transform var(--sw-motion-fast),
-        opacity var(--sw-motion-fast);
-    background: linear-gradient(
-        90deg,
-        var(--sw-accent-dominant),
-        color-mix(in srgb, var(--sw-accent-sun) 68%, var(--sw-accent-dominant))
-    );
 }
 
 .home-card__meta {
@@ -546,12 +527,6 @@ const copy = computed(() =>
     box-shadow: var(--sw-shadow-md);
 }
 
-.home-card-link:focus-visible .home-card::before,
-.home-card-link:active .home-card::before {
-    transform: scaleX(1);
-    opacity: 1;
-}
-
 .home-card-link:active .home-card {
     transform: translateY(1px);
 }
@@ -559,17 +534,9 @@ const copy = computed(() =>
 @media (hover: hover) {
     .home-card-link:hover .home-card {
         transform: translateY(-2px);
+        border-color: var(--sw-card-hover-border);
         box-shadow: var(--sw-shadow-md);
-    }
-
-    .home-card-link:hover .home-card {
-        border-color: var(--sw-accent-dominant);
         background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
-    }
-
-    .home-card-link:hover .home-card::before {
-        transform: scaleX(1);
-        opacity: 1;
     }
 }
 

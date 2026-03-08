@@ -98,6 +98,11 @@ html[data-theme='morning'] {
 
     --sw-border: #d8d0c2;
     --sw-border-focus: #8a7258;
+    --sw-card-hover-border: color-mix(
+        in srgb,
+        var(--sw-border) 72%,
+        var(--sw-accent-dominant)
+    );
     --sw-grid-line: rgba(110, 90, 70, 0.08);
     --sw-shadow-sm: 0 1px 4px rgba(20, 18, 16, 0.06);
     --sw-shadow-md: 0 4px 16px rgba(20, 18, 16, 0.09);
@@ -142,6 +147,11 @@ html[data-theme='sunset'] {
 
     --sw-border: #332c42;
     --sw-border-focus: #f08b46;
+    --sw-card-hover-border: color-mix(
+        in srgb,
+        var(--sw-border) 84%,
+        var(--sw-accent-dominant) 16%
+    );
     --sw-grid-line: rgba(225, 122, 158, 0.09);
     --sw-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.25);
     --sw-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);

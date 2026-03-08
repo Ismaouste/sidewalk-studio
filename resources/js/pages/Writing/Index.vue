@@ -144,34 +144,14 @@ const copy = computed(() =>
 }
 
 .writing-index__card {
-    position: relative;
     display: grid;
     gap: var(--sw-space-xs);
-    overflow: hidden;
     padding: clamp(18px, 2.8vw, var(--sw-space-sm));
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
         box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
-}
-
-.writing-index__card::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto;
-    height: 3px;
-    transform: scaleX(0.24);
-    transform-origin: left center;
-    opacity: 0;
-    background: linear-gradient(
-        90deg,
-        var(--sw-accent-violet),
-        color-mix(in srgb, var(--sw-accent-sun) 50%, var(--sw-accent-violet))
-    );
-    transition:
-        transform var(--sw-motion-fast),
-        opacity var(--sw-motion-fast);
 }
 
 .writing-index__card-top {
@@ -221,12 +201,6 @@ const copy = computed(() =>
     box-shadow: var(--sw-shadow-md);
 }
 
-.writing-index__link:focus-visible .writing-index__card::before,
-.writing-index__link:active .writing-index__card::before {
-    transform: scaleX(1);
-    opacity: 1;
-}
-
 .writing-index__link:active .writing-index__card {
     transform: translateY(1px);
 }
@@ -234,14 +208,9 @@ const copy = computed(() =>
 @media (hover: hover) {
     .writing-index__link:hover .writing-index__card {
         transform: translateY(-2px);
-        border-color: var(--sw-accent-violet);
+        border-color: var(--sw-card-hover-border);
         background: color-mix(in srgb, var(--sw-bg-elevated) 86%, transparent);
         box-shadow: var(--sw-shadow-md);
-    }
-
-    .writing-index__link:hover .writing-index__card::before {
-        transform: scaleX(1);
-        opacity: 1;
     }
 }
 
