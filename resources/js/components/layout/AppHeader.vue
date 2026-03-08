@@ -71,20 +71,20 @@ onBeforeUnmount(() => {
             <div class="app-header__inner">
                 <div class="app-header__topline">
                     <Link :href="homeHref" class="app-header__brand">
+                        <img
+                            :src="avatarHref"
+                            alt=""
+                            class="app-header__avatar"
+                            loading="eager"
+                            decoding="async"
+                        />
                         <span class="app-header__identity">
-                            <img
-                                :src="avatarHref"
-                                alt=""
-                                class="app-header__avatar"
-                                loading="eager"
-                                decoding="async"
-                            />
                             <span class="type-eyebrow app-header__name">
                                 {{ brandName }}
                             </span>
-                        </span>
-                        <span class="app-header__tagline">
-                            {{ page.props.site.shell.headerTagline }}
+                            <span class="app-header__tagline">
+                                {{ page.props.site.shell.headerTagline }}
+                            </span>
                         </span>
                     </Link>
                 </div>
@@ -213,14 +213,15 @@ onBeforeUnmount(() => {
 
 .app-header__brand {
     display: inline-grid;
-    gap: 6px;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: 12px;
     max-width: 34rem;
 }
 
 .app-header__identity {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
+    display: inline-grid;
+    gap: 4px;
     min-width: 0;
 }
 
@@ -235,10 +236,10 @@ onBeforeUnmount(() => {
 }
 
 .app-header__name {
-    font-size: clamp(11px, 1.2vw, 13px);
-    font-weight: 800;
-    letter-spacing: 0.18em;
-    color: var(--sw-text-primary);
+    font-size: clamp(12px, 1.25vw, 14px);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: color-mix(in srgb, var(--sw-text-primary) 90%, transparent);
 }
 
 .app-header__tagline {
@@ -310,7 +311,7 @@ onBeforeUnmount(() => {
     }
 
     .app-header__identity {
-        gap: 10px;
+        gap: 3px;
     }
 
     .app-header__avatar {

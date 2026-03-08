@@ -129,6 +129,16 @@ const copy = computed(() =>
                   'donnée produit, flux, tracking et SEO technique.',
               hbjoatDefinition:
                   "Horlogerie, bijouterie, orfèvrerie et arts de la table.",
+              cmsDefinition:
+                  'Content Management System : système de gestion de contenu.',
+              phpDefinition:
+                  'PHP : langage serveur largement utilisé pour les applications web et e-commerce.',
+              apiDefinition:
+                  "API : interface d'échange entre services, outils métier et applications.",
+              ciCdDefinition:
+                  'CI/CD : intégration et déploiement continus pour fiabiliser les mises en ligne.',
+              seoDefinition:
+                  "SEO : optimisation technique et éditoriale pour rendre un site lisible par les moteurs et utile aux visiteurs.",
               whatIDoLabel: 'Ce que je fais',
               focusTitle:
                   'Un positionnement net dans des environnements complexes.',
@@ -157,6 +167,16 @@ const copy = computed(() =>
                   'product data, integrations, tracking, and technical SEO.',
               hbjoatDefinition:
                   'Watchmaking, jewelry, silverware, and tableware.',
+              cmsDefinition:
+                  'CMS: Content Management System.',
+              phpDefinition:
+                  'PHP: a server-side language widely used for web and e-commerce applications.',
+              apiDefinition:
+                  'API: an interface used to connect services, business tools, and applications.',
+              ciCdDefinition:
+                  'CI/CD: continuous integration and delivery practices that make releases safer.',
+              seoDefinition:
+                  'SEO: technical and editorial optimization that helps a site stay legible for search engines and useful for people.',
               whatIDoLabel: 'What I do',
               focusTitle: 'A legible practice for complex environments.',
               focusDescription:
@@ -248,10 +268,101 @@ const copy = computed(() =>
                                 class="type-meta home-hero__highlight-details"
                                 :class="`home-hero__highlight-details--${item.tone}`"
                             >
-                                {{ item.panelDetails }}
+                                <template v-if="item.label === 'Laravel'">
+                                    <InlineTermTooltip
+                                        label="Laravel"
+                                        :definition="
+                                            page.props.site.locale === 'fr'
+                                                ? 'Framework PHP pour applications web modernes.'
+                                                : 'PHP framework for modern web applications.'
+                                        "
+                                        tone="green"
+                                    />
+                                    {{ ' / ' }}
+                                    <InlineTermTooltip
+                                        label="PHP"
+                                        :definition="copy.phpDefinition"
+                                        tone="green"
+                                    />
+                                    {{ ' / ' }}
+                                    <InlineTermTooltip
+                                        label="API"
+                                        :definition="copy.apiDefinition"
+                                        tone="green"
+                                    />
+                                    {{ ' / ' }}
+                                    <InlineTermTooltip
+                                        label="CI/CD"
+                                        :definition="copy.ciCdDefinition"
+                                        tone="green"
+                                    />
+                                </template>
+                                <template
+                                    v-else-if="
+                                        item.label === 'Data produit et SEO' ||
+                                        item.label === 'Product data and SEO'
+                                    "
+                                >
+                                    PIM / JSON-LD / Merchant Center / Data layer
+                                </template>
+                                <template v-else>
+                                    {{ item.panelDetails }}
+                                </template>
                             </p>
                             <p class="type-body-sm home-hero__highlight-copy">
-                                {{ item.summary }}
+                                <template v-if="item.label === 'Sites marchands'">
+                                    Développement e-commerce et
+                                    <InlineTermTooltip
+                                        label="CMS"
+                                        :definition="copy.cmsDefinition"
+                                        tone="violet"
+                                    />
+                                    sur WooCommerce, PrestaShop, Shopify et
+                                    fronts découplés quand le projet le
+                                    demande.
+                                </template>
+                                <template v-else-if="item.label === 'E-commerce'">
+                                    E-commerce and
+                                    <InlineTermTooltip
+                                        label="CMS"
+                                        :definition="copy.cmsDefinition"
+                                        tone="violet"
+                                    />
+                                    development across WooCommerce, PrestaShop,
+                                    Shopify, and decoupled fronts when needed.
+                                </template>
+                                <template
+                                    v-else-if="
+                                        item.label === 'Data produit et SEO'
+                                    "
+                                >
+                                    <InlineTermTooltip
+                                        label="SEO"
+                                        :definition="copy.seoDefinition"
+                                        tone="sun"
+                                    />
+                                    technique, données structurées, flux
+                                    produit, PIM, catalogues marketing,
+                                    tracking et data layer au même niveau que
+                                    la mise en ligne.
+                                </template>
+                                <template
+                                    v-else-if="
+                                        item.label === 'Product data and SEO'
+                                    "
+                                >
+                                    <InlineTermTooltip
+                                        label="SEO"
+                                        :definition="copy.seoDefinition"
+                                        tone="sun"
+                                    />
+                                    , structured data, product feeds, PIM,
+                                    marketing catalogs, tracking, and data
+                                    layer handled at the same level as go-live.
+                                </template>
+                                <template v-else>
+                                    {{ item.summary }}
+                                </template>
                             </p>
                         </li>
                     </ul>

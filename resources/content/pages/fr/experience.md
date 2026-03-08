@@ -3,7 +3,7 @@ seo_title: Parcours
 seo_description: Parcours professionnel autour de l'e-commerce, de la donnée produit, du SEO technique, des intégrations métier et de la modernisation de systèmes vivants.
 hero:
     eyebrow: Expérience
-    title: Développement full stack pour des produits web déjà en mouvement.
+    title: Un goût pour les systèmes qui doivent vraiment tourner.
     summary: E-commerce, CMS, connecteurs, donnée produit et delivery dans des contextes où il faut comprendre vite, structurer proprement et livrer juste.
 positioning:
     - Comprendre vite un projet, ses usages et ce qui peut bouger tout de suite.

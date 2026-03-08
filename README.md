@@ -1,44 +1,49 @@
 # Sidewalk Studio
 
-Sidewalk Studio is a local-first Laravel portfolio site and reference implementation for calm, privacy-aware product engineering.
+Sidewalk Studio is a local-first Laravel portfolio site and a reusable reference for editorial publishing, consent-aware front-end work, SEO, and release-oriented documentation.
 
-The repo intentionally serves two roles at once:
+This repository now serves two purposes at once:
 
-- a public site with a coherent editorial and design-system foundation
-- a reusable Laravel reference for content, consent, SEO, and release-oriented documentation
+- a public portfolio surface for Ismael Rodmacq
+- a reusable Laravel/Inertia/Vue reference for content, metadata, consent, and static preview export
 
-## Current repository state
+## What ships in the current release
 
-The current branch already includes:
+- Laravel 12 + Inertia.js + Vue 3 + TypeScript application shell
+- reusable public design system with token-driven `Morning` and `Sunset` themes
+- public pages for `Hello`, `Experience`, `Journal`, `Contact`, `Projects`, `Case Studies`, `Local`, and `Labs`
+- Markdown-driven public content in French and English for pages, notes, journal entries, and case studies
+- contact form persistence with a lightweight admin inbox
+- consent-aware embeds and privacy controls for analytics/media categories
+- server-rendered metadata, canonical tags, JSON-LD, `robots.txt`, and `sitemap.xml`
+- static preview export for GitHub Pages
 
-- a Laravel 12 + Inertia + Vue 3 + TypeScript public site foundation
-- a token-based `Morning Grid` / `Sunset Signal` theme system
-- reusable public design-system primitives and shell components
-- public pages for `Home`, `Experience`, `Local`, `Projects`, `Writing`, `Case Studies`, `Contact`, and `Labs`
-- repo-versioned Markdown content for Writing and Case Studies under `resources/content/`
-- consent orchestration for `necessary`, `analytics`, and `media`
-- server-rendered SEO metadata, JSON-LD, `robots.txt`, and `sitemap.xml`
-- a bounded `site_settings` read-side foundation for non-secret runtime site values
+## Product direction
 
-## Specification and workflow
+The portfolio is intentionally opinionated:
 
-GitHub Spec Kit is the official specification standard for this repo.
-Codex is the current execution workflow, but the workflow remains file-based: do not assume native `/speckit.*` command availability unless it has been verified in the active environment.
+- local-first development with SQLite and Laravel's built-in server
+- public content shaped around real work: e-commerce delivery, product data, CMS work, tracking, consent, connectors, structured data, and editorial systems
+- SSR-compatible structure without making SSR runtime mandatory for day-to-day development
+- repo-local specs, plans, and release notes kept alongside the codebase
 
 ## Stack
 
 - Laravel 12
+- PHP 8.4 for CI/static preview
 - Inertia.js
-- Vue 3 + TypeScript
+- Vue 3
+- TypeScript
 - Vite
-- token-based CSS design system with package-based fonts
-- Tailwind CSS v4 in the frontend toolchain
-- SQLite for the default local workflow
+- SQLite by default
+- token-based CSS design system
+- package-hosted fonts via `@fontsource`
 - CookieConsent + IframeManager for consent-aware embeds
+- `web-vitals` for front-end metrics instrumentation
 
-## Local development on Windows
+## Local development
 
-Use PowerShell.
+Use PowerShell on Windows.
 
 ```powershell
 Copy-Item .env.example .env
@@ -47,43 +52,58 @@ composer install
 npm install
 php artisan key:generate
 php artisan migrate
+php artisan db:seed --force
+php artisan serve --host=127.0.0.1 --port=8088
 npm run dev
 ```
 
-If you run the app with `php artisan serve`, set `APP_URL` in `.env` to `http://127.0.0.1:8000`.
-If you use Herd or another local hostname, keep `APP_URL` aligned with that domain.
+For a production-like local check:
 
-## Validation commands
+```powershell
+npm run build
+Remove-Item public\hot -ErrorAction SilentlyContinue
+php artisan serve --host=127.0.0.1 --port=8088
+```
+
+## Validation baseline
+
+These commands are the current baseline and were used for the `0.2.0` release:
 
 ```powershell
 php artisan test
-composer run ci:check
 npm run types:check
 npm run build
 php artisan route:list
+php artisan site:export-static-preview --locale=fr --output=dist/static-preview --base=/sidewalk-studio/
 ```
+
+## Static preview
+
+The repository includes a GitHub Pages preview workflow that exports the public front-end as static HTML.
+
+- workflow: `.github/workflows/github-pages-preview.yml`
+- exported base path: `/sidewalk-studio/`
+- live preview: [https://ismaouste.github.io/sidewalk-studio/](https://ismaouste.github.io/sidewalk-studio/)
+
+The static preview keeps the visual shell, theme switcher, loader, and front-end interactions, while leaving Laravel runtime features such as real form handling and admin behavior out of the public preview.
 
 ## Repository map
 
-- `.specify/` stores the repo-local GitHub Spec Kit constitution, templates, and reserved helper-script location.
-- `specs/` stores feature-level `spec.md`, `plan.md`, and `tasks.md` packages.
-- `docs/` stores architecture, consent, SEO, style, AI workflow, release, and tracking references.
-- `resources/content/` stores versioned Markdown for Writing and Case Studies.
-- `tools/codex/skills/` stores repo-local skills that can be synced into `$CODEX_HOME/skills` if needed.
+- `.specify/` stores the repo-local GitHub Spec Kit constitution, templates, and reserved helper-script location
+- `specs/` stores feature-level `spec.md`, `plan.md`, and `tasks.md`
+- `docs/` stores architecture, consent, SEO, style, AI workflow, career, and release references
+- `resources/content/` stores versioned Markdown for pages, writing, and case studies
+- `tools/codex/skills/` stores repo-local skills that can be synced into `$CODEX_HOME/skills`
 
-## Tracking and release notes
+## Release references
 
-- `Roadmap.md` is the milestone-order source of truth.
-- `CHANGELOG.md` records shipped scope.
-- `docs/ai/project-tracking.md` and related files under `docs/ai/linear/` and `docs/ai/github-project/` prepare manual backfill for real project tracking.
+- roadmap: `Roadmap.md`
+- changelog: `CHANGELOG.md`
+- detailed `0.2.0` release note: `docs/ai/release-0.2.0-public-surface.md`
 
-## Current limits and deferred work
+## Near-term follow-up
 
-Still deferred:
-
-- Docker-based development
-- CI/CD and deployment automation
-- production analytics integrations
-- full SSR runtime activation
-- a protected write UI for `site_settings`
-- any live CMS migration for the public site
+- locale-path migration from `?lang=` to `/fr/...` and `/en/...`
+- richer case studies and public notes based on the new editorial backlog
+- footer accessibility controls for motion reduction, theme-transition reduction, and alternate contrast/color modes
+- additional front-end performance audits and bundle hygiene

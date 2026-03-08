@@ -3,7 +3,7 @@ seo_title: Experience
 seo_description: Professional experience across e-commerce, product data, technical SEO, business integrations, and modernization of live systems.
 hero:
     eyebrow: Experience
-    title: Full-stack development for web products already in motion.
+    title: A taste for systems that genuinely need to run.
     summary: E-commerce, CMS, connectors, product data, and delivery in contexts where the work is to understand quickly, structure clearly, and ship cleanly.
 positioning:
     - Understand a project, its usage, and what can move right away.
