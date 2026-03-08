@@ -257,15 +257,6 @@ onBeforeUnmount(() => {
                         }"
                     >
                         <span>{{ linkAction(item) }}</span>
-                        <span
-                            class="nav-tabs__link-arrow"
-                            :class="{
-                                'nav-tabs__link-arrow--contact': isContact(item),
-                            }"
-                            aria-hidden="true"
-                        >
-                            →
-                        </span>
                     </span>
                 </Link>
             </div>
@@ -466,14 +457,15 @@ onBeforeUnmount(() => {
     color: var(--sw-accent-sun);
 }
 
-.nav-tabs__link-arrow {
+.nav-tabs__link-meta::after {
+    content: '→';
     display: inline-block;
     font-size: 12px;
     line-height: 1;
     transform: translateY(-1px);
 }
 
-.nav-tabs__link-arrow--contact {
+.nav-tabs__link-meta--contact::after {
     transform-origin: center;
     animation: nav-tabs-phone-ring 1.6s ease-in-out infinite;
 }
