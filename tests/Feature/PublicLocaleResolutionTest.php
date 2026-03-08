@@ -29,7 +29,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Un parcours faconne par les systemes complexes.')
+                ->where('hero.title', 'Un parcours façonné par les systèmes complexes.')
                 ->where('site.locale', 'fr')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
@@ -64,7 +64,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
-                ->where('hero.title', "Echanges autour du SEO technique, des catalogues produit et de la modernisation Laravel.")
+                ->where('hero.title', "Échanges autour du SEO technique, des catalogues produit et de la modernisation Laravel.")
                 ->where('site.languageSwitcher.visible', true));
     }
 
@@ -92,7 +92,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
                 ->where('items.0.locale', 'fr')
-                ->where('items.0.title', 'Pourquoi le SSR reste pret mais differe')
+                ->where('items.0.title', 'Pourquoi le SSR reste prêt mais diffère')
                 ->where('site.languageSwitcher.visible', true)
                 ->where('seo.canonical', $canonical));
     }
@@ -110,7 +110,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
                 ->where('item.locale', 'fr')
-                ->where('item.title', 'Les systemes de contenu commencent par le routage et les metadonnees')
+                ->where('item.title', 'Les systèmes de contenu commencent par le routage et les métadonnées')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
     }
@@ -186,7 +186,7 @@ MD);
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
                 ->where('item.locale', 'fr')
-                ->where('item.title', 'Bootstrap du repository pour un portfolio pilote par les specs')
+                ->where('item.title', 'Bootstrap du repository pour un portfolio piloté par les specs')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
     }

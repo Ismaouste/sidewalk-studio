@@ -59,7 +59,7 @@ class PublicLocale
         $labels = $locale === 'fr'
             ? [
                 '/' => 'Accueil',
-                '/experience' => 'Experience',
+                '/experience' => 'Expérience',
                 '/local' => 'Local',
                 '/projects' => 'Projets',
                 '/writing' => 'Notes',
@@ -93,7 +93,7 @@ class PublicLocale
     {
         if ($locale === 'fr') {
             return [
-                'headerTagline' => "Ingenierie web pour l'e-commerce, les catalogues produit, la vie privee et le SEO technique.",
+                'headerTagline' => "Ingénierie web pour l'e-commerce, les catalogues produit, la vie privée et le SEO technique.",
                 'localeSwitcherLabel' => 'Langue',
                 'navAriaLabel' => 'Navigation principale',
                 'navMenuLabel' => 'Menu',
@@ -101,8 +101,8 @@ class PublicLocale
                 'navCurrentLabel' => 'Actif',
                 'navOpenLabel' => 'Ouvrir',
                 'footerDividerLabel' => 'Journal public',
-                'footerNote' => 'Portfolio Laravel local-first. Embeds soumis au consentement. Contenu structure. Shell pret pour le SSR.',
-                'privacyControlsLabel' => 'Reglages vie privee',
+                'footerNote' => 'Portfolio Laravel local-first. Embeds soumis au consentement. Contenu structuré. Shell prêt pour le SSR.',
+                'privacyControlsLabel' => 'Réglages vie privée',
             ];
         }
 

@@ -71,25 +71,25 @@ const copy = computed(() =>
         ? {
               experienceCta: 'Lire le parcours',
               dividerLabel: 'Prendre contact',
-              privacyChipLabel: 'Consentement et vie privee',
+              privacyChipLabel: 'Consentement et vie privée',
               baseChipLabel: `Base ${props.contact.location}`,
               baseLabel: 'Base',
-              availabilityLabel: 'Disponibilite',
+              availabilityLabel: 'Disponibilité',
               subjectPrefix: 'Prise de contact Sidewalk Studio',
               bodyNameLabel: 'Nom',
               bodyEmailLabel: 'Email',
               bodyCompanyLabel: 'Entreprise ou produit',
               bodyBriefFallback: 'Brief projet :',
               servicePrefix: 'Sujet',
-              recruiterFitLabel: 'Roles cibles',
+              recruiterFitLabel: 'Rôles cibles',
               recruiterFitRoles: [
                   'Lead developer Laravel',
                   'Tech lead e-commerce',
-                  'Ingenieur full stack oriente produit',
+                  'Ingénieur full stack orienté produit',
               ],
               recruiterDecisionLabel: 'Pertinent pour',
               recruiterDecisionCopy:
-                  "Recrutement, mise en relation rapide, revue d'architecture, reprise de plateforme ou mission freelance sur un produit deja en charge.",
+                  "Recrutement, mise en relation rapide, revue d'architecture, reprise de plateforme ou mission freelance sur un produit déjà en charge.",
               cvLabel: 'CV',
           }
         : {

@@ -35,16 +35,16 @@ const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               eyebrow: 'Archive notes',
-              title: "Notes de build, memos de strategie et decisions d'architecture.",
+              title: "Notes de build, mémos de stratégie et décisions d'architecture.",
               description:
-                  "Notes editoriales sur les systemes de contenu, l'orchestration du consentement, la preparation au SSR et la discipline de repo public.",
+                  "Notes éditoriales sur les systèmes de contenu, l'orchestration du consentement, la préparation au SSR et la discipline de repo public.",
               projectsCta: 'Voir projets',
               experienceCta: 'Lire le parcours',
-              editorialLabel: 'Journal editorial',
-              publishedEntriesLabel: `${props.items.length} notes publiees`,
-              dividerLabel: 'Notes publiees',
+              editorialLabel: 'Journal éditorial',
+              publishedEntriesLabel: `${props.items.length} notes publiées`,
+              dividerLabel: 'Notes publiées',
               itemLabel: 'Note',
-              publishedLabel: 'Publie',
+              publishedLabel: 'Publié',
               readLabel: 'Lecture',
           }
         : {

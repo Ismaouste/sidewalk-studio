@@ -47,14 +47,14 @@ const copy = computed(() =>
               contactCta: "Discuter d'un contexte proche",
               trackPrefix: 'Piste',
               internalBuildLabel: 'Interne',
-              roleLabel: 'Role',
+              roleLabel: 'Rôle',
               outcomesLabel: 'Points saillants',
               outcomesSuffix: 'points',
               proofNotesLabel: 'Notes',
               proofNotesTitle:
                   'Les notes qui explicitent le raisonnement.',
               proofNotesSummary:
-                  "Quand un cas client reste volontairement compact, les notes publiques explicitent le raisonnement d'architecture, de contenu, de modele catalogue et de SEO qui l'accompagne.",
+                  "Quand un cas client reste volontairement compact, les notes publiques explicitent le raisonnement d'architecture, de contenu, de modèle catalogue et de SEO qui l'accompagne.",
               writingArchiveCta: 'Voir les notes',
               writingNoteLabel: 'Note',
           }

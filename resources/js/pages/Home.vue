@@ -49,24 +49,24 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              projectsCta: 'Voir les references',
+              projectsCta: 'Voir les références',
               experienceCta: 'Lire le parcours',
               contactCta: 'Prendre contact',
               currentFrameLabel: 'Cadre actuel',
               heroPanelTitle:
-                  'Catalogues, SEO technique et architecture produit dans des environnements qui ont deja une histoire.',
+                  'Catalogues, SEO technique et architecture produit dans des environnements qui ont déjà une histoire.',
               whatIDoLabel: 'Ce que je fais',
               focusEyebrow: 'Focus',
               focusTitle:
                   'Un positionnement net dans des environnements complexes.',
               focusDescription:
-                  "Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privee et besoin de garder des systemes comprehensibles apres mise en production.",
-              selectedWorkLabel: 'References',
-              projectsEyebrow: 'References',
-              projectsTitle: 'Quelques references choisies.',
+                  "Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privée et besoin de garder des systèmes compréhensibles après mise en production.",
+              selectedWorkLabel: 'Références',
+              projectsEyebrow: 'Références',
+              projectsTitle: 'Quelques références choisies.',
               projectsDescription:
-                  "Des cas publics compacts pour montrer comment architecture, catalogue, SEO technique et decisions de livraison se traduisent en pratique.",
-              openProjectsCta: 'Voir les references',
+                  "Des cas publics compacts pour montrer comment architecture, catalogue, SEO technique et décisions de livraison se traduisent en pratique.",
+              openProjectsCta: 'Voir les références',
               internalBuildLabel: 'Interne',
               localGroundLabel: 'Ancrage local',
               localEyebrow: 'Ancrage local',
@@ -75,13 +75,13 @@ const copy = computed(() =>
               writingEyebrow: 'Notes',
               writingTitle: 'Notes de travail et de construction',
               writingDescription:
-                  "Textes courts sur l'architecture, les systemes de contenu, la logique de consentement et les decisions pratiques derriere des catalogues et des plateformes en production.",
+                  "Textes courts sur l'architecture, les systèmes de contenu, la logique de consentement et les décisions pratiques derrière des catalogues et des plateformes en production.",
               openArchiveCta: "Voir l'archive",
               writingLabel: 'Note',
               publishedSeparator: '·',
               contactLabel: 'Contact',
               startConversationCta: 'Prendre contact',
-              proofPackLabel: 'References',
+              proofPackLabel: 'Références',
               heroChipCommerceLabel: 'Sites marchands',
               heroChipFrameworkLabel: 'Laravel',
               heroChipSeoLabel: 'Catalogue et SEO',

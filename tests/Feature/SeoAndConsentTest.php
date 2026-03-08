@@ -48,7 +48,7 @@ class SeoAndConsentTest extends TestCase
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
-            ->assertSee('Bootstrap du repository pour un portfolio pilote par les specs | Sidewalk Studio');
+            ->assertSee('Bootstrap du repository pour un portfolio piloté par les specs | Sidewalk Studio');
     }
 
     public function test_labs_page_ships_embed_placeholder_without_loading_third_party_iframe(): void

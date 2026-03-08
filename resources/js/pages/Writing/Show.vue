@@ -39,16 +39,16 @@ const copy = computed(() =>
         ? {
               backCta: 'Retour aux notes',
               eyebrow: 'Note',
-              editorialLabel: 'Note editoriale',
-              taggedThreadsLabel: `${props.item.tags.length} fils etiquetes`,
-              dividerLabel: 'Entree',
-              entryFrameLabel: "Cadre d'entree",
+              editorialLabel: 'Note éditoriale',
+              taggedThreadsLabel: `${props.item.tags.length} fils étiquetés`,
+              dividerLabel: 'Entrée',
+              entryFrameLabel: "Cadre d'entrée",
               continueLabel: 'Poursuivre le fil',
               continueDescription:
-                  "Les cas clients montrent comment les memes choix d'architecture se comportent sous pression de livraison et contraintes parties prenantes.",
+                  "Les cas clients montrent comment les mêmes choix d'architecture se comportent sous pression de livraison et contraintes parties prenantes.",
               caseStudiesCta: 'Ouvrir cas clients',
               contactCta: 'Contact',
-              publishedLabel: 'Publie',
+              publishedLabel: 'Publié',
               updatedLabel: 'Maj',
               readLabel: 'Lecture',
           }

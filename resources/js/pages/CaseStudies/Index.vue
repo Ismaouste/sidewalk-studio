@@ -35,16 +35,16 @@ const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               eyebrow: 'Cas clients',
-              title: 'Decisions detaillees derriere la premiere release Sidewalk Studio.',
+              title: 'Décisions détaillées derrière la première release Sidewalk Studio.',
               description:
-                  "Walkthroughs structures du bootstrap repository, de l'orchestration du consentement et des choix d'architecture SEO.",
+                  "Walkthroughs structurés du bootstrap repository, de l'orchestration du consentement et des choix d'architecture SEO.",
               projectsCta: 'Voir pistes projet',
               contactCta: 'Discuter un build similaire',
               reviewLabel: 'Format revue technique',
               publicSlicesLabel: `${props.items.length} tranches publiques`,
               dividerLabel: 'Archive cas clients',
               internalBuildLabel: 'Build interne',
-              publishedLabel: 'Publie',
+              publishedLabel: 'Publié',
               stackLabel: 'Stack',
               toolsSuffix: 'outils',
           }

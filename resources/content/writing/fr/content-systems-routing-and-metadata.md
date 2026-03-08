@@ -1,7 +1,7 @@
 ---
-title: Les systemes de contenu commencent par le routage et les metadonnees
+title: Les systèmes de contenu commencent par le routage et les métadonnées
 slug: content-systems-routing-and-metadata
-summary: Une note courte sur le fait qu'une publication en Markdown ne devient utile qu'une fois les slugs, les metadonnees et l'etat de publication modeles explicitement.
+summary: Une note courte sur le fait qu'une publication en Markdown ne devient utile qu'une fois les slugs, les métadonnées et l'état de publication modélisés explicitement.
 status: published
 published_at: 2026-03-07
 updated_at: 2026-03-07
@@ -9,18 +9,18 @@ tags:
     - content
     - seo
     - laravel
-seo_title: Les systemes de contenu commencent par le routage et les metadonnees
-seo_description: Le Markdown n'est que la couche de stockage. Le vrai systeme commence avec le routage, l'etat de publication et la discipline metadata.
+seo_title: Les systèmes de contenu commencent par le routage et les métadonnées
+seo_description: Le Markdown n'est que la couche de stockage. Le vrai système commence avec le routage, l'état de publication et la discipline metadata.
 ---
 
 Le Markdown est la partie facile.
 
-La partie difficile consiste a decider ce qui rend un contenu publiable. Pour Sidewalk Studio, cette base repose sur un frontmatter explicite : titre, slug, resume, etat de publication, dates, tags et metadonnees SEO.
+La partie difficile consiste à décider ce qui rend un contenu publiable. Pour Sidewalk Studio, cette base repose sur un frontmatter explicite : titre, slug, résumé, état de publication, dates, tags et métadonnées SEO.
 
-Cette decision permet a l'application de faire trois choses de maniere sure :
+Cette décision permet à l'application de faire trois choses de manière sûre :
 
-- rejeter tot les documents incomplets
+- rejeter tôt les documents incomplets
 - exposer des URLs stables pour le sitemap et les canoniques
-- separer le contenu brouillon du contenu public sans infrastructure supplementaire
+- séparer le contenu brouillon du contenu public sans infrastructure supplémentaire
 
-Un fichier de contenu n'est pas seulement du texte. C'est un contrat entre l'intention editoriale et le comportement applicatif.
+Un fichier de contenu n'est pas seulement du texte. C'est un contrat entre l'intention éditoriale et le comportement applicatif.

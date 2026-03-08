@@ -239,7 +239,7 @@ class SiteController extends Controller
                 'href' => route('career.cv.download', 'en'),
             ],
             [
-                'label' => $isFrench ? 'CV francais' : 'Download CV (FR)',
+                'label' => $isFrench ? 'CV français' : 'Download CV (FR)',
                 'href' => route('career.cv.download', 'fr'),
             ],
         ];

@@ -53,7 +53,7 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              projectsCta: 'Voir les references',
+              projectsCta: 'Voir les références',
               contactCta: 'Prendre contact',
               currentPositioningLabel: 'Positionnement',
               positioningLabel: 'Comment je travaille maintenant',
@@ -64,16 +64,16 @@ const copy = computed(() =>
               strengthsLabel: 'Forces et environnements',
               strengthsWorkingStyleLabel: 'Forces et style de travail',
               stackEnvironmentsLabel: 'Stack et environnements',
-              publicProofLabel: 'References',
+              publicProofLabel: 'Références',
               publicProofSummary:
-                  "Cas clients et notes publiques montrent comment le travail se traduit en decisions d'architecture, de SEO technique, de structure catalogue et de livraison.",
+                  "Cas clients et notes publiques montrent comment le travail se traduit en décisions d'architecture, de SEO technique, de structure catalogue et de livraison.",
               caseStudiesLabel: 'Cas clients',
               writingLabel: 'Notes',
               openArchiveCta: 'Voir les notes',
               quickHandoffLabel: 'Lecture rapide',
               quickHandoffSummary:
-                  "Si quelqu'un doit cerner le profil rapidement, les CV, les roles cibles et la page contact donnent deja assez de matiere pour avancer sans premier echange flou.",
-              recruiterSnapshotLabel: 'Repere recruteur',
+                  "Si quelqu'un doit cerner le profil rapidement, les CV, les rôles cibles et la page contact donnent déjà assez de matière pour avancer sans premier échange flou.",
+              recruiterSnapshotLabel: 'Repère recruteur',
               whatLookingForLabel: 'Ce que je recherche',
               writingCta: 'Notes',
               caseStudiesCta: 'Cas clients',

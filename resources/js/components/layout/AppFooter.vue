@@ -10,9 +10,9 @@ const page = usePage<{ site: SiteProps }>();
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              dataLabel: 'Traitement des donnees',
+              dataLabel: 'Traitement des données',
               contactLabel: 'Contact direct',
-              themeLabel: 'Theme',
+              themeLabel: 'Thème',
               consentNote:
                   'Analytics et heatmaps doivent rester opt-in explicite.',
           }

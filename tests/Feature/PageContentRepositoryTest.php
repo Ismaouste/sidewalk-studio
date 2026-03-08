@@ -27,11 +27,11 @@ class PageContentRepositoryTest extends TestCase
 
         $this->assertSame('Parcours', $page['seo_title']);
         $this->assertSame(
-            'Un parcours faconne par les systemes complexes.',
+            'Un parcours façonné par les systèmes complexes.',
             $page['hero']['title'],
         );
         $this->assertSame(
-            'Repere recruteur',
+            'Repère recruteur',
             $page['career_snapshot']['title'],
         );
     }
