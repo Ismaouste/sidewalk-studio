@@ -8,7 +8,7 @@ hero:
 form:
     eyebrow: Partager le contexte
     title: Un premier message simple, et la conversation peut commencer.
-    summary: Quelques lignes sur le contexte, le besoin ou l'envie d'échanger suffisent. Le formulaire reste volontairement léger pour garder ce premier contact clair, direct et agréable.
+    summary: Quelques lignes sur le contexte, le besoin ou l'envie d'échanger suffisent. Le formulaire prépare simplement un message WhatsApp propre et direct.
     name_label: Nom
     name_placeholder: Votre nom
     email_label: Email
@@ -17,8 +17,8 @@ form:
     company_placeholder: Marque, produit ou équipe
     summary_label: Brief projet
     summary_placeholder: Contexte, calendrier, priorités, et ce que vous aimeriez voir prendre forme.
-    summary_meta: Rester bref. Le message est enregistré tel quel dans le back-office.
-    primary_cta: Envoyer le message
+    summary_meta: Rester bref. Le message sera repris dans WhatsApp pour continuer directement.
+    primary_cta: Ouvrir WhatsApp
     secondary_cta: Écrire un mail
 details:
     eyebrow: Détails

@@ -39,7 +39,7 @@ Route::get('/cv/{locale}', [SiteController::class, 'downloadCv'])
     ->whereIn('locale', ['en', 'fr'])
     ->name('career.cv.download');
 
-Route::prefix('admin')->name('admin.')->group(function (): void {
+Route::prefix('admin')->name('admin.')->middleware('admin.enabled')->group(function (): void {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])
         ->middleware('throttle:6,1')

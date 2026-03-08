@@ -13,6 +13,16 @@ class AdminAuditLogTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config([
+            'site.settings_source' => 'database',
+            'site.admin_enabled' => true,
+        ]);
+    }
+
     public function test_guest_is_redirected_from_admin_audit_log(): void
     {
         $this->get('/admin/audit-log')

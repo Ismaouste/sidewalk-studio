@@ -9,13 +9,13 @@ class PublicPagesTest extends TestCase
     public function test_public_pages_are_reachable(): void
     {
         $pages = [
-            '/' => 'Sidewalk Studio',
-            '/local' => 'Local | Sidewalk Studio',
-            '/projects' => 'Experience | Sidewalk Studio',
-            '/labs' => 'Labs | Sidewalk Studio',
-            '/journal' => 'Journal | Sidewalk Studio',
-            '/case-studies' => 'Case Studies | Sidewalk Studio',
-            '/contact' => 'Contact | Sidewalk Studio',
+            '/' => 'Ismael Rodmacq',
+            '/local' => 'Local | Ismael Rodmacq',
+            '/projects' => 'Experience | Ismael Rodmacq',
+            '/labs' => 'Labs | Ismael Rodmacq',
+            '/journal' => 'Journal | Ismael Rodmacq',
+            '/case-studies' => 'Case Studies | Ismael Rodmacq',
+            '/contact' => 'Contact | Ismael Rodmacq',
         ];
 
         foreach ($pages as $url => $expectedText) {

@@ -8,7 +8,7 @@ hero:
 form:
     eyebrow: Share the context
     title: A simple first message, and the conversation can begin.
-    summary: A few lines about the context, the need, or simply the wish to talk are enough. The form stays intentionally light so this first contact remains clear, direct, and pleasant.
+    summary: A few lines about the context, the need, or simply the wish to talk are enough. The form simply prepares a clean, direct WhatsApp message.
     name_label: Name
     name_placeholder: Your name
     email_label: Email
@@ -17,8 +17,8 @@ form:
     company_placeholder: Brand, product, or team
     summary_label: Project brief
     summary_placeholder: Context, timeline, priorities, and what you would love to bring to life.
-    summary_meta: Keep it short. The message is stored as-is in the back office.
-    primary_cta: Send message
+    summary_meta: Keep it short. The message will open in WhatsApp so the conversation can continue directly.
+    primary_cta: Open WhatsApp
     secondary_cta: Write an email
 details:
     eyebrow: Details

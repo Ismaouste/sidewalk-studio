@@ -42,7 +42,7 @@ class PageContentRepositoryTest extends TestCase
 
         $this->assertSame('Contact', $page['seo_title']);
         $this->assertSame(
-            'Envoyer le message',
+            'Ouvrir WhatsApp',
             $page['form']['primary_cta'],
         );
         $this->assertSame(

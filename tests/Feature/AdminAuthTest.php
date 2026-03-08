@@ -13,6 +13,16 @@ class AdminAuthTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config([
+            'site.settings_source' => 'database',
+            'site.admin_enabled' => true,
+        ]);
+    }
+
     public function test_admin_login_page_is_reachable(): void
     {
         $this->get('/admin/login')
@@ -46,7 +56,7 @@ class AdminAuthTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->component('Admin/Settings/Edit')
-                ->where('settings.site_identity.name', config('site.name')));
+                ->where('settings.site_identity.name', 'Ismael Rodmacq'));
     }
 
     public function test_invalid_admin_login_returns_errors(): void

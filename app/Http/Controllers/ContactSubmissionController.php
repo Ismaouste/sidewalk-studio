@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContactSubmission;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response;
 
 class ContactSubmissionController extends Controller
 {
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): Response|RedirectResponse
     {
         $payload = $request->validate([
             'name' => ['required', 'string', 'max:120'],
@@ -17,20 +18,20 @@ class ContactSubmissionController extends Controller
             'summary' => ['required', 'string', 'min:20', 'max:4000'],
         ]);
 
-        ContactSubmission::query()->create([
-            'locale' => app()->getLocale(),
-            'name' => $payload['name'],
-            'email' => $payload['email'],
-            'company' => $payload['company'] ?: null,
-            'summary' => $payload['summary'],
-            'status' => 'new',
+        $prefix = app()->getLocale() === 'fr'
+            ? "Bonjour Ismaël,%0A%0AVoici un premier message depuis le site :%0A"
+            : "Hello Ismael,%0A%0AHere is a first message from the website:%0A";
+
+        $lines = array_filter([
+            'Name: '.$payload['name'],
+            'Email: '.$payload['email'],
+            $payload['company'] ? 'Company: '.$payload['company'] : null,
+            '',
+            $payload['summary'],
         ]);
 
-        return to_route('contact')->with(
-            'status',
-            app()->getLocale() === 'fr'
-                ? 'Message enregistre. Je pourrai le lire depuis le back-office.'
-                : 'Message saved. I can now review it from the back office.',
+        return Inertia::location(
+            'https://wa.me/33684907698?text='.$prefix.rawurlencode(implode("\n", $lines))
         );
     }
 }

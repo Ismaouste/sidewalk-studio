@@ -12,6 +12,16 @@ class SiteSettingsPublicIntegrationTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config([
+            'site.settings_source' => 'database',
+            'site.admin_enabled' => true,
+        ]);
+    }
+
     public function test_home_page_uses_settings_for_shared_site_props_and_metadata(): void
     {
         SiteSetting::query()->create([

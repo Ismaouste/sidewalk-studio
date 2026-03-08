@@ -17,6 +17,13 @@ class SiteSettingsServiceTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['site.settings_source' => 'database']);
+    }
+
     public function test_it_returns_default_settings_without_persisting_a_row(): void
     {
         $settings = app(SiteSettingsService::class)->current();
@@ -25,7 +32,7 @@ class SiteSettingsServiceTest extends TestCase
         $this->assertInstanceOf(SiteIdentitySettings::class, $settings->siteIdentity);
         $this->assertInstanceOf(ContactDetailsSettings::class, $settings->contactDetails);
         $this->assertInstanceOf(SeoDefaultsSettings::class, $settings->seoDefaults);
-        $this->assertSame(config('site.name'), $settings->siteIdentity->name);
+        $this->assertSame('Ismael Rodmacq', $settings->siteIdentity->name);
         $this->assertSame(config('site.contact.email'), $settings->contactDetails->email);
         $this->assertDatabaseCount('site_settings', 0);
     }

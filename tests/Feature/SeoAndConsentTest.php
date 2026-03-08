@@ -26,7 +26,7 @@ class SeoAndConsentTest extends TestCase
         $this->get('/projects')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertSee('Experience | Sidewalk Studio')
+            ->assertSee('Experience | Ismael Rodmacq')
             ->assertSee('BreadcrumbList', false);
     }
 
@@ -34,7 +34,7 @@ class SeoAndConsentTest extends TestCase
     {
         $this->get('/case-studies/repo-bootstrap-foundation')
             ->assertOk()
-            ->assertSee('Repository Bootstrap for a Spec-Driven Portfolio | Sidewalk Studio')
+            ->assertSee('Repository Bootstrap for a Spec-Driven Portfolio | Ismael Rodmacq')
             ->assertSee('article', false)
             ->assertSee('/content-visuals/case-studies/repo-bootstrap-foundation.svg', false)
             ->assertSee('BreadcrumbList', false);
@@ -49,7 +49,7 @@ class SeoAndConsentTest extends TestCase
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
-            ->assertSee('Bootstrap du repository pour un portfolio piloté par les specs | Sidewalk Studio');
+            ->assertSee('Bootstrap du repository pour un portfolio piloté par les specs | Ismaël Rodmacq');
     }
 
     public function test_labs_page_ships_embed_placeholder_without_loading_third_party_iframe(): void

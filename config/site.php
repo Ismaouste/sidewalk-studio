@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'settings_source' => env('SITE_SETTINGS_SOURCE', 'files'),
+    'admin_enabled' => filter_var(env('SITE_ENABLE_ADMIN', false), FILTER_VALIDATE_BOOL),
     'name' => env('SITE_NAME', 'Sidewalk Studio'),
     'tagline' => env('SITE_TAGLINE', 'Engineering for e-commerce, product data, tracking, and technical SEO.'),
     'description' => env('SITE_DESCRIPTION', 'Engineering for product-data operations, structured data, API and file-based integrations, consent-aware analytics, and readable product architecture in complex Laravel environments.'),
