@@ -23,7 +23,7 @@ const currentUrl = computed(() => page.url);
                             {{ page.props.site.name }}
                         </span>
                         <span class="app-header__tagline">
-                            {{ page.props.site.tagline }}
+                            {{ page.props.site.shell.headerTagline }}
                         </span>
                     </Link>
 

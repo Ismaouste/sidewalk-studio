@@ -77,6 +77,7 @@ class PublicLocale
 
     /**
      * @return array{
+     *     headerTagline: string,
      *     localeSwitcherLabel: string,
      *     navAriaLabel: string,
      *     navMenuLabel: string,
@@ -92,6 +93,7 @@ class PublicLocale
     {
         if ($locale === 'fr') {
             return [
+                'headerTagline' => "Ingenierie web pour l'e-commerce, les catalogues produit, la vie privee et le SEO technique.",
                 'localeSwitcherLabel' => 'Langue',
                 'navAriaLabel' => 'Navigation principale',
                 'navMenuLabel' => 'Menu',
@@ -105,6 +107,7 @@ class PublicLocale
         }
 
         return [
+            'headerTagline' => 'Engineering for e-commerce, product catalogs, privacy, and technical SEO.',
             'localeSwitcherLabel' => 'Language',
             'navAriaLabel' => 'Primary navigation',
             'navMenuLabel' => 'Menu',

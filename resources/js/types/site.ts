@@ -69,6 +69,7 @@ export type SiteProps = {
     author: SiteAuthor;
     contact: SiteContact;
     shell: {
+        headerTagline: string;
         localeSwitcherLabel: string;
         navAriaLabel: string;
         navMenuLabel: string;
