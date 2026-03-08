@@ -2,13 +2,13 @@
 
 return [
     'name' => env('SITE_NAME', 'Sidewalk Studio'),
-    'tagline' => env('SITE_TAGLINE', 'Calm engineering for e-commerce, privacy, and durable products.'),
-    'description' => env('SITE_DESCRIPTION', 'Engineering for maintainability, technical SEO, consent-aware analytics, readable product architecture, and complex Laravel environments.'),
+    'tagline' => env('SITE_TAGLINE', 'Engineering for e-commerce, product catalogs, privacy, and technical SEO.'),
+    'description' => env('SITE_DESCRIPTION', 'Engineering for catalog operations, structured data, technical SEO, consent-aware analytics, and readable product architecture in complex Laravel environments.'),
     'locale' => 'en',
     'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
     'author' => [
         'name' => env('SITE_AUTHOR_NAME', 'Isma'),
-        'job_title' => env('SITE_AUTHOR_TITLE', 'Laravel engineer for e-commerce, privacy, and durable product systems'),
+        'job_title' => env('SITE_AUTHOR_TITLE', 'Laravel engineer for e-commerce, catalog operations, privacy, and technical SEO'),
         'email' => env('SITE_CONTACT_EMAIL', 'hello@sidewalk-studio.test'),
         'same_as' => array_values(array_filter(array_map(
             'trim',

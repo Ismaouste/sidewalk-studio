@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
@@ -50,58 +49,63 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              projectsCta: 'Voir preuves',
+              projectsCta: 'Voir les references',
               experienceCta: 'Lire le parcours',
-              contactCta: 'Entrer en contact',
+              contactCta: 'Prendre contact',
               currentFrameLabel: 'Cadre actuel',
               heroPanelTitle:
-                  'Maintenabilite et preuve dans des environnements qui ont deja une histoire.',
+                  'Catalogues, SEO technique et architecture produit dans des environnements qui ont deja une histoire.',
               whatIDoLabel: 'Ce que je fais',
               focusEyebrow: 'Focus',
               focusTitle:
-                  'Une pratique lisible dans des environnements complexes.',
+                  'Un positionnement net dans des environnements complexes.',
               focusDescription:
-                  'Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privee et besoin de garder les systemes comprehensibles apres mise en prod.',
-              selectedWorkLabel: 'Preuves publiques',
-              projectsEyebrow: 'Projets',
-              projectsTitle:
-                  "Tranches de projet et preuves d'implementation selectionnees.",
+                  "Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privee et besoin de garder des systemes comprehensibles apres mise en production.",
+              selectedWorkLabel: 'References',
+              projectsEyebrow: 'References',
+              projectsTitle: 'Quelques references choisies.',
               projectsDescription:
-                  'Un petit ensemble de cas clients publics qui montrent comment architecture, maintenabilite et decisions de livraison se traduisent en pratique.',
-              openProjectsCta: 'Ouvrir projets',
-              internalBuildLabel: 'Build interne',
+                  "Des cas publics compacts pour montrer comment architecture, catalogue, SEO technique et decisions de livraison se traduisent en pratique.",
+              openProjectsCta: 'Voir les references',
+              internalBuildLabel: 'Interne',
               localGroundLabel: 'Ancrage local',
+              localEyebrow: 'Ancrage local',
               readLocalPageCta: 'Lire la page locale',
               notesLabel: 'Notes',
               writingEyebrow: 'Notes',
-              writingTitle: 'Notes issues de la construction du systeme',
+              writingTitle: 'Notes de travail et de construction',
               writingDescription:
-                  "Pieces courtes sur l'architecture, les systemes de contenu, la logique de consentement et les decisions pratiques derriere des produits durables.",
-              openArchiveCta: "Ouvrir l'archive",
+                  "Textes courts sur l'architecture, les systemes de contenu, la logique de consentement et les decisions pratiques derriere des catalogues et des plateformes en production.",
+              openArchiveCta: "Voir l'archive",
               writingLabel: 'Note',
               publishedSeparator: '·',
               contactLabel: 'Contact',
-              startConversationCta: 'Commencer la conversation',
-              proofPackLabel: 'CV et preuves',
+              startConversationCta: 'Prendre contact',
+              proofPackLabel: 'References',
+              heroChipCommerceLabel: 'Sites marchands',
+              heroChipFrameworkLabel: 'Laravel',
+              heroChipSeoLabel: 'Catalogue et SEO',
+              signalPrefix: 'Signal',
+              localPointPrefix: 'Point',
           }
         : {
-              projectsCta: 'View proof',
+              projectsCta: 'Browse references',
               experienceCta: 'Read experience',
               contactCta: 'Start a conversation',
               currentFrameLabel: 'Current frame',
               heroPanelTitle:
-                  'Maintainability and proof in environments that already have history.',
+                  'Catalog quality, technical SEO, and product architecture in environments that already have history.',
               whatIDoLabel: 'What I do',
               focusEyebrow: 'Focus',
               focusTitle: 'A legible practice for complex environments.',
               focusDescription:
                   'The work usually sits between product delivery, legacy modernization, technical SEO, privacy, and the need to keep systems readable after launch.',
-              selectedWorkLabel: 'Selected work',
+              selectedWorkLabel: 'References',
               projectsEyebrow: 'Projects',
               projectsTitle:
-                  'Selected project slices and implementation proof.',
+                  'A few build and implementation references.',
               projectsDescription:
-                  'A small set of public case studies that show how architecture, maintainability, and delivery choices play out in real work.',
+                  'A small set of public case studies that show how architecture, catalog work, technical SEO, and delivery choices play out in real work.',
               openProjectsCta: 'Open projects',
               internalBuildLabel: 'Internal build',
               localGroundLabel: 'Local ground',
@@ -110,13 +114,19 @@ const copy = computed(() =>
               writingEyebrow: 'Writing',
               writingTitle: 'Notes from the system build',
               writingDescription:
-                  'Short pieces about architecture, content systems, consent logic, and the practical decisions behind durable products.',
+                  'Short pieces about architecture, content systems, consent logic, and the practical decisions behind live catalogs and delivery systems.',
               openArchiveCta: 'Open archive',
               writingLabel: 'Writing',
               publishedSeparator: '·',
               contactLabel: 'Contact',
               startConversationCta: 'Start a conversation',
-              proofPackLabel: 'CV and proof pack',
+              proofPackLabel: 'References',
+              heroChipCommerceLabel: 'E-commerce',
+              heroChipFrameworkLabel: 'Laravel',
+              heroChipSeoLabel: 'Catalogs and SEO',
+              localEyebrow: 'Local',
+              signalPrefix: 'Signal',
+              localPointPrefix: 'Point',
           },
 );
 </script>
@@ -140,9 +150,29 @@ const copy = computed(() =>
                         </Button>
                     </template>
 
-                    <LegendChip label="E-commerce" tone="dominant" />
-                    <LegendChip label="Laravel" tone="green" />
-                    <LegendChip label="Privacy-aware systems" tone="sun" />
+                    <div class="home-accent-list">
+                        <span class="type-nav home-accent home-tone--dominant">
+                            {{
+                                page.props.site.locale === 'fr'
+                                    ? copy.heroChipCommerceLabel
+                                    : 'E-commerce'
+                            }}
+                        </span>
+                        <span class="type-nav home-accent home-tone--green">
+                            {{
+                                page.props.site.locale === 'fr'
+                                    ? copy.heroChipFrameworkLabel
+                                    : 'Laravel'
+                            }}
+                        </span>
+                        <span class="type-nav home-accent home-tone--sun">
+                            {{
+                                page.props.site.locale === 'fr'
+                                    ? copy.heroChipSeoLabel
+                                    : 'Catalogs and SEO'
+                            }}
+                        </span>
+                    </div>
                 </SectionIntro>
 
                 <Panel class="home-hero__panel" tone="grid">
@@ -156,10 +186,14 @@ const copy = computed(() =>
                             :key="highlight"
                             class="home-hero__highlight"
                         >
-                            <LegendChip
-                                :label="`Signal 0${index + 1}`"
-                                :tone="heroPanelTones[index] ?? 'violet'"
-                            />
+                            <span
+                                class="type-nav home-accent"
+                                :class="`home-tone--${heroPanelTones[index] ?? 'violet'}`"
+                            >
+                                {{
+                                    `${page.props.site.locale === 'fr' ? copy.signalPrefix : 'Signal'} 0${index + 1}`
+                                }}
+                            </span>
                             <p class="type-body-sm home-hero__highlight-copy">
                                 {{ highlight }}
                             </p>
@@ -187,7 +221,12 @@ const copy = computed(() =>
                     class="home-focus-card"
                     tone="surface"
                 >
-                    <LegendChip :label="focus.label" :tone="focus.tone" />
+                    <p
+                        class="type-nav home-focus-card__label"
+                        :class="`home-tone--${focus.tone}`"
+                    >
+                        {{ focus.label }}
+                    </p>
                     <h2 class="type-h2 home-focus-card__title">
                         {{ focus.title }}
                     </h2>
@@ -223,10 +262,9 @@ const copy = computed(() =>
                     class="home-card-link"
                 >
                     <Panel class="home-card" tone="surface">
-                        <LegendChip
-                            :label="item.client || copy.internalBuildLabel"
-                            tone="green"
-                        />
+                        <p class="type-nav home-card__eyebrow home-tone--green">
+                            {{ item.client || copy.internalBuildLabel }}
+                        </p>
                         <h3 class="type-h2 home-card__title">
                             {{ item.title }}
                         </h3>
@@ -255,7 +293,11 @@ const copy = computed(() =>
         <section class="sw-section home-section">
             <div class="home-section__header">
                 <SectionIntro
-                    eyebrow="Local"
+                    :eyebrow="
+                        page.props.site.locale === 'fr'
+                            ? copy.localEyebrow
+                            : 'Local'
+                    "
                     :title="props.localTeaser.title"
                     :description="props.localTeaser.summary"
                 />
@@ -271,10 +313,14 @@ const copy = computed(() =>
                         :key="point"
                         class="home-local__point"
                     >
-                        <LegendChip
-                            :label="`Point 0${index + 1}`"
-                            :tone="heroPanelTones[index] ?? 'violet'"
-                        />
+                        <span
+                            class="type-nav home-accent"
+                            :class="`home-tone--${heroPanelTones[index] ?? 'violet'}`"
+                        >
+                            {{
+                                `${page.props.site.locale === 'fr' ? copy.localPointPrefix : 'Point'} 0${index + 1}`
+                            }}
+                        </span>
                         <p class="type-body-sm home-local__copy">
                             {{ point }}
                         </p>
@@ -306,10 +352,9 @@ const copy = computed(() =>
                 >
                     <Panel class="home-writing-card" tone="surface">
                         <div class="home-writing-card__meta">
-                            <LegendChip
-                                :label="copy.writingLabel"
-                                tone="violet"
-                            />
+                            <span class="type-nav home-accent home-tone--violet">
+                                {{ copy.writingLabel }}
+                            </span>
                             <span class="type-meta">
                                 {{ item.published_at }}
                                 {{ copy.publishedSeparator }}
@@ -383,6 +428,38 @@ const copy = computed(() =>
     padding: clamp(18px, 2.8vw, var(--sw-space-sm));
 }
 
+.home-accent-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.9rem;
+}
+
+.home-accent,
+.home-focus-card__label,
+.home-card__eyebrow {
+    width: fit-content;
+}
+
+.home-tone--dominant {
+    color: var(--sw-accent-dominant);
+}
+
+.home-tone--green {
+    color: var(--sw-accent-green);
+}
+
+.home-tone--sun {
+    color: var(--sw-accent-sun);
+}
+
+.home-tone--coral {
+    color: var(--sw-accent-coral);
+}
+
+.home-tone--violet {
+    color: var(--sw-accent-violet);
+}
+
 .home-hero__panel-title,
 .home-focus-card__title,
 .home-card__title,
@@ -436,7 +513,7 @@ const copy = computed(() =>
 
 .home-section {
     display: grid;
-    gap: var(--sw-space-sm);
+    gap: var(--sw-space-xs);
 }
 
 .home-section__header {
@@ -523,10 +600,8 @@ const copy = computed(() =>
 .home-card__tag {
     display: inline-flex;
     align-items: center;
-    min-height: 1.75rem;
-    border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-grid) 76%, transparent);
-    padding-inline: var(--sw-space-2xs);
+    min-height: 1.35rem;
+    color: var(--sw-accent-dominant);
 }
 
 .home-writing-card__meta {

@@ -14,3 +14,7 @@ An internal registry connects those tools to future scripts and embeds.
 
 Analytics stays on the `none` driver in v0.
 The architecture is ready for real drivers later, but the public site does not load Matomo or PostHog yet.
+
+The public footer is the stable manual entry point to reopen consent
+preferences. If optional consent tooling is blocked client-side, the rest of
+the app must still render normally.

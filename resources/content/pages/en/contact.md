@@ -3,12 +3,12 @@ seo_title: Contact
 seo_description: Preferred collaboration channels for privacy, SEO, and Laravel modernization work.
 hero:
     eyebrow: Contact
-    title: Privacy, SEO, and Laravel modernization conversations.
-    summary: Open to lead developer, freelance modernization, architecture review, and recruiter conversations when an existing product needs steadier engineering.
+    title: Technical SEO, product catalog, and Laravel modernization conversations.
+    summary: Open to lead developer, freelance modernization, architecture review, and recruiter conversations when an existing product needs clearer engineering.
 form:
-    eyebrow: Draft your note
-    title: Share the context before you open your mail client.
-    summary: This keeps the page backend-free while still giving you a cleaner way to structure the first message for a role, a freelance brief, or an architecture review.
+    eyebrow: Share the context
+    title: Send a readable message without relying on a third-party form service.
+    summary: The form stores the inquiry in the site database so it can be reviewed from the back office. That is enough for a first contact, a freelance brief, or an architecture review.
     name_label: Name
     name_placeholder: Your name
     email_label: Email
@@ -17,8 +17,8 @@ form:
     company_placeholder: Brand, product, or team
     summary_label: Project brief
     summary_placeholder: Scope, constraints, timeline, and what is currently painful.
-    summary_meta: Keep it short. The button below opens a drafted email with these details.
-    primary_cta: Compose email
+    summary_meta: Keep it short. The message is stored as-is in the back office.
+    primary_cta: Send message
     secondary_cta: Email directly
 details:
     eyebrow: Details
@@ -28,9 +28,10 @@ details:
 services:
     eyebrow: Where I can help
     items:
-        - Platform stabilization, legacy recovery, and calmer delivery on systems with history.
+        - Platform stabilization, legacy recovery, and clearer delivery on systems with history.
+        - Structured data, technical SEO, Google Merchant Center, and catalog hygiene for commerce surfaces.
         - Consent-safe analytics, embed architecture, and privacy-aware product decisions.
-        - SEO, metadata, and content-model foundations for editorial or commerce surfaces.
+        - SEO, metadata, routing, and content-model foundations for editorial or commerce surfaces.
 recruiter_shortcut:
     eyebrow: Recruiter shortcut
     summary: If you need a faster handoff than a first call, the current English and French CVs are available here together with a clearer picture of role fit.

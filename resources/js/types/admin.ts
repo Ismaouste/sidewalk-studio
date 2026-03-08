@@ -16,3 +16,15 @@ export type AdminAuditLogEntry = {
     };
     created_at: string | null;
 };
+
+export type ContactSubmissionEntry = {
+    id: number;
+    locale: string;
+    name: string;
+    email: string;
+    company: string | null;
+    summary: string;
+    status: string;
+    created_at: string | null;
+    read_at: string | null;
+};

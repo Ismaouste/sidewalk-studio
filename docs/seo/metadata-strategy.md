@@ -28,6 +28,10 @@ Binary download endpoints such as `/cv/en` and `/cv/fr` are public utility
 routes, not indexable editorial pages. They should stay out of page-level
 metadata flows and return explicit `X-Robots-Tag` headers instead.
 
+The `/data-processing` page follows the same utility rule. It is publicly
+linked from the footer, but should remain `noindex,nofollow` rather than
+joining the editorial discovery surface.
+
 Public page content can now negotiate between English and French on the same
 canonical URLs. The locale policy is request-scoped and must not create
 duplicate route trees, `hreflang` output, or alternate canonical paths until a

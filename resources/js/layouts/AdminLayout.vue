@@ -13,6 +13,11 @@ type AdminPageProps = {
 const page = usePage<AdminPageProps>();
 const navigation = [
     {
+        label: 'Inbox',
+        href: '/admin/contact-submissions',
+        note: 'Messages stored from the public contact form',
+    },
+    {
         label: 'Settings',
         href: '/admin/settings',
         note: 'Bounded runtime configuration',

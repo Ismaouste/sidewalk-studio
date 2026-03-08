@@ -4,10 +4,10 @@ seo_description: Professional trajectory across e-commerce, Laravel, technical S
 hero:
     eyebrow: Experience
     title: Laravel, e-commerce, technical SEO, and privacy-aware product systems.
-    summary: I work where delivery pressure, maintainability, legacy modernization, technical SEO, and product credibility all have to coexist without drama.
+    summary: I work where delivery pressure, catalog quality, legacy modernization, technical SEO, and product credibility all have to coexist without becoming separate workstreams.
 positioning:
-    - I am most useful on established products and commerce platforms that already matter to a business and need calmer engineering rather than a theatrical reset.
-    - The role usually combines implementation, architecture, and translation between product constraints, technical SEO, privacy, consent-aware analytics, catalog flows, and long-term maintainability.
+    - I am most useful on established products and commerce platforms that already matter to a business and need steadier engineering rather than a theatrical reset.
+    - The role usually combines implementation, architecture, and translation between product constraints, technical SEO, privacy, consent-aware analytics, catalog flows, PIM concerns, and long-term maintainability.
 contexts:
     - Revenue-critical e-commerce stacks with real operational memory.
     - Laravel and PHP systems that need incremental legacy modernization instead of a rewrite theater cycle.
@@ -15,7 +15,7 @@ contexts:
 trajectory:
     - title: Commerce platforms under pressure
       summary: Worked in environments where releases, checkout flows, catalog quality, search visibility, and operational stability were tightly coupled. That is where I learned to prefer careful system design over abstract purity.
-    - title: Laravel as a durable delivery layer
+    - title: Laravel as a reliable delivery layer
       summary: Used Laravel to bring clearer boundaries, safer refactors, and more readable internal conventions to products that had already accumulated business-critical complexity.
     - title: Documentation as part of implementation
       summary: Turned architectural decisions into public-facing specs, notes, and internal references so maintainability would survive team changes, recruiter handoff, and future delivery rounds.
@@ -57,5 +57,5 @@ career_snapshot:
         - Laravel lead developer
         - E-commerce tech lead
         - Product-minded full-stack engineer
-looking_for: I am currently most interested in product, commerce, or editorial systems that already exist, already matter, and need steadier engineering, clearer architecture, and a more durable technical foundation than the team can get from implementation throughput alone.
+looking_for: I am currently most interested in product, commerce, or editorial systems that already exist, already matter, and need steadier engineering, clearer architecture, and a more solid technical foundation than the team can get from implementation throughput alone.
 ---

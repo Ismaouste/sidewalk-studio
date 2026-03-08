@@ -52,7 +52,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.eyebrow', "Pratique d'ingenierie calme")
+                ->where('hero.eyebrow', 'E-commerce, catalogue et SEO technique')
                 ->where('site.locale', 'fr'));
     }
 
@@ -64,7 +64,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
-                ->where('hero.title', 'Conversations autour de la vie privee, du SEO et de la modernisation Laravel.')
+                ->where('hero.title', "Echanges autour du SEO technique, des catalogues produit et de la modernisation Laravel.")
                 ->where('site.languageSwitcher.visible', true));
     }
 

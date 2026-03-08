@@ -183,6 +183,31 @@ class SiteController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
+    public function dataProcessing(): Response
+    {
+        $page = $this->pages->get('data-processing');
+        $seo = Seo::page(
+            $page['seo_title'],
+            $page['seo_description'],
+            '/data-processing',
+            [
+                'breadcrumb' => [
+                    ['name' => 'Home', 'path' => '/'],
+                    ['name' => 'Data processing', 'path' => '/data-processing'],
+                ],
+                'robots' => 'noindex,nofollow',
+            ],
+        );
+
+        return Inertia::render('DataProcessing', [
+            'seo' => $seo,
+            'hero' => $page['hero'],
+            'storage' => $page['storage'],
+            'consent' => $page['consent'],
+            'operator' => $page['operator'],
+        ])->withViewData(['seo' => $seo]);
+    }
+
     public function downloadCv(string $locale): BinaryFileResponse
     {
         abort_unless(in_array($locale, ['en', 'fr'], true), 404);

@@ -24,14 +24,14 @@ function openPreferences() {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.75rem;
+    min-height: 2.45rem;
     gap: var(--sw-space-3xs);
     border: 1px solid var(--sw-border);
     border-radius: var(--sw-radius-full);
     background: transparent;
-    padding-inline: 1rem;
+    padding-inline: 0.85rem;
     font-family: var(--sw-font-body);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--sw-text-primary);
     transition:

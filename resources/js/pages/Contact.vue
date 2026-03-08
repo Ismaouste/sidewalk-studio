@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3';
-import { computed, reactive } from 'vue';
+import { useForm, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
@@ -9,9 +9,9 @@ import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { SeoPayload, SiteContact, SiteProps } from '@/types';
+import type { FlashProps, SeoPayload, SiteContact, SiteProps } from '@/types';
 
-const page = usePage<{ site: SiteProps }>();
+const page = usePage<{ site: SiteProps; flash: FlashProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -59,7 +59,7 @@ const props = defineProps<{
 
 const serviceTones = ['dominant', 'green', 'coral'] as const;
 
-const inquiry = reactive({
+const inquiry = useForm({
     name: '',
     email: '',
     company: '',
@@ -70,26 +70,26 @@ const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               experienceCta: 'Lire le parcours',
-              dividerLabel: 'Commencer la conversation',
-              privacyChipLabel: 'Missions privacy-first',
+              dividerLabel: 'Prendre contact',
+              privacyChipLabel: 'Consentement et vie privee',
               baseChipLabel: `Base ${props.contact.location}`,
               baseLabel: 'Base',
               availabilityLabel: 'Disponibilite',
-              subjectPrefix: 'Echange Sidewalk Studio',
+              subjectPrefix: 'Prise de contact Sidewalk Studio',
               bodyNameLabel: 'Nom',
               bodyEmailLabel: 'Email',
               bodyCompanyLabel: 'Entreprise ou produit',
               bodyBriefFallback: 'Brief projet :',
-              servicePrefix: 'Fit',
-              recruiterFitLabel: 'Fits cibles',
+              servicePrefix: 'Sujet',
+              recruiterFitLabel: 'Roles cibles',
               recruiterFitRoles: [
                   'Lead developer Laravel',
                   'Tech lead e-commerce',
-                  'Ingenieur full-stack oriente produit',
+                  'Ingenieur full stack oriente produit',
               ],
-              recruiterDecisionLabel: 'Bon format pour',
+              recruiterDecisionLabel: 'Pertinent pour',
               recruiterDecisionCopy:
-                  "Recrutement, mise en relation rapide, audit d'architecture, modernisation freelance ou reprise d'une plateforme deja critique pour le business.",
+                  "Recrutement, mise en relation rapide, revue d'architecture, reprise de plateforme ou mission freelance sur un produit deja en charge.",
               cvLabel: 'CV',
           }
         : {
@@ -129,6 +129,8 @@ const inquiryMeta = computed(() => [
     },
 ]);
 
+const statusMessage = computed(() => page.props.flash?.status ?? null);
+
 const mailtoHref = computed(() => {
     const subjectBase = inquiry.company.trim()
         ? `${copy.value.subjectPrefix}: ${inquiry.company.trim()}`
@@ -149,6 +151,12 @@ const mailtoHref = computed(() => {
         subjectBase,
     )}&body=${encodeURIComponent(lines.join('\n'))}`;
 });
+
+function submitInquiry(): void {
+    inquiry.post('/contact', {
+        preserveScroll: true,
+    });
+}
 </script>
 
 <template>
@@ -178,6 +186,13 @@ const mailtoHref = computed(() => {
 
             <div class="contact-page__grid">
                 <Panel class="contact-page__form-panel" tone="surface">
+                    <p
+                        v-if="statusMessage"
+                        class="type-body-sm contact-page__status"
+                    >
+                        {{ statusMessage }}
+                    </p>
+
                     <div class="contact-page__form-intro">
                         <p class="type-eyebrow">{{ props.form.eyebrow }}</p>
                         <h2 class="type-h2 contact-page__panel-title">
@@ -188,7 +203,7 @@ const mailtoHref = computed(() => {
                         </p>
                     </div>
 
-                    <form class="contact-page__form" @submit.prevent>
+                    <form class="contact-page__form" @submit.prevent="submitInquiry">
                         <label class="contact-page__field">
                             <span class="type-nav">
                                 {{ props.form.name_label }}
@@ -201,6 +216,12 @@ const mailtoHref = computed(() => {
                                 autocomplete="name"
                                 :placeholder="props.form.name_placeholder"
                             />
+                            <span
+                                v-if="inquiry.errors.name"
+                                class="type-meta contact-page__error"
+                            >
+                                {{ inquiry.errors.name }}
+                            </span>
                         </label>
 
                         <label class="contact-page__field">
@@ -215,6 +236,12 @@ const mailtoHref = computed(() => {
                                 autocomplete="email"
                                 :placeholder="props.form.email_placeholder"
                             />
+                            <span
+                                v-if="inquiry.errors.email"
+                                class="type-meta contact-page__error"
+                            >
+                                {{ inquiry.errors.email }}
+                            </span>
                         </label>
 
                         <label class="contact-page__field">
@@ -229,6 +256,12 @@ const mailtoHref = computed(() => {
                                 autocomplete="organization"
                                 :placeholder="props.form.company_placeholder"
                             />
+                            <span
+                                v-if="inquiry.errors.company"
+                                class="type-meta contact-page__error"
+                            >
+                                {{ inquiry.errors.company }}
+                            </span>
                         </label>
 
                         <label
@@ -244,6 +277,12 @@ const mailtoHref = computed(() => {
                                 rows="6"
                                 :placeholder="props.form.summary_placeholder"
                             />
+                            <span
+                                v-if="inquiry.errors.summary"
+                                class="type-meta contact-page__error"
+                            >
+                                {{ inquiry.errors.summary }}
+                            </span>
                             <span class="type-meta contact-page__field-meta">
                                 {{ props.form.summary_meta }}
                             </span>
@@ -251,7 +290,11 @@ const mailtoHref = computed(() => {
                     </form>
 
                     <div class="contact-page__form-actions">
-                        <Button :href="mailtoHref">
+                        <Button
+                            type="submit"
+                            :disabled="inquiry.processing"
+                            @click="submitInquiry"
+                        >
                             {{ props.form.primary_cta }}
                         </Button>
                         <Button
@@ -436,6 +479,19 @@ const mailtoHref = computed(() => {
 
 .contact-page__field-meta {
     color: var(--sw-text-muted);
+}
+
+.contact-page__status {
+    margin: 0;
+    border: 1px solid color-mix(in srgb, var(--sw-accent-green) 24%, transparent);
+    border-radius: calc(var(--sw-radius-md) + 2px);
+    background: color-mix(in srgb, var(--sw-accent-green) 8%, transparent);
+    padding: 0.9rem 1rem;
+    color: color-mix(in srgb, var(--sw-accent-green) 88%, var(--sw-text-primary));
+}
+
+.contact-page__error {
+    color: var(--sw-accent-coral);
 }
 
 .contact-page__input {

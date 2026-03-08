@@ -44,17 +44,19 @@ const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               experienceCta: 'Lire le parcours',
-              contactCta: 'Discuter un contexte similaire',
+              contactCta: "Discuter d'un contexte proche",
               trackPrefix: 'Piste',
-              internalBuildLabel: 'Build interne',
+              internalBuildLabel: 'Interne',
               roleLabel: 'Role',
-              outcomesLabel: 'Resultats',
-              outcomesSuffix: 'signaux',
-              proofNotesLabel: 'Notes de contexte',
-              proofNotesTitle: "Les notes publiques derriere l'implementation.",
+              outcomesLabel: 'Points saillants',
+              outcomesSuffix: 'points',
+              proofNotesLabel: 'Notes',
+              proofNotesTitle:
+                  'Les notes qui explicitent le raisonnement.',
               proofNotesSummary:
-                  "Quand un cas client reste volontairement compact, les notes publiques montrent le raisonnement architecture, contenu et SEO qui l'accompagne.",
-              writingArchiveCta: 'Ouvrir les notes',
+                  "Quand un cas client reste volontairement compact, les notes publiques explicitent le raisonnement d'architecture, de contenu, de modele catalogue et de SEO qui l'accompagne.",
+              writingArchiveCta: 'Voir les notes',
+              writingNoteLabel: 'Note',
           }
         : {
               experienceCta: 'Read experience',
@@ -64,11 +66,13 @@ const copy = computed(() =>
               roleLabel: 'Role',
               outcomesLabel: 'Outcomes',
               outcomesSuffix: 'signals',
-              proofNotesLabel: 'Supporting notes',
-              proofNotesTitle: 'Public notes behind the implementation.',
+              proofNotesLabel: 'Associated notes',
+              proofNotesTitle:
+                  'Notes that detail the reasoning behind the build.',
               proofNotesSummary:
-                  'When a case study stays intentionally compact, public notes show the architecture, content, and SEO reasoning that sits behind it.',
+                  'When a case study stays intentionally compact, public notes detail the architecture, content, catalog-modeling, and SEO reasoning that sits behind it.',
               writingArchiveCta: 'Open writing',
+              writingNoteLabel: 'Writing',
           },
 );
 
@@ -203,7 +207,16 @@ function caseStudyMeta(item: ContentItem) {
                     class="projects-page__note-link"
                 >
                     <Panel class="projects-page__note" tone="surface">
-                        <LegendChip label="Writing" tone="violet" />
+                        <LegendChip
+                            v-if="page.props.site.locale === 'fr'"
+                            :label="copy.writingNoteLabel"
+                            tone="violet"
+                        />
+                        <LegendChip
+                            v-else
+                            label="Writing"
+                            tone="violet"
+                        />
                         <h3 class="type-h2 projects-page__case-title">
                             {{ item.title }}
                         </h3>

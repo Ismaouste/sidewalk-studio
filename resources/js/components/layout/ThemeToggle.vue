@@ -2,6 +2,15 @@
 import { computed } from 'vue';
 import { useTheme } from '@/composables/useTheme';
 
+const props = withDefaults(
+    defineProps<{
+        compact?: boolean;
+    }>(),
+    {
+        compact: false,
+    },
+);
+
 const { currentTheme, setTheme } = useTheme();
 
 const options = [
@@ -37,6 +46,7 @@ function handleKeydown(event: KeyboardEvent): void {
 <template>
     <div
         class="theme-toggle"
+        :class="{ 'theme-toggle--compact': props.compact }"
         role="radiogroup"
         aria-label="Color theme"
         @keydown="handleKeydown"
@@ -137,5 +147,15 @@ function handleKeydown(event: KeyboardEvent): void {
         flex: 1;
         min-width: 0;
     }
+}
+
+.theme-toggle--compact {
+    min-height: 2.45rem;
+}
+
+.theme-toggle--compact .theme-toggle__option {
+    min-width: 4.4rem;
+    min-height: calc(2.45rem - 6px);
+    font-size: 9px;
 }
 </style>

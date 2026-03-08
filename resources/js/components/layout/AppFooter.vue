@@ -1,10 +1,28 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
+import ThemeToggle from '@/components/layout/ThemeToggle.vue';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
+const copy = computed(() =>
+    page.props.site.locale === 'fr'
+        ? {
+              dataLabel: 'Traitement des donnees',
+              contactLabel: 'Contact direct',
+              themeLabel: 'Theme',
+              consentNote:
+                  'Analytics et heatmaps doivent rester opt-in explicite.',
+          }
+        : {
+              dataLabel: 'Data processing',
+              contactLabel: 'Direct contact',
+              themeLabel: 'Theme',
+              consentNote: 'Analytics and heatmaps must remain explicit opt-in.',
+          },
+);
 </script>
 
 <template>
@@ -18,21 +36,49 @@ const page = usePage<{ site: SiteProps }>();
                     <p class="app-footer__note">
                         {{ page.props.site.shell.footerNote }}
                     </p>
+                    <p class="type-meta app-footer__consent-note">
+                        {{ copy.consentNote }}
+                    </p>
                 </div>
 
                 <div class="app-footer__actions">
-                    <div class="app-footer__contact">
+                    <div class="app-footer__links">
                         <a
                             class="app-footer__link"
                             :href="`mailto:${page.props.site.contact.email}`"
                         >
-                            {{ page.props.site.contact.email }}
+                            {{ copy.contactLabel }}
                         </a>
-                        <span class="type-meta app-footer__location">
-                            {{ page.props.site.contact.location }}
-                        </span>
+                        <a
+                            class="app-footer__link"
+                            href="/data-processing"
+                            rel="nofollow"
+                        >
+                            {{ copy.dataLabel }}
+                        </a>
                     </div>
-                    <ConsentPreferencesButton />
+
+                    <div class="app-footer__meta">
+                        <div class="app-footer__contact">
+                            <a
+                                class="app-footer__mail"
+                                :href="`mailto:${page.props.site.contact.email}`"
+                            >
+                                {{ page.props.site.contact.email }}
+                            </a>
+                            <span class="type-meta app-footer__location">
+                                {{ page.props.site.contact.location }}
+                            </span>
+                        </div>
+
+                        <div class="app-footer__controls">
+                            <span class="type-nav app-footer__theme-label">
+                                {{ copy.themeLabel }}
+                            </span>
+                            <ThemeToggle compact />
+                            <ConsentPreferencesButton />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,6 +112,7 @@ const page = usePage<{ site: SiteProps }>();
         color-mix(in srgb, var(--sw-bg-surface) 92%, transparent);
     padding: clamp(18px, 2.6vw, var(--sw-space-sm));
     box-shadow: var(--sw-shadow-md);
+    backdrop-filter: blur(18px);
 }
 
 .app-footer__content::after {
@@ -88,62 +135,78 @@ const page = usePage<{ site: SiteProps }>();
     color: var(--sw-text-secondary);
 }
 
+.app-footer__consent-note {
+    margin: 0;
+}
+
 .app-footer__actions {
     display: grid;
     gap: var(--sw-space-xs);
     align-items: start;
 }
 
-.app-footer__contact {
+.app-footer__links,
+.app-footer__contact,
+.app-footer__controls {
     display: flex;
     flex-wrap: wrap;
     gap: var(--sw-space-2xs);
     align-items: center;
 }
 
+.app-footer__meta {
+    display: grid;
+    gap: var(--sw-space-xs);
+}
+
 .app-footer__link {
     display: inline-flex;
     align-items: center;
-    min-height: 2.5rem;
-    border: 1px solid color-mix(in srgb, var(--sw-border) 88%, transparent);
-    border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 78%, transparent);
-    padding-inline: 0.9rem;
+    min-height: 2rem;
+    color: var(--sw-accent-dominant);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+.app-footer__mail {
+    display: inline-flex;
+    align-items: center;
     color: var(--sw-accent-dominant);
     text-decoration: none;
-    box-shadow: var(--sw-shadow-sm);
-    transition:
-        background-color var(--sw-motion-fast),
-        border-color var(--sw-motion-fast),
-        color var(--sw-motion-fast),
-        transform var(--sw-motion-fast);
 }
 
 .app-footer__location {
     display: inline-flex;
     align-items: center;
-    min-height: 2.5rem;
+    min-height: 2rem;
+}
+
+.app-footer__theme-label {
+    color: var(--sw-text-muted);
 }
 
 @media (hover: hover) {
-    .app-footer__link:hover {
-        transform: translateY(-1px);
-        border-color: color-mix(
+    .app-footer__link:hover,
+    .app-footer__mail:hover {
+        color: color-mix(
             in srgb,
-            var(--sw-accent-dominant) 28%,
-            var(--sw-border)
+            var(--sw-accent-dominant) 78%,
+            var(--sw-accent-sun)
         );
-        background: color-mix(in srgb, var(--sw-bg-elevated) 92%, transparent);
     }
 }
 
 @media (min-width: 768px) {
     .app-footer__content {
         grid-template-columns: minmax(0, 1fr) auto;
-        align-items: end;
+        align-items: start;
     }
 
     .app-footer__actions {
+        justify-items: end;
+    }
+
+    .app-footer__meta {
         justify-items: end;
     }
 }

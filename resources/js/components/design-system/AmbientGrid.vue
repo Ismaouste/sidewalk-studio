@@ -6,6 +6,10 @@
 .ambient-grid {
     --grid-columns: 12;
     opacity: 0.9;
+    transform: translate3d(-1.2%, -0.4%, 0) rotate(-1.75deg) scale(1.08);
+    transform-origin: top center;
+    animation: ambient-grid-drift 20s ease-in-out infinite alternate;
+    will-change: transform;
     background-image:
         repeating-linear-gradient(
             90deg,
@@ -27,9 +31,29 @@
     );
 }
 
+@keyframes ambient-grid-drift {
+    0% {
+        transform: translate3d(-1.2%, -0.4%, 0) rotate(-1.75deg) scale(1.08);
+    }
+
+    50% {
+        transform: translate3d(0.25%, 0.35%, 0) rotate(-2.1deg) scale(1.095);
+    }
+
+    100% {
+        transform: translate3d(1.4%, 0.8%, 0) rotate(-2.35deg) scale(1.11);
+    }
+}
+
 @media (max-width: 640px) {
     .ambient-grid {
         --grid-columns: 4;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ambient-grid {
+        animation: none;
     }
 }
 </style>

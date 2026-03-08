@@ -4,6 +4,18 @@
     display: flex;
     flex-direction: column;
     overflow: clip;
+    background:
+        radial-gradient(
+            circle at top left,
+            color-mix(in srgb, var(--sw-accent-dominant) 10%, transparent),
+            transparent 34%
+        ),
+        linear-gradient(
+            140deg,
+            color-mix(in srgb, #cfe4f5 58%, var(--sw-bg-base)) 0%,
+            var(--sw-bg-base) 56%,
+            color-mix(in srgb, #ece1cf 46%, var(--sw-bg-base)) 100%
+        );
 }
 
 .sw-container {

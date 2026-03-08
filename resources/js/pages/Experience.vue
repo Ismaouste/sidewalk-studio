@@ -53,33 +53,38 @@ const trajectoryTones = ['dominant', 'green', 'coral'] as const;
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              projectsCta: 'Voir preuves publiques',
-              contactCta: 'Entrer en contact',
-              currentPositioningLabel: 'Positionnement actuel',
+              projectsCta: 'Voir les references',
+              contactCta: 'Prendre contact',
+              currentPositioningLabel: 'Positionnement',
               positioningLabel: 'Comment je travaille maintenant',
               contextsLabel: 'Contextes typiques',
               trajectoryLabel: 'Parcours professionnel',
               phasePrefix: 'Phase',
-              technicalFocusLabel: 'Focus techniques selectionnes',
+              technicalFocusLabel: 'Focus techniques',
               strengthsLabel: 'Forces et environnements',
               strengthsWorkingStyleLabel: 'Forces et style de travail',
               stackEnvironmentsLabel: 'Stack et environnements',
-              publicProofLabel: 'Preuves publiques',
+              publicProofLabel: 'References',
               publicProofSummary:
-                  'Des cas clients et notes publiques montrent comment le travail se traduit en decisions d architecture, de SEO technique, de privacy et de livraison.',
+                  "Cas clients et notes publiques montrent comment le travail se traduit en decisions d'architecture, de SEO technique, de structure catalogue et de livraison.",
               caseStudiesLabel: 'Cas clients',
               writingLabel: 'Notes',
-              openArchiveCta: 'Ouvrir archive',
-              quickHandoffLabel: 'Handoff rapide',
+              openArchiveCta: 'Voir les notes',
+              quickHandoffLabel: 'Lecture rapide',
               quickHandoffSummary:
-                  'Si tu dois qualifier le profil rapidement, le CV, les roles cibles et la page contact donnent deja assez de matiere pour avancer sans premier call flou.',
-              recruiterSnapshotLabel: 'Snapshot recruteur',
+                  "Si quelqu'un doit cerner le profil rapidement, les CV, les roles cibles et la page contact donnent deja assez de matiere pour avancer sans premier echange flou.",
+              recruiterSnapshotLabel: 'Repere recruteur',
               whatLookingForLabel: 'Ce que je recherche',
               writingCta: 'Notes',
               caseStudiesCta: 'Cas clients',
+              heroChipCommerceLabel: 'E-commerce',
+              heroChipFrameworkLabel: 'Laravel',
+              heroChipSeoLabel: 'SEO technique',
+              contextChipLabel: 'Contexte',
+              strengthChipLabel: 'Point fort',
           }
         : {
-              projectsCta: 'View proof',
+              projectsCta: 'Browse references',
               contactCta: 'Start a conversation',
               currentPositioningLabel: 'Current positioning',
               positioningLabel: 'How I work now',
@@ -90,9 +95,9 @@ const copy = computed(() =>
               strengthsLabel: 'Strengths and environments',
               strengthsWorkingStyleLabel: 'Strengths and working style',
               stackEnvironmentsLabel: 'Stack and environments',
-              publicProofLabel: 'Public proof',
+              publicProofLabel: 'References',
               publicProofSummary:
-                  'Public case studies and notes show how the work translates into architecture decisions, technical SEO, privacy, and delivery discipline.',
+                  'Public case studies and notes show how the work translates into architecture decisions, technical SEO, catalog structure, and delivery discipline.',
               caseStudiesLabel: 'Case studies',
               writingLabel: 'Writing',
               openArchiveCta: 'Open archive',
@@ -103,6 +108,11 @@ const copy = computed(() =>
               whatLookingForLabel: 'What I am looking for',
               writingCta: 'Writing',
               caseStudiesCta: 'Case studies',
+              heroChipCommerceLabel: 'E-commerce',
+              heroChipFrameworkLabel: 'Laravel',
+              heroChipSeoLabel: 'Technical SEO',
+              contextChipLabel: 'Context',
+              strengthChipLabel: 'Strength',
           },
 );
 </script>
@@ -124,9 +134,30 @@ const copy = computed(() =>
                     </Button>
                 </template>
 
-                <LegendChip label="E-commerce" tone="dominant" />
-                <LegendChip label="Laravel" tone="green" />
-                <LegendChip label="Technical SEO" tone="sun" />
+                <LegendChip
+                    :label="
+                        page.props.site.locale === 'fr'
+                            ? copy.heroChipCommerceLabel
+                            : 'E-commerce'
+                    "
+                    tone="dominant"
+                />
+                <LegendChip
+                    :label="
+                        page.props.site.locale === 'fr'
+                            ? copy.heroChipFrameworkLabel
+                            : 'Laravel'
+                    "
+                    tone="green"
+                />
+                <LegendChip
+                    :label="
+                        page.props.site.locale === 'fr'
+                            ? copy.heroChipSeoLabel
+                            : 'Technical SEO'
+                    "
+                    tone="sun"
+                />
             </SectionIntro>
 
             <div class="experience-page__proof-grid">
@@ -231,7 +262,14 @@ const copy = computed(() =>
                             :key="context"
                             class="experience-page__list-item"
                         >
-                            <LegendChip label="Context" tone="green" />
+                            <LegendChip
+                                :label="
+                                    page.props.site.locale === 'fr'
+                                        ? copy.contextChipLabel
+                                        : 'Context'
+                                "
+                                tone="green"
+                            />
                             <p class="type-body experience-page__copy-line">
                                 {{ context }}
                             </p>
@@ -294,7 +332,14 @@ const copy = computed(() =>
                             :key="strength"
                             class="experience-page__list-item"
                         >
-                            <LegendChip label="Strength" tone="dominant" />
+                            <LegendChip
+                                :label="
+                                    page.props.site.locale === 'fr'
+                                        ? copy.strengthChipLabel
+                                        : 'Strength'
+                                "
+                                tone="dominant"
+                            />
                             <p class="type-body experience-page__copy-line">
                                 {{ strength }}
                             </p>

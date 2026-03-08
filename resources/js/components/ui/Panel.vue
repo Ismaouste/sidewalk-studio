@@ -22,18 +22,19 @@ const props = withDefaults(
     border: 1px solid var(--sw-border);
     border-radius: var(--sw-radius-lg);
     box-shadow: var(--sw-shadow-sm);
+    backdrop-filter: blur(18px);
 }
 
 .panel-frame--surface {
-    background: var(--sw-bg-surface);
+    background: color-mix(in srgb, var(--sw-bg-surface) 82%, transparent);
 }
 
 .panel-frame--grid {
-    background: var(--sw-bg-grid);
+    background: color-mix(in srgb, var(--sw-bg-grid) 76%, transparent);
 }
 
 .panel-frame--elevated {
-    background: var(--sw-bg-elevated);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 82%, transparent);
     box-shadow: var(--sw-shadow-md);
 }
 </style>

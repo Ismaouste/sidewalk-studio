@@ -12,11 +12,11 @@ class PageContentRepositoryTest extends TestCase
         $page = app(PageContentRepository::class)->get('home');
 
         $this->assertSame(
-            'Calm engineering for e-commerce, privacy, and durable products',
+            'Engineering for e-commerce, product catalogs, and privacy',
             $page['seo_title'],
         );
         $this->assertSame(
-            'Calm engineering for e-commerce, privacy, and durable products.',
+            'Engineering for e-commerce, product catalogs, and privacy.',
             $page['hero']['title'],
         );
     }
@@ -25,13 +25,13 @@ class PageContentRepositoryTest extends TestCase
     {
         $page = app(PageContentRepository::class)->get('experience', 'fr');
 
-        $this->assertSame('Experience', $page['seo_title']);
+        $this->assertSame('Parcours', $page['seo_title']);
         $this->assertSame(
             'Un parcours faconne par les systemes complexes.',
             $page['hero']['title'],
         );
         $this->assertSame(
-            'Snapshot recruteur',
+            'Repere recruteur',
             $page['career_snapshot']['title'],
         );
     }
@@ -42,7 +42,7 @@ class PageContentRepositoryTest extends TestCase
 
         $this->assertSame('Contact', $page['seo_title']);
         $this->assertSame(
-            "Composer l'email",
+            'Envoyer le message',
             $page['form']['primary_cta'],
         );
         $this->assertSame(

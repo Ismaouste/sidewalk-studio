@@ -16,3 +16,7 @@ truth.
 
 Binary document downloads such as the public CV files do not emit JSON-LD and
 should not be modeled as standalone content entities in the current release.
+
+The `/data-processing` utility page can keep the default `WebPage` shape for
+implementation simplicity, but it should not grow richer editorial schema or
+be treated as promoted content.

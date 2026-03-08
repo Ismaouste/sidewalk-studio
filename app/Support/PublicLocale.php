@@ -30,6 +30,7 @@ class PublicLocale
             'local' => 'local',
             'projects' => 'projects',
             'contact' => 'contact',
+            'data-processing' => 'data-processing',
             default => null,
         };
     }

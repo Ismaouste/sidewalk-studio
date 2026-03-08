@@ -170,7 +170,8 @@ const localTones = ['dominant', 'green', 'coral'] as const;
             <Panel class="local-page__closing" tone="grid">
                 <p class="type-body local-page__copy-line">
                     This page is here to make the ground visible. The same
-                    concerns show up elsewhere on the site as project proof,
+                    concerns show up elsewhere on the site as project
+                    references,
                     technical writing, and concrete collaboration.
                 </p>
 

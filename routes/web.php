@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuditLogController;
+use App\Http\Controllers\Admin\AdminContactSubmissionController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\SiteSettingsController as AdminSiteSettingsController;
 use App\Http\Controllers\CaseStudyController;
+use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\WritingController;
@@ -16,6 +18,10 @@ Route::get('/local', [SiteController::class, 'local'])->name('local');
 Route::get('/projects', [SiteController::class, 'projects'])->name('projects');
 Route::get('/labs', [SiteController::class, 'labs'])->name('labs');
 Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
+Route::post('/contact', [ContactSubmissionController::class, 'store'])
+    ->middleware('throttle:6,1')
+    ->name('contact.store');
+Route::get('/data-processing', [SiteController::class, 'dataProcessing'])->name('data-processing');
 
 Route::get('/writing', [WritingController::class, 'index'])->name('writing.index');
 Route::get('/writing/{slug}', [WritingController::class, 'show'])->name('writing.show');
@@ -35,6 +41,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
 
     Route::middleware('admin.auth')->group(function (): void {
         Route::redirect('/', '/admin/settings')->name('index');
+        Route::get('/contact-submissions', [AdminContactSubmissionController::class, 'index'])->name('contact-submissions.index');
         Route::get('/audit-log', [AdminAuditLogController::class, 'index'])->name('audit-log.index');
         Route::get('/settings', [AdminSiteSettingsController::class, 'edit'])->name('settings.edit');
         Route::put('/settings', [AdminSiteSettingsController::class, 'update'])->name('settings.update');

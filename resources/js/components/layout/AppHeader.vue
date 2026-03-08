@@ -4,7 +4,6 @@ import { computed } from 'vue';
 import SunAnchor from '@/components/design-system/SunAnchor.vue';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import NavTabs from '@/components/layout/NavTabs.vue';
-import ThemeToggle from '@/components/layout/ThemeToggle.vue';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
@@ -18,7 +17,7 @@ const currentUrl = computed(() => page.url);
             <div class="app-header__inner">
                 <SunAnchor />
 
-                <div class="app-header__brand-wrap">
+                <div class="app-header__topline">
                     <Link href="/" class="app-header__brand">
                         <span class="type-eyebrow app-header__name">
                             {{ page.props.site.name }}
@@ -27,15 +26,12 @@ const currentUrl = computed(() => page.url);
                             {{ page.props.site.tagline }}
                         </span>
                     </Link>
+
+                    <LocaleSwitcher />
                 </div>
 
                 <div class="app-header__controls">
                     <NavTabs :items="navigation" :current-url="currentUrl" />
-
-                    <div class="app-header__utilities">
-                        <LocaleSwitcher />
-                        <ThemeToggle />
-                    </div>
                 </div>
             </div>
         </div>
@@ -53,7 +49,7 @@ const currentUrl = computed(() => page.url);
 .app-header__inner {
     position: relative;
     display: grid;
-    gap: clamp(var(--sw-space-xs), 2.8vw, var(--sw-space-sm));
+    gap: clamp(10px, 2vw, var(--sw-space-xs));
     overflow: visible;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
     border-radius: calc(var(--sw-radius-lg) + 4px);
@@ -64,7 +60,7 @@ const currentUrl = computed(() => page.url);
             transparent 58%
         ),
         var(--sw-header-bg);
-    padding: clamp(14px, 2vw, var(--sw-space-sm));
+    padding: clamp(10px, 1.8vw, var(--sw-space-xs));
     box-shadow: var(--sw-shadow-md);
     backdrop-filter: blur(18px);
 }
@@ -78,15 +74,22 @@ const currentUrl = computed(() => page.url);
     pointer-events: none;
 }
 
-.app-header__brand-wrap,
+.app-header__topline,
 .app-header__controls {
     position: relative;
     z-index: 1;
 }
 
+.app-header__topline {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--sw-space-xs);
+}
+
 .app-header__brand {
     display: inline-grid;
-    gap: 6px;
+    gap: 4px;
     max-width: 30rem;
 }
 
@@ -96,7 +99,7 @@ const currentUrl = computed(() => page.url);
 
 .app-header__tagline {
     font-family: var(--sw-font-body);
-    font-size: clamp(13px, 2.8vw, 15px);
+    font-size: clamp(12px, 2.6vw, 14px);
     font-weight: 500;
     line-height: 1.4;
     color: color-mix(
@@ -108,43 +111,28 @@ const currentUrl = computed(() => page.url);
 
 .app-header__controls {
     display: grid;
-    gap: var(--sw-space-3xs);
-}
-
-.app-header__utilities {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sw-space-3xs);
-    align-items: center;
 }
 
 .app-header__controls :deep(.nav-tabs) {
     min-width: 0;
 }
 
-.app-header__controls :deep(.locale-switcher),
-.app-header__controls :deep(.theme-toggle) {
-    justify-self: start;
+.app-header__topline :deep(.locale-switcher) {
+    flex: none;
 }
 
 @media (min-width: 960px) {
     .app-header__inner {
         grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+    }
+
+    .app-header__topline {
         align-items: end;
     }
 
     .app-header__controls {
         justify-items: end;
-        gap: var(--sw-space-xs);
-    }
-
-    .app-header__utilities {
-        justify-content: flex-end;
-    }
-
-    .app-header__controls :deep(.locale-switcher),
-    .app-header__controls :deep(.theme-toggle) {
-        justify-self: end;
     }
 }
 </style>
