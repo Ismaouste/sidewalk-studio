@@ -20,7 +20,27 @@ The admin shell is a minimal operator boundary for Sidewalk Studio.
 
 There is no public registration flow.
 
-Create the first local operator with:
+For a portable local bootstrap, `php artisan db:seed` now seeds the project
+settings plus one operator when these env vars are present:
+
+```dotenv
+ADMIN_SEED_EMAIL=admin@sidewalk-studio.test
+ADMIN_SEED_NAME="Sidewalk Admin"
+ADMIN_SEED_PASSWORD="change-me-local"
+```
+
+That is the recommended path when recreating the project on another machine or
+on a temporary host.
+
+The canonical `site_settings` row is now versioned through
+`database/seeders/data/site-settings.json`. If you update those values through
+the admin UI and want to bring them back into the repo, export them with:
+
+```powershell
+php artisan site:export-settings
+```
+
+Create or rotate an operator manually with:
 
 ```powershell
 php artisan admin:create-user you@example.test --name="Operator Name" --password="change-me"

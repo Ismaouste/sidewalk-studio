@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Services\SiteSettingsService;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class SiteSettingsSeeder extends Seeder
 {
@@ -12,6 +13,21 @@ class SiteSettingsSeeder extends Seeder
      */
     public function run(SiteSettingsService $siteSettings): void
     {
-        $siteSettings->bootstrap();
+        $snapshotPath = database_path('seeders/data/site-settings.json');
+
+        if (! File::exists($snapshotPath)) {
+            $siteSettings->bootstrap();
+
+            return;
+        }
+
+        $payload = json_decode((string) File::get($snapshotPath), true);
+
+        if (! is_array($payload)) {
+            throw new \RuntimeException("Invalid site settings snapshot [{$snapshotPath}].");
+        }
+
+        $siteSettings->store($siteSettings->hydrate($payload));
+        $siteSettings->refresh();
     }
 }
