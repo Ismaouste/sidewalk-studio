@@ -21,18 +21,15 @@ const props = withDefaults(
     --chip-accent: var(--sw-accent-dominant);
     display: inline-flex;
     align-items: center;
-    min-height: 2rem;
-    border: 1px solid var(--sw-border);
-    border-left: 3px solid var(--chip-accent);
-    border-radius: var(--sw-radius-sm);
-    background: color-mix(in srgb, var(--sw-bg-grid) 72%, transparent);
-    padding: 0 var(--sw-space-2xs);
+    width: fit-content;
+    white-space: nowrap;
     font-family: var(--sw-font-heading);
-    font-size: 9px;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--sw-text-secondary);
+    color: var(--chip-accent);
+    text-shadow: 0 1px 0 color-mix(in srgb, var(--sw-bg-base) 72%, transparent);
 }
 
 .legend-chip--green {

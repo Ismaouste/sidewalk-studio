@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
@@ -151,27 +152,30 @@ const copy = computed(() =>
                     </template>
 
                     <div class="home-accent-list">
-                        <span class="type-nav home-accent home-tone--dominant">
-                            {{
+                        <LegendChip
+                            :label="
                                 page.props.site.locale === 'fr'
                                     ? copy.heroChipCommerceLabel
                                     : 'E-commerce'
-                            }}
-                        </span>
-                        <span class="type-nav home-accent home-tone--green">
-                            {{
+                            "
+                            tone="dominant"
+                        />
+                        <LegendChip
+                            :label="
                                 page.props.site.locale === 'fr'
                                     ? copy.heroChipFrameworkLabel
                                     : 'Laravel'
-                            }}
-                        </span>
-                        <span class="type-nav home-accent home-tone--sun">
-                            {{
+                            "
+                            tone="green"
+                        />
+                        <LegendChip
+                            :label="
                                 page.props.site.locale === 'fr'
                                     ? copy.heroChipSeoLabel
                                     : 'Catalogs and SEO'
-                            }}
-                        </span>
+                            "
+                            tone="sun"
+                        />
                     </div>
                 </SectionIntro>
 
@@ -186,14 +190,10 @@ const copy = computed(() =>
                             :key="highlight"
                             class="home-hero__highlight"
                         >
-                            <span
-                                class="type-nav home-accent"
-                                :class="`home-tone--${heroPanelTones[index] ?? 'violet'}`"
-                            >
-                                {{
-                                    `${page.props.site.locale === 'fr' ? copy.signalPrefix : 'Signal'} 0${index + 1}`
-                                }}
-                            </span>
+                            <LegendChip
+                                :label="`${page.props.site.locale === 'fr' ? copy.signalPrefix : 'Signal'} 0${index + 1}`"
+                                :tone="heroPanelTones[index] ?? 'violet'"
+                            />
                             <p class="type-body-sm home-hero__highlight-copy">
                                 {{ highlight }}
                             </p>
@@ -221,12 +221,11 @@ const copy = computed(() =>
                     class="home-focus-card"
                     tone="surface"
                 >
-                    <p
-                        class="type-nav home-focus-card__label"
-                        :class="`home-tone--${focus.tone}`"
-                    >
-                        {{ focus.label }}
-                    </p>
+                    <LegendChip
+                        :label="focus.label"
+                        :tone="focus.tone"
+                        class="home-focus-card__label"
+                    />
                     <h2 class="type-h2 home-focus-card__title">
                         {{ focus.title }}
                     </h2>
@@ -262,9 +261,11 @@ const copy = computed(() =>
                     class="home-card-link"
                 >
                     <Panel class="home-card" tone="surface">
-                        <p class="type-nav home-card__eyebrow home-tone--green">
-                            {{ item.client || copy.internalBuildLabel }}
-                        </p>
+                        <LegendChip
+                            :label="item.client || copy.internalBuildLabel"
+                            tone="green"
+                            class="home-card__eyebrow"
+                        />
                         <h3 class="type-h2 home-card__title">
                             {{ item.title }}
                         </h3>
@@ -313,14 +314,10 @@ const copy = computed(() =>
                         :key="point"
                         class="home-local__point"
                     >
-                        <span
-                            class="type-nav home-accent"
-                            :class="`home-tone--${heroPanelTones[index] ?? 'violet'}`"
-                        >
-                            {{
-                                `${page.props.site.locale === 'fr' ? copy.localPointPrefix : 'Point'} 0${index + 1}`
-                            }}
-                        </span>
+                        <LegendChip
+                            :label="`${page.props.site.locale === 'fr' ? copy.localPointPrefix : 'Point'} 0${index + 1}`"
+                            :tone="heroPanelTones[index] ?? 'violet'"
+                        />
                         <p class="type-body-sm home-local__copy">
                             {{ point }}
                         </p>
@@ -352,9 +349,10 @@ const copy = computed(() =>
                 >
                     <Panel class="home-writing-card" tone="surface">
                         <div class="home-writing-card__meta">
-                            <span class="type-nav home-accent home-tone--violet">
-                                {{ copy.writingLabel }}
-                            </span>
+                            <LegendChip
+                                :label="copy.writingLabel"
+                                tone="violet"
+                            />
                             <span class="type-meta">
                                 {{ item.published_at }}
                                 {{ copy.publishedSeparator }}
@@ -434,30 +432,9 @@ const copy = computed(() =>
     gap: 0.4rem 0.9rem;
 }
 
-.home-accent,
 .home-focus-card__label,
 .home-card__eyebrow {
     width: fit-content;
-}
-
-.home-tone--dominant {
-    color: var(--sw-accent-dominant);
-}
-
-.home-tone--green {
-    color: var(--sw-accent-green);
-}
-
-.home-tone--sun {
-    color: var(--sw-accent-sun);
-}
-
-.home-tone--coral {
-    color: var(--sw-accent-coral);
-}
-
-.home-tone--violet {
-    color: var(--sw-accent-violet);
 }
 
 .home-hero__panel-title,
