@@ -46,6 +46,7 @@ const copy = computed(() =>
               itemLabel: 'Note',
               publishedLabel: 'Publie',
               readLabel: 'Lecture',
+              evidenceLabel: 'Ce que la note soutient',
           }
         : {
               eyebrow: 'Writing archive',
@@ -60,6 +61,7 @@ const copy = computed(() =>
               itemLabel: 'Writing',
               publishedLabel: 'Published',
               readLabel: 'Read',
+              evidenceLabel: 'What this note supports',
           },
 );
 </script>
@@ -106,6 +108,10 @@ const copy = computed(() =>
 
                         <p class="type-body writing-index__summary">
                             {{ item.summary }}
+                        </p>
+
+                        <p class="type-meta writing-index__evidence">
+                            {{ copy.evidenceLabel }}
                         </p>
 
                         <div class="writing-index__tags">
@@ -191,6 +197,10 @@ const copy = computed(() =>
 
 .writing-index__summary {
     max-width: 48rem;
+    color: var(--sw-text-secondary);
+}
+
+.writing-index__evidence {
     color: var(--sw-text-secondary);
 }
 

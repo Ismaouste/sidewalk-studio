@@ -48,6 +48,12 @@ const copy = computed(() =>
               stackLabel: 'Stack',
               contactCta: 'Discuter un brief similaire',
               outcomesTitle: 'Resultats',
+              continueLabel: 'Poursuivre la preuve',
+              continueDescription:
+                  "Le projet, l'experience et les notes publiques montrent comment ce meme travail s'insere dans une pratique plus large.",
+              projectsCta: 'Projets',
+              experienceCta: 'Parcours',
+              writingCta: 'Notes',
               publishedLabel: 'Publie',
               updatedLabel: 'Maj',
               outcomesLabel: 'Resultats',
@@ -65,6 +71,12 @@ const copy = computed(() =>
               stackLabel: 'Stack',
               contactCta: 'Discuss a similar brief',
               outcomesTitle: 'Outcomes',
+              continueLabel: 'Continue through the proof surface',
+              continueDescription:
+                  'Projects, experience, and public notes show how the same work fits inside a broader delivery practice.',
+              projectsCta: 'Projects',
+              experienceCta: 'Experience',
+              writingCta: 'Writing',
               publishedLabel: 'Published',
               updatedLabel: 'Updated',
               outcomesLabel: 'Outcomes',
@@ -172,6 +184,29 @@ const copy = computed(() =>
                             </li>
                         </ul>
                     </Panel>
+
+                    <Panel class="case-study-show__sidebar-card" tone="surface">
+                        <p class="type-eyebrow">{{ copy.continueLabel }}</p>
+                        <p class="type-body-sm case-study-show__sidebar-copy">
+                            {{ copy.continueDescription }}
+                        </p>
+
+                        <div class="case-study-show__actions">
+                            <Button href="/projects" size="sm">
+                                {{ copy.projectsCta }}
+                            </Button>
+                            <Button
+                                href="/experience"
+                                variant="secondary"
+                                size="sm"
+                            >
+                                {{ copy.experienceCta }}
+                            </Button>
+                            <Button href="/writing" variant="ghost" size="sm">
+                                {{ copy.writingCta }}
+                            </Button>
+                        </div>
+                    </Panel>
                 </aside>
             </div>
         </section>
@@ -230,6 +265,11 @@ const copy = computed(() =>
 }
 
 .case-study-show__detail dd {
+    margin: 0;
+    color: var(--sw-text-secondary);
+}
+
+.case-study-show__sidebar-copy {
     margin: 0;
     color: var(--sw-text-secondary);
 }
