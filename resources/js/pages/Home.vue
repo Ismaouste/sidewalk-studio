@@ -506,6 +506,7 @@ const copy = computed(() =>
 
 .home-contact {
     align-items: end;
+    padding-block: clamp(14px, 2.1vw, 20px);
 }
 
 .home-contact__actions {
