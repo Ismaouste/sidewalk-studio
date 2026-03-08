@@ -69,7 +69,7 @@ class ExportStaticPreviewCommand extends Command
                 $this->exportRoute($serverUrl, $route, $locale, $basePath, $outputPath);
             }
 
-            $this->copyStaticAssets($outputPath);
+            $this->copyStaticAssets($outputPath, $basePath);
             $this->generatePlaceholderAssets($content, $outputPath, $locale);
             $this->copyCareerPdf($outputPath, 'en');
             $this->copyCareerPdf($outputPath, 'fr');
@@ -422,10 +422,11 @@ class ExportStaticPreviewCommand extends Command
         return $outputPath.'/'.trim($route, '/').'/index.html';
     }
 
-    protected function copyStaticAssets(string $outputPath): void
+    protected function copyStaticAssets(string $outputPath, string $basePath): void
     {
         if (File::isDirectory(public_path('build'))) {
             File::copyDirectory(public_path('build'), $outputPath.'/build');
+            $this->rewriteBuiltAssetPaths($outputPath.'/build', $basePath);
         }
 
         if (File::isDirectory(public_path('images'))) {
@@ -437,6 +438,41 @@ class ExportStaticPreviewCommand extends Command
 
             if (File::exists($source)) {
                 File::copy($source, $outputPath.'/'.$file);
+            }
+        }
+    }
+
+    protected function rewriteBuiltAssetPaths(string $buildPath, string $basePath): void
+    {
+        if (! File::isDirectory($buildPath)) {
+            return;
+        }
+
+        $prefixes = [
+            '/build/' => $basePath.'build/',
+            '/images/' => $basePath.'images/',
+            '/content-visuals/' => $basePath.'content-visuals/',
+            '/favicon.ico' => $basePath.'favicon.ico',
+            '/favicon.svg' => $basePath.'favicon.svg',
+            '/apple-touch-icon.png' => $basePath.'apple-touch-icon.png',
+        ];
+
+        foreach (File::allFiles($buildPath) as $file) {
+            $extension = strtolower($file->getExtension());
+
+            if (! in_array($extension, ['css', 'js', 'json', 'map'], true)) {
+                continue;
+            }
+
+            $contents = File::get($file->getPathname());
+            $rewritten = str_replace(
+                array_keys($prefixes),
+                array_values($prefixes),
+                $contents,
+            );
+
+            if ($rewritten !== $contents) {
+                File::put($file->getPathname(), $rewritten);
             }
         }
     }
