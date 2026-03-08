@@ -425,6 +425,7 @@ onBeforeUnmount(() => {
         border-color 90ms ease,
         box-shadow 90ms ease,
         color 90ms ease,
+        opacity 120ms ease,
         opacity 140ms ease,
         transform 140ms ease;
 }
@@ -497,6 +498,16 @@ onBeforeUnmount(() => {
 }
 
 @media (hover: hover) {
+    .nav-tabs__panel:hover .nav-tabs__link {
+        opacity: 0.52;
+    }
+
+    .nav-tabs__panel:hover .nav-tabs__link:hover,
+    .nav-tabs__panel:hover .nav-tabs__link:focus-visible,
+    .nav-tabs__panel:hover .nav-tabs__link--active {
+        opacity: 1;
+    }
+
     .nav-tabs__trigger:hover {
         border-color: color-mix(
             in srgb,

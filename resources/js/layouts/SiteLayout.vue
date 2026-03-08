@@ -230,25 +230,35 @@ onBeforeUnmount(() => {
                                 : 'Loading'
                         }}
                     </span>
-                    <strong class="sw-shell__loader-title">
-                        <span
-                            :class="{
-                                'sw-shell__loader-title--quote':
-                                    currentLoaderLine?.variant === 'quote',
-                            }"
-                        >
-                            {{ currentLoaderLine?.text }}
-                        </span>
-                    </strong>
-                    <cite
-                        class="type-meta sw-shell__loader-author"
-                        :class="{
-                            'sw-shell__loader-author--visible':
-                                !!currentLoaderLine?.author,
-                        }"
-                    >
-                        {{ currentLoaderLine?.author ?? ' ' }}
-                    </cite>
+                    <div class="sw-shell__loader-text-frame">
+                        <transition name="sw-loader-copy" mode="out-in">
+                            <div
+                                :key="`${currentLoaderLine?.variant ?? 'message'}-${currentLoaderLine?.text ?? ''}-${currentLoaderLine?.author ?? ''}`"
+                                class="sw-shell__loader-text-block"
+                            >
+                                <strong class="sw-shell__loader-title">
+                                    <span
+                                        :class="{
+                                            'sw-shell__loader-title--quote':
+                                                currentLoaderLine?.variant ===
+                                                'quote',
+                                        }"
+                                    >
+                                        {{ currentLoaderLine?.text }}
+                                    </span>
+                                </strong>
+                                <cite
+                                    class="type-meta sw-shell__loader-author"
+                                    :class="{
+                                        'sw-shell__loader-author--visible':
+                                            !!currentLoaderLine?.author,
+                                    }"
+                                >
+                                    {{ currentLoaderLine?.author ?? ' ' }}
+                                </cite>
+                            </div>
+                        </transition>
+                    </div>
                     <span class="sw-shell__loader-line" />
                 </div>
             </div>
@@ -353,6 +363,16 @@ onBeforeUnmount(() => {
     contain: layout paint style;
 }
 
+.sw-shell__loader-text-frame {
+    position: relative;
+    min-height: calc(1.28em * 3 + 1rem + 10px);
+}
+
+.sw-shell__loader-text-block {
+    display: grid;
+    gap: 10px;
+}
+
 .sw-shell__loader-kicker {
     font-size: 0.72rem;
     letter-spacing: 0.12em;
@@ -364,7 +384,6 @@ onBeforeUnmount(() => {
     margin: 0;
     font-family: var(--sw-font-body);
     max-width: 24rem;
-    min-height: calc(1.28em * 3);
     font-size: clamp(1.02rem, 2vw, 1.18rem);
     font-weight: 500;
     line-height: 1.28;
@@ -404,8 +423,8 @@ onBeforeUnmount(() => {
 .sw-shell__loader-line {
     position: relative;
     display: block;
-    width: min(12rem, 42vw);
-    height: 4px;
+    width: min(15rem, 54vw);
+    height: 6px;
     border-radius: var(--sw-radius-full);
     overflow: hidden;
     background: color-mix(
@@ -518,6 +537,16 @@ onBeforeUnmount(() => {
 
 .sw-loader-enter-from,
 .sw-loader-leave-to {
+    opacity: 0;
+}
+
+.sw-loader-copy-enter-active,
+.sw-loader-copy-leave-active {
+    transition: opacity 120ms ease;
+}
+
+.sw-loader-copy-enter-from,
+.sw-loader-copy-leave-to {
     opacity: 0;
 }
 
