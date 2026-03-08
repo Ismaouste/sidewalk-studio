@@ -29,6 +29,9 @@ class ExportStaticPreviewCommand extends Command
     /** @var array<int, string> */
     protected array $assetPaths = [];
 
+    /** @var array<int, string> */
+    protected array $exportedUrls = [];
+
     public function handle(ContentRepository $content): int
     {
         $locales = $this->localesToExport();
@@ -78,6 +81,8 @@ class ExportStaticPreviewCommand extends Command
             }
             $this->copyCareerPdf($outputPath, 'en');
             $this->copyCareerPdf($outputPath, 'fr');
+            $this->generateStaticManifest($outputPath, $basePath);
+            $this->generateServiceWorker($outputPath, $basePath);
 
             File::put($outputPath.'/.nojekyll', '');
 
@@ -234,6 +239,7 @@ class ExportStaticPreviewCommand extends Command
 
         File::ensureDirectoryExists(dirname($targetPath));
         File::put($targetPath, $html);
+        $this->exportedUrls[] = $this->publicUrlForRoute($route, $locale, $basePath);
     }
 
     protected function rewriteHtml(
@@ -280,7 +286,7 @@ class ExportStaticPreviewCommand extends Command
                 continue;
             }
 
-                $rewrittenPage = $this->rewritePayloadValue($page, $basePath, $serverUrl, $locale);
+            $rewrittenPage = $this->rewritePayloadValue($page, $basePath, $serverUrl, $locale);
             $node->setAttribute(
                 'data-page',
                 json_encode(
@@ -297,6 +303,16 @@ class ExportStaticPreviewCommand extends Command
             $previewMeta->setAttribute('name', 'static-preview');
             $previewMeta->setAttribute('content', '1');
             $head->appendChild($previewMeta);
+
+            $manifestLink = $dom->createElement('link');
+            $manifestLink->setAttribute('rel', 'manifest');
+            $manifestLink->setAttribute('href', rtrim($basePath, '/').'/manifest.webmanifest');
+            $head->appendChild($manifestLink);
+
+            $themeColorMeta = $dom->createElement('meta');
+            $themeColorMeta->setAttribute('name', 'theme-color');
+            $themeColorMeta->setAttribute('content', '#e3d6c1');
+            $head->appendChild($themeColorMeta);
         }
 
         $rendered = $dom->saveHTML();
@@ -393,10 +409,6 @@ class ExportStaticPreviewCommand extends Command
 
         if ($cleanPath === '/cv/fr') {
             return $basePath.'assets/cv/ismael-rodmacq-cv-fr.pdf'.$suffix;
-        }
-
-        if ($cleanPath === '/') {
-            return rtrim($basePath, '/').'/'.$suffix;
         }
 
         if ($this->isAssetPath($cleanPath)) {
@@ -552,6 +564,165 @@ class ExportStaticPreviewCommand extends Command
         File::copy($source, $targetDirectory."/ismael-rodmacq-cv-{$locale}.pdf");
     }
 
+    protected function generateStaticManifest(string $outputPath, string $basePath): void
+    {
+        $manifest = [
+            'name' => 'Ismael Rodmacq',
+            'short_name' => 'Rodmacq',
+            'description' => 'Static preview for full-stack e-commerce, product data, technical SEO, and editorial work.',
+            'start_url' => rtrim($basePath, '/').'/',
+            'scope' => $basePath,
+            'display' => 'standalone',
+            'background_color' => '#f4ede2',
+            'theme_color' => '#e3d6c1',
+            'icons' => [
+                [
+                    'src' => rtrim($basePath, '/').'/favicon.svg',
+                    'sizes' => 'any',
+                    'type' => 'image/svg+xml',
+                    'purpose' => 'any',
+                ],
+                [
+                    'src' => rtrim($basePath, '/').'/apple-touch-icon.png',
+                    'sizes' => '180x180',
+                    'type' => 'image/png',
+                    'purpose' => 'any',
+                ],
+            ],
+        ];
+
+        File::put(
+            $outputPath.'/manifest.webmanifest',
+            json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES).PHP_EOL,
+        );
+    }
+
+    protected function generateServiceWorker(string $outputPath, string $basePath): void
+    {
+        $base = rtrim($basePath, '/').'/';
+        $precacheUrls = collect($this->exportedUrls)
+            ->merge([
+                $base,
+                $base.'manifest.webmanifest',
+                $base.'favicon.ico',
+                $base.'favicon.svg',
+                $base.'apple-touch-icon.png',
+            ])
+            ->merge($this->discoverStaticAssetUrls($outputPath, $basePath))
+            ->unique()
+            ->values()
+            ->all();
+
+        $version = Str::slug(now()->format('Ymd-His').'-'.substr(md5(json_encode($precacheUrls)), 0, 8));
+        $precacheJson = json_encode($precacheUrls, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
+        $serviceWorker = <<<'JS'
+const BASE_PATH = __BASE_PATH__;
+const VERSION = __VERSION__;
+const STATIC_CACHE = `sidewalk-static-${VERSION}`;
+const RUNTIME_CACHE = `sidewalk-runtime-${VERSION}`;
+const PRECACHE_URLS = __PRECACHE_URLS__;
+
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(STATIC_CACHE).then((cache) => cache.addAll(PRECACHE_URLS)),
+    );
+    self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((keys) =>
+            Promise.all(
+                keys.map((key) => {
+                    if (key === STATIC_CACHE || key === RUNTIME_CACHE) {
+                        return Promise.resolve();
+                    }
+
+                    return caches.delete(key);
+                }),
+            ),
+        ),
+    );
+    self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+    const request = event.request;
+
+    if (request.method !== 'GET') {
+        return;
+    }
+
+    const url = new URL(request.url);
+
+    if (url.origin !== self.location.origin) {
+        return;
+    }
+
+    if (request.mode === 'navigate') {
+        event.respondWith(networkFirst(request));
+        return;
+    }
+
+    if (
+        url.pathname.startsWith(`${BASE_PATH}build/`) ||
+        url.pathname.startsWith(`${BASE_PATH}images/`) ||
+        url.pathname.startsWith(`${BASE_PATH}content-visuals/`) ||
+        request.destination === 'style' ||
+        request.destination === 'script' ||
+        request.destination === 'font' ||
+        request.destination === 'image'
+    ) {
+        event.respondWith(cacheFirst(request));
+    }
+});
+
+async function networkFirst(request) {
+    const cache = await caches.open(RUNTIME_CACHE);
+
+    try {
+        const response = await fetch(request);
+        cache.put(request, response.clone());
+        return response;
+    } catch {
+        const cached = await cache.match(request);
+
+        if (cached) {
+            return cached;
+        }
+
+        return (await caches.match(`${BASE_PATH}`)) || Response.error();
+    }
+}
+
+async function cacheFirst(request) {
+    const cached = await caches.match(request);
+
+    if (cached) {
+        return cached;
+    }
+
+    const response = await fetch(request);
+    const cache = await caches.open(RUNTIME_CACHE);
+    cache.put(request, response.clone());
+    return response;
+}
+JS;
+
+        $serviceWorker = str_replace(
+            ['__BASE_PATH__', '__VERSION__', '__PRECACHE_URLS__'],
+            [
+                $this->jsonEncodeForJs($base),
+                $this->jsonEncodeForJs($version),
+                $precacheJson,
+            ],
+            $serviceWorker,
+        );
+
+        File::put($outputPath.'/sw.js', $serviceWorker.PHP_EOL);
+    }
+
     protected function normalizeBasePath(string $basePath): string
     {
         $trimmed = trim($basePath);
@@ -585,6 +756,49 @@ class ExportStaticPreviewCommand extends Command
     protected function localePrefix(string $locale): string
     {
         return $locale === 'fr' ? '' : '/'.$locale;
+    }
+
+    protected function publicUrlForRoute(string $route, string $locale, string $basePath): string
+    {
+        $prefix = $this->localePrefix($locale);
+        $normalizedBase = rtrim($basePath, '/');
+
+        if ($route === '/') {
+            return $normalizedBase.($prefix !== '' ? $prefix : '').'/';
+        }
+
+        return $normalizedBase.($prefix !== '' ? $prefix : '').$route.'/';
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function discoverStaticAssetUrls(string $outputPath, string $basePath): array
+    {
+        $base = rtrim($basePath, '/');
+
+        return collect(File::allFiles($outputPath))
+            ->map(function ($file) use ($outputPath, $base): ?string {
+                $relativePath = str_replace('\\', '/', Str::after($file->getPathname(), $outputPath.DIRECTORY_SEPARATOR));
+
+                if (
+                    $relativePath === '' ||
+                    str_ends_with($relativePath, '.html') ||
+                    $relativePath === '.nojekyll'
+                ) {
+                    return null;
+                }
+
+                return $base.'/'.$relativePath;
+            })
+            ->filter()
+            ->values()
+            ->all();
+    }
+
+    protected function jsonEncodeForJs(string $value): string
+    {
+        return json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?: '""';
     }
 
     /**

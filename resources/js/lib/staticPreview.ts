@@ -1,5 +1,6 @@
 const NAVIGATION_STORAGE_KEY = 'sidewalk-static-preview:navigation';
 const STALE_NAVIGATION_MS = 8000;
+const PREFETCHED_URLS = new Set<string>();
 
 type NavigationPayload = {
     href: string;
@@ -7,16 +8,27 @@ type NavigationPayload = {
 };
 
 let installed = false;
+let serviceWorkerRegistered = false;
 
-export function initializeStaticPreviewNavigation(enabled: boolean): void {
+export function initializeStaticPreviewNavigation(
+    enabled: boolean,
+    basePath: string | null = '/',
+): void {
     if (!enabled || installed || typeof window === 'undefined') {
         return;
     }
 
     installed = true;
     announcePendingNavigation();
+    registerStaticPreviewServiceWorker(basePath);
 
     document.addEventListener('click', handleDocumentClick, true);
+    document.addEventListener('pointerenter', handlePrefetchIntent, true);
+    document.addEventListener('focusin', handlePrefetchIntent, true);
+    document.addEventListener('touchstart', handlePrefetchIntent, {
+        capture: true,
+        passive: true,
+    });
     window.addEventListener('pageshow', announcePendingNavigation);
 }
 
@@ -133,6 +145,114 @@ function shouldHandleAnchor(
     }
 
     return true;
+}
+
+function handlePrefetchIntent(event: Event): void {
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+        return;
+    }
+
+    const anchor = target.closest('a[href]');
+
+    if (!(anchor instanceof HTMLAnchorElement)) {
+        return;
+    }
+
+    prefetchAnchor(anchor);
+}
+
+function prefetchAnchor(anchor: HTMLAnchorElement): void {
+    const href = anchor.getAttribute('href');
+
+    if (!href || !shouldHandleAnchor(anchor, href)) {
+        return;
+    }
+
+    const url = new URL(anchor.href, window.location.href);
+    const cacheKey = url.href;
+
+    if (PREFETCHED_URLS.has(cacheKey)) {
+        return;
+    }
+
+    PREFETCHED_URLS.add(cacheKey);
+    appendPrefetchHint(url.href);
+
+    const connection = (
+        navigator as Navigator & {
+            connection?: { saveData?: boolean; effectiveType?: string };
+        }
+    ).connection;
+
+    if (
+        connection?.saveData ||
+        connection?.effectiveType === 'slow-2g' ||
+        connection?.effectiveType === '2g'
+    ) {
+        return;
+    }
+
+    void fetch(url.href, {
+        credentials: 'same-origin',
+        headers: {
+            'X-Static-Preview-Prefetch': '1',
+        },
+    }).catch(() => {
+        PREFETCHED_URLS.delete(cacheKey);
+    });
+}
+
+function appendPrefetchHint(href: string): void {
+    if (!document.head) {
+        return;
+    }
+
+    const existing = document.head.querySelector(
+        `link[rel="prefetch"][href="${href}"]`,
+    );
+
+    if (existing) {
+        return;
+    }
+
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = href;
+    link.as = 'document';
+    document.head.appendChild(link);
+}
+
+function registerStaticPreviewServiceWorker(basePath: string | null): void {
+    if (
+        serviceWorkerRegistered ||
+        typeof navigator === 'undefined' ||
+        !('serviceWorker' in navigator)
+    ) {
+        return;
+    }
+
+    serviceWorkerRegistered = true;
+    const normalizedBasePath = normalizeBasePath(basePath);
+
+    window.addEventListener('load', () => {
+        void navigator.serviceWorker
+            .register(`${normalizedBasePath}sw.js`, {
+                scope: normalizedBasePath,
+            })
+            .catch(() => {
+                serviceWorkerRegistered = false;
+            });
+    });
+}
+
+function normalizeBasePath(basePath: string | null): string {
+    if (!basePath || basePath === '/') {
+        return '/';
+    }
+
+    return `/${basePath.replace(/^\/+|\/+$/g, '')}/`;
 }
 
 function readNavigationPayload(): NavigationPayload | null {

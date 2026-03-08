@@ -17,6 +17,7 @@ This repository now serves two purposes at once:
 - consent-aware embeds and privacy controls for analytics/media categories
 - server-rendered metadata, canonical tags, JSON-LD, `robots.txt`, and `sitemap.xml`
 - static preview export for GitHub Pages
+- static preview shell with client-side prefetch, installable manifest, and partial offline support
 
 ## Product direction
 
@@ -74,18 +75,39 @@ php artisan test
 npm run types:check
 npm run build
 php artisan route:list
-php artisan site:export-static-preview --locale=fr --output=dist/static-preview --base=/sidewalk-studio/
+php artisan site:export-static-preview --locales=fr,en --output=dist/static-preview --base=/sidewalk-studio/
 ```
 
 ## Static preview
 
-The repository includes a GitHub Pages preview workflow that exports the public front-end as static HTML.
+The repository includes a GitHub Pages preview workflow that exports the public front-end as static HTML with a small app-like shell.
 
 - workflow: `.github/workflows/github-pages-preview.yml`
 - exported base path: `/sidewalk-studio/`
 - live preview: [https://ismaouste.github.io/sidewalk-studio/](https://ismaouste.github.io/sidewalk-studio/)
 
 The static preview keeps the visual shell, theme switcher, loader, and front-end interactions, while leaving Laravel runtime features such as real form handling and admin behavior out of the public preview.
+
+It now also includes:
+
+- route prefetching for internal links in static preview mode
+- a generated `manifest.webmanifest`
+- a generated `sw.js` service worker for aggressive asset caching and partial offline navigation
+- a portable handoff for another machine: `docs/ai/public-static-handoff.md`
+
+## Portable public data
+
+The public version of the site can now be reconstructed from committed files without relying on a local database.
+
+- localized public identity and contact defaults: `lang/en/site.php`, `lang/fr/site.php`
+- public content: `resources/content/`
+- fallback site settings snapshot: `database/seeders/data/site-settings.json`
+- environment template for file-backed mode: `.env.example`
+
+For the lightweight public setup, keep:
+
+- `SITE_SETTINGS_SOURCE=files`
+- `SITE_ENABLE_ADMIN=false`
 
 ## Repository map
 

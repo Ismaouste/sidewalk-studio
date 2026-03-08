@@ -3,18 +3,18 @@
 return [
     'settings_source' => env('SITE_SETTINGS_SOURCE', 'files'),
     'admin_enabled' => filter_var(env('SITE_ENABLE_ADMIN', false), FILTER_VALIDATE_BOOL),
-    'name' => env('SITE_NAME', 'Sidewalk Studio'),
-    'tagline' => env('SITE_TAGLINE', 'Engineering for e-commerce, product data, tracking, and technical SEO.'),
-    'description' => env('SITE_DESCRIPTION', 'Engineering for product-data operations, structured data, API and file-based integrations, consent-aware analytics, and readable product architecture in complex Laravel environments.'),
+    'name' => env('SITE_NAME', 'Ismael Rodmacq'),
+    'tagline' => env('SITE_TAGLINE', 'Full-stack e-commerce. Cross-functional data, reliable flows.'),
+    'description' => env('SITE_DESCRIPTION', 'Full-stack web development for e-commerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO.'),
     'locale' => 'en',
     'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
     'author' => [
         'name' => env('SITE_AUTHOR_NAME', 'Ismael Rodmacq'),
-        'job_title' => env('SITE_AUTHOR_TITLE', 'Laravel engineer for e-commerce, product data, tracking, and technical SEO'),
+        'job_title' => env('SITE_AUTHOR_TITLE', 'Full-stack e-commerce developer for product data, integrations, tracking, and technical SEO'),
         'email' => env('SITE_CONTACT_EMAIL', 'ismael@rodmacq.com'),
         'same_as' => array_values(array_filter(array_map(
             'trim',
-            explode(',', env('SITE_SAME_AS', 'https://github.com/Ismaosute,https://www.linkedin.com/in/ismaelrodmacq')),
+            explode(',', env('SITE_SAME_AS', 'https://github.com/Ismaouste,https://www.linkedin.com/in/ismaelrodmacq')),
         ))),
     ],
     'navigation' => [
@@ -49,6 +49,6 @@ return [
     'contact' => [
         'email' => env('SITE_CONTACT_EMAIL', 'ismael@rodmacq.com'),
         'location' => 'Nancy, Grand-Est',
-        'availability' => 'Open to roles, freelance support, technical recovery, internal tools, e-commerce work, and conversations around existing products.',
+        'availability' => 'Currently working at Jewely and open to conversations, part-time freelance work, and new opportunities.',
     ],
 ];

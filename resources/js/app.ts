@@ -46,7 +46,10 @@ createInertiaApp({
             .mount(el);
 
         if (site.runtime.staticPreview) {
-            initializeStaticPreviewNavigation(true);
+            initializeStaticPreviewNavigation(
+                true,
+                site.runtime.staticBasePath,
+            );
 
             return;
         }
