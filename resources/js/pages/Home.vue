@@ -4,7 +4,6 @@ import { computed } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
 import PublicationWidget from '@/components/content/PublicationWidget.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
@@ -63,20 +62,17 @@ const copy = computed(() =>
               heroPanelTitle:
                   'Donnée produit, interconnexions, tracking et SEO technique dans des environnements qui ont déjà une histoire.',
               whatIDoLabel: 'Ce que je fais',
-              focusEyebrow: 'Focus',
               focusTitle:
                   'Un positionnement net dans des environnements complexes.',
               focusDescription:
                   "Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privée et besoin de garder des systèmes compréhensibles après mise en production.",
               selectedWorkLabel: 'Expérience',
-              projectsEyebrow: 'Expérience',
               projectsTitle: 'Quelques références choisies.',
               projectsDescription:
                   "Des cas publics compacts pour montrer comment architecture, donnée produit, tracking, SEO technique et décisions de livraison se traduisent en pratique.",
               openProjectsCta: "Voir les cas d'étude",
               internalBuildLabel: 'Interne',
               localGroundLabel: 'Où suis-je ?',
-              localEyebrow: 'Où suis-je ?',
               readLocalPageCta: 'Lire la page locale',
               notesLabel: 'Notes',
               contactLabel: 'Contact',
@@ -96,12 +92,10 @@ const copy = computed(() =>
               heroPanelTitle:
                   'Product data, integrations, tracking, and technical SEO in environments that already have history.',
               whatIDoLabel: 'What I do',
-              focusEyebrow: 'Focus',
               focusTitle: 'A legible practice for complex environments.',
               focusDescription:
                   'The work usually sits between product delivery, legacy modernization, technical SEO, privacy, and the need to keep systems readable after launch.',
               selectedWorkLabel: 'Experience',
-              projectsEyebrow: 'Experience',
               projectsTitle:
                   'A few build and implementation references.',
               projectsDescription:
@@ -118,7 +112,6 @@ const copy = computed(() =>
               heroChipCommerceLabel: 'E-commerce',
               heroChipFrameworkLabel: 'Laravel',
               heroChipSeoLabel: 'Product data and SEO',
-              localEyebrow: 'Local',
               signalPrefix: 'Signal',
               localPointPrefix: 'Point',
           },
@@ -196,12 +189,10 @@ const copy = computed(() =>
             </div>
         </section>
 
-        <SectionDivider :label="copy.whatIDoLabel" />
-
-        <section class="sw-section home-section">
+        <section class="sw-section sw-section--flow home-section">
             <div class="home-section__header">
                 <SectionIntro
-                    :eyebrow="copy.focusEyebrow"
+                    :eyebrow="copy.whatIDoLabel"
                     :title="copy.focusTitle"
                     :description="copy.focusDescription"
                 />
@@ -232,12 +223,10 @@ const copy = computed(() =>
             </div>
         </section>
 
-        <SectionDivider :label="copy.selectedWorkLabel" />
-
-        <section class="sw-section home-section">
+        <section class="sw-section sw-section--flow home-section">
             <div class="home-section__header">
                 <SectionIntro
-                    :eyebrow="copy.projectsEyebrow"
+                    :eyebrow="copy.selectedWorkLabel"
                     :title="copy.projectsTitle"
                     :description="copy.projectsDescription"
                 />
@@ -283,16 +272,10 @@ const copy = computed(() =>
             </div>
         </section>
 
-        <SectionDivider :label="copy.localGroundLabel" />
-
-        <section class="sw-section home-section">
+        <section class="sw-section sw-section--flow home-section">
             <div class="home-section__header">
                 <SectionIntro
-                    :eyebrow="
-                        page.props.site.locale === 'fr'
-                            ? copy.localEyebrow
-                            : 'Local'
-                    "
+                    :eyebrow="copy.localGroundLabel"
                     :title="props.localTeaser.title"
                     :description="props.localTeaser.summary"
                 />
@@ -320,20 +303,18 @@ const copy = computed(() =>
             </Panel>
         </section>
 
-        <SectionDivider :label="copy.notesLabel" />
-
         <PublicationWidget
             :widget="props.journalWidget"
             tone="surface"
-            class="home-journal-widget"
+            class="sw-section--flow home-section home-journal-widget"
         />
 
-        <SectionDivider :label="copy.contactLabel" />
-
-        <section class="sw-section home-section">
+        <section class="sw-section sw-section--flow home-section">
             <Panel class="home-contact" tone="surface">
                 <div class="home-contact__copy">
-                    <p class="type-eyebrow">{{ copy.contactLabel }}</p>
+                    <p class="type-eyebrow home-contact__eyebrow">
+                        {{ copy.contactLabel }}
+                    </p>
                     <h2 class="type-h2 home-contact__title">
                         {{ props.contactCta.title }}
                     </h2>
@@ -444,7 +425,7 @@ const copy = computed(() =>
 
 .home-section {
     display: grid;
-    gap: var(--sw-space-xs);
+    gap: clamp(var(--sw-space-xs), 2vw, var(--sw-space-sm));
 }
 
 .home-section__header {
@@ -506,17 +487,21 @@ const copy = computed(() =>
 
 .home-contact {
     align-items: end;
-    padding-block: clamp(14px, 2.1vw, 20px);
+    padding-block: clamp(10px, 1.6vw, 16px);
+}
+
+.home-contact__eyebrow {
+    width: fit-content;
+    margin: 0;
+    color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
+    font-size: 12px;
+    letter-spacing: 0.16em;
 }
 
 .home-contact__actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--sw-space-xs);
-}
-
-.home-journal-widget {
-    margin-bottom: var(--sw-space-2xs);
 }
 
 .home-card-link:focus-visible {

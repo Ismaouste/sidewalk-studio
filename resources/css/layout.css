@@ -42,6 +42,12 @@
     padding-block: var(--sw-space-xl);
 }
 
+.sw-section--flow {
+    display: grid;
+    gap: var(--sw-space-sm);
+    padding-block: 0 clamp(var(--sw-space-md), 6vw, var(--sw-space-lg));
+}
+
 .sw-section--dense {
     padding-block: var(--sw-space-lg);
 }
@@ -117,6 +123,11 @@
 
     .sw-section {
         padding-block: var(--sw-space-lg);
+    }
+
+    .sw-section--flow {
+        gap: var(--sw-space-xs);
+        padding-block-end: var(--sw-space-md);
     }
 
     .sw-section--hero {

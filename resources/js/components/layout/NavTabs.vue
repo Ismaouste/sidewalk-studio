@@ -16,15 +16,57 @@ const props = defineProps<{
 const page = usePage<{ site: SiteProps }>();
 const menuId = 'primary-navigation';
 const mobileMenuOpen = ref(false);
+const isDesktopViewport = ref(false);
 
 let desktopMediaQuery: MediaQueryList | null = null;
 
-function isActive(item: NavItem): boolean {
-    if (item.href === '/') {
-        return props.currentUrl === '/';
+function normalizePath(value: string): string {
+    if (!value) {
+        return '/';
     }
 
-    return props.currentUrl.startsWith(item.href);
+    let pathname = value;
+
+    try {
+        pathname = new URL(value, 'http://sidewalk.local').pathname;
+    } catch {
+        pathname = value;
+    }
+
+    if (!pathname.startsWith('/')) {
+        pathname = `/${pathname}`;
+    }
+
+    pathname = pathname.replace(/\/+$/, '');
+
+    return pathname === '' ? '/' : pathname;
+}
+
+function isActive(item: NavItem): boolean {
+    const currentPath = normalizePath(props.currentUrl);
+    const itemPath = normalizePath(item.href);
+
+    if (itemPath === '/') {
+        return !props.items.some((navItem) => {
+            const navPath = normalizePath(navItem.href);
+
+            if (navPath === '/') {
+                return false;
+            }
+
+            return (
+                currentPath === navPath ||
+                currentPath.endsWith(navPath) ||
+                currentPath.includes(`${navPath}/`)
+            );
+        });
+    }
+
+    return (
+        currentPath === itemPath ||
+        currentPath.endsWith(itemPath) ||
+        currentPath.includes(`${itemPath}/`)
+    );
 }
 
 const activeItem = computed(
@@ -32,6 +74,9 @@ const activeItem = computed(
 );
 const inactiveItems = computed(() =>
     props.items.filter((item) => !isActive(item)),
+);
+const panelItems = computed(() =>
+    isDesktopViewport.value ? props.items : inactiveItems.value,
 );
 
 function linkAction(item: NavItem): string {
@@ -69,6 +114,8 @@ function toggleMenu(): void {
 }
 
 function handleViewportChange(event: MediaQueryListEvent): void {
+    isDesktopViewport.value = event.matches;
+
     if (event.matches) {
         closeMenu();
     }
@@ -88,6 +135,7 @@ onMounted(() => {
     }
 
     desktopMediaQuery = window.matchMedia('(min-width: 960px)');
+    isDesktopViewport.value = desktopMediaQuery.matches;
     desktopMediaQuery.addEventListener('change', handleViewportChange);
     window.addEventListener('keydown', handleKeydown);
 });
@@ -133,15 +181,16 @@ onBeforeUnmount(() => {
             :class="{ 'nav-tabs__viewport--open': mobileMenuOpen }"
         >
             <div
-                v-if="inactiveItems.length"
+                v-if="panelItems.length"
                 :id="menuId"
                 class="nav-tabs__panel"
             >
                 <Link
-                    v-for="item in inactiveItems"
+                    v-for="item in panelItems"
                     :key="item.href"
                     :href="item.href"
                     class="nav-tabs__link"
+                    :class="{ 'nav-tabs__link--active': isActive(item) }"
                     @click="closeMenu"
                 >
                     <span class="nav-tabs__link-label">{{ item.label }}</span>
@@ -459,6 +508,8 @@ onBeforeUnmount(() => {
         text-transform: uppercase;
         color: var(--sw-tab-inactive);
         box-shadow: none;
+        opacity: 1;
+        transform: none;
     }
 
     .nav-tabs__link-label {

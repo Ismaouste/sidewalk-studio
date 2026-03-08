@@ -34,7 +34,7 @@ defineProps<{
 
 .content-meta-row__item {
     display: inline-flex;
-    align-items: center;
+    align-items: baseline;
     gap: 7px;
     min-height: 2.125rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
@@ -54,16 +54,21 @@ defineProps<{
     font-family: var(--sw-font-heading);
     font-size: 9px;
     font-weight: 700;
+    line-height: 1;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
+    transform: translateY(1px);
 }
 
 .content-meta-row__value {
-    font-family: var(--sw-font-body);
-    font-size: 13px;
-    line-height: 1.15;
+    font-family: var(--sw-font-code);
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
     color: var(--sw-text-primary);
+    transform: translateY(1px);
 }
 
 @media (max-width: 640px) {

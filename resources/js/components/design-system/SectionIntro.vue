@@ -59,6 +59,12 @@ const props = withDefaults(
     margin: 0;
 }
 
+.section-intro:not(.section-intro--hero) .section-intro__eyebrow {
+    color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
+    font-size: 12px;
+    letter-spacing: 0.16em;
+}
+
 .section-intro__title {
     margin: 0;
     color: var(--sw-text-primary);

@@ -96,19 +96,13 @@ class ContentVisual
             ->limit(68, '')
             ->toString();
 
-        $sectionLabel = match ($item['section'] ?? 'writing') {
-            'case-studies' => 'Reference',
-            default => (string) ($item['category'] ?? 'Journal') === 'journal' ? 'Journal' : 'Note',
-        };
-
         $safeSlug = e($slug);
         $safeTitle = e($title);
-        $safeSection = e($sectionLabel);
 
         return <<<SVG
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">{$safeTitle}</title>
-  <desc id="desc">Placeholder visual for {$safeSection}</desc>
+  <desc id="desc">Placeholder visual for {$safeTitle}</desc>
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="{$palette['bgA']}" />
@@ -130,7 +124,6 @@ class ContentVisual
     <path d="M0 390 H1200" stroke="{$palette['line']}" stroke-width="2" />
     <path d="M0 480 H1200" stroke="{$palette['line']}" stroke-width="2" />
   </g>
-  <text x="86" y="110" fill="{$palette['accent']}" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="7">{$safeSection}</text>
   <text x="82" y="332" fill="{$palette['ink']}" font-family="Arial, sans-serif" font-size="84" font-weight="700" letter-spacing="5">{$safeSlug}</text>
   <text x="86" y="420" fill="{$palette['ink']}" font-family="Arial, sans-serif" font-size="30" opacity="0.92">{$safeTitle}</text>
 </svg>
