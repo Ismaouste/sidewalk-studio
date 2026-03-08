@@ -17,6 +17,8 @@ Markdown is the easy part.
 
 The hard part is deciding what makes a piece of content publishable. For Sidewalk Studio, that baseline is explicit frontmatter: title, slug, summary, publication state, timestamps, tags, and SEO metadata.
 
+That sounds procedural, but it changes the engineering conversation immediately. The moment a page archive, canonical URL, or locale fallback depends on content shape, "just put it in Markdown" stops being a serious answer.
+
 That decision lets the application do three things safely:
 
 - reject incomplete documents early
@@ -45,3 +47,5 @@ That framing made later features easier:
 - case studies and writing could share one repository pattern
 - locale fallback could be added without rewriting every content consumer
 - public proof pages could stay honest because draft or incomplete documents never leaked into the runtime
+
+It also made the content surface easier to defend in interviews and reviews: the repo is not proving that Markdown exists, it is proving that editorial input can participate safely in routing, SEO, and release discipline.

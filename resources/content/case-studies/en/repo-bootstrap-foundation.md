@@ -42,6 +42,8 @@ That meant treating the bootstrap itself as a feature with delivery constraints,
 
 The repository had to become useful quickly without drifting into framework theater.
 
+That mattered beyond engineering neatness. If the public repo could not explain its own shape, every later claim about architecture, process, or maintainability would stay superficial.
+
 The main constraints were straightforward:
 
 - local-first development had to remain the default
@@ -74,3 +76,5 @@ This bootstrap proved three things early:
 - the repo could carry implementation, specs, and docs together without one of them becoming fake
 - later features could build on explicit boundaries instead of invisible assumptions
 - the public site could become a credible engineering surface because the repository itself had already become legible
+
+That is why this case study matters as proof. It is not a story about creating files; it is a story about making the repository reviewable enough that later product and content work could stand on it.

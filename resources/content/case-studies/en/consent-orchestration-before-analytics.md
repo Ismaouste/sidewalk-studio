@@ -38,6 +38,8 @@ The constraint was to solve that without:
 - scattering privacy logic across random components
 - pretending an analytics integration already existed
 
+That last point mattered for credibility. A lot of portfolio code looks "complete" only because it quietly hardcodes assumptions it has not really earned yet.
+
 ## The rule
 
 For v0, the consent model exposes only three categories:
@@ -72,3 +74,5 @@ It proved that:
 - privacy could be modeled as infrastructure, not as last-minute copy
 - the frontend could keep a calm public UX while still enforcing real gating
 - future integrations could stay optional because the boundary was defined first
+
+For a recruiter or technical reader, that is the real proof here: the implementation does not just mention privacy, it sequences the architecture so later provider work stays cheap and legible.

@@ -17,6 +17,8 @@ Le Markdown est la partie facile.
 
 La partie difficile consiste a decider ce qui rend un contenu publiable. Pour Sidewalk Studio, cette base repose sur un frontmatter explicite : titre, slug, resume, etat de publication, dates, tags et metadonnees SEO.
 
+Dit comme cela, cela semble procedural. Mais des qu'une archive, une URL canonique ou un fallback locale depend de la forme du contenu, "mettre juste du Markdown" cesse d'etre une vraie reponse d'ingenierie.
+
 Cette decision permet a l'application de faire trois choses de maniere sure :
 
 - rejeter tot les documents incomplets
@@ -45,3 +47,5 @@ Cette approche a simplifie la suite :
 - les cas clients et les notes ont pu partager un meme pattern de repository
 - le fallback locale a pu etre ajoute sans reecrire chaque consommateur
 - les pages de preuve publique sont restees honnetes parce que les documents incomplets ou brouillons ne fuient pas dans le runtime
+
+Elle a aussi rendu la surface contenu plus defendable en entretien et en review : le repo ne prouve pas seulement que du Markdown existe, il prouve qu'un input editorial peut participer proprement au routing, au SEO et a la discipline de release.

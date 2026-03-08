@@ -36,6 +36,8 @@ Le projet portait deja assez de sujets couples :
 
 Ajouter un runtime SSR complet par-dessus aurait ete techniquement possible, mais ce n'etait pas le risque le plus utile a traiter d'abord.
 
+Cela aurait aussi rendu le repo public moins honnete. Revendiquer une maturite SSR avant que le modele de contenu, le chemin metadata et les surfaces de preuve soient stabilises aurait surtout optimise l'optique, pas le sequencing.
+
 ## Ce que cela a prouve
 
 Pret mais differe n'est pas un compromis vague ici. C'est une decision explicite de sequencing.
@@ -45,3 +47,5 @@ Cela a prouve que le repo peut :
 - preserver des options d'architecture futures sans les payer trop tot
 - garder le local-first simple tout en respectant les besoins SEO
 - expliquer pourquoi une capacite est differee, ce qui vaut souvent plus qu'une revendication prematuree de maturite
+
+Ce dernier point compte en pratique. L'ingenierie mature se voit souvent dans ce que tu choisis de ne pas livrer trop tot.

@@ -38,6 +38,8 @@ La contrainte etait de resoudre cela sans :
 - disperser la logique privacy dans des composants sans lien
 - pretendre qu'une integration analytics existait deja
 
+Ce dernier point compte pour la credibilite. Beaucoup de code portfolio semble "complet" uniquement parce qu'il hardcode discretement des suppositions qu'il n'a pas encore gagne le droit de faire.
+
 ## La regle
 
 Pour le v0, le modele de consentement n'expose que trois categories :
@@ -72,3 +74,5 @@ Cela a prouve que :
 - la privacy pouvait etre modelee comme une infrastructure et non comme une copie ajoutee a la fin
 - le frontend pouvait garder une UX publique calme tout en appliquant un vrai gating
 - les integrations futures pouvaient rester optionnelles parce que la frontiere etait definie d'abord
+
+Pour un recruteur ou un lecteur technique, c'est la vraie preuve ici : l'implementation ne se contente pas de mentionner la privacy, elle sequence l'architecture pour que le futur travail provider reste peu couteux et lisible.

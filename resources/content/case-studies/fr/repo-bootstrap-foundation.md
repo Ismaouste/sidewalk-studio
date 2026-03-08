@@ -42,6 +42,8 @@ Cela revenait a traiter le bootstrap lui-meme comme une feature avec ses propres
 
 Le repository devait devenir utile vite sans tomber dans le theatre de framework.
 
+Cela comptait au-dela de la proprete d'ingenierie. Si le repo public ne savait pas expliquer sa propre forme, toutes les futures revendications sur l'architecture, le process ou la maintenabilite resteraient superficielles.
+
 Les contraintes principales etaient simples :
 
 - garder le local-first comme mode par defaut
@@ -74,3 +76,5 @@ Ce bootstrap a prouve trois choses tres tot :
 - le repo pouvait porter implementation, specs et docs sans en rendre une fausse
 - les features suivantes pouvaient s'appuyer sur des frontieres explicites plutot que sur des suppositions cachees
 - le site public pouvait devenir une surface d'ingenierie credible parce que le repository lui-meme etait deja lisible
+
+C'est pour cela que ce cas d'etude compte comme preuve. Ce n'est pas une histoire de fichiers crees, c'est une histoire de repository rendu assez reviewable pour que le produit et le contenu suivants puissent vraiment s'appuyer dessus.

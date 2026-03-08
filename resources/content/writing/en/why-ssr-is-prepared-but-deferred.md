@@ -36,6 +36,8 @@ The project already had enough coupled concerns:
 
 Adding a live SSR runtime on top of that would have been technically possible, but it would not have been the highest-value risk to buy down first.
 
+It also would have made the public repo less honest. Claiming SSR maturity before the content model, metadata path, and proof surfaces were stable would have optimized for optics instead of sequence.
+
 ## What this proved
 
 Prepared-but-deferred is not a vague compromise here. It is an explicit sequencing decision.
@@ -45,3 +47,5 @@ It proved that the repo can:
 - preserve future architectural options without prematurely paying for them
 - keep the local-first workflow simple while still respecting SEO needs
 - explain why a capability is deferred, which is usually more valuable than claiming every advanced feature on day one
+
+That last point matters in practice. Mature engineering is often visible in the things you intentionally do not ship yet.
