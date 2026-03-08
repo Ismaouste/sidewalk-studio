@@ -3,6 +3,7 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
 import PublicationWidget from '@/components/content/PublicationWidget.vue';
+import InlineTermTooltip from '@/components/design-system/InlineTermTooltip.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
@@ -124,8 +125,10 @@ const copy = computed(() =>
               contactCta: 'Prendre contact',
               currentFrameLabel: "Aujourd'hui",
               heroPanelTitle: 'Développeur e-commerce chez Jewely',
-              heroPanelSummary:
-                  'HBJO, donnée produit, flux, tracking et SEO technique.',
+              heroPanelSummarySuffix:
+                  'donnée produit, flux, tracking et SEO technique.',
+              hbjoatDefinition:
+                  "Horlogerie, bijouterie, orfèvrerie et arts de la table.",
               whatIDoLabel: 'Ce que je fais',
               focusTitle:
                   'Un positionnement net dans des environnements complexes.',
@@ -150,8 +153,10 @@ const copy = computed(() =>
               contactCta: 'Start a conversation',
               currentFrameLabel: 'Current role',
               heroPanelTitle: 'E-commerce developer at Jewely',
-              heroPanelSummary:
-                  'HBJO, product data, integrations, tracking, and technical SEO.',
+              heroPanelSummarySuffix:
+                  'product data, integrations, tracking, and technical SEO.',
+              hbjoatDefinition:
+                  'Watchmaking, jewelry, silverware, and tableware.',
               whatIDoLabel: 'What I do',
               focusTitle: 'A legible practice for complex environments.',
               focusDescription:
@@ -224,7 +229,12 @@ const copy = computed(() =>
                         {{ copy.heroPanelTitle }}
                     </h2>
                     <p class="type-body-sm home-hero__panel-summary">
-                        {{ copy.heroPanelSummary }}
+                        <InlineTermTooltip
+                            label="HBJOAT"
+                            :definition="copy.hbjoatDefinition"
+                            tone="green"
+                        />
+                        {{ ', ' }}{{ copy.heroPanelSummarySuffix }}
                     </p>
                     <ul class="home-hero__highlights">
                         <li

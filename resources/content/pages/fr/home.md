@@ -17,8 +17,8 @@ focus_areas:
       cta: Lire les expériences
       tone: dominant
     - label: Expériences
-      title: Du HBJO à la santé publique
-      summary: "Milieu HBJO, mobilité européenne, santé publique et contextes associatifs ou privés : un même réflexe pour comprendre les usages avant de toucher à la stack."
+      title: De la santé publique à l'univers HBJOAT
+      summary: "Santé publique, mobilité européenne, univers HBJOAT et contextes associatifs ou privés : un même réflexe pour comprendre les usages avant de toucher à la stack."
       href: /case-studies
       cta: Découvrir les projets
       tone: green

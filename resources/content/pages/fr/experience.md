@@ -3,12 +3,12 @@ seo_title: Parcours
 seo_description: Parcours professionnel autour de l'e-commerce, de la donnée produit, du SEO technique, des intégrations métier et de la modernisation de systèmes vivants.
 hero:
     eyebrow: Expérience
-    title: Expériences formelles, projets concrets, systèmes déjà en mouvement.
-    summary: E-commerce, CMS, donnée produit, tracking, PIM et intégrations métier dans des contextes où il faut livrer sans casser la mécanique existante.
+    title: Développement full stack pour des produits web déjà en mouvement.
+    summary: E-commerce, CMS, connecteurs, donnée produit et delivery dans des contextes où il faut comprendre vite, structurer proprement et livrer juste.
 positioning:
-    - Comprendre vite un projet, ses usages et ses points d'appui pour distinguer les gains immédiats du plan de fond.
-    - Travailler avec les bonnes personnes et les bons outils, puis laisser des traces claires et triées pour la suite.
-    - Documenter, archiver, prioriser, remettre de l'ordre : ce réflexe s'est construit sans bloquer l'exploitation.
+    - Comprendre vite un projet, ses usages et ce qui peut bouger tout de suite.
+    - Travailler avec les bonnes personnes, les bons outils et une documentation claire pour l'équipe.
+    - Prioriser, cadrer, remettre de l'ordre et faire avancer sans bloquer l'existant.
 contexts:
     - HBJO, sites de marque et e-commerce avec catalogue, stock, médias et mises en ligne qui s'enchaînent.
     - WordPress, WooCommerce, PrestaShop, Shopify, Laravel, PIM, ERP et connecteurs déjà en service.
@@ -16,7 +16,7 @@ contexts:
 professional_sections:
     - title: Jewely / Flippad
       eyebrow: Même entreprise, plusieurs clients
-      summary: L'essentiel de mon parcours web hors Aremedia se structure chez Jewely / Flippad, dans un environnement HBJO exigeant ouvert à des sites marchands, des CMS, des refontes et des lancements très variés.
+      summary: Depuis plus de quatre ans, dont trois en alternance, mon parcours web se construit chez Jewely / Flippad. C'est un cadre formateur qui me fait aujourd'hui confiance sur des projets variés, entre e-commerce, CMS, refontes et lancements dans l'univers HBJO.
       paragraphs:
           - Chez Jewely / Flippad, le périmètre traverse des sites marchands, des sites de marque et des projets CMS aux fonctionnements très différents. Il va des boutiques HBJO aux sites institutionnels ou métiers, avec WooCommerce, PrestaShop, Shopify, WordPress et des bases Laravel ou PHP selon les besoins du projet.
           - Le cœur de valeur se joue souvent autour de la donnée produit et de sa circulation entre les outils. PIM, ERP, stocks, exports, APIs, connecteurs et synchronisations doivent produire une information fiable pour les équipes, claire pour le front et directement exploitable par les surfaces e-commerce.

@@ -323,7 +323,9 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                 </article>
             </div>
 
-            <p class="type-eyebrow projects-page__section-label">
+            <p
+                class="type-eyebrow projects-page__section-label projects-page__section-label--associative"
+            >
                 {{ copy.associativeLabel }}
             </p>
 
@@ -537,6 +539,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     letter-spacing: 0.16em;
 }
 
+.projects-page__section-label--associative {
+    padding-top: clamp(10px, 1.8vw, 18px);
+}
+
 .projects-page__work-grid {
     display: grid;
     align-items: start;
@@ -551,6 +557,41 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     align-content: start;
     gap: var(--sw-space-xs);
     padding: var(--sw-space-sm);
+}
+
+.projects-page__closing {
+    position: relative;
+    gap: var(--sw-space-sm);
+    padding-block: clamp(28px, 4vw, 42px);
+    border-color: color-mix(
+        in srgb,
+        var(--sw-ambient-flare-soft) 22%,
+        var(--sw-border)
+    );
+    background:
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, white 8%, transparent),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 14% 0%,
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 22%, transparent),
+            transparent 42%
+        ),
+        radial-gradient(
+            circle at 86% 100%,
+            color-mix(in srgb, var(--sw-ambient-flare) 10%, transparent),
+            transparent 48%
+        ),
+        color-mix(
+            in srgb,
+            var(--sw-bg-surface) 74%,
+            var(--sw-ambient-flare-soft) 26%
+        );
+    box-shadow: var(--sw-shadow-md);
+    -webkit-backdrop-filter: blur(24px) saturate(120%);
+    backdrop-filter: blur(24px) saturate(120%);
 }
 
 .projects-page__panel-label {

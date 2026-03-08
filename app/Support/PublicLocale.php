@@ -91,7 +91,7 @@ class PublicLocale
     {
         if ($locale === 'fr') {
             return [
-                'headerTagline' => "Ingénierie web pour l'e-commerce, la donnée produit, le tracking et le SEO technique.",
+                'headerTagline' => 'Développeur e-commerce full stack. Data transverse, flux fiables.',
                 'localeSwitcherLabel' => 'Langue',
                 'navAriaLabel' => 'Navigation principale',
                 'navMenuLabel' => 'Menu',
@@ -104,7 +104,7 @@ class PublicLocale
         }
 
         return [
-            'headerTagline' => 'Engineering for e-commerce, product data, tracking, and technical SEO.',
+            'headerTagline' => 'Full-stack e-commerce. Cross-functional data, reliable flows.',
             'localeSwitcherLabel' => 'Language',
             'navAriaLabel' => 'Primary navigation',
             'navMenuLabel' => 'Menu',

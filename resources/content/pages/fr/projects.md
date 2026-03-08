@@ -21,7 +21,7 @@ tracks_section:
 case_studies_section:
     label: Références publiques
     eyebrow: Références
-    title: Logiciel libre, e-commerce et systèmes sous contrainte.
-    summary: "J'ai envie d'ouvrir ici des sujets qui comptent vraiment : auto-hébergement, outils associatifs sous contrainte de données sensibles, manque de moyens dans le monde non lucratif, mais aussi formats e-commerce, données structurées, sitemaps, robots.txt et circulation de la donnée produit."
+    title: Auto-hébergement, flux produit, SEO naturel.
+    summary: "Une archive pour entrer dans des cas plus précis : outils associatifs sous contrainte, circulation de la donnée entre ERP, PIM et e-commerce, formats web, sitemaps, robots.txt et qualité de livraison."
     archive_cta: Découvrir les projets
 ---

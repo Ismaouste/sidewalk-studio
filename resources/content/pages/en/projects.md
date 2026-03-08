@@ -21,7 +21,7 @@ tracks_section:
 case_studies_section:
     label: Public references
     eyebrow: References
-    title: Open-source, commerce, and constrained systems.
-    summary: 'I want to open up the subjects that really matter here: self-hosting, nonprofit tools handling sensitive data, the chronic lack of means in associative work, and also e-commerce formats, structured data, sitemaps, robots.txt, and the way product data moves across systems.'
+    title: Self-hosting, product flows, technical SEO.
+    summary: 'An archive for going deeper into specific cases: nonprofit tools under real constraints, product data moving between ERP, PIM, and commerce surfaces, plus web formats, sitemaps, robots.txt, and delivery quality.'
     archive_cta: Discover projects
 ---

@@ -163,18 +163,18 @@ class SiteController extends Controller
                 ],
             ],
             'journalWidget' => $this->publicationWidget([
-                'eyebrow' => app()->getLocale() === 'fr' ? 'Journal' : 'Journal',
+                'eyebrow' => app()->getLocale() === 'fr' ? 'Notes' : 'Notes',
                 'title' => app()->getLocale() === 'fr'
-                    ? 'Notes de dev qui prolongent les références.'
-                    : 'Development notes that continue the work references.',
+                    ? 'Mémos techniques, anecdotes utiles, détails qui comptent.'
+                    : 'Technical memos, useful anecdotes, and details that matter.',
                 'description' => app()->getLocale() === 'fr'
-                    ? "Le journal reste proche des références pour rendre le raisonnement accessible, pas seulement le résultat."
-                    : 'The journal stays close to the work surface so the reasoning remains reachable, not just the outcome.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? 'Découvrir le journal' : 'Discover the journal',
+                    ? "Des notes courtes pour parler schéma.org, données produit, catalogues, images, formats web et autres détails techniques qui finissent par faire une vraie différence."
+                    : 'Short notes about schema.org, product data, catalogs, images, web formats, and the technical details that end up making a real difference.',
+                'ctaLabel' => app()->getLocale() === 'fr' ? 'Consulter les notes' : 'Browse notes',
                 'ctaHref' => '/journal',
                 'sections' => ['writing'],
                 'tag' => 'notes-dev',
-                'category' => 'journal',
+                'publication_type' => 'note',
                 'limit' => 2,
             ]),
             'referenceWidget' => $this->publicationWidget([

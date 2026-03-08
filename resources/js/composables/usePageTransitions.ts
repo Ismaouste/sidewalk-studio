@@ -2,8 +2,8 @@ import { router } from '@inertiajs/vue3';
 import { computed, reactive } from 'vue';
 import { clearStaticPreviewNavigation } from '@/lib/staticPreview';
 
-const SHOW_DELAY_MS = 40;
-const MIN_OVERLAY_MS = 260;
+const SHOW_DELAY_MS = 0;
+const MIN_OVERLAY_MS = 220;
 const SETTLING_MS = 120;
 const MAX_OVERLAY_MS = 2200;
 

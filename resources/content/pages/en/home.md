@@ -17,8 +17,8 @@ focus_areas:
       cta: Read the experience
       tone: dominant
     - label: Experience
-      title: From jewelry and watches to public health
-      summary: 'Jewelry and watches, European mobility, public health, and nonprofit or private contexts: the same reflex to understand real usage before touching the stack.'
+      title: From public health to HBJOAT environments
+      summary: 'Public health, European mobility, HBJOAT environments, and nonprofit or private contexts: the same reflex to understand real usage before touching the stack.'
       href: /case-studies
       cta: Discover the projects
       tone: green

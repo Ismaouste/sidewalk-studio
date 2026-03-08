@@ -17,8 +17,10 @@ const page = usePage<{ site: SiteProps }>();
 const menuId = 'primary-navigation';
 const mobileMenuOpen = ref(false);
 const isDesktopViewport = ref(false);
+const optimisticActiveHref = ref<string | null>(null);
 
 let desktopMediaQuery: MediaQueryList | null = null;
+let optimisticResetTimer: number | undefined;
 
 function normalizePath(value: string): string {
     if (!value) {
@@ -42,8 +44,12 @@ function normalizePath(value: string): string {
     return pathname === '' ? '/' : pathname;
 }
 
+const currentPath = computed(() =>
+    normalizePath(optimisticActiveHref.value ?? props.currentUrl),
+);
+
 function isActive(item: NavItem): boolean {
-    const currentPath = normalizePath(props.currentUrl);
+    const resolvedCurrentPath = currentPath.value;
     const itemPath = normalizePath(item.href);
 
     if (itemPath === '/') {
@@ -55,17 +61,17 @@ function isActive(item: NavItem): boolean {
             }
 
             return (
-                currentPath === navPath ||
-                currentPath.endsWith(navPath) ||
-                currentPath.includes(`${navPath}/`)
+                resolvedCurrentPath === navPath ||
+                resolvedCurrentPath.endsWith(navPath) ||
+                resolvedCurrentPath.includes(`${navPath}/`)
             );
         });
     }
 
     return (
-        currentPath === itemPath ||
-        currentPath.endsWith(itemPath) ||
-        currentPath.includes(`${itemPath}/`)
+        resolvedCurrentPath === itemPath ||
+        resolvedCurrentPath.endsWith(itemPath) ||
+        resolvedCurrentPath.includes(`${itemPath}/`)
     );
 }
 
@@ -109,6 +115,23 @@ function closeMenu(): void {
     mobileMenuOpen.value = false;
 }
 
+function clearOptimisticTimer(): void {
+    if (optimisticResetTimer !== undefined) {
+        window.clearTimeout(optimisticResetTimer);
+        optimisticResetTimer = undefined;
+    }
+}
+
+function handleLinkClick(item: NavItem): void {
+    optimisticActiveHref.value = item.href;
+    closeMenu();
+    clearOptimisticTimer();
+
+    optimisticResetTimer = window.setTimeout(() => {
+        optimisticActiveHref.value = null;
+    }, 2000);
+}
+
 function toggleMenu(): void {
     mobileMenuOpen.value = !mobileMenuOpen.value;
 }
@@ -127,7 +150,14 @@ function handleKeydown(event: KeyboardEvent): void {
     }
 }
 
-watch(() => props.currentUrl, closeMenu);
+watch(
+    () => props.currentUrl,
+    () => {
+        optimisticActiveHref.value = null;
+        clearOptimisticTimer();
+        closeMenu();
+    },
+);
 
 onMounted(() => {
     if (typeof window === 'undefined') {
@@ -142,6 +172,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
     desktopMediaQuery?.removeEventListener('change', handleViewportChange);
+    clearOptimisticTimer();
 
     if (typeof window !== 'undefined') {
         window.removeEventListener('keydown', handleKeydown);
@@ -191,6 +222,7 @@ onBeforeUnmount(() => {
                     :href="item.href"
                     class="nav-tabs__link"
                     :class="{ 'nav-tabs__link--active': isActive(item) }"
+                    @click="handleLinkClick(item)"
                 >
                     <span class="nav-tabs__link-label">{{ item.label }}</span>
                     <span

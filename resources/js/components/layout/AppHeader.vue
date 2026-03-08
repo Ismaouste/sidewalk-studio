@@ -8,9 +8,17 @@ import type { SiteProps } from '@/types';
 const page = usePage<{ site: SiteProps }>();
 const navigation = computed(() => page.props.site.navigation);
 const currentUrl = computed(() => page.url);
+const brandName = 'Ismaël Rodmacq';
 const homeHref = computed(() =>
     resolvePublicHref(
         '/',
+        page.props.site.runtime.staticPreview,
+        page.props.site.runtime.staticBasePath,
+    ),
+);
+const avatarHref = computed(() =>
+    resolvePublicHref(
+        '/images/contact-avatar.png',
         page.props.site.runtime.staticPreview,
         page.props.site.runtime.staticBasePath,
     ),
@@ -64,11 +72,15 @@ onBeforeUnmount(() => {
                 <div class="app-header__topline">
                     <Link :href="homeHref" class="app-header__brand">
                         <span class="app-header__identity">
-                            <span class="app-header__mark" aria-hidden="true">
-                                <span class="app-header__mark-core"></span>
-                            </span>
+                            <img
+                                :src="avatarHref"
+                                alt=""
+                                class="app-header__avatar"
+                                loading="eager"
+                                decoding="async"
+                            />
                             <span class="type-eyebrow app-header__name">
-                                {{ page.props.site.name }}
+                                {{ brandName }}
                             </span>
                         </span>
                         <span class="app-header__tagline">
@@ -212,82 +224,14 @@ onBeforeUnmount(() => {
     min-width: 0;
 }
 
-.app-header__mark {
-    position: relative;
+.app-header__avatar {
+    display: block;
     flex: 0 0 auto;
-    inline-size: 34px;
-    block-size: 34px;
-    border: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
-    border-radius: 12px;
-    background:
-        linear-gradient(
-            160deg,
-            color-mix(in srgb, var(--sw-accent-sun) 12%, transparent),
-            color-mix(in srgb, var(--sw-bg-elevated) 90%, transparent)
-        ),
-        color-mix(in srgb, var(--sw-bg-surface) 74%, transparent);
-    box-shadow:
-        inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
-        0 10px 20px color-mix(in srgb, var(--sw-text-primary) 7%, transparent);
-}
-
-.app-header__mark::before,
-.app-header__mark::after {
-    content: '';
-    position: absolute;
-    pointer-events: none;
-}
-
-.app-header__mark::before {
-    inset: 9px 5px;
-    border: 1px solid
-        color-mix(in srgb, var(--sw-accent-dominant) 28%, transparent);
+    inline-size: 36px;
+    block-size: 36px;
     border-radius: 999px;
-    background:
-        radial-gradient(
-            circle at 50% 50%,
-            color-mix(in srgb, var(--sw-accent-sun) 10%, transparent),
-            transparent 72%
-        );
-}
-
-.app-header__mark::after {
-    inset: auto 7px 7px;
-    height: 8px;
-    border-radius: 999px;
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            color-mix(in srgb, var(--sw-accent-sun) 16%, transparent),
-            transparent 72%
-        ),
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--sw-accent-coral) 12%, transparent),
-            transparent
-        );
-    border-top: 1px solid
-        color-mix(in srgb, var(--sw-accent-dominant) 20%, transparent);
-    opacity: 0.78;
-}
-
-.app-header__mark-core {
-    position: absolute;
-    inset: 50% auto auto 50%;
-    inline-size: 10px;
-    block-size: 10px;
-    border-radius: 999px;
-    transform: translate(-50%, -50%);
-    background:
-        radial-gradient(
-            circle at 35% 35%,
-            color-mix(in srgb, white 56%, var(--sw-accent-sun)),
-            var(--sw-accent-sun) 62%,
-            color-mix(in srgb, var(--sw-accent-coral) 56%, var(--sw-accent-sun))
-        );
-    box-shadow:
-        0 0 0 3px color-mix(in srgb, var(--sw-accent-sun) 14%, transparent),
-        0 0 14px color-mix(in srgb, var(--sw-accent-sun) 20%, transparent);
+    object-fit: cover;
+    box-shadow: 0 10px 20px color-mix(in srgb, var(--sw-text-primary) 7%, transparent);
 }
 
 .app-header__name {
@@ -326,24 +270,6 @@ onBeforeUnmount(() => {
     .app-header__controls {
         justify-items: end;
     }
-}
-
-html[data-theme='sunset'] .app-header__mark {
-    background:
-        linear-gradient(
-            145deg,
-            color-mix(in srgb, var(--sw-accent-sun) 18%, transparent),
-            color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent)
-        ),
-        color-mix(in srgb, var(--sw-bg-surface) 78%, transparent);
-}
-
-html[data-theme='sunset'] .app-header__mark::before {
-    border-color: color-mix(in srgb, var(--sw-accent-coral) 28%, transparent);
-}
-
-html[data-theme='sunset'] .app-header__mark::after {
-    opacity: 0.9;
 }
 
 @media (max-width: 1024px) {
@@ -387,10 +313,9 @@ html[data-theme='sunset'] .app-header__mark::after {
         gap: 10px;
     }
 
-    .app-header__mark {
-        inline-size: 30px;
-        block-size: 30px;
-        border-radius: 9px;
+    .app-header__avatar {
+        inline-size: 32px;
+        block-size: 32px;
     }
 }
 </style>

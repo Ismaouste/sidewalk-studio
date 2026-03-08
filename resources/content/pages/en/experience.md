@@ -3,12 +3,12 @@ seo_title: Experience
 seo_description: Professional experience across e-commerce, product data, technical SEO, business integrations, and modernization of live systems.
 hero:
     eyebrow: Experience
-    title: Formal experience, real projects, systems already in motion.
-    summary: E-commerce, CMS, product data, tracking, PIM, and business integrations in contexts where delivery has to keep moving without breaking the existing machinery.
+    title: Full-stack development for web products already in motion.
+    summary: E-commerce, CMS, connectors, product data, and delivery in contexts where the work is to understand quickly, structure clearly, and ship cleanly.
 positioning:
-    - Understand a project, its usage, and its leverage points quickly enough to separate immediate gains from longer-term work.
-    - Work with the right people and the right tools, then leave clear, well-organized traces behind.
-    - Document, archive, prioritize, restore order without blocking live operations.
+    - Understand a project, its usage, and what can move right away.
+    - Work with the right people, the right tools, and documentation the team can actually reuse.
+    - Prioritize, frame, restore order, and keep things moving without blocking what already exists.
 contexts:
     - Jewelry and watch commerce, brand sites, and e-commerce surfaces where catalog, stock, media, and go-live timing move together.
     - WordPress, WooCommerce, PrestaShop, Shopify, Laravel, PIM, ERP, and connectors already in use.
@@ -16,7 +16,7 @@ contexts:
 professional_sections:
     - title: Jewely / Flippad
       eyebrow: One company, multiple client contexts
-      summary: Most of my web work outside Aremedia takes shape at Jewely / Flippad, in a demanding jewelry and watch environment that also covers commerce sites, CMS work, redesigns, and new launches.
+      summary: For more than four years, including three in work-study, my web path has been taking shape at Jewely / Flippad. It is the company that trained me and still trusts me today across varied projects spanning e-commerce, CMS work, redesigns, and launches in HBJO environments.
       paragraphs:
           - At Jewely / Flippad, the scope runs across commerce sites, brand sites, and CMS projects with very different operating realities. It extends from jewelry and watch storefronts to institutional or business-facing sites, with WooCommerce, PrestaShop, Shopify, WordPress, and Laravel or PHP foundations depending on the project.
           - A large share of the value sits in product data and the way it moves between systems. PIM, ERP, stock, exports, APIs, connectors, and synchronizations need to produce information that stays reliable for teams, clear on the front end, and directly usable across e-commerce surfaces.

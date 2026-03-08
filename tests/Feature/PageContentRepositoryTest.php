@@ -27,7 +27,7 @@ class PageContentRepositoryTest extends TestCase
 
         $this->assertSame('Parcours', $page['seo_title']);
         $this->assertSame(
-            'Expériences formelles, projets concrets, systèmes déjà en mouvement.',
+            'Développement full stack pour des produits web déjà en mouvement.',
             $page['hero']['title'],
         );
         $this->assertSame(

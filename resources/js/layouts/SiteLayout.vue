@@ -290,7 +290,33 @@ onBeforeUnmount(() => {
     background:
         radial-gradient(
             circle at var(--sw-loader-hover-x, 50%) var(--sw-loader-hover-y, 38%),
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 20%, transparent),
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 16%, transparent),
+            transparent 22%
+        ),
+        radial-gradient(
+            circle at var(--sw-sun-vx, 14%) var(--sw-sun-vy, 10%),
+            color-mix(in srgb, var(--sw-ambient-flare) 18%, transparent),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 78% 18%,
+            color-mix(in srgb, var(--sw-ambient-flare-deep) 9%, transparent),
+            transparent 42%
+        ),
+        color-mix(
+            in srgb,
+            var(--sw-bg-base) 56%,
+            var(--sw-ambient-flare-soft) 6%
+        );
+    backdrop-filter: blur(22px);
+    transition: background var(--sw-motion-smooth);
+}
+
+.sw-shell__loader--interactive {
+    background:
+        radial-gradient(
+            circle at var(--sw-loader-hover-x, 50%) var(--sw-loader-hover-y, 38%),
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 24%, transparent),
             transparent 22%
         ),
         radial-gradient(
@@ -300,39 +326,13 @@ onBeforeUnmount(() => {
         ),
         radial-gradient(
             circle at 78% 18%,
-            color-mix(in srgb, var(--sw-ambient-flare-deep) 12%, transparent),
+            color-mix(in srgb, var(--sw-ambient-flare-deep) 13%, transparent),
             transparent 42%
         ),
         color-mix(
             in srgb,
-            var(--sw-bg-base) 74%,
-            var(--sw-ambient-flare-soft) 8%
-        );
-    backdrop-filter: blur(18px);
-    transition: background var(--sw-motion-smooth);
-}
-
-.sw-shell__loader--interactive {
-    background:
-        radial-gradient(
-            circle at var(--sw-loader-hover-x, 50%) var(--sw-loader-hover-y, 38%),
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 34%, transparent),
-            transparent 22%
-        ),
-        radial-gradient(
-            circle at var(--sw-sun-vx, 14%) var(--sw-sun-vy, 10%),
-            color-mix(in srgb, var(--sw-ambient-flare) 28%, transparent),
-            transparent 34%
-        ),
-        radial-gradient(
-            circle at 78% 18%,
-            color-mix(in srgb, var(--sw-ambient-flare-deep) 18%, transparent),
-            transparent 42%
-        ),
-        color-mix(
-            in srgb,
-            var(--sw-bg-base) 68%,
-            var(--sw-ambient-flare-soft) 14%
+            var(--sw-bg-base) 52%,
+            var(--sw-ambient-flare-soft) 10%
         );
 }
 
@@ -399,18 +399,89 @@ onBeforeUnmount(() => {
 }
 
 .sw-shell__loader-line {
+    position: relative;
     display: block;
-    width: min(9rem, 34vw);
-    height: 2px;
+    width: min(12rem, 42vw);
+    height: 4px;
     border-radius: var(--sw-radius-full);
-    background: linear-gradient(
-        90deg,
-        color-mix(in srgb, var(--sw-ambient-flare-deep) 28%, transparent),
-        var(--sw-ambient-flare),
-        color-mix(in srgb, var(--sw-ambient-flare-soft) 26%, transparent)
+    overflow: hidden;
+    background: color-mix(
+        in srgb,
+        var(--sw-bg-elevated) 84%,
+        var(--sw-ambient-flare-soft) 16%
     );
-    background-size: 180% 100%;
-    animation: sw-loader-slide 1.5s linear infinite;
+    box-shadow:
+        inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 48%, transparent),
+        0 0 22px color-mix(in srgb, var(--sw-ambient-flare) 10%, transparent);
+}
+
+.sw-shell__loader-line::before,
+.sw-shell__loader-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.sw-shell__loader-line::before {
+    inset: 0.5px;
+    background:
+        radial-gradient(
+            circle at 18% 50%,
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 94%, transparent),
+            transparent 26%
+        ),
+        radial-gradient(
+            circle at 52% 50%,
+            color-mix(in srgb, var(--sw-ambient-flare) 92%, transparent),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 82% 50%,
+            color-mix(in srgb, var(--sw-ambient-flare-deep) 84%, transparent),
+            transparent 28%
+        ),
+        linear-gradient(
+            90deg,
+            color-mix(in srgb, var(--sw-ambient-flare-deep) 70%, transparent),
+            color-mix(in srgb, var(--sw-ambient-flare) 92%, white 8%) 36%,
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 94%, white 6%) 68%,
+            color-mix(in srgb, var(--sw-ambient-flare-deep) 76%, transparent)
+        );
+    background-size:
+        34% 170%,
+        38% 200%,
+        30% 170%,
+        220% 100%;
+    background-position:
+        0% 50%,
+        56% 50%,
+        100% 50%,
+        140% 50%;
+    filter: saturate(115%);
+    animation:
+        sw-loader-flow 4.6s linear infinite,
+        sw-loader-pulse 2.4s ease-in-out infinite alternate;
+}
+
+.sw-shell__loader-line::after {
+    inset: -1px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            transparent 28%,
+            color-mix(in srgb, white 44%, var(--sw-ambient-flare-soft)) 46%,
+            color-mix(in srgb, white 18%, transparent) 54%,
+            transparent 70%,
+            transparent 100%
+        );
+    mix-blend-mode: screen;
+    opacity: 0.72;
+    filter: blur(5px);
+    transform: translateX(-132%);
+    animation: sw-loader-sweep 2.8s ease-in-out infinite;
 }
 
 .sw-main__breadcrumb {
@@ -447,18 +518,72 @@ onBeforeUnmount(() => {
     opacity: 0;
 }
 
-@keyframes sw-loader-slide {
+@keyframes sw-loader-flow {
+    0% {
+        background-position:
+            -12% 46%,
+            50% 54%,
+            108% 48%,
+            140% 50%;
+    }
+
+    50% {
+        background-position:
+            10% 54%,
+            62% 44%,
+            92% 56%,
+            16% 50%;
+    }
+
+    100% {
+        background-position:
+            24% 48%,
+            76% 52%,
+            80% 44%,
+            -112% 50%;
+    }
+}
+
+@keyframes sw-loader-pulse {
     from {
-        background-position: 160% 50%;
+        opacity: 0.84;
+        transform: scaleY(0.96);
     }
 
     to {
-        background-position: -60% 50%;
+        opacity: 1;
+        transform: scaleY(1);
+    }
+}
+
+@keyframes sw-loader-sweep {
+    0% {
+        transform: translateX(-132%);
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateX(0%);
+        opacity: 0.82;
+    }
+
+    88% {
+        opacity: 0.38;
+    }
+
+    100% {
+        transform: translateX(132%);
+        opacity: 0;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .sw-shell__loader-line {
+    .sw-shell__loader-line::before,
+    .sw-shell__loader-line::after {
         animation: none;
     }
 

@@ -135,54 +135,54 @@ html[data-theme='morning'] {
 html[data-theme='sunset'] {
     color-scheme: dark;
 
-    --sw-bg-base: #110f18;
-    --sw-bg-surface: #171521;
-    --sw-bg-grid: #211d2b;
-    --sw-bg-elevated: #262133;
+    --sw-bg-base: #13141b;
+    --sw-bg-surface: #1a1d26;
+    --sw-bg-grid: #232734;
+    --sw-bg-elevated: #2c3140;
 
-    --sw-text-primary: #f3ebf2;
-    --sw-text-secondary: #c9b9c9;
-    --sw-text-muted: #9e8d9e;
-    --sw-text-inverse: #110f18;
+    --sw-text-primary: #f2edf0;
+    --sw-text-secondary: #cbc1c6;
+    --sw-text-muted: #9b9199;
+    --sw-text-inverse: #13141b;
 
-    --sw-accent-dominant: #dd7a35;
-    --sw-accent-green: #36c39a;
-    --sw-accent-sun: #f08b46;
-    --sw-accent-coral: #e17a9e;
-    --sw-accent-violet: #9f7ad8;
+    --sw-accent-dominant: #d88c62;
+    --sw-accent-green: #68c19c;
+    --sw-accent-sun: #e7a26f;
+    --sw-accent-coral: #d78ba0;
+    --sw-accent-violet: #8877bf;
 
-    --sw-border: #332c42;
-    --sw-border-focus: #f08b46;
+    --sw-border: #393b48;
+    --sw-border-focus: #d88c62;
     --sw-card-hover-border: color-mix(
         in srgb,
         var(--sw-border) 84%,
         var(--sw-accent-dominant) 16%
     );
-    --sw-grid-line: rgba(225, 122, 158, 0.09);
+    --sw-grid-line: rgba(215, 139, 160, 0.08);
     --sw-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.25);
     --sw-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
-    --sw-header-bg: linear-gradient(160deg, #241329, #23172c, #110f18);
+    --sw-header-bg: linear-gradient(160deg, #20202b, #1d2230, #13141b);
     --sw-sun-gradient: radial-gradient(
         circle at 62% 62%,
-        #f08b46ee,
-        #e17a9ecc 34%,
-        #9f7ad866 58%,
+        #e7a26fde,
+        #d78ba0b8 34%,
+        #8877bf52 58%,
         transparent 85%
     );
-    --sw-sun-glow: rgba(240, 139, 70, 0.32);
-    --sw-ambient-flare: #f08b46;
-    --sw-ambient-flare-soft: #e17a9e;
-    --sw-ambient-flare-deep: #9f7ad8;
+    --sw-sun-glow: rgba(231, 162, 111, 0.24);
+    --sw-ambient-flare: #de9464;
+    --sw-ambient-flare-soft: #d88aa1;
+    --sw-ambient-flare-deep: #6f78aa;
     --sw-sun-size: 240px;
     --sw-sun-top: auto;
     --sw-sun-left: auto;
     --sw-sun-bottom: -48px;
     --sw-sun-right: -48px;
-    --sw-header-glow-opacity: 0.42;
-    --sw-header-glow-blur-factor: 0.16;
+    --sw-header-glow-opacity: 0.34;
+    --sw-header-glow-blur-factor: 0.14;
     --sw-tab-active: #e8e2f2;
     --sw-tab-inactive: rgba(232, 226, 242, 0.32);
-    --sw-tab-line: #f08b46;
+    --sw-tab-line: #d88c62;
     --sw-sun-vx: calc(
         78% - (12% * var(--sw-ambient-progress)) -
             (2.6% * var(--sw-ambient-navigation-shift))

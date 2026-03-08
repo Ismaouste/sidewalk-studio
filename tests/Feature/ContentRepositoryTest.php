@@ -13,9 +13,10 @@ class ContentRepositoryTest extends TestCase
     {
         $items = app(ContentRepository::class)->published('writing');
 
-        $this->assertCount(5, $items);
+        $this->assertCount(6, $items);
         $this->assertContains('content-systems-routing-and-metadata', $items->pluck('slug')->all());
         $this->assertContains('opensurvey-nonprofit-health-data', $items->pluck('slug')->all());
+        $this->assertContains('schema-org-rich-results-and-product-images', $items->pluck('slug')->all());
         $this->assertContains('ytmusic-liked-sorter', $items->pluck('slug')->all());
         $this->assertTrue($items->every(fn (array $item) => $item['status'] === 'published'));
         $this->assertContains('journal', $items->pluck('category')->all());
