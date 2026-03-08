@@ -7,8 +7,43 @@ import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
 const navigation = computed(() => page.props.site.navigation);
-const currentUrl = computed(() => page.url);
 const brandName = 'Ismaël Rodmacq';
+const staticLocationPath = ref<string | null>(null);
+
+function normalizePreviewPath(pathname: string, basePath?: string | null): string {
+    const base = (basePath ?? '').trim();
+
+    if (!base || base === '/') {
+        return pathname || '/';
+    }
+
+    const normalizedBase = `/${base.replace(/^\/+|\/+$/g, '')}`;
+    let path = pathname;
+
+    if (path.startsWith(normalizedBase)) {
+        path = path.slice(normalizedBase.length) || '/';
+    }
+
+    if (path.endsWith('/index.html')) {
+        path = path.slice(0, -'/index.html'.length) || '/';
+    }
+
+    return path === '' ? '/' : path;
+}
+
+const currentUrl = computed(() => {
+    if (
+        page.props.site.runtime.staticPreview &&
+        staticLocationPath.value !== null
+    ) {
+        return normalizePreviewPath(
+            staticLocationPath.value,
+            page.props.site.runtime.staticBasePath,
+        );
+    }
+
+    return page.url;
+});
 const homeHref = computed(() =>
     resolvePublicHref(
         '/',
@@ -40,6 +75,10 @@ function syncHeaderHeight(): void {
 }
 
 onMounted(() => {
+    if (typeof window !== 'undefined') {
+        staticLocationPath.value = window.location.pathname;
+    }
+
     syncHeaderHeight();
 
     if (typeof window === 'undefined') {
