@@ -43,7 +43,6 @@ const copy = computed(() =>
                       ? 'Article'
                       : 'Note éditoriale',
               taggedThreadsLabel: `${props.item.tags.length} fils étiquetés`,
-              entryFrameLabel: "Cadre d'entrée",
               continueLabel: 'Poursuivre le fil',
               continueDescription:
                   "Les cas clients montrent comment les mêmes choix d'architecture se comportent sous pression de livraison et contraintes parties prenantes.",
@@ -60,7 +59,6 @@ const copy = computed(() =>
                       ? 'Article'
                       : 'Editorial note',
               taggedThreadsLabel: `${props.item.tags.length} tagged threads`,
-              entryFrameLabel: 'Entry frame',
               continueLabel: 'Continue the thread',
               continueDescription:
                   'Case studies show how the same architectural choices behave under delivery pressure and stakeholder constraints.',
@@ -103,7 +101,7 @@ const copy = computed(() =>
 
                 <aside class="writing-show__aside">
                     <Panel class="writing-show__sidebar-card" tone="surface">
-                        <p class="type-eyebrow">{{ copy.entryFrameLabel }}</p>
+                        <p class="type-eyebrow">{{ copy.editorialLabel }}</p>
                         <p class="type-body-sm writing-show__sidebar-copy">
                             {{ props.item.summary }}
                         </p>

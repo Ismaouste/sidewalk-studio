@@ -59,21 +59,13 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 <template>
     <section class="publication-widget">
-        <div v-if="hasHeader || hasCta" class="publication-widget__header">
+        <div v-if="hasHeader" class="publication-widget__header">
             <SectionIntro
                 v-if="hasHeader"
                 :eyebrow="props.widget.eyebrow"
                 :title="props.widget.title"
                 :description="props.widget.description"
             />
-            <Button
-                v-if="hasCta"
-                :href="props.widget.ctaHref"
-                variant="ghost"
-                arrow
-            >
-                {{ props.widget.ctaLabel }}
-            </Button>
         </div>
 
         <div
@@ -123,6 +115,12 @@ function widgetChipLabel(section: string, category: string, client: string): str
                 </Panel>
             </Link>
         </div>
+
+        <div v-if="hasCta" class="publication-widget__footer">
+            <Button :href="props.widget.ctaHref" variant="ghost" arrow>
+                {{ props.widget.ctaLabel }}
+            </Button>
+        </div>
     </section>
 </template>
 
@@ -133,15 +131,23 @@ function widgetChipLabel(section: string, category: string, client: string): str
 }
 
 .publication-widget__header {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sw-space-sm);
-    align-items: end;
-    justify-content: space-between;
+    display: grid;
+    gap: var(--sw-space-xs);
 }
 
 .publication-widget__header :deep(.section-intro) {
     max-width: 42rem;
+}
+
+.publication-widget__footer {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.publication-widget__footer :deep(.sw-button) {
+    white-space: normal;
+    max-width: 16rem;
+    line-height: 1.3;
 }
 
 .publication-widget__grid {

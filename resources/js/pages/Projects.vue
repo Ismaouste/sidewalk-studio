@@ -447,9 +447,6 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                     :title="props.caseStudiesSection.title"
                     :description="props.caseStudiesSection.summary"
                 />
-                <Button href="/case-studies" variant="ghost" arrow>
-                    {{ props.caseStudiesSection.archive_cta }}
-                </Button>
             </div>
 
             <div class="projects-page__cases">
@@ -489,6 +486,12 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                         </div>
                     </Panel>
                 </Link>
+            </div>
+
+            <div class="projects-page__footer-cta">
+                <Button href="/case-studies" variant="ghost" arrow>
+                    {{ props.caseStudiesSection.archive_cta }}
+                </Button>
             </div>
 
             <Panel class="projects-page__closing" tone="grid">
@@ -716,15 +719,23 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 }
 
 .projects-page__header {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sw-space-sm);
-    align-items: end;
-    justify-content: space-between;
+    display: grid;
+    gap: var(--sw-space-xs);
 }
 
 .projects-page__header :deep(.section-intro) {
     max-width: 46rem;
+}
+
+.projects-page__footer-cta {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.projects-page__footer-cta :deep(.sw-button) {
+    max-width: 16rem;
+    white-space: normal;
+    line-height: 1.3;
 }
 
 .projects-page__cases {

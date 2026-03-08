@@ -3,6 +3,7 @@ defineProps<{
     items: Array<{
         label?: string;
         value: string;
+        tone?: 'default' | 'sun' | 'green' | 'coral' | 'violet';
     }>;
 }>();
 </script>
@@ -13,6 +14,10 @@ defineProps<{
             v-for="item in items"
             :key="`${item.label ?? 'meta'}-${item.value}`"
             class="content-meta-row__item"
+            :class="{
+                [`content-meta-row__item--${item.tone}`]:
+                    item.tone && item.tone !== 'default',
+            }"
         >
             <span v-if="item.label" class="content-meta-row__label">
                 {{ item.label }}
@@ -55,7 +60,7 @@ defineProps<{
     font-family: var(--sw-font-heading);
     font-size: 10px;
     font-weight: 700;
-    line-height: 1.45;
+    line-height: 1.6;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
@@ -65,11 +70,15 @@ defineProps<{
 .content-meta-row__value {
     font-family: var(--sw-font-code);
     font-size: 12px;
-    line-height: 1.35;
+    line-height: 1.5;
     letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;
     color: var(--sw-text-primary);
     transform: translateY(1px);
+}
+
+.content-meta-row__item--sun .content-meta-row__value {
+    color: color-mix(in srgb, var(--sw-accent-sun) 78%, var(--sw-text-primary));
 }
 
 @media (max-width: 640px) {

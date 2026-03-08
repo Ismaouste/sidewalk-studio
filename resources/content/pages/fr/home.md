@@ -36,6 +36,6 @@ local_teaser:
         - APIs locales, cartographie, logique des transports et clarté des services.
         - Communautés associatives et culturelles, dont Aremedia.
 contact_cta:
-    title: Disponible pour un sujet web qui demande de remettre de l'ordre sans casser ce qui tourne.
-    summary: "Plateforme e-commerce, outil interne, site éditorial, flux produit, connecteur, SEO technique ou échange plus libre autour du studio : on peut en parler simplement."
+    title: Actuellement chez Jewely, ouvert aux opportunités, aux missions freelance à temps partiel et aux échanges.
+    summary: "Plateforme e-commerce, outil interne, connecteur, flux produit, SEO technique ou simple discussion autour d'un projet digital : on peut en parler simplement."
 ---

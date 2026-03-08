@@ -4,7 +4,7 @@ seo_description: Point de contact pour parler de projets web, d'outils internes,
 hero:
     eyebrow: Contact
     title: Entrer en contact pour un projet digital ou simplement prolonger la visite.
-    summary: Ouvert aux échanges autour d'un produit existant, d'un connecteur à remettre au propre, d'une organisation digitale à faire respirer, d'un poste, d'une mission freelance ou d'une discussion après la visite du studio.
+    summary: Actuellement en emploi chez Jewely, avec une ouverture claire pour des opportunités, des missions freelance à temps partiel et des échanges autour d'un projet digital.
 form:
     eyebrow: Partager le contexte
     title: Un premier message simple, et la conversation peut commencer.

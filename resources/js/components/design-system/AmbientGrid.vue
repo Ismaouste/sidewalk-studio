@@ -432,4 +432,14 @@ html[data-theme='sunset'] .ambient-grid {
         transition: none;
     }
 }
+
+:global(html[data-motion='reduced'] .ambient-grid) {
+    --ambient-nav: 0;
+}
+
+:global(html[data-motion='reduced'] .ambient-grid__sun),
+:global(html[data-motion='reduced'] .ambient-grid__plane),
+:global(html[data-motion='reduced'] .ambient-grid__shadow) {
+    transition: none;
+}
 </style>

@@ -25,6 +25,7 @@ class CaseStudyController extends Controller
             [
                 'breadcrumb' => [
                     ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => $isFrench ? 'Projets' : 'Projects', 'path' => '/projects'],
                     ['name' => $isFrench ? 'Cas clients' : 'Case Studies', 'path' => '/case-studies'],
                 ],
             ],
@@ -56,6 +57,7 @@ class CaseStudyController extends Controller
                 'section' => $isFrench ? 'Cas clients' : 'Case Studies',
                 'breadcrumb' => [
                     ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => $isFrench ? 'Projets' : 'Projects', 'path' => '/projects'],
                     ['name' => $isFrench ? 'Cas clients' : 'Case Studies', 'path' => '/case-studies'],
                     ['name' => $item['title'], 'path' => '/case-studies/'.$item['slug']],
                 ],

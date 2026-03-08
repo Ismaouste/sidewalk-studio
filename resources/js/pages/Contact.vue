@@ -78,10 +78,11 @@ const copy = computed(() =>
               locationChipLabel: props.contact.location,
               locationLabel: props.details.location_label,
               availabilityLabel: 'Disponibilité',
-              availabilityText: 'En emploi chez Jewely.',
-              opportunitiesLabel: "À l'écoute de",
+              availabilityText:
+                  '● Freelance / temps partiel / échanges',
+              opportunitiesLabel: 'Situation actuelle',
               opportunitiesText:
-                  "Un poste, une mission freelance, une reprise technique, un outil interne, un sujet e-commerce ou une conversation autour d'un produit déjà en mouvement.",
+                  "Actuellement en emploi chez Jewely, avec une ouverture claire pour des opportunités, des missions freelance à temps partiel et des échanges autour d'un projet digital.",
               subjectPrefix: 'Prise de contact Sidewalk Studio',
               bodyNameLabel: 'Nom',
               bodyEmailLabel: 'Email',
@@ -113,10 +114,10 @@ const copy = computed(() =>
               locationChipLabel: props.contact.location,
               locationLabel: props.details.location_label,
               availabilityLabel: 'Availability',
-              availabilityText: 'Currently employed at Jewely.',
-              opportunitiesLabel: 'Open to',
+              availabilityText: '● Freelance / part-time / conversations',
+              opportunitiesLabel: 'Current situation',
               opportunitiesText:
-                  'A role, freelance support, technical recovery, internal tools, e-commerce work, or a first conversation around a product already in motion.',
+                  'Currently employed at Jewely, while staying open to opportunities, part-time freelance work, and conversations around digital products.',
               subjectPrefix: 'Sidewalk Studio inquiry',
               bodyNameLabel: 'Name',
               bodyEmailLabel: 'Email',
@@ -150,7 +151,8 @@ const inquiryMeta = computed(() => [
     },
     {
         label: copy.value.availabilityLabel,
-        value: `💼 ${copy.value.availabilityText}`,
+        value: copy.value.availabilityText,
+        tone: 'sun' as const,
     },
 ]);
 

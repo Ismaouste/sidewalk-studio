@@ -47,8 +47,9 @@ const props = withDefaults(
     left: 0;
     bottom: calc(100% + 10px);
     z-index: 3;
-    min-width: max-content;
-    max-width: min(20rem, 82vw);
+    width: max-content;
+    min-width: min(14rem, calc(100vw - 2rem));
+    max-width: min(20rem, calc(100vw - 2rem));
     border: 1px solid color-mix(in srgb, var(--inline-term-accent) 24%, var(--sw-border));
     border-radius: calc(var(--sw-radius-md) + 2px);
     background: color-mix(in srgb, var(--sw-bg-elevated) 90%, var(--inline-term-accent) 10%);
@@ -102,5 +103,25 @@ const props = withDefaults(
 .inline-term-tooltip:focus .inline-term-tooltip__popup {
     opacity: 1;
     transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+    .inline-term-tooltip__popup {
+        left: 50%;
+        width: min(18rem, calc(100vw - 2rem));
+        min-width: 0;
+        max-width: calc(100vw - 2rem);
+        transform: translate(-50%, 4px);
+    }
+
+    .inline-term-tooltip__popup::after {
+        left: calc(50% - 5px);
+    }
+
+    .inline-term-tooltip:hover .inline-term-tooltip__popup,
+    .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
+    .inline-term-tooltip:focus .inline-term-tooltip__popup {
+        transform: translate(-50%, 0);
+    }
 }
 </style>

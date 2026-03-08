@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
+import AccessibilityPanel from '@/components/layout/AccessibilityPanel.vue';
 import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
@@ -110,6 +111,7 @@ const copy = computed(() =>
                         <div class="app-footer__controls">
                             <LocaleSwitcher v-if="!isStaticPreview" />
                             <ThemeToggle compact />
+                            <AccessibilityPanel />
                             <ConsentPreferencesButton
                                 v-if="!isStaticPreview"
                             />

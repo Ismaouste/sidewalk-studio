@@ -3,8 +3,8 @@ seo_title: Experience
 seo_description: Professional experience, demanding e-commerce environments, and a few public references that make the level of execution visible.
 hero:
     eyebrow: Experience
-    title: From jewelry and watches to public health, with a strong taste for systems that have to keep running.
-    summary: "Jewely, WordPress, WooCommerce, PrestaShop, Shopify, Laravel, internal tools, nonprofit work, and public-health contexts all point to the same thread: making data, feeds, front-end work, tracking, and integrations more reliable, more readable, and more useful."
+    title: A taste for systems that have to keep running.
+    summary: "Full-stack development, e-commerce, CMS work, connectors, product flows, tracking, and technical SEO across varied contexts with the same need for reliability, clarity, and useful execution."
 tracks_section:
     label: Tracks
     intro:
@@ -21,7 +21,7 @@ tracks_section:
 case_studies_section:
     label: Public references
     eyebrow: References
-    title: Self-hosting, product flows, technical SEO.
+    title: Case studies and notes to go deeper.
     summary: 'An archive for going deeper into specific cases: nonprofit tools under real constraints, product data moving between ERP, PIM, and commerce surfaces, plus web formats, sitemaps, robots.txt, and delivery quality.'
-    archive_cta: Discover projects
+    archive_cta: Browse all case studies
 ---

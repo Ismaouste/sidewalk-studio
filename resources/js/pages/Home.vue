@@ -139,15 +139,23 @@ const copy = computed(() =>
                   'CI/CD : intégration et déploiement continus pour fiabiliser les mises en ligne.',
               seoDefinition:
                   "SEO : optimisation technique et éditoriale pour rendre un site lisible par les moteurs et utile aux visiteurs.",
+              pimDefinition:
+                  "PIM : Product Information Management, le socle qui centralise et structure la donnée produit.",
+              jsonLdDefinition:
+                  'JSON-LD : format de données structurées lisible par les moteurs et les plateformes.',
+              merchantCenterDefinition:
+                  'Google Merchant Center : flux catalogue et diffusion produit vers les surfaces shopping Google.',
+              dataLayerDefinition:
+                  "Data layer : couche de données partagée entre le site, le tracking et les outils marketing.",
               whatIDoLabel: 'Ce que je fais',
               focusTitle:
                   'Un positionnement net dans des environnements complexes.',
               focusDescription:
                   "Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privée et besoin de garder des systèmes compréhensibles après mise en production.",
               selectedWorkLabel: 'Expérience',
-              projectsTitle: 'Quelques références choisies.',
+              projectsTitle: 'Études de cas et repères à ouvrir ensuite.',
               projectsDescription:
-                  "Des cas publics compacts pour montrer comment architecture, donnée produit, tracking, SEO technique et décisions de livraison se traduisent en pratique.",
+                  "Études de cas, notes et références pour entrer dans des situations plus concrètes.",
               openProjectsCta: "Découvrir les projets",
               internalBuildLabel: 'Interne',
               localGroundLabel: 'Où suis-je ?',
@@ -156,7 +164,7 @@ const copy = computed(() =>
               contactLabel: 'Contact',
               startConversationCta: 'Prendre contact',
               referencesCta: 'Lire les expériences',
-              archiveCta: "Découvrir les projets",
+              archiveCta: "Découvrir toutes les études de cas",
           }
         : {
               projectsCta: 'View experiences',
@@ -177,15 +185,23 @@ const copy = computed(() =>
                   'CI/CD: continuous integration and delivery practices that make releases safer.',
               seoDefinition:
                   'SEO: technical and editorial optimization that helps a site stay legible for search engines and useful for people.',
+              pimDefinition:
+                  'PIM: Product Information Management, the layer that centralizes and structures product data.',
+              jsonLdDefinition:
+                  'JSON-LD: a structured-data format understood by search engines and platforms.',
+              merchantCenterDefinition:
+                  'Google Merchant Center: product feed distribution across Google shopping surfaces.',
+              dataLayerDefinition:
+                  'Data layer: the shared data layer used by the site, tracking, and marketing tools.',
               whatIDoLabel: 'What I do',
               focusTitle: 'A legible practice for complex environments.',
               focusDescription:
                   'The work usually sits between product delivery, legacy modernization, technical SEO, privacy, and the need to keep systems readable after launch.',
               selectedWorkLabel: 'Experience',
               projectsTitle:
-                  'A few build and implementation references.',
+                  'Case studies and pointers worth opening next.',
               projectsDescription:
-                  'A small set of public case studies that show how architecture, product data, tracking, technical SEO, and delivery choices play out in real work.',
+                  'Case studies, notes, and references that open more concrete implementation contexts.',
               openProjectsCta: 'Open case studies',
               internalBuildLabel: 'Internal build',
               localGroundLabel: 'Local ground',
@@ -194,7 +210,7 @@ const copy = computed(() =>
               contactLabel: 'Contact',
               startConversationCta: 'Start a conversation',
               referencesCta: 'View experiences',
-              archiveCta: 'Open case studies',
+              archiveCta: 'Browse all case studies',
           },
 );
 </script>
@@ -303,7 +319,31 @@ const copy = computed(() =>
                                         item.label === 'Product data and SEO'
                                     "
                                 >
-                                    PIM / JSON-LD / Merchant Center / Data layer
+                                    <InlineTermTooltip
+                                        label="PIM"
+                                        :definition="copy.pimDefinition"
+                                        tone="sun"
+                                    />
+                                    {{ ' / ' }}
+                                    <InlineTermTooltip
+                                        label="JSON-LD"
+                                        :definition="copy.jsonLdDefinition"
+                                        tone="sun"
+                                    />
+                                    {{ ' / ' }}
+                                    <InlineTermTooltip
+                                        label="Merchant Center"
+                                        :definition="
+                                            copy.merchantCenterDefinition
+                                        "
+                                        tone="sun"
+                                    />
+                                    {{ ' / ' }}
+                                    <InlineTermTooltip
+                                        label="Data layer"
+                                        :definition="copy.dataLayerDefinition"
+                                        tone="sun"
+                                    />
                                 </template>
                                 <template v-else>
                                     {{ item.panelDetails }}
@@ -411,9 +451,6 @@ const copy = computed(() =>
                     :title="copy.projectsTitle"
                     :description="copy.projectsDescription"
                 />
-                <Button href="/case-studies" variant="ghost" arrow>
-                    {{ copy.openProjectsCta }}
-                </Button>
             </div>
 
             <div class="home-card-grid">
@@ -450,6 +487,12 @@ const copy = computed(() =>
                         </div>
                     </Panel>
                 </Link>
+            </div>
+
+            <div class="home-section__footer-cta">
+                <Button href="/case-studies" variant="ghost" arrow>
+                    {{ copy.archiveCta }}
+                </Button>
             </div>
         </section>
 
@@ -557,8 +600,9 @@ const copy = computed(() =>
     left: 0;
     bottom: calc(100% + 10px);
     z-index: 2;
-    min-width: max-content;
-    max-width: min(22rem, 80vw);
+    width: max-content;
+    min-width: min(14rem, calc(100vw - 2rem));
+    max-width: min(22rem, calc(100vw - 2rem));
     border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
     border-radius: calc(var(--sw-radius-md) + 2px);
     background: color-mix(in srgb, var(--sw-bg-elevated) 94%, transparent);
@@ -568,7 +612,7 @@ const copy = computed(() =>
     font-size: 0.79rem;
     font-weight: 500;
     line-height: 1.35;
-    white-space: nowrap;
+    white-space: normal;
     box-shadow: var(--sw-shadow-md);
     opacity: 0;
     pointer-events: none;
@@ -716,6 +760,11 @@ const copy = computed(() =>
     gap: var(--sw-space-sm);
     align-items: end;
     justify-content: space-between;
+}
+
+.home-section__footer-cta {
+    display: flex;
+    justify-content: flex-start;
 }
 
 .home-section__header :deep(.section-intro) {
@@ -906,8 +955,21 @@ const copy = computed(() =>
     }
 
     .home-accent-chip__tooltip {
-        max-width: min(18rem, 76vw);
-        white-space: normal;
+        left: 50%;
+        width: min(18rem, calc(100vw - 2rem));
+        min-width: 0;
+        max-width: calc(100vw - 2rem);
+        transform: translate(-50%, 4px);
+    }
+
+    .home-accent-chip__tooltip::after {
+        left: calc(50% - 5px);
+    }
+
+    .home-accent-chip:hover .home-accent-chip__tooltip,
+    .home-accent-chip:focus-within .home-accent-chip__tooltip,
+    .home-accent-chip:focus .home-accent-chip__tooltip {
+        transform: translate(-50%, 0);
     }
 }
 </style>

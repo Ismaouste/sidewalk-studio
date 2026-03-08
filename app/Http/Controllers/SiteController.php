@@ -40,11 +40,11 @@ class SiteController extends Controller
             'journalWidget' => $this->publicationWidget([
                 'eyebrow' => app()->getLocale() === 'fr' ? 'Journal' : 'Journal',
                 'title' => app()->getLocale() === 'fr'
-                    ? 'Articles et notes pour entrer dans les détails.'
-                    : 'Articles and notes to get into the interesting details.',
+                    ? 'Articles, notes et détails techniques qui valent le détour.'
+                    : 'Articles, notes, and technical details worth opening.',
                 'description' => app()->getLocale() === 'fr'
-                    ? "Retours de terrain, choix de développement, outils bricolés, associations, événements et questions techniques qui méritent un vrai texte."
-                    : 'Field notes, development decisions, small tools, associations, events, and technical questions that deserve more than a teaser.',
+                    ? "Des textes plus construits et des mémos plus courts pour parler terrain, flux produit, SEO, données structurées, outils associatifs et détails de build."
+                    : 'Longer articles and shorter memos about product flows, structured data, SEO, nonprofit tooling, and build details.',
                 'ctaLabel' => app()->getLocale() === 'fr' ? 'Découvrir le journal' : 'Discover the journal',
                 'ctaHref' => '/journal',
                 'sections' => ['writing'],
@@ -180,12 +180,12 @@ class SiteController extends Controller
             'referenceWidget' => $this->publicationWidget([
                 'eyebrow' => app()->getLocale() === 'fr' ? 'Références' : 'References',
                 'title' => app()->getLocale() === 'fr'
-                    ? 'Autres références à consulter depuis cette page.'
-                    : 'More references reachable from the same work surface.',
+                    ? 'Études de cas et notes pour aller plus loin.'
+                    : 'Case studies and notes to go deeper.',
                 'description' => app()->getLocale() === 'fr'
-                    ? "La page rassemble expériences, missions et références sur un même espace public lisible."
-                    : 'Experience, projects, and references stay grouped in one readable public surface.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? "Voir toutes les références" : 'Browse all references',
+                    ? "Une archive pour entrer dans des cas plus précis : outils associatifs sous contrainte, circulation de la donnée entre ERP, PIM et e-commerce, formats web, sitemaps, robots.txt et qualité de livraison."
+                    : 'An archive for more precise cases: constrained nonprofit tooling, data flow between ERP, PIM, and commerce, web formats, sitemaps, robots.txt, and delivery quality.',
+                'ctaLabel' => app()->getLocale() === 'fr' ? "Découvrir toutes les études de cas" : 'Browse all case studies',
                 'ctaHref' => '/case-studies',
                 'sections' => ['case-studies'],
                 'category' => 'work',

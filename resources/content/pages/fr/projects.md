@@ -3,8 +3,8 @@ seo_title: Expérience
 seo_description: Expériences professionnelles, environnements e-commerce exigeants et quelques références publiques pour rendre le niveau d'exécution lisible.
 hero:
     eyebrow: Expérience
-    title: Du HBJO à la santé publique, avec un goût pour les systèmes qui doivent vraiment tourner.
-    summary: "Jewely, WordPress, WooCommerce, PrestaShop, Shopify, Laravel, outils métiers, contexte associatif et santé publique : un même fil rouge autour de la donnée, des flux, du front, du tracking et des intégrations à rendre fiables, lisibles et utiles."
+    title: Un goût pour les systèmes qui doivent vraiment tourner.
+    summary: "Développement full stack, e-commerce, CMS, connecteurs, flux produit, tracking et SEO technique : des terrains variés, mais le même besoin de rendre un système fiable, lisible et utile."
 tracks_section:
     label: Pistes
     intro:
@@ -21,7 +21,7 @@ tracks_section:
 case_studies_section:
     label: Références publiques
     eyebrow: Références
-    title: Auto-hébergement, flux produit, SEO naturel.
+    title: Études de cas et notes pour aller plus loin.
     summary: "Une archive pour entrer dans des cas plus précis : outils associatifs sous contrainte, circulation de la donnée entre ERP, PIM et e-commerce, formats web, sitemaps, robots.txt et qualité de livraison."
-    archive_cta: Découvrir les projets
+    archive_cta: Découvrir toutes les études de cas
 ---

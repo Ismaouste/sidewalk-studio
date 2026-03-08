@@ -3,8 +3,8 @@ seo_title: Contact
 seo_description: A contact point for web projects, internal tools, digital operations, connectors, or simply continuing the visit.
 hero:
     eyebrow: Contact
-    title: Talk about a web project, an internal tool, digital operations, or simply continue the visit.
-    summary: Open to conversations around an existing product, a connector that needs clearer foundations, a digital setup that needs breathing room, a role, a freelance mission, or a discussion after the studio visit.
+    title: Get in touch for a digital project or simply continue the visit.
+    summary: Currently employed at Jewely, while staying open to opportunities, part-time freelance work, and conversations around a digital project.
 form:
     eyebrow: Share the context
     title: A simple first message, and the conversation can begin.

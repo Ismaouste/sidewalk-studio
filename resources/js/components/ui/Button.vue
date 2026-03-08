@@ -171,9 +171,9 @@ const componentProps = computed(() => {
 }
 
 .sw-button--primary {
-    border: 1px solid color-mix(in srgb, var(--sw-accent-sun) 82%, black 8%);
-    background: var(--sw-accent-sun);
-    color: var(--sw-text-inverse);
+    border: 1px solid var(--sw-button-primary-border);
+    background: var(--sw-button-primary-bg);
+    color: var(--sw-button-primary-text);
     box-shadow: var(--sw-shadow-sm);
 }
 
@@ -211,7 +211,7 @@ const componentProps = computed(() => {
     }
 
     .sw-button--primary:hover {
-        background: color-mix(in srgb, var(--sw-accent-sun) 88%, white 12%);
+        background: var(--sw-button-primary-bg-hover);
     }
 
     .sw-button--secondary:hover {

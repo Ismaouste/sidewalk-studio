@@ -36,6 +36,6 @@ local_teaser:
         - Local APIs, mapping, transport logic, and service clarity.
         - Associative and cultural communities, including Aremedia.
 contact_cta:
-    title: Available for web work that needs more order without breaking what already runs.
-    summary: 'E-commerce platform, internal tool, editorial site, product feed, connector, technical SEO, or a more open conversation around the studio: happy to talk.'
+    title: Currently at Jewely, open to opportunities, part-time freelance work, and conversations.
+    summary: 'E-commerce platform, internal tool, connector, product flow, technical SEO, or a direct conversation around a digital project: happy to talk.'
 ---

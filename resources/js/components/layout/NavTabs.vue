@@ -680,4 +680,8 @@ onBeforeUnmount(() => {
         transform: translateY(-1px) rotate(10deg);
     }
 }
+
+:global(html[data-motion='reduced'] .nav-tabs__link-arrow--contact) {
+    animation: none;
+}
 </style>
