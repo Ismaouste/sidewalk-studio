@@ -1,10 +1,10 @@
 ---
 seo_title: Contact
-seo_description: Preferred collaboration channels for privacy, SEO, and Laravel modernization work.
+seo_description: A contact point for web projects, internal tools, digital operations, connectors, or simply continuing the visit.
 hero:
     eyebrow: Contact
-    title: Product data, technical SEO, and Laravel modernization conversations.
-    summary: Open to lead developer, freelance modernization, architecture review, and recruiter conversations when an existing product needs clearer engineering.
+    title: Talk about a web project, an internal tool, digital operations, or simply continue the visit.
+    summary: Open to conversations around an existing product, a connector that needs clearer foundations, a digital setup that needs breathing room, a role, a freelance mission, or a discussion after the studio visit.
 form:
     eyebrow: Share the context
     title: Send a readable message without relying on a third-party form service.

@@ -37,12 +37,13 @@ defineProps<{
 <style scoped>
 .breadcrumb-trail {
     display: block;
+    background: transparent;
 }
 
 .breadcrumb-trail__list {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sw-space-4xs);
+    gap: 6px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -56,16 +57,21 @@ defineProps<{
 
 .breadcrumb-trail__item:not(:last-child)::after {
     content: '/';
-    color: var(--sw-text-muted);
+    color: color-mix(in srgb, var(--sw-text-muted) 84%, transparent);
 }
 
 .breadcrumb-trail__link,
 .breadcrumb-trail__current {
-    color: var(--sw-text-muted);
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.8rem;
+    padding-inline: 0.15rem;
+    color: color-mix(in srgb, var(--sw-text-muted) 86%, var(--sw-text-secondary));
+    transition: color var(--sw-motion-fast);
 }
 
 .breadcrumb-trail__current {
-    color: var(--sw-text-secondary);
+    color: color-mix(in srgb, var(--sw-text-secondary) 92%, var(--sw-text-primary));
 }
 
 @media (hover: hover) {
@@ -77,23 +83,30 @@ defineProps<{
 @media (max-width: 640px) {
     .breadcrumb-trail {
         position: sticky;
-        top: calc(env(safe-area-inset-top) + 4.4rem);
-        z-index: calc(var(--sw-z-header) - 1);
+        top: calc(var(--sw-public-header-height, 104px) - 1px);
+        z-index: calc(var(--sw-z-header) - 2);
         margin-inline: calc(-1 * var(--sw-space-xs));
-        padding: 0 var(--sw-space-xs);
+        padding: 0.25rem var(--sw-space-xs) 0.1rem;
+        background:
+            linear-gradient(
+                180deg,
+                color-mix(in srgb, var(--sw-bg-base) 84%, transparent),
+                color-mix(in srgb, var(--sw-bg-base) 58%, transparent)
+            );
+        border-bottom: 1px solid color-mix(
+            in srgb,
+            var(--sw-border) 56%,
+            transparent
+        );
+        -webkit-backdrop-filter: blur(12px) saturate(128%);
+        backdrop-filter: blur(12px) saturate(128%);
     }
 
     .breadcrumb-trail__list {
         flex-wrap: nowrap;
         overflow-x: auto;
-        gap: 0;
-        padding: 0.55rem 0.7rem;
-        border: 1px solid color-mix(in srgb, var(--sw-border) 78%, transparent);
-        border-radius: var(--sw-radius-full);
-        background: color-mix(in srgb, var(--sw-bg-surface) 88%, transparent);
-        box-shadow: var(--sw-shadow-sm);
-        -webkit-backdrop-filter: blur(16px) saturate(140%);
-        backdrop-filter: blur(16px) saturate(140%);
+        gap: 4px;
+        padding: 0.15rem 0;
         scrollbar-width: none;
     }
 
@@ -105,10 +118,11 @@ defineProps<{
     .breadcrumb-trail__current {
         display: inline-flex;
         align-items: center;
-        min-height: 2rem;
-        padding-inline: 0.2rem;
+        min-height: 2.2rem;
+        padding-inline: 0.35rem;
         white-space: nowrap;
-        font-size: 0.72rem;
+        font-size: 0.78rem;
+        line-height: 1.2;
     }
 
     .breadcrumb-trail__current {

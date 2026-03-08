@@ -91,6 +91,7 @@ const copy = computed(() =>
               recruiterDecisionCopy:
                   "Recrutement, mise en relation rapide, revue d'architecture, reprise de plateforme ou mission freelance sur un produit déjà en charge.",
               cvLabel: 'CV',
+              portraitAlt: "Portrait illustré d'Ismael Rodmacq",
           }
         : {
               workCta: 'Browse references',
@@ -115,6 +116,7 @@ const copy = computed(() =>
               recruiterDecisionCopy:
                   'Hiring, faster recruiter handoff, architecture review, freelance modernization, or an existing platform that already has delivery pressure.',
               cvLabel: 'CV',
+              portraitAlt: 'Illustrated portrait of Ismael Rodmacq',
           },
 );
 
@@ -164,23 +166,35 @@ function submitInquiry(): void {
         <SeoMeta :seo="props.seo" />
 
         <section class="sw-section contact-page">
-            <SectionIntro
-                :eyebrow="props.hero.eyebrow"
-                :title="props.hero.title"
-                :description="props.hero.summary"
-            >
-                <template #actions>
-                    <Button :href="`mailto:${props.contact.email}`">
-                        {{ props.form.secondary_cta }}
-                    </Button>
-                    <Button href="/projects" variant="secondary">
-                        {{ copy.workCta }}
-                    </Button>
-                </template>
+            <div class="contact-page__hero">
+                <SectionIntro
+                    :eyebrow="props.hero.eyebrow"
+                    :title="props.hero.title"
+                    :description="props.hero.summary"
+                >
+                    <template #actions>
+                        <Button :href="`mailto:${props.contact.email}`">
+                            {{ props.form.secondary_cta }}
+                        </Button>
+                        <Button href="/projects" variant="secondary">
+                            {{ copy.workCta }}
+                        </Button>
+                    </template>
 
-                <LegendChip :label="copy.privacyChipLabel" tone="green" />
-                <LegendChip :label="copy.baseChipLabel" tone="sun" />
-            </SectionIntro>
+                    <LegendChip :label="copy.privacyChipLabel" tone="green" />
+                    <LegendChip :label="copy.baseChipLabel" tone="sun" />
+                </SectionIntro>
+
+                <figure class="contact-page__portrait">
+                    <img
+                        src="/images/contact-avatar.png"
+                        :alt="copy.portraitAlt"
+                        class="contact-page__portrait-image"
+                        loading="eager"
+                        decoding="async"
+                    />
+                </figure>
+            </div>
 
             <SectionDivider :label="copy.dividerLabel" />
 
@@ -427,6 +441,44 @@ function submitInquiry(): void {
     gap: var(--sw-space-sm);
 }
 
+.contact-page__hero {
+    display: grid;
+    align-items: start;
+    gap: var(--sw-space-sm);
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 15rem);
+}
+
+.contact-page__portrait {
+    position: relative;
+    margin: 0;
+    border-radius: calc(var(--sw-radius-lg) + 10px);
+    background:
+        radial-gradient(
+            circle at 78% 22%,
+            color-mix(in srgb, var(--sw-accent-sun) 22%, transparent),
+            transparent 42%
+        ),
+        linear-gradient(
+            155deg,
+            color-mix(in srgb, var(--sw-bg-surface) 88%, transparent),
+            color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent)
+        );
+    padding: clamp(10px, 2vw, 14px);
+    box-shadow:
+        inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 68%, transparent),
+        var(--sw-shadow-md);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+    backdrop-filter: blur(16px) saturate(130%);
+}
+
+.contact-page__portrait-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: calc(var(--sw-radius-lg) + 4px);
+    object-fit: cover;
+}
+
 .contact-page__grid {
     display: grid;
     gap: var(--sw-space-sm);
@@ -606,14 +658,23 @@ function submitInquiry(): void {
 }
 
 @media (max-width: 960px) {
+    .contact-page__hero,
     .contact-page__grid {
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    .contact-page__portrait {
+        max-width: 14rem;
     }
 }
 
 @media (max-width: 640px) {
     .contact-page {
         gap: var(--sw-space-xs);
+    }
+
+    .contact-page__portrait {
+        max-width: 11.5rem;
     }
 
     .contact-page__form {

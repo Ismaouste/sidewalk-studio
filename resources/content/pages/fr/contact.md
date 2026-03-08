@@ -1,10 +1,10 @@
 ---
 seo_title: Contact
-seo_description: Canaux de contact privilégiés pour les sujets vie privée, SEO et modernisation Laravel.
+seo_description: Point de contact pour parler de projets web, d'outils internes, de gestion digitale, de connecteurs ou simplement prolonger la visite du studio.
 hero:
     eyebrow: Contact
-    title: Échanges autour de la donnée produit, du SEO technique et de la modernisation Laravel.
-    summary: Disponible pour discuter d'un poste lead developer, d'une reprise technique freelance, d'une revue d'architecture ou d'un recrutement quand un produit existant a besoin d'y voir plus clair.
+    title: Parler d'un projet web, d'un outil interne, d'une gestion digitale ou simplement prolonger la visite.
+    summary: Ouvert aux échanges autour d'un produit existant, d'un connecteur à remettre au propre, d'une organisation digitale à faire respirer, d'un poste, d'une mission freelance ou d'une discussion après la visite du studio.
 form:
     eyebrow: Partager le contexte
     title: Envoyer un message lisible, sans dépendre d'un service tiers.

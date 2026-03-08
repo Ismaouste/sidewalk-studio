@@ -170,7 +170,9 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
             <div class="projects-page__work-grid">
                 <Panel class="projects-page__work-panel" tone="surface">
-                    <p class="type-eyebrow">{{ copy.positioningLabel }}</p>
+                    <p class="type-eyebrow projects-page__panel-label">
+                        {{ copy.positioningLabel }}
+                    </p>
                     <div class="projects-page__copy">
                         <p
                             v-for="paragraph in props.positioning"
@@ -183,7 +185,9 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                 </Panel>
 
                 <Panel class="projects-page__work-panel" tone="grid">
-                    <p class="type-eyebrow">{{ copy.contextsLabel }}</p>
+                    <p class="type-eyebrow projects-page__panel-label">
+                        {{ copy.contextsLabel }}
+                    </p>
                     <ul class="projects-page__list">
                         <li
                             v-for="context in props.contexts"
@@ -202,7 +206,9 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                 </Panel>
 
                 <Panel class="projects-page__work-panel" tone="surface">
-                    <p class="type-eyebrow">{{ copy.recruiterLabel }}</p>
+                    <p class="type-eyebrow projects-page__panel-label">
+                        {{ copy.recruiterLabel }}
+                    </p>
                     <p
                         v-if="props.careerSnapshot.summary"
                         class="type-body projects-page__copy-line"
@@ -452,7 +458,9 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
             </div>
 
             <Panel class="projects-page__closing" tone="grid">
-                <p class="type-eyebrow">{{ copy.lookingForLabel }}</p>
+                <p class="type-eyebrow projects-page__panel-label">
+                    {{ copy.lookingForLabel }}
+                </p>
                 <p class="type-body projects-page__copy-line">
                     {{ props.lookingFor }}
                 </p>
@@ -491,6 +499,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
 .projects-page__work-grid {
     display: grid;
+    align-items: start;
     gap: var(--sw-space-sm);
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -502,6 +511,30 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     align-content: start;
     gap: var(--sw-space-xs);
     padding: var(--sw-space-sm);
+}
+
+.projects-page__panel-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: fit-content;
+    margin: 0;
+    padding: 0.48rem 0.8rem;
+    border-radius: var(--sw-radius-full);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 74%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 66%, transparent);
+    color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
+    font-size: 0.73rem;
+    letter-spacing: 0.14em;
+}
+
+.projects-page__panel-label::before {
+    content: '';
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sw-accent-dominant) 58%, var(--sw-accent-sun));
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--sw-accent-dominant) 10%, transparent);
 }
 
 .projects-page__copy,
@@ -546,7 +579,19 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
 .projects-page__detail-title {
     margin: 0;
-    color: var(--sw-text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding-top: 0.15rem;
+    color: color-mix(in srgb, var(--sw-text-secondary) 88%, var(--sw-text-primary));
+    font-size: 0.78rem;
+    letter-spacing: 0.13em;
+}
+
+.projects-page__detail-title::before {
+    content: '•';
+    color: color-mix(in srgb, var(--sw-accent-dominant) 74%, var(--sw-accent-sun));
+    font-size: 0.92em;
 }
 
 .projects-page__detail-list,
@@ -643,12 +688,14 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 .projects-page__case-tag {
     display: inline-flex;
     align-items: center;
-    min-height: 1.75rem;
+    min-height: 1.9rem;
     border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 84%, transparent);
-    padding-inline: var(--sw-space-2xs);
-    color: var(--sw-text-primary);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 72%, transparent);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
+    padding-inline: 0.8rem;
+    color: color-mix(in srgb, var(--sw-text-secondary) 74%, var(--sw-text-primary));
+    font-size: 0.78rem;
+    font-weight: 600;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 68%, transparent);
 }
 
 .projects-page__case-link:focus-visible {
@@ -695,6 +742,11 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 @media (max-width: 640px) {
     .projects-page {
         gap: var(--sw-space-xs);
+    }
+
+    .projects-page__panel-label {
+        font-size: 0.7rem;
+        padding: 0.42rem 0.68rem;
     }
 
     .projects-page__header {

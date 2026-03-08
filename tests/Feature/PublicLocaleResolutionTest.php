@@ -64,7 +64,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
-                ->where('hero.title', "Échanges autour de la donnée produit, du SEO technique et de la modernisation Laravel.")
+                ->where('hero.title', "Parler d'un projet web, d'un outil interne, d'une gestion digitale ou simplement prolonger la visite.")
                 ->where('site.languageSwitcher.visible', true));
     }
 

@@ -192,16 +192,17 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 @media (min-width: 720px) and (max-width: 1100px) {
     .publication-widget__card {
-        grid-template-columns: minmax(8.5rem, 10.5rem) minmax(0, 1fr);
+        grid-template-columns: minmax(7.8rem, 9.4rem) minmax(0, 1fr);
         column-gap: var(--sw-space-sm);
+        row-gap: var(--sw-space-2xs);
     }
 
     .publication-widget__card :deep(.content-visual) {
-        min-height: 7.5rem;
+        min-height: 6.8rem;
     }
 
-    .publication-widget__card:nth-child(even) {
-        grid-template-columns: minmax(0, 1fr) minmax(8.5rem, 10.5rem);
+    .publication-widget__link:nth-child(even) .publication-widget__card {
+        grid-template-columns: minmax(0, 1fr) minmax(7.8rem, 9.4rem);
     }
 
     .publication-widget__link:nth-child(even) .publication-widget__card

@@ -1,16 +1,56 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import NavTabs from '@/components/layout/NavTabs.vue';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
 const navigation = computed(() => page.props.site.navigation);
 const currentUrl = computed(() => page.url);
+const headerRef = ref<HTMLElement | null>(null);
+
+let resizeObserver: ResizeObserver | null = null;
+
+function syncHeaderHeight(): void {
+    if (typeof window === 'undefined' || !headerRef.value) {
+        return;
+    }
+
+    const height = Math.ceil(headerRef.value.getBoundingClientRect().height);
+    document.documentElement.style.setProperty(
+        '--sw-public-header-height',
+        `${height}px`,
+    );
+}
+
+onMounted(() => {
+    syncHeaderHeight();
+
+    if (typeof window === 'undefined') {
+        return;
+    }
+
+    window.addEventListener('resize', syncHeaderHeight, { passive: true });
+
+    if ('ResizeObserver' in window && headerRef.value) {
+        resizeObserver = new ResizeObserver(() => {
+            syncHeaderHeight();
+        });
+        resizeObserver.observe(headerRef.value);
+    }
+});
+
+onBeforeUnmount(() => {
+    resizeObserver?.disconnect();
+
+    if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', syncHeaderHeight);
+    }
+});
 </script>
 
 <template>
-    <header class="app-header">
+    <header ref="headerRef" class="app-header">
         <div class="app-header__shell">
             <div class="app-header__inner">
                 <div class="app-header__topline">

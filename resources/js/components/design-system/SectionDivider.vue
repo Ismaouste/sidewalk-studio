@@ -15,7 +15,7 @@ defineProps<{
     display: flex;
     align-items: center;
     gap: var(--sw-space-2xs);
-    padding-block: 10px 4px;
+    padding-block: 6px 2px;
 }
 
 .section-divider::before,
@@ -23,12 +23,22 @@ defineProps<{
     content: '';
     flex: 1;
     height: 1px;
-    background: var(--sw-border);
+    background: color-mix(in srgb, var(--sw-border) 82%, transparent);
 }
 
 .section-divider__label {
-    color: var(--sw-text-muted);
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-inline: 0.15rem;
+    color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
+    font-size: 12px;
+    letter-spacing: 0.16em;
+}
+
+.section-divider__label::before {
+    content: '•';
+    color: color-mix(in srgb, var(--sw-accent-dominant) 70%, var(--sw-accent-sun));
+    font-size: 0.9em;
 }
 </style>
