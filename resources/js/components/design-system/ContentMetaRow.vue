@@ -34,7 +34,8 @@ defineProps<{
 
 .content-meta-row__item {
     display: inline-flex;
-    align-items: baseline;
+    align-items: flex-start;
+    flex-wrap: wrap;
     gap: 7px;
     min-height: 2.125rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
@@ -46,15 +47,15 @@ defineProps<{
             transparent
         ),
         color-mix(in srgb, var(--sw-bg-grid) 68%, transparent);
-    padding: 0.38rem 0.85rem;
+    padding: 0.52rem 0.95rem;
     box-shadow: inset 0 1px 0 color-mix(in srgb, white 18%, transparent);
 }
 
 .content-meta-row__label {
     font-family: var(--sw-font-heading);
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 700;
-    line-height: 1;
+    line-height: 1.45;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
@@ -64,7 +65,7 @@ defineProps<{
 .content-meta-row__value {
     font-family: var(--sw-font-code);
     font-size: 12px;
-    line-height: 1;
+    line-height: 1.35;
     letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;
     color: var(--sw-text-primary);

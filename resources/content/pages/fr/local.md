@@ -3,7 +3,7 @@ seo_title: Local
 seo_description: Contexte éditorial autour de Nancy, du sillon lorrain, des systèmes civiques, des scènes culturelles, des associations soutenues et du lieu depuis lequel le travail est fait.
 hero:
     eyebrow: Où suis-je ?
-    title: Grand Est, sillon lorrain, Grande Région.
+    title: Nancy, sillon lorrain, Großregion.
     summary: Je travaille depuis Nancy, avec Metz et le Luxembourg dans le quotidien. C'est depuis cet axe que je regarde les services, la mobilité, les scènes culturelles et la qualité réelle des interfaces publiques.
 signals:
     - Lisibilité de l'espace public, des lieux culturels et des services.

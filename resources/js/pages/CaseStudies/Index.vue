@@ -4,7 +4,6 @@ import { computed } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
@@ -43,7 +42,6 @@ const copy = computed(() =>
               contactCta: 'Discuter un build similaire',
               reviewLabel: 'Format revue technique',
               publicSlicesLabel: `${props.items.length} tranches publiques`,
-              dividerLabel: 'Archive cas clients',
               internalBuildLabel: 'Build interne',
               publishedLabel: 'Publié',
               stackLabel: 'Stack',
@@ -58,7 +56,6 @@ const copy = computed(() =>
               contactCta: 'Discuss a similar build',
               reviewLabel: 'Technical review format',
               publicSlicesLabel: `${props.items.length} public slices`,
-              dividerLabel: 'Case archive',
               internalBuildLabel: 'Internal build',
               publishedLabel: 'Published',
               stackLabel: 'Stack',
@@ -87,8 +84,6 @@ const copy = computed(() =>
                 <LegendChip :label="copy.reviewLabel" tone="green" />
                 <LegendChip :label="copy.publicSlicesLabel" tone="sun" />
             </SectionIntro>
-
-            <SectionDivider :label="copy.dividerLabel" />
 
             <div class="case-studies-index__grid">
                 <Link

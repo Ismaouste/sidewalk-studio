@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import LegendChip from '@/components/design-system/LegendChip.vue';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import MediaEmbed from '@/components/MediaEmbed.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
@@ -65,8 +64,6 @@ const props = defineProps<{
                     />
                 </Panel>
             </div>
-
-            <SectionDivider label="Current sandbox areas" />
 
             <div class="labs-page__grid">
                 <Panel

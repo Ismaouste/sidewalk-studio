@@ -16,6 +16,16 @@ const props = defineProps<{
 }>();
 
 const isFrench = computed(() => page.props.site.locale === 'fr');
+const hasHeader = computed(
+    () =>
+        Boolean(props.widget.eyebrow) ||
+        Boolean(props.widget.title) ||
+        Boolean(props.widget.description),
+);
+const hasCta = computed(
+    () => Boolean(props.widget.ctaLabel) && Boolean(props.widget.ctaHref),
+);
+const isSingleItem = computed(() => props.widget.items.length === 1);
 
 function widgetChipTone(
     tone: string,
@@ -49,33 +59,55 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 <template>
     <section class="publication-widget">
-        <div class="publication-widget__header">
+        <div v-if="hasHeader || hasCta" class="publication-widget__header">
             <SectionIntro
+                v-if="hasHeader"
                 :eyebrow="props.widget.eyebrow"
                 :title="props.widget.title"
                 :description="props.widget.description"
             />
-            <Button :href="props.widget.ctaHref" variant="ghost">
+            <Button
+                v-if="hasCta"
+                :href="props.widget.ctaHref"
+                variant="ghost"
+                arrow
+            >
                 {{ props.widget.ctaLabel }}
             </Button>
         </div>
 
-        <div class="publication-widget__grid">
+        <div
+            class="publication-widget__grid"
+            :class="{ 'publication-widget__grid--single': isSingleItem }"
+        >
             <Link
                 v-for="item in props.widget.items"
                 :key="`${item.section}-${item.slug}`"
                 :href="item.url"
                 class="publication-widget__link"
+                :class="{
+                    'publication-widget__link--note':
+                        item.section === 'writing' && item.category !== 'journal',
+                }"
             >
-                <Panel class="publication-widget__card" :tone="props.tone ?? 'surface'">
+                <Panel
+                    class="publication-widget__card"
+                    :class="{
+                        'publication-widget__card--note':
+                            item.section === 'writing' &&
+                            item.category !== 'journal',
+                    }"
+                    :tone="props.tone ?? 'surface'"
+                >
                     <ContentVisual :item="item" compact />
                     <div class="publication-widget__body">
                         <div class="publication-widget__meta">
                             <LegendChip
                                 :label="widgetChipLabel(item.section, item.category, item.client)"
                                 :tone="widgetChipTone(item.accent_tone, item.section)"
+                                class="publication-widget__meta-chip"
                             />
-                            <span class="type-meta">
+                            <span class="type-meta publication-widget__meta-date">
                                 {{ item.published_at }}
                             </span>
                         </div>
@@ -128,7 +160,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
     gap: var(--sw-space-xs);
     height: 100%;
     padding: var(--sw-space-sm);
-    align-items: start;
+    align-items: stretch;
     contain: layout paint style;
     transition:
         transform var(--sw-motion-fast),
@@ -140,14 +172,15 @@ function widgetChipLabel(section: string, category: string, client: string): str
 .publication-widget__body {
     display: grid;
     gap: var(--sw-space-xs);
+    align-content: start;
 }
 
 .publication-widget__meta {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: var(--sw-space-xs);
-    align-items: center;
+    justify-content: flex-start;
+    gap: 0.55rem;
+    align-items: baseline;
 }
 
 .publication-widget__title,
@@ -161,6 +194,18 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 .publication-widget__summary {
     color: var(--sw-text-secondary);
+}
+
+.publication-widget__meta-date {
+    display: inline-flex;
+    align-items: baseline;
+    color: var(--sw-text-muted);
+}
+
+.publication-widget__meta-date::before {
+    content: '/';
+    margin-right: 0.55rem;
+    color: color-mix(in srgb, var(--sw-text-muted) 82%, transparent);
 }
 
 .publication-widget__link:focus-visible {
@@ -190,28 +235,37 @@ function widgetChipLabel(section: string, category: string, client: string): str
     }
 }
 
-@media (min-width: 720px) and (max-width: 1100px) {
+@media (min-width: 720px) {
     .publication-widget__card {
-        grid-template-columns: minmax(7.8rem, 9.4rem) minmax(0, 1fr);
+        grid-template-columns: minmax(8.6rem, 10.4rem) minmax(0, 1fr);
         column-gap: var(--sw-space-sm);
         row-gap: var(--sw-space-2xs);
     }
 
     .publication-widget__card :deep(.content-visual) {
-        min-height: 6.8rem;
+        min-height: 100%;
+        height: 100%;
+    }
+}
+
+@media (min-width: 720px) {
+    .publication-widget__grid--single {
+        grid-template-columns: minmax(0, 1fr);
     }
 
-    .publication-widget__link:nth-child(even) .publication-widget__card {
-        grid-template-columns: minmax(0, 1fr) minmax(7.8rem, 9.4rem);
+    .publication-widget__grid--single .publication-widget__card {
+        grid-template-columns: minmax(9rem, 11rem) minmax(0, 1fr);
+        column-gap: var(--sw-space-sm);
+        row-gap: var(--sw-space-2xs);
+        align-items: center;
     }
 
-    .publication-widget__link:nth-child(even) .publication-widget__card
-        :deep(.content-visual) {
-        order: 2;
+    .publication-widget__grid--single .publication-widget__card :deep(.content-visual) {
+        min-height: 7.8rem;
     }
+}
 
-    .publication-widget__link:nth-child(even) .publication-widget__body {
-        order: 1;
-    }
+.publication-widget__card--note :deep(.content-visual) {
+    min-height: 6.8rem;
 }
 </style>

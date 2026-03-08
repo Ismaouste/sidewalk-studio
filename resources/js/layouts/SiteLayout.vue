@@ -290,15 +290,24 @@ onBeforeUnmount(() => {
     background:
         radial-gradient(
             circle at var(--sw-loader-hover-x, 50%) var(--sw-loader-hover-y, 38%),
-            color-mix(in srgb, white 0%, transparent),
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 20%, transparent),
             transparent 22%
         ),
         radial-gradient(
-            circle at var(--sw-ambient-sun-x) var(--sw-ambient-sun-y),
-            color-mix(in srgb, var(--sw-accent-sun) 12%, transparent),
+            circle at var(--sw-sun-vx, 14%) var(--sw-sun-vy, 10%),
+            color-mix(in srgb, var(--sw-ambient-flare) 22%, transparent),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 78% 18%,
+            color-mix(in srgb, var(--sw-ambient-flare-deep) 12%, transparent),
             transparent 42%
         ),
-        color-mix(in srgb, var(--sw-bg-base) 78%, transparent);
+        color-mix(
+            in srgb,
+            var(--sw-bg-base) 74%,
+            var(--sw-ambient-flare-soft) 8%
+        );
     backdrop-filter: blur(18px);
     transition: background var(--sw-motion-smooth);
 }
@@ -307,15 +316,24 @@ onBeforeUnmount(() => {
     background:
         radial-gradient(
             circle at var(--sw-loader-hover-x, 50%) var(--sw-loader-hover-y, 38%),
-            color-mix(in srgb, white 18%, transparent),
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 34%, transparent),
             transparent 22%
         ),
         radial-gradient(
-            circle at var(--sw-ambient-sun-x) var(--sw-ambient-sun-y),
-            color-mix(in srgb, var(--sw-accent-sun) 14%, transparent),
+            circle at var(--sw-sun-vx, 14%) var(--sw-sun-vy, 10%),
+            color-mix(in srgb, var(--sw-ambient-flare) 28%, transparent),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 78% 18%,
+            color-mix(in srgb, var(--sw-ambient-flare-deep) 18%, transparent),
             transparent 42%
         ),
-        color-mix(in srgb, var(--sw-bg-base) 72%, white 10%);
+        color-mix(
+            in srgb,
+            var(--sw-bg-base) 68%,
+            var(--sw-ambient-flare-soft) 14%
+        );
 }
 
 .sw-shell__loader-copy {
@@ -387,9 +405,9 @@ onBeforeUnmount(() => {
     border-radius: var(--sw-radius-full);
     background: linear-gradient(
         90deg,
-        color-mix(in srgb, var(--sw-accent-dominant) 24%, transparent),
-        var(--sw-accent-sun),
-        color-mix(in srgb, var(--sw-accent-dominant) 24%, transparent)
+        color-mix(in srgb, var(--sw-ambient-flare-deep) 28%, transparent),
+        var(--sw-ambient-flare),
+        color-mix(in srgb, var(--sw-ambient-flare-soft) 26%, transparent)
     );
     background-size: 180% 100%;
     animation: sw-loader-slide 1.5s linear infinite;

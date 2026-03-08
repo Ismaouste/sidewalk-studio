@@ -7,8 +7,8 @@ hero:
     summary: Open to conversations around an existing product, a connector that needs clearer foundations, a digital setup that needs breathing room, a role, a freelance mission, or a discussion after the studio visit.
 form:
     eyebrow: Share the context
-    title: Send a readable message without relying on a third-party form service.
-    summary: The form stores the inquiry in the site database so it can be reviewed from the back office. That is enough for a first contact, a freelance brief, or an architecture review.
+    title: A simple first message, and the conversation can begin.
+    summary: A few lines about the context, the need, or simply the wish to talk are enough. The form stays intentionally light so this first contact remains clear, direct, and pleasant.
     name_label: Name
     name_placeholder: Your name
     email_label: Email
@@ -16,10 +16,10 @@ form:
     company_label: Company or product
     company_placeholder: Brand, product, or team
     summary_label: Project brief
-    summary_placeholder: Scope, constraints, timeline, and what is currently painful.
+    summary_placeholder: Context, timeline, priorities, and what you would love to bring to life.
     summary_meta: Keep it short. The message is stored as-is in the back office.
     primary_cta: Send message
-    secondary_cta: Email directly
+    secondary_cta: Write an email
 details:
     eyebrow: Details
     email_label: Email
@@ -28,11 +28,15 @@ details:
 services:
     eyebrow: Where I can help
     items:
-        - Platform stabilization, legacy recovery, and clearer delivery on systems with history.
-        - Structured data, technical SEO, Google Merchant Center, Meta Catalog, and reliable product-data flows for commerce surfaces.
-        - Consent-safe analytics, embed architecture, and privacy-aware product decisions.
-        - SEO, metadata, routing, and content-model foundations for editorial or commerce surfaces.
+        - title: E-commerce and CMS development
+          summary: Commerce sites, WordPress, WooCommerce, PrestaShop, Shopify, Laravel, or PHP work across redesigns, takeovers, and readable full-stack delivery.
+        - title: Product data and scripts
+          summary: PIM, ERP, stock, catalogs, scraping, APIs, exports, and synchronization work across business tools, connectors, and web surfaces.
+        - title: Front-end, integration, and connectors
+          summary: Sass, components, CMS work, internal tools, front-end integration, and connector cleanup shaped around the way teams actually use the product.
+        - title: Tracking, consent, and acquisition
+          summary: Data layer, pixels, analytics, Consent Mode v2, Microsoft Ads / Bing UET, Meta Ads, campaign setup, and product catalog synchronization.
 recruiter_shortcut:
-    eyebrow: Recruiter shortcut
-    summary: CV in English and French, plain and simple.
+    eyebrow: Quick snapshot
+    summary: ''
 ---

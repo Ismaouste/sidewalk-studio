@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue';
@@ -49,8 +48,6 @@ const page = usePage<{ site: SiteProps }>();
                     <ConsentPreferencesButton />
                 </template>
             </SectionIntro>
-
-            <SectionDivider :label="hero.eyebrow" />
 
             <div class="data-processing-page__grid">
                 <Panel class="data-processing-page__panel" tone="surface">

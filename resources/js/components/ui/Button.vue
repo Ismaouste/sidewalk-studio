@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { resolvePublicHref } from '@/lib/publicHref';
+import type { SiteProps } from '@/types';
+
+const page = usePage<{ site: SiteProps }>();
 
 const props = withDefaults(
     defineProps<{
@@ -10,6 +14,10 @@ const props = withDefaults(
         size?: 'sm' | 'md';
         type?: 'button' | 'submit' | 'reset';
         disabled?: boolean;
+        arrow?: boolean;
+        externalMark?: boolean;
+        rel?: string;
+        target?: string;
     }>(),
     {
         href: undefined,
@@ -18,6 +26,10 @@ const props = withDefaults(
         size: 'md',
         type: 'button',
         disabled: false,
+        arrow: false,
+        externalMark: false,
+        rel: undefined,
+        target: undefined,
     },
 );
 
@@ -28,6 +40,17 @@ const emit = defineEmits<{
 const isInternalLink = computed(
     () => Boolean(props.href) && !props.external && props.href?.startsWith('/'),
 );
+const resolvedHref = computed(() => {
+    if (!props.href) {
+        return undefined;
+    }
+
+    return resolvePublicHref(
+        props.href,
+        page.props.site.runtime.staticPreview,
+        page.props.site.runtime.staticBasePath,
+    );
+});
 
 const component = computed(() => {
     if (isInternalLink.value) {
@@ -44,15 +67,15 @@ const component = computed(() => {
 const componentProps = computed(() => {
     if (isInternalLink.value) {
         return {
-            href: props.href,
+            href: resolvedHref.value,
         };
     }
 
     if (props.href) {
         return {
-            href: props.href,
-            target: props.external ? '_blank' : undefined,
-            rel: props.external ? 'noreferrer' : undefined,
+            href: resolvedHref.value,
+            target: props.target ?? (props.external ? '_blank' : undefined),
+            rel: props.rel ?? (props.external ? 'noreferrer' : undefined),
             'aria-disabled': props.disabled || undefined,
         };
     }
@@ -69,10 +92,27 @@ const componentProps = computed(() => {
         :is="component"
         v-bind="componentProps"
         class="sw-button"
-        :class="[`sw-button--${props.variant}`, `sw-button--${props.size}`]"
+        :class="[
+            `sw-button--${props.variant}`,
+            `sw-button--${props.size}`,
+            {
+                'sw-button--with-arrow': props.arrow || props.externalMark,
+            },
+        ]"
         @click="emit('click', $event)"
     >
-        <slot />
+        <span class="sw-button__label">
+            <slot />
+        </span>
+        <span
+            v-if="props.arrow || props.externalMark"
+            class="sw-button__arrow"
+            :class="{ 'sw-button__arrow--external': props.externalMark }"
+            aria-hidden="true"
+        >
+            <template v-if="props.externalMark">↗</template>
+            <template v-else>→</template>
+        </span>
     </component>
 </template>
 
@@ -83,7 +123,11 @@ const componentProps = computed(() => {
     justify-content: center;
     gap: var(--sw-space-3xs);
     border-radius: var(--sw-radius-md);
-    font-family: var(--sw-font-body);
+    font-family:
+        var(--sw-font-body),
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Noto Color Emoji';
     font-size: 14px;
     font-weight: 500;
     line-height: 1.2;
@@ -93,6 +137,26 @@ const componentProps = computed(() => {
         color var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
         box-shadow var(--sw-motion-fast);
+}
+
+.sw-button__label {
+    display: inline-flex;
+    align-items: center;
+}
+
+.sw-button__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0.8rem;
+    font-size: 0.98em;
+    line-height: 1;
+    transform: translateY(-0.02em);
+}
+
+.sw-button__arrow--external {
+    font-size: 0.9em;
+    transform: translateY(-0.14em);
 }
 
 .sw-button--md {
@@ -123,9 +187,8 @@ const componentProps = computed(() => {
     border: 0;
     padding-inline: 0;
     color: var(--sw-accent-dominant);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.22em;
+    justify-content: flex-start;
+    text-decoration: none;
 }
 
 .sw-button[disabled],
@@ -143,6 +206,10 @@ const componentProps = computed(() => {
         transform: translateY(-1px);
     }
 
+    .sw-button--with-arrow:hover .sw-button__arrow {
+        animation: sw-button-arrow-jiggle 0.72s ease;
+    }
+
     .sw-button--primary:hover {
         background: color-mix(in srgb, var(--sw-accent-sun) 88%, white 12%);
     }
@@ -150,6 +217,25 @@ const componentProps = computed(() => {
     .sw-button--secondary:hover {
         border-color: var(--sw-accent-dominant);
         color: var(--sw-accent-dominant);
+    }
+}
+
+@keyframes sw-button-arrow-jiggle {
+    0%,
+    100% {
+        transform: translate(0, -0.02em);
+    }
+
+    30% {
+        transform: translate(0.14rem, -0.02em);
+    }
+
+    55% {
+        transform: translate(0.03rem, -0.02em);
+    }
+
+    78% {
+        transform: translate(0.18rem, -0.02em);
     }
 }
 </style>

@@ -7,12 +7,12 @@ return [
     'locale' => 'en',
     'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
     'author' => [
-        'name' => env('SITE_AUTHOR_NAME', 'Isma'),
+        'name' => env('SITE_AUTHOR_NAME', 'Ismael Rodmacq'),
         'job_title' => env('SITE_AUTHOR_TITLE', 'Laravel engineer for e-commerce, product data, tracking, and technical SEO'),
-        'email' => env('SITE_CONTACT_EMAIL', 'hello@sidewalk-studio.test'),
+        'email' => env('SITE_CONTACT_EMAIL', 'ismael@rodmacq.com'),
         'same_as' => array_values(array_filter(array_map(
             'trim',
-            explode(',', env('SITE_SAME_AS', 'https://github.com/Ismaosute,https://www.linkedin.com')),
+            explode(',', env('SITE_SAME_AS', 'https://github.com/Ismaosute,https://www.linkedin.com/in/ismaelrodmacq')),
         ))),
     ],
     'navigation' => [
@@ -45,8 +45,8 @@ return [
         ],
     ],
     'contact' => [
-        'email' => env('SITE_CONTACT_EMAIL', 'hello@sidewalk-studio.test'),
+        'email' => env('SITE_CONTACT_EMAIL', 'ismael@rodmacq.com'),
         'location' => 'Nancy, Grand-Est',
-        'availability' => 'Open to lead developer, freelance modernization, and privacy/SEO architecture conversations.',
+        'availability' => 'Open to roles, freelance support, technical recovery, internal tools, e-commerce work, and conversations around existing products.',
     ],
 ];

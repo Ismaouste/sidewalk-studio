@@ -3,7 +3,6 @@ import { useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
@@ -50,7 +49,10 @@ const props = defineProps<{
     }>;
     services: {
         eyebrow: string;
-        items: string[];
+        items: Array<{
+            title: string;
+            summary: string;
+        }>;
     };
     recruiterShortcut: {
         eyebrow: string;
@@ -70,27 +72,34 @@ const inquiry = useForm({
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              workCta: "Voir l'expérience",
-              dividerLabel: 'Prendre contact',
-              privacyChipLabel: 'Consentement et vie privée',
+              emailHeroCta: 'Écrire un mail',
+              whatsappLabel: 'WhatsApp',
+              workCta: 'Lire les expériences',
               locationChipLabel: props.contact.location,
               locationLabel: props.details.location_label,
               availabilityLabel: 'Disponibilité',
+              availabilityText: 'En emploi chez Jewely.',
+              opportunitiesLabel: "À l'écoute de",
+              opportunitiesText:
+                  "Un poste, une mission freelance, une reprise technique, un outil interne, un sujet e-commerce ou une conversation autour d'un produit déjà en mouvement.",
               subjectPrefix: 'Prise de contact Sidewalk Studio',
               bodyNameLabel: 'Nom',
               bodyEmailLabel: 'Email',
               bodyCompanyLabel: 'Entreprise ou produit',
               bodyBriefFallback: 'Brief projet :',
-              servicePrefix: 'Sujet',
-              recruiterFitLabel: 'Rôles cibles',
+              recruiterFitLabel: 'Rôles et terrains',
               recruiterFitRoles: [
-                  'Lead Laravel',
-                  'Tech e-commerce',
-                  'Full stack produit',
+                  'Lead web / produit',
+                  'Gestion de projet',
+                  'Développeur full stack',
+                  'E-commerce et CMS',
+                  'Connecteurs et data',
+                  'Tracking / consentement',
+                  'Outils internes',
               ],
-              recruiterDecisionLabel: 'Pertinent pour',
+              recruiterDecisionLabel: 'Formats',
               recruiterDecisionCopy:
-                  "Recrutement, mise en relation rapide, revue d'architecture, reprise de plateforme ou mission freelance sur un produit déjà en charge.",
+                  "Recrutement, renfort ponctuel, mission freelance, revue technique, reprise de plateforme, connecteur à fiabiliser ou premier échange autour d'un produit déjà lancé.",
               cvLabel: 'CV',
               portraitAlt: "Portrait illustré d'Ismael Rodmacq",
               staticPreviewTitle: 'Preview statique',
@@ -98,27 +107,34 @@ const copy = computed(() =>
                   "Le formulaire est volontairement retiré de ce package HTML. Pour échanger, le plus direct reste l'email.",
           }
         : {
-              workCta: 'View experience',
-              dividerLabel: 'Start a conversation',
-              privacyChipLabel: 'Privacy-first engagements',
+              emailHeroCta: 'Write an email',
+              whatsappLabel: 'WhatsApp',
+              workCta: 'View experiences',
               locationChipLabel: props.contact.location,
               locationLabel: props.details.location_label,
               availabilityLabel: 'Availability',
+              availabilityText: 'Currently employed at Jewely.',
+              opportunitiesLabel: 'Open to',
+              opportunitiesText:
+                  'A role, freelance support, technical recovery, internal tools, e-commerce work, or a first conversation around a product already in motion.',
               subjectPrefix: 'Sidewalk Studio inquiry',
               bodyNameLabel: 'Name',
               bodyEmailLabel: 'Email',
               bodyCompanyLabel: 'Company or product',
               bodyBriefFallback: 'Project brief:',
-              servicePrefix: 'Fit',
-              recruiterFitLabel: 'Best fits',
+              recruiterFitLabel: 'Roles and contexts',
               recruiterFitRoles: [
-                  'Laravel lead',
-                  'E-commerce tech',
-                  'Product full-stack',
+                  'Web / product lead',
+                  'Project delivery',
+                  'Full-stack developer',
+                  'E-commerce and CMS',
+                  'Connectors and data',
+                  'Tracking / consent',
+                  'Internal tools',
               ],
-              recruiterDecisionLabel: 'Useful for',
+              recruiterDecisionLabel: 'Formats',
               recruiterDecisionCopy:
-                  'Hiring, faster recruiter handoff, architecture review, freelance modernization, or an existing platform that already has delivery pressure.',
+                  'Hiring, freelance support, technical review, platform recovery, connector hardening, or a first conversation around a product already in motion.',
               cvLabel: 'CV',
               portraitAlt: 'Illustrated portrait of Ismael Rodmacq',
               staticPreviewTitle: 'Static preview',
@@ -130,15 +146,16 @@ const copy = computed(() =>
 const inquiryMeta = computed(() => [
     {
         label: copy.value.locationLabel,
-        value: props.contact.location,
+        value: `📍 ${props.contact.location}`,
     },
     {
         label: copy.value.availabilityLabel,
-        value: props.contact.availability,
+        value: `💼 ${copy.value.availabilityText}`,
     },
 ]);
 
 const statusMessage = computed(() => page.props.flash?.status ?? null);
+const whatsappHref = 'https://wa.me/33684907698';
 
 const mailtoHref = computed(() => {
     const subjectBase = inquiry.company.trim()
@@ -193,29 +210,40 @@ function submitInquiry(): void {
 
                     <div class="contact-page__hero-toolbar-body">
                         <div class="contact-page__hero-actions">
-                            <Button :href="`mailto:${props.contact.email}`">
-                                {{ props.form.secondary_cta }}
+                            <Button
+                                :href="`mailto:${props.contact.email}`"
+                                external
+                                target="_blank"
+                                rel="nofollow noopener noreferrer"
+                            >
+                                {{ copy.emailHeroCta }}
                             </Button>
+                            <a
+                                class="contact-page__whatsapp-button"
+                                :href="whatsappHref"
+                                target="_blank"
+                                rel="nofollow noopener noreferrer"
+                                :aria-label="copy.whatsappLabel"
+                                :title="copy.whatsappLabel"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                    class="contact-page__whatsapp-icon"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M12 3.2a8.8 8.8 0 0 0-7.5 13.4l-1 4.2 4.3-1A8.8 8.8 0 1 0 12 3.2Zm0 15.9a7.1 7.1 0 0 1-3.6-1l-.3-.2-2.5.6.6-2.4-.2-.4a7.1 7.1 0 1 1 6 3.4Zm3.9-5.3c-.2-.1-1.1-.5-1.3-.6s-.3-.1-.5.1-.5.6-.6.7-.2.2-.4.1a5.9 5.9 0 0 1-1.7-1.1 6.5 6.5 0 0 1-1.2-1.5c-.1-.2 0-.3.1-.4l.3-.3.2-.3.1-.4c0-.1-.5-1.2-.7-1.6s-.4-.3-.5-.3h-.4a.8.8 0 0 0-.6.3 2.5 2.5 0 0 0-.8 1.8c0 1.1.8 2.1.9 2.2s1.6 2.5 3.9 3.4c2.3 1 2.3.7 2.8.7s1.4-.5 1.6-1 .2-.9.1-1-.2-.1-.4-.2Z"
+                                    />
+                                </svg>
+                            </a>
                             <Button href="/projects" variant="secondary">
                                 {{ copy.workCta }}
                             </Button>
                         </div>
-
-                        <div class="contact-page__hero-signals">
-                            <LegendChip
-                                :label="copy.locationChipLabel"
-                                tone="sun"
-                            />
-                            <LegendChip
-                                :label="copy.privacyChipLabel"
-                                tone="green"
-                            />
-                        </div>
                     </div>
                 </div>
             </div>
-
-            <SectionDivider :label="copy.dividerLabel" />
 
             <div class="contact-page__grid">
                 <Panel
@@ -399,10 +427,10 @@ function submitInquiry(): void {
 
                             <div class="contact-page__detail">
                                 <dt class="type-nav">
-                                    {{ props.details.availability_label }}
+                                    {{ copy.opportunitiesLabel }}
                                 </dt>
                                 <dd class="type-body-sm">
-                                    {{ props.contact.availability }}
+                                    {{ copy.opportunitiesText }}
                                 </dd>
                             </div>
                         </dl>
@@ -414,15 +442,15 @@ function submitInquiry(): void {
                         <ul class="contact-page__service-list">
                             <li
                                 v-for="(service, index) in props.services.items"
-                                :key="service"
+                                :key="service.title"
                                 class="contact-page__service-item"
                             >
                                 <LegendChip
-                                    :label="`${copy.servicePrefix} 0${index + 1}`"
+                                    :label="service.title"
                                     :tone="serviceTones[index] ?? 'violet'"
                                 />
                                 <p class="type-body contact-page__service-copy">
-                                    {{ service }}
+                                    {{ service.summary }}
                                 </p>
                             </li>
                         </ul>
@@ -503,21 +531,46 @@ function submitInquiry(): void {
 }
 
 .contact-page__hero-toolbar-body {
-    display: grid;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
     min-width: min(30rem, 100%);
 }
 
-.contact-page__hero-actions,
-.contact-page__hero-signals {
+.contact-page__hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    align-items: center;
 }
 
 .contact-page__portrait {
     flex: none;
     margin: 0;
+}
+
+.contact-page__whatsapp-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid color-mix(in srgb, #25d366 76%, black 14%);
+    border-radius: var(--sw-radius-md);
+    background: #25d366;
+    color: #fff;
+    box-shadow: var(--sw-shadow-sm);
+    transition:
+        transform var(--sw-motion-fast),
+        background-color var(--sw-motion-fast),
+        border-color var(--sw-motion-fast),
+        box-shadow var(--sw-motion-fast);
+}
+
+.contact-page__whatsapp-icon {
+    width: 1.1rem;
+    height: 1.1rem;
 }
 
 .contact-page__portrait-image {
@@ -695,6 +748,13 @@ function submitInquiry(): void {
             var(--sw-border)
         );
         background: color-mix(in srgb, var(--sw-bg-elevated) 94%, transparent);
+    }
+
+    .contact-page__whatsapp-button:hover {
+        transform: translateY(-1px);
+        background: color-mix(in srgb, #25d366 86%, white 14%);
+        border-color: color-mix(in srgb, #25d366 84%, black 12%);
+        box-shadow: var(--sw-shadow-md);
     }
 }
 

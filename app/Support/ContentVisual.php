@@ -42,6 +42,7 @@ class ContentVisual
             'url' => route('content-visuals.show', [
                 'section' => $item['section'],
                 'slug' => $item['slug'],
+                'lang' => (($item['locale'] ?? 'en') !== 'en') ? $item['locale'] : null,
             ]),
             'alt' => trim((string) ($item['featured_image_alt'] ?? '')) ?: (string) ($item['title'] ?? ''),
             'kind' => 'placeholder',

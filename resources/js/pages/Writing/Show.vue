@@ -4,7 +4,6 @@ import { computed } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import RichText from '@/components/RichText.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
@@ -38,10 +37,12 @@ const writingMeta = computed(() => [
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              eyebrow: 'Note',
-              editorialLabel: 'Note éditoriale',
+              eyebrow: props.item.category === 'journal' ? 'Journal' : 'Note',
+              editorialLabel:
+                  props.item.category === 'journal'
+                      ? 'Article'
+                      : 'Note éditoriale',
               taggedThreadsLabel: `${props.item.tags.length} fils étiquetés`,
-              dividerLabel: 'Entrée',
               entryFrameLabel: "Cadre d'entrée",
               continueLabel: 'Poursuivre le fil',
               continueDescription:
@@ -53,10 +54,12 @@ const copy = computed(() =>
               readLabel: 'Lecture',
           }
         : {
-              eyebrow: 'Writing entry',
-              editorialLabel: 'Editorial note',
+              eyebrow: props.item.category === 'journal' ? 'Journal' : 'Note',
+              editorialLabel:
+                  props.item.category === 'journal'
+                      ? 'Article'
+                      : 'Editorial note',
               taggedThreadsLabel: `${props.item.tags.length} tagged threads`,
-              dividerLabel: 'Entry',
               entryFrameLabel: 'Entry frame',
               continueLabel: 'Continue the thread',
               continueDescription:
@@ -87,8 +90,6 @@ const copy = computed(() =>
 
                 <ContentMetaRow :items="writingMeta" />
             </div>
-
-            <SectionDivider :label="copy.dividerLabel" />
 
             <div class="writing-show__layout">
                 <Panel

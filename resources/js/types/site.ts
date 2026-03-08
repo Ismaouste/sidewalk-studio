@@ -73,6 +73,10 @@ export type SiteProps = {
     navigation: NavItem[];
     author: SiteAuthor;
     contact: SiteContact;
+    social: {
+        github_url: string | null;
+        linkedin_url: string | null;
+    };
     shell: {
         headerTagline: string;
         localeSwitcherLabel: string;
@@ -81,7 +85,6 @@ export type SiteProps = {
         navFallbackLabel: string;
         navCurrentLabel: string;
         navOpenLabel: string;
-        footerDividerLabel: string;
         footerNote: string;
         privacyControlsLabel: string;
     };
@@ -98,6 +101,7 @@ export type SiteProps = {
     };
     runtime: {
         staticPreview: boolean;
+        staticBasePath: string | null;
     };
 };
 

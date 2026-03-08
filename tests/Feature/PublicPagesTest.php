@@ -61,5 +61,10 @@ class PublicPagesTest extends TestCase
             ->assertOk()
             ->assertHeader('content-type', 'image/svg+xml')
             ->assertSee('<svg', false);
+
+        $this->get('/content-visuals/writing/opensurvey-associatif-donnees-sante.svg')
+            ->assertOk()
+            ->assertHeader('content-type', 'image/svg+xml')
+            ->assertSee('<svg', false);
     }
 }

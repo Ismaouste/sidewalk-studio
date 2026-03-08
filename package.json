@@ -3,6 +3,9 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "audit:bundle": "vite build --mode analyze",
+        "audit:lighthouse": "lighthouse http://127.0.0.1:8088 --preset=desktop --output=html --output-path=./storage/app/lighthouse-report.html --chrome-flags=\"--headless=new\"",
+        "audit:lighthouse:mobile": "lighthouse http://127.0.0.1:8088 --preset=perf --form-factor=mobile --screenEmulation.mobile --output=html --output-path=./storage/app/lighthouse-report-mobile.html --chrome-flags=\"--headless=new\"",
         "build": "vite build",
         "build:ssr": "vite build && vite build --ssr",
         "dev": "vite",
@@ -22,8 +25,10 @@
         "eslint-import-resolver-typescript": "^4.4.4",
         "eslint-plugin-import": "^2.32.0",
         "eslint-plugin-vue": "^9.32.0",
+        "lighthouse": "^13.0.3",
         "prettier": "^3.4.2",
         "prettier-plugin-tailwindcss": "^0.6.11",
+        "rollup-plugin-visualizer": "^7.0.1",
         "typescript-eslint": "^8.23.0",
         "vue-tsc": "^2.2.4"
     },

@@ -4,7 +4,6 @@ import { computed } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import RichText from '@/components/RichText.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
@@ -41,7 +40,6 @@ const copy = computed(() =>
               eyebrow: 'Cas client',
               internalBuildLabel: 'Build interne',
               implementationToolsLabel: `${props.item.stack.length} outils implémentation`,
-              dividerLabel: "Journal d'implémentation",
               projectFrameLabel: 'Cadre projet',
               clientLabel: 'Client',
               roleLabel: 'Rôle',
@@ -57,7 +55,6 @@ const copy = computed(() =>
               eyebrow: 'Case study',
               internalBuildLabel: 'Internal build',
               implementationToolsLabel: `${props.item.stack.length} implementation tools`,
-              dividerLabel: 'Implementation log',
               projectFrameLabel: 'Project frame',
               clientLabel: 'Client',
               roleLabel: 'Role',
@@ -95,8 +92,6 @@ const copy = computed(() =>
 
                 <ContentMetaRow :items="caseStudyMeta" />
             </div>
-
-            <SectionDivider :label="copy.dividerLabel" />
 
             <div class="case-study-show__layout">
                 <Panel

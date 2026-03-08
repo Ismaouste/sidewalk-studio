@@ -4,7 +4,6 @@ import { computed } from 'vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
@@ -142,8 +141,6 @@ function publicationMeta(item: ContentItem) {
                 </Panel>
             </div>
 
-            <SectionDivider :label="props.journalSection.eyebrow" />
-
             <div class="local-page__section-head">
                 <SectionIntro
                     :eyebrow="props.journalSection.eyebrow"
@@ -177,8 +174,6 @@ function publicationMeta(item: ContentItem) {
                     </Panel>
                 </Link>
             </div>
-
-            <SectionDivider :label="props.engagementsIntro.eyebrow" />
 
             <div class="local-page__section-head">
                 <SectionIntro
@@ -217,8 +212,6 @@ function publicationMeta(item: ContentItem) {
                     </ul>
                 </article>
             </div>
-
-            <SectionDivider :label="props.notesSection.eyebrow" />
 
             <div class="local-page__section-head">
                 <SectionIntro

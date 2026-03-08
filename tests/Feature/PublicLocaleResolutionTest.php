@@ -29,7 +29,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Expériences pro, projets concrets, environnements exigeants.')
+                ->where('hero.title', 'Du HBJO à la santé publique, avec un goût pour les systèmes qui doivent vraiment tourner.')
                 ->where('site.locale', 'fr')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
@@ -64,7 +64,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
-                ->where('hero.title', "Parler d'un projet web, d'un outil interne, d'une gestion digitale ou simplement prolonger la visite.")
+                ->where('hero.title', 'Entrer en contact pour un projet digital ou simplement prolonger la visite.')
                 ->where('site.languageSwitcher.visible', true));
     }
 
@@ -98,7 +98,7 @@ class PublicLocaleResolutionTest extends TestCase
                     ),
                 )
                 ->where('items.0.locale', 'fr')
-                ->where('items.0.title', 'Pourquoi le SSR reste prêt mais diffère')
+                ->where('items.0.title', 'De Nancy API POP à Culturedex')
                 ->where('site.languageSwitcher.visible', true)
                 ->where('seo.canonical', $canonical));
     }
@@ -255,7 +255,7 @@ MD);
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Professional experience, real projects, demanding delivery contexts.')
+                ->where('hero.title', 'From jewelry and watches to public health, with a strong taste for systems that have to keep running.')
                 ->where('site.locale', 'en')
                 ->where('seo.openGraph.locale', 'en'));
     }

@@ -5,7 +5,6 @@ import ContentVisual from '@/components/content/ContentVisual.vue';
 import PublicationWidget from '@/components/content/PublicationWidget.vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
@@ -23,6 +22,10 @@ type ExperienceSection = {
     eyebrow: string;
     summary: string;
     paragraphs: string[];
+    links?: Array<{
+        label: string;
+        href: string;
+    }>;
     detail_groups: Array<{
         title: string;
         items: string[];
@@ -83,18 +86,22 @@ const props = defineProps<{
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              overviewCta: "Voir les cas d'étude",
+              overviewCta: "Découvrir les cas d'étude",
               contactCta: "Discuter d'un contexte proche",
               internalBuildLabel: 'Interne',
               roleLabel: 'Rôle',
-              contextTagLabel: 'Contexte',
+              contextTitles: [
+                  'Commerce en charge',
+                  'Stacks reprises',
+                  'Refontes cadrées',
+              ],
               workFrameLabel: 'Cadre',
               positioningLabel: 'Comment je travaille',
               contextsLabel: 'Contextes',
-              recruiterLabel: 'Repère rapide',
+              recruiterLabel: 'Repères techniques',
               experienceLabel: 'Expériences pro',
-              associativeLabel: 'Aremedia',
-              sideProjectsLabel: 'Projets amis / fun',
+              associativeLabel: 'Santé publique et associatif',
+              sideProjectsLabel: 'Culture et hobby',
               stackLabel: 'Stack',
               lookingForLabel: 'Ce que je recherche',
               outcomesLabel: 'Résultats',
@@ -105,14 +112,18 @@ const copy = computed(() =>
               contactCta: 'Discuss a similar context',
               internalBuildLabel: 'Internal build',
               roleLabel: 'Role',
-              contextTagLabel: 'Context',
+              contextTitles: [
+                  'Live commerce',
+                  'Recovered stacks',
+                  'Redesigns',
+              ],
               workFrameLabel: 'Frame',
               positioningLabel: 'How I work',
               contextsLabel: 'Contexts',
-              recruiterLabel: 'Quick snapshot',
+              recruiterLabel: 'Technical bearings',
               experienceLabel: 'Professional experience',
-              associativeLabel: 'Aremedia',
-              sideProjectsLabel: 'Friends / fun projects',
+              associativeLabel: 'Public health and nonprofit',
+              sideProjectsLabel: 'Culture and hobbies',
               stackLabel: 'Stack',
               lookingForLabel: 'What I am looking for',
               outcomesLabel: 'Outcomes',
@@ -160,13 +171,11 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                     <Button href="/case-studies" variant="secondary">
                         {{ copy.overviewCta }}
                     </Button>
-                    <Button href="/contact" variant="ghost">
+                    <Button href="/contact" variant="ghost" arrow>
                         {{ copy.contactCta }}
                     </Button>
                 </template>
             </SectionIntro>
-
-            <SectionDivider :label="copy.workFrameLabel" />
 
             <div class="projects-page__work-grid">
                 <Panel class="projects-page__work-panel" tone="surface">
@@ -190,12 +199,15 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                     </p>
                     <ul class="projects-page__list">
                         <li
-                            v-for="context in props.contexts"
+                            v-for="(context, index) in props.contexts"
                             :key="context"
                             class="projects-page__list-item"
                         >
                             <LegendChip
-                                :label="copy.contextTagLabel"
+                                :label="
+                                    copy.contextTitles[index] ??
+                                    props.contexts[index]
+                                "
                                 tone="green"
                             />
                             <p class="type-body projects-page__copy-line">
@@ -239,7 +251,9 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                 </Panel>
             </div>
 
-            <SectionDivider :label="copy.experienceLabel" />
+            <p class="type-eyebrow projects-page__section-label">
+                {{ copy.experienceLabel }}
+            </p>
 
             <div class="projects-page__section-list">
                 <article
@@ -270,6 +284,22 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                         </p>
 
                         <div
+                            v-if="section.links?.length"
+                            class="projects-page__story-links"
+                        >
+                            <Button
+                                v-for="link in section.links"
+                                :key="link.href"
+                                :href="link.href"
+                                external
+                                variant="ghost"
+                                arrow
+                            >
+                                {{ link.label }}
+                            </Button>
+                        </div>
+
+                        <div
                             v-for="group in section.detail_groups"
                             :key="group.title"
                             class="projects-page__detail-group"
@@ -293,7 +323,9 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                 </article>
             </div>
 
-            <SectionDivider :label="copy.associativeLabel" />
+            <p class="type-eyebrow projects-page__section-label">
+                {{ copy.associativeLabel }}
+            </p>
 
             <div class="projects-page__section-list">
                 <article
@@ -349,7 +381,9 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
             <PublicationWidget :widget="props.associativeNoteWidget" tone="grid" />
 
-            <SectionDivider :label="copy.sideProjectsLabel" />
+            <p class="type-eyebrow projects-page__section-label">
+                {{ copy.sideProjectsLabel }}
+            </p>
 
             <div class="projects-page__section-list">
                 <article
@@ -405,15 +439,13 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
             <PublicationWidget :widget="props.sideProjectsWidget" tone="surface" />
 
-            <SectionDivider :label="props.caseStudiesSection.label" />
-
             <div class="projects-page__header">
                 <SectionIntro
                     :eyebrow="props.caseStudiesSection.eyebrow"
                     :title="props.caseStudiesSection.title"
                     :description="props.caseStudiesSection.summary"
                 />
-                <Button href="/case-studies" variant="ghost">
+                <Button href="/case-studies" variant="ghost" arrow>
                     {{ props.caseStudiesSection.archive_cta }}
                 </Button>
             </div>
@@ -497,6 +529,14 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     gap: var(--sw-space-sm);
 }
 
+.projects-page__section-label {
+    width: fit-content;
+    margin: 0;
+    color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+}
+
 .projects-page__work-grid {
     display: grid;
     align-items: start;
@@ -519,7 +559,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     gap: 0.55rem;
     width: fit-content;
     margin: 0;
-    padding: 0.48rem 0.8rem;
+    padding: 0.48rem 0.95rem 0.48rem 0.8rem;
     border-radius: var(--sw-radius-full);
     background: color-mix(in srgb, var(--sw-bg-elevated) 74%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 66%, transparent);
@@ -538,9 +578,14 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 }
 
 .projects-page__copy,
-.projects-page__stack-groups {
+.projects-page__stack-groups,
+.projects-page__story-links {
     display: grid;
     gap: var(--sw-space-xs);
+}
+
+.projects-page__story-links {
+    justify-items: start;
 }
 
 .projects-page__copy-line,
@@ -577,14 +622,26 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     color: var(--sw-text-primary);
 }
 
+.projects-page__story-summary {
+    color: color-mix(in srgb, var(--sw-text-primary) 76%, var(--sw-text-secondary));
+}
+
+.projects-page__story-body {
+    max-width: 62rem;
+}
+
+.projects-page__story-body .projects-page__copy-line {
+    line-height: 1.56;
+}
+
 .projects-page__detail-title {
     margin: 0;
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
-    padding-top: 0.15rem;
+    padding: 0.65rem 0.5rem 0.55rem 0;
     color: color-mix(in srgb, var(--sw-text-secondary) 88%, var(--sw-text-primary));
-    font-size: 0.78rem;
+    font-size: 0.84rem;
     letter-spacing: 0.13em;
 }
 
@@ -676,6 +733,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     font-size: 0.78rem;
     font-weight: 600;
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 68%, transparent);
+}
+
+.projects-page__actions :deep(.sw-button) {
+    justify-content: flex-start;
 }
 
 .projects-page__case-link:focus-visible {

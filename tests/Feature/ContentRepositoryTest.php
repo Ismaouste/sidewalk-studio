@@ -13,13 +13,24 @@ class ContentRepositoryTest extends TestCase
     {
         $items = app(ContentRepository::class)->published('writing');
 
-        $this->assertCount(4, $items);
+        $this->assertCount(5, $items);
         $this->assertContains('content-systems-routing-and-metadata', $items->pluck('slug')->all());
         $this->assertContains('opensurvey-nonprofit-health-data', $items->pluck('slug')->all());
+        $this->assertContains('ytmusic-liked-sorter', $items->pluck('slug')->all());
         $this->assertTrue($items->every(fn (array $item) => $item['status'] === 'published'));
-        $this->assertSame('journal', $items->first()['category']);
-        $this->assertSame('note', $items->first()['publication_type']);
+        $this->assertContains('journal', $items->pluck('category')->all());
+        $this->assertContains('note', $items->pluck('category')->all());
+        $this->assertTrue($items->every(fn (array $item) => $item['publication_type'] === 'note'));
         $this->assertStringContainsString('/content-visuals/writing/', $items->first()['image_url']);
+    }
+
+    public function test_repository_adds_locale_hint_to_localized_placeholder_urls(): void
+    {
+        $item = app(ContentRepository::class)->findPublished('writing', 'opensurvey-associatif-donnees-sante', 'fr');
+
+        $this->assertSame('fr', $item['locale']);
+        $this->assertStringContainsString('/content-visuals/writing/opensurvey-associatif-donnees-sante.svg', $item['image_url']);
+        $this->assertStringContainsString('lang=fr', $item['image_url']);
     }
 
     public function test_repository_returns_case_study_details(): void

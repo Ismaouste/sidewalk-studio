@@ -1,129 +1,126 @@
 # Ismaël Rodmacq
 
-**Développeur Full Stack e-commerce**
-Laravel · WooCommerce · PrestaShop · SEO technique · RGPD · intégrations métier
+**Développeur web · e-commerce, donnée produit, SEO technique**
+Laravel · WooCommerce · PrestaShop · Shopify data · tracking / consentement · intégrations métier
 
-Nancy, France
-+33 6 84 90 76 98
-ismael.rodmacq@gmail.com
-GitHub: github.com/Ismaouste
+Nancy, Grand Est  
++33 6 84 90 76 98  
+ismael@rodmacq.com  
+GitHub: github.com/Ismaouste  
 LinkedIn: linkedin.com/in/ismaelrodmacq
 
 ## Profil
 
-Développeur full stack e-commerce, j'interviens sur des environnements PHP où la maintenabilité, la stabilité en production, le SEO technique, les intégrations métier et la conformité ne peuvent pas être traités comme des sujets annexes.
+Développeur web orienté e-commerce, donnée produit et SEO technique, j’interviens sur des systèmes déjà en mouvement: plateformes marchandes, sites de marque, outils internes, flux catalogue et environnements PHP avec de l’histoire.
 
-Je travaille surtout sur des systèmes existants: plateformes e-commerce, produits métier, flux catalogue, données produit et outils qui doivent évoluer sans casser le fonctionnement réel. Mon objectif est de rendre ces environnements plus lisibles, plus fiables et plus durables.
+J’aime comprendre comment un projet est réellement utilisé, repérer rapidement les quick wins, puis remettre de l’ordre sans casser l’exploitation. Mon terrain le plus naturel se situe entre delivery, intégration métier, architecture pratique, qualité front et lisibilité pour les équipes comme pour les robots.
 
 ## Positionnement
 
-- Développement et évolution de plateformes e-commerce et produits métier
-- Modernisation progressive de codebases PHP / Laravel
-- SEO technique, métadonnées, structured data et architecture éditoriale
-- Consentement, RGPD, tracking et gouvernance des scripts
-- Flux catalogue, données produit et intégrations ERP / PIM / DAM / CRM
+- Reprise progressive de plateformes e-commerce et sites web existants
+- Structuration SEO dès la refonte: URLs, listings, fiches produit, métadonnées, données structurées
+- Circulation de la donnée produit entre PIM, ERP, Shopify, catalogues marketing et front
+- Tracking, data layer, consent mode v2 et gouvernance des scripts
+- Intégration front, Sass, systèmes de templates et composants réutilisables
 - Collaboration fluide avec produit, SEO, design, marketing et équipes non techniques
 
 ## Compétences clés
 
-### Architecture et back-end
+### Plateformes, back-end et intégrations
 - PHP
 - Laravel
 - WordPress / WooCommerce
 - PrestaShop
-- API REST
-- Intégrations ERP / PIM / catalogue / outils marketing
-- Refactoring progressif et structuration d'applications web
-- Commandes, cron, automatisation métier, scripts utilitaires
+- Shopify data
+- APIs REST
+- XML / CSV / JSON-LD
+- Intégrations ERP / PIM / DAM / CRM / outils marketing
+- Commandes Laravel, cron, scripts métier et automatisation pragmatique
 
-### Front-end et produit
-- Inertia.js
+### Front-end, intégration et produit
+- HTML / CSS / Sass
+- Intégration front soignée
 - Vue 3
+- Inertia.js
 - TypeScript
-- Design systems pragmatiques
-- Templates éditoriaux et systèmes de contenu
-- Responsive design et UX sobre
-- Vite
+- Tailwind CSS
+- Alpine.js
+- Templates éditoriaux, composants commerce et design systems sobres
 
-### SEO, fiabilité et conformité
+### SEO, analytics, marketing data et performance
 - SEO technique
-- Canonicals, métadonnées, Open Graph, Twitter Cards
-- JSON-LD et structured data
-- Sitemaps et architecture d'indexation
-- CMP et orchestration du consentement
-- Chargement conditionnel de scripts et analytics respectueux de la vie privée
-- Diagnostic d'incidents et fiabilisation de la production
+- Google Merchant Center
+- Meta Catalog / Meta Ads
+- Google Tag Manager
+- Meta Pixel
+- Microsoft Ads / Bing UET
+- Adobe Analytics
+- Data layer
+- Google Consent Mode v2
+- Core Web Vitals
 
-### Environnements et outils
+### Environnements et exploitation
+- Linux et ligne de commande
 - Docker / Docker Compose
-- Linux
 - Nginx / Apache
-- Git / GitHub
-- AWS
+- Cloudflare
+- Redis
+- AWS / S3
 - SQL / MySQL
-- Logs, débogage de production et observabilité pragmatique
+- Debug de production, logs et diagnostic d’incidents
 
 ## Expérience
 
-### Développeur Full Stack e-commerce
-**Jewely HBJO**
-**juin 2024 - aujourd'hui**
+### Développeur web / e-commerce
+**Jewely / Flippad**
+**sept. 2021 - aujourd’hui**
 
-Développement full stack d'un écosystème digital métier pour le secteur HBJO, à l'intersection de l'e-commerce, des flux catalogue, des besoins métier et de la qualité d'exécution. Travail dans un contexte produit et SaaS autour d'une plateforme e-commerce et de briques connexes type ERP, PIM, DAM et CRM.
+La grande majorité de mon parcours web s’est construite dans ce cadre, d’abord en alternance puis dans un contexte de delivery multi-clients et produit. Les clients changeaient, les périmètres aussi, mais le socle, les méthodes et la montée en responsabilité se sont construits au même endroit.
 
 Contributions typiques:
-- évolution de fonctionnalités e-commerce et métier
-- travail sur les flux catalogue, la qualité des données et les intégrations
-- amélioration de la structure applicative et de la maintenabilité
-- prise en compte des enjeux SEO, performance et lisibilité produit
-- contribution à la digitalisation métier de professionnels HBJO
+- reprise et évolution de sites e-commerce, sites de marque et projets WordPress, WooCommerce, PrestaShop, Shopify et Laravel/PHP
+- récupération, nettoyage, restructuration et hydratation de données issues du PIM, de l’ERP, de Shopify ou d’autres flux maison
+- cadrage SEO des refontes: structure d’URL, listings, fiches produit, données structurées et lisibilité du catalogue
+- intégration front, Sass, composants commerce, templates éditoriaux et qualité de restitution des interfaces
+- tracking, data layer, Consent Mode v2, GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, Merchant Center et catalogues marketing
+- veille techno, cadrage de lancement, exploration Jamstack / composable commerce autour d’Alokai (ex Vue Storefront)
 
-### Web Developer
-**Flippad Digital Solutions**
-**sept. 2021 - mai 2024**
-
-Travail en alternance puis en environnement multi-clients sur la maintenance et l'évolution de sites web, e-commerces et plateformes métier.
-
-Réalisations notables:
-- maintenance et optimisation de sites et e-commerces existants
-- implémentation de demandes clients orientées métier
-- intégration d'outils de suivi d'audience et synchronisation catalogue produit
-- accompagnement sur des sujets CMP et conformité
-- R&D autour d'un e-commerce type SPA / Jamstack
-- exploration ERP bijouterie
-- participation à la refonte de Flippad.com
+Clients et contextes:
+- Godchot, Pauliet, Auberi, Bijouterie Louis Julian, Crown DP
+- Rolex Bespoke et Rolex Certified Pre-Owned dans un univers HBJO exigeant
+- Sophie d’Agon, Prudhomme Transmissions, DCA Management et le SynPAAC sur des besoins de sites, de connecteurs et de structuration métier
 
 ### Développeur web
 **AREMEDIA**
 **juin 2020 - janv. 2021**
 
-Analyse des besoins et des usages pour la création d'un outil numérique, déploiement d'un LimeSurvey auto-hébergé (PHP + MySQL), cadrage dans le contexte légal des données de santé, et contribution à la conception d'un nouveau site.
+Conception d’un outil de remontée de données auto-hébergé pour des équipes de terrain, dans un contexte de prévention des risques et de santé publique. Déploiement d’un LimeSurvey PHP / MySQL, cadrage autour des données de santé, sécurisation pragmatique du dispositif et reprise du site aremedia.org.
 
-### Chargé d'accompagnement
+### Chargé d’accompagnement
 **Parcours le Monde Grand-Est**
 **janv. 2018 - janv. 2019**
 
-Animation, accompagnement de publics et sensibilisation à la citoyenneté européenne et aux projets de mobilité, avec une forte dimension coordination / médiation.
+Accompagnement de publics et coordination autour de projets de mobilité européenne, avec une forte dimension médiation, animation et traduction entre besoins concrets et dispositifs existants.
 
 ### Médiateur
 **ARTEM (Alliance Artem)**
 **oct. 2016 - juil. 2017**
 
-Médiation entre les écoles du campus et les établissements partenaires, organisation d'une journée d'information et de sensibilisation au développement durable pour 170 élèves avec 15 partenaires.
+Médiation entre établissements, coordination partenariale et organisation d’une journée de sensibilisation au développement durable pour 170 élèves et 15 partenaires.
 
 ## Projets sélectionnés
 
-### Jewely HBJO
-Écosystème digital métier pour la bijouterie, l'horlogerie et la joaillerie, articulé autour de problématiques e-commerce, catalogue, données produit et outils métier.
+### Jewely / Flippad
+Écosystèmes e-commerce et websites dans le secteur HBJO, avec flux catalogue, donnée produit, SEO, tracking et outils métier connectés.
+
+### Prudhomme Transmissions
+Reprise d’un site WordPress avec catalogue produit et fichiers 3D, dans une logique de clarté commerciale et de structure maintenable.
+
+### AREMEDIA / OpenSurvey
+Outil associatif et site public dans un cadre sensible de santé publique, sobriété technique et usages terrain.
 
 ### Sidewalk Studio
-Portfolio et référence Laravel orientée architecture, SEO, consentement, contenu éditorial, design system et rigueur de livraison.
-
-### Godechot Pauliet
-Travail autour du suivi d'audience, de la synchronisation catalogue et de sujets e-commerce / marketing data dans un contexte bijouterie.
-
-### YTMusic Liked Sorter
-Projet outillage / CLI illustrant une approche structurée: typage, cache, logs, dry-run, fiabilité et expérience développeur.
+Studio personnel et référence Laravel orientée architecture, contenu, consentement, SEO et design system.
 
 ## Formation
 
@@ -132,11 +129,11 @@ Projet outillage / CLI illustrant une approche structurée: typage, cache, logs,
 **sept. 2021 - oct. 2022**
 
 ### Développement web et mobile
-**Meshwork Academy**  
+**Meshwork Academy**
 **2020 - 2021**
 
 ### Licence de biologie
-**Université de Lorraine**  
+**Université de Lorraine**
 **2012 - 2016**
 
 ## Langues
@@ -148,4 +145,4 @@ Projet outillage / CLI illustrant une approche structurée: typage, cache, logs,
 
 ## Ce que je recherche
 
-Des contextes où l'on attend plus que de l'exécution pure: qualité technique, clarté, modernisation progressive, sens produit et capacité à faire évoluer des systèmes existants sans perdre le sens du réel.
+Des rôles ou missions où il faut comprendre un existant, poser des quick wins utiles, remettre de l’ordre dans les flux et faire évoluer des systèmes web ou commerce sans perdre le sens du réel.

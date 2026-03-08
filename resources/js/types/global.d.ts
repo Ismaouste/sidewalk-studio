@@ -25,6 +25,26 @@ declare global {
         navigationType: string;
     };
 
+    type SidewalkResourceAuditEntry = {
+        name: string;
+        initiatorType: string;
+        duration: number;
+        transferSize: number;
+        decodedBodySize: number;
+        cacheState: 'cache' | 'network' | 'unknown';
+    };
+
+    type SidewalkPerformanceAudit = {
+        resources: SidewalkResourceAuditEntry[];
+        longTasks: Array<{ name: string; duration: number }>;
+        summary: {
+            totalResources: number;
+            cacheHits: number;
+            slowestResource?: SidewalkResourceAuditEntry;
+            longestTask?: { name: string; duration: number };
+        };
+    };
+
     interface Window {
         requestIdleCallback?: (
             callback: (deadline: IdleDeadline) => void,
@@ -40,6 +60,7 @@ declare global {
             showPreferences: () => void;
         };
         __SIDEWALK_WEB_VITALS__?: SidewalkWebVital[];
+        __SIDEWALK_PERF_AUDIT__?: SidewalkPerformanceAudit;
     }
 }
 

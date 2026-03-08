@@ -64,6 +64,19 @@ createInertiaApp({
                 });
         });
 
+        scheduleIdleTask(() => {
+            void import('@/lib/performanceAudit')
+                .then(({ initializePerformanceAudit }) => {
+                    initializePerformanceAudit();
+                })
+                .catch((error: unknown) => {
+                    console.warn(
+                        'Performance audit instrumentation could not be initialized.',
+                        error,
+                    );
+                });
+        });
+
         void import('@/lib/consent')
             .then(({ initializeConsent }) =>
                 initializeConsent(
@@ -90,6 +103,6 @@ createInertiaApp({
             });
     },
     progress: {
-        color: '#8a7258',
+        color: 'var(--sw-accent-sun)',
     },
 });

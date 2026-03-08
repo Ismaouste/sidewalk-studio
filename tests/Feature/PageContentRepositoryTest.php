@@ -16,7 +16,7 @@ class PageContentRepositoryTest extends TestCase
             $page['seo_title'],
         );
         $this->assertSame(
-            'Engineering for e-commerce, product data, and the integrations that keep it moving.',
+            'Engineering for e-commerce, product data, and its flows.',
             $page['hero']['title'],
         );
     }
@@ -31,7 +31,7 @@ class PageContentRepositoryTest extends TestCase
             $page['hero']['title'],
         );
         $this->assertSame(
-            'Repère recruteur',
+            'Repères techniques',
             $page['career_snapshot']['title'],
         );
     }
@@ -46,7 +46,7 @@ class PageContentRepositoryTest extends TestCase
             $page['form']['primary_cta'],
         );
         $this->assertSame(
-            'Raccourci recruteur',
+            'Repères rapides',
             $page['recruiter_shortcut']['eyebrow'],
         );
     }

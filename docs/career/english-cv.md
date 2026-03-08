@@ -1,129 +1,126 @@
 # Ismaël Rodmacq
 
-**Full-Stack E-commerce Developer**
-Laravel · WooCommerce · PrestaShop · Technical SEO · Privacy · Business integrations
+**Web Developer · e-commerce, product data, technical SEO**
+Laravel · WooCommerce · PrestaShop · Shopify data · tracking / consent · business integrations
 
-Nancy, France
-+33 6 84 90 76 98
-ismael.rodmacq@gmail.com
-GitHub: github.com/Ismaouste
+Nancy, Grand Est  
++33 6 84 90 76 98  
+ismael@rodmacq.com  
+GitHub: github.com/Ismaouste  
 LinkedIn: linkedin.com/in/ismaelrodmacq
 
 ## Profile
 
-Full-stack e-commerce developer working on PHP environments where maintainability, production stability, technical SEO, business integrations, and compliance cannot be treated as side concerns.
+Web developer focused on e-commerce, product data, and technical SEO, working on systems already in motion: commerce platforms, brand sites, internal tools, catalog flows, and PHP environments with history.
 
-My best-fit context is an existing system: e-commerce platforms, business ecosystems, catalog flows, product data, and codebases with history that need to improve without breaking what already works. I am especially strong in progressive modernization, clearer boundaries, and calmer delivery.
+I like understanding how a project is actually used, identifying quick wins early, then bringing more order without disrupting operations. My strongest context sits between delivery, business integration, practical architecture, front-end quality, and legibility for both teams and robots.
 
 ## Positioning
 
-- Building and evolving e-commerce platforms and business-facing web products
-- Modernizing PHP / Laravel codebases without dogmatic rewrites
-- Technical SEO, metadata, structured data, and editorial architecture
-- Consent, privacy, analytics, and script governance
-- Catalog flows, product data, and ERP / PIM / DAM / CRM integrations
-- Working across product, SEO, design, marketing, and non-technical teams
+- Progressive recovery of existing e-commerce platforms and websites
+- SEO structure built into redesigns: URLs, listings, product pages, metadata, and structured data
+- Product data moving across PIM, ERP, Shopify, marketing catalogs, and front-end surfaces
+- Tracking, data layer design, consent mode v2, and script governance
+- Front-end integration, Sass systems, reusable templates, and reusable components
+- Working comfortably across product, SEO, design, marketing, and non-technical teams
 
 ## Core skills
 
-### Architecture and back-end
+### Platforms, back-end, and integrations
 - PHP
 - Laravel
 - WordPress / WooCommerce
 - PrestaShop
+- Shopify data
 - REST APIs
-- Catalog, ERP, PIM, and marketing integrations
-- Progressive refactoring and application structuring
-- Commands, cron jobs, business automation, utility scripts
+- XML / CSV / JSON-LD
+- ERP / PIM / DAM / CRM / marketing-tool integrations
+- Laravel commands, cron jobs, business scripts, and pragmatic automation
 
-### Front-end and product
-- Inertia.js
+### Front-end, integration, and product
+- HTML / CSS / Sass
+- Careful front-end integration
 - Vue 3
+- Inertia.js
 - TypeScript
-- Pragmatic design systems
-- Editorial page templates and content systems
-- Responsive design and restrained UX
-- Vite
+- Tailwind CSS
+- Alpine.js
+- Editorial templates, commerce components, and restrained design systems
 
-### SEO, reliability, and privacy
+### SEO, analytics, marketing data, and performance
 - Technical SEO
-- Canonicals, metadata, Open Graph, Twitter Cards
-- JSON-LD / structured data
-- Sitemaps and crawl architecture
-- CMP / consent management
-- Conditional script loading and privacy-aware analytics
-- Incident diagnosis and production hardening
+- Google Merchant Center
+- Meta Catalog / Meta Ads
+- Google Tag Manager
+- Meta Pixel
+- Microsoft Ads / Bing UET
+- Adobe Analytics
+- Data layer design
+- Google Consent Mode v2
+- Core Web Vitals
 
-### Environments and tools
+### Environments and operations
+- Linux and command line
 - Docker / Docker Compose
-- Linux
 - Nginx / Apache
-- Git / GitHub
-- AWS
+- Cloudflare
+- Redis
+- AWS / S3
 - SQL / MySQL
-- Logs, production debugging, and pragmatic observability
+- Production debugging, logs, and incident diagnosis
 
 ## Experience
 
-### Full-Stack E-commerce Developer
-**Jewely HBJO**
-**June 2024 - Present**
+### Web / E-commerce Developer
+**Jewely / Flippad**
+**September 2021 - Present**
 
-Full-stack development within a business-specific digital ecosystem for the jewelry and watch industry, at the intersection of e-commerce, catalog flows, product data, and business software needs. The context combines product and SaaS concerns around e-commerce and adjacent tools such as ERP, PIM, DAM, and CRM.
+Most of my web experience was built in that same company context, first as an apprentice and then in a broader multi-client and product delivery setup. Clients changed and scopes changed, but the foundations, methods, and growing responsibility were developed in one place.
 
 Typical contributions:
-- evolving e-commerce and business-facing features
-- working on catalog flows, product data quality, and integrations
-- improving application structure and maintainability
-- taking SEO, performance, and product clarity into account
-- contributing to the digital transformation of HBJO businesses
+- recovering and evolving e-commerce sites, brand sites, and WordPress, WooCommerce, PrestaShop, Shopify, and Laravel/PHP projects
+- retrieving, cleaning, restructuring, and hydrating data coming from the PIM, the ERP, Shopify, or other in-house feeds
+- shaping SEO during redesigns: URL structure, listing pages, product pages, structured data, and catalog legibility
+- front-end integration, Sass systems, commerce components, editorial templates, and cleaner interface delivery
+- tracking, data layer work, Consent Mode v2, GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, Merchant Center, and marketing catalogs
+- technical watch, launch framing, and composable commerce / Jamstack exploration around Alokai (formerly Vue Storefront)
 
-### Web Developer
-**Flippad Digital Solutions**
-**September 2021 - May 2024**
-
-Worked in an apprenticeship and multi-client environment on websites, e-commerce platforms, business tools, and product-oriented R&D.
-
-Notable contributions:
-- maintaining and optimizing existing websites and e-commerce platforms
-- implementing client-specific business features
-- integrating audience tracking and product-catalog synchronization
-- supporting CMP and compliance-related implementations
-- R&D around SPA / Jamstack-like e-commerce approaches
-- exploring jewelry ERP needs
-- contributing to the Flippad.com rebuild
+Clients and contexts:
+- Godchot, Pauliet, Auberi, Bijouterie Louis Julian, Crown DP
+- Rolex Bespoke and Rolex Certified Pre-Owned in a demanding jewelry and watch environment
+- Sophie d’Agon, Prudhomme Transmissions, DCA Management, and SynPAAC across website, connector, and business-structure work
 
 ### Web Developer
 **AREMEDIA**
 **June 2020 - January 2021**
 
-Analyzed needs and usage around a digital tool, deployed a self-hosted LimeSurvey stack (PHP + MySQL), worked within health-data legal constraints, and contributed to a new website direction.
+Designed a self-hosted reporting tool for field teams in a harm reduction and public health context. Deployed a PHP / MySQL LimeSurvey stack, worked within health-data constraints, handled pragmatic security concerns, and contributed to the rebuild of aremedia.org.
 
 ### Support Officer
 **Parcours le Monde Grand-Est**
 **January 2018 - January 2019**
 
-Public-facing support, project guidance, and awareness work around European citizenship and mobility projects.
+Supported mobility projects and public-facing guidance around European citizenship, with a strong mediation and coordination dimension.
 
 ### Mediator
 **ARTEM (Alliance Artem)**
 **October 2016 - July 2017**
 
-Mediation between campus schools and partner institutions, with responsibility for a sustainable-development awareness day for 170 students and 15 partners.
+Handled mediation between institutions, partner coordination, and the organization of a sustainability awareness day for 170 students and 15 partner organizations.
 
 ## Selected projects
 
-### Jewely HBJO
-Business-specific digital ecosystem for jewelry, watches, and related retail operations, combining e-commerce concerns with product data and business-tool workflows.
+### Jewely / Flippad
+E-commerce and website ecosystems in the jewelry and watch sector, with catalog flows, product data, SEO, tracking, and connected business tools.
+
+### Prudhomme Transmissions
+Recovery of a WordPress site with product catalog and 3D files, built around commercial clarity and maintainable structure.
+
+### AREMEDIA / OpenSurvey
+Non-profit tooling and a public-facing site in a sensitive public-health context, with technical restraint and real field usage.
 
 ### Sidewalk Studio
-A Laravel-based portfolio and reference implementation focused on architecture, SEO, consent orchestration, editorial content, design systems, and delivery discipline.
-
-### Godechot Pauliet
-Audience tracking, catalog synchronization, and e-commerce / marketing data work in a jewelry retail context.
-
-### YTMusic Liked Sorter
-A tooling / CLI project showing a structured engineering mindset: typing, cache, logging, dry-run behavior, reliability, and developer experience.
+Personal studio and Laravel reference focused on architecture, content, consent, SEO, and design systems.
 
 ## Education
 
@@ -131,12 +128,12 @@ A tooling / CLI project showing a structured engineering mindset: typing, cache,
 **Metz Numeric School**
 **September 2021 - October 2022**
 
-### Web and mobile development
-**Meshwork Academy**  
+### Web and Mobile Development
+**Meshwork Academy**
 **2020 - 2021**
 
 ### Biology degree
-**University of Lorraine**  
+**University of Lorraine**
 **2012 - 2016**
 
 ## Languages
@@ -148,4 +145,4 @@ A tooling / CLI project showing a structured engineering mindset: typing, cache,
 
 ## What I am looking for
 
-Contexts where engineering is expected to bring clarity, stability, modernization, and sound judgment rather than just implementation throughput.
+Roles or missions where the job is to understand an existing system, identify useful quick wins, bring more order to the flows, and help web or commerce products evolve without losing touch with how they are actually used.

@@ -2,9 +2,10 @@ import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
     plugins: [
         laravel({
             input: ['resources/js/app.ts'],
@@ -23,5 +24,15 @@ export default defineConfig({
         wayfinder({
             formVariants: true,
         }),
+        ...(mode === 'analyze'
+            ? [
+                  visualizer({
+                      filename: 'storage/app/vite-bundle-report.html',
+                      gzipSize: true,
+                      brotliSize: true,
+                      open: false,
+                  }),
+              ]
+            : []),
     ],
-});
+}));

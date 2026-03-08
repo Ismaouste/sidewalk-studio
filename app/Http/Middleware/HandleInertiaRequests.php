@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
                 'navigation' => PublicLocale::navigation(app()->getLocale()),
                 'author' => config('site.author'),
                 'contact' => $settings->contactDetails->toArray(),
+                'social' => $settings->socialLinks->toArray(),
                 'shell' => PublicLocale::shellCopy(app()->getLocale()),
                 'languageSwitcher' => PublicLocale::switcher(
                     $request,
@@ -49,6 +50,7 @@ class HandleInertiaRequests extends Middleware
                 ),
                 'runtime' => [
                     'staticPreview' => $request->headers->get('X-Static-Preview') === '1',
+                    'staticBasePath' => $request->headers->get('X-Static-Preview-Base'),
                 ],
             ],
             'consent' => [

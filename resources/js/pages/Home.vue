@@ -53,14 +53,79 @@ const props = defineProps<{
 
 const heroPanelTones = ['dominant', 'green', 'coral'] as const;
 
+const heroCapabilities = computed(() =>
+    page.props.site.locale === 'fr'
+        ? [
+              {
+                  label: 'Sites marchands',
+                  tone: 'violet' as const,
+                  details:
+                      'WooCommerce / PrestaShop / Shopify / Alokai (ex Vue Storefront)',
+                  panelDetails:
+                      'WooCommerce / PrestaShop / Shopify / Alokai',
+                  summary: props.heroPanel[0] ?? '',
+              },
+              {
+                  label: 'Laravel',
+                  tone: 'green' as const,
+                  details: 'Laravel / PHP / APIs / CI-CD',
+                  panelDetails: 'Laravel / PHP / APIs / CI-CD',
+                  summary: props.heroPanel[1] ?? '',
+              },
+              {
+                  label: 'Data produit et SEO',
+                  tone: 'sun' as const,
+                  details: 'PIM / JSON-LD / Merchant Center / Data layer',
+                  panelDetails:
+                      'PIM / JSON-LD / Merchant Center / Data layer',
+                  summary: props.heroPanel[2] ?? '',
+              },
+          ]
+        : [
+              {
+                  label: 'E-commerce',
+                  tone: 'violet' as const,
+                  details:
+                      'WooCommerce / PrestaShop / Shopify / Alokai (formerly Vue Storefront)',
+                  panelDetails:
+                      'WooCommerce / PrestaShop / Shopify / Alokai',
+                  summary: props.heroPanel[0] ?? '',
+              },
+              {
+                  label: 'Laravel',
+                  tone: 'green' as const,
+                  details: 'Laravel / PHP / APIs / CI/CD',
+                  panelDetails: 'Laravel / PHP / APIs / CI/CD',
+                  summary: props.heroPanel[1] ?? '',
+              },
+              {
+                  label: 'Product data and SEO',
+                  tone: 'sun' as const,
+                  details: 'PIM / JSON-LD / Merchant Center / Data layer',
+                  panelDetails:
+                      'PIM / JSON-LD / Merchant Center / Data layer',
+                  summary: props.heroPanel[2] ?? '',
+              },
+          ],
+);
+
+const heroAccentChips = computed(() =>
+    heroCapabilities.value.map(({ label, tone, details }) => ({
+        label,
+        tone,
+        details,
+    })),
+);
+
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              projectsCta: "Voir l'expérience",
+              projectsCta: 'Lire les expériences',
               contactCta: 'Prendre contact',
-              currentFrameLabel: 'Cadre actuel',
-              heroPanelTitle:
-                  'Donnée produit, interconnexions, tracking et SEO technique dans des environnements qui ont déjà une histoire.',
+              currentFrameLabel: "Aujourd'hui",
+              heroPanelTitle: 'Développeur e-commerce chez Jewely',
+              heroPanelSummary:
+                  'HBJO, donnée produit, flux, tracking et SEO technique.',
               whatIDoLabel: 'Ce que je fais',
               focusTitle:
                   'Un positionnement net dans des environnements complexes.',
@@ -70,27 +135,23 @@ const copy = computed(() =>
               projectsTitle: 'Quelques références choisies.',
               projectsDescription:
                   "Des cas publics compacts pour montrer comment architecture, donnée produit, tracking, SEO technique et décisions de livraison se traduisent en pratique.",
-              openProjectsCta: "Voir les cas d'étude",
+              openProjectsCta: "Découvrir les projets",
               internalBuildLabel: 'Interne',
               localGroundLabel: 'Où suis-je ?',
-              readLocalPageCta: 'Lire la page locale',
+              readLocalPageCta: 'Échanger',
               notesLabel: 'Notes',
               contactLabel: 'Contact',
               startConversationCta: 'Prendre contact',
-              referencesCta: "Voir l'expérience",
-              archiveCta: "Voir les cas d'étude",
-              heroChipCommerceLabel: 'Sites marchands',
-              heroChipFrameworkLabel: 'Laravel',
-              heroChipSeoLabel: 'Data produit et SEO',
-              signalPrefix: 'Signal',
-              localPointPrefix: 'Point',
+              referencesCta: 'Lire les expériences',
+              archiveCta: "Découvrir les projets",
           }
         : {
-              projectsCta: 'Open experience',
+              projectsCta: 'View experiences',
               contactCta: 'Start a conversation',
-              currentFrameLabel: 'Current frame',
-              heroPanelTitle:
-                  'Product data, integrations, tracking, and technical SEO in environments that already have history.',
+              currentFrameLabel: 'Current role',
+              heroPanelTitle: 'E-commerce developer at Jewely',
+              heroPanelSummary:
+                  'HBJO, product data, integrations, tracking, and technical SEO.',
               whatIDoLabel: 'What I do',
               focusTitle: 'A legible practice for complex environments.',
               focusDescription:
@@ -107,13 +168,8 @@ const copy = computed(() =>
               notesLabel: 'Notes',
               contactLabel: 'Contact',
               startConversationCta: 'Start a conversation',
-              referencesCta: 'Open experience',
+              referencesCta: 'View experiences',
               archiveCta: 'Open case studies',
-              heroChipCommerceLabel: 'E-commerce',
-              heroChipFrameworkLabel: 'Laravel',
-              heroChipSeoLabel: 'Product data and SEO',
-              signalPrefix: 'Signal',
-              localPointPrefix: 'Point',
           },
 );
 </script>
@@ -125,63 +181,67 @@ const copy = computed(() =>
         <section class="sw-section sw-section--hero">
             <div class="home-hero">
                 <SectionIntro
-                    :eyebrow="props.hero.eyebrow"
                     :title="props.hero.title"
                     :description="props.hero.summary"
                     size="hero"
                 >
-                    <template #actions>
-                        <Button href="/projects">{{ copy.projectsCta }}</Button>
-                        <Button href="/contact" variant="secondary">
-                            {{ copy.contactCta }}
-                        </Button>
-                    </template>
+                    <div class="home-hero__support">
+                        <div class="home-accent-list">
+                            <div
+                                v-for="chip in heroAccentChips"
+                                :key="chip.label"
+                                class="home-accent-chip"
+                                :class="[
+                                    `home-accent-chip--${chip.tone}`,
+                                    `home-tone--${chip.tone}`,
+                                ]"
+                                tabindex="0"
+                            >
+                                <LegendChip
+                                    :label="chip.label"
+                                    :tone="chip.tone"
+                                />
+                                <span class="home-accent-chip__tooltip">
+                                    {{ chip.details }}
+                                </span>
+                            </div>
+                        </div>
 
-                    <div class="home-accent-list">
-                        <LegendChip
-                            :label="
-                                page.props.site.locale === 'fr'
-                                    ? copy.heroChipCommerceLabel
-                                    : 'E-commerce'
-                            "
-                            tone="dominant"
-                        />
-                        <LegendChip
-                            :label="
-                                page.props.site.locale === 'fr'
-                                    ? copy.heroChipFrameworkLabel
-                                    : 'Laravel'
-                            "
-                            tone="green"
-                        />
-                        <LegendChip
-                            :label="
-                                page.props.site.locale === 'fr'
-                                    ? copy.heroChipSeoLabel
-                                    : 'Catalogs and SEO'
-                            "
-                            tone="sun"
-                        />
+                        <div class="home-hero__actions">
+                            <Button href="/projects">
+                                {{ copy.projectsCta }}
+                            </Button>
+                            <Button href="/contact" variant="secondary">
+                                {{ copy.contactCta }}
+                            </Button>
+                        </div>
                     </div>
                 </SectionIntro>
 
                 <Panel class="home-hero__panel" tone="grid">
                     <p class="type-eyebrow">{{ copy.currentFrameLabel }}</p>
-                    <h2 class="type-h2 home-hero__panel-title">
+                    <h2 class="home-hero__panel-title">
                         {{ copy.heroPanelTitle }}
                     </h2>
+                    <p class="type-body-sm home-hero__panel-summary">
+                        {{ copy.heroPanelSummary }}
+                    </p>
                     <ul class="home-hero__highlights">
                         <li
-                            v-for="(highlight, index) in props.heroPanel"
-                            :key="highlight"
+                            v-for="item in heroCapabilities"
+                            :key="item.label"
                             class="home-hero__highlight"
+                            :class="`home-tone--${item.tone}`"
                         >
-                            <LegendChip
-                                :label="`${page.props.site.locale === 'fr' ? copy.signalPrefix : 'Signal'} 0${index + 1}`"
-                                :tone="heroPanelTones[index] ?? 'violet'"
-                            />
+                            <LegendChip :label="item.label" tone="sun" />
+                            <p
+                                class="type-meta home-hero__highlight-details"
+                                :class="`home-hero__highlight-details--${item.tone}`"
+                            >
+                                {{ item.panelDetails }}
+                            </p>
                             <p class="type-body-sm home-hero__highlight-copy">
-                                {{ highlight }}
+                                {{ item.summary }}
                             </p>
                         </li>
                     </ul>
@@ -216,7 +276,7 @@ const copy = computed(() =>
                     <p class="type-body home-focus-card__summary">
                         {{ focus.summary }}
                     </p>
-                    <Button :href="focus.href" variant="ghost">
+                    <Button :href="focus.href" variant="ghost" arrow>
                         {{ focus.cta }}
                     </Button>
                 </Panel>
@@ -230,7 +290,7 @@ const copy = computed(() =>
                     :title="copy.projectsTitle"
                     :description="copy.projectsDescription"
                 />
-                <Button href="/case-studies" variant="ghost">
+                <Button href="/case-studies" variant="ghost" arrow>
                     {{ copy.openProjectsCta }}
                 </Button>
             </div>
@@ -279,28 +339,10 @@ const copy = computed(() =>
                     :title="props.localTeaser.title"
                     :description="props.localTeaser.summary"
                 />
-                <Button href="/local" variant="ghost">
+                <Button href="/contact" variant="ghost" arrow>
                     {{ copy.readLocalPageCta }}
                 </Button>
             </div>
-
-            <Panel class="home-local" tone="grid">
-                <div class="home-local__points">
-                    <article
-                        v-for="(point, index) in props.localTeaser.points"
-                        :key="point"
-                        class="home-local__point"
-                    >
-                        <LegendChip
-                            :label="`${page.props.site.locale === 'fr' ? copy.localPointPrefix : 'Point'} 0${index + 1}`"
-                            :tone="heroPanelTones[index] ?? 'violet'"
-                        />
-                        <p class="type-body-sm home-local__copy">
-                            {{ point }}
-                        </p>
-                    </article>
-                </div>
-            </Panel>
         </section>
 
         <PublicationWidget
@@ -324,23 +366,24 @@ const copy = computed(() =>
                 </div>
 
                 <div class="home-contact__actions">
-                    <Button href="/contact">{{
-                        copy.startConversationCta
-                    }}</Button>
-                    <Button href="/projects" variant="secondary">
-                        {{ copy.referencesCta }}
-                    </Button>
-                    <Button
-                        v-for="download in props.cvDownloads"
-                        :key="download.href"
-                        :href="download.href"
-                        variant="ghost"
-                    >
-                        {{ download.label }}
-                    </Button>
-                    <Button href="/case-studies" variant="ghost">
-                        {{ copy.archiveCta }}
-                    </Button>
+                    <div class="home-contact__downloads">
+                        <Button
+                            v-for="download in props.cvDownloads"
+                            :key="download.href"
+                            :href="download.href"
+                            variant="ghost"
+                        >
+                            {{ download.label }}
+                        </Button>
+                    </div>
+                    <div class="home-contact__cta-row">
+                        <Button href="/contact">{{
+                            copy.startConversationCta
+                        }}</Button>
+                        <Button href="/projects" variant="secondary">
+                            {{ copy.referencesCta }}
+                        </Button>
+                    </div>
                 </div>
             </Panel>
         </section>
@@ -357,7 +400,6 @@ const copy = computed(() =>
 .home-hero__panel,
 .home-focus-card,
 .home-card,
-.home-local,
 .home-contact {
     display: grid;
     gap: var(--sw-space-sm);
@@ -368,6 +410,100 @@ const copy = computed(() =>
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem 0.9rem;
+}
+
+.home-hero__support {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.home-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.home-accent-chip {
+    position: relative;
+    display: inline-flex;
+    width: fit-content;
+    outline: none;
+    --home-accent-color: var(--sw-accent-dominant);
+}
+
+.home-accent-chip__tooltip {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 10px);
+    z-index: 2;
+    min-width: max-content;
+    max-width: min(22rem, 80vw);
+    border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
+    border-radius: calc(var(--sw-radius-md) + 2px);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 94%, transparent);
+    padding: 0.58rem 0.72rem;
+    color: var(--sw-text-primary);
+    font-family: var(--sw-font-body);
+    font-size: 0.79rem;
+    font-weight: 500;
+    line-height: 1.35;
+    white-space: nowrap;
+    box-shadow: var(--sw-shadow-md);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition:
+        opacity var(--sw-motion-fast),
+        transform var(--sw-motion-fast),
+        border-color var(--sw-motion-fast),
+        background-color var(--sw-motion-fast);
+}
+
+.home-accent-chip__tooltip::after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: calc(100% - 1px);
+    width: 10px;
+    height: 10px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+    opacity: 0.18;
+    background: inherit;
+}
+
+.home-tone--violet {
+    --home-accent-color: #6b33c8;
+}
+
+.home-tone--green {
+    --home-accent-color: #87d63f;
+}
+
+.home-tone--sun {
+    --home-accent-color: #c98714;
+}
+
+.home-accent-chip--violet .home-accent-chip__tooltip,
+.home-accent-chip--green .home-accent-chip__tooltip,
+.home-accent-chip--sun .home-accent-chip__tooltip {
+    border-color: color-mix(in srgb, var(--home-accent-color) 28%, var(--sw-border));
+    background: color-mix(in srgb, var(--sw-bg-elevated) 88%, var(--home-accent-color) 12%);
+}
+
+.home-accent-chip--violet :deep(.legend-chip),
+.home-accent-chip--green :deep(.legend-chip),
+.home-accent-chip--sun :deep(.legend-chip) {
+    --chip-accent: var(--home-accent-color);
+    color: var(--home-accent-color);
+}
+
+.home-accent-chip:hover .home-accent-chip__tooltip,
+.home-accent-chip:focus-within .home-accent-chip__tooltip,
+.home-accent-chip:focus .home-accent-chip__tooltip {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .home-focus-card__label,
@@ -383,6 +519,20 @@ const copy = computed(() =>
     color: var(--sw-text-primary);
 }
 
+.home-hero__panel-title {
+    font-family: var(--sw-font-body);
+    font-size: clamp(1rem, 1.25vw, 1.12rem);
+    font-weight: 600;
+    line-height: 1.35;
+    color: color-mix(in srgb, var(--sw-text-primary) 82%, var(--sw-text-secondary));
+}
+
+.home-hero__panel-summary {
+    margin: -0.3rem 0 0;
+    color: var(--sw-text-secondary);
+    line-height: 1.45;
+}
+
 .home-hero__highlights,
 .home-focus-grid {
     display: grid;
@@ -395,16 +545,14 @@ const copy = computed(() =>
     list-style: none;
 }
 
-.home-hero__highlight,
-.home-local__point {
+.home-hero__highlight {
     display: grid;
     gap: var(--sw-space-3xs);
     border-top: 1px solid var(--sw-border);
     padding-top: var(--sw-space-xs);
 }
 
-.home-hero__highlight:first-child,
-.home-local__point:first-child {
+.home-hero__highlight:first-child {
     border-top: 0;
     padding-top: 0;
 }
@@ -412,10 +560,23 @@ const copy = computed(() =>
 .home-hero__highlight-copy,
 .home-focus-card__summary,
 .home-card__summary,
-.home-local__copy,
 .home-contact__summary {
     margin: 0;
     color: var(--sw-text-secondary);
+}
+
+.home-hero__highlight-details {
+    margin: calc(var(--sw-space-3xs) * -0.35) 0 0;
+    font-family: var(--sw-font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--home-accent-color);
+}
+
+.home-hero__highlight :deep(.legend-chip) {
+    --chip-accent: var(--sw-accent-sun);
+    color: var(--sw-accent-sun);
 }
 
 .home-card__role {
@@ -473,11 +634,6 @@ const copy = computed(() =>
     gap: var(--sw-space-3xs);
 }
 
-.home-local__points {
-    display: grid;
-    gap: var(--sw-space-xs);
-}
-
 .home-card__tag {
     display: inline-flex;
     align-items: center;
@@ -486,22 +642,58 @@ const copy = computed(() =>
 }
 
 .home-contact {
-    align-items: end;
+    grid-template-areas:
+        'copy'
+        'actions';
+    align-items: start;
     padding-block: clamp(10px, 1.6vw, 16px);
+}
+
+.home-contact__copy {
+    grid-area: copy;
+    display: grid;
+    gap: 0;
+    max-width: 48rem;
 }
 
 .home-contact__eyebrow {
     width: fit-content;
     margin: 0;
-    color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
-    font-size: 12px;
+    color: color-mix(in srgb, var(--sw-text-secondary) 84%, transparent);
+    font-size: 10px;
     letter-spacing: 0.16em;
 }
 
+.home-contact__title {
+    padding-block: 14px 10px;
+    color: color-mix(in srgb, var(--sw-text-primary) 76%, var(--sw-text-secondary));
+}
+
+.home-contact__summary {
+    max-width: 60ch;
+    line-height: 1.34;
+}
+
 .home-contact__actions {
+    grid-area: actions;
+    display: grid;
+    gap: var(--sw-space-xs);
+    justify-items: end;
+    align-self: end;
+    align-content: end;
+}
+
+.home-contact__downloads,
+.home-contact__cta-row {
     display: flex;
     flex-wrap: wrap;
     gap: var(--sw-space-xs);
+    justify-content: flex-end;
+}
+
+.home-contact__downloads :deep(.sw-button) {
+    min-height: 2.5rem;
+    white-space: nowrap;
 }
 
 .home-card-link:focus-visible {
@@ -532,7 +724,18 @@ const copy = computed(() =>
     }
 
     .home-contact {
-        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas: 'copy actions';
+        grid-template-columns: minmax(0, 1.35fr) minmax(24rem, 26rem);
+        align-items: stretch;
+    }
+
+    .home-contact__actions {
+        min-height: 100%;
+    }
+
+    .home-contact__downloads,
+    .home-contact__cta-row {
+        flex-wrap: nowrap;
     }
 }
 
@@ -540,6 +743,19 @@ const copy = computed(() =>
     .home-focus-grid,
     .home-card-grid {
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    .home-contact {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .home-contact__actions {
+        justify-items: stretch;
+    }
+
+    .home-contact__downloads,
+    .home-contact__cta-row {
+        justify-content: flex-end;
     }
 }
 
@@ -552,6 +768,25 @@ const copy = computed(() =>
     .home-section__header {
         gap: var(--sw-space-xs);
         align-items: start;
+    }
+
+    .home-accent-list,
+    .home-hero__actions {
+        gap: var(--sw-space-3xs);
+    }
+
+    .home-hero__actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .home-hero__actions :deep(.sw-button) {
+        width: 100%;
+    }
+
+    .home-accent-chip__tooltip {
+        max-width: min(18rem, 76vw);
+        white-space: normal;
     }
 }
 </style>

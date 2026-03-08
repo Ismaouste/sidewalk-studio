@@ -83,7 +83,6 @@ class PublicLocale
      *     navFallbackLabel: string,
      *     navCurrentLabel: string,
      *     navOpenLabel: string,
-     *     footerDividerLabel: string,
      *     footerNote: string,
      *     privacyControlsLabel: string
      * }
@@ -99,8 +98,7 @@ class PublicLocale
                 'navFallbackLabel' => 'Navigation',
                 'navCurrentLabel' => 'Actif',
                 'navOpenLabel' => 'Lire plus →',
-                'footerDividerLabel' => 'Journal public',
-                'footerNote' => 'Portfolio Laravel local-first. Embeds soumis au consentement. Contenu structuré. Shell prêt pour le SSR.',
+                'footerNote' => "Développement web, donnée produit, connecteurs, outils internes et SEO technique pour des équipes qui ont déjà du réel à faire tourner.",
                 'privacyControlsLabel' => 'Réglages vie privée',
             ];
         }
@@ -113,8 +111,7 @@ class PublicLocale
             'navFallbackLabel' => 'Navigation',
             'navCurrentLabel' => 'Current',
             'navOpenLabel' => 'Read more →',
-            'footerDividerLabel' => 'Public build log',
-            'footerNote' => 'Local-first Laravel portfolio. Consent-aware embeds. Structured content. SSR-ready shell.',
+            'footerNote' => 'Web engineering for product data, integrations, internal tools, and technical SEO in teams already running real operations.',
             'privacyControlsLabel' => 'Privacy controls',
         ];
     }

@@ -2,9 +2,7 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
-import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
-import SectionDivider from '@/components/design-system/SectionDivider.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
@@ -20,45 +18,40 @@ const props = defineProps<{
 }>();
 
 function writingMeta(item: ContentItem) {
-    return [
-        {
-            label: copy.value.publishedLabel,
-            value: item.published_at,
-        },
-        {
-            label: copy.value.readLabel,
-            value: `${item.reading_time} min`,
-        },
-    ];
+    return [item.published_at, `${item.reading_time} min`];
+}
+
+function entryLabel(item: ContentItem): string {
+    if (item.category === 'journal') {
+        return 'Journal';
+    }
+
+    return page.props.site.locale === 'fr' ? 'Note' : 'Note';
 }
 
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              eyebrow: 'Archive des notes',
-              title: "Notes de build, mémos de stratégie et décisions d'architecture.",
+              eyebrow: 'Journal',
+              title: 'Articles, notes courtes et repères de build.',
               description:
-                  "Notes éditoriales sur les systèmes de contenu, l'orchestration du consentement, la préparation au SSR et la discipline de repo public.",
+                  "Un flux de journal public avec des articles plus riches et des notes plus courtes autour du build, de l'architecture, du contenu et des terrains qui nourrissent le studio.",
               projectsCta: 'Voir les références',
               contactCta: 'Prendre contact',
-              editorialLabel: 'Journal éditorial',
-              publishedEntriesLabel: `${props.items.length} notes publiées`,
-              dividerLabel: 'Notes publiées',
-              itemLabel: 'Note',
+              editorialLabel: 'Articles et notes',
+              publishedEntriesLabel: `${props.items.length} publications`,
               publishedLabel: 'Publié',
               readLabel: 'Lecture',
           }
         : {
-              eyebrow: 'Writing archive',
-              title: 'Build notes, strategy memos, and architecture rationale.',
+              eyebrow: 'Journal',
+              title: 'Articles, short notes, and build markers.',
               description:
-                  'Editorial notes on content systems, consent orchestration, SSR readiness, and public repo discipline.',
+                  'A public journal that mixes richer essays and shorter notes around build work, architecture, content systems, and the field contexts behind the studio.',
               projectsCta: 'Browse references',
               contactCta: 'Contact',
-              editorialLabel: 'Editorial log',
-              publishedEntriesLabel: `${props.items.length} published entries`,
-              dividerLabel: 'Published entries',
-              itemLabel: 'Writing',
+              editorialLabel: 'Articles and notes',
+              publishedEntriesLabel: `${props.items.length} publications`,
               publishedLabel: 'Published',
               readLabel: 'Read',
           },
@@ -86,8 +79,6 @@ const copy = computed(() =>
                 <LegendChip :label="copy.publishedEntriesLabel" tone="sun" />
             </SectionIntro>
 
-            <SectionDivider :label="copy.dividerLabel" />
-
             <div class="writing-index__list">
                 <Link
                     v-for="item in props.items"
@@ -97,27 +88,42 @@ const copy = computed(() =>
                 >
                     <Panel class="writing-index__card" tone="surface">
                         <ContentVisual :item="item" compact />
-                        <div class="writing-index__card-top">
-                            <LegendChip :label="copy.itemLabel" tone="violet" />
-                            <ContentMetaRow :items="writingMeta(item)" />
-                        </div>
+                        <div class="writing-index__body">
+                            <div class="writing-index__meta">
+                                <LegendChip
+                                    :label="entryLabel(item)"
+                                    :tone="
+                                        item.category === 'journal'
+                                            ? 'violet'
+                                            : 'coral'
+                                    "
+                                />
+                                <span
+                                    v-for="value in writingMeta(item)"
+                                    :key="value"
+                                    class="type-meta writing-index__meta-item"
+                                >
+                                    {{ value }}
+                                </span>
+                            </div>
 
-                        <h2 class="type-h2 writing-index__title">
-                            {{ item.title }}
-                        </h2>
+                            <h2 class="type-h2 writing-index__title">
+                                {{ item.title }}
+                            </h2>
 
-                        <p class="type-body writing-index__summary">
-                            {{ item.summary }}
-                        </p>
+                            <p class="type-body writing-index__summary">
+                                {{ item.summary }}
+                            </p>
 
-                        <div class="writing-index__tags">
-                            <span
-                                v-for="tag in item.tags"
-                                :key="tag"
-                                class="type-meta writing-index__tag"
-                            >
-                                {{ tag }}
-                            </span>
+                            <div class="writing-index__tags">
+                                <span
+                                    v-for="tag in item.tags"
+                                    :key="tag"
+                                    class="type-meta writing-index__tag"
+                                >
+                                    {{ tag }}
+                                </span>
+                            </div>
                         </div>
                     </Panel>
                 </Link>
@@ -147,6 +153,7 @@ const copy = computed(() =>
     display: grid;
     gap: var(--sw-space-xs);
     padding: clamp(18px, 2.8vw, var(--sw-space-sm));
+    align-items: stretch;
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
@@ -154,12 +161,30 @@ const copy = computed(() =>
         background-color var(--sw-motion-fast);
 }
 
-.writing-index__card-top {
+.writing-index__body {
+    display: grid;
+    gap: var(--sw-space-xs);
+    align-content: start;
+}
+
+.writing-index__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sw-space-xs);
-    align-items: center;
-    justify-content: space-between;
+    gap: 0.55rem;
+    align-items: baseline;
+    justify-content: flex-start;
+}
+
+.writing-index__meta-item {
+    display: inline-flex;
+    align-items: baseline;
+    color: var(--sw-text-muted);
+}
+
+.writing-index__meta-item::before {
+    content: '/';
+    margin-right: 0.55rem;
+    color: color-mix(in srgb, var(--sw-text-muted) 82%, transparent);
 }
 
 .writing-index__title,
@@ -214,12 +239,25 @@ const copy = computed(() =>
     }
 }
 
+@media (min-width: 720px) {
+    .writing-index__card {
+        grid-template-columns: minmax(8.6rem, 10.4rem) minmax(0, 1fr);
+        column-gap: var(--sw-space-sm);
+        row-gap: var(--sw-space-2xs);
+    }
+
+    .writing-index__card :deep(.content-visual) {
+        min-height: 100%;
+        height: 100%;
+    }
+}
+
 @media (max-width: 640px) {
     .writing-index {
         gap: var(--sw-space-xs);
     }
 
-    .writing-index__card-top {
+    .writing-index__meta {
         align-items: start;
         justify-content: flex-start;
     }

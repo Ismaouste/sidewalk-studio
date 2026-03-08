@@ -214,7 +214,10 @@ class ExportStaticPreviewCommand extends Command
             : $serverUrl.$route.'?lang='.$locale;
 
         $response = Http::timeout(15)
-            ->withHeaders(['X-Static-Preview' => '1'])
+            ->withHeaders([
+                'X-Static-Preview' => '1',
+                'X-Static-Preview-Base' => $basePath,
+            ])
             ->get($pathWithLocale);
 
         if (! $response->successful()) {

@@ -2,11 +2,19 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import NavTabs from '@/components/layout/NavTabs.vue';
+import { resolvePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
 const navigation = computed(() => page.props.site.navigation);
 const currentUrl = computed(() => page.url);
+const homeHref = computed(() =>
+    resolvePublicHref(
+        '/',
+        page.props.site.runtime.staticPreview,
+        page.props.site.runtime.staticBasePath,
+    ),
+);
 const headerRef = ref<HTMLElement | null>(null);
 
 let resizeObserver: ResizeObserver | null = null;
@@ -54,7 +62,7 @@ onBeforeUnmount(() => {
         <div class="app-header__shell">
             <div class="app-header__inner">
                 <div class="app-header__topline">
-                    <Link href="/" class="app-header__brand">
+                    <Link :href="homeHref" class="app-header__brand">
                         <span class="app-header__identity">
                             <span class="app-header__mark" aria-hidden="true">
                                 <span class="app-header__mark-core"></span>
@@ -82,7 +90,25 @@ onBeforeUnmount(() => {
     position: sticky;
     top: env(safe-area-inset-top);
     z-index: var(--sw-z-header);
+    isolation: isolate;
     padding-top: max(clamp(10px, 1.4vw, 16px), env(safe-area-inset-top));
+}
+
+.app-header::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: calc(100% + clamp(40px, 8vw, 96px));
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--sw-bg-base) 98%, transparent) 0%,
+        color-mix(in srgb, var(--sw-bg-base) 90%, transparent) 34%,
+        color-mix(in srgb, var(--sw-bg-base) 52%, transparent) 68%,
+        color-mix(in srgb, var(--sw-bg-base) 16%, transparent) 88%,
+        transparent 100%
+    );
+    pointer-events: none;
+    z-index: 0;
 }
 
 .app-header__shell {
@@ -91,6 +117,8 @@ onBeforeUnmount(() => {
         calc(var(--sw-shell-max-width) + 112px)
     );
     margin-inline: auto;
+    position: relative;
+    z-index: 1;
 }
 
 .app-header__inner {
@@ -190,63 +218,64 @@ onBeforeUnmount(() => {
     inline-size: 34px;
     block-size: 34px;
     border: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
-    border-radius: 10px;
+    border-radius: 12px;
     background:
         linear-gradient(
-            145deg,
-            color-mix(in srgb, var(--sw-accent-sun) 16%, transparent),
-            color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent)
+            160deg,
+            color-mix(in srgb, var(--sw-accent-sun) 12%, transparent),
+            color-mix(in srgb, var(--sw-bg-elevated) 90%, transparent)
         ),
         color-mix(in srgb, var(--sw-bg-surface) 74%, transparent);
     box-shadow:
         inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
-        0 10px 20px color-mix(in srgb, var(--sw-text-primary) 8%, transparent);
+        0 10px 20px color-mix(in srgb, var(--sw-text-primary) 7%, transparent);
 }
 
 .app-header__mark::before,
 .app-header__mark::after {
     content: '';
     position: absolute;
-    inset: 7px;
-    border-radius: 8px;
     pointer-events: none;
 }
 
 .app-header__mark::before {
-    inset: 8px;
-    border: 1px solid color-mix(in srgb, var(--sw-accent-dominant) 24%, transparent);
-    clip-path: polygon(0 0, 35% 0, 35% 12%, 65% 12%, 65% 0, 100% 0, 100% 35%, 88% 35%, 88% 65%, 100% 65%, 100% 100%, 65% 100%, 65% 88%, 35% 88%, 35% 100%, 0 100%, 0 65%, 12% 65%, 12% 35%, 0 35%);
+    inset: 9px 5px;
+    border: 1px solid
+        color-mix(in srgb, var(--sw-accent-dominant) 28%, transparent);
+    border-radius: 999px;
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            color-mix(in srgb, var(--sw-accent-sun) 10%, transparent),
+            transparent 72%
+        );
 }
 
 .app-header__mark::after {
-    inset: 6px;
+    inset: auto 7px 7px;
+    height: 8px;
+    border-radius: 999px;
     background:
-        linear-gradient(
-            180deg,
-            transparent 0,
-            transparent 46%,
-            color-mix(in srgb, var(--sw-accent-dominant) 22%, transparent) 46%,
-            color-mix(in srgb, var(--sw-accent-dominant) 22%, transparent) 54%,
-            transparent 54%,
-            transparent 100%
+        radial-gradient(
+            circle at 50% 0%,
+            color-mix(in srgb, var(--sw-accent-sun) 16%, transparent),
+            transparent 72%
         ),
         linear-gradient(
-            90deg,
-            transparent 0,
-            transparent 46%,
-            color-mix(in srgb, var(--sw-accent-dominant) 18%, transparent) 46%,
-            color-mix(in srgb, var(--sw-accent-dominant) 18%, transparent) 54%,
-            transparent 54%,
-            transparent 100%
+            180deg,
+            color-mix(in srgb, var(--sw-accent-coral) 12%, transparent),
+            transparent
         );
-    opacity: 0.8;
+    border-top: 1px solid
+        color-mix(in srgb, var(--sw-accent-dominant) 20%, transparent);
+    opacity: 0.78;
 }
 
 .app-header__mark-core {
     position: absolute;
     inset: 50% auto auto 50%;
-    inline-size: 11px;
-    block-size: 11px;
+    inline-size: 10px;
+    block-size: 10px;
     border-radius: 999px;
     transform: translate(-50%, -50%);
     background:
@@ -257,8 +286,8 @@ onBeforeUnmount(() => {
             color-mix(in srgb, var(--sw-accent-coral) 56%, var(--sw-accent-sun))
         );
     box-shadow:
-        0 0 0 4px color-mix(in srgb, var(--sw-accent-sun) 16%, transparent),
-        0 0 18px color-mix(in srgb, var(--sw-accent-sun) 24%, transparent);
+        0 0 0 3px color-mix(in srgb, var(--sw-accent-sun) 14%, transparent),
+        0 0 14px color-mix(in srgb, var(--sw-accent-sun) 20%, transparent);
 }
 
 .app-header__name {
@@ -330,6 +359,10 @@ html[data-theme='sunset'] .app-header__mark::after {
     .app-header {
         top: 0;
         padding-top: 0;
+    }
+
+    .app-header::before {
+        height: calc(100% + 40px);
     }
 
     .app-header__shell {

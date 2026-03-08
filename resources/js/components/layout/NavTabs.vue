@@ -191,7 +191,6 @@ onBeforeUnmount(() => {
                     :href="item.href"
                     class="nav-tabs__link"
                     :class="{ 'nav-tabs__link--active': isActive(item) }"
-                    @click="closeMenu"
                 >
                     <span class="nav-tabs__link-label">{{ item.label }}</span>
                     <span
@@ -251,6 +250,7 @@ onBeforeUnmount(() => {
 .nav-tabs__trigger-copy {
     display: grid;
     gap: 2px;
+    padding-left: 4px;
     text-align: left;
 }
 
@@ -351,7 +351,11 @@ onBeforeUnmount(() => {
     gap: var(--sw-space-xs);
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
     border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-surface) 84%, transparent);
+    background: color-mix(
+        in srgb,
+        var(--sw-bg-elevated) 86%,
+        var(--sw-bg-surface)
+    );
     padding: 0.9rem 1rem;
     color: var(--sw-text-primary);
     box-shadow:
@@ -422,7 +426,11 @@ onBeforeUnmount(() => {
         var(--sw-accent-dominant) 22%,
         var(--sw-border)
     );
-    background: color-mix(in srgb, var(--sw-tab-surface, var(--sw-bg-elevated)) 100%, transparent);
+    background: color-mix(
+        in srgb,
+        var(--sw-tab-surface, var(--sw-bg-elevated)) 92%,
+        var(--sw-bg-surface)
+    );
     color: var(--sw-tab-active);
     box-shadow: var(--sw-shadow-md);
 }
@@ -495,6 +503,7 @@ onBeforeUnmount(() => {
 
     .nav-tabs__link {
         position: relative;
+        isolation: isolate;
         min-height: 0;
         width: auto;
         border: 0;
@@ -510,6 +519,28 @@ onBeforeUnmount(() => {
         box-shadow: none;
         opacity: 1;
         transform: none;
+        overflow: hidden;
+        transition: color 120ms ease-out;
+    }
+
+    .nav-tabs__link::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        border-radius: inherit;
+        background: color-mix(
+            in srgb,
+            var(--sw-tab-surface, var(--sw-bg-elevated)) 78%,
+            transparent
+        );
+        opacity: 0;
+        transform: scale(0.92);
+        will-change: opacity, transform;
+        transition:
+            opacity 70ms linear,
+            transform 150ms ease-out,
+            background-color 120ms ease-out;
     }
 
     .nav-tabs__link-label {
@@ -517,6 +548,8 @@ onBeforeUnmount(() => {
         font-size: inherit;
         font-weight: inherit;
         line-height: inherit;
+        position: relative;
+        z-index: 1;
     }
 
     .nav-tabs__link-meta {
@@ -524,9 +557,17 @@ onBeforeUnmount(() => {
     }
 
     .nav-tabs__link--active {
-        background: var(--sw-tab-surface, transparent);
+        background: transparent;
         color: var(--sw-tab-active);
-        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-tab-active) 10%, transparent);
+        box-shadow: none;
+    }
+
+    .nav-tabs__link--active::before {
+        opacity: 1;
+        transform: scale(1);
+        background: var(--sw-tab-surface, transparent);
+        box-shadow: inset 0 0 0 1px
+            color-mix(in srgb, var(--sw-tab-active) 10%, transparent);
     }
 }
 
@@ -554,9 +595,12 @@ onBeforeUnmount(() => {
 
 @media (min-width: 960px) and (hover: hover) {
     .nav-tabs__link:hover {
-        background: color-mix(in srgb, var(--sw-tab-surface, transparent) 72%, transparent);
-        border-color: transparent;
         color: var(--sw-tab-active);
+    }
+
+    .nav-tabs__link:hover::before {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 

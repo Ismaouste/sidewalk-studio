@@ -3,8 +3,8 @@ seo_title: Expérience
 seo_description: Expériences professionnelles, environnements e-commerce exigeants et quelques références publiques pour rendre le niveau d'exécution lisible.
 hero:
     eyebrow: Expérience
-    title: Expériences pro, projets concrets, environnements exigeants.
-    summary: Une page pour montrer où j'ai travaillé, ce que j'ai construit et comment la donnée produit, le SEO technique, les flux et les intégrations deviennent des sujets de delivery.
+    title: Du HBJO à la santé publique, avec un goût pour les systèmes qui doivent vraiment tourner.
+    summary: "Jewely, WordPress, WooCommerce, PrestaShop, Shopify, Laravel, outils métiers, contexte associatif et santé publique : un même fil rouge autour de la donnée, des flux, du front, du tracking et des intégrations à rendre fiables, lisibles et utiles."
 tracks_section:
     label: Pistes
     intro:
@@ -21,7 +21,7 @@ tracks_section:
 case_studies_section:
     label: Références publiques
     eyebrow: Références
-    title: Quelques projets publiés en plus des expériences listées.
-    summary: Des cas publics plus détaillés pour montrer la manière de cadrer, décider, implémenter et documenter quand il faut rendre un système plus net sans casser ce qui tourne.
-    archive_cta: Voir l'archive
+    title: Logiciel libre, e-commerce et systèmes sous contrainte.
+    summary: "J'ai envie d'ouvrir ici des sujets qui comptent vraiment : auto-hébergement, outils associatifs sous contrainte de données sensibles, manque de moyens dans le monde non lucratif, mais aussi formats e-commerce, données structurées, sitemaps, robots.txt et circulation de la donnée produit."
+    archive_cta: Découvrir les projets
 ---

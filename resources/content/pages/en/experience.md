@@ -6,36 +6,38 @@ hero:
     title: Formal experience, real projects, systems already in motion.
     summary: E-commerce, CMS, product data, tracking, PIM, and business integrations in contexts where delivery has to keep moving without breaking the existing machinery.
 positioning:
-    - I am most useful on products that already exist, already run, already generate business, and need more order in the stack, flows, and data without slowing down operations.
-    - The role usually combines implementation, architecture, technical SEO, product data, consent mode v2, tracking, PIM concerns, marketing catalogs, APIs, and file-based synchronization flows.
+    - Understand a project, its usage, and its leverage points quickly enough to separate immediate gains from longer-term work.
+    - Work with the right people and the right tools, then leave clear, well-organized traces behind.
+    - Document, archive, prioritize, restore order without blocking live operations.
 contexts:
-    - Revenue-critical e-commerce stacks with real operational memory, catalog pressure, and ongoing delivery constraints.
-    - WooCommerce, PrestaShop, Shopify data workflows, and Laravel/PHP systems that need incremental modernization instead of a rewrite cycle.
-    - Product, editorial, and marketing surfaces where APIs, exports, metadata, data layer design, tracking, compliance, and content structure all become product concerns.
+    - Jewelry and watch commerce, brand sites, and e-commerce surfaces where catalog, stock, media, and go-live timing move together.
+    - WordPress, WooCommerce, PrestaShop, Shopify, Laravel, PIM, ERP, and connectors already in use.
+    - Redesigns and launches where URLs, product pages, SEO, tracking, and front-end quality are framed from the start.
 professional_sections:
     - title: Jewely / Flippad
       eyebrow: One company, multiple client contexts
-      summary: Most of my web work outside Aremedia happened inside that same company context. That matters, because the clients changed and the scopes changed, but the methods, responsibility, and technical depth grew inside the same long-running environment.
+      summary: Most of my web work outside Aremedia takes shape at Jewely / Flippad, in a demanding jewelry and watch environment that also covers commerce sites, CMS work, redesigns, and new launches.
       paragraphs:
-          - At Jewely / Flippad, I worked across several demanding e-commerce contexts tied together by the same level of execution. A large part of the work focused on product data, how it moved across business tools, how teams could rely on it, and how it remained legible both in the front-end and for search and catalog robots.
-          - A major part of the work involved retrieving, cleaning, restructuring, and hydrating data coming from PIM, ERP, or custom feeds, then turning it into something usable in live e-commerce sites. That touched API and file-based integrations, technical SEO, structured data, Google and Meta catalogs, and the actual quality of the visible catalog.
-          - I also handled more transversal subjects such as tracking, data layer design, consent mode v2, product-image handling, some PDF-related needs, and technical watch needed to anticipate future internal development directions on specific projects.
+          - At Jewely / Flippad, the scope runs across commerce sites, brand sites, and CMS projects with very different operating realities. It extends from jewelry and watch storefronts to institutional or business-facing sites, with WooCommerce, PrestaShop, Shopify, WordPress, and Laravel or PHP foundations depending on the project.
+          - A large share of the value sits in product data and the way it moves between systems. PIM, ERP, stock, exports, APIs, connectors, and synchronizations need to produce information that stays reliable for teams, clear on the front end, and directly usable across e-commerce surfaces.
+          - The same context also deepens front-end integration, Sass quality, launch work, technical watch, and SEO framing. Tracking, data layer design, Consent Mode v2, Meta Ads, marketing catalogs, product media, and PDF needs all belong to the same delivery standard.
       detail_groups:
-          - title: Clients and brand contexts
+          - title: Clients and sectors
             items:
-                - Godchot, Pauliet, Auberi, Bijouterie Julien d'Orcel, Crown, and DP.
+                - Godchot, Pauliet, Auberi, Bijouterie Louis Julian, Crown DP.
                 - Rolex Bespoke and Rolex Certified Pre-Owned in a demanding jewelry and watch environment.
-                - Sophie d'Agon, Prudhomme Transmissions, and DCA Management depending on the project scope.
-          - title: Flows, services, and connected layers
+                - Sophie d'Agon, Prudhomme Transmissions, DCA Management, and SynPAAC across website, connector, and business-structure work.
+          - title: PIM, ERP, and connectors
             items:
-                - PIM, ERP, real-time synchronization, APIs, XML or CSV exports, and dynamic product-data hydration.
-                - Google Merchant Center, Meta Catalog, technical SEO, structured data, and multi-channel catalog logic.
-                - GTM, Meta Pixel, Adobe Analytics, data layer, consent mode v2, Avis Verifies, and other connected e-commerce services.
-          - title: Concrete work
+                - PIM, ERP, Shopify data, real-time synchronization, APIs, XML or CSV exports, and dynamic product-data hydration.
+                - Google Merchant Center, Meta Catalog, Meta Ads, technical SEO, structured data, URL architecture, and listing / product-page logic.
+                - GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, data layer, consent mode v2, Avis Verifies, and other connected e-commerce services.
+          - title: Delivery and integration
             items:
-                - Large imports, data refactors, attribute normalization, and catalog enrichment.
-                - Product-image management, resizing, repositioning, and media preparation for front-end and marketing use.
-                - Keeping the base usable without breaking production or slowing down business teams.
+                - Large imports, data refactors, attribute normalization, catalog enrichment, and stock handling.
+                - Orchestration of recurring Python scrapers on AWS Lambda, using brand sitemaps to feed and harden multi-brand catalog flows.
+                - Front-end integration and Sass systems, editorial templates, commerce components, and cleaner interface delivery.
+                - New-site launches, technical watch, redesign framing, and delivery tradeoffs that protect production while shipping.
 associative_sections:
     - title: Aremedia
       eyebrow: Non-profit employer
@@ -47,21 +49,24 @@ associative_sections:
           - title: Key points
             items:
                 - Harm reduction and outreach screening.
-                - Secured open survey setup with external support.
+                - Secured self-hosted open survey setup with support from an Octopuce hosting expert.
                 - Tool shaped for field use rather than office-only usage.
                 - Rework of the public site aremedia.org.
 associative_note_widget:
-    eyebrow: Related note
-    title: Open survey, non-profit work, and health data constraints
-    description: A dedicated note about the technical, ethical, and operational constraints behind that work, beyond the experience line itself.
-    cta_label: Read the note
+    eyebrow: ''
+    title: ''
+    description: ''
+    cta_label: ''
 side_project_sections:
-    - title: YT Likes Sorter
+    - title: YTMusic Liked Sorter
       eyebrow: Personal project
-      summary: A small project built for fun, but still tied to real data and practical usefulness.
+      summary: A small personal tool, clean and useful, with a real focus on data, sorting, and output.
       paragraphs:
-          - YT Likes Sorter started from a simple need to sort, revisit, and reuse a personal history. It is not an industrial product, but it is a good example of a small clean tool built to be useful and pleasant to use.
-          - I like that kind of project because it keeps development light while still taking structure, filtering, output, and quality seriously.
+          - YTMusic Liked Sorter started from a simple need to sort, revisit, and reuse a personal history. It is not an industrial product, but it is a good example of a small clean tool built to be useful and pleasant to use.
+          - The public repository captures what I like in this kind of format: a light interface, readable structure, solid filtering, and output that is immediately useful.
+      links:
+          - label: GitHub · ytmusic-liked-sorter
+            href: https://github.com/Ismaouste/ytmusic-liked-sorter
       detail_groups:
           - title: What the project shows
             items:
@@ -69,10 +74,10 @@ side_project_sections:
                 - Utility-first interface without extra noise.
                 - Built for fun, but with real product logic.
 side_projects_widget:
-    eyebrow: Journal
-    title: NJP volunteering and small useful tools
-    description: A lighter note about Nancy Jazz Pulsations, volunteering, and the small tools that grow out of an actual field context.
-    cta_label: Read the note
+    eyebrow: ''
+    title: ''
+    description: ''
+    cta_label: ''
 trajectory:
     - title: Commerce platforms under pressure
       summary: Worked in environments where releases, checkout flows, catalog quality, search visibility, and operational stability were tightly coupled. That is where I learned to prefer careful system design over abstract purity.
@@ -113,10 +118,22 @@ stack_groups:
           - Privacy and SEO review inside implementation
 career_snapshot:
     title: Recruiter-ready snapshot
-    summary: ''
+    summary: Linux and command line, e-commerce platforms and CMS, data synchronization, scraping, stock and catalog handling, APIs, payments, analytics, event configuration, data layer design, rich consent handling, marketing tracking, technical SEO, web performance, and lightweight infrastructure.
     roles:
-        - Laravel lead
-        - E-commerce tech
-        - Product full-stack
+        - WordPress
+        - WooCommerce
+        - PrestaShop
+        - Shopify
+        - Stripe
+        - Google Tag Manager
+        - Google Merchant Center
+        - Google Consent Mode v2
+        - Meta Ads
+        - Microsoft Ads / Bing UET
+        - Meta Pixel
+        - Adobe Analytics
+        - Core Web Vitals
+        - AWS / S3
+        - Docker
 looking_for: I am currently most interested in product, commerce, or editorial systems that already exist, already matter, and need steadier engineering, clearer architecture, and a more solid technical foundation than the team can get from implementation throughput alone.
 ---

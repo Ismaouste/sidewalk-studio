@@ -40,12 +40,12 @@ class SiteController extends Controller
             'journalWidget' => $this->publicationWidget([
                 'eyebrow' => app()->getLocale() === 'fr' ? 'Journal' : 'Journal',
                 'title' => app()->getLocale() === 'fr'
-                    ? "Notes de dev à relire dans le flux du site."
-                    : 'Development notes threaded back into the site.',
+                    ? 'Articles et notes pour entrer dans les détails.'
+                    : 'Articles and notes to get into the interesting details.',
                 'description' => app()->getLocale() === 'fr'
-                    ? "Des notes liées au build, au contenu et à l'architecture pour prolonger la visite sans renvoyer vers une archive froide."
-                    : 'Notes about build work, content systems, and architecture, meant to continue the visit without dropping people into a cold archive.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? 'Voir les notes' : 'Browse notes',
+                    ? "Retours de terrain, choix de développement, outils bricolés, associations, événements et questions techniques qui méritent un vrai texte."
+                    : 'Field notes, development decisions, small tools, associations, events, and technical questions that deserve more than a teaser.',
+                'ctaLabel' => app()->getLocale() === 'fr' ? 'Découvrir le journal' : 'Discover the journal',
                 'ctaHref' => '/journal',
                 'sections' => ['writing'],
                 'tag' => 'notes-dev',
@@ -137,15 +137,11 @@ class SiteController extends Controller
                 'title' => $experience['associative_note_widget']['title'],
                 'description' => $experience['associative_note_widget']['description'],
                 'ctaLabel' => $experience['associative_note_widget']['cta_label'],
-                'ctaHref' => app()->getLocale() === 'fr'
-                    ? '/journal/opensurvey-associatif-donnees-sante'
-                    : '/journal/opensurvey-nonprofit-health-data',
+                'ctaHref' => '',
                 'items' => [
-                    $this->content->findPublished(
-                        'writing',
-                        app()->getLocale() === 'fr'
-                            ? 'opensurvey-associatif-donnees-sante'
-                            : 'opensurvey-nonprofit-health-data',
+                    $this->localizedWriting(
+                        'opensurvey-associatif-donnees-sante',
+                        'opensurvey-nonprofit-health-data',
                     ),
                 ],
             ],
@@ -154,15 +150,15 @@ class SiteController extends Controller
                 'title' => $experience['side_projects_widget']['title'],
                 'description' => $experience['side_projects_widget']['description'],
                 'ctaLabel' => $experience['side_projects_widget']['cta_label'],
-                'ctaHref' => app()->getLocale() === 'fr'
-                    ? '/journal/volontariat-njp-et-petits-outils'
-                    : '/journal/njp-volunteering-and-small-tools',
+                'ctaHref' => '/journal',
                 'items' => [
-                    $this->content->findPublished(
-                        'writing',
-                        app()->getLocale() === 'fr'
-                            ? 'volontariat-njp-et-petits-outils'
-                            : 'njp-volunteering-and-small-tools',
+                    $this->localizedWriting(
+                        'volontariat-njp-et-petits-outils',
+                        'njp-volunteering-and-small-tools',
+                    ),
+                    $this->localizedWriting(
+                        'ytmusic-liked-sorter',
+                        'ytmusic-liked-sorter',
                     ),
                 ],
             ],
@@ -174,7 +170,7 @@ class SiteController extends Controller
                 'description' => app()->getLocale() === 'fr'
                     ? "Le journal reste proche des références pour rendre le raisonnement accessible, pas seulement le résultat."
                     : 'The journal stays close to the work surface so the reasoning remains reachable, not just the outcome.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? 'Voir les notes' : 'Browse notes',
+                'ctaLabel' => app()->getLocale() === 'fr' ? 'Découvrir le journal' : 'Discover the journal',
                 'ctaHref' => '/journal',
                 'sections' => ['writing'],
                 'tag' => 'notes-dev',
@@ -187,8 +183,8 @@ class SiteController extends Controller
                     ? 'Autres références à consulter depuis cette page.'
                     : 'More references reachable from the same work surface.',
                 'description' => app()->getLocale() === 'fr'
-                    ? "La page rassemble expériences, missions et références sur une seule surface de travail public."
-                    : 'The split between experience and projects is intentionally collapsed into one public work surface.',
+                    ? "La page rassemble expériences, missions et références sur un même espace public lisible."
+                    : 'Experience, projects, and references stay grouped in one readable public surface.',
                 'ctaLabel' => app()->getLocale() === 'fr' ? "Voir toutes les références" : 'Browse all references',
                 'ctaHref' => '/case-studies',
                 'sections' => ['case-studies'],
@@ -304,11 +300,11 @@ class SiteController extends Controller
 
         return [
             [
-                'label' => 'CV EN 🇬🇧',
+                'label' => 'CV EN / PDF',
                 'href' => route('career.cv.download', 'en'),
             ],
             [
-                'label' => 'CV FR 🇫🇷',
+                'label' => 'CV FR / PDF',
                 'href' => route('career.cv.download', 'fr'),
             ],
         ];
@@ -324,6 +320,7 @@ class SiteController extends Controller
      *   sections: array<int, string>,
      *   tag?: string,
      *   category?: string,
+     *   publication_type?: string,
      *   limit?: int
      * }  $options
      * @return array<string, mixed>
@@ -341,8 +338,20 @@ class SiteController extends Controller
                 'include_fallback' => false,
                 'tag' => $options['tag'] ?? null,
                 'category' => $options['category'] ?? null,
+                'publication_type' => $options['publication_type'] ?? null,
                 'limit' => $options['limit'] ?? 2,
             ])->values(),
         ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function localizedWriting(string $frenchSlug, string $englishSlug): array
+    {
+        return $this->content->findPublished(
+            'writing',
+            app()->getLocale() === 'fr' ? $frenchSlug : $englishSlug,
+        );
     }
 }
