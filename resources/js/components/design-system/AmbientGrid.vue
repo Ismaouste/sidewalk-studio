@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from 'vue';
 
-let frameId = 0;
-let navigationTimer = 0;
-let scheduled = false;
 let themeObserver: MutationObserver | null = null;
 let previousMorningPalette = -1;
 let previousSunsetPalette = -1;
@@ -40,30 +37,26 @@ const morningPalettes: AmbientPalette[] = [
 
 const sunsetPalettes: AmbientPalette[] = [
     {
-        flare: '#f08b46',
-        soft: '#e17a9e',
-        deep: '#9f7ad8',
+        flare: '#8f97a9',
+        soft: '#b4bac7',
+        deep: '#59606e',
     },
     {
-        flare: '#dd7a35',
-        soft: '#f0a05e',
-        deep: '#c75f88',
+        flare: '#b89aa5',
+        soft: '#d8c7cf',
+        deep: '#767c8a',
     },
     {
-        flare: '#e17a9e',
-        soft: '#f08b46',
-        deep: '#8d63ce',
+        flare: '#a7aebd',
+        soft: '#cbcfd8',
+        deep: '#515866',
     },
     {
-        flare: '#ff9a5c',
-        soft: '#d86e96',
-        deep: '#b476e1',
+        flare: '#c7a49b',
+        soft: '#ddd0cc',
+        deep: '#6a707d',
     },
 ];
-
-function clamp(value: number, min: number, max: number): number {
-    return Math.min(Math.max(value, min), max);
-}
 
 function currentTheme(): ThemeMode {
     return document.documentElement.getAttribute('data-theme') === 'sunset'
@@ -104,82 +97,19 @@ function applyAmbientPalette(theme = currentTheme()): void {
     rootStyle.setProperty('--sw-ambient-flare-deep', palette.deep);
 }
 
-function applyProgress(): void {
-    scheduled = false;
-    frameId = 0;
-
-    const rootStyle = document.documentElement.style;
-    const maxScroll = Math.max(
-        document.documentElement.scrollHeight - window.innerHeight,
-        window.innerHeight * 1.25,
-        1,
-    );
-    const progress = clamp(
-        (window.scrollY || window.pageYOffset || 0) / maxScroll,
-        0,
-        1,
-    );
-
-    rootStyle.setProperty('--sw-ambient-progress', progress.toFixed(4));
-}
-
-function scheduleProgress(): void {
-    if (scheduled) {
-        return;
-    }
-
-    scheduled = true;
-    frameId = window.requestAnimationFrame(applyProgress);
-}
-
-function setNavigationShift(value: number): void {
-    document.documentElement.style.setProperty(
-        '--sw-ambient-navigation-shift',
-        value.toFixed(3),
-    );
-}
-
-function handleNavigationStart(): void {
-    if (navigationTimer) {
-        window.clearTimeout(navigationTimer);
-    }
-
-    applyAmbientPalette();
-    setNavigationShift(1);
-    scheduleProgress();
-}
-
-function handleNavigationSettle(): void {
-    if (navigationTimer) {
-        window.clearTimeout(navigationTimer);
-    }
-
-    setNavigationShift(0.38);
-    scheduleProgress();
-    navigationTimer = window.setTimeout(() => {
-        setNavigationShift(0);
-    }, 180);
-}
-
 function handleThemeMutation(): void {
     applyAmbientPalette();
-    scheduleProgress();
 }
 
 onMounted(() => {
     applyAmbientPalette();
-    scheduleProgress();
-    window.addEventListener('scroll', scheduleProgress, { passive: true });
-    window.addEventListener('resize', scheduleProgress, { passive: true });
-    window.addEventListener('sidewalk:navigation-start', handleNavigationStart);
-    window.addEventListener(
-        'sidewalk:navigation-settle',
-        handleNavigationSettle,
-    );
 
     themeObserver = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+            if (
+                mutation.type === 'attributes' &&
+                mutation.attributeName === 'data-theme'
+            ) {
                 handleThemeMutation();
                 break;
             }
@@ -193,21 +123,6 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-    if (frameId) {
-        window.cancelAnimationFrame(frameId);
-    }
-
-    if (navigationTimer) {
-        window.clearTimeout(navigationTimer);
-    }
-
-    window.removeEventListener('scroll', scheduleProgress);
-    window.removeEventListener('resize', scheduleProgress);
-    window.removeEventListener('sidewalk:navigation-start', handleNavigationStart);
-    window.removeEventListener(
-        'sidewalk:navigation-settle',
-        handleNavigationSettle,
-    );
     themeObserver?.disconnect();
 });
 </script>
@@ -223,84 +138,39 @@ onBeforeUnmount(() => {
 <style scoped>
 .ambient-grid {
     --grid-columns: 12;
-    --ambient-progress: var(--sw-ambient-progress, 0);
-    --ambient-nav: var(--sw-ambient-navigation-shift, 0);
-    --ambient-sun-x: var(--sw-sun-vx, 14%);
-    --ambient-sun-y: var(--sw-sun-vy, 10%);
-    --ambient-sun-blur: var(--sw-sun-blur-global, 124px);
-    --ambient-sun-opacity: var(--sw-sun-opacity-global, 0.72);
-    --ambient-ray-angle: var(--sw-sun-ray-angle, 32deg);
-    --ambient-sun-scale: calc(
-        1.04 + (0.06 * var(--ambient-progress)) +
-            (0.018 * var(--ambient-nav))
-    );
-    --ambient-grid-x: calc(
-        -1.4% + (5.1% * var(--ambient-progress)) +
-            (2.4% * var(--ambient-nav))
-    );
-    --ambient-grid-y: calc(
-        -0.5% + (2.6% * var(--ambient-progress)) +
-            (1.2% * var(--ambient-nav))
-    );
-    --ambient-grid-rotate: calc(
-        -22deg + (88deg * var(--ambient-progress)) +
-            (8deg * var(--ambient-nav))
-    );
-    --ambient-grid-scale: calc(
-        1.08 + (0.03 * var(--ambient-progress)) +
-            (0.012 * var(--ambient-nav))
-    );
-    --ambient-shadow-x: calc(
-        5.6% + (2.2% * var(--ambient-progress)) +
-            (3.2% * var(--ambient-nav))
-    );
-    --ambient-shadow-y: calc(2.2% + (2.8% * var(--ambient-progress)));
-    --ambient-shadow-scale: calc(1.12 + (0.04 * var(--ambient-progress)));
-    --ambient-shadow-blur: calc(
-        52px + (16px * var(--ambient-progress)) +
-            (6px * var(--ambient-nav))
-    );
-    --ambient-shadow-opacity: calc(
-        0.24 + (0.04 * var(--ambient-progress)) +
-            (0.02 * var(--ambient-nav))
-    );
+    --ambient-sun-x: 14%;
+    --ambient-sun-y: 10%;
+    --ambient-sun-scale: 1.04;
+    --ambient-sun-blur: 124px;
+    --ambient-sun-opacity: 0.72;
+    --ambient-ray-angle: 32deg;
+    --ambient-grid-x: -1.4%;
+    --ambient-grid-y: -0.5%;
+    --ambient-grid-rotate: -22deg;
+    --ambient-grid-scale: 1.08;
+    --ambient-shadow-x: 5.6%;
+    --ambient-shadow-y: 2.2%;
+    --ambient-shadow-scale: 1.12;
+    --ambient-shadow-blur: 52px;
+    --ambient-shadow-opacity: 0.24;
 }
 
 html[data-theme='sunset'] .ambient-grid {
-    --ambient-sun-scale: calc(
-        1.08 + (0.05 * var(--ambient-progress)) +
-            (0.02 * var(--ambient-nav))
-    );
-    --ambient-grid-x: calc(
-        2.1% - (3.4% * var(--ambient-progress)) -
-            (1.8% * var(--ambient-nav))
-    );
-    --ambient-grid-y: calc(
-        0.8% + (1.9% * var(--ambient-progress)) +
-            (1.3% * var(--ambient-nav))
-    );
-    --ambient-grid-rotate: calc(
-        16deg + (112deg * var(--ambient-progress)) +
-            (10deg * var(--ambient-nav))
-    );
-    --ambient-grid-scale: calc(
-        1.1 + (0.03 * var(--ambient-progress)) +
-            (0.015 * var(--ambient-nav))
-    );
-    --ambient-shadow-x: calc(
-        7.8% - (2.8% * var(--ambient-progress)) -
-            (2.6% * var(--ambient-nav))
-    );
-    --ambient-shadow-y: calc(4.4% + (2.2% * var(--ambient-progress)));
-    --ambient-shadow-scale: calc(1.16 + (0.03 * var(--ambient-progress)));
-    --ambient-shadow-blur: calc(
-        64px + (14px * var(--ambient-progress)) +
-            (6px * var(--ambient-nav))
-    );
-    --ambient-shadow-opacity: calc(
-        0.18 + (0.06 * var(--ambient-progress)) +
-            (0.02 * var(--ambient-nav))
-    );
+    --ambient-sun-x: 78%;
+    --ambient-sun-y: 18%;
+    --ambient-sun-scale: 1.08;
+    --ambient-sun-blur: 136px;
+    --ambient-sun-opacity: 0.38;
+    --ambient-ray-angle: 18deg;
+    --ambient-grid-x: 2.1%;
+    --ambient-grid-y: 0.8%;
+    --ambient-grid-rotate: 16deg;
+    --ambient-grid-scale: 1.1;
+    --ambient-shadow-x: 7.8%;
+    --ambient-shadow-y: 4.4%;
+    --ambient-shadow-scale: 1.16;
+    --ambient-shadow-blur: 64px;
+    --ambient-shadow-opacity: 0.18;
 }
 
 .ambient-grid__plane,
@@ -310,16 +180,12 @@ html[data-theme='sunset'] .ambient-grid {
     inset: -8%;
     transform-origin: top center;
     pointer-events: none;
-    transition:
-        transform 120ms linear,
-        filter 160ms linear,
-        opacity 120ms linear,
-        background-image 140ms linear;
+    transition: background-image 180ms linear;
 }
 
 .ambient-grid__sun {
     opacity: var(--ambient-sun-opacity);
-    transform: scale(var(--ambient-sun-scale));
+    transform: translate3d(0, 0, 0) scale(var(--ambient-sun-scale));
     filter: blur(var(--ambient-sun-blur));
     background:
         radial-gradient(
@@ -363,11 +229,7 @@ html[data-theme='sunset'] .ambient-grid {
         linear-gradient(
             90deg,
             transparent 0%,
-            color-mix(
-                in srgb,
-                var(--sw-ambient-flare) calc(var(--ambient-nav) * 24%),
-                transparent
-            ) 46%,
+            color-mix(in srgb, var(--sw-ambient-flare) 10%, transparent) 46%,
             transparent 72%
         );
     mask-image: linear-gradient(
@@ -397,11 +259,8 @@ html[data-theme='sunset'] .ambient-grid {
         linear-gradient(
             90deg,
             transparent 0%,
-            color-mix(
-                in srgb,
-                var(--sw-ambient-flare-soft) calc(var(--ambient-nav) * 24%),
-                transparent
-            ) 38%,
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 12%, transparent)
+                38%,
             transparent 74%
         ),
         repeating-linear-gradient(
@@ -419,6 +278,119 @@ html[data-theme='sunset'] .ambient-grid {
     );
 }
 
+@supports (animation-timeline: scroll()) {
+    .ambient-grid__sun,
+    .ambient-grid__plane,
+    .ambient-grid__shadow {
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root block);
+        animation-range: 0% 100%;
+        will-change: transform, opacity, filter;
+    }
+
+    .ambient-grid__sun {
+        animation-name: ambient-sun-morning;
+    }
+
+    .ambient-grid__plane {
+        animation-name: ambient-plane-morning;
+    }
+
+    .ambient-grid__shadow {
+        animation-name: ambient-shadow-morning;
+    }
+
+    html[data-theme='sunset'] .ambient-grid__sun {
+        animation-name: ambient-sun-sunset;
+    }
+
+    html[data-theme='sunset'] .ambient-grid__plane {
+        animation-name: ambient-plane-sunset;
+    }
+
+    html[data-theme='sunset'] .ambient-grid__shadow {
+        animation-name: ambient-shadow-sunset;
+    }
+}
+
+@keyframes ambient-sun-morning {
+    from {
+        transform: translate3d(-2%, -1%, 0) scale(1.04);
+        opacity: 0.72;
+        filter: blur(124px);
+    }
+
+    to {
+        transform: translate3d(4%, 6%, 0) scale(1.1);
+        opacity: 0.68;
+        filter: blur(148px);
+    }
+}
+
+@keyframes ambient-plane-morning {
+    from {
+        transform: translate3d(-1.4%, -0.5%, 0) rotate(-22deg) scale(1.08);
+    }
+
+    to {
+        transform: translate3d(3.8%, 2.1%, 0) rotate(66deg) scale(1.11);
+    }
+}
+
+@keyframes ambient-shadow-morning {
+    from {
+        transform: translate3d(5.6%, 2.2%, 0) rotate(-22deg) scale(1.12);
+        opacity: 0.24;
+        filter: blur(52px);
+    }
+
+    to {
+        transform: translate3d(7.8%, 5%, 0) rotate(66deg) scale(1.16);
+        opacity: 0.28;
+        filter: blur(68px);
+    }
+}
+
+@keyframes ambient-sun-sunset {
+    from {
+        transform: translate3d(1%, 1%, 0) scale(1.08);
+        opacity: 0.38;
+        filter: blur(136px);
+    }
+
+    to {
+        transform: translate3d(-5%, 8%, 0) scale(1.13);
+        opacity: 0.44;
+        filter: blur(160px);
+    }
+}
+
+@keyframes ambient-plane-sunset {
+    from {
+        transform: translate3d(2.1%, 0.8%, 0) rotate(16deg) scale(1.1);
+    }
+
+    to {
+        transform: translate3d(-1.6%, 2.8%, 0) rotate(128deg) scale(1.13);
+    }
+}
+
+@keyframes ambient-shadow-sunset {
+    from {
+        transform: translate3d(7.8%, 4.4%, 0) rotate(16deg) scale(1.16);
+        opacity: 0.18;
+        filter: blur(64px);
+    }
+
+    to {
+        transform: translate3d(4.8%, 6.8%, 0) rotate(128deg) scale(1.19);
+        opacity: 0.24;
+        filter: blur(78px);
+    }
+}
+
 @media (max-width: 640px) {
     .ambient-grid {
         --grid-columns: 4;
@@ -429,17 +401,17 @@ html[data-theme='sunset'] .ambient-grid {
     .ambient-grid__sun,
     .ambient-grid__plane,
     .ambient-grid__shadow {
+        animation: none !important;
         transition: none;
+        will-change: auto;
     }
-}
-
-:global(html[data-motion='reduced'] .ambient-grid) {
-    --ambient-nav: 0;
 }
 
 :global(html[data-motion='reduced'] .ambient-grid__sun),
 :global(html[data-motion='reduced'] .ambient-grid__plane),
 :global(html[data-motion='reduced'] .ambient-grid__shadow) {
+    animation: none !important;
     transition: none;
+    will-change: auto;
 }
 </style>

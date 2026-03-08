@@ -23,19 +23,142 @@
     --font-mono: var(--sw-font-code);
 }
 
-.cc--darkmode,
-.cm__body {
-    --cc-bg: var(--sw-bg-surface);
+html #cc-main,
+html .cm__body {
+    --cc-font-family: var(--sw-font-body);
+    --cc-modal-border-radius: calc(var(--sw-radius-lg) + 2px);
+    --cc-modal-transition-duration: 0.18s;
+    --cc-modal-margin: 1rem;
+    --cc-z-index: calc(var(--sw-z-modal) + 4);
+    --cc-bg: color-mix(in srgb, var(--sw-bg-elevated) 94%, transparent);
     --cc-primary-color: var(--sw-text-primary);
     --cc-secondary-color: var(--sw-text-secondary);
-    --cc-btn-primary-bg: var(--sw-accent-dominant);
-    --cc-btn-primary-border-color: var(--sw-accent-dominant);
-    --cc-btn-primary-hover-bg: var(--sw-accent-sun);
-    --cc-btn-primary-hover-border-color: var(--sw-accent-sun);
-    --cc-btn-secondary-bg: transparent;
-    --cc-btn-secondary-border-color: color-mix(
+    --cc-btn-primary-text-color: var(--sw-button-primary-text);
+    --cc-btn-primary-bg: var(--sw-button-primary-bg);
+    --cc-btn-primary-border-color: var(--sw-button-primary-border);
+    --cc-btn-primary-hover-bg: var(--sw-button-primary-bg-hover);
+    --cc-btn-primary-hover-border-color: var(--sw-button-primary-bg-hover);
+    --cc-btn-secondary-text-color: var(--sw-text-primary);
+    --cc-btn-secondary-bg: color-mix(
         in srgb,
-        var(--sw-border) 80%,
+        var(--sw-bg-surface) 72%,
         transparent
     );
+    --cc-btn-secondary-border-color: color-mix(
+        in srgb,
+        var(--sw-border) 86%,
+        transparent
+    );
+    --cc-btn-secondary-hover-bg: color-mix(
+        in srgb,
+        var(--sw-bg-elevated) 84%,
+        transparent
+    );
+    --cc-btn-secondary-hover-border-color: color-mix(
+        in srgb,
+        var(--sw-accent-dominant) 24%,
+        var(--sw-border)
+    );
+    --cc-separator-border-color: color-mix(
+        in srgb,
+        var(--sw-border) 82%,
+        transparent
+    );
+    --cc-toggle-on-bg: var(--sw-accent-dominant);
+    --cc-toggle-off-bg: color-mix(in srgb, var(--sw-border) 72%, transparent);
+    --cc-toggle-on-knob-bg: var(--sw-bg-elevated);
+    --cc-toggle-off-knob-bg: var(--sw-bg-elevated);
+    --cc-toggle-readonly-bg: color-mix(
+        in srgb,
+        var(--sw-accent-green) 56%,
+        var(--sw-bg-surface)
+    );
+    --cc-toggle-readonly-knob-bg: var(--sw-bg-elevated);
+    --cc-cookie-category-block-bg: color-mix(
+        in srgb,
+        var(--sw-bg-surface) 82%,
+        transparent
+    );
+    --cc-webkit-scrollbar-bg: color-mix(
+        in srgb,
+        var(--sw-bg-surface) 88%,
+        transparent
+    );
+    --cc-webkit-scrollbar-hover-bg: color-mix(
+        in srgb,
+        var(--sw-accent-dominant) 32%,
+        var(--sw-border)
+    );
+    --im-font-family: var(--sw-font-body);
+    --im-bg: color-mix(in srgb, var(--sw-bg-elevated) 92%, transparent);
+    --im-color: var(--sw-text-primary);
+    --im-link-color: var(--sw-accent-dominant);
+    --im-btn-bg: var(--sw-button-primary-bg);
+    --im-btn-color: var(--sw-button-primary-text);
+    --im-btn-border: var(--sw-button-primary-border);
+    --im-btn-hover-bg: var(--sw-button-primary-bg-hover);
+    --im-btn-hover-color: var(--sw-button-primary-text);
+    --im-btn-hover-border: var(--sw-button-primary-bg-hover);
+}
+
+html[data-theme='morning'] #cc-main,
+html[data-theme='morning'] .cm__body {
+    color-scheme: light;
+}
+
+html[data-theme='sunset'] #cc-main,
+html[data-theme='sunset'] .cm__body {
+    color-scheme: dark;
+    --cc-bg: color-mix(in srgb, var(--sw-bg-elevated) 97%, transparent);
+    --cc-btn-secondary-text-color: var(--sw-text-primary);
+    --cc-cookie-category-block-bg: color-mix(
+        in srgb,
+        var(--sw-bg-surface) 92%,
+        transparent
+    );
+}
+
+#cc-main .cm,
+#cc-main .pm,
+.cm__body {
+    border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
+    box-shadow: var(--sw-shadow-md);
+    backdrop-filter: blur(18px);
+}
+
+#cc-main .cm__desc,
+#cc-main .pm__desc,
+#cc-main .pm__section-desc,
+#cc-main .pm__section-title,
+#cc-main .pm__badge,
+#cc-main .pm__cookie-table,
+#cc-main .pm__cookie-title,
+#cc-main .pm__cookie-desc,
+#cc-main .pm__service-title {
+    color: var(--sw-text-secondary);
+}
+
+#cc-main .pm__title,
+#cc-main .cm__title,
+#cc-main .pm__section-title,
+#cc-main .pm__service-title {
+    color: var(--sw-text-primary);
+}
+
+#cc-main .cm__btn,
+#cc-main .pm__btn,
+.cm__body button,
+.cm__body a {
+    transition:
+        background-color var(--sw-motion-fast),
+        border-color var(--sw-motion-fast),
+        color var(--sw-motion-fast),
+        box-shadow var(--sw-motion-fast);
+}
+
+html[data-motion='reduced'] #cc-main .cm__btn,
+html[data-motion='reduced'] #cc-main .pm__btn,
+html[data-motion='reduced'] .cm__body button,
+html[data-motion='reduced'] .cm__body a {
+    transition-duration: 100ms !important;
 }

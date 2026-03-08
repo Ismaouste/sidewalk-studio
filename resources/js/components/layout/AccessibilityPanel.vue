@@ -10,9 +10,7 @@ const rootRef = ref<HTMLElement | null>(null);
 
 const {
     motionPreference,
-    contrastPreference,
     toggleReducedMotion,
-    toggleBoostContrast,
 } = useAccessibilityPreferences();
 
 const copy = computed(() =>
@@ -24,7 +22,8 @@ const copy = computed(() =>
               reducedMotionHint:
                   'Fond ambient, loader et transitions plus sobres.',
               contrast: 'Contraste renforcé',
-              contrastHint: 'Couleurs plus nettes et accents moins ambigus.',
+              contrastHint: 'Prévu ensuite. Le mode est affiché mais pas encore disponible.',
+              unavailable: 'Bientôt',
           }
         : {
               buttonLabel: 'Accessibility',
@@ -33,7 +32,8 @@ const copy = computed(() =>
               reducedMotionHint:
                   'Ambient background, loader, and transitions become quieter.',
               contrast: 'Boost contrast',
-              contrastHint: 'Sharper colors and less ambiguous accents.',
+              contrastHint: 'Planned next. The control is visible but not available yet.',
+              unavailable: 'Soon',
           },
 );
 
@@ -115,12 +115,9 @@ onBeforeUnmount(() => {
 
             <button
                 type="button"
-                class="accessibility-panel__option"
-                :class="{
-                    'accessibility-panel__option--active':
-                        contrastPreference === 'boost',
-                }"
-                @click="toggleBoostContrast"
+                class="accessibility-panel__option accessibility-panel__option--disabled"
+                disabled
+                aria-disabled="true"
             >
                 <span class="accessibility-panel__option-copy">
                     <span class="accessibility-panel__option-title">
@@ -131,7 +128,7 @@ onBeforeUnmount(() => {
                     </span>
                 </span>
                 <span class="accessibility-panel__state">
-                    {{ contrastPreference === 'boost' ? 'On' : 'Off' }}
+                    {{ copy.unavailable }}
                 </span>
             </button>
         </div>
@@ -232,6 +229,18 @@ onBeforeUnmount(() => {
     );
 }
 
+.accessibility-panel__option--disabled {
+    opacity: 0.58;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.accessibility-panel__option--disabled .accessibility-panel__option-title,
+.accessibility-panel__option--disabled .accessibility-panel__option-hint,
+.accessibility-panel__option--disabled .accessibility-panel__state {
+    color: color-mix(in srgb, var(--sw-text-muted) 88%, transparent);
+}
+
 @media (hover: hover) {
     .accessibility-panel__trigger:hover {
         border-color: color-mix(
@@ -250,6 +259,11 @@ onBeforeUnmount(() => {
             var(--sw-accent-dominant) 24%,
             var(--sw-border)
         );
+    }
+
+    .accessibility-panel__option--disabled:hover {
+        transform: none;
+        border-color: color-mix(in srgb, var(--sw-border) 74%, transparent);
     }
 }
 </style>

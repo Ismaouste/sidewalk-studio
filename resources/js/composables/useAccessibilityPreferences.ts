@@ -32,12 +32,9 @@ function initializeAccessibilityPreferences(): void {
     }
 
     const storedMotion = window.localStorage.getItem(MOTION_STORAGE_KEY);
-    const storedContrast = window.localStorage.getItem(CONTRAST_STORAGE_KEY);
-
     motionPreference.value =
         storedMotion === 'reduced' ? 'reduced' : 'full';
-    contrastPreference.value =
-        storedContrast === 'boost' ? 'boost' : 'default';
+    contrastPreference.value = 'default';
 
     applyPreferences();
     initialized = true;
@@ -53,9 +50,9 @@ export function useAccessibilityPreferences() {
     }
 
     function setContrastPreference(preference: ContrastPreference): void {
-        contrastPreference.value = preference;
+        contrastPreference.value = 'default';
         applyPreferences();
-        window.localStorage.setItem(CONTRAST_STORAGE_KEY, preference);
+        window.localStorage.setItem(CONTRAST_STORAGE_KEY, 'default');
     }
 
     function toggleReducedMotion(): void {
@@ -65,9 +62,7 @@ export function useAccessibilityPreferences() {
     }
 
     function toggleBoostContrast(): void {
-        setContrastPreference(
-            contrastPreference.value === 'boost' ? 'default' : 'boost',
-        );
+        setContrastPreference('default');
     }
 
     return {

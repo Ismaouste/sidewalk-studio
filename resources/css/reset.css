@@ -86,3 +86,44 @@ svg {
         scroll-behavior: auto !important;
     }
 }
+
+html[data-motion='reduced'] {
+    scroll-behavior: auto;
+}
+
+html[data-motion='reduced'] *,
+html[data-motion='reduced'] *::before,
+html[data-motion='reduced'] *::after {
+    animation: none !important;
+    transition-property:
+        opacity,
+        color,
+        background-color,
+        border-color,
+        box-shadow,
+        outline-color,
+        text-decoration-color,
+        filter !important;
+    transition-duration: 100ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+}
+
+html[data-motion='reduced'] :is(
+        .ambient-grid__sun,
+        .ambient-grid__plane,
+        .ambient-grid__shadow,
+        .sw-button,
+        .sw-button__arrow,
+        .publication-widget__card,
+        .nav-tabs__link,
+        .nav-tabs__trigger-icon span,
+        .consent-preferences-button,
+        .theme-toggle__option,
+        .home-accent-chip,
+        .content-visual__image,
+        .inline-term-tooltip__bubble,
+        .accessibility-panel__option
+    ) {
+    transform: none !important;
+}
