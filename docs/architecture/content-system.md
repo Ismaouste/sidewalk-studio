@@ -1,24 +1,32 @@
 # Content System
 
-Sidewalk Studio now uses a normalized hybrid content layer.
+Sidewalk Studio now uses a normalized hybrid content layer with explicit ownership boundaries.
 
 ## Sources
 
-Public content still lives in locale-aware Markdown folders:
+Long-form editorial sources still live in locale-aware Markdown folders:
 
 - `resources/content/pages/<locale>`
 - `resources/content/writing/<locale>`
 - `resources/content/case-studies/<locale>`
 
-The application can now also persist managed content in the database:
+Runtime metadata and admin indexing live in the database:
 
-- `pages`
 - `publications`
 - `publication_type_settings`
+- `pages` for structured overrides or hybrid page metadata
+- `loader_quotes`
 
 English (`en`) remains the public default today. French (`fr`) source files still exist for the current public page set and for selected writing/case-study entries.
 
-## Shared frontmatter
+## Publication ownership
+
+- The `publications` table owns identity and runtime metadata: locale, slug, type, status, publish date, SEO, listing metadata, admin organization, dirty rebuild state, and the linked Markdown source path.
+- The linked Markdown file owns the long-form body.
+- Public rendering and static export consume one normalized DTO built from DB metadata plus Markdown body.
+- Frontmatter inside managed Markdown files is intentionally minimal and deterministic. It is informational only; the database wins for metadata.
+
+## Legacy frontmatter
 
 - `title`
 - `slug`
@@ -61,10 +69,20 @@ Draft content may exist in the filesystem or database without leaking into the i
 
 ## Admin and import workflow
 
-- Existing repo-owned pages and publications can be imported into the database through `Database\Seeders\ContentFoundationSeeder`.
-- The admin shell can edit publications directly in the database while still discovering file-backed entries that have not been imported yet.
-- Static pages use a hybrid model: structured admin overrides live in `pages`, but file-backed defaults remain available.
+- Existing repo-owned publications can be imported into the database through `Database\Seeders\ContentFoundationSeeder` without rewriting their committed files.
+- The admin shell edits publication metadata in the database and writes long-form bodies directly to the linked Markdown path.
+- Static pages use a hybrid model: structured admin overrides live in `pages`, but file-backed defaults remain available for repo portability.
 - Site-level language copy remains file-backed under `lang/*/site.php`, but the admin now writes those files through a structured form instead of requiring direct PHP edits.
+
+## Runtime presentation modules
+
+The database-first runtime layer now also drives:
+
+- theme defaults
+- branding asset and fallback variant selection
+- loader quotes / flash lines
+- publication-type CTA and accent settings
+- rebuild/export state
 
 ## Locale strategy
 

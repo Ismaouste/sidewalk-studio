@@ -429,6 +429,7 @@ class ExportStaticPreviewCommand extends Command
         return Str::startsWith($path, [
             '/build/',
             '/images/',
+            '/uploads/branding/',
             '/content-visuals/',
         ]) || in_array($path, [
             '/favicon.ico',
@@ -488,6 +489,10 @@ class ExportStaticPreviewCommand extends Command
             File::copyDirectory(public_path('images'), $outputPath.'/images');
         }
 
+        if (File::isDirectory(public_path('uploads/branding'))) {
+            File::copyDirectory(public_path('uploads/branding'), $outputPath.'/uploads/branding');
+        }
+
         foreach (['favicon.ico', 'favicon.svg', 'apple-touch-icon.png'] as $file) {
             $source = public_path($file);
 
@@ -506,6 +511,7 @@ class ExportStaticPreviewCommand extends Command
         $prefixes = [
             '/build/' => $basePath.'build/',
             '/images/' => $basePath.'images/',
+            '/uploads/branding/' => $basePath.'uploads/branding/',
             '/content-visuals/' => $basePath.'content-visuals/',
             '/favicon.ico' => $basePath.'favicon.ico',
             '/favicon.svg' => $basePath.'favicon.svg',

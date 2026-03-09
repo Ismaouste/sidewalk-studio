@@ -8,7 +8,7 @@ Metadata is generated on the backend and passed twice:
 ## Resolution order
 
 1. Page or publication values persisted through the admin shell
-2. Repo-owned file-backed frontmatter fallback
+2. Linked Markdown body or legacy file-backed frontmatter fallback
 3. Site-wide defaults from `App\Services\SiteSettingsService`
 
 Site-wide defaults such as the title suffix, default description, and public profile links resolve through `SiteSettingsService`, which still falls back to committed defaults when no persisted row exists yet.
@@ -44,3 +44,5 @@ The admin shell can now manage:
 - per-page Open Graph image references
 
 These values must stay compatible with both live Laravel rendering and the static export flow.
+
+Publication metadata now lives primarily in the database. Markdown remains the long-form body source, not the canonical SEO metadata source.

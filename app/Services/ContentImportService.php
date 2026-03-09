@@ -20,12 +20,7 @@ class ContentImportService
                         continue;
                     }
 
-                    $this->content->savePublication([
-                        'original_publication_type' => $publication['publication_type'],
-                        'original_locale' => $publication['locale'],
-                        'original_slug' => $publication['slug'],
-                        ...$publication,
-                    ]);
+                    $this->content->importPublication($publication);
                 }
             }
 

@@ -83,7 +83,7 @@ const copy = computed(() =>
               opportunitiesLabel: 'Situation actuelle',
               opportunitiesText:
                   "Actuellement en emploi chez Jewely, avec une ouverture claire pour des opportunités, des missions freelance à temps partiel et des échanges autour d'un projet digital.",
-              subjectPrefix: 'Prise de contact Sidewalk Studio',
+              subjectPrefix: 'Prise de contact',
               bodyNameLabel: 'Nom',
               bodyEmailLabel: 'Email',
               bodyCompanyLabel: 'Entreprise ou produit',
@@ -118,7 +118,7 @@ const copy = computed(() =>
               opportunitiesLabel: 'Current situation',
               opportunitiesText:
                   'Currently employed at Jewely, while staying open to opportunities, part-time freelance work, and conversations around digital products.',
-              subjectPrefix: 'Sidewalk Studio inquiry',
+              subjectPrefix: 'Inquiry',
               bodyNameLabel: 'Name',
               bodyEmailLabel: 'Email',
               bodyCompanyLabel: 'Company or product',

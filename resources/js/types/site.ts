@@ -58,6 +58,30 @@ export type ThemeSettings = {
     line_thickness: number;
 };
 
+export type BrandingSettings = {
+    asset_mode: 'uploaded' | 'fallback';
+    uploaded_asset_path: string | null;
+    fallback_variant:
+        | 'avatar'
+        | 'monogram_circle'
+        | 'monogram_square'
+        | 'wordmark';
+    fallback_label: string;
+    fallback_subtitle: string;
+    active_alt: string;
+};
+
+export type LoaderQuote = {
+    id?: number;
+    text: string;
+    type: 'message' | 'quote';
+    author: string | null;
+    locale: 'en' | 'fr';
+    is_active: boolean;
+    theme_target: 'morning' | 'sunset' | null;
+    weight: number;
+};
+
 export type StaticExportSettings = {
     static_mode_enabled: boolean;
     github_pages_enabled: boolean;
@@ -118,6 +142,7 @@ export type SiteProps = {
         footerNote: string;
         privacyControlsLabel: string;
     };
+    branding: BrandingSettings;
     languageSwitcher: {
         visible: boolean;
         current: string;
@@ -134,6 +159,7 @@ export type SiteProps = {
         staticBasePath: string | null;
         preprodModeEnabled?: boolean;
         themeDefaults?: ThemeSettings;
+        loaderQuotes?: LoaderQuote[];
     };
 };
 
@@ -181,7 +207,7 @@ export type ContentItem = {
     stack: string[];
     outcomes: string[];
     category: string;
-    publication_type: 'note' | 'reference';
+    publication_type: 'note' | 'journal' | 'case_study';
     accent_tone: string;
     featured_image: string;
     featured_image_alt: string;

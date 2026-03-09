@@ -16,6 +16,7 @@ Structured-data generation should keep reading normalized page/publication paylo
 That means:
 
 - publication metadata such as title, summary, dates, image references, and canonical intent can now come from database-managed records
+- the long-form article body still comes from the linked Markdown file referenced by that record
 - case-study-specific metadata remains available through the publication `metadata` payload
 - static editorial pages such as `Projects` and `Local` keep the default `WebPage` + `BreadcrumbList` payload
 - visible breadcrumbs must reuse the same PHP breadcrumb source as `BreadcrumbList`

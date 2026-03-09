@@ -2,7 +2,7 @@
 
 ## Shared contract
 
-Every repo-owned Markdown document still defines the same frontmatter contract, whether it lives in:
+Legacy repo-owned Markdown documents still define the original frontmatter contract, whether they live in:
 
 - `resources/content/pages/<locale>`
 - `resources/content/writing/<locale>`
@@ -38,16 +38,18 @@ Optional editorial/media fields:
 
 ## Database-backed publication contract
 
-The `publications` table mirrors the public-facing editorial contract and adds admin-managed fields:
+The `publications` table owns the public-facing metadata contract:
 
 - `type` as `note`, `journal`, or `case_study`
 - locale
 - slug
-- markdown body
+- linked markdown source path
 - publish status and publish date
 - SEO title / description / robots / canonical URL
 - featured image / Open Graph image / featured video
 - freeform metadata for publication-type-specific fields
+
+The long-form body is intentionally not duplicated in the database. Runtime reads load it from the linked Markdown file.
 
 ## Hybrid page contract
 
@@ -66,6 +68,7 @@ The normalized PHP read layer adds:
 
 - locale
 - rendered HTML
+- raw markdown body
 - excerpt
 - reading time
 - public URL

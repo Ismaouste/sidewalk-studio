@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import BrandMark from '@/components/branding/BrandMark.vue';
 import NavTabs from '@/components/layout/NavTabs.vue';
 import { resolvePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
@@ -51,13 +52,19 @@ const homeHref = computed(() =>
         page.props.site.runtime.staticBasePath,
     ),
 );
-const avatarHref = computed(() =>
-    resolvePublicHref(
-        '/images/contact-avatar.png',
-        page.props.site.runtime.staticPreview,
-        page.props.site.runtime.staticBasePath,
-    ),
-);
+const branding = computed(() => {
+    const settings = { ...page.props.site.branding };
+
+    if (settings.uploaded_asset_path) {
+        settings.uploaded_asset_path = resolvePublicHref(
+            settings.uploaded_asset_path,
+            page.props.site.runtime.staticPreview,
+            page.props.site.runtime.staticBasePath,
+        );
+    }
+
+    return settings;
+});
 const headerRef = ref<HTMLElement | null>(null);
 
 let resizeObserver: ResizeObserver | null = null;
@@ -110,13 +117,7 @@ onBeforeUnmount(() => {
             <div class="app-header__inner">
                 <div class="app-header__topline">
                     <Link :href="homeHref" class="app-header__brand">
-                        <img
-                            :src="avatarHref"
-                            alt=""
-                            class="app-header__avatar"
-                            loading="eager"
-                            decoding="async"
-                        />
+                        <BrandMark :branding="branding" class-name="app-header__avatar" />
                         <span class="app-header__identity">
                             <span class="type-eyebrow app-header__name">
                                 {{ brandName }}

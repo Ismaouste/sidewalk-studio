@@ -70,9 +70,7 @@ function backToTop(): void {
         <div class="sw-container app-footer__inner">
             <div class="app-footer__content">
                 <div class="app-footer__copy">
-                    <p class="type-eyebrow app-footer__brand">
-                        Sidewalk Studio
-                    </p>
+
                     <p class="app-footer__note">
                         {{ page.props.site.shell.footerNote }}
                     </p>

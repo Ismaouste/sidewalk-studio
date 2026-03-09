@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import QuoteLinePreview from '@/components/shared/QuoteLinePreview.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
@@ -39,6 +40,7 @@ const form = useForm({
     featured_video: props.publication.featured_video,
     category: props.publication.category,
     accent_tone: props.publication.accent_tone,
+    source_path: props.publication.source_path,
     body_markdown: props.publication.body_markdown,
     metadata: {
         client: props.publication.metadata?.client ?? '',
@@ -85,6 +87,7 @@ function addMetadataItem(key: 'stack' | 'outcomes') {
                     <h1 class="type-h1 admin-publication__title">{{ mode === 'create' ? 'Create a publication' : publication.title }}</h1>
                     <p class="type-body admin-publication__copy">
                         File-backed legacy entries become database-managed as soon as they are saved here.
+                        Metadata lives in the database. The long-form body stays in the linked markdown file.
                     </p>
                 </div>
 
@@ -119,6 +122,10 @@ function addMetadataItem(key: 'stack' | 'outcomes') {
                     <label class="admin-publication__field">
                         <span class="type-nav">Slug</span>
                         <input v-model="form.slug" class="admin-publication__input" type="text" />
+                    </label>
+                    <label class="admin-publication__field">
+                        <span class="type-nav">Markdown source path</span>
+                        <input v-model="form.source_path" class="admin-publication__input" type="text" />
                     </label>
                     <label class="admin-publication__field">
                         <span class="type-nav">Summary</span>
@@ -226,10 +233,22 @@ function addMetadataItem(key: 'stack' | 'outcomes') {
                 </Panel>
 
                 <Panel class="admin-publication__panel admin-publication__panel--full" tone="elevated">
-                    <label class="admin-publication__field">
-                        <span class="type-nav">Markdown body</span>
-                        <textarea v-model="form.body_markdown" class="admin-publication__input admin-publication__input--editor" rows="20" />
-                    </label>
+                    <div class="admin-publication__markdown-grid">
+                        <label class="admin-publication__field">
+                            <span class="type-nav">Markdown body</span>
+                            <textarea v-model="form.body_markdown" class="admin-publication__input admin-publication__input--editor" rows="20" />
+                        </label>
+                        <div class="admin-publication__preview">
+                            <p class="type-eyebrow">Preview</p>
+                            <QuoteLinePreview
+                                :text="form.title || 'Draft title'"
+                                type="message"
+                                :author="`${form.locale.toUpperCase()} · ${form.publication_type}`"
+                                compact
+                            />
+                            <pre class="admin-publication__preview-body">{{ form.body_markdown }}</pre>
+                        </div>
+                    </div>
                 </Panel>
             </div>
         </form>
@@ -278,6 +297,12 @@ function addMetadataItem(key: 'stack' | 'outcomes') {
     gap: 0.45rem;
 }
 
+.admin-publication__markdown-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+}
+
 .admin-publication__input {
     min-height: 3rem;
     border: 1px solid var(--sw-border);
@@ -301,8 +326,27 @@ function addMetadataItem(key: 'stack' | 'outcomes') {
     color: var(--sw-accent-dominant);
 }
 
+.admin-publication__preview {
+    display: grid;
+    gap: 0.8rem;
+    align-content: start;
+}
+
+.admin-publication__preview-body {
+    overflow: auto;
+    max-block-size: 30rem;
+    border: 1px solid var(--sw-border);
+    border-radius: var(--sw-radius-md);
+    padding: 1rem;
+    color: var(--sw-text-secondary);
+}
+
 @media (max-width: 900px) {
     .admin-publication__grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .admin-publication__markdown-grid {
         grid-template-columns: minmax(0, 1fr);
     }
 }

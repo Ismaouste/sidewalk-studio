@@ -8,7 +8,7 @@ The repo already has three different configuration surfaces:
 
 - `.env` for secrets and runtime infrastructure
 - `config/*.php` for application defaults and bootstrap behavior
-- Markdown content for writing and case studies
+- Markdown content for long-form writing and case-study bodies
 
 That split is still correct, but global site values such as public contact details, SEO defaults, consent copy, and non-sensitive toggles need a clearer home once updates become more frequent.
 
@@ -18,7 +18,7 @@ That split is still correct, but global site values such as public contact detai
 - `site_settings` is for bounded non-secret runtime configuration.
 - `site_settings` is not a future Sanity responsibility; remote editorial tooling must not become the source of truth for runtime configuration.
 - API keys and other secrets do not belong in `site_settings`; if admin-managed secrets are needed later, they require a separate encrypted store with tighter access rules.
-- Editorial content can now live in the database, but repo-owned Markdown remains the import/fallback layer for portable public mode.
+- Editorial metadata may live in the database, but repo-owned Markdown remains the long-form source for publication bodies.
 
 ## First settings groups
 
@@ -29,6 +29,7 @@ That split is still correct, but global site values such as public contact detai
 - `consent_copy`
 - `feature_toggles`
 - `theme_settings`
+- `branding_settings`
 - `static_export_settings`
 - `publishing_state`
 - `admin_state`
@@ -52,6 +53,7 @@ That split is still correct, but global site values such as public contact detai
 - audit summaries record changed groups and field names only; they do not store raw settings values or secrets
 - onboarding completion now also writes through this singleton so the product can tell whether a first operator has already been created
 - rebuild status now lives in `publishing_state` so the admin UI can surface whether public output needs regeneration
+- branding now lives in `branding_settings` so the same active mark can feed the public header and the admin shell
 
 ## Database strategy
 

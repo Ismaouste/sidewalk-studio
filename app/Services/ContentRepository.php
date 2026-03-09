@@ -15,6 +15,10 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class ContentRepository
 {
+    public function __construct(
+        protected ManagedMarkdownFileService $markdownFiles,
+    ) {}
+
     /**
      * @return Collection<int, array<string, mixed>>
      */
@@ -121,6 +125,12 @@ class ContentRepository
      */
     public function adminFind(string $type, string $locale, string $slug): array
     {
+        $record = $this->findRecord($type, $locale, $slug);
+
+        if ($record instanceof Publication) {
+            return $this->shapeDatabaseRecord($record);
+        }
+
         $item = $this->mergedAllTypes($locale, true)
             ->first(fn (array $item): bool => $item['publication_type'] === $type && $item['slug'] === $slug);
 
@@ -179,14 +189,35 @@ class ContentRepository
      */
     public function savePublication(array $payload): array
     {
-        $record = Publication::query()
-            ->where('type', $payload['original_publication_type'] ?? $payload['publication_type'])
-            ->where('locale', $payload['original_locale'] ?? $payload['locale'])
-            ->where('slug', $payload['original_slug'] ?? $payload['slug'])
-            ->first();
+        $record = $this->findRecord(
+            $payload['original_publication_type'] ?? $payload['publication_type'],
+            $payload['original_locale'] ?? $payload['locale'],
+            $payload['original_slug'] ?? $payload['slug'],
+        );
 
         if (! $record instanceof Publication) {
             $record = new Publication();
+        }
+
+        $sourcePath = $this->normalizeSourcePath(
+            $payload['source_path'] ?? null,
+            $payload['publication_type'],
+            $payload['locale'],
+            $payload['slug'],
+        );
+        $existingPath = is_string($record->source_path) ? $record->source_path : null;
+        $existingMatter = $existingPath && File::exists($existingPath)
+            ? $this->markdownFiles->read($existingPath)['matter']
+            : [];
+
+        $this->markdownFiles->write(
+            $sourcePath,
+            $this->publicationFrontmatter($payload, $existingMatter),
+            (string) $payload['body_markdown'],
+        );
+
+        if ($existingPath && $existingPath !== $sourcePath && File::exists($existingPath)) {
+            File::delete($existingPath);
         }
 
         $record->fill([
@@ -195,7 +226,7 @@ class ContentRepository
             'slug' => $payload['slug'],
             'title' => $payload['title'],
             'summary' => $payload['summary'],
-            'body_markdown' => $payload['body_markdown'],
+            'body_markdown' => '',
             'status' => $payload['status'],
             'published_at' => $payload['published_at'] ?: null,
             'updated_at_publication' => $payload['updated_at'] ?: null,
@@ -211,12 +242,52 @@ class ContentRepository
             'category' => $payload['category'] ?: null,
             'accent_tone' => $payload['accent_tone'] ?: null,
             'metadata' => $payload['metadata'] ?? [],
-            'source_path' => $payload['source_path'] ?? null,
-            'source_driver' => 'database',
+            'source_path' => $sourcePath,
+            'source_driver' => 'hybrid',
         ]);
         $record->save();
 
         return $this->shapeDatabaseRecord($record);
+    }
+
+    /**
+     * @param  array<string, mixed>  $item
+     */
+    public function importPublication(array $item): void
+    {
+        if (! Schema::hasTable('publications')) {
+            return;
+        }
+
+        Publication::query()->updateOrCreate(
+            [
+                'type' => $item['publication_type'],
+                'locale' => $item['locale'],
+                'slug' => $item['slug'],
+            ],
+            [
+                'title' => $item['title'],
+                'summary' => $item['summary'],
+                'body_markdown' => '',
+                'status' => $item['status'],
+                'published_at' => $item['published_at'] ?: null,
+                'updated_at_publication' => $item['updated_at'] ?: null,
+                'tags' => $item['tags'],
+                'seo_title' => $item['seo_title'],
+                'seo_description' => $item['seo_description'],
+                'robots' => $item['robots'] ?: 'index,follow',
+                'canonical_url' => $item['canonical_url'] ?: null,
+                'featured_image' => $item['featured_image'] ?: null,
+                'featured_image_alt' => $item['featured_image_alt'] ?: null,
+                'open_graph_image' => $item['open_graph_image'] ?: null,
+                'featured_video' => $item['featured_video'] ?: null,
+                'category' => $item['category'] ?: null,
+                'accent_tone' => $item['accent_tone'] ?: null,
+                'metadata' => $item['metadata'] ?? [],
+                'source_path' => $item['source_path'],
+                'source_driver' => 'hybrid',
+            ],
+        );
     }
 
     /**
@@ -245,13 +316,13 @@ class ContentRepository
      */
     protected function mergedItems(string $section, string $locale, bool $includeFallback): Collection
     {
+        $databaseItems = $this->databaseItemsForSection($section, $locale, $includeFallback);
         $fileItems = $this->fileItems($section, $locale, $includeFallback);
-        $dbItems = $this->databaseItemsForSection($section, $locale, $includeFallback);
 
-        return $fileItems
+        return $databaseItems
             ->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug']))
-            ->merge(
-                $dbItems->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug'])),
+            ->union(
+                $fileItems->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug'])),
             )
             ->values();
     }
@@ -283,11 +354,13 @@ class ContentRepository
             ? [$locale, 'en']
             : [$locale];
 
-        return Publication::query()
+        $records = Publication::query()
             ->whereIn('type', $types)
             ->whereIn('locale', $locales)
             ->get()
-            ->map(fn (Publication $record): array => $this->shapeDatabaseRecord($record))
+            ->map(fn (Publication $record): array => $this->shapeDatabaseRecord($record));
+
+        return collect($records->all())
             ->sortBy(fn (array $item): int => $item['locale'] === $locale ? 0 : 1)
             ->unique(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug']));
     }
@@ -370,7 +443,7 @@ class ContentRepository
             'stack' => $this->normalizeList($matter['stack'] ?? []),
             'outcomes' => $this->normalizeList($matter['outcomes'] ?? []),
             'reading_time' => max(1, (int) ceil(str_word_count(strip_tags($html)) / 220)),
-            'body_markdown' => $document->body(),
+            'body_markdown' => trim($document->body()),
             'body_html' => $html,
             'excerpt' => Str::of(strip_tags($html))->squish()->limit(180)->toString(),
             'url' => $this->publicUrl($publicationType, (string) $matter['slug']),
@@ -404,7 +477,8 @@ class ContentRepository
      */
     protected function shapeDatabaseRecord(Publication $record): array
     {
-        $html = (string) Str::markdown($record->body_markdown, [
+        $bodyMarkdown = $this->bodyMarkdownForRecord($record);
+        $html = (string) Str::markdown($bodyMarkdown, [
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
         ]);
@@ -423,13 +497,13 @@ class ContentRepository
             'seo_title' => $record->seo_title,
             'seo_description' => $record->seo_description,
             'robots' => $record->robots,
-            'canonical_url' => $record->canonical_url ?? '',
+            'canonical_url' => (string) ($record->canonical_url ?? ''),
             'client' => (string) ($metadata['client'] ?? ''),
             'role' => (string) ($metadata['role'] ?? ''),
             'stack' => $this->normalizeList($metadata['stack'] ?? []),
             'outcomes' => $this->normalizeList($metadata['outcomes'] ?? []),
             'reading_time' => max(1, (int) ceil(str_word_count(strip_tags($html)) / 220)),
-            'body_markdown' => $record->body_markdown,
+            'body_markdown' => $bodyMarkdown,
             'body_html' => $html,
             'excerpt' => Str::of(strip_tags($html))->squish()->limit(180)->toString(),
             'url' => $this->publicUrl($record->type, $record->slug),
@@ -441,7 +515,7 @@ class ContentRepository
             'open_graph_image' => (string) ($record->open_graph_image ?? $record->featured_image ?? ''),
             'featured_video' => (string) ($record->featured_video ?? ''),
             'source_path' => $record->source_path,
-            'source_driver' => $record->source_driver,
+            'source_driver' => $record->source_driver ?: 'hybrid',
             'metadata' => $metadata,
         ];
 
@@ -451,6 +525,15 @@ class ContentRepository
         $item['image_alt'] = $image['alt'];
 
         return $item;
+    }
+
+    protected function bodyMarkdownForRecord(Publication $record): string
+    {
+        if (is_string($record->source_path) && $record->source_path !== '' && File::exists($record->source_path)) {
+            return $this->markdownFiles->read($record->source_path)['body'];
+        }
+
+        return trim((string) $record->body_markdown);
     }
 
     protected function publicUrl(string $publicationType, string $slug): string
@@ -539,5 +622,88 @@ class ContentRepository
         }
 
         return CarbonImmutable::parse((string) $value);
+    }
+
+    protected function resolvePublicationSourcePath(string $type, string $locale, string $slug): string
+    {
+        $section = $type === 'case_study' ? 'case-studies' : 'writing';
+
+        return resource_path("content/{$section}/{$locale}/{$slug}.md");
+    }
+
+    protected function normalizeSourcePath(?string $candidate, string $type, string $locale, string $slug): string
+    {
+        if (! is_string($candidate) || trim($candidate) === '') {
+            return $this->resolvePublicationSourcePath($type, $locale, $slug);
+        }
+
+        $normalized = str_replace('\\', '/', trim($candidate));
+
+        if (Str::startsWith($normalized, str_replace('\\', '/', resource_path()))) {
+            return $candidate;
+        }
+
+        if (Str::startsWith($normalized, 'resources/content/')) {
+            return base_path($normalized);
+        }
+
+        return $this->resolvePublicationSourcePath($type, $locale, $slug);
+    }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     * @param  array<string, mixed>  $existingMatter
+     * @return array<string, mixed>
+     */
+    protected function publicationFrontmatter(array $payload, array $existingMatter): array
+    {
+        $preserved = collect($existingMatter)
+            ->except([
+                'title',
+                'slug',
+                'summary',
+                'status',
+                'published_at',
+                'updated_at',
+                'tags',
+                'seo_title',
+                'seo_description',
+                'robots',
+                'canonical_url',
+                'featured_image',
+                'featured_image_alt',
+                'open_graph_image',
+                'featured_video',
+                'category',
+                'publication_type',
+                'accent_tone',
+                'client',
+                'role',
+                'stack',
+                'outcomes',
+                'locale',
+            ])
+            ->all();
+
+        return array_replace($preserved, [
+            'title' => $payload['title'],
+            'publication_type' => $payload['publication_type'],
+            'locale' => $payload['locale'],
+            'updated_at' => $payload['updated_at'] ?: CarbonImmutable::now()->toDateString(),
+            'managed_by' => 'sidewalk-admin',
+        ]);
+    }
+
+    protected function findRecord(string $type, string $locale, string $slug): ?Publication
+    {
+        if (! Schema::hasTable('publications')) {
+            return null;
+        }
+
+        return Publication::query()
+            ->where('type', $type)
+            ->where('locale', $locale)
+            ->where('slug', $slug)
+            ->first();
     }
 }

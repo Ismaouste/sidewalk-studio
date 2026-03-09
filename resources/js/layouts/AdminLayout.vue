@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import AdminHint from '@/components/admin/shared/AdminHint.vue';
+import BrandMark from '@/components/branding/BrandMark.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
-import type { Auth, FlashProps, User } from '@/types';
+import QuoteLinePreview from '@/components/shared/QuoteLinePreview.vue';
+import type { Auth, FlashProps, LoaderQuote, SiteProps, User } from '@/types';
 
 type AdminPageProps = {
     auth: Auth;
     flash: FlashProps;
+    site: SiteProps;
 };
 
 const page = usePage<AdminPageProps>();
@@ -33,6 +37,16 @@ const navigation = [
         note: 'Theme defaults, static export controls, and rebuild state',
     },
     {
+        label: 'Branding',
+        href: '/admin/branding',
+        note: 'Shared public/admin identity asset and fallback variants',
+    },
+    {
+        label: 'Loader quotes',
+        href: '/admin/loader-quotes',
+        note: 'Managed loader microcopy and reusable quote library',
+    },
+    {
         label: 'Inbox',
         href: '/admin/contact-submissions',
         note: 'Messages stored from the public contact form',
@@ -50,23 +64,44 @@ const navigation = [
 ] as const;
 
 const user = page.props.auth.user as User | null;
+const hoverQuote = ref<LoaderQuote | null>(null);
 const currentSection = computed(
     () =>
         navigation.find((item) => page.url.startsWith(item.href)) ??
         navigation[0],
 );
+const loaderQuotes = computed(() => page.props.site.runtime.loaderQuotes ?? []);
+
+function pickHoverQuote() {
+    if (loaderQuotes.value.length === 0) {
+        hoverQuote.value = null;
+        return;
+    }
+
+    hoverQuote.value =
+        loaderQuotes.value[Math.floor(Math.random() * loaderQuotes.value.length)];
+}
 </script>
 
 <template>
     <div class="admin-shell">
         <header class="admin-shell__header">
             <div class="admin-shell__bar">
-                <div class="admin-shell__brand">
+                <div
+                    class="admin-shell__brand"
+                    @mouseenter="pickHoverQuote"
+                    @mouseleave="hoverQuote = null"
+                >
+                    <BrandMark :branding="page.props.site.branding" />
                     <p class="type-eyebrow">Admin shell</p>
-                    <h1 class="type-h3 admin-shell__title">Sidewalk Studio</h1>
-                    <p class="type-body-sm admin-shell__subtitle">
-                        Operator-only controls for bounded runtime settings.
-                    </p>
+                    <div v-if="hoverQuote" class="admin-shell__quote">
+                        <QuoteLinePreview
+                            compact
+                            :text="hoverQuote.text"
+                            :type="hoverQuote.type"
+                            :author="hoverQuote.author"
+                        />
+                    </div>
                 </div>
 
                 <div class="admin-shell__meta">
@@ -96,6 +131,10 @@ const currentSection = computed(
                 </h2>
                 <p class="type-body-sm admin-shell__nav-copy">
                     {{ currentSection.note }}
+                    <AdminHint
+                        label="?"
+                        text="Editorial bodies stay markdown-friendly. Runtime presentation stays database-backed. Rebuild from admin when public output changed."
+                    />
                 </p>
 
                 <nav class="admin-shell__nav-links" aria-label="Admin">
@@ -114,15 +153,10 @@ const currentSection = computed(
                 </nav>
 
                 <Panel class="admin-shell__note" tone="grid">
-                    <p class="type-eyebrow">Operator notes</p>
+                    <p class="type-eyebrow">Boundaries</p>
                     <p class="type-body-sm admin-shell__note-copy">
-                        This shell now spans runtime settings, admin onboarding,
-                        public content, managed copy files, and rebuild flow.
-                    </p>
-                    <p class="type-meta admin-shell__note-meta">
-                        Secrets and provider keys stay in <code>.env</code>.
-                        Audit entries track operator changes without storing raw
-                        secrets or full payload snapshots.
+                        Use admin for content operations and runtime presentation.
+                        Keep infrastructure secrets in <code>.env</code>.
                     </p>
                 </Panel>
             </aside>
@@ -186,6 +220,7 @@ const currentSection = computed(
 }
 
 .admin-shell__brand {
+    position: relative;
     flex-wrap: wrap;
     align-items: baseline;
 }
@@ -196,6 +231,17 @@ const currentSection = computed(
 
 .admin-shell__subtitle {
     color: var(--sw-text-secondary);
+}
+
+.admin-shell__quote {
+    position: absolute;
+    inset: calc(100% + 0.65rem) auto auto 0;
+    width: min(20rem, 60vw);
+    border: 1px solid var(--sw-border);
+    border-radius: var(--sw-radius-md);
+    background: color-mix(in srgb, var(--sw-bg-base) 96%, transparent);
+    padding: 0.75rem 0.85rem;
+    box-shadow: var(--sw-shadow-md);
 }
 
 .admin-shell__meta {
@@ -261,6 +307,9 @@ const currentSection = computed(
 }
 
 .admin-shell__nav-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
     color: var(--sw-text-secondary);
 }
 

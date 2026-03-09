@@ -33,7 +33,7 @@ class SiteSettingsServiceTest extends TestCase
         $this->assertInstanceOf(ContactDetailsSettings::class, $settings->contactDetails);
         $this->assertInstanceOf(SeoDefaultsSettings::class, $settings->seoDefaults);
         $this->assertSame('Ismael Rodmacq', $settings->siteIdentity->name);
-        $this->assertSame(config('site.contact.email'), $settings->contactDetails->email);
+        $this->assertSame('contact@studio-atlas.test', $settings->contactDetails->email);
         $this->assertDatabaseCount('site_settings', 0);
     }
 
@@ -201,6 +201,7 @@ class SiteSettingsServiceTest extends TestCase
             'consent_copy' => json_encode($payload['consent_copy']),
             'feature_toggles' => json_encode($payload['feature_toggles']),
             'theme_settings' => json_encode($payload['theme_settings']),
+            'branding_settings' => json_encode($payload['branding_settings']),
             'static_export_settings' => json_encode($payload['static_export_settings']),
             'publishing_state' => json_encode($payload['publishing_state']),
             'admin_state' => json_encode($payload['admin_state']),

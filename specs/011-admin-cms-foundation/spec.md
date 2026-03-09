@@ -18,15 +18,15 @@ Today the admin shell depends on a local-only feature toggle, the public content
 
 ## Desired outcome
 
-Sidewalk Studio should support a first-run onboarding flow, database-backed content management for publications, hybrid page management, managed language-file editing, and an explicit rebuild/export workflow while preserving the public site and static export path.
+Sidewalk Studio should support a first-run onboarding flow, hybrid content management where publications use database metadata plus Markdown bodies, managed language-file editing, runtime presentation modules, and an explicit rebuild/export workflow while preserving the public site and static export path.
 
 ## In scope
 
 - Production-safe admin onboarding
-- Database-backed publications with file import/fallback
+- Hybrid publications with database metadata plus Markdown bodies
 - Hybrid page management
 - Managed language-file editing
-- Theme/static export/rebuild admin surface
+- Theme/branding/loader/export admin surface
 - Docs and spec updates for the new normalized content flow
 
 ## Out of scope
@@ -45,9 +45,10 @@ Sidewalk Studio should support a first-run onboarding flow, database-backed cont
 
 - [ ] `/admin` leads to onboarding when no operator exists, and to normal auth afterward
 - [ ] Publications can be managed for `note`, `journal`, and `case_study`
+- [ ] Publication metadata lives in the database while long-form bodies live in linked Markdown files
 - [ ] Public pages appear in admin and expose editable SEO/runtime payload fields
 - [ ] Managed language files can be edited through a structured UI
-- [ ] Theme, static export controls, and rebuild state are visible in admin
+- [ ] Theme, branding, loader quotes, static export controls, and rebuild state are visible in admin
 - [ ] The public site and static export continue to use a normalized read layer
 
 ## Tracking

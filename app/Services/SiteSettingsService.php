@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Schema;
 
 class SiteSettingsService
 {
-    public const CACHE_KEY = 'site_settings.current';
+    public const CACHE_KEY = 'site_settings.current.v2';
 
     public function current(?string $locale = null): SiteSettings
     {
@@ -117,6 +117,7 @@ class SiteSettingsService
             'consent_copy' => $record->consent_copy ?? [],
             'feature_toggles' => $record->feature_toggles ?? [],
             'theme_settings' => $record->theme_settings ?? [],
+            'branding_settings' => $record->branding_settings ?? [],
             'static_export_settings' => $record->static_export_settings ?? [],
             'publishing_state' => $record->publishing_state ?? [],
             'admin_state' => $record->admin_state ?? [],
@@ -166,6 +167,14 @@ class SiteSettingsService
                 'gradient_angle' => 132,
                 'surface_blur' => 18,
                 'line_thickness' => 1,
+            ],
+            'branding_settings' => [
+                'asset_mode' => 'uploaded',
+                'uploaded_asset_path' => '/images/contact-avatar.png',
+                'fallback_variant' => 'monogram_circle',
+                'fallback_label' => 'IR',
+                'fallback_subtitle' => 'Sidewalk Studio',
+                'active_alt' => 'Ismael Rodmacq portrait',
             ],
             'static_export_settings' => [
                 'static_mode_enabled' => true,

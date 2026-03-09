@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\AdminAuditLogController;
 use App\Http\Controllers\Admin\AdminContactSubmissionController;
 use App\Http\Controllers\Admin\AdminEntryController;
+use App\Http\Controllers\Admin\AdminBrandingController;
 use App\Http\Controllers\Admin\AdminLanguageFileController;
+use App\Http\Controllers\Admin\AdminLoaderQuoteController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminPublicationController;
 use App\Http\Controllers\Admin\AdminThemeController;
@@ -62,6 +64,10 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::get('/theme', [AdminThemeController::class, 'edit'])->name('theme.edit');
         Route::put('/theme', [AdminThemeController::class, 'update'])->name('theme.update');
         Route::post('/theme/rebuild', [AdminThemeController::class, 'rebuild'])->name('theme.rebuild');
+        Route::get('/branding', [AdminBrandingController::class, 'edit'])->name('branding.edit');
+        Route::post('/branding', [AdminBrandingController::class, 'update'])->name('branding.update');
+        Route::get('/loader-quotes', [AdminLoaderQuoteController::class, 'index'])->name('loader-quotes.index');
+        Route::put('/loader-quotes', [AdminLoaderQuoteController::class, 'update'])->name('loader-quotes.update');
         Route::get('/pages', [AdminPageController::class, 'index'])->name('pages.index');
         Route::get('/pages/{page}/{locale}', [AdminPageController::class, 'edit'])->name('pages.edit');
         Route::put('/pages/{page}/{locale}', [AdminPageController::class, 'update'])->name('pages.update');

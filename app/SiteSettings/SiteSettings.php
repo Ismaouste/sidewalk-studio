@@ -6,6 +6,7 @@ use App\SiteSettings\Data\ConsentCopySettings;
 use App\SiteSettings\Data\ContactDetailsSettings;
 use App\SiteSettings\Data\FeatureTogglesSettings;
 use App\SiteSettings\Data\AdminStateSettings;
+use App\SiteSettings\Data\BrandingSettings;
 use App\SiteSettings\Data\PublishingStateSettings;
 use App\SiteSettings\Data\SeoDefaultsSettings;
 use App\SiteSettings\Data\SiteIdentitySettings;
@@ -25,6 +26,7 @@ final readonly class SiteSettings
         public ConsentCopySettings $consentCopy,
         public FeatureTogglesSettings $featureToggles,
         public ThemeSettings $themeSettings,
+        public BrandingSettings $brandingSettings,
         public StaticExportSettings $staticExportSettings,
         public PublishingStateSettings $publishingState,
         public AdminStateSettings $adminState,
@@ -42,6 +44,7 @@ final readonly class SiteSettings
             consentCopy: ConsentCopySettings::fromArray($validated['consent_copy']),
             featureToggles: FeatureTogglesSettings::fromArray($validated['feature_toggles']),
             themeSettings: ThemeSettings::fromArray($validated['theme_settings']),
+            brandingSettings: BrandingSettings::fromArray($validated['branding_settings']),
             staticExportSettings: StaticExportSettings::fromArray($validated['static_export_settings']),
             publishingState: PublishingStateSettings::fromArray($validated['publishing_state']),
             adminState: AdminStateSettings::fromArray($validated['admin_state']),
@@ -58,6 +61,7 @@ final readonly class SiteSettings
             'consent_copy' => $this->consentCopy->toArray(),
             'feature_toggles' => $this->featureToggles->toArray(),
             'theme_settings' => $this->themeSettings->toArray(),
+            'branding_settings' => $this->brandingSettings->toArray(),
             'static_export_settings' => $this->staticExportSettings->toArray(),
             'publishing_state' => $this->publishingState->toArray(),
             'admin_state' => $this->adminState->toArray(),
@@ -102,6 +106,14 @@ final readonly class SiteSettings
             'theme_settings.gradient_angle' => ['required', 'integer', 'between:0,360'],
             'theme_settings.surface_blur' => ['required', 'integer', 'between:0,40'],
             'theme_settings.line_thickness' => ['required', 'integer', 'between:1,8'],
+
+            'branding_settings' => ['required', 'array:asset_mode,uploaded_asset_path,fallback_variant,fallback_label,fallback_subtitle,active_alt'],
+            'branding_settings.asset_mode' => ['required', 'string', 'in:uploaded,fallback'],
+            'branding_settings.uploaded_asset_path' => ['nullable', 'string', 'max:255'],
+            'branding_settings.fallback_variant' => ['required', 'string', 'in:avatar,monogram_circle,monogram_square,wordmark'],
+            'branding_settings.fallback_label' => ['required', 'string', 'max:64'],
+            'branding_settings.fallback_subtitle' => ['required', 'string', 'max:120'],
+            'branding_settings.active_alt' => ['required', 'string', 'max:160'],
 
             'static_export_settings' => ['required', 'array:static_mode_enabled,github_pages_enabled,preprod_mode_enabled,export_base_path,export_output_path'],
             'static_export_settings.static_mode_enabled' => ['required', 'boolean'],

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Services\SiteSettingsService;
+use App\Services\LoaderQuoteService;
 use App\Support\PublicLocale;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -19,6 +20,10 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $settings = app(SiteSettingsService::class)->current();
+        $loaderQuotes = app(LoaderQuoteService::class)->activeForLocale(
+            app()->getLocale(),
+            $settings->themeSettings->defaultTheme,
+        );
 
         return [
             ...parent::share($request),
@@ -39,6 +44,7 @@ class HandleInertiaRequests extends Middleware
                 'author' => config('site.author'),
                 'contact' => $settings->contactDetails->toArray(),
                 'social' => $settings->socialLinks->toArray(),
+                'branding' => $settings->brandingSettings->toArray(),
                 'shell' => PublicLocale::shellCopy(app()->getLocale()),
                 'languageSwitcher' => PublicLocale::switcher(
                     $request,
@@ -53,6 +59,7 @@ class HandleInertiaRequests extends Middleware
                     'staticBasePath' => $request->headers->get('X-Static-Preview-Base'),
                     'preprodModeEnabled' => $settings->staticExportSettings->preprodModeEnabled,
                     'themeDefaults' => $settings->themeSettings->toArray(),
+                    'loaderQuotes' => $loaderQuotes,
                 ],
             ],
             'consent' => [

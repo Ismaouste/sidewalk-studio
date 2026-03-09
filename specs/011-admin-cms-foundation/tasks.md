@@ -3,8 +3,8 @@
 ## Implementation
 
 - [ ] Replace local-only admin gating with onboarding-aware admin entry routes
-- [ ] Add hybrid publication and page persistence with file import/fallback
-- [ ] Add managed language-file editing and theme/publishing admin screens
+- [ ] Add hybrid publication persistence with database metadata plus Markdown body writes
+- [ ] Add managed language-file editing plus branding, loader quote, and theme/publishing admin screens
 
 ## Documentation
 

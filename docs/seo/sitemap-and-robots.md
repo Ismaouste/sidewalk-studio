@@ -11,6 +11,7 @@ The sitemap still derives from the normalized public read layer and combines:
 ## Inclusion rules
 
 - only `published` publications are included
+- publication inclusion is decided from database metadata, while the rendered body still comes from the linked Markdown source
 - draft content never appears in the sitemap
 - legacy routes such as `/about`, `/experience`, and `/writing/*` redirect and stay out of the sitemap
 - utility download routes such as `/cv/en` and `/cv/fr` remain public but excluded from the sitemap

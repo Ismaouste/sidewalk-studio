@@ -8,7 +8,7 @@ The admin shell is a minimal operator boundary for Sidewalk Studio.
 - session-based authentication on the existing Laravel `users` table
 - protected `/admin` routes
 - a dedicated Inertia admin layout separate from the public shell
-- bounded editors for site settings, theme/publishing, publications, pages, and managed language files
+- bounded editors for site settings, theme/publishing, branding, loader quotes, publications, pages, and managed language files
 - a read-only audit log for recent sensitive operator actions
 
 ## Route boundary
@@ -16,7 +16,7 @@ The admin shell is a minimal operator boundary for Sidewalk Studio.
 - `/admin` is now the first-class product entry point
 - `/admin/onboarding` is available only while no operator exists yet
 - `/admin/login` is the normal auth entry point once onboarding is complete
-- `/admin/settings`, `/admin/theme`, `/admin/publications`, `/admin/pages`, `/admin/language-files`, and `/admin/logout` are protected by `App\Http\Middleware\AdminAuthenticate`
+- `/admin/settings`, `/admin/theme`, `/admin/branding`, `/admin/loader-quotes`, `/admin/publications`, `/admin/pages`, `/admin/language-files`, and `/admin/logout` are protected by `App\Http\Middleware\AdminAuthenticate`
 
 ## Operator bootstrap
 
@@ -60,10 +60,11 @@ If `--name` or `--password` is omitted, the command prompts interactively.
 
 ## Content and publishing integration
 
-- publications use a hybrid read layer backed by `publications` plus repo-owned Markdown fallback
+- publications use a hybrid read layer where `publications` owns metadata and the linked Markdown file owns the body
 - static pages use a hybrid read layer backed by `pages` plus repo-owned page frontmatter fallback
 - managed language/site copy writes back to `lang/en/site.php` and `lang/fr/site.php`
-- theme, static export controls, and rebuild state live in the extended `site_settings` singleton
+- theme, branding, static export controls, and rebuild state live in the extended `site_settings` singleton
+- loader quotes now live in `loader_quotes` and are reused by the public loader and admin branding hover state
 - the rebuild action is synchronous in the first version and can trigger the static preview export command directly
 
 ## Audit trail

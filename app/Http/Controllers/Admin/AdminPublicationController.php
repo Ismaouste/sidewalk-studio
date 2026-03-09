@@ -65,7 +65,7 @@ class AdminPublicationController extends Controller
                     'outcomes' => [],
                 ],
                 'source_path' => null,
-                'source_driver' => 'database',
+                'source_driver' => 'hybrid',
             ],
         ]);
     }
@@ -133,6 +133,7 @@ class AdminPublicationController extends Controller
             'featured_video' => ['nullable', 'string', 'max:255'],
             'category' => ['nullable', 'string', 'max:64'],
             'accent_tone' => ['nullable', 'string', 'max:64'],
+            'source_path' => ['nullable', 'string', 'max:255'],
             'body_markdown' => ['required', 'string'],
             'metadata' => ['nullable', 'array'],
             'metadata.client' => ['nullable', 'string', 'max:160'],

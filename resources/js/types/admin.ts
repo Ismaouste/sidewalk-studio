@@ -56,7 +56,7 @@ export type PublicationAdminEntry = {
     featured_video: string;
     body_markdown: string;
     source_path: string | null;
-    source_driver: 'file' | 'database';
+    source_driver: 'file' | 'database' | 'hybrid';
     metadata: {
         client?: string;
         role?: string;
@@ -87,7 +87,18 @@ export type AdminPageEntry = {
     open_graph_image: string;
     payload: Record<string, unknown>;
     source_path: string | null;
-    source_driver: 'file' | 'database';
+    source_driver: 'file' | 'database' | 'hybrid';
+};
+
+export type LoaderQuoteAdminEntry = {
+    id?: number;
+    text: string;
+    type: 'message' | 'quote';
+    author: string | null;
+    locale: 'en' | 'fr';
+    is_active: boolean;
+    theme_target: 'morning' | 'sunset' | null;
+    weight: number;
 };
 
 export type ManagedLanguageFile = {

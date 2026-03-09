@@ -35,6 +35,14 @@
         "surface_blur": 18,
         "line_thickness": 1
     },
+    "branding_settings": {
+        "asset_mode": "uploaded",
+        "uploaded_asset_path": "/images/contact-avatar.png",
+        "fallback_variant": "monogram_circle",
+        "fallback_label": "IR",
+        "fallback_subtitle": "Sidewalk Studio",
+        "active_alt": "Ismael Rodmacq portrait"
+    },
     "static_export_settings": {
         "static_mode_enabled": true,
         "github_pages_enabled": true,

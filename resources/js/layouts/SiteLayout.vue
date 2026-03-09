@@ -5,6 +5,7 @@ import AmbientGrid from '@/components/design-system/AmbientGrid.vue';
 import AppFooter from '@/components/layout/AppFooter.vue';
 import AppHeader from '@/components/layout/AppHeader.vue';
 import BreadcrumbTrail from '@/components/layout/BreadcrumbTrail.vue';
+import QuoteLinePreview from '@/components/shared/QuoteLinePreview.vue';
 import { usePageTransitions } from '@/composables/usePageTransitions';
 import type { SeoPayload, SiteProps } from '@/types';
 
@@ -21,87 +22,11 @@ type LoaderLine = {
 };
 
 const loaderLibrary = computed<LoaderLine[]>(() =>
-    page.props.site.locale === 'fr'
-        ? [
-              {
-                  text: 'Le prochain plan arrive.',
-                  variant: 'message',
-              },
-              {
-                  text: 'Je range deux props et je reviens.',
-                  variant: 'message',
-              },
-              {
-                  text: 'Une transition qui saute, c’est une discussion avec le GPU.',
-                  variant: 'message',
-              },
-              {
-                  text: 'Mode dev : un petit détour, pas une disparition.',
-                  variant: 'message',
-              },
-              {
-                  text: 'Il faut du temps pour voir ce qui tient.',
-                  variant: 'quote',
-                  author: 'René Char',
-              },
-              {
-                  text: 'Le monde se refait toujours dans le détail.',
-                  variant: 'quote',
-              },
-              {
-                  text: 'Je suis faite de tous les mots que je ne peux pas prononcer.',
-                  variant: 'quote',
-                  author: 'Paul B. Preciado',
-              },
-              {
-                  text: 'Le visible est toujours traversé par ce qui insiste en dessous.',
-                  variant: 'quote',
-              },
-              {
-                  text: 'Le prochain plan arrive avec un peu de drama contrôlé.',
-                  variant: 'message',
-              },
-          ]
-        : [
-              {
-                  text: 'The next view is arriving.',
-                  variant: 'message',
-              },
-              {
-                  text: 'I am rearranging two props and coming back.',
-                  variant: 'message',
-              },
-              {
-                  text: 'A jumpy transition is basically a conversation with the GPU.',
-                  variant: 'message',
-              },
-              {
-                  text: 'Dev mode: a short detour, not a disappearance.',
-                  variant: 'message',
-              },
-              {
-                  text: 'It takes time to see what really holds.',
-                  variant: 'quote',
-                  author: 'Rene Char',
-              },
-              {
-                  text: 'The world is rebuilt inside the details.',
-                  variant: 'quote',
-              },
-              {
-                  text: 'I am made of all the words I cannot pronounce.',
-                  variant: 'quote',
-                  author: 'Paul B. Preciado',
-              },
-              {
-                  text: 'The visible is always crossed by what insists underneath.',
-                  variant: 'quote',
-              },
-              {
-                  text: 'The next view arrives with a little controlled drama.',
-                  variant: 'message',
-              },
-          ],
+    (page.props.site.runtime.loaderQuotes ?? []).map((line) => ({
+        text: line.text,
+        variant: line.type,
+        author: line.author ?? undefined,
+    })),
 );
 
 const currentLoaderLine = ref<LoaderLine | null>(null);
@@ -236,26 +161,11 @@ onBeforeUnmount(() => {
                                 :key="`${currentLoaderLine?.variant ?? 'message'}-${currentLoaderLine?.text ?? ''}-${currentLoaderLine?.author ?? ''}`"
                                 class="sw-shell__loader-text-block"
                             >
-                                <strong class="sw-shell__loader-title">
-                                    <span
-                                        :class="{
-                                            'sw-shell__loader-title--quote':
-                                                currentLoaderLine?.variant ===
-                                                'quote',
-                                        }"
-                                    >
-                                        {{ currentLoaderLine?.text }}
-                                    </span>
-                                </strong>
-                                <cite
-                                    class="type-meta sw-shell__loader-author"
-                                    :class="{
-                                        'sw-shell__loader-author--visible':
-                                            !!currentLoaderLine?.author,
-                                    }"
-                                >
-                                    {{ currentLoaderLine?.author ?? ' ' }}
-                                </cite>
+                                <QuoteLinePreview
+                                    :text="currentLoaderLine?.text ?? ''"
+                                    :type="currentLoaderLine?.variant ?? 'message'"
+                                    :author="currentLoaderLine?.author"
+                                />
                             </div>
                         </transition>
                     </div>
@@ -380,44 +290,16 @@ onBeforeUnmount(() => {
     color: var(--sw-text-muted);
 }
 
-.sw-shell__loader-title {
+.sw-shell__loader-text-block :deep(.quote-preview__text) {
     margin: 0;
-    font-family: var(--sw-font-body);
     max-width: 24rem;
     font-size: clamp(1.02rem, 2vw, 1.18rem);
-    font-weight: 500;
-    line-height: 1.28;
-    color: color-mix(in srgb, var(--sw-text-secondary) 88%, var(--sw-text-primary));
     text-wrap: balance;
     transition: color var(--sw-motion-fast);
 }
 
-.sw-shell__loader-title--quote {
-    font-family: var(--sw-font-body);
-    font-style: italic;
-    font-weight: 500;
-    color: color-mix(in srgb, var(--sw-text-secondary) 94%, var(--sw-text-primary));
-}
-
-.sw-shell__loader--interactive .sw-shell__loader-title {
-    color: color-mix(in srgb, var(--sw-text-secondary) 80%, var(--sw-text-primary));
-}
-
-.sw-shell__loader--interactive .sw-shell__loader-title--quote {
-    color: color-mix(in srgb, var(--sw-text-secondary) 88%, var(--sw-text-primary));
-}
-
-.sw-shell__loader-author {
+.sw-shell__loader-text-block :deep(.quote-preview__author) {
     min-height: 1rem;
-    font-size: 0.7rem;
-    font-style: normal;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: transparent;
-}
-
-.sw-shell__loader-author--visible {
-    color: var(--sw-text-secondary);
 }
 
 .sw-shell__loader-line {

@@ -42,7 +42,7 @@ function submitTypeSettings() {
                     <p class="type-eyebrow">Publications</p>
                     <h1 class="type-h1 admin-collection__title">Manage notes, journal entries, and case studies.</h1>
                     <p class="type-body admin-collection__copy">
-                        This screen merges file-backed legacy content with database-backed edits and new entries.
+                        Database metadata powers indexing, SEO, and admin filters. Long-form editorial bodies stay in versioned markdown files.
                     </p>
                 </div>
                 <span v-if="status" class="type-meta admin-collection__status">{{ status }}</span>
@@ -116,6 +116,7 @@ function submitTypeSettings() {
                         </div>
                         <p class="type-body-sm admin-collection__summary">{{ item.summary }}</p>
                         <p class="type-meta admin-collection__meta">Slug: {{ item.slug }}</p>
+                        <p class="type-meta admin-collection__meta">Source: {{ item.source_path ?? 'Auto-managed path' }}</p>
                     </Panel>
                 </div>
             </section>
