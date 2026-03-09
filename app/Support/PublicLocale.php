@@ -62,7 +62,7 @@ class PublicLocale
                 '/local' => 'Local',
                 '/projects' => 'Expériences',
                 '/journal' => 'Journal',
-                '/contact' => 'Contact 🤙🏽',
+                '/contact' => 'Contact ✍🏽',
             ]
             : [];
 

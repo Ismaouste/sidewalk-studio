@@ -21,7 +21,7 @@ return [
         ['label' => 'Hello', 'href' => '/'],
         ['label' => 'Experience', 'href' => '/projects'],
         ['label' => 'Journal', 'href' => '/journal'],
-        ['label' => 'Contact 🤙🏽', 'href' => '/contact'],
+        ['label' => 'Contact ✍🏽', 'href' => '/contact'],
     ],
     'labs' => [
         [

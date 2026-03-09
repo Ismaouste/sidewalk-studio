@@ -78,6 +78,11 @@ php artisan route:list
 php artisan site:export-static-preview --locales=fr,en --output=dist/static-preview --base=/sidewalk-studio/
 ```
 
+GitHub Actions now mirrors the application-focused checks on pull requests to `main`, on pushes to `main`, and on manual dispatch:
+
+- workflow: `.github/workflows/ci.yml`
+- checks: `php artisan test`, `npm run types:check`, `npm run build`, `php artisan route:list`
+
 ## Static preview
 
 The repository includes a GitHub Pages preview workflow that exports the public front-end as static HTML with a small app-like shell.
