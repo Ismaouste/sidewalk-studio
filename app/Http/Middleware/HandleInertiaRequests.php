@@ -39,6 +39,7 @@ class HandleInertiaRequests extends Middleware
                 'author' => config('site.author'),
                 'contact' => $settings->contactDetails->toArray(),
                 'social' => $settings->socialLinks->toArray(),
+                'themeSettings' => $settings->themeSettings->toArray(),
                 'shell' => PublicLocale::shellCopy(app()->getLocale()),
                 'languageSwitcher' => PublicLocale::switcher(
                     $request,

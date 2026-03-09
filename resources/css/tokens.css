@@ -56,6 +56,15 @@
     --sw-motion-sun: 900ms cubic-bezier(0.4, 0, 0.2, 1);
     --sw-ambient-progress: 0;
     --sw-ambient-navigation-shift: 0;
+    --sw-config-morning-accent: #8a7258;
+    --sw-config-morning-glow: #cf6445;
+    --sw-config-morning-glow-soft: #f1c58d;
+    --sw-config-sunset-accent: #d6d9df;
+    --sw-config-sunset-glow: #d38b76;
+    --sw-config-sunset-glow-soft: #9a7db1;
+    --sw-config-header-angle: 160deg;
+    --sw-config-ambient-blur: 136px;
+    --sw-config-grid-line: 1px;
 }
 
 :root,
@@ -72,34 +81,76 @@ html[data-theme='morning'] {
     --sw-text-muted: #8a8070;
     --sw-text-inverse: #f4f1ea;
 
-    --sw-accent-dominant: #6e5a46;
+    --sw-accent-dominant: color-mix(
+        in srgb,
+        var(--sw-config-morning-accent) 82%,
+        #3a2c21
+    );
     --sw-accent-green: #1a6b4a;
-    --sw-accent-sun: #8a7258;
-    --sw-accent-coral: #b83528;
+    --sw-accent-sun: var(--sw-config-morning-accent);
+    --sw-accent-coral: color-mix(
+        in srgb,
+        var(--sw-config-morning-glow) 82%,
+        #8f2b26
+    );
     --sw-accent-violet: #5b21b6;
 
     --sw-border: #d8d0c2;
-    --sw-border-focus: #8a7258;
+    --sw-border-focus: var(--sw-config-morning-accent);
     --sw-card-hover-border: color-mix(
         in srgb,
         var(--sw-border) 72%,
         var(--sw-accent-dominant)
     );
-    --sw-grid-line: rgba(110, 90, 70, 0.08);
+    --sw-grid-line: color-mix(
+        in srgb,
+        var(--sw-accent-dominant) 8%,
+        transparent
+    );
     --sw-shadow-sm: 0 1px 4px rgba(20, 18, 16, 0.06);
     --sw-shadow-md: 0 4px 16px rgba(20, 18, 16, 0.09);
     --sw-header-bg: linear-gradient(160deg, #ece1cf, #f3e9da, #fbf7f1);
     --sw-sun-gradient: radial-gradient(
         circle at 38% 38%,
-        #e3c17fee,
-        #cf64457a 32%,
-        #8a725888 56%,
+        color-mix(in srgb, var(--sw-config-morning-glow-soft) 82%, white 18%)
+            0%,
+        color-mix(in srgb, var(--sw-config-morning-glow) 48%, transparent) 32%,
+        color-mix(in srgb, var(--sw-config-morning-accent) 52%, transparent)
+            56%,
         transparent 85%
     );
-    --sw-sun-glow: rgba(207, 100, 69, 0.3);
-    --sw-ambient-flare: #cf6445;
-    --sw-ambient-flare-soft: #f1c58d;
-    --sw-ambient-flare-deep: #b83528;
+    --sw-sun-glow: color-mix(
+        in srgb,
+        var(--sw-config-morning-glow) 30%,
+        transparent
+    );
+    --sw-ambient-flare: var(--sw-config-morning-glow);
+    --sw-ambient-flare-soft: var(--sw-config-morning-glow-soft);
+    --sw-ambient-flare-deep: color-mix(
+        in srgb,
+        var(--sw-config-morning-glow) 68%,
+        #7a2c28
+    );
+    --sw-home-hero-surface: color-mix(
+        in srgb,
+        var(--sw-bg-elevated) 78%,
+        var(--sw-config-morning-glow-soft) 22%
+    );
+    --sw-home-hero-border: color-mix(
+        in srgb,
+        var(--sw-config-morning-accent) 34%,
+        var(--sw-border)
+    );
+    --sw-home-hero-panel-title: color-mix(
+        in srgb,
+        var(--sw-text-primary) 82%,
+        var(--sw-config-morning-accent) 18%
+    );
+    --sw-home-hero-panel-summary: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 86%,
+        var(--sw-config-morning-accent) 14%
+    );
     --sw-sun-size: 224px;
     --sw-sun-top: -72px;
     --sw-sun-left: -72px;
@@ -131,7 +182,7 @@ html[data-theme='morning'] {
             (1% * var(--sw-ambient-navigation-shift))
     );
     --sw-sun-blur-global: calc(
-        124px + (24px * var(--sw-ambient-progress)) +
+        var(--sw-config-ambient-blur) + (24px * var(--sw-ambient-progress)) +
             (10px * var(--sw-ambient-navigation-shift))
     );
     --sw-sun-opacity-global: calc(
@@ -157,34 +208,71 @@ html[data-theme='sunset'] {
     --sw-text-muted: #9b9199;
     --sw-text-inverse: #13141b;
 
-    --sw-accent-dominant: #d6d9df;
+    --sw-accent-dominant: var(--sw-config-sunset-accent);
     --sw-accent-green: #68c19c;
-    --sw-accent-sun: #d6d9df;
-    --sw-accent-coral: #b89aa5;
+    --sw-accent-sun: var(--sw-config-sunset-accent);
+    --sw-accent-coral: color-mix(
+        in srgb,
+        var(--sw-config-sunset-glow) 76%,
+        #7f5161
+    );
     --sw-accent-violet: #8a8fa9;
 
     --sw-border: #393b48;
-    --sw-border-focus: #d6d9df;
+    --sw-border-focus: var(--sw-config-sunset-accent);
     --sw-card-hover-border: color-mix(
         in srgb,
         var(--sw-border) 84%,
         var(--sw-accent-dominant) 16%
     );
-    --sw-grid-line: rgba(214, 217, 223, 0.08);
+    --sw-grid-line: color-mix(
+        in srgb,
+        var(--sw-config-sunset-accent) 8%,
+        transparent
+    );
     --sw-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.25);
     --sw-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
     --sw-header-bg: linear-gradient(160deg, #20202b, #1d2230, #13141b);
     --sw-sun-gradient: radial-gradient(
         circle at 62% 62%,
-        #cbd2e0c8,
-        #a38c9466 34%,
-        #7f87944a 58%,
+        color-mix(in srgb, var(--sw-config-sunset-accent) 78%, white 22%) 0%,
+        color-mix(in srgb, var(--sw-config-sunset-glow) 38%, transparent) 34%,
+        color-mix(in srgb, var(--sw-config-sunset-glow-soft) 32%, transparent)
+            58%,
         transparent 85%
     );
-    --sw-sun-glow: rgba(214, 217, 223, 0.18);
-    --sw-ambient-flare: #d6d9df;
-    --sw-ambient-flare-soft: #8c93a5;
-    --sw-ambient-flare-deep: #4d5462;
+    --sw-sun-glow: color-mix(
+        in srgb,
+        var(--sw-config-sunset-glow) 24%,
+        transparent
+    );
+    --sw-ambient-flare: var(--sw-config-sunset-glow);
+    --sw-ambient-flare-soft: var(--sw-config-sunset-glow-soft);
+    --sw-ambient-flare-deep: color-mix(
+        in srgb,
+        var(--sw-config-sunset-glow) 38%,
+        #4b5160
+    );
+    --sw-home-hero-surface: color-mix(
+        in srgb,
+        var(--sw-bg-elevated) 76%,
+        var(--sw-config-sunset-glow-soft) 24%
+    );
+    --sw-home-hero-border: color-mix(
+        in srgb,
+        var(--sw-config-sunset-glow) 28%,
+        var(--sw-border)
+    );
+    --sw-home-hero-panel-title: color-mix(
+        in srgb,
+        white 74%,
+        var(--sw-config-sunset-glow-soft) 26%
+    );
+    --sw-home-hero-panel-summary: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 72%,
+        var(--sw-config-sunset-glow-soft) 28%
+    );
     --sw-sun-size: 240px;
     --sw-sun-top: auto;
     --sw-sun-left: auto;
@@ -209,7 +297,7 @@ html[data-theme='sunset'] {
             (1.6% * var(--sw-ambient-navigation-shift))
     );
     --sw-sun-blur-global: calc(
-        136px + (26px * var(--sw-ambient-progress)) +
+        var(--sw-config-ambient-blur) + (26px * var(--sw-ambient-progress)) +
             (12px * var(--sw-ambient-navigation-shift))
     );
     --sw-sun-opacity-global: calc(

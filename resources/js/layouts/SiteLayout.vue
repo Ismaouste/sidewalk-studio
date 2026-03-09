@@ -6,6 +6,7 @@ import AppFooter from '@/components/layout/AppFooter.vue';
 import AppHeader from '@/components/layout/AppHeader.vue';
 import BreadcrumbTrail from '@/components/layout/BreadcrumbTrail.vue';
 import { usePageTransitions } from '@/composables/usePageTransitions';
+import { themeSettingsToCssVars } from '@/lib/themeStyleVars';
 import type { SeoPayload, SiteProps } from '@/types';
 
 const page = usePage<{ seo?: SeoPayload; site: SiteProps }>();
@@ -13,6 +14,9 @@ const transitions = usePageTransitions();
 const { isSettling, showOverlay } = transitions;
 
 const breadcrumbs = computed(() => page.props.seo?.breadcrumbs ?? []);
+const shellThemeVars = computed(() =>
+    themeSettingsToCssVars(page.props.site.themeSettings),
+);
 
 type LoaderLine = {
     text: string;
@@ -203,7 +207,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="sw-shell">
+    <div class="sw-shell" :style="shellThemeVars">
         <AmbientGrid />
         <AppHeader />
         <transition name="sw-loader">

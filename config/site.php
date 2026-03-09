@@ -51,4 +51,19 @@ return [
         'location' => 'Nancy, Grand-Est',
         'availability' => 'Currently working at Jewely and open to conversations, part-time freelance work, and new opportunities.',
     ],
+    'theme' => [
+        'morning' => [
+            'accent' => '#8a7258',
+            'glow' => '#cf6445',
+            'glow_soft' => '#f1c58d',
+        ],
+        'sunset' => [
+            'accent' => '#d6d9df',
+            'glow' => '#d38b76',
+            'glow_soft' => '#9a7db1',
+        ],
+        'header_gradient_angle' => 160,
+        'ambient_blur_px' => 136,
+        'grid_line_px' => 1,
+    ],
 ];

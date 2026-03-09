@@ -51,6 +51,18 @@ export type FeatureTogglesSettings = {
     show_case_studies: boolean;
 };
 
+export type ThemeSettingsPayload = {
+    morning_accent: string;
+    morning_glow: string;
+    morning_glow_soft: string;
+    sunset_accent: string;
+    sunset_glow: string;
+    sunset_glow_soft: string;
+    header_gradient_angle: number;
+    ambient_blur_px: number;
+    grid_line_px: number;
+};
+
 export type SiteSettingsPayload = {
     site_identity: SiteIdentitySettings;
     contact_details: SiteContact;
@@ -58,6 +70,7 @@ export type SiteSettingsPayload = {
     seo_defaults: SeoDefaultsSettings;
     consent_copy: ConsentCopySettings;
     feature_toggles: FeatureTogglesSettings;
+    theme_settings: ThemeSettingsPayload;
 };
 
 export type FlashProps = {
@@ -77,6 +90,7 @@ export type SiteProps = {
         github_url: string | null;
         linkedin_url: string | null;
     };
+    themeSettings: ThemeSettingsPayload;
     shell: {
         headerTagline: string;
         localeSwitcherLabel: string;

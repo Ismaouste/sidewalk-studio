@@ -89,6 +89,9 @@ class AdminAuthTest extends TestCase
             'feature_toggles' => [
                 'show_labs' => false,
             ],
+            'theme_settings' => [
+                'sunset_glow' => '#c88274',
+            ],
         ]);
 
         $this->actingAs($user)
@@ -101,6 +104,7 @@ class AdminAuthTest extends TestCase
         $this->assertSame('Admin Updated Studio', $record->site_identity['name']);
         $this->assertSame('admin@updated-studio.test', $record->contact_details['email']);
         $this->assertFalse($record->feature_toggles['show_labs']);
+        $this->assertSame('#c88274', $record->theme_settings['sunset_glow']);
     }
 
     public function test_authenticated_operator_can_log_out(): void

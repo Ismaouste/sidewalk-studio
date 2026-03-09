@@ -58,6 +58,22 @@
     padding: clamp(var(--sw-space-sm), 3vw, var(--sw-space-md));
 }
 
+.admin-settings__theme-preview {
+    display: grid;
+    gap: var(--sw-space-sm);
+    padding: clamp(var(--sw-space-sm), 3vw, var(--sw-space-md));
+}
+
+.admin-settings__theme-preview-copy {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.admin-settings__theme-grid {
+    display: grid;
+    gap: var(--sw-space-sm);
+}
+
 .admin-settings__workflow-copy {
     display: grid;
     gap: 0.35rem;
@@ -107,8 +123,41 @@
         color-mix(in srgb, var(--sw-accent-dominant) 14%, transparent);
 }
 
+.admin-settings__input--numeric {
+    max-width: 7rem;
+    text-align: right;
+}
+
+.admin-settings__color-row,
+.admin-settings__range-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.admin-settings__color-picker {
+    inline-size: 3.25rem;
+    block-size: 3rem;
+    border: 1px solid var(--sw-border);
+    border-radius: var(--sw-radius-md);
+    background: color-mix(in srgb, var(--sw-bg-base) 92%, transparent);
+    padding: 0.35rem;
+    cursor: pointer;
+}
+
+.admin-settings__color-row .admin-settings__input,
+.admin-settings__range-row .admin-settings__input {
+    flex: 1 1 auto;
+}
+
+.admin-settings__range {
+    flex: 1 1 auto;
+    accent-color: var(--sw-accent-dominant);
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .admin-settings__input {
+    .admin-settings__input,
+    .admin-settings__color-picker {
         transition: none;
     }
 }
@@ -121,5 +170,16 @@
     .admin-settings__actions {
         width: 100%;
         justify-items: start;
+    }
+
+    .admin-settings__color-row,
+    .admin-settings__range-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-settings__input--numeric {
+        max-width: none;
+        text-align: left;
     }
 }

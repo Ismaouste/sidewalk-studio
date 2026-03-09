@@ -21,6 +21,7 @@ class SiteSetting extends Model
         'seo_defaults',
         'consent_copy',
         'feature_toggles',
+        'theme_settings',
     ];
 
     protected function casts(): array
@@ -32,6 +33,7 @@ class SiteSetting extends Model
             'seo_defaults' => 'array',
             'consent_copy' => 'array',
             'feature_toggles' => 'array',
+            'theme_settings' => 'array',
         ];
     }
 

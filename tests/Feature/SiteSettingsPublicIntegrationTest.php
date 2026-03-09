@@ -43,6 +43,9 @@ class SiteSettingsPublicIntegrationTest extends TestCase
                     'title_suffix' => 'Studio Atlas',
                     'default_description' => 'A tailored metadata default for the public site.',
                 ],
+                'theme_settings' => [
+                    'morning_accent' => '#7f6247',
+                ],
             ]),
         ]);
 
@@ -52,7 +55,8 @@ class SiteSettingsPublicIntegrationTest extends TestCase
                 ->where('name', 'Studio Atlas')
                 ->where('site.name', 'Studio Atlas')
                 ->where('site.tagline', 'A settings-backed tagline.')
-                ->where('site.contact.email', 'hello@studio-atlas.test'))
+                ->where('site.contact.email', 'hello@studio-atlas.test')
+                ->where('site.themeSettings.morning_accent', '#7f6247'))
             ->assertSee('A tailored metadata default for the public site.')
             ->assertSee('https://github.com/studio-atlas', false);
     }

@@ -115,6 +115,7 @@ class SiteSettingsService
             'seo_defaults' => $record->seo_defaults ?? [],
             'consent_copy' => $record->consent_copy ?? [],
             'feature_toggles' => $record->feature_toggles ?? [],
+            'theme_settings' => $record->theme_settings ?? [],
         ]);
     }
 
@@ -124,6 +125,7 @@ class SiteSettingsService
         $localized = $this->localizedDefaults($locale);
         $contact = $site['contact'] ?? [];
         $profiles = array_values(array_filter($site['author']['same_as'] ?? []));
+        $theme = $site['theme'] ?? [];
 
         return [
             'site_identity' => [
@@ -155,6 +157,17 @@ class SiteSettingsService
                 'show_labs' => true,
                 'show_writing' => true,
                 'show_case_studies' => true,
+            ],
+            'theme_settings' => [
+                'morning_accent' => (string) ($theme['morning']['accent'] ?? '#8a7258'),
+                'morning_glow' => (string) ($theme['morning']['glow'] ?? '#cf6445'),
+                'morning_glow_soft' => (string) ($theme['morning']['glow_soft'] ?? '#f1c58d'),
+                'sunset_accent' => (string) ($theme['sunset']['accent'] ?? '#d6d9df'),
+                'sunset_glow' => (string) ($theme['sunset']['glow'] ?? '#d38b76'),
+                'sunset_glow_soft' => (string) ($theme['sunset']['glow_soft'] ?? '#9a7db1'),
+                'header_gradient_angle' => (int) ($theme['header_gradient_angle'] ?? 160),
+                'ambient_blur_px' => (int) ($theme['ambient_blur_px'] ?? 136),
+                'grid_line_px' => (float) ($theme['grid_line_px'] ?? 1),
             ],
         ];
     }

@@ -37,6 +37,7 @@ class SiteSettingsController extends Controller
             'seo_defaults',
             'consent_copy',
             'feature_toggles',
+            'theme_settings',
         ]);
         $before = $this->siteSettings->current()->toPersistenceArray();
 

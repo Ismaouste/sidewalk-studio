@@ -24,6 +24,17 @@
         "media_notice_title": "External media is blocked by default",
         "media_notice_description": "Accept the media category to load third-party embeds such as YouTube."
     },
+    "theme_settings": {
+        "morning_accent": "#8a7258",
+        "morning_glow": "#cf6445",
+        "morning_glow_soft": "#f1c58d",
+        "sunset_accent": "#d6d9df",
+        "sunset_glow": "#d38b76",
+        "sunset_glow_soft": "#9a7db1",
+        "header_gradient_angle": 160,
+        "ambient_blur_px": 136,
+        "grid_line_px": 1
+    },
     "feature_toggles": {
         "show_labs": true,
         "show_writing": true,

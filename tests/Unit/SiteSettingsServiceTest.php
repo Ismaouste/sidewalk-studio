@@ -34,6 +34,7 @@ class SiteSettingsServiceTest extends TestCase
         $this->assertInstanceOf(SeoDefaultsSettings::class, $settings->seoDefaults);
         $this->assertSame('Ismael Rodmacq', $settings->siteIdentity->name);
         $this->assertSame(config('site.contact.email'), $settings->contactDetails->email);
+        $this->assertSame('#8a7258', $settings->themeSettings->morningAccent);
         $this->assertDatabaseCount('site_settings', 0);
     }
 
@@ -200,6 +201,7 @@ class SiteSettingsServiceTest extends TestCase
             'seo_defaults' => json_encode($payload['seo_defaults']),
             'consent_copy' => json_encode($payload['consent_copy']),
             'feature_toggles' => json_encode($payload['feature_toggles']),
+            'theme_settings' => json_encode($payload['theme_settings']),
             'created_at' => now(),
             'updated_at' => now(),
         ];

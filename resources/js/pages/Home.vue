@@ -556,6 +556,7 @@ const copy = computed(() =>
 
 <style scoped>
 .home-hero {
+    position: relative;
     display: grid;
     gap: var(--sw-space-sm);
     align-items: start;
@@ -568,6 +569,50 @@ const copy = computed(() =>
     display: grid;
     gap: var(--sw-space-sm);
     padding: clamp(18px, 2.8vw, var(--sw-space-sm));
+}
+
+.home-hero__panel {
+    position: relative;
+    overflow: hidden;
+    border-color: var(--sw-home-hero-border);
+    background:
+        radial-gradient(
+            circle at 16% 18%,
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 18%, transparent),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 88% 24%,
+            color-mix(in srgb, var(--sw-ambient-flare) 14%, transparent),
+            transparent 34%
+        ),
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--sw-bg-elevated) 30%, transparent),
+            transparent 54%
+        ),
+        linear-gradient(
+            150deg,
+            var(--sw-home-hero-surface),
+            color-mix(in srgb, var(--sw-bg-elevated) 84%, transparent)
+        );
+}
+
+.home-hero__panel::before {
+    content: '';
+    position: absolute;
+    inset: -18% auto auto -12%;
+    width: 58%;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--sw-ambient-flare-soft) 36%, transparent),
+        transparent 62%
+    );
+    filter: blur(34px);
+    opacity: 0.72;
+    pointer-events: none;
 }
 
 .home-accent-list {
@@ -689,12 +734,12 @@ const copy = computed(() =>
     font-size: clamp(1rem, 1.25vw, 1.12rem);
     font-weight: 600;
     line-height: 1.35;
-    color: color-mix(in srgb, var(--sw-text-primary) 82%, var(--sw-text-secondary));
+    color: var(--sw-home-hero-panel-title);
 }
 
 .home-hero__panel-summary {
     margin: -0.3rem 0 0;
-    color: var(--sw-text-secondary);
+    color: var(--sw-home-hero-panel-summary);
     line-height: 1.45;
 }
 

@@ -3,6 +3,7 @@ import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import AdminSettingsSection from '@/components/admin/settings/AdminSettingsSection.vue';
 import AdminSettingsSectionJumpNav from '@/components/admin/settings/AdminSettingsSectionJumpNav.vue';
+import AdminSettingsThemePreview from '@/components/admin/settings/AdminSettingsThemePreview.vue';
 import AdminSettingsToggleCard from '@/components/admin/settings/AdminSettingsToggleCard.vue';
 import AdminSettingsValidationSummary from '@/components/admin/settings/AdminSettingsValidationSummary.vue';
 import Button from '@/components/ui/Button.vue';
@@ -21,6 +22,7 @@ const sectionLinks = [
     { href: '#seo-defaults', label: 'SEO defaults' },
     { href: '#consent-copy', label: 'Consent copy' },
     { href: '#feature-toggles', label: 'Feature toggles' },
+    { href: '#theme-settings', label: 'Theme settings' },
 ] as const;
 
 const fieldLabels: Record<string, string> = {
@@ -39,6 +41,15 @@ const fieldLabels: Record<string, string> = {
     'consent_copy.preferences_description': 'Preferences description',
     'consent_copy.media_notice_title': 'Media notice title',
     'consent_copy.media_notice_description': 'Media notice description',
+    'theme_settings.morning_accent': 'Morning accent',
+    'theme_settings.morning_glow': 'Morning glow',
+    'theme_settings.morning_glow_soft': 'Morning glow soft',
+    'theme_settings.sunset_accent': 'Sunset accent',
+    'theme_settings.sunset_glow': 'Sunset glow',
+    'theme_settings.sunset_glow_soft': 'Sunset glow soft',
+    'theme_settings.header_gradient_angle': 'Header gradient angle',
+    'theme_settings.ambient_blur_px': 'Ambient blur',
+    'theme_settings.grid_line_px': 'Grid line thickness',
 };
 
 function createFormState(settings: SiteSettingsPayload): SiteSettingsPayload {
@@ -49,6 +60,7 @@ function createFormState(settings: SiteSettingsPayload): SiteSettingsPayload {
         seo_defaults: { ...settings.seo_defaults },
         consent_copy: { ...settings.consent_copy },
         feature_toggles: { ...settings.feature_toggles },
+        theme_settings: { ...settings.theme_settings },
     };
 }
 
@@ -481,6 +493,287 @@ function errorFor(field: string) {
                         label="Show Case Studies"
                         description="Keep the case-studies surface visible."
                     />
+                </AdminSettingsSection>
+
+                <AdminSettingsSection
+                    id="theme-settings"
+                    eyebrow="Theme settings"
+                    title="Colors, glow, and shell parameters"
+                    copy="These values drive the public shell, hero accents, and ambient rendering."
+                >
+                    <Panel class="admin-settings__theme-preview" tone="surface">
+                        <div class="admin-settings__theme-preview-copy">
+                            <p class="type-eyebrow">Live preview</p>
+                            <h3 class="type-h3">Morning and sunset at a glance</h3>
+                            <p class="type-body-sm">
+                                Tune accents, gradients, blur, and grid weight
+                                before saving.
+                            </p>
+                        </div>
+                        <AdminSettingsThemePreview
+                            :settings="form.theme_settings"
+                        />
+                    </Panel>
+
+                    <div class="admin-settings__theme-grid">
+                        <label class="admin-settings__field">
+                            <span class="type-nav">Morning accent</span>
+                            <div class="admin-settings__color-row">
+                                <input
+                                    v-model="form.theme_settings.morning_accent"
+                                    class="admin-settings__color-picker"
+                                    type="color"
+                                />
+                                <input
+                                    v-model="form.theme_settings.morning_accent"
+                                    class="admin-settings__input"
+                                    type="text"
+                                />
+                            </div>
+                            <span
+                                v-if="errorFor('theme_settings.morning_accent')"
+                                class="type-meta admin-settings__error"
+                            >
+                                {{ errorFor('theme_settings.morning_accent') }}
+                            </span>
+                        </label>
+
+                        <label class="admin-settings__field">
+                            <span class="type-nav">Morning glow</span>
+                            <div class="admin-settings__color-row">
+                                <input
+                                    v-model="form.theme_settings.morning_glow"
+                                    class="admin-settings__color-picker"
+                                    type="color"
+                                />
+                                <input
+                                    v-model="form.theme_settings.morning_glow"
+                                    class="admin-settings__input"
+                                    type="text"
+                                />
+                            </div>
+                            <span
+                                v-if="errorFor('theme_settings.morning_glow')"
+                                class="type-meta admin-settings__error"
+                            >
+                                {{ errorFor('theme_settings.morning_glow') }}
+                            </span>
+                        </label>
+
+                        <label class="admin-settings__field">
+                            <span class="type-nav">Morning glow soft</span>
+                            <div class="admin-settings__color-row">
+                                <input
+                                    v-model="form.theme_settings.morning_glow_soft"
+                                    class="admin-settings__color-picker"
+                                    type="color"
+                                />
+                                <input
+                                    v-model="form.theme_settings.morning_glow_soft"
+                                    class="admin-settings__input"
+                                    type="text"
+                                />
+                            </div>
+                            <span
+                                v-if="
+                                    errorFor('theme_settings.morning_glow_soft')
+                                "
+                                class="type-meta admin-settings__error"
+                            >
+                                {{
+                                    errorFor(
+                                        'theme_settings.morning_glow_soft',
+                                    )
+                                }}
+                            </span>
+                        </label>
+
+                        <label class="admin-settings__field">
+                            <span class="type-nav">Sunset accent</span>
+                            <div class="admin-settings__color-row">
+                                <input
+                                    v-model="form.theme_settings.sunset_accent"
+                                    class="admin-settings__color-picker"
+                                    type="color"
+                                />
+                                <input
+                                    v-model="form.theme_settings.sunset_accent"
+                                    class="admin-settings__input"
+                                    type="text"
+                                />
+                            </div>
+                            <span
+                                v-if="errorFor('theme_settings.sunset_accent')"
+                                class="type-meta admin-settings__error"
+                            >
+                                {{ errorFor('theme_settings.sunset_accent') }}
+                            </span>
+                        </label>
+
+                        <label class="admin-settings__field">
+                            <span class="type-nav">Sunset glow</span>
+                            <div class="admin-settings__color-row">
+                                <input
+                                    v-model="form.theme_settings.sunset_glow"
+                                    class="admin-settings__color-picker"
+                                    type="color"
+                                />
+                                <input
+                                    v-model="form.theme_settings.sunset_glow"
+                                    class="admin-settings__input"
+                                    type="text"
+                                />
+                            </div>
+                            <span
+                                v-if="errorFor('theme_settings.sunset_glow')"
+                                class="type-meta admin-settings__error"
+                            >
+                                {{ errorFor('theme_settings.sunset_glow') }}
+                            </span>
+                        </label>
+
+                        <label class="admin-settings__field">
+                            <span class="type-nav">Sunset glow soft</span>
+                            <div class="admin-settings__color-row">
+                                <input
+                                    v-model="
+                                        form.theme_settings.sunset_glow_soft
+                                    "
+                                    class="admin-settings__color-picker"
+                                    type="color"
+                                />
+                                <input
+                                    v-model="
+                                        form.theme_settings.sunset_glow_soft
+                                    "
+                                    class="admin-settings__input"
+                                    type="text"
+                                />
+                            </div>
+                            <span
+                                v-if="
+                                    errorFor('theme_settings.sunset_glow_soft')
+                                "
+                                class="type-meta admin-settings__error"
+                            >
+                                {{
+                                    errorFor(
+                                        'theme_settings.sunset_glow_soft',
+                                    )
+                                }}
+                            </span>
+                        </label>
+
+                        <label class="admin-settings__field">
+                            <span class="type-nav">Header gradient angle</span>
+                            <div class="admin-settings__range-row">
+                                <input
+                                    v-model.number="
+                                        form.theme_settings
+                                            .header_gradient_angle
+                                    "
+                                    class="admin-settings__range"
+                                    type="range"
+                                    min="0"
+                                    max="360"
+                                    step="1"
+                                />
+                                <input
+                                    v-model.number="
+                                        form.theme_settings
+                                            .header_gradient_angle
+                                    "
+                                    class="admin-settings__input admin-settings__input--numeric"
+                                    type="number"
+                                    min="0"
+                                    max="360"
+                                    step="1"
+                                />
+                            </div>
+                            <span
+                                v-if="
+                                    errorFor(
+                                        'theme_settings.header_gradient_angle',
+                                    )
+                                "
+                                class="type-meta admin-settings__error"
+                            >
+                                {{
+                                    errorFor(
+                                        'theme_settings.header_gradient_angle',
+                                    )
+                                }}
+                            </span>
+                        </label>
+
+                        <label class="admin-settings__field">
+                            <span class="type-nav">Ambient blur</span>
+                            <div class="admin-settings__range-row">
+                                <input
+                                    v-model.number="
+                                        form.theme_settings.ambient_blur_px
+                                    "
+                                    class="admin-settings__range"
+                                    type="range"
+                                    min="48"
+                                    max="240"
+                                    step="1"
+                                />
+                                <input
+                                    v-model.number="
+                                        form.theme_settings.ambient_blur_px
+                                    "
+                                    class="admin-settings__input admin-settings__input--numeric"
+                                    type="number"
+                                    min="48"
+                                    max="240"
+                                    step="1"
+                                />
+                            </div>
+                            <span
+                                v-if="
+                                    errorFor('theme_settings.ambient_blur_px')
+                                "
+                                class="type-meta admin-settings__error"
+                            >
+                                {{
+                                    errorFor('theme_settings.ambient_blur_px')
+                                }}
+                            </span>
+                        </label>
+
+                        <label class="admin-settings__field">
+                            <span class="type-nav">Grid line thickness</span>
+                            <div class="admin-settings__range-row">
+                                <input
+                                    v-model.number="
+                                        form.theme_settings.grid_line_px
+                                    "
+                                    class="admin-settings__range"
+                                    type="range"
+                                    min="0.5"
+                                    max="3"
+                                    step="0.1"
+                                />
+                                <input
+                                    v-model.number="
+                                        form.theme_settings.grid_line_px
+                                    "
+                                    class="admin-settings__input admin-settings__input--numeric"
+                                    type="number"
+                                    min="0.5"
+                                    max="3"
+                                    step="0.1"
+                                />
+                            </div>
+                            <span
+                                v-if="errorFor('theme_settings.grid_line_px')"
+                                class="type-meta admin-settings__error"
+                            >
+                                {{ errorFor('theme_settings.grid_line_px') }}
+                            </span>
+                        </label>
+                    </div>
                 </AdminSettingsSection>
             </form>
         </div>

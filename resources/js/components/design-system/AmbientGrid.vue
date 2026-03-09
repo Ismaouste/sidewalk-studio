@@ -141,7 +141,7 @@ onBeforeUnmount(() => {
     --ambient-sun-x: 14%;
     --ambient-sun-y: 10%;
     --ambient-sun-scale: 1.04;
-    --ambient-sun-blur: 124px;
+    --ambient-sun-blur: var(--sw-config-ambient-blur);
     --ambient-sun-opacity: 0.72;
     --ambient-ray-angle: 32deg;
     --ambient-grid-x: -1.4%;
@@ -159,7 +159,7 @@ html[data-theme='sunset'] .ambient-grid {
     --ambient-sun-x: 78%;
     --ambient-sun-y: 18%;
     --ambient-sun-scale: 1.08;
-    --ambient-sun-blur: 136px;
+    --ambient-sun-blur: var(--sw-config-ambient-blur);
     --ambient-sun-opacity: 0.38;
     --ambient-ray-angle: 18deg;
     --ambient-grid-x: 2.1%;
@@ -212,8 +212,8 @@ html[data-theme='sunset'] .ambient-grid {
         repeating-linear-gradient(
             90deg,
             var(--sw-grid-line) 0,
-            var(--sw-grid-line) 1px,
-            transparent 1px,
+            var(--sw-grid-line) var(--sw-config-grid-line),
+            transparent var(--sw-config-grid-line),
             transparent calc(100% / var(--grid-columns))
         ),
         linear-gradient(
@@ -266,8 +266,9 @@ html[data-theme='sunset'] .ambient-grid {
         repeating-linear-gradient(
             90deg,
             color-mix(in srgb, var(--sw-ambient-flare) 20%, transparent) 0,
-            color-mix(in srgb, var(--sw-ambient-flare) 20%, transparent) 1px,
-            transparent 1px,
+            color-mix(in srgb, var(--sw-ambient-flare) 20%, transparent)
+                var(--sw-config-grid-line),
+            transparent var(--sw-config-grid-line),
             transparent calc(100% / var(--grid-columns))
         );
     mask-image: linear-gradient(
@@ -319,13 +320,15 @@ html[data-theme='sunset'] .ambient-grid {
     from {
         transform: translate3d(-2%, -1%, 0) scale(1.04);
         opacity: 0.72;
-        filter: blur(124px);
+        filter: blur(var(--sw-config-ambient-blur));
     }
 
     to {
         transform: translate3d(4%, 6%, 0) scale(1.1);
         opacity: 0.68;
-        filter: blur(148px);
+        filter: blur(
+            calc(var(--sw-config-ambient-blur) + 24px)
+        );
     }
 }
 
@@ -357,13 +360,15 @@ html[data-theme='sunset'] .ambient-grid {
     from {
         transform: translate3d(1%, 1%, 0) scale(1.08);
         opacity: 0.38;
-        filter: blur(136px);
+        filter: blur(var(--sw-config-ambient-blur));
     }
 
     to {
         transform: translate3d(-5%, 8%, 0) scale(1.13);
         opacity: 0.44;
-        filter: blur(160px);
+        filter: blur(
+            calc(var(--sw-config-ambient-blur) + 24px)
+        );
     }
 }
 

@@ -186,7 +186,7 @@ onBeforeUnmount(() => {
             transparent 58%
         ),
         linear-gradient(
-            160deg,
+            var(--sw-config-header-angle),
             color-mix(in srgb, var(--sw-bg-surface) 52%, transparent),
             color-mix(in srgb, var(--sw-bg-elevated) 36%, transparent)
         );
