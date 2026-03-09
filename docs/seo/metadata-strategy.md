@@ -5,7 +5,13 @@ Metadata is generated on the backend and passed twice:
 - as Blade view data for the first HTML response
 - as Inertia props for client-side navigation updates
 
-Site-wide defaults such as the title suffix, default description, and public profile links now resolve through `App\Services\SiteSettingsService`, which falls back to the config and env-backed defaults until a `site_settings` row exists.
+## Resolution order
+
+1. Page or publication values persisted through the admin shell
+2. Repo-owned file-backed frontmatter fallback
+3. Site-wide defaults from `App\Services\SiteSettingsService`
+
+Site-wide defaults such as the title suffix, default description, and public profile links resolve through `SiteSettingsService`, which still falls back to committed defaults when no persisted row exists yet.
 
 ## Required fields
 
@@ -18,42 +24,23 @@ Site-wide defaults such as the title suffix, default description, and public pro
 - JSON-LD array
 - UI breadcrumb payload derived from the same backend breadcrumb source
 
-This keeps v0 SEO usable without turning on the SSR runtime.
+## Current rules
 
-Static editorial pages such as `Projects` and `Local` use the same backend
-pipeline as the archives and detail pages. When public routes change, the old
-path should redirect to the new canonical path instead of exposing duplicate
-metadata.
+- static editorial pages such as `Projects` and `Local` use the same backend pipeline as the archives and detail pages
+- collection detail pages can carry a content image in metadata, with a generated SVG placeholder as fallback when needed
+- binary download endpoints such as `/cv/en` and `/cv/fr` are utility routes and should stay out of page-level metadata flows
+- `/data-processing` remains `noindex,nofollow`
+- request-level locale negotiation must not create duplicate route trees, `hreflang`, or alternate canonical paths until a fuller multilingual SEO model exists
+- legacy `/writing` paths redirect to `/journal` instead of emitting duplicate metadata
 
-Collection detail pages can now carry a content image in metadata. When no
-real featured asset is present, the backend falls back to a generated SVG
-placeholder so Open Graph, Twitter, and JSON-LD still expose a stable visual.
+## Admin-managed metadata
 
-Binary download endpoints such as `/cv/en` and `/cv/fr` are public utility
-routes, not indexable editorial pages. They should stay out of page-level
-metadata flows and return explicit `X-Robots-Tag` headers instead.
+The admin shell can now manage:
 
-The `/data-processing` page follows the same utility rule. It is publicly
-linked from the footer, but should remain `noindex,nofollow` rather than
-joining the editorial discovery surface.
+- per-publication SEO title and description
+- per-publication robots and canonical URL
+- per-page SEO title and description
+- per-page robots and canonical URL
+- per-page Open Graph image references
 
-Public page content can now negotiate between English and French on the same
-canonical URLs. The locale policy is request-scoped and must not create
-duplicate route trees, `hreflang` output, or alternate canonical paths until a
-full multilingual SEO model exists.
-
-The public language switcher should only appear on routes that already have
-dedicated translated page sources or localized collection entries for the
-current slug/archive. Today that safe surface includes `/`, `/local`,
-`/projects`, `/contact`, the translated journal routes, and the translated
-case-study routes. Unsupported routes keep the English canonical experience
-even when a French preference is stored.
-
-`/journal` is exposed from the primary navigation, and the archive route
-keeps its own canonical metadata because journal entries remain indexable and
-directly linkable. The legacy `/writing` paths must redirect to `/journal`
-instead of emitting duplicate metadata.
-
-The public breadcrumb visible in the UI must resolve from the same backend
-breadcrumb array used for `BreadcrumbList` JSON-LD. Do not maintain a separate
-front-only breadcrumb map.
+These values must stay compatible with both live Laravel rendering and the static export flow.

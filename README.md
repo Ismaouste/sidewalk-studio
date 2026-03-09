@@ -24,7 +24,7 @@ This repository now serves two purposes at once:
 The portfolio is intentionally opinionated:
 
 - local-first development with SQLite and Laravel's built-in server
-- public content shaped around real work: e-commerce delivery, product data, CMS work, tracking, consent, connectors, structured data, and editorial systems
+- public content shaped around real work: ecommerce delivery, product data, CMS work, tracking, consent, connectors, structured data, and editorial systems
 - SSR-compatible structure without making SSR runtime mandatory for day-to-day development
 - repo-local specs, plans, and release notes kept alongside the codebase
 
@@ -112,7 +112,8 @@ The public version of the site can now be reconstructed from committed files wit
 For the lightweight public setup, keep:
 
 - `SITE_SETTINGS_SOURCE=files`
-- `SITE_ENABLE_ADMIN=false`
+
+Admin is now a first-class product surface and uses first-run onboarding under `/admin` when no operator exists yet. Public-only static preview remains a separate concern.
 
 ## Repository map
 

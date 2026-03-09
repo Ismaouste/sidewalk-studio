@@ -2,7 +2,7 @@
 
 ## Shared contract
 
-Every Markdown document must define the same frontmatter contract, whether it lives in:
+Every repo-owned Markdown document still defines the same frontmatter contract, whether it lives in:
 
 - `resources/content/pages/<locale>`
 - `resources/content/writing/<locale>`
@@ -36,9 +36,33 @@ Optional editorial/media fields:
 - `stack`
 - `outcomes`
 
+## Database-backed publication contract
+
+The `publications` table mirrors the public-facing editorial contract and adds admin-managed fields:
+
+- `type` as `note`, `journal`, or `case_study`
+- locale
+- slug
+- markdown body
+- publish status and publish date
+- SEO title / description / robots / canonical URL
+- featured image / Open Graph image / featured video
+- freeform metadata for publication-type-specific fields
+
+## Hybrid page contract
+
+The `pages` table stores per-page overrides and structured payload blocks:
+
+- page key
+- locale
+- page title / description
+- SEO title / description / robots / canonical URL
+- Open Graph image
+- structured payload JSON for hero, CTA, intro, or other page-specific blocks
+
 ## Runtime shaping
 
-The PHP repository adds:
+The normalized PHP read layer adds:
 
 - locale
 - rendered HTML
@@ -61,7 +85,7 @@ The PHP repository adds:
 
 ## Page composition fields
 
-Page markdown is allowed to carry structured sections used by the Inertia pages directly. Current examples include:
+Page payloads are allowed to carry structured sections used by the Inertia pages directly. Current examples include:
 
 - `professional_sections`, `associative_sections`, `associative_note_widget`, `side_project_sections`, and `side_projects_widget` inside the internal `experience` content source reused by `/projects`
 - `journal_section`, `engagements_intro`, `engagements`, and `notes_section` inside `local`

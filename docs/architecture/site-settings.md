@@ -18,7 +18,7 @@ That split is still correct, but global site values such as public contact detai
 - `site_settings` is for bounded non-secret runtime configuration.
 - `site_settings` is not a future Sanity responsibility; remote editorial tooling must not become the source of truth for runtime configuration.
 - API keys and other secrets do not belong in `site_settings`; if admin-managed secrets are needed later, they require a separate encrypted store with tighter access rules.
-- Markdown remains the source of truth for editorial content.
+- Editorial content can now live in the database, but repo-owned Markdown remains the import/fallback layer for portable public mode.
 
 ## First settings groups
 
@@ -28,6 +28,10 @@ That split is still correct, but global site values such as public contact detai
 - `seo_defaults`
 - `consent_copy`
 - `feature_toggles`
+- `theme_settings`
+- `static_export_settings`
+- `publishing_state`
+- `admin_state`
 
 ## Defaults and bootstrapping
 
@@ -46,6 +50,8 @@ That split is still correct, but global site values such as public contact detai
 - The first protected admin editor now mounts on top of that service under `/admin/settings`.
 - successful admin writes now add a compact audit entry under `/admin/audit-log`
 - audit summaries record changed groups and field names only; they do not store raw settings values or secrets
+- onboarding completion now also writes through this singleton so the product can tell whether a first operator has already been created
+- rebuild status now lives in `publishing_state` so the admin UI can surface whether public output needs regeneration
 
 ## Database strategy
 

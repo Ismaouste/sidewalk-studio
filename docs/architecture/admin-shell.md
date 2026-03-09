@@ -4,23 +4,27 @@ The admin shell is a minimal operator boundary for Sidewalk Studio.
 
 ## Scope
 
+- production-safe first-run onboarding
 - session-based authentication on the existing Laravel `users` table
 - protected `/admin` routes
 - a dedicated Inertia admin layout separate from the public shell
-- the first bounded editor for `site_settings`
+- bounded editors for site settings, theme/publishing, publications, pages, and managed language files
 - a read-only audit log for recent sensitive operator actions
 
 ## Route boundary
 
-- `/admin/login` is the public auth entry point
-- `/admin`, `/admin/settings`, and `/admin/logout` are protected by `App\Http\Middleware\AdminAuthenticate`
-- authenticated requests land on `/admin/settings`
+- `/admin` is now the first-class product entry point
+- `/admin/onboarding` is available only while no operator exists yet
+- `/admin/login` is the normal auth entry point once onboarding is complete
+- `/admin/settings`, `/admin/theme`, `/admin/publications`, `/admin/pages`, `/admin/language-files`, and `/admin/logout` are protected by `App\Http\Middleware\AdminAuthenticate`
 
 ## Operator bootstrap
 
 There is no public registration flow.
 
-For a portable local bootstrap, `php artisan db:seed` now seeds the project
+The preferred production bootstrap is the first-run onboarding flow under `/admin/onboarding`.
+
+For local convenience, `php artisan db:seed` can still seed the project
 settings plus one operator when these env vars are present:
 
 ```dotenv
@@ -29,8 +33,7 @@ ADMIN_SEED_NAME="Sidewalk Admin"
 ADMIN_SEED_PASSWORD="change-me-local"
 ```
 
-That is the recommended path when recreating the project on another machine or
-on a temporary host.
+That remains a local/development convenience path when recreating the project on another machine or on a temporary host.
 
 The canonical `site_settings` row is now versioned through
 `database/seeders/data/site-settings.json`. If you update those values through
@@ -54,6 +57,14 @@ If `--name` or `--password` is omitted, the command prompts interactively.
 - updates go through `SiteSettingsService::update()`
 - validation still lives in the existing `SiteSettings` payload contract
 - successful writes refresh the cache, create an audit entry, and redirect back with a flash status message
+
+## Content and publishing integration
+
+- publications use a hybrid read layer backed by `publications` plus repo-owned Markdown fallback
+- static pages use a hybrid read layer backed by `pages` plus repo-owned page frontmatter fallback
+- managed language/site copy writes back to `lang/en/site.php` and `lang/fr/site.php`
+- theme, static export controls, and rebuild state live in the extended `site_settings` singleton
+- the rebuild action is synchronous in the first version and can trigger the static preview export command directly
 
 ## Audit trail
 

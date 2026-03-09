@@ -1,12 +1,22 @@
 # Content System
 
-Public content lives in locale-aware Markdown folders:
+Sidewalk Studio now uses a normalized hybrid content layer.
+
+## Sources
+
+Public content still lives in locale-aware Markdown folders:
 
 - `resources/content/pages/<locale>`
 - `resources/content/writing/<locale>`
 - `resources/content/case-studies/<locale>`
 
-English (`en`) is the public default today. French (`fr`) source files now exist for the current public page set (`home`, `local`, `projects`, and `contact`) plus the internal `experience` content fragment that now feeds the consolidated `/projects` page. The first localized editorial footprint also exists for selected `writing` and `case-studies` entries.
+The application can now also persist managed content in the database:
+
+- `pages`
+- `publications`
+- `publication_type_settings`
+
+English (`en`) remains the public default today. French (`fr`) source files still exist for the current public page set and for selected writing/case-study entries.
 
 ## Shared frontmatter
 
@@ -33,21 +43,28 @@ English (`en`) is the public default today. French (`fr`) source files now exist
 - `stack`
 - `outcomes`
 
-## Rendering flow
+## Normalized rendering flow
 
-1. PHP resolves the requested locale path first.
-2. Collection content falls back to `en`, then to the legacy root folder while the migration remains in progress.
-3. Frontmatter is validated before the document enters application flows.
-4. Markdown is rendered to HTML on the backend.
-5. Collection items are shaped with locale metadata, computed reading time, publication type, accent tone, and a resolved image descriptor.
-6. If no featured image exists, a generated SVG placeholder is exposed through `/content-visuals/{section}/{slug}.svg`.
-7. Inertia pages receive already-shaped content arrays.
-8. SEO and sitemap logic reuse the same content source.
+1. The read layer asks the database first for pages and publications when persisted rows exist.
+2. File-backed Markdown still acts as the fallback and import source of truth for legacy content and portable public mode.
+3. Collection content falls back by locale (`fr` -> `en`) without mixing duplicates in public views.
+4. Frontmatter and persisted records both normalize into the same runtime array shape.
+5. Markdown is rendered to HTML on the backend.
+6. Collection items are shaped with locale metadata, computed reading time, publication type (`note`, `journal`, `case_study`), accent tone, and a resolved image descriptor.
+7. If no featured image exists, a generated SVG placeholder is exposed through `/content-visuals/{section}/{slug}.svg`.
+8. Inertia pages, SEO, sitemap generation, and static export all consume that normalized read layer.
 
 ## Publication rule
 
 Only entries with `status: published` are exposed publicly.
-Draft content may exist in the filesystem without leaking into the index pages or sitemap.
+Draft content may exist in the filesystem or database without leaking into the index pages or sitemap.
+
+## Admin and import workflow
+
+- Existing repo-owned pages and publications can be imported into the database through `Database\Seeders\ContentFoundationSeeder`.
+- The admin shell can edit publications directly in the database while still discovering file-backed entries that have not been imported yet.
+- Static pages use a hybrid model: structured admin overrides live in `pages`, but file-backed defaults remain available.
+- Site-level language copy remains file-backed under `lang/*/site.php`, but the admin now writes those files through a structured form instead of requiring direct PHP edits.
 
 ## Locale strategy
 

@@ -1,6 +1,6 @@
 # Structured Data
 
-The current JSON-LD set is intentionally limited to the types already needed by the v0:
+The current JSON-LD set stays intentionally limited to the types already needed by Sidewalk Studio:
 
 - `Person`
 - `WebSite`
@@ -9,26 +9,25 @@ The current JSON-LD set is intentionally limited to the types already needed by 
 - `BlogPosting` for writing entries
 - `Article` for case studies
 
-Static editorial pages such as `Projects` and `Local` keep the default
-`WebPage` + `BreadcrumbList` payload. The payload is generated in PHP so static
-pages, archive pages, and detail pages share the same canonical source of
-truth.
+## Source of truth
 
-The public breadcrumb trail should reuse that same PHP breadcrumb source so the
-visible UI and the emitted `BreadcrumbList` never drift apart.
+Structured-data generation should keep reading normalized page/publication payloads rather than reaching directly into file frontmatter.
 
-Writing and case-study detail pages may now expose an `image` property in
-their `BlogPosting` or `Article` schema. The value can point either to a real
-featured asset or to the generated SVG placeholder route when no image has
-been authored yet.
+That means:
 
-Journal archive and detail schema now resolve on the `/journal` route tree.
-Legacy `/writing` URLs should redirect rather than emit a second structured
-data surface for the same content.
+- publication metadata such as title, summary, dates, image references, and canonical intent can now come from database-managed records
+- case-study-specific metadata remains available through the publication `metadata` payload
+- static editorial pages such as `Projects` and `Local` keep the default `WebPage` + `BreadcrumbList` payload
+- visible breadcrumbs must reuse the same PHP breadcrumb source as `BreadcrumbList`
 
-Binary document downloads such as the public CV files do not emit JSON-LD and
-should not be modeled as standalone content entities in the current release.
+## Current rules
 
-The `/data-processing` utility page can keep the default `WebPage` shape for
-implementation simplicity, but it should not grow richer editorial schema or
-be treated as promoted content.
+- writing and case-study detail pages may expose an `image` property using either a real featured asset or the generated SVG placeholder route
+- journal archive and detail schema resolve on the `/journal` route tree only
+- legacy `/writing` URLs redirect rather than emitting a second structured-data surface
+- binary document downloads do not emit JSON-LD
+- `/data-processing` can keep the default `WebPage` shape, but should not grow richer editorial schema
+
+## Dual-mode requirement
+
+Static export should continue to render the same JSON-LD decisions as the live Laravel runtime because both modes now share the same normalized read layer.

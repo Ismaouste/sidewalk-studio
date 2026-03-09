@@ -14,7 +14,6 @@ This repository now supports a lightweight public mode that can be reproduced on
 Keep these values in `.env`:
 
 - `SITE_SETTINGS_SOURCE=files`
-- `SITE_ENABLE_ADMIN=false`
 - `APP_URL=http://127.0.0.1:8088` for local work, or the target public URL when exporting
 
 SQLite can stay enabled for Laravel runtime compatibility, but public identity and shell copy no longer depend on a database row.
