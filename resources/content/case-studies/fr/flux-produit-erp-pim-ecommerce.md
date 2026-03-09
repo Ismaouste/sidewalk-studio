@@ -1,5 +1,5 @@
 ---
-title: Flux produit entre ERP, PIM et surfaces e-commerce
+title: Flux produit entre ERP, PIM et surfaces ecommerce
 slug: flux-produit-erp-pim-ecommerce
 summary: "Connecteurs, stocks, synchronisations et enrichissement catalogue : rendre la donnée fiable pour les équipes, le front et les robots."
 status: draft
@@ -10,8 +10,8 @@ tags:
     - erp
     - ecommerce
     - work-sample
-seo_title: Flux produit entre ERP, PIM et surfaces e-commerce
-seo_description: Brouillon de cas d'étude sur la circulation de la donnée produit entre ERP, PIM, connecteurs et sites e-commerce.
+seo_title: Flux produit entre ERP, PIM et surfaces ecommerce
+seo_description: Brouillon de cas d'étude sur la circulation de la donnée produit entre ERP, PIM, connecteurs et sites ecommerce.
 category: work
 publication_type: reference
 accent_tone: green
@@ -40,7 +40,7 @@ L'étude de cas doit montrer qu'un connecteur n'est pas juste un tuyau. C'est so
 ## Points à développer
 
 - ERP, PIM, stock et exports comme système vivant
-- Hydratation de la donnée côté e-commerce
+- Hydratation de la donnée côté ecommerce
 - Impact sur Merchant Center, Meta Catalog et données structurées
 - Arbitrages entre quick wins et dette de fond
 

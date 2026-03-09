@@ -1,6 +1,6 @@
 # Ismaël Rodmacq
 
-**Développeur web · e-commerce, donnée produit, SEO technique**
+**Développeur web · ecommerce, donnée produit, SEO technique**
 Laravel · WooCommerce · PrestaShop · Shopify data · tracking / consentement · intégrations métier
 
 Nancy, Grand Est  
@@ -11,13 +11,13 @@ LinkedIn: linkedin.com/in/ismaelrodmacq
 
 ## Profil
 
-Développeur web orienté e-commerce, donnée produit et SEO technique, j’interviens sur des systèmes déjà en mouvement: plateformes marchandes, sites de marque, outils internes, flux catalogue et environnements PHP avec de l’histoire.
+Développeur web orienté ecommerce, donnée produit et SEO technique, j’interviens sur des systèmes déjà en mouvement: plateformes marchandes, sites de marque, outils internes, flux catalogue et environnements PHP avec de l’histoire.
 
 J’aime comprendre comment un projet est réellement utilisé, repérer rapidement les quick wins, puis remettre de l’ordre sans casser l’exploitation. Mon terrain le plus naturel se situe entre delivery, intégration métier, architecture pratique, qualité front et lisibilité pour les équipes comme pour les robots.
 
 ## Positionnement
 
-- Reprise progressive de plateformes e-commerce et sites web existants
+- Reprise progressive de plateformes ecommerce et sites web existants
 - Structuration SEO dès la refonte: URLs, listings, fiches produit, métadonnées, données structurées
 - Circulation de la donnée produit entre PIM, ERP, Shopify, catalogues marketing et front
 - Tracking, data layer, consent mode v2 et gouvernance des scripts
@@ -71,14 +71,14 @@ J’aime comprendre comment un projet est réellement utilisé, repérer rapidem
 
 ## Expérience
 
-### Développeur web / e-commerce
+### Développeur web / ecommerce
 **Jewely / Flippad**
 **sept. 2021 - aujourd’hui**
 
 La grande majorité de mon parcours web s’est construite dans ce cadre, d’abord en alternance puis dans un contexte de delivery multi-clients et produit. Les clients changeaient, les périmètres aussi, mais le socle, les méthodes et la montée en responsabilité se sont construits au même endroit.
 
 Contributions typiques:
-- reprise et évolution de sites e-commerce, sites de marque et projets WordPress, WooCommerce, PrestaShop, Shopify et Laravel/PHP
+- reprise et évolution de sites ecommerce, sites de marque et projets WordPress, WooCommerce, PrestaShop, Shopify et Laravel/PHP
 - récupération, nettoyage, restructuration et hydratation de données issues du PIM, de l’ERP, de Shopify ou d’autres flux maison
 - cadrage SEO des refontes: structure d’URL, listings, fiches produit, données structurées et lisibilité du catalogue
 - intégration front, Sass, composants commerce, templates éditoriaux et qualité de restitution des interfaces
@@ -111,7 +111,7 @@ Médiation entre établissements, coordination partenariale et organisation d’
 ## Projets sélectionnés
 
 ### Jewely / Flippad
-Écosystèmes e-commerce et websites dans le secteur HBJO, avec flux catalogue, donnée produit, SEO, tracking et outils métier connectés.
+Écosystèmes ecommerce et websites dans le secteur HBJO, avec flux catalogue, donnée produit, SEO, tracking et outils métier connectés.
 
 ### Prudhomme Transmissions
 Reprise d’un site WordPress avec catalogue produit et fichiers 3D, dans une logique de clarté commerciale et de structure maintenable.

@@ -26,4 +26,4 @@ Le cadre imposait à la fois :
 
 Le choix d'un dispositif auto-hébergé avec un appui externe sur les sujets de sécurité a permis de garder une base lisible, compatible avec le réel du terrain, sans transformer le projet en usine à gaz.
 
-Ce genre de contexte rappelle qu'un outil associatif peut demander autant de rigueur qu'un produit e-commerce, simplement avec d'autres risques et d'autres priorités.
+Ce genre de contexte rappelle qu'un outil associatif peut demander autant de rigueur qu'un produit ecommerce, simplement avec d'autres risques et d'autres priorités.

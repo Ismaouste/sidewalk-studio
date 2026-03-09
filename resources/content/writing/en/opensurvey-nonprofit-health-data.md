@@ -26,4 +26,4 @@ The context involved:
 
 A self-hosted setup, combined with external help on the sensitive security side, made it possible to keep the system readable and grounded in actual field work without turning it into an overbuilt platform.
 
-It is the kind of context that shows how a non-profit tool can demand as much rigor as an e-commerce product, simply with different risks and priorities.
+It is the kind of context that shows how a non-profit tool can demand as much rigor as an ecommerce product, simply with different risks and priorities.

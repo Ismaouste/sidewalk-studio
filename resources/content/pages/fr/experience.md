@@ -1,25 +1,25 @@
 ---
 seo_title: Parcours
-seo_description: Parcours professionnel autour de l'e-commerce, de la donnée produit, du SEO technique, des intégrations métier et de la modernisation de systèmes vivants.
+seo_description: Parcours professionnel autour de l'ecommerce, de la donnée produit, du SEO technique, des intégrations métier et de la modernisation de systèmes vivants.
 hero:
     eyebrow: Expérience
     title: Un goût pour les systèmes qui doivent vraiment tourner.
-    summary: E-commerce, CMS, connecteurs, donnée produit et delivery dans des contextes où il faut comprendre vite, structurer proprement et livrer juste.
+    summary: Ecommerce, CMS, connecteurs, donnée produit et delivery dans des contextes où il faut comprendre vite, structurer proprement et livrer juste.
 positioning:
     - Comprendre vite un projet, ses usages et ce qui peut bouger tout de suite.
     - Travailler avec les bonnes personnes, les bons outils et une documentation claire pour l'équipe.
     - Prioriser, cadrer, remettre de l'ordre et faire avancer sans bloquer l'existant.
 contexts:
-    - HBJO, sites de marque et e-commerce avec catalogue, stock, médias et mises en ligne qui s'enchaînent.
+    - HBJO, sites de marque et ecommerce avec catalogue, stock, médias et mises en ligne qui s'enchaînent.
     - WordPress, WooCommerce, PrestaShop, Shopify, Laravel, PIM, ERP et connecteurs déjà en service.
     - Refontes et lancements où URLs, fiches produit, SEO, tracking et qualité front se cadrent dès le départ.
 professional_sections:
     - title: Jewely / Flippad
       eyebrow: Même entreprise, plusieurs clients
-      summary: Depuis plus de quatre ans, dont trois en alternance, mon parcours web se construit chez Jewely / Flippad. C'est un cadre formateur qui me fait aujourd'hui confiance sur des projets variés, entre e-commerce, CMS, refontes et lancements dans l'univers HBJO.
+      summary: Depuis plus de quatre ans, dont trois en alternance, mon parcours web se construit chez Jewely / Flippad. C'est un cadre formateur qui me fait aujourd'hui confiance sur des projets variés, entre ecommerce, CMS, refontes et lancements dans l'univers HBJO.
       paragraphs:
           - Chez Jewely / Flippad, le périmètre traverse des sites marchands, des sites de marque et des projets CMS aux fonctionnements très différents. Il va des boutiques HBJO aux sites institutionnels ou métiers, avec WooCommerce, PrestaShop, Shopify, WordPress et des bases Laravel ou PHP selon les besoins du projet.
-          - Le cœur de valeur se joue souvent autour de la donnée produit et de sa circulation entre les outils. PIM, ERP, stocks, exports, APIs, connecteurs et synchronisations doivent produire une information fiable pour les équipes, claire pour le front et directement exploitable par les surfaces e-commerce.
+          - Le cœur de valeur se joue souvent autour de la donnée produit et de sa circulation entre les outils. PIM, ERP, stocks, exports, APIs, connecteurs et synchronisations doivent produire une information fiable pour les équipes, claire pour le front et directement exploitable par les surfaces ecommerce.
           - Ce cadre permet aussi d'approfondir l'intégration front, la qualité Sass, les lancements, la veille technique et les arbitrages de structure SEO. Tracking, data layer, Consent Mode v2, Meta Ads, catalogues marketing, images produit et besoins PDF font partie du même niveau d'exigence.
       detail_groups:
           - title: Clients et univers
@@ -31,7 +31,7 @@ professional_sections:
             items:
                 - PIM, ERP, Shopify data, synchronisations temps réel, APIs, exports XML ou CSV et hydratation dynamique de la donnée produit.
                 - Google Merchant Center, Meta Catalog, Meta Ads, SEO technique, données structurées, architecture d'URLs et logique listing / fiche produit.
-                - GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, data layer, consent mode v2, Avis Vérifiés et autres services e-commerce connectés.
+                - GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, data layer, consent mode v2, Avis Vérifiés et autres services ecommerce connectés.
           - title: Delivery et intégration
             items:
                 - Imports massifs, refacto de données, normalisation des attributs, enrichissement catalogue et gestion du stock.
@@ -107,7 +107,7 @@ stack_groups:
           - XML et JSON-LD
     - title: Environnements typiques
       items:
-          - Plateformes e-commerce
+          - Plateformes ecommerce
           - Sites publics riches en contenu
           - Monolithes legacy sous pression de livraison
     - title: Méthodes de travail
@@ -118,7 +118,7 @@ stack_groups:
           - Revue vie privée et SEO dans l'implémentation
 career_snapshot:
     title: Repères techniques
-    summary: Linux et ligne de commande, plateformes e-commerce et CMS, synchronisation de données, scraping, gestion du stock et des catalogues, APIs, paiements, mesure, configuration des événements, data layer, consentements riches, tracking marketing, SEO technique, performance web et infrastructure légère.
+    summary: Linux et ligne de commande, plateformes ecommerce et CMS, synchronisation de données, scraping, gestion du stock et des catalogues, APIs, paiements, mesure, configuration des événements, data layer, consentements riches, tracking marketing, SEO technique, performance web et infrastructure légère.
     roles:
         - WordPress
         - WooCommerce

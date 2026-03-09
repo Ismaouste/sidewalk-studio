@@ -22,6 +22,6 @@ Ce qui m'intéresse encore dans ces deux projets, c'est le même réflexe de dé
 
 `nancyapipop` reste un prototype très direct, presque une prise d'élan. `culturedex` montre déjà quelque chose de plus mûr : TypeScript, NestJS, une collection Postman, une architecture plus propre, et cette idée de parcourir des objets culturels autour de Nancy à partir de l'API POP.
 
-Ce ne sont pas mes projets les plus proches de l'e-commerce, mais ils disent quelque chose d'important sur ma manière de travailler : j'aime quand une API, un territoire, des contenus et une interface commencent à former un système lisible.
+Ce ne sont pas mes projets les plus proches de l'ecommerce, mais ils disent quelque chose d'important sur ma manière de travailler : j'aime quand une API, un territoire, des contenus et une interface commencent à former un système lisible.
 
 Les dépôts publics sont ici : [nancyapipop](https://github.com/Ismaouste/nancyapipop) et [culturedex](https://github.com/Ismaouste/culturedex).

@@ -1,25 +1,25 @@
 ---
 seo_title: Experience
-seo_description: Professional experience across e-commerce, product data, technical SEO, business integrations, and modernization of live systems.
+seo_description: Professional experience across ecommerce, product data, technical SEO, business integrations, and modernization of live systems.
 hero:
     eyebrow: Experience
     title: A taste for systems that genuinely need to run.
-    summary: E-commerce, CMS, connectors, product data, and delivery in contexts where the work is to understand quickly, structure clearly, and ship cleanly.
+    summary: Ecommerce, CMS, connectors, product data, and delivery in contexts where the work is to understand quickly, structure clearly, and ship cleanly.
 positioning:
     - Understand a project, its usage, and what can move right away.
     - Work with the right people, the right tools, and documentation the team can actually reuse.
     - Prioritize, frame, restore order, and keep things moving without blocking what already exists.
 contexts:
-    - Jewelry and watch commerce, brand sites, and e-commerce surfaces where catalog, stock, media, and go-live timing move together.
+    - Jewelry and watch commerce, brand sites, and ecommerce surfaces where catalog, stock, media, and go-live timing move together.
     - WordPress, WooCommerce, PrestaShop, Shopify, Laravel, PIM, ERP, and connectors already in use.
     - Redesigns and launches where URLs, product pages, SEO, tracking, and front-end quality are framed from the start.
 professional_sections:
     - title: Jewely / Flippad
       eyebrow: One company, multiple client contexts
-      summary: For more than four years, including three in work-study, my web path has been taking shape at Jewely / Flippad. It is the company that trained me and still trusts me today across varied projects spanning e-commerce, CMS work, redesigns, and launches in HBJO environments.
+      summary: For more than four years, including three in work-study, my web path has been taking shape at Jewely / Flippad. It is the company that trained me and still trusts me today across varied projects spanning ecommerce, CMS work, redesigns, and launches in HBJO environments.
       paragraphs:
           - At Jewely / Flippad, the scope runs across commerce sites, brand sites, and CMS projects with very different operating realities. It extends from jewelry and watch storefronts to institutional or business-facing sites, with WooCommerce, PrestaShop, Shopify, WordPress, and Laravel or PHP foundations depending on the project.
-          - A large share of the value sits in product data and the way it moves between systems. PIM, ERP, stock, exports, APIs, connectors, and synchronizations need to produce information that stays reliable for teams, clear on the front end, and directly usable across e-commerce surfaces.
+          - A large share of the value sits in product data and the way it moves between systems. PIM, ERP, stock, exports, APIs, connectors, and synchronizations need to produce information that stays reliable for teams, clear on the front end, and directly usable across ecommerce surfaces.
           - The same context also deepens front-end integration, Sass quality, launch work, technical watch, and SEO framing. Tracking, data layer design, Consent Mode v2, Meta Ads, marketing catalogs, product media, and PDF needs all belong to the same delivery standard.
       detail_groups:
           - title: Clients and sectors
@@ -31,7 +31,7 @@ professional_sections:
             items:
                 - PIM, ERP, Shopify data, real-time synchronization, APIs, XML or CSV exports, and dynamic product-data hydration.
                 - Google Merchant Center, Meta Catalog, Meta Ads, technical SEO, structured data, URL architecture, and listing / product-page logic.
-                - GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, data layer, consent mode v2, Avis Verifies, and other connected e-commerce services.
+                - GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, data layer, consent mode v2, Avis Verifies, and other connected ecommerce services.
           - title: Delivery and integration
             items:
                 - Large imports, data refactors, attribute normalization, catalog enrichment, and stock handling.
@@ -107,7 +107,7 @@ stack_groups:
           - XML and JSON-LD
     - title: Typical environments
       items:
-          - E-commerce platforms
+          - Ecommerce platforms
           - Content-rich public sites
           - Legacy monoliths with active delivery pressure
     - title: Working methods
@@ -118,7 +118,7 @@ stack_groups:
           - Privacy and SEO review inside implementation
 career_snapshot:
     title: Recruiter-ready snapshot
-    summary: Linux and command line, e-commerce platforms and CMS, data synchronization, scraping, stock and catalog handling, APIs, payments, analytics, event configuration, data layer design, rich consent handling, marketing tracking, technical SEO, web performance, and lightweight infrastructure.
+    summary: Linux and command line, ecommerce platforms and CMS, data synchronization, scraping, stock and catalog handling, APIs, payments, analytics, event configuration, data layer design, rich consent handling, marketing tracking, technical SEO, web performance, and lightweight infrastructure.
     roles:
         - WordPress
         - WooCommerce

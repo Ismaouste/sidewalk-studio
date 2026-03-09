@@ -1,6 +1,6 @@
 # Role Targets
 
-## E-commerce tech lead
+## Ecommerce tech lead
 
 Best fit when the company needs a lead who can improve delivery confidence on an existing platform.
 
@@ -22,7 +22,7 @@ What to emphasize:
 - incremental refactors
 - typed runtime boundaries such as content models or site settings
 
-## Product-minded full-stack engineer
+## Product-minded fullstack engineer
 
 Best fit when the role sits between engineering quality and user-facing clarity.
 

@@ -35,7 +35,7 @@ engagements:
       items:
           - Vie associative et culturelle réellement fréquentée dans le Grand Est.
           - Attention constante à la mobilité, au vélo, à l'espace public et aux droits du net.
-          - Même exigence de lisibilité que sur un produit e-commerce ou un service numérique.
+          - Même exigence de lisibilité que sur un produit ecommerce ou un service numérique.
     - title: Ce que je regarde de près
       summary: Je reviens souvent vers les services numériques d'intérêt public, les petits systèmes d'information locaux, l'open data utile, la cartographie, les APIs et les flux qui rendent la ville plus lisible.
       items:

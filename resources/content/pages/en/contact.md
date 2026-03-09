@@ -28,8 +28,8 @@ details:
 services:
     eyebrow: Where I can help
     items:
-        - title: E-commerce and CMS development
-          summary: Commerce sites, WordPress, WooCommerce, PrestaShop, Shopify, Laravel, or PHP work across redesigns, takeovers, and readable full-stack delivery.
+        - title: Ecommerce and CMS development
+          summary: Commerce sites, WordPress, WooCommerce, PrestaShop, Shopify, Laravel, or PHP work across redesigns, takeovers, and readable fullstack delivery.
         - title: Product data and scripts
           summary: PIM, ERP, stock, catalogs, scraping, APIs, exports, and synchronization work across business tools, connectors, and web surfaces.
         - title: Front-end, integration, and connectors

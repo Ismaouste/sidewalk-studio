@@ -28,7 +28,7 @@ details:
 services:
     eyebrow: Où je peux aider
     items:
-        - title: Développement e-commerce et CMS
+        - title: Développement ecommerce et CMS
           summary: Sites marchands, WordPress, WooCommerce, PrestaShop, Shopify, Laravel ou PHP pour des refontes, des reprises et des livraisons full stack qui restent lisibles.
         - title: Donnée produit et scripts
           summary: PIM, ERP, stock, catalogues, scraping, APIs, exports et synchronisations entre outils métier, connecteurs et surfaces web.

@@ -1,17 +1,17 @@
 ---
-seo_title: Engineering for e-commerce, product data, and privacy
-seo_description: 'Sidewalk Studio is the portfolio of Ismael Rodmacq: Laravel, e-commerce, technical SEO, privacy, consent-aware analytics, and maintainable product systems.'
+seo_title: Engineering for ecommerce, product data, and privacy
+seo_description: 'Sidewalk Studio is the portfolio of Ismael Rodmacq: Laravel, ecommerce, technical SEO, privacy, consent-aware analytics, and maintainable product systems.'
 hero:
-    eyebrow: E-commerce, product data, and technical SEO
-    title: Engineering for e-commerce, product data, and its flows.
+    eyebrow: Ecommerce, product data, and technical SEO
+    title: Engineering for ecommerce, product data, and its flows.
     summary: I work on live web systems, with particular attention to product data, API and file-based integrations, large imports, PIM workflows, structured data, Google Merchant Center, Meta Catalog, consent-aware tracking, and product architecture that stays readable over time.
 hero_panel:
-    - E-commerce and CMS development across WooCommerce, PrestaShop, Shopify, and decoupled fronts when the project calls for it.
-    - Full-stack Laravel and PHP delivery across APIs, internal tools, technical framing, pragmatic CI/CD, and commerce operations.
+    - Ecommerce and CMS development across WooCommerce, PrestaShop, Shopify, and decoupled fronts when the project calls for it.
+    - Fullstack Laravel and PHP delivery across APIs, internal tools, technical framing, pragmatic CI/CD, and commerce operations.
     - Technical SEO, structured data, product feeds, PIM workflows, marketing catalogs, tracking, and data layer design handled as part of delivery.
 focus_areas:
     - label: Development work
-      title: Take over live e-commerce platforms
+      title: Take over live ecommerce platforms
       summary: One page to read the frame, the contexts, the recruiter snapshot, and the way I approach Laravel or PHP systems that already have history.
       href: /projects
       cta: Read the experience
@@ -37,5 +37,5 @@ local_teaser:
         - Associative and cultural communities, including Aremedia.
 contact_cta:
     title: Currently at Jewely, open to opportunities, part-time freelance work, and conversations.
-    summary: 'E-commerce platform, internal tool, connector, product flow, technical SEO, or a direct conversation around a digital project: happy to talk.'
+    summary: 'Ecommerce platform, internal tool, connector, product flow, technical SEO, or a direct conversation around a digital project: happy to talk.'
 ---

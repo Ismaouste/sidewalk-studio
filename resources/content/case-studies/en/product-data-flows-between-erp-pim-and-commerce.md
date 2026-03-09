@@ -11,12 +11,12 @@ tags:
     - ecommerce
     - work-sample
 seo_title: Product-data flows between ERP, PIM, and commerce surfaces
-seo_description: Draft case study about product data moving across ERP, PIM, connectors, and e-commerce sites.
+seo_description: Draft case study about product data moving across ERP, PIM, connectors, and ecommerce sites.
 category: work
 publication_type: reference
 accent_tone: green
 client: Jewely / Flippad
-role: Full-stack development, connectors, technical SEO
+role: Fullstack development, connectors, technical SEO
 stack:
     - Laravel
     - PHP

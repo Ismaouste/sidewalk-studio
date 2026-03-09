@@ -11,7 +11,7 @@ tags:
     - structured-data
     - journal
 seo_title: Technical SEO, sitemaps, and structured data for commerce
-seo_description: Draft article on e-commerce technical SEO, sitemaps, robots.txt, structured data, and the quality of product-data circulation.
+seo_description: Draft article on ecommerce technical SEO, sitemaps, robots.txt, structured data, and the quality of product-data circulation.
 category: journal
 publication_type: journal
 accent_tone: sun

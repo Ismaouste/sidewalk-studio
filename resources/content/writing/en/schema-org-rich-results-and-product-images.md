@@ -1,7 +1,7 @@
 ---
 title: Schema.org, rich results, and product images
 slug: schema-org-rich-results-and-product-images
-summary: "A note on e-commerce structured data, product pages, collection pages, organization markup, and one annoying detail: Google does not always like its own WebP format."
+summary: "A note on ecommerce structured data, product pages, collection pages, organization markup, and one annoying detail: Google does not always like its own WebP format."
 status: published
 published_at: 2026-03-08
 updated_at: 2026-03-08
@@ -11,13 +11,13 @@ tags:
     - structured-data
     - notes-dev
 seo_title: Schema.org, rich results, and product images
-seo_description: Technical note on e-commerce structured data, product pages, collection pages, local entities, and the real constraints behind Google rich results.
+seo_description: Technical note on ecommerce structured data, product pages, collection pages, local entities, and the real constraints behind Google rich results.
 category: note
 publication_type: note
 accent_tone: violet
 ---
 
-In e-commerce, structured data is never just about dropping a `Product` node onto a product page and calling it done.
+In ecommerce, structured data is never just about dropping a `Product` node onto a product page and calling it done.
 
 In HBJOAT contexts, the real work often sits in making several layers hold together at once:
 

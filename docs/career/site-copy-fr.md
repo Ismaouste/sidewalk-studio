@@ -4,7 +4,7 @@
 
 ### Hero
 **Title**  
-Ingénierie web calme pour l'e-commerce, la vie privée et les produits durables.
+Ingénierie web calme pour l'ecommerce, la vie privée et les produits durables.
 
 **Lead**  
 Je conçois, stabilise et fais évoluer des systèmes web avec une attention particulière pour la maintenabilité, le SEO technique, les analytics respectueux du consentement et une architecture produit lisible. Une grande partie de mon travail se situe là où l'ambition produit rencontre la réalité: systèmes existants, contraintes de production, utilisateurs réels, et besoin d'améliorer sans ajouter de bruit.
@@ -16,7 +16,7 @@ Voir une sélection de projets
 Lire les notes techniques
 
 ### What I do
-Je travaille sur des produits web qui doivent devenir plus clairs, plus fiables et plus faciles à maintenir. Cela concerne souvent des contextes e-commerce, des environnements legacy, des pages sensibles au SEO, des sujets de consentement et de tracking, et les décisions d'architecture qui conditionnent la qualité dans le temps.
+Je travaille sur des produits web qui doivent devenir plus clairs, plus fiables et plus faciles à maintenir. Cela concerne souvent des contextes ecommerce, des environnements legacy, des pages sensibles au SEO, des sujets de consentement et de tracking, et les décisions d'architecture qui conditionnent la qualité dans le temps.
 
 ### Focus blocks
 - **Stabiliser des systèmes complexes**: Je suis à l'aise dans les produits existants: structure imparfaite, contraintes accumulées, besoins mouvants, et réalité de production qui demande plus de jugement que d'effet d'annonce.
@@ -33,13 +33,13 @@ Espace public, systèmes locaux, interfaces lisibles, cartographie, orientation,
 Un parcours façonné par les systèmes complexes.
 
 **Lead**  
-Mon parcours est ancré dans l'ingénierie web avec une forte orientation e-commerce, maintenabilité, SEO technique, contraintes de conformité et systèmes réellement en production. Je suis particulièrement à l'aise dans les contextes qui demandent de la structure, du jugement et une modernisation progressive plutôt qu'une réinvention de surface.
+Mon parcours est ancré dans l'ingénierie web avec une forte orientation ecommerce, maintenabilité, SEO technique, contraintes de conformité et systèmes réellement en production. Je suis particulièrement à l'aise dans les contextes qui demandent de la structure, du jugement et une modernisation progressive plutôt qu'une réinvention de surface.
 
 ### Current positioning
 Je travaille comme développeur web senior avec une forte orientation lead technique. Mon expérience se situe à l'intersection de l'implémentation, de l'architecture, de la qualité technique et de la réalité opérationnelle: codebases existantes, trafic réel, contraintes business, dette technique, et besoin d'améliorer sans casser ce qui fonctionne déjà.
 
 ### Contexts I know well
-- E-commerce et flux critiques
+- Ecommerce et flux critiques
 - SEO technique et découvrabilité
 - Vie privée et analytics respectueux du consentement
 - Modernisation du legacy

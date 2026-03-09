@@ -1,5 +1,5 @@
 ---
-title: SEO technique, sitemaps et données structurées côté e-commerce
+title: SEO technique, sitemaps et données structurées côté ecommerce
 slug: seo-technique-sitemaps-et-donnees-structurees
 summary: "Architecture d'URL, sitemaps propres, robots.txt lisible et données structurées tenues : ce sont des choix de format autant que des choix SEO."
 status: draft
@@ -10,8 +10,8 @@ tags:
     - ecommerce
     - structured-data
     - journal
-seo_title: SEO technique, sitemaps et données structurées côté e-commerce
-seo_description: Brouillon d'article sur le SEO technique e-commerce, les sitemaps, robots.txt, les données structurées et la qualité de circulation de la donnée produit.
+seo_title: SEO technique, sitemaps et données structurées côté ecommerce
+seo_description: Brouillon d'article sur le SEO technique ecommerce, les sitemaps, robots.txt, les données structurées et la qualité de circulation de la donnée produit.
 category: journal
 publication_type: journal
 accent_tone: sun
@@ -19,7 +19,7 @@ accent_tone: sun
 
 Ce texte doit partir d'un réflexe simple : le SEO technique ne commence pas dans un plugin, mais dans les formats et dans la structure même du site.
 
-Sur un e-commerce, les sitemaps, le `robots.txt`, les URLs, les listings, les fiches produit et les données structurées racontent tous la même chose. S'ils ne sont pas alignés, ce n'est pas seulement un problème de référencement. C'est souvent un problème de conception de la donnée.
+Sur un ecommerce, les sitemaps, le `robots.txt`, les URLs, les listings, les fiches produit et les données structurées racontent tous la même chose. S'ils ne sont pas alignés, ce n'est pas seulement un problème de référencement. C'est souvent un problème de conception de la donnée.
 
 ## À développer
 

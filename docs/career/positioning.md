@@ -2,7 +2,7 @@
 
 ## One-line version
 
-Full-stack e-commerce developer focused on Laravel, technical SEO, privacy-safe analytics, and gradual modernization of existing systems.
+Fullstack ecommerce developer focused on Laravel, technical SEO, privacy-safe analytics, and gradual modernization of existing systems.
 
 ## Recruiter version
 
@@ -19,7 +19,7 @@ My value is usually at the intersection of implementation and system judgment:
 
 ## What differentiates the profile
 
-- strong fit for e-commerce and other production-sensitive web systems
+- strong fit for ecommerce and other production-sensitive web systems
 - comfortable with architecture, implementation, and documentation in the same loop
 - practical privacy and consent awareness, not just generic frontend polish
 - able to make portfolio and internal work look deliberate, documented, and reusable

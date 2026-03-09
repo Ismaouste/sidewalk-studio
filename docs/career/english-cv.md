@@ -1,6 +1,6 @@
 # Ismaël Rodmacq
 
-**Web Developer · e-commerce, product data, technical SEO**
+**Web Developer · ecommerce, product data, technical SEO**
 Laravel · WooCommerce · PrestaShop · Shopify data · tracking / consent · business integrations
 
 Nancy, Grand Est  
@@ -11,13 +11,13 @@ LinkedIn: linkedin.com/in/ismaelrodmacq
 
 ## Profile
 
-Web developer focused on e-commerce, product data, and technical SEO, working on systems already in motion: commerce platforms, brand sites, internal tools, catalog flows, and PHP environments with history.
+Web developer focused on ecommerce, product data, and technical SEO, working on systems already in motion: commerce platforms, brand sites, internal tools, catalog flows, and PHP environments with history.
 
 I like understanding how a project is actually used, identifying quick wins early, then bringing more order without disrupting operations. My strongest context sits between delivery, business integration, practical architecture, front-end quality, and legibility for both teams and robots.
 
 ## Positioning
 
-- Progressive recovery of existing e-commerce platforms and websites
+- Progressive recovery of existing ecommerce platforms and websites
 - SEO structure built into redesigns: URLs, listings, product pages, metadata, and structured data
 - Product data moving across PIM, ERP, Shopify, marketing catalogs, and front-end surfaces
 - Tracking, data layer design, consent mode v2, and script governance
@@ -71,14 +71,14 @@ I like understanding how a project is actually used, identifying quick wins earl
 
 ## Experience
 
-### Web / E-commerce Developer
+### Web / Ecommerce Developer
 **Jewely / Flippad**
 **September 2021 - Present**
 
 Most of my web experience was built in that same company context, first as an apprentice and then in a broader multi-client and product delivery setup. Clients changed and scopes changed, but the foundations, methods, and growing responsibility were developed in one place.
 
 Typical contributions:
-- recovering and evolving e-commerce sites, brand sites, and WordPress, WooCommerce, PrestaShop, Shopify, and Laravel/PHP projects
+- recovering and evolving ecommerce sites, brand sites, and WordPress, WooCommerce, PrestaShop, Shopify, and Laravel/PHP projects
 - retrieving, cleaning, restructuring, and hydrating data coming from the PIM, the ERP, Shopify, or other in-house feeds
 - shaping SEO during redesigns: URL structure, listing pages, product pages, structured data, and catalog legibility
 - front-end integration, Sass systems, commerce components, editorial templates, and cleaner interface delivery
@@ -111,7 +111,7 @@ Handled mediation between institutions, partner coordination, and the organizati
 ## Selected projects
 
 ### Jewely / Flippad
-E-commerce and website ecosystems in the jewelry and watch sector, with catalog flows, product data, SEO, tracking, and connected business tools.
+Ecommerce and website ecosystems in the jewelry and watch sector, with catalog flows, product data, SEO, tracking, and connected business tools.
 
 ### Prudhomme Transmissions
 Recovery of a WordPress site with product catalog and 3D files, built around commercial clarity and maintainable structure.

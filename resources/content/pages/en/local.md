@@ -35,7 +35,7 @@ engagements:
       items:
           - Real involvement with associative and cultural life across the region.
           - Continued attention to mobility, cycling, public space, and digital rights.
-          - The same requirement for clarity as on e-commerce or service products.
+          - The same requirement for clarity as on ecommerce or service products.
     - title: What I keep looking at
       summary: I often return to public-interest digital services, local information systems, useful open data, mapping, APIs, and the small flows that make a city easier to read.
       items:

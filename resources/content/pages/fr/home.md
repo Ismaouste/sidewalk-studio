@@ -1,17 +1,17 @@
 ---
-seo_title: Ingénierie web pour l'e-commerce, la donnée produit et la vie privée
-seo_description: "Sidewalk Studio est le portfolio d'Ismael Rodmacq : Laravel, e-commerce, SEO technique, vie privée, analytics respectueux du consentement et systèmes produit maintenables."
+seo_title: Ingénierie web pour l'ecommerce, la donnée produit et la vie privée
+seo_description: "Sidewalk Studio est le portfolio d'Ismael Rodmacq : Laravel, ecommerce, SEO technique, vie privée, analytics respectueux du consentement et systèmes produit maintenables."
 hero:
-    eyebrow: E-commerce, donnée produit et SEO technique
-    title: Ingénierie web pour l'e-commerce, la donnée produit et ses flux.
+    eyebrow: Ecommerce, donnée produit et SEO technique
+    title: Ingénierie web pour l'ecommerce, la donnée produit et ses flux.
     summary: J'interviens sur des systèmes web déjà en charge, avec une attention particulière pour la donnée produit, les interconnexions par API ou fichiers, les imports massifs, le PIM, les données structurées, Google Merchant Center, Meta Catalog, le tracking sous consentement et une architecture produit qui reste lisible.
 hero_panel:
-    - Développement e-commerce et CMS sur WooCommerce, PrestaShop, Shopify et fronts découplés quand le projet le demande.
-    - Développement full stack en Laravel et PHP, APIs, outils internes, cadrage technique, CI-CD pragmatique et delivery e-commerce.
+    - Développement ecommerce et CMS sur WooCommerce, PrestaShop, Shopify et fronts découplés quand le projet le demande.
+    - Développement full stack en Laravel et PHP, APIs, outils internes, cadrage technique, CI-CD pragmatique et delivery ecommerce.
     - SEO technique, données structurées, flux produit, PIM, catalogues marketing, tracking et data layer au même niveau que la mise en ligne.
 focus_areas:
     - label: Projets de développement
-      title: Reprendre des plateformes e-commerce déjà en charge
+      title: Reprendre des plateformes ecommerce déjà en charge
       summary: Une seule page pour lire le cadre, les contextes, les repères recruteur et la manière dont j'aborde des environnements Laravel ou PHP avec de l'histoire.
       href: /projects
       cta: Lire les expériences
@@ -37,5 +37,5 @@ local_teaser:
         - Communautés associatives et culturelles, dont Aremedia.
 contact_cta:
     title: Actuellement chez Jewely, ouvert aux opportunités, aux missions freelance à temps partiel et aux échanges.
-    summary: "Plateforme e-commerce, outil interne, connecteur, flux produit, SEO technique ou simple discussion autour d'un projet digital : on peut en parler simplement."
+    summary: "Plateforme ecommerce, outil interne, connecteur, flux produit, SEO technique ou simple discussion autour d'un projet digital : on peut en parler simplement."
 ---

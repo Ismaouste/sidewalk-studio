@@ -14,7 +14,7 @@
 
 - Reworked the public navigation around `Hello`, `Expériences`, `Journal`, and `Contact`, with a denser mobile menu, sticky breadcrumb behavior, and a footer-driven language/theme/consent control area.
 - Consolidated the professional narrative around a single `Expériences` surface, clarified the Jewely / Flippad trajectory, separated associative work, and made public writing and notes serve the portfolio instead of feeling like detached archives.
-- Replaced several placeholder sections with profile-specific copy focused on product data, e-commerce delivery, CMS/connectors, tracking, consent orchestration, structured data, and editorial systems.
+- Replaced several placeholder sections with profile-specific copy focused on product data, ecommerce delivery, CMS/connectors, tracking, consent orchestration, structured data, and editorial systems.
 - Polished the visual system with a calmer `Morning` accent, a less Halloween-like `Sunset` palette, a persistent ambient background, a lighter transition overlay, and a more stable loader treatment.
 - Tightened the header, footer, cards, dividers, and content rhythm across desktop and mobile to reduce visual noise and keep the reading flow closer to the final public intent.
 

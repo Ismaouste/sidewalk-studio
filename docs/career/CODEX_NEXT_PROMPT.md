@@ -9,7 +9,7 @@ The public portfolio surface is now close to a first stable release:
 - navigation is centered on `Hello`, `Expériences`, `Journal`, and `Contact`
 - the visual language, loader, themes, mobile navigation, and GitHub Pages preview are in place
 - French copy has been refined first, then English was updated to stay precise and useful rather than literal
-- the professional narrative is now centered on full-stack e-commerce, product data, connectors, tracking, consent, CMS work, and public/non-profit tooling
+- the professional narrative is now centered on fullstack ecommerce, product data, connectors, tracking, consent, CMS work, and public/non-profit tooling
 
 ## Career context to preserve
 
@@ -34,7 +34,7 @@ The next phase is mainly about better public content, especially:
 
 Priority themes already identified:
 
-- structured data in e-commerce, especially jewelry/watch product data
+- structured data in ecommerce, especially jewelry/watch product data
 - collection pages, product pages, organization/local-business data, returns, opening hours
 - Google rich results image constraints and the practical JPEG/PNG vs WebP issue
 - ERP / PIM / product-feed circulation

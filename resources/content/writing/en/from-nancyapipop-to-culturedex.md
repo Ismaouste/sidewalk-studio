@@ -22,6 +22,6 @@ What still matters to me in both projects is the same reflex: take a public data
 
 `nancyapipop` stays very close to the prototype stage, almost like a launch pad. `culturedex` already shows something more mature: TypeScript, NestJS, a Postman collection, cleaner architecture, and the idea of browsing cultural items around Nancy through the POP API.
 
-They are not the projects that speak most directly to my e-commerce work, but they do say something useful about how I like to work: I enjoy the moment when an API, a territory, some content, and an interface start to form a readable system.
+They are not the projects that speak most directly to my ecommerce work, but they do say something useful about how I like to work: I enjoy the moment when an API, a territory, some content, and an interface start to form a readable system.
 
 The public repositories are here: [nancyapipop](https://github.com/Ismaouste/nancyapipop) and [culturedex](https://github.com/Ismaouste/culturedex).

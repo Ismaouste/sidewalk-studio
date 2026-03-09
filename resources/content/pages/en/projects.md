@@ -1,10 +1,10 @@
 ---
 seo_title: Experience
-seo_description: Professional experience, demanding e-commerce environments, and a few public references that make the level of execution visible.
+seo_description: Professional experience, demanding ecommerce environments, and a few public references that make the level of execution visible.
 hero:
     eyebrow: Experience
     title: A taste for systems that have to keep running.
-    summary: "Full-stack development, e-commerce, CMS work, connectors, product flows, tracking, and technical SEO across varied contexts with the same need for reliability, clarity, and useful execution."
+    summary: "Fullstack development, ecommerce, CMS work, connectors, product flows, tracking, and technical SEO across varied contexts with the same need for reliability, clarity, and useful execution."
 tracks_section:
     label: Tracks
     intro:
