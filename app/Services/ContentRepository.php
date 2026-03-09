@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\Publication;
+use App\Models\PublicationTypeSetting;
 use App\Support\ContentVisual;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use RuntimeException;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -17,22 +20,20 @@ class ContentRepository
      */
     public function all(string $section, ?string $locale = null, bool $includeFallback = true): Collection
     {
-        $directories = $this->resolveDirectories(
-            $section,
-            $locale ?? app()->getLocale(),
-            $includeFallback,
-        );
+        $requestedLocale = $locale ?? app()->getLocale();
+        $items = $this->mergedItems($section, $requestedLocale, $includeFallback);
 
-        return collect($directories)
-            ->flatMap(fn (string $directory) => collect(File::files($directory))
-                ->filter(fn ($file) => $file->getExtension() === 'md')
-                ->map(fn ($file) => $this->parseFile(
-                    $section,
-                    $file->getPathname(),
-                    $this->inferLocale($section, $file->getPathname()),
-                )))
-            ->unique('slug')
-            ->sortByDesc(fn (array $item) => $item['published_at'])
+        return $items->sort(function (array $left, array $right) use ($requestedLocale): int {
+            $leftPriority = $left['locale'] === $requestedLocale ? 0 : 1;
+            $rightPriority = $right['locale'] === $requestedLocale ? 0 : 1;
+
+            if ($leftPriority !== $rightPriority) {
+                return $leftPriority <=> $rightPriority;
+            }
+
+            return strcmp($right['published_at'] ?: '', $left['published_at'] ?: '');
+        })
+            ->unique(fn (array $item): string => "{$item['publication_type']}:{$item['slug']}")
             ->values();
     }
 
@@ -98,6 +99,220 @@ class ContentRepository
     }
 
     /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function adminIndex(?string $locale = null): array
+    {
+        $locales = $locale ? [$locale] : ['en', 'fr'];
+        $items = collect($locales)
+            ->flatMap(fn (string $entryLocale) => $this->mergedAllTypes($entryLocale, false))
+            ->sortByDesc(fn (array $item) => $item['published_at'] ?: '0000-00-00')
+            ->values();
+
+        return [
+            'note' => $items->where('publication_type', 'note')->values()->all(),
+            'journal' => $items->where('publication_type', 'journal')->values()->all(),
+            'case_study' => $items->where('publication_type', 'case_study')->values()->all(),
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function adminFind(string $type, string $locale, string $slug): array
+    {
+        $item = $this->mergedAllTypes($locale, true)
+            ->first(fn (array $item): bool => $item['publication_type'] === $type && $item['slug'] === $slug);
+
+        if (! $item) {
+            abort(404);
+        }
+
+        return $item;
+    }
+
+    /**
+     * @return array<int, array<string, string>>
+     */
+    public function publicationTypeSettings(): array
+    {
+        $defaults = collect([
+            [
+                'type' => 'note',
+                'cta_label' => 'Browse notes',
+                'cta_target' => '/journal?type=note',
+                'accent_color' => 'dominant',
+            ],
+            [
+                'type' => 'journal',
+                'cta_label' => 'Open the journal',
+                'cta_target' => '/journal',
+                'accent_color' => 'green',
+            ],
+            [
+                'type' => 'case_study',
+                'cta_label' => 'View case studies',
+                'cta_target' => '/case-studies',
+                'accent_color' => 'sun',
+            ],
+        ])->keyBy('type');
+
+        if (! Schema::hasTable('publication_type_settings')) {
+            return $defaults->values()->all();
+        }
+
+        $persisted = PublicationTypeSetting::query()->get()
+            ->map(fn (PublicationTypeSetting $setting): array => [
+                'type' => $setting->type,
+                'cta_label' => $setting->cta_label,
+                'cta_target' => $setting->cta_target,
+                'accent_color' => $setting->accent_color,
+            ])
+            ->keyBy('type');
+
+        return $defaults->merge($persisted)->values()->all();
+    }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
+    public function savePublication(array $payload): array
+    {
+        $record = Publication::query()
+            ->where('type', $payload['original_publication_type'] ?? $payload['publication_type'])
+            ->where('locale', $payload['original_locale'] ?? $payload['locale'])
+            ->where('slug', $payload['original_slug'] ?? $payload['slug'])
+            ->first();
+
+        if (! $record instanceof Publication) {
+            $record = new Publication();
+        }
+
+        $record->fill([
+            'type' => $payload['publication_type'],
+            'locale' => $payload['locale'],
+            'slug' => $payload['slug'],
+            'title' => $payload['title'],
+            'summary' => $payload['summary'],
+            'body_markdown' => $payload['body_markdown'],
+            'status' => $payload['status'],
+            'published_at' => $payload['published_at'] ?: null,
+            'updated_at_publication' => $payload['updated_at'] ?: null,
+            'tags' => $payload['tags'],
+            'seo_title' => $payload['seo_title'],
+            'seo_description' => $payload['seo_description'],
+            'robots' => $payload['robots'] ?: 'index,follow',
+            'canonical_url' => $payload['canonical_url'] ?: null,
+            'featured_image' => $payload['featured_image'] ?: null,
+            'featured_image_alt' => $payload['featured_image_alt'] ?: null,
+            'open_graph_image' => $payload['open_graph_image'] ?: null,
+            'featured_video' => $payload['featured_video'] ?: null,
+            'category' => $payload['category'] ?: null,
+            'accent_tone' => $payload['accent_tone'] ?: null,
+            'metadata' => $payload['metadata'] ?? [],
+            'source_path' => $payload['source_path'] ?? null,
+            'source_driver' => 'database',
+        ]);
+        $record->save();
+
+        return $this->shapeDatabaseRecord($record);
+    }
+
+    /**
+     * @param  array<int, array<string, string>>  $settings
+     */
+    public function savePublicationTypeSettings(array $settings): void
+    {
+        if (! Schema::hasTable('publication_type_settings')) {
+            return;
+        }
+
+        foreach ($settings as $setting) {
+            PublicationTypeSetting::query()->updateOrCreate(
+                ['type' => $setting['type']],
+                [
+                    'cta_label' => $setting['cta_label'],
+                    'cta_target' => $setting['cta_target'],
+                    'accent_color' => $setting['accent_color'],
+                ],
+            );
+        }
+    }
+
+    /**
+     * @return Collection<int, array<string, mixed>>
+     */
+    protected function mergedItems(string $section, string $locale, bool $includeFallback): Collection
+    {
+        $fileItems = $this->fileItems($section, $locale, $includeFallback);
+        $dbItems = $this->databaseItemsForSection($section, $locale, $includeFallback);
+
+        return $fileItems
+            ->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug']))
+            ->merge(
+                $dbItems->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug'])),
+            )
+            ->values();
+    }
+
+    /**
+     * @return Collection<int, array<string, mixed>>
+     */
+    protected function mergedAllTypes(string $locale, bool $includeFallback): Collection
+    {
+        return $this->mergedItems('writing', $locale, $includeFallback)
+            ->merge($this->mergedItems('case-studies', $locale, $includeFallback))
+            ->values();
+    }
+
+    /**
+     * @return Collection<int, array<string, mixed>>
+     */
+    protected function databaseItemsForSection(string $section, string $locale, bool $includeFallback): Collection
+    {
+        if (! Schema::hasTable('publications')) {
+            return collect();
+        }
+
+        $types = $section === 'writing'
+            ? ['note', 'journal']
+            : ['case_study'];
+
+        $locales = $includeFallback && $locale !== 'en'
+            ? [$locale, 'en']
+            : [$locale];
+
+        return Publication::query()
+            ->whereIn('type', $types)
+            ->whereIn('locale', $locales)
+            ->get()
+            ->map(fn (Publication $record): array => $this->shapeDatabaseRecord($record))
+            ->sortBy(fn (array $item): int => $item['locale'] === $locale ? 0 : 1)
+            ->unique(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug']));
+    }
+
+    /**
+     * @return Collection<int, array<string, mixed>>
+     */
+    protected function fileItems(string $section, string $locale, bool $includeFallback): Collection
+    {
+        $directories = $this->resolveDirectories($section, $locale, $includeFallback);
+
+        return collect($directories)
+            ->flatMap(fn (string $directory) => collect(File::files($directory))
+                ->filter(fn ($file) => $file->getExtension() === 'md')
+                ->map(fn ($file) => $this->parseFile(
+                    $section,
+                    $file->getPathname(),
+                    $this->inferLocale($section, $file->getPathname()),
+                )))
+            ->sortBy(fn (array $item): int => $item['locale'] === $locale ? 0 : 1)
+            ->unique(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug']))
+            ->values();
+    }
+
+    /**
      * @return array<string, mixed>
      */
     protected function parseFile(string $section, string $path, string $locale): array
@@ -130,15 +345,11 @@ class ContentRepository
             'allow_unsafe_links' => false,
         ]);
 
-        $publishedAt = $this->parseDate($matter['published_at']);
-        $updatedAt = $this->parseDate($matter['updated_at']);
-        $category = (string) ($matter['category'] ?? ($section === 'writing' ? 'journal' : 'work'));
-        $accentTone = (string) ($matter['accent_tone'] ?? '');
-        $publicationType = (string) ($matter['publication_type'] ?? ($section === 'writing' ? 'note' : 'reference'));
-
-        $url = $section === 'writing'
-            ? route('writing.show', $matter['slug'])
-            : route('case-studies.show', $matter['slug']);
+        $publicationType = $this->normalizePublicationType(
+            $section,
+            (string) ($matter['publication_type'] ?? ''),
+            $matter['tags'] ?? [],
+        );
 
         $item = [
             'section' => $section,
@@ -147,34 +358,126 @@ class ContentRepository
             'slug' => (string) $matter['slug'],
             'summary' => (string) $matter['summary'],
             'status' => $status,
-            'published_at' => $publishedAt->toDateString(),
-            'updated_at' => $updatedAt->toDateString(),
+            'published_at' => $this->parseDate($matter['published_at'])->toDateString(),
+            'updated_at' => $this->parseDate($matter['updated_at'])->toDateString(),
             'tags' => $this->normalizeList($matter['tags']),
             'seo_title' => (string) $matter['seo_title'],
             'seo_description' => (string) $matter['seo_description'],
+            'robots' => (string) ($matter['robots'] ?? 'index,follow'),
+            'canonical_url' => (string) ($matter['canonical_url'] ?? ''),
             'client' => (string) ($matter['client'] ?? ''),
             'role' => (string) ($matter['role'] ?? ''),
             'stack' => $this->normalizeList($matter['stack'] ?? []),
             'outcomes' => $this->normalizeList($matter['outcomes'] ?? []),
             'reading_time' => max(1, (int) ceil(str_word_count(strip_tags($html)) / 220)),
+            'body_markdown' => $document->body(),
             'body_html' => $html,
             'excerpt' => Str::of(strip_tags($html))->squish()->limit(180)->toString(),
-            'url' => $url,
-            'category' => $category,
+            'url' => $this->publicUrl($publicationType, (string) $matter['slug']),
+            'category' => (string) ($matter['category'] ?? ($section === 'writing' ? 'journal' : 'work')),
             'publication_type' => $publicationType,
-            'accent_tone' => $accentTone,
+            'accent_tone' => (string) ($matter['accent_tone'] ?? ''),
             'featured_image' => (string) ($matter['featured_image'] ?? ''),
             'featured_image_alt' => (string) ($matter['featured_image_alt'] ?? ''),
+            'open_graph_image' => (string) ($matter['open_graph_image'] ?? ($matter['featured_image'] ?? '')),
             'featured_video' => (string) ($matter['featured_video'] ?? ''),
+            'source_path' => $path,
+            'source_driver' => 'file',
+            'metadata' => [
+                'client' => (string) ($matter['client'] ?? ''),
+                'role' => (string) ($matter['role'] ?? ''),
+                'stack' => $this->normalizeList($matter['stack'] ?? []),
+                'outcomes' => $this->normalizeList($matter['outcomes'] ?? []),
+            ],
         ];
 
         $image = ContentVisual::image($item);
-
         $item['image'] = $image;
         $item['image_url'] = $image['url'];
         $item['image_alt'] = $image['alt'];
 
         return $item;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function shapeDatabaseRecord(Publication $record): array
+    {
+        $html = (string) Str::markdown($record->body_markdown, [
+            'html_input' => 'strip',
+            'allow_unsafe_links' => false,
+        ]);
+
+        $metadata = $record->metadata ?? [];
+        $item = [
+            'section' => $record->type === 'case_study' ? 'case-studies' : 'writing',
+            'locale' => $record->locale,
+            'title' => $record->title,
+            'slug' => $record->slug,
+            'summary' => $record->summary,
+            'status' => $record->status,
+            'published_at' => $record->published_at?->toDateString() ?? '',
+            'updated_at' => $record->updated_at_publication?->toDateString() ?? '',
+            'tags' => $record->tags ?? [],
+            'seo_title' => $record->seo_title,
+            'seo_description' => $record->seo_description,
+            'robots' => $record->robots,
+            'canonical_url' => $record->canonical_url ?? '',
+            'client' => (string) ($metadata['client'] ?? ''),
+            'role' => (string) ($metadata['role'] ?? ''),
+            'stack' => $this->normalizeList($metadata['stack'] ?? []),
+            'outcomes' => $this->normalizeList($metadata['outcomes'] ?? []),
+            'reading_time' => max(1, (int) ceil(str_word_count(strip_tags($html)) / 220)),
+            'body_markdown' => $record->body_markdown,
+            'body_html' => $html,
+            'excerpt' => Str::of(strip_tags($html))->squish()->limit(180)->toString(),
+            'url' => $this->publicUrl($record->type, $record->slug),
+            'category' => (string) ($record->category ?? ''),
+            'publication_type' => $record->type,
+            'accent_tone' => (string) ($record->accent_tone ?? ''),
+            'featured_image' => (string) ($record->featured_image ?? ''),
+            'featured_image_alt' => (string) ($record->featured_image_alt ?? ''),
+            'open_graph_image' => (string) ($record->open_graph_image ?? $record->featured_image ?? ''),
+            'featured_video' => (string) ($record->featured_video ?? ''),
+            'source_path' => $record->source_path,
+            'source_driver' => $record->source_driver,
+            'metadata' => $metadata,
+        ];
+
+        $image = ContentVisual::image($item);
+        $item['image'] = $image;
+        $item['image_url'] = $image['url'];
+        $item['image_alt'] = $image['alt'];
+
+        return $item;
+    }
+
+    protected function publicUrl(string $publicationType, string $slug): string
+    {
+        return $publicationType === 'case_study'
+            ? route('case-studies.show', $slug)
+            : route('writing.show', $slug);
+    }
+
+    protected function normalizePublicationType(string $section, string $frontmatterValue, mixed $tags): string
+    {
+        if ($section === 'case-studies') {
+            return 'case_study';
+        }
+
+        if (in_array($frontmatterValue, ['note', 'journal'], true)) {
+            return $frontmatterValue;
+        }
+
+        $normalizedTags = $this->normalizeList($tags);
+
+        return in_array('notes-dev', $normalizedTags, true) ? 'note' : 'journal';
+    }
+
+    protected function itemKey(string $type, string $locale, string $slug): string
+    {
+        return "{$type}:{$locale}:{$slug}";
     }
 
     /**

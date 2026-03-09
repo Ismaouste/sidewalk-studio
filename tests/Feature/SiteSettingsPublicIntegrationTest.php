@@ -18,7 +18,6 @@ class SiteSettingsPublicIntegrationTest extends TestCase
 
         config([
             'site.settings_source' => 'database',
-            'site.admin_enabled' => true,
         ]);
     }
 

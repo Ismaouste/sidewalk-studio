@@ -24,9 +24,9 @@ function submit() {
                 <p class="type-eyebrow">Protected admin</p>
                 <h1 class="type-h1 admin-login__title">Operator login</h1>
                 <p class="type-body admin-login__copy">
-                    This shell is limited to internal settings work. Create the
-                    first operator locally with
-                    <code>php artisan admin:create-user &lt;email&gt;</code>.
+                    This shell is limited to internal settings and publishing
+                    work. First-run onboarding creates the initial operator in a
+                    production-safe way when no account exists yet.
                 </p>
             </div>
 

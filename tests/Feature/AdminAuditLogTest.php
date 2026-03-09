@@ -19,14 +19,13 @@ class AdminAuditLogTest extends TestCase
 
         config([
             'site.settings_source' => 'database',
-            'site.admin_enabled' => true,
         ]);
     }
 
     public function test_guest_is_redirected_from_admin_audit_log(): void
     {
         $this->get('/admin/audit-log')
-            ->assertRedirect('/admin/login');
+            ->assertRedirect('/admin/onboarding');
     }
 
     public function test_authenticated_operator_can_view_admin_audit_log(): void

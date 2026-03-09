@@ -36,13 +36,13 @@ function handleSystemChange(event: MediaQueryListEvent): void {
     writeTheme(theme);
 }
 
-export function initializeTheme(): void {
+export function initializeTheme(defaultTheme: ThemeMode | null = null): void {
     if (initialized || typeof window === 'undefined') {
         return;
     }
 
     const stored = readStoredTheme();
-    const initial = stored ?? resolveSystemTheme();
+    const initial = stored ?? defaultTheme ?? resolveSystemTheme();
 
     currentTheme.value = initial;
     hasManualPreference.value = stored !== null;

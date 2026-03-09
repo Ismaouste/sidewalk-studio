@@ -28,3 +28,72 @@ export type ContactSubmissionEntry = {
     created_at: string | null;
     read_at: string | null;
 };
+
+export type PublicationAdminEntry = {
+    section: 'writing' | 'case-studies';
+    locale: 'en' | 'fr';
+    title: string;
+    slug: string;
+    summary: string;
+    status: 'draft' | 'published';
+    published_at: string;
+    updated_at: string;
+    tags: string[];
+    seo_title: string;
+    seo_description: string;
+    robots: string;
+    canonical_url: string;
+    client: string;
+    role: string;
+    stack: string[];
+    outcomes: string[];
+    category: string;
+    publication_type: 'note' | 'journal' | 'case_study';
+    accent_tone: string;
+    featured_image: string;
+    featured_image_alt: string;
+    open_graph_image: string;
+    featured_video: string;
+    body_markdown: string;
+    source_path: string | null;
+    source_driver: 'file' | 'database';
+    metadata: {
+        client?: string;
+        role?: string;
+        stack?: string[];
+        outcomes?: string[];
+    };
+    original_publication_type?: 'note' | 'journal' | 'case_study';
+    original_locale?: 'en' | 'fr';
+    original_slug?: string;
+};
+
+export type PublicationTypeSetting = {
+    type: 'note' | 'journal' | 'case_study';
+    cta_label: string;
+    cta_target: string;
+    accent_color: string;
+};
+
+export type AdminPageEntry = {
+    page_key: string;
+    locale: 'en' | 'fr';
+    title: string;
+    description: string;
+    seo_title: string;
+    seo_description: string;
+    robots: string;
+    canonical_url: string;
+    open_graph_image: string;
+    payload: Record<string, unknown>;
+    source_path: string | null;
+    source_driver: 'file' | 'database';
+};
+
+export type ManagedLanguageFile = {
+    key: string;
+    label: string;
+    locale: 'en' | 'fr';
+    path: string;
+    payload: Record<string, unknown>;
+};

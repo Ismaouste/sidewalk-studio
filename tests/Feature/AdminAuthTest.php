@@ -19,20 +19,57 @@ class AdminAuthTest extends TestCase
 
         config([
             'site.settings_source' => 'database',
-            'site.admin_enabled' => true,
         ]);
     }
 
-    public function test_admin_login_page_is_reachable(): void
+    public function test_first_run_admin_entry_redirects_to_onboarding(): void
     {
+        $this->get('/admin')
+            ->assertRedirect('/admin/onboarding');
+
+        $this->get('/admin/onboarding')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->component('Admin/Auth/Onboarding'));
+    }
+
+    public function test_guest_is_redirected_to_admin_onboarding_before_the_first_operator_exists(): void
+    {
+        $this->get('/admin/settings')
+            ->assertRedirect('/admin/onboarding');
+    }
+
+    public function test_onboarding_creates_the_first_operator_and_bootstraps_settings(): void
+    {
+        $this->post('/admin/onboarding', [
+            'name' => 'First Operator',
+            'email' => 'operator@example.test',
+            'password' => 'A-secure-password!12',
+            'password_confirmation' => 'A-secure-password!12',
+        ])->assertRedirect('/admin/settings');
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'operator@example.test',
+        ]);
+        $this->assertDatabaseHas('site_settings', [
+            'id' => SiteSetting::SINGLETON_ID,
+        ]);
+    }
+
+    public function test_admin_login_page_is_reachable_once_an_operator_exists(): void
+    {
+        User::factory()->create();
+
         $this->get('/admin/login')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->component('Admin/Auth/Login'));
     }
 
-    public function test_guest_is_redirected_to_admin_login(): void
+    public function test_guest_is_redirected_to_admin_login_after_onboarding(): void
     {
+        User::factory()->create();
+
         $this->get('/admin/settings')
             ->assertRedirect('/admin/login');
     }

@@ -327,12 +327,19 @@ class SiteController extends Controller
      */
     protected function publicationWidget(array $options): array
     {
+        $typeSettings = collect($this->content->publicationTypeSettings())
+            ->keyBy('type');
+        $presentation = ! empty($options['publication_type'])
+            ? $typeSettings->get($options['publication_type'])
+            : null;
+
         return [
             'eyebrow' => $options['eyebrow'],
             'title' => $options['title'],
             'description' => $options['description'],
-            'ctaLabel' => $options['ctaLabel'],
-            'ctaHref' => $options['ctaHref'],
+            'ctaLabel' => $presentation['cta_label'] ?? $options['ctaLabel'],
+            'ctaHref' => $presentation['cta_target'] ?? $options['ctaHref'],
+            'accentColor' => $presentation['accent_color'] ?? null,
             'items' => $this->content->feed($options['sections'], [
                 'locale' => app()->getLocale(),
                 'include_fallback' => false,

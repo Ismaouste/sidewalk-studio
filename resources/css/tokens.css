@@ -56,6 +56,9 @@
     --sw-motion-sun: 900ms cubic-bezier(0.4, 0, 0.2, 1);
     --sw-ambient-progress: 0;
     --sw-ambient-navigation-shift: 0;
+    --sw-runtime-gradient-angle: 132deg;
+    --sw-runtime-surface-blur: 18px;
+    --sw-runtime-line-thickness: 1px;
 }
 
 :root,

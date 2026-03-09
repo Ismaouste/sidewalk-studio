@@ -200,6 +200,10 @@ class SiteSettingsServiceTest extends TestCase
             'seo_defaults' => json_encode($payload['seo_defaults']),
             'consent_copy' => json_encode($payload['consent_copy']),
             'feature_toggles' => json_encode($payload['feature_toggles']),
+            'theme_settings' => json_encode($payload['theme_settings']),
+            'static_export_settings' => json_encode($payload['static_export_settings']),
+            'publishing_state' => json_encode($payload['publishing_state']),
+            'admin_state' => json_encode($payload['admin_state']),
             'created_at' => now(),
             'updated_at' => now(),
         ];

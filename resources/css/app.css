@@ -121,9 +121,10 @@ html[data-theme='sunset'] .cm__body {
 #cc-main .cm,
 #cc-main .pm,
 .cm__body {
-    border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
+    border: var(--sw-runtime-line-thickness, 1px) solid
+        color-mix(in srgb, var(--sw-border) 86%, transparent);
     box-shadow: var(--sw-shadow-md);
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(var(--sw-runtime-surface-blur, 18px));
 }
 
 #cc-main .cm__desc,

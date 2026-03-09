@@ -51,6 +51,8 @@ class HandleInertiaRequests extends Middleware
                 'runtime' => [
                     'staticPreview' => $request->headers->get('X-Static-Preview') === '1',
                     'staticBasePath' => $request->headers->get('X-Static-Preview-Base'),
+                    'preprodModeEnabled' => $settings->staticExportSettings->preprodModeEnabled,
+                    'themeDefaults' => $settings->themeSettings->toArray(),
                 ],
             ],
             'consent' => [

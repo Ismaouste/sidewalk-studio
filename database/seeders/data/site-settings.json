@@ -28,5 +28,27 @@
         "show_labs": true,
         "show_writing": true,
         "show_case_studies": true
+    },
+    "theme_settings": {
+        "default_theme": "morning",
+        "gradient_angle": 132,
+        "surface_blur": 18,
+        "line_thickness": 1
+    },
+    "static_export_settings": {
+        "static_mode_enabled": true,
+        "github_pages_enabled": true,
+        "preprod_mode_enabled": false,
+        "export_base_path": "/sidewalk-studio/",
+        "export_output_path": "dist/static-preview"
+    },
+    "publishing_state": {
+        "rebuild_required": false,
+        "last_rebuilt_at": null,
+        "last_change_summary": null
+    },
+    "admin_state": {
+        "onboarding_completed_at": null,
+        "primary_operator_email": null
     }
 }

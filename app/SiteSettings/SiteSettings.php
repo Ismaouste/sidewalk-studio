@@ -5,9 +5,13 @@ namespace App\SiteSettings;
 use App\SiteSettings\Data\ConsentCopySettings;
 use App\SiteSettings\Data\ContactDetailsSettings;
 use App\SiteSettings\Data\FeatureTogglesSettings;
+use App\SiteSettings\Data\AdminStateSettings;
+use App\SiteSettings\Data\PublishingStateSettings;
 use App\SiteSettings\Data\SeoDefaultsSettings;
 use App\SiteSettings\Data\SiteIdentitySettings;
 use App\SiteSettings\Data\SocialLinksSettings;
+use App\SiteSettings\Data\StaticExportSettings;
+use App\SiteSettings\Data\ThemeSettings;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -20,6 +24,10 @@ final readonly class SiteSettings
         public SeoDefaultsSettings $seoDefaults,
         public ConsentCopySettings $consentCopy,
         public FeatureTogglesSettings $featureToggles,
+        public ThemeSettings $themeSettings,
+        public StaticExportSettings $staticExportSettings,
+        public PublishingStateSettings $publishingState,
+        public AdminStateSettings $adminState,
     ) {}
 
     public static function fromPayload(array $payload): self
@@ -33,6 +41,10 @@ final readonly class SiteSettings
             seoDefaults: SeoDefaultsSettings::fromArray($validated['seo_defaults']),
             consentCopy: ConsentCopySettings::fromArray($validated['consent_copy']),
             featureToggles: FeatureTogglesSettings::fromArray($validated['feature_toggles']),
+            themeSettings: ThemeSettings::fromArray($validated['theme_settings']),
+            staticExportSettings: StaticExportSettings::fromArray($validated['static_export_settings']),
+            publishingState: PublishingStateSettings::fromArray($validated['publishing_state']),
+            adminState: AdminStateSettings::fromArray($validated['admin_state']),
         );
     }
 
@@ -45,6 +57,10 @@ final readonly class SiteSettings
             'seo_defaults' => $this->seoDefaults->toArray(),
             'consent_copy' => $this->consentCopy->toArray(),
             'feature_toggles' => $this->featureToggles->toArray(),
+            'theme_settings' => $this->themeSettings->toArray(),
+            'static_export_settings' => $this->staticExportSettings->toArray(),
+            'publishing_state' => $this->publishingState->toArray(),
+            'admin_state' => $this->adminState->toArray(),
         ];
     }
 
@@ -80,6 +96,28 @@ final readonly class SiteSettings
             'feature_toggles.show_labs' => ['required', 'boolean'],
             'feature_toggles.show_writing' => ['required', 'boolean'],
             'feature_toggles.show_case_studies' => ['required', 'boolean'],
+
+            'theme_settings' => ['required', 'array:default_theme,gradient_angle,surface_blur,line_thickness'],
+            'theme_settings.default_theme' => ['required', 'string', 'in:morning,sunset'],
+            'theme_settings.gradient_angle' => ['required', 'integer', 'between:0,360'],
+            'theme_settings.surface_blur' => ['required', 'integer', 'between:0,40'],
+            'theme_settings.line_thickness' => ['required', 'integer', 'between:1,8'],
+
+            'static_export_settings' => ['required', 'array:static_mode_enabled,github_pages_enabled,preprod_mode_enabled,export_base_path,export_output_path'],
+            'static_export_settings.static_mode_enabled' => ['required', 'boolean'],
+            'static_export_settings.github_pages_enabled' => ['required', 'boolean'],
+            'static_export_settings.preprod_mode_enabled' => ['required', 'boolean'],
+            'static_export_settings.export_base_path' => ['required', 'string', 'max:120'],
+            'static_export_settings.export_output_path' => ['required', 'string', 'max:255'],
+
+            'publishing_state' => ['required', 'array:rebuild_required,last_rebuilt_at,last_change_summary'],
+            'publishing_state.rebuild_required' => ['required', 'boolean'],
+            'publishing_state.last_rebuilt_at' => ['nullable', 'date'],
+            'publishing_state.last_change_summary' => ['nullable', 'string', 'max:255'],
+
+            'admin_state' => ['required', 'array:onboarding_completed_at,primary_operator_email'],
+            'admin_state.onboarding_completed_at' => ['nullable', 'date'],
+            'admin_state.primary_operator_email' => ['nullable', 'email:rfc', 'max:255'],
         ]);
 
         try {

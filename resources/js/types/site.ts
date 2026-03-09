@@ -51,6 +51,32 @@ export type FeatureTogglesSettings = {
     show_case_studies: boolean;
 };
 
+export type ThemeSettings = {
+    default_theme: 'morning' | 'sunset';
+    gradient_angle: number;
+    surface_blur: number;
+    line_thickness: number;
+};
+
+export type StaticExportSettings = {
+    static_mode_enabled: boolean;
+    github_pages_enabled: boolean;
+    preprod_mode_enabled: boolean;
+    export_base_path: string;
+    export_output_path: string;
+};
+
+export type PublishingState = {
+    rebuild_required: boolean;
+    last_rebuilt_at: string | null;
+    last_change_summary: string | null;
+};
+
+export type AdminState = {
+    onboarding_completed_at: string | null;
+    primary_operator_email: string | null;
+};
+
 export type SiteSettingsPayload = {
     site_identity: SiteIdentitySettings;
     contact_details: SiteContact;
@@ -58,6 +84,10 @@ export type SiteSettingsPayload = {
     seo_defaults: SeoDefaultsSettings;
     consent_copy: ConsentCopySettings;
     feature_toggles: FeatureTogglesSettings;
+    theme_settings: ThemeSettings;
+    static_export_settings: StaticExportSettings;
+    publishing_state: PublishingState;
+    admin_state: AdminState;
 };
 
 export type FlashProps = {
@@ -102,6 +132,8 @@ export type SiteProps = {
     runtime: {
         staticPreview: boolean;
         staticBasePath: string | null;
+        preprodModeEnabled?: boolean;
+        themeDefaults?: ThemeSettings;
     };
 };
 
@@ -173,6 +205,7 @@ export type PublicationWidget = {
     description: string;
     ctaLabel: string;
     ctaHref: string;
+    accentColor?: string | null;
     items: ContentItem[];
 };
 

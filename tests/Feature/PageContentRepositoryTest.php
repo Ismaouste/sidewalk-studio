@@ -12,11 +12,11 @@ class PageContentRepositoryTest extends TestCase
         $page = app(PageContentRepository::class)->get('home');
 
         $this->assertSame(
-            'Engineering for e-commerce, product data, and privacy',
+            'Engineering for ecommerce, product data, and privacy',
             $page['seo_title'],
         );
         $this->assertSame(
-            'Engineering for e-commerce, product data, and its flows.',
+            'Engineering for ecommerce, product data, and its flows.',
             $page['hero']['title'],
         );
     }

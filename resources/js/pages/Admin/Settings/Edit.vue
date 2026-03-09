@@ -49,6 +49,10 @@ function createFormState(settings: SiteSettingsPayload): SiteSettingsPayload {
         seo_defaults: { ...settings.seo_defaults },
         consent_copy: { ...settings.consent_copy },
         feature_toggles: { ...settings.feature_toggles },
+        theme_settings: { ...settings.theme_settings },
+        static_export_settings: { ...settings.static_export_settings },
+        publishing_state: { ...settings.publishing_state },
+        admin_state: { ...settings.admin_state },
     };
 }
 

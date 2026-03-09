@@ -21,7 +21,7 @@ class ContentRepositoryTest extends TestCase
         $this->assertTrue($items->every(fn (array $item) => $item['status'] === 'published'));
         $this->assertContains('journal', $items->pluck('category')->all());
         $this->assertContains('note', $items->pluck('category')->all());
-        $this->assertTrue($items->every(fn (array $item) => $item['publication_type'] === 'note'));
+        $this->assertContains('note', $items->pluck('publication_type')->all());
         $this->assertStringContainsString('/content-visuals/writing/', $items->first()['image_url']);
     }
 
@@ -42,7 +42,7 @@ class ContentRepositoryTest extends TestCase
         $this->assertSame('en', $item['locale']);
         $this->assertContains('Laravel 12', $item['stack']);
         $this->assertSame('work', $item['category']);
-        $this->assertSame('reference', $item['publication_type']);
+        $this->assertSame('case_study', $item['publication_type']);
         $this->assertStringContainsString('/content-visuals/case-studies/', $item['image_url']);
         $this->assertStringContainsString('The first iteration of Sidewalk Studio started from a mismatch', $item['body_html']);
     }

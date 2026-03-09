@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Middleware\AdminAuthenticate;
-use App\Http\Middleware\AdminFeatureEnabled;
 use App\Http\Middleware\CachePublicResponse;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\ResolvePublicLocale;
@@ -29,7 +28,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'admin.auth' => AdminAuthenticate::class,
-            'admin.enabled' => AdminFeatureEnabled::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

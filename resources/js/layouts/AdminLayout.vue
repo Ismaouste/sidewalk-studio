@@ -13,6 +13,26 @@ type AdminPageProps = {
 const page = usePage<AdminPageProps>();
 const navigation = [
     {
+        label: 'Publications',
+        href: '/admin/publications',
+        note: 'Notes, journal entries, case studies, and CTA settings',
+    },
+    {
+        label: 'Pages',
+        href: '/admin/pages',
+        note: 'SEO and structured payload overrides for public pages',
+    },
+    {
+        label: 'Language files',
+        href: '/admin/language-files',
+        note: 'Structured editing for repo-backed visible site copy',
+    },
+    {
+        label: 'Theme & publishing',
+        href: '/admin/theme',
+        note: 'Theme defaults, static export controls, and rebuild state',
+    },
+    {
         label: 'Inbox',
         href: '/admin/contact-submissions',
         note: 'Messages stored from the public contact form',
@@ -96,13 +116,13 @@ const currentSection = computed(
                 <Panel class="admin-shell__note" tone="grid">
                     <p class="type-eyebrow">Operator notes</p>
                     <p class="type-body-sm admin-shell__note-copy">
-                        This shell writes the singleton
-                        <code>site_settings</code> aggregate. Secrets and
-                        provider keys stay in <code>.env</code>.
+                        This shell now spans runtime settings, admin onboarding,
+                        public content, managed copy files, and rebuild flow.
                     </p>
                     <p class="type-meta admin-shell__note-meta">
-                        Audit entries now track sensitive writes without storing
-                        raw secrets or payload values.
+                        Secrets and provider keys stay in <code>.env</code>.
+                        Audit entries track operator changes without storing raw
+                        secrets or full payload snapshots.
                     </p>
                 </Panel>
             </aside>
@@ -138,7 +158,7 @@ const currentSection = computed(
     border-bottom: 1px solid
         color-mix(in srgb, var(--sw-border) 82%, transparent);
     background: color-mix(in srgb, var(--sw-bg-base) 88%, transparent);
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(var(--sw-runtime-surface-blur, 18px));
 }
 
 .admin-shell__bar,

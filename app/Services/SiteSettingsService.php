@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\SiteSetting;
 use App\SiteSettings\SiteSettings;
+use Carbon\CarbonImmutable;
 use App\Support\PublicLocale;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
@@ -115,6 +116,10 @@ class SiteSettingsService
             'seo_defaults' => $record->seo_defaults ?? [],
             'consent_copy' => $record->consent_copy ?? [],
             'feature_toggles' => $record->feature_toggles ?? [],
+            'theme_settings' => $record->theme_settings ?? [],
+            'static_export_settings' => $record->static_export_settings ?? [],
+            'publishing_state' => $record->publishing_state ?? [],
+            'admin_state' => $record->admin_state ?? [],
         ]);
     }
 
@@ -156,7 +161,70 @@ class SiteSettingsService
                 'show_writing' => true,
                 'show_case_studies' => true,
             ],
+            'theme_settings' => [
+                'default_theme' => 'morning',
+                'gradient_angle' => 132,
+                'surface_blur' => 18,
+                'line_thickness' => 1,
+            ],
+            'static_export_settings' => [
+                'static_mode_enabled' => true,
+                'github_pages_enabled' => true,
+                'preprod_mode_enabled' => false,
+                'export_base_path' => '/sidewalk-studio/',
+                'export_output_path' => 'dist/static-preview',
+            ],
+            'publishing_state' => [
+                'rebuild_required' => false,
+                'last_rebuilt_at' => null,
+                'last_change_summary' => null,
+            ],
+            'admin_state' => [
+                'onboarding_completed_at' => null,
+                'primary_operator_email' => null,
+            ],
         ];
+    }
+
+    public function markRebuildRequired(string $summary): SiteSettings
+    {
+        $payload = $this->current()->toPersistenceArray();
+        $payload['publishing_state'] = [
+            'rebuild_required' => true,
+            'last_rebuilt_at' => $payload['publishing_state']['last_rebuilt_at'] ?? null,
+            'last_change_summary' => $summary,
+        ];
+
+        $this->store($this->hydrate($payload));
+
+        return $this->refresh();
+    }
+
+    public function markRebuilt(?string $summary = null): SiteSettings
+    {
+        $payload = $this->current()->toPersistenceArray();
+        $payload['publishing_state'] = [
+            'rebuild_required' => false,
+            'last_rebuilt_at' => CarbonImmutable::now()->toIso8601String(),
+            'last_change_summary' => $summary,
+        ];
+
+        $this->store($this->hydrate($payload));
+
+        return $this->refresh();
+    }
+
+    public function completeOnboarding(string $email): SiteSettings
+    {
+        $payload = $this->current()->toPersistenceArray();
+        $payload['admin_state'] = [
+            'onboarding_completed_at' => CarbonImmutable::now()->toIso8601String(),
+            'primary_operator_email' => $email,
+        ];
+
+        $this->store($this->hydrate($payload));
+
+        return $this->refresh();
     }
 
     protected function source(): string

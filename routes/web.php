@@ -2,7 +2,13 @@
 
 use App\Http\Controllers\Admin\AdminAuditLogController;
 use App\Http\Controllers\Admin\AdminContactSubmissionController;
+use App\Http\Controllers\Admin\AdminEntryController;
+use App\Http\Controllers\Admin\AdminLanguageFileController;
+use App\Http\Controllers\Admin\AdminPageController;
+use App\Http\Controllers\Admin\AdminPublicationController;
+use App\Http\Controllers\Admin\AdminThemeController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\Auth\AdminOnboardingController;
 use App\Http\Controllers\Admin\SiteSettingsController as AdminSiteSettingsController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\ContactSubmissionController;
@@ -39,18 +45,34 @@ Route::get('/cv/{locale}', [SiteController::class, 'downloadCv'])
     ->whereIn('locale', ['en', 'fr'])
     ->name('career.cv.download');
 
-Route::prefix('admin')->name('admin.')->middleware('admin.enabled')->group(function (): void {
+Route::prefix('admin')->name('admin.')->group(function (): void {
+    Route::get('/', AdminEntryController::class)->name('index');
+    Route::get('/onboarding', [AdminOnboardingController::class, 'create'])->name('onboarding.create');
+    Route::post('/onboarding', [AdminOnboardingController::class, 'store'])->name('onboarding.store');
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])
         ->middleware('throttle:6,1')
         ->name('authenticate');
 
     Route::middleware('admin.auth')->group(function (): void {
-        Route::redirect('/', '/admin/settings')->name('index');
         Route::get('/contact-submissions', [AdminContactSubmissionController::class, 'index'])->name('contact-submissions.index');
         Route::get('/audit-log', [AdminAuditLogController::class, 'index'])->name('audit-log.index');
         Route::get('/settings', [AdminSiteSettingsController::class, 'edit'])->name('settings.edit');
         Route::put('/settings', [AdminSiteSettingsController::class, 'update'])->name('settings.update');
+        Route::get('/theme', [AdminThemeController::class, 'edit'])->name('theme.edit');
+        Route::put('/theme', [AdminThemeController::class, 'update'])->name('theme.update');
+        Route::post('/theme/rebuild', [AdminThemeController::class, 'rebuild'])->name('theme.rebuild');
+        Route::get('/pages', [AdminPageController::class, 'index'])->name('pages.index');
+        Route::get('/pages/{page}/{locale}', [AdminPageController::class, 'edit'])->name('pages.edit');
+        Route::put('/pages/{page}/{locale}', [AdminPageController::class, 'update'])->name('pages.update');
+        Route::get('/publications', [AdminPublicationController::class, 'index'])->name('publications.index');
+        Route::get('/publications/create/{type}', [AdminPublicationController::class, 'create'])->name('publications.create');
+        Route::post('/publications', [AdminPublicationController::class, 'store'])->name('publications.store');
+        Route::get('/publications/{type}/{locale}/{slug}', [AdminPublicationController::class, 'edit'])->name('publications.edit');
+        Route::put('/publications/{type}/{locale}/{slug}', [AdminPublicationController::class, 'update'])->name('publications.update');
+        Route::put('/publication-type-settings', [AdminPublicationController::class, 'updateTypeSettings'])->name('publications.type-settings.update');
+        Route::get('/language-files', [AdminLanguageFileController::class, 'index'])->name('language-files.index');
+        Route::put('/language-files/{key}', [AdminLanguageFileController::class, 'update'])->name('language-files.update');
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     });
 });

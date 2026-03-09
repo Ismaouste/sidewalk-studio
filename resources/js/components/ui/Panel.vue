@@ -19,10 +19,10 @@ const props = withDefaults(
 
 <style scoped>
 .panel-frame {
-    border: 1px solid var(--sw-border);
+    border: var(--sw-runtime-line-thickness, 1px) solid var(--sw-border);
     border-radius: var(--sw-radius-lg);
     box-shadow: var(--sw-shadow-sm);
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(var(--sw-runtime-surface-blur, 18px));
 }
 
 .panel-frame--surface {

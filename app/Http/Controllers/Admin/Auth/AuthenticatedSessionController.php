@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\AdminOnboardingService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,10 @@ class AuthenticatedSessionController extends Controller
 {
     public function create(): Response|RedirectResponse
     {
+        if (app(AdminOnboardingService::class)->needsOnboarding()) {
+            return to_route('admin.onboarding.create');
+        }
+
         if (Auth::check()) {
             return to_route('admin.settings.edit');
         }
@@ -22,6 +27,10 @@ class AuthenticatedSessionController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if (app(AdminOnboardingService::class)->needsOnboarding()) {
+            return to_route('admin.onboarding.create');
+        }
+
         $credentials = $request->validate([
             'email' => ['required', 'email:rfc'],
             'password' => ['required', 'string'],

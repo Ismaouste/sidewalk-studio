@@ -5,11 +5,29 @@ import { createApp, h } from 'vue';
 import { initializeTheme } from '@/composables/useTheme';
 import { configurePageTransitions } from '@/composables/usePageTransitions';
 import { initializeStaticPreviewNavigation } from '@/lib/staticPreview';
-import type { ConsentConfig, SiteProps } from '@/types';
+import type { ConsentConfig, SiteProps, ThemeSettings } from '@/types';
 import '../css/app.css';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Sidewalk Studio';
-initializeTheme();
+
+function applyThemeSettings(settings?: ThemeSettings) {
+    if (!settings || typeof document === 'undefined') {
+        return;
+    }
+
+    document.documentElement.style.setProperty(
+        '--sw-runtime-gradient-angle',
+        `${settings.gradient_angle}deg`,
+    );
+    document.documentElement.style.setProperty(
+        '--sw-runtime-surface-blur',
+        `${settings.surface_blur}px`,
+    );
+    document.documentElement.style.setProperty(
+        '--sw-runtime-line-thickness',
+        `${settings.line_thickness}px`,
+    );
+}
 
 function scheduleIdleTask(task: () => void) {
     if (typeof window === 'undefined') {
@@ -36,6 +54,8 @@ createInertiaApp({
         ),
     setup({ el, App, props, plugin }) {
         const site = props.initialPage.props.site as SiteProps;
+        initializeTheme(site.runtime.themeDefaults?.default_theme ?? null);
+        applyThemeSettings(site.runtime.themeDefaults);
 
         configurePageTransitions({
             staticPreview: site.runtime.staticPreview,

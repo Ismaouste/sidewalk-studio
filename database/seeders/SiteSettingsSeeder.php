@@ -27,7 +27,12 @@ class SiteSettingsSeeder extends Seeder
             throw new \RuntimeException("Invalid site settings snapshot [{$snapshotPath}].");
         }
 
-        $siteSettings->store($siteSettings->hydrate($payload));
+        $siteSettings->store($siteSettings->hydrate(
+            array_replace_recursive(
+                $siteSettings->defaults()->toPersistenceArray(),
+                $payload,
+            ),
+        ));
         $siteSettings->refresh();
     }
 }

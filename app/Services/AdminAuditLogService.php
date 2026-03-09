@@ -40,6 +40,22 @@ class AdminAuditLogService
         );
     }
 
+    public function recordAction(
+        string $action,
+        string $subject,
+        array $summary,
+        ?User $actor = null,
+        string $actorType = 'user',
+    ): AdminAuditLog {
+        return $this->record(
+            actorType: $actor instanceof User ? $actorType : 'unknown',
+            actor: $actor,
+            action: $action,
+            subject: $subject,
+            summary: $summary,
+        );
+    }
+
     protected function record(
         string $actorType,
         ?User $actor,

@@ -2,15 +2,14 @@
 
 return [
     'settings_source' => env('SITE_SETTINGS_SOURCE', 'files'),
-    'admin_enabled' => filter_var(env('SITE_ENABLE_ADMIN', false), FILTER_VALIDATE_BOOL),
     'name' => env('SITE_NAME', 'Ismael Rodmacq'),
-    'tagline' => env('SITE_TAGLINE', 'Full-stack e-commerce. Cross-functional data, reliable flows.'),
-    'description' => env('SITE_DESCRIPTION', 'Full-stack web development for e-commerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO.'),
+    'tagline' => env('SITE_TAGLINE', 'Fullstack ecommerce. Cross-functional data, reliable flows.'),
+    'description' => env('SITE_DESCRIPTION', 'Fullstack web development for ecommerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO.'),
     'locale' => 'en',
     'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
     'author' => [
         'name' => env('SITE_AUTHOR_NAME', 'Ismael Rodmacq'),
-        'job_title' => env('SITE_AUTHOR_TITLE', 'Full-stack e-commerce developer for product data, integrations, tracking, and technical SEO'),
+        'job_title' => env('SITE_AUTHOR_TITLE', 'Fullstack ecommerce developer for product data, integrations, tracking, and technical SEO'),
         'email' => env('SITE_CONTACT_EMAIL', 'ismael@rodmacq.com'),
         'same_as' => array_values(array_filter(array_map(
             'trim',

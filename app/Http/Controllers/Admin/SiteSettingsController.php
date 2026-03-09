@@ -30,14 +30,14 @@ class SiteSettingsController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
-        $payload = $request->only([
+        $payload = array_replace_recursive($this->siteSettings->current()->toPersistenceArray(), $request->only([
             'site_identity',
             'contact_details',
             'social_links',
             'seo_defaults',
             'consent_copy',
             'feature_toggles',
-        ]);
+        ]));
         $before = $this->siteSettings->current()->toPersistenceArray();
 
         try {
@@ -59,7 +59,7 @@ class SiteSettingsController extends Controller
             );
         });
 
-        $this->siteSettings->refresh();
+        $this->siteSettings->markRebuildRequired('Site settings changed.');
 
         return to_route('admin.settings.edit')
             ->with(
