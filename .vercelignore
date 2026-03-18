@@ -11,6 +11,8 @@ _starter_v0
 dist
 node_modules
 specs
+public/hot
+public/index.php
 storage/logs
 tests
 tools

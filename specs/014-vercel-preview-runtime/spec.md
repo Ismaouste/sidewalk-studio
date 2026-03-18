@@ -45,7 +45,7 @@ The repo should contain a versioned Vercel preview path that boots Laravel throu
 
 ## Acceptance criteria
 
-- `vercel.json` and a repo-owned PHP entrypoint route requests through a Laravel preview runtime instead of serving raw PHP files.
+- `vercel.json` and a repo-owned PHP entrypoint keep `public/` as the static surface and rewrite application requests through a Laravel preview runtime instead of serving raw PHP files.
 - The runtime stores writable Laravel state in temp storage and does not rely on stale local bootstrap cache files.
 - Preview defaults keep file-backed site settings, cookie sessions, and SSR-disabled rendering unless the environment overrides them.
 - The deployment workflow is documented as a local CLI preview path and explicitly separated from the GitHub Pages static export.
