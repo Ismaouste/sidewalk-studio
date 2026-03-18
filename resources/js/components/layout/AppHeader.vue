@@ -163,6 +163,27 @@ onBeforeUnmount(() => {
     z-index: 0;
 }
 
+:global(html[data-theme='sunset']) .app-header::before {
+    background:
+        radial-gradient(
+            circle at 14% 0%,
+            color-mix(in srgb, var(--sw-accent-sun) 22%, transparent),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 82% 14%,
+            color-mix(in srgb, var(--sw-accent-violet) 20%, transparent),
+            transparent 42%
+        ),
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--sw-bg-base) 96%, transparent) 0%,
+            color-mix(in srgb, var(--sw-bg-base) 84%, transparent) 28%,
+            color-mix(in srgb, var(--sw-bg-base) 48%, transparent) 66%,
+            transparent 100%
+        );
+}
+
 .app-header__shell {
     width: min(
         calc(100% - var(--sw-layout-gutter-md)),
@@ -199,6 +220,39 @@ onBeforeUnmount(() => {
     backdrop-filter: blur(30px) saturate(150%);
 }
 
+:global(html[data-theme='sunset']) .app-header__inner {
+    border-color: color-mix(
+        in srgb,
+        var(--sw-accent-violet) 18%,
+        var(--sw-border)
+    );
+    background:
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--sw-bg-elevated) 36%, transparent),
+            transparent 60%
+        ),
+        linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--sw-bg-surface) 80%, var(--sw-accent-violet) 20%),
+            color-mix(in srgb, var(--sw-bg-elevated) 78%, var(--sw-accent-sun) 22%)
+        ),
+        radial-gradient(
+            circle at 14% 0%,
+            color-mix(in srgb, var(--sw-accent-coral) 12%, transparent),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 88% 120%,
+            color-mix(in srgb, var(--sw-accent-violet) 16%, transparent),
+            transparent 46%
+        );
+    box-shadow:
+        0 18px 46px color-mix(in srgb, black 42%, transparent),
+        0 0 0 1px color-mix(in srgb, var(--sw-accent-violet) 8%, transparent),
+        var(--sw-shadow-md);
+}
+
 .app-header__inner::before {
     content: '';
     position: absolute;
@@ -227,6 +281,31 @@ onBeforeUnmount(() => {
             var(--sw-header-glow-opacity, 1)
     );
     pointer-events: none;
+}
+
+:global(html[data-theme='sunset']) .app-header__inner::before {
+    inset: -34px -72px -20px -72px;
+    background:
+        radial-gradient(
+            circle at var(--sw-sun-vx, 78%) var(--sw-sun-vy, 18%),
+            color-mix(in srgb, var(--sw-accent-sun) 46%, transparent),
+            color-mix(in srgb, var(--sw-accent-coral) 24%, transparent) 18%,
+            color-mix(in srgb, var(--sw-accent-violet) 18%, transparent) 36%,
+            transparent 54%
+        ),
+        radial-gradient(
+            circle at 22% 110%,
+            color-mix(in srgb, var(--sw-accent-violet) 22%, transparent),
+            transparent 48%
+        ),
+        linear-gradient(
+            118deg,
+            color-mix(in srgb, var(--sw-accent-violet) 12%, transparent),
+            color-mix(in srgb, var(--sw-accent-sun) 12%, transparent) 34%,
+            transparent 66%
+        );
+    background-size: 160% 160%, 180% 180%, 170% 170%;
+    background-position: 0% 0%, 100% 100%, 18% 24%;
 }
 
 .app-header__inner::after {
@@ -359,4 +438,5 @@ onBeforeUnmount(() => {
         block-size: 32px;
     }
 }
+
 </style>

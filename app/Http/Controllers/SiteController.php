@@ -73,7 +73,7 @@ class SiteController extends Controller
             [
                 'breadcrumb' => [
                     ['name' => 'Home', 'path' => '/'],
-                    ['name' => 'Local', 'path' => '/local'],
+                    ['name' => app()->getLocale() === 'fr' ? 'Localisation' : 'Local', 'path' => '/local'],
                 ],
             ],
         );

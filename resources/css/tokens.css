@@ -150,58 +150,68 @@ html[data-theme='morning'] {
 html[data-theme='sunset'] {
     color-scheme: dark;
 
-    --sw-bg-base: #13141b;
-    --sw-bg-surface: #1a1d26;
-    --sw-bg-grid: #232734;
-    --sw-bg-elevated: #2c3140;
+    --sw-bg-base: #0d1020;
+    --sw-bg-surface: #151a31;
+    --sw-bg-grid: #1d2550;
+    --sw-bg-elevated: #252d56;
 
-    --sw-text-primary: #f2edf0;
-    --sw-text-secondary: #cbc1c6;
-    --sw-text-muted: #9b9199;
+    --sw-text-primary: #f6eff7;
+    --sw-text-secondary: #d5cad7;
+    --sw-text-muted: #9f97b3;
     --sw-text-inverse: #13141b;
 
-    --sw-accent-dominant: #d6d9df;
-    --sw-accent-green: #68c19c;
-    --sw-accent-sun: #d6d9df;
-    --sw-accent-coral: #b89aa5;
-    --sw-accent-violet: #8a8fa9;
+    --sw-accent-dominant: #ffd3a1;
+    --sw-accent-green: #62d7c9;
+    --sw-accent-sun: #ff9a62;
+    --sw-accent-coral: #ff6b93;
+    --sw-accent-violet: #8068ff;
 
-    --sw-border: #393b48;
-    --sw-border-focus: #d6d9df;
+    --sw-border: #394273;
+    --sw-border-focus: #ffb57f;
     --sw-card-hover-border: color-mix(
         in srgb,
-        var(--sw-border) 84%,
-        var(--sw-accent-dominant) 16%
+        var(--sw-border) 72%,
+        var(--sw-accent-violet) 28%
     );
-    --sw-grid-line: rgba(214, 217, 223, 0.08);
+    --sw-grid-line: rgba(128, 104, 255, 0.12);
     --sw-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.25);
     --sw-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
-    --sw-header-bg: linear-gradient(160deg, #20202b, #1d2230, #13141b);
+    --sw-header-bg: linear-gradient(160deg, #191d39, #14172c, #0d1020);
     --sw-sun-gradient: radial-gradient(
         circle at 62% 62%,
-        #cbd2e0c8,
-        #a38c9466 34%,
-        #7f87944a 58%,
+        #ffb579d4,
+        #ff6b9394 30%,
+        #8068ff70 58%,
         transparent 85%
     );
-    --sw-sun-glow: rgba(214, 217, 223, 0.18);
-    --sw-ambient-flare: #d6d9df;
-    --sw-ambient-flare-soft: #8c93a5;
-    --sw-ambient-flare-deep: #4d5462;
+    --sw-sun-glow: rgba(255, 128, 154, 0.22);
+    --sw-ambient-flare: #ff7d78;
+    --sw-ambient-flare-soft: #ffbf8a;
+    --sw-ambient-flare-deep: #625bff;
     --sw-sun-size: 240px;
     --sw-sun-top: auto;
     --sw-sun-left: auto;
     --sw-sun-bottom: -48px;
     --sw-sun-right: -48px;
-    --sw-header-glow-opacity: 0.34;
-    --sw-header-glow-blur-factor: 0.14;
+    --sw-header-glow-opacity: 0.92;
+    --sw-header-glow-blur-factor: 0.26;
     --sw-tab-active: #f1f4f8;
     --sw-tab-inactive: rgba(241, 244, 248, 0.42);
-    --sw-tab-line: #d6d9df;
-    --sw-tab-surface: rgba(214, 217, 223, 0.14);
-    --sw-button-primary-bg: #2b313b;
-    --sw-button-primary-border: #555d6b;
-    --sw-button-primary-bg-hover: #333b46;
+    --sw-tab-line: #ffb57f;
+    --sw-tab-surface: rgba(128, 104, 255, 0.18);
+    --sw-button-primary-bg: linear-gradient(
+        135deg,
+        #ff8e66,
+        #ff6b93 48%,
+        #7a66ff
+    );
+    --sw-button-primary-border: #7d6eff;
+    --sw-button-primary-bg-hover: linear-gradient(
+        135deg,
+        #ff9d76,
+        #ff7aa0 48%,
+        #8b78ff
+    );
     --sw-button-primary-text: #f1f4f8;
     --sw-sun-vx: calc(
         78% - (12% * var(--sw-ambient-progress)) -

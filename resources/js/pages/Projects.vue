@@ -29,6 +29,7 @@ type ExperienceSection = {
     detail_groups: Array<{
         title: string;
         items: string[];
+        pills?: string[];
     }>;
 };
 
@@ -178,7 +179,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
             </SectionIntro>
 
             <div class="projects-page__work-grid">
-                <Panel class="projects-page__work-panel" tone="surface">
+                <Panel
+                    class="projects-page__work-panel projects-page__work-panel--positioning"
+                    tone="surface"
+                >
                     <p class="type-eyebrow projects-page__panel-label">
                         {{ copy.positioningLabel }}
                     </p>
@@ -193,7 +197,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                     </div>
                 </Panel>
 
-                <Panel class="projects-page__work-panel" tone="grid">
+                <Panel
+                    class="projects-page__work-panel projects-page__work-panel--contexts"
+                    tone="grid"
+                >
                     <p class="type-eyebrow projects-page__panel-label">
                         {{ copy.contextsLabel }}
                     </p>
@@ -217,7 +224,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                     </ul>
                 </Panel>
 
-                <Panel class="projects-page__work-panel" tone="surface">
+                <Panel
+                    class="projects-page__work-panel projects-page__work-panel--snapshot"
+                    tone="surface"
+                >
                     <p class="type-eyebrow projects-page__panel-label">
                         {{ copy.recruiterLabel }}
                     </p>
@@ -307,6 +317,18 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                             <p class="type-nav projects-page__detail-title">
                                 {{ group.title }}
                             </p>
+                            <div
+                                v-if="group.pills?.length"
+                                class="projects-page__stack-items projects-page__detail-pills"
+                            >
+                                <span
+                                    v-for="pill in group.pills"
+                                    :key="pill"
+                                    class="type-meta projects-page__stack-item"
+                                >
+                                    {{ pill }}
+                                </span>
+                            </div>
                             <ul class="projects-page__detail-list">
                                 <li
                                     v-for="item in group.items"
@@ -550,7 +572,6 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     display: grid;
     align-items: start;
     gap: var(--sw-space-sm);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .projects-page__work-panel,
@@ -560,6 +581,12 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     align-content: start;
     gap: var(--sw-space-xs);
     padding: var(--sw-space-sm);
+}
+
+.projects-page__work-panel {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
 }
 
 .projects-page__closing {
@@ -658,6 +685,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 .projects-page__detail-group {
     display: grid;
     gap: var(--sw-space-xs);
+}
+
+.projects-page__detail-pills {
+    margin-top: calc(var(--sw-space-3xs) * -0.35);
 }
 
 .projects-page__story-title,
@@ -791,6 +822,162 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     justify-content: flex-start;
 }
 
+.projects-page__work-panel--snapshot {
+    gap: var(--sw-space-sm);
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel--positioning,
+:global(html[data-theme='sunset']) .projects-page__work-panel--contexts,
+:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot {
+    border-color: color-mix(
+        in srgb,
+        var(--sw-border) 72%,
+        var(--sw-accent-violet) 28%
+    );
+    box-shadow:
+        0 16px 36px color-mix(in srgb, black 28%, transparent),
+        0 0 0 1px color-mix(in srgb, var(--sw-accent-violet) 8%, transparent),
+        var(--sw-shadow-md);
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel--positioning::before,
+:global(html[data-theme='sunset']) .projects-page__work-panel--contexts::before,
+:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel--positioning::after,
+:global(html[data-theme='sunset']) .projects-page__work-panel--contexts::after,
+:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.9;
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel--positioning::before {
+    background:
+        radial-gradient(
+            circle at 14% 0%,
+            color-mix(in srgb, #6ec5ff 22%, transparent),
+            transparent 34%
+        ),
+        linear-gradient(
+            145deg,
+            color-mix(in srgb, var(--sw-bg-surface) 86%, #1f4fff 14%),
+            color-mix(in srgb, var(--sw-bg-elevated) 90%, #0f1f52 10%)
+        );
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel--positioning::after {
+    background:
+        linear-gradient(
+            118deg,
+            transparent 0%,
+            color-mix(in srgb, #8c6dff 14%, transparent) 44%,
+            transparent 72%
+        ),
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, white 4%, transparent),
+            transparent 58%
+        );
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel--contexts::before {
+    background:
+        radial-gradient(
+            circle at 88% 12%,
+            color-mix(in srgb, #57b8ff 18%, transparent),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 0% 100%,
+            color-mix(in srgb, #5b6fff 14%, transparent),
+            transparent 32%
+        ),
+        linear-gradient(
+            160deg,
+            color-mix(in srgb, var(--sw-bg-grid) 82%, #243e8f 18%),
+            color-mix(in srgb, var(--sw-bg-surface) 88%, #101b44 12%)
+        );
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel--contexts::after {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            color-mix(in srgb, #87c8ff 7%, transparent) 0,
+            color-mix(in srgb, #87c8ff 7%, transparent) 1px,
+            transparent 1px,
+            transparent 38px
+        ),
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, white 5%, transparent),
+            transparent 54%
+        );
+    mask-image: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.78),
+        rgba(0, 0, 0, 0.42) 72%,
+        transparent 100%
+    );
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot::before {
+    background:
+        radial-gradient(
+            circle at 78% 0%,
+            color-mix(in srgb, #6ad0ff 20%, transparent),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 12% 100%,
+            color-mix(in srgb, #7d67ff 16%, transparent),
+            transparent 34%
+        ),
+        linear-gradient(
+            142deg,
+            color-mix(in srgb, var(--sw-bg-surface) 80%, #203774 20%),
+            color-mix(in srgb, var(--sw-bg-elevated) 84%, #161d48 16%)
+        );
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot::after {
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            color-mix(in srgb, #6ad0ff 10%, transparent) 42%,
+            color-mix(in srgb, #9b71ff 8%, transparent) 58%,
+            transparent 100%
+        ),
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, white 6%, transparent),
+            transparent 52%
+        );
+}
+
+:global(html[data-theme='sunset']) .projects-page__work-panel > * {
+    position: relative;
+    z-index: 1;
+}
+
+:global(html[data-theme='sunset']) .projects-page__panel-label {
+    background: color-mix(in srgb, var(--sw-bg-elevated) 70%, #19356d 30%);
+    box-shadow:
+        inset 0 0 0 1px color-mix(in srgb, #6ec5ff 24%, transparent),
+        0 0 22px color-mix(in srgb, #416dff 10%, transparent);
+}
+
 .projects-page__case-link:focus-visible {
     outline: none;
 }
@@ -814,9 +1001,37 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     }
 }
 
-@media (max-width: 960px) {
-    .projects-page__work-grid,
+@media (min-width: 780px) {
+    .projects-page__work-grid {
+        grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.22fr);
+        grid-template-areas:
+            'positioning snapshot'
+            'contexts snapshot';
+    }
+
+    .projects-page__work-panel--positioning {
+        grid-area: positioning;
+    }
+
+    .projects-page__work-panel--contexts {
+        grid-area: contexts;
+    }
+
+    .projects-page__work-panel--snapshot {
+        grid-area: snapshot;
+        min-height: 100%;
+        padding: calc(var(--sw-space-sm) * 1.08);
+    }
+}
+
+@media (max-width: 959px) {
     .projects-page__cases {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 779px) {
+    .projects-page__work-grid {
         grid-template-columns: minmax(0, 1fr);
     }
 }

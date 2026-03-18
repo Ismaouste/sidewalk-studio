@@ -37,24 +37,24 @@ const morningPalettes: AmbientPalette[] = [
 
 const sunsetPalettes: AmbientPalette[] = [
     {
-        flare: '#8f97a9',
-        soft: '#b4bac7',
-        deep: '#59606e',
+        flare: '#ff7b7a',
+        soft: '#ffc28d',
+        deep: '#665eff',
     },
     {
-        flare: '#b89aa5',
-        soft: '#d8c7cf',
-        deep: '#767c8a',
+        flare: '#ff6d98',
+        soft: '#f1a6ff',
+        deep: '#5a63ff',
     },
     {
-        flare: '#a7aebd',
-        soft: '#cbcfd8',
-        deep: '#515866',
+        flare: '#53c9ff',
+        soft: '#9dd8ff',
+        deep: '#7c5cff',
     },
     {
-        flare: '#c7a49b',
-        soft: '#ddd0cc',
-        deep: '#6a707d',
+        flare: '#ff9968',
+        soft: '#ffd6a2',
+        deep: '#9a57ff',
     },
 ];
 

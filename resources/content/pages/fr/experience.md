@@ -6,38 +6,69 @@ hero:
     title: Un goût pour les systèmes qui doivent vraiment tourner.
     summary: Ecommerce, CMS, connecteurs, donnée produit et delivery dans des contextes où il faut comprendre vite, structurer proprement et livrer juste.
 positioning:
-    - Comprendre vite un projet, ses usages et ce qui peut bouger tout de suite.
-    - Travailler avec les bonnes personnes, les bons outils et une documentation claire pour l'équipe.
-    - Prioriser, cadrer, remettre de l'ordre et faire avancer sans bloquer l'existant.
+    - Comprendre vite un projet, ses usages et ses points de friction.
+    - Cadrer proprement avec les bons interlocuteurs, les bons outils et une doc utile.
+    - Prioriser, remettre de l'ordre et faire avancer sans casser l'existant.
 contexts:
-    - HBJO, sites de marque et ecommerce avec catalogue, stock, médias et mises en ligne qui s'enchaînent.
+    - HBJO, sites de marque et ecommerce avec catalogue, stock, médias et lancements fréquents.
     - WordPress, WooCommerce, PrestaShop, Shopify, Laravel, PIM, ERP et connecteurs déjà en service.
-    - Refontes et lancements où URLs, fiches produit, SEO, tracking et qualité front se cadrent dès le départ.
+    - Refontes et lancements où URLs, fiches produit, SEO, tracking et qualité front se cadrent tôt.
 professional_sections:
     - title: Jewely / Flippad
-      eyebrow: Même entreprise, plusieurs clients
-      summary: Depuis plus de quatre ans, dont trois en alternance, mon parcours web se construit chez Jewely / Flippad. C'est un cadre formateur qui me fait aujourd'hui confiance sur des projets variés, entre ecommerce, CMS, refontes et lancements dans l'univers HBJO.
+      eyebrow: Développement multi-clients dans l'univers HBJO
+      summary: Depuis plus de quatre ans, dont trois en alternance, je développe chez Jewely / Flippad sur des sujets ecommerce, CMS, donnée produit et delivery technique pour des maisons et enseignes du secteur HBJO.
       paragraphs:
-          - Chez Jewely / Flippad, le périmètre traverse des sites marchands, des sites de marque et des projets CMS aux fonctionnements très différents. Il va des boutiques HBJO aux sites institutionnels ou métiers, avec WooCommerce, PrestaShop, Shopify, WordPress et des bases Laravel ou PHP selon les besoins du projet.
-          - Le cœur de valeur se joue souvent autour de la donnée produit et de sa circulation entre les outils. PIM, ERP, stocks, exports, APIs, connecteurs et synchronisations doivent produire une information fiable pour les équipes, claire pour le front et directement exploitable par les surfaces ecommerce.
-          - Ce cadre permet aussi d'approfondir l'intégration front, la qualité Sass, les lancements, la veille technique et les arbitrages de structure SEO. Tracking, data layer, Consent Mode v2, Meta Ads, catalogues marketing, images produit et besoins PDF font partie du même niveau d'exigence.
+          - Chez Jewely / Flippad, j'interviens sur des sites marchands, des sites de marque et des dispositifs CMS où il faut tenir ensemble catalogue, image, stock, SEO, tracking, qualité d'intégration et stabilité d'exploitation. Les stacks varient selon les clients, mais le besoin reste le même : reprendre proprement l'existant, le rendre plus lisible et faire avancer la production sans bruit inutile.
+          - Une grande partie de la valeur se joue autour de la donnée produit et de sa circulation entre les outils. PIM, ERP, exports, APIs, connecteurs et synchronisations doivent produire une information fiable pour les équipes, lisible pour le front et directement exploitable par les surfaces ecommerce.
+          - Ce cadre m'a aussi fait monter en autonomie sur l'intégration front, la qualité Sass, les lancements, les arbitrages de structure SEO et le développement spécifique. Selon les sujets, je peux reprendre une stack existante, développer une brique précise, ou porter seul une partie importante de l'exécution technique.
       detail_groups:
-          - title: Clients et univers
+          - title: Clients HBJO suivis chez Jewely / Flippad
+            pills:
+                - Auberi
+                - Godchot
+                - Pauliet
+                - Bijouterie Louis Julian
+                - Crown DP
             items:
-                - Godchot, Pauliet, Auberi, Bijouterie Louis Julian, Crown DP.
-                - Rolex Bespoke et Rolex Certified Pre-Owned dans un univers HBJO exigeant et très formateur.
-                - Sophie d'Agon, Prudhomme Transmissions, DCA Management et le SynPAAC sur des besoins de sites, de connecteurs et de structuration métier.
-          - title: PIM, ERP et connecteurs
+                - Travail sur des environnements bijouterie-horlogerie où catalogue, image, confiance, disponibilité produit, SEO et parcours d'achat doivent tenir ensemble.
+                - Delivery sur plusieurs niveaux à la fois : sites marchands, sites de marque, contenus éditoriaux, reprises d'existant et évolutions métier.
+          - title: Développement spécifique avec le partenaire client Rolex
+            pills:
+                - Rolex Bespoke
+                - Rolex Certified Pre-Owned
+                - PrestaShop
+                - WordPress
+                - Laravel
+                - Plugins sur mesure
             items:
-                - PIM, ERP, Shopify data, synchronisations temps réel, APIs, exports XML ou CSV et hydratation dynamique de la donnée produit.
-                - Google Merchant Center, Meta Catalog, Meta Ads, SEO technique, données structurées, architecture d'URLs et logique listing / fiche produit.
+                - Travail sur les espaces Bespoke et Rolex Certified Pre-Owned avec un niveau d'exigence élevé sur le cadre de marque, la fiabilité et la précision d'exécution.
+                - Sur cette partie, j'ai pris en charge seul le développement des plugins et une large part de l'exécution technique sur les briques PrestaShop, WordPress et Laravel.
+                - C'est un bon exemple du type de contexte où je dois comprendre vite, décider proprement et livrer sans filet sur des briques réellement utilisées.
+          - title: PIM, ERP, catalogues et connecteurs
+            pills:
+                - PIM
+                - ERP
+                - APIs
+                - XML / CSV
+                - Shopify data
+                - Google Merchant Center
+                - Meta Catalog
+            items:
+                - PIM, ERP, synchronisations temps réel, APIs, exports XML ou CSV et hydratation dynamique de la donnée produit.
+                - Structuration catalogue, listing / fiche produit, architecture d'URLs, données structurées et diffusion vers les surfaces marketing.
+          - title: Tracking, acquisition et qualité d'exécution
+            pills:
+                - GTM
+                - Meta Pixel
+                - Adobe Analytics
+                - Consent Mode v2
+                - Sass
+                - AWS Lambda
+            items:
                 - GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, data layer, consent mode v2, Avis Vérifiés et autres services ecommerce connectés.
-          - title: Delivery et intégration
-            items:
-                - Imports massifs, refacto de données, normalisation des attributs, enrichissement catalogue et gestion du stock.
+                - Imports massifs, refacto de données, normalisation des attributs, enrichissement catalogue, gestion du stock, intégration front et restitution propre des interfaces.
                 - Orchestration de scrapers Python lancés régulièrement sur AWS Lambda, à partir de sitemaps de marques, pour alimenter et fiabiliser des flux catalogue multi-marques.
-                - Intégration front et Sass, gabarits éditoriaux, composants commerce et restitution propre des interfaces.
-                - Lancement de nouveaux sites, veille techno, cadrage de refonte et arbitrages pour livrer sans casser la production.
+                - Lancement de nouveaux sites, cadrage de refonte, veille technique et arbitrages pour livrer sans casser la production.
 associative_sections:
     - title: Aremedia
       eyebrow: Employeur associatif
@@ -118,7 +149,7 @@ stack_groups:
           - Revue vie privée et SEO dans l'implémentation
 career_snapshot:
     title: Repères techniques
-    summary: Linux et ligne de commande, plateformes ecommerce et CMS, synchronisation de données, scraping, gestion du stock et des catalogues, APIs, paiements, mesure, configuration des événements, data layer, consentements riches, tracking marketing, SEO technique, performance web et infrastructure légère.
+    summary: Plateformes ecommerce et CMS, synchronisation produit, stock, APIs, scraping, tracking, consentement, SEO technique et infrastructure légère.
     roles:
         - WordPress
         - WooCommerce

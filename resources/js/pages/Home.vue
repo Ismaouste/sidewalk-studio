@@ -54,7 +54,7 @@ const props = defineProps<{
 
 const heroPanelTones = ['dominant', 'green', 'coral'] as const;
 
-const heroCapabilities = computed(() =>
+                const heroCapabilities = computed(() =>
     page.props.site.locale === 'fr'
         ? [
               {
@@ -128,7 +128,7 @@ const copy = computed(() =>
               heroPanelSummarySuffix:
                   'donnée produit, flux, tracking et SEO technique.',
               hbjoatDefinition:
-                  "Horlogerie, bijouterie, orfèvrerie et arts de la table.",
+                  'Horlogerie, bijouterie, joaillerie et orfèvrerie.',
               cmsDefinition:
                   'Content Management System : système de gestion de contenu.',
               phpDefinition:
@@ -159,7 +159,7 @@ const copy = computed(() =>
               openProjectsCta: "Découvrir les projets",
               internalBuildLabel: 'Interne',
               localGroundLabel: 'Où suis-je ?',
-              readLocalPageCta: 'Échanger',
+              readLocalPageCta: 'Voir la localisation',
               notesLabel: 'Notes',
               contactLabel: 'Contact',
               startConversationCta: 'Prendre contact',
@@ -266,7 +266,11 @@ const copy = computed(() =>
                     </h2>
                     <p class="type-body-sm home-hero__panel-summary">
                         <InlineTermTooltip
-                            label="HBJOAT"
+                            :label="
+                                page.props.site.locale === 'fr'
+                                    ? 'HBJO'
+                                    : 'HBJOAT'
+                            "
                             :definition="copy.hbjoatDefinition"
                             tone="green"
                         />
@@ -503,7 +507,7 @@ const copy = computed(() =>
                     :title="props.localTeaser.title"
                     :description="props.localTeaser.summary"
                 />
-                <Button href="/contact" variant="ghost" arrow>
+                <Button href="/local" variant="ghost" arrow>
                     {{ copy.readLocalPageCta }}
                 </Button>
             </div>

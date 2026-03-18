@@ -17,16 +17,16 @@ focus_areas:
       cta: Lire les expériences
       tone: dominant
     - label: Expériences
-      title: De la santé publique à l'univers HBJOAT
-      summary: "Santé publique, mobilité européenne, univers HBJOAT et contextes associatifs ou privés : un même réflexe pour comprendre les usages avant de toucher à la stack."
+      title: De la santé publique à l'univers HBJO
+      summary: "Santé publique, mobilité européenne, univers HBJO et contextes associatifs ou privés : un même réflexe pour comprendre les usages avant de toucher à la stack."
       href: /case-studies
       cta: Découvrir les projets
       tone: green
-    - label: Local
+    - label: Localisation
       title: Grand Est, Nancy
       summary: "Paris, Metz, Luxembourg, Strasbourg, Großregion, internet : ma toile se tisse à travers les frontières, les langues et les usages."
-      href: /contact
-      cta: Échanger
+      href: /local
+      cta: Voir la localisation
       tone: coral
 local_teaser:
     title: Grand Est, Nancy

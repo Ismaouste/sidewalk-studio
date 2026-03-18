@@ -1,5 +1,5 @@
 ---
-seo_title: Local
+seo_title: Localisation
 seo_description: Contexte éditorial autour de Nancy, du sillon lorrain, des systèmes civiques, des scènes culturelles, des associations soutenues et du lieu depuis lequel le travail est fait.
 hero:
     eyebrow: Où suis-je ?
