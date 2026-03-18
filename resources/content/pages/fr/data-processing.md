@@ -9,9 +9,9 @@ storage:
     eyebrow: Messages de contact
     title: Ce qui est conservé quand tu utilises le formulaire
     points:
-        - Nom, email, entreprise et message sont stockés dans la base locale du site.
-        - L'objectif est de lancer un échange direct sans stocker la demande dans une base locale.
-        - Ces données servent à répondre à la prise de contact et à qualifier le contexte du brief.
+        - Le formulaire public n'enregistre pas le nom, l'email, l'entreprise ou le message dans la base du site.
+        - Il valide les champs puis ouvre un message WhatsApp prérempli avec le contexte fourni.
+        - Si tu préfères un email direct, tu peux écrire sans passer par le formulaire.
 consent:
     eyebrow: Consentement
     title: Analytics et contenus tiers restent opt-in

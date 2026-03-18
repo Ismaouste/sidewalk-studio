@@ -11,7 +11,7 @@ tags:
     - politique
     - journal
 seo_title: Données sensibles, associations pauvres, exigences riches
-seo_description: Brouillon d'article sur le sous-équipement numérique associatif face à des contraintes fortes autour des données privées et des usages de terrain.
+seo_description: Article en cours sur le sous-équipement numérique associatif face à des contraintes fortes autour des données privées et des usages de terrain.
 category: journal
 publication_type: journal
 accent_tone: violet
@@ -21,7 +21,7 @@ Ce texte doit partir d'un constat simple : les structures associatives qui trait
 
 Le sujet n'est pas de plaindre ces structures. Il est de montrer à quel point cette situation est absurde quand on connaît les exigences de confidentialité, de continuité et d'utilité qui pèsent sur elles.
 
-## À développer
+## Ce qui compte ici
 
 - La saisie manuelle comme norme encore trop fréquente
 - Le coût humain des outils mal pensés

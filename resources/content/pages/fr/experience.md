@@ -4,11 +4,11 @@ seo_description: Parcours professionnel autour de l'ecommerce, de la donnée pro
 hero:
     eyebrow: Expérience
     title: Un goût pour les systèmes qui doivent vraiment tourner.
-    summary: Ecommerce, CMS, connecteurs, donnée produit et delivery dans des contextes où il faut comprendre vite, structurer proprement et livrer juste.
+    summary: Ecommerce, CMS, connecteurs, donnée produit et delivery dans des contextes où il faut d'abord comprendre ce qui tourne déjà avant de modifier quoi que ce soit.
 positioning:
-    - Comprendre vite un projet, ses usages et ses points de friction.
-    - Cadrer proprement avec les bons interlocuteurs, les bons outils et une doc utile.
-    - Prioriser, remettre de l'ordre et faire avancer sans casser l'existant.
+    - Comprendre vite un projet, ses usages et ses points de fragilité.
+    - Cadrer proprement avec les bons interlocuteurs et une documentation qui sert vraiment.
+    - Remettre de l'ordre sans bloquer la production ni casser l'existant.
 contexts:
     - HBJO, sites de marque et ecommerce avec catalogue, stock, médias et lancements fréquents.
     - WordPress, WooCommerce, PrestaShop, Shopify, Laravel, PIM, ERP et connecteurs déjà en service.
@@ -16,11 +16,11 @@ contexts:
 professional_sections:
     - title: Jewely / Flippad
       eyebrow: Développement multi-clients dans l'univers HBJO
-      summary: Depuis plus de quatre ans, dont trois en alternance, je développe chez Jewely / Flippad sur des sujets ecommerce, CMS, donnée produit et delivery technique pour des maisons et enseignes du secteur HBJO.
+      summary: Plus de quatre ans dans un contexte multi-clients où ecommerce, CMS, donnée produit et delivery technique se croisent en permanence dans l'univers HBJO.
       paragraphs:
-          - Chez Jewely / Flippad, j'interviens sur des sites marchands, des sites de marque et des dispositifs CMS où il faut tenir ensemble catalogue, image, stock, SEO, tracking, qualité d'intégration et stabilité d'exploitation. Les stacks varient selon les clients, mais le besoin reste le même : reprendre proprement l'existant, le rendre plus lisible et faire avancer la production sans bruit inutile.
-          - Une grande partie de la valeur se joue autour de la donnée produit et de sa circulation entre les outils. PIM, ERP, exports, APIs, connecteurs et synchronisations doivent produire une information fiable pour les équipes, lisible pour le front et directement exploitable par les surfaces ecommerce.
-          - Ce cadre m'a aussi fait monter en autonomie sur l'intégration front, la qualité Sass, les lancements, les arbitrages de structure SEO et le développement spécifique. Selon les sujets, je peux reprendre une stack existante, développer une brique précise, ou porter seul une partie importante de l'exécution technique.
+          - Sites marchands, sites de marque et projets CMS avec des fonctionnements très différents, mais le même besoin de stabilité en production.
+          - Le cœur du travail se joue souvent dans la donnée produit, sa circulation entre outils et sa restitution côté front.
+          - J'interviens aussi sur l'intégration front, le SEO technique, le tracking, les lancements et les arbitrages de delivery.
       detail_groups:
           - title: Clients HBJO suivis chez Jewely / Flippad
             pills:
@@ -30,8 +30,8 @@ professional_sections:
                 - Bijouterie Louis Julian
                 - Crown DP
             items:
-                - Travail sur des environnements bijouterie-horlogerie où catalogue, image, confiance, disponibilité produit, SEO et parcours d'achat doivent tenir ensemble.
-                - Delivery sur plusieurs niveaux à la fois : sites marchands, sites de marque, contenus éditoriaux, reprises d'existant et évolutions métier.
+                - Environnements bijouterie-horlogerie où catalogue, image, confiance, disponibilité produit, SEO et parcours d'achat doivent tenir ensemble.
+                - Delivery sur plusieurs niveaux à la fois : sites marchands, sites de marque, reprises d'existant et évolutions métier.
           - title: Développement spécifique avec le partenaire client Rolex
             pills:
                 - Rolex Bespoke
@@ -42,8 +42,8 @@ professional_sections:
                 - Plugins sur mesure
             items:
                 - Travail sur les espaces Bespoke et Rolex Certified Pre-Owned avec un niveau d'exigence élevé sur le cadre de marque, la fiabilité et la précision d'exécution.
-                - Sur cette partie, j'ai pris en charge seul le développement des plugins et une large part de l'exécution technique sur les briques PrestaShop, WordPress et Laravel.
-                - C'est un bon exemple du type de contexte où je dois comprendre vite, décider proprement et livrer sans filet sur des briques réellement utilisées.
+                - Développement seul des plugins et pilotage d'une large part de l'exécution technique sur les briques PrestaShop, WordPress et Laravel.
+                - Un bon exemple de contexte où il faut comprendre vite, décider proprement et livrer sur des briques réellement utilisées.
           - title: PIM, ERP, catalogues et connecteurs
             pills:
                 - PIM
@@ -54,8 +54,8 @@ professional_sections:
                 - Google Merchant Center
                 - Meta Catalog
             items:
-                - PIM, ERP, synchronisations temps réel, APIs, exports XML ou CSV et hydratation dynamique de la donnée produit.
-                - Structuration catalogue, listing / fiche produit, architecture d'URLs, données structurées et diffusion vers les surfaces marketing.
+                - Synchronisations temps réel, APIs, exports XML ou CSV et hydratation dynamique de la donnée produit.
+                - Structuration catalogue, listing, fiche produit, architecture d'URLs, données structurées et diffusion vers les surfaces marketing.
           - title: Tracking, acquisition et qualité d'exécution
             pills:
                 - GTM
@@ -65,17 +65,18 @@ professional_sections:
                 - Sass
                 - AWS Lambda
             items:
-                - GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, data layer, consent mode v2, Avis Vérifiés et autres services ecommerce connectés.
-                - Imports massifs, refacto de données, normalisation des attributs, enrichissement catalogue, gestion du stock, intégration front et restitution propre des interfaces.
-                - Orchestration de scrapers Python lancés régulièrement sur AWS Lambda, à partir de sitemaps de marques, pour alimenter et fiabiliser des flux catalogue multi-marques.
-                - Lancement de nouveaux sites, cadrage de refonte, veille technique et arbitrages pour livrer sans casser la production.
+                - GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, data layer et Consent Mode v2.
+                - Imports massifs, normalisation d'attributs, enrichissement catalogue, gestion du stock, intégration front et restitution propre des interfaces.
+                - Scrapers Python sur AWS Lambda à partir de sitemaps de marques pour alimenter et fiabiliser des flux catalogue multi-marques.
+                - Lancements, cadrage de refonte, veille technique et arbitrages pour livrer sans casser la production.
 associative_sections:
     - title: Aremedia
       eyebrow: Employeur associatif
-      summary: Un cadre salarié très différent du commerce, centré sur les usages de terrain, la santé publique, la confiance et des outils vraiment utiles.
+      summary: Un cadre salarié très différent du commerce, centré sur les usages de terrain, la santé publique, la confiance et des outils réellement utiles.
       paragraphs:
-          - Le sujet central relevait de la prévention des risques et de la santé publique. J'y ai conçu un outil de remontée de données auto-hébergé pour les équipes de terrain, avec des contraintes fortes autour des données de santé, de la sécurité, de l'usage hors les murs et de la sobriété technique.
-          - J'ai aussi repris le site aremedia.org. Le contexte était particulièrement stimulant parce qu'il fallait faire tenir ensemble les réalités associatives, les enjeux de confiance, l'utilité concrète des outils et une vraie discipline technique.
+          - Travail centré sur la prévention des risques et la santé publique, avec un besoin fort de sobriété et de clarté d'usage.
+          - Conception d'un outil auto-hébergé de remontée de données pour les équipes de terrain, sous contraintes de sécurité et de confiance.
+          - Reprise du site aremedia.org et remise à plat de sa structure publique.
       detail_groups:
           - title: Points marquants
             items:
@@ -111,9 +112,9 @@ side_projects_widget:
     cta_label: ''
 trajectory:
     - title: Plateformes commerce sous pression
-      summary: J'ai travaillé dans des environnements où les mises en ligne, les parcours de conversion, la qualité catalogue, la visibilité en recherche et la stabilité opérationnelle étaient étroitement liées. C'est là que j'ai appris à préférer une exécution soignée à la pureté abstraite.
+      summary: J'ai travaillé dans des environnements où mises en ligne, parcours de conversion, qualité catalogue, visibilité en recherche et stabilité opérationnelle étaient étroitement liées.
     - title: Laravel comme couche de livraison fiable
-      summary: J'ai utilisé Laravel pour apporter de meilleures limites, des refactors plus sûrs et des conventions internes plus lisibles à des produits déjà chargés de complexité critique.
+      summary: J'ai utilisé Laravel pour apporter de meilleures limites, des refactors plus sûrs et des conventions plus lisibles à des produits déjà chargés de complexité critique.
     - title: La documentation comme partie de la livraison
       summary: J'ai transformé des décisions d'architecture en spécifications, notes et références internes afin que la maintenabilité survive aux changements d'équipe, aux passations et aux cycles suivants.
 strengths:
@@ -166,5 +167,5 @@ career_snapshot:
         - Core Web Vitals
         - AWS / S3
         - Docker
-looking_for: Je m'intéresse surtout à des contextes produit, commerce ou éditoriaux qui existent déjà, comptent déjà, et ont besoin d'une ingénierie plus stable, d'une architecture plus claire et d'une base technique plus solide qu'une simple capacité à produire du ticket.
+looking_for: Je suis plus utile dans des contextes produit, commerce ou éditoriaux déjà vivants, où l'on attend de la clarté technique, de la fiabilité et des décisions calmes dans la durée.
 ---

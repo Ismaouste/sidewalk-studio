@@ -4,7 +4,7 @@ seo_description: "Sidewalk Studio est le portfolio d'Ismael Rodmacq : Laravel, e
 hero:
     eyebrow: Ecommerce, donnée produit et SEO technique
     title: Ingénierie web pour l'ecommerce, la donnée produit et ses flux.
-    summary: J'interviens sur des systèmes web déjà en charge, avec une attention particulière pour la donnée produit, les interconnexions par API ou fichiers, les imports massifs, le PIM, les données structurées, Google Merchant Center, Meta Catalog, le tracking sous consentement et une architecture produit qui reste lisible.
+    summary: Je travaille sur des systèmes ecommerce déjà en production, avec un historique, des dépendances et des zones fragiles. Le travail commence souvent là où donnée produit, intégrations, habitudes de déploiement et conformité RGPD commencent à se gêner. Ce qui compte ensuite, c'est de rendre l'ensemble plus lisible et plus fiable pour l'équipe.
 hero_panel:
     - Développement ecommerce et CMS sur WooCommerce, PrestaShop, Shopify et fronts découplés quand le projet le demande.
     - Développement full stack en Laravel et PHP, APIs, outils internes, cadrage technique, CI-CD pragmatique et delivery ecommerce.
@@ -36,6 +36,6 @@ local_teaser:
         - APIs locales, cartographie, logique des transports et clarté des services.
         - Communautés associatives et culturelles, dont Aremedia.
 contact_cta:
-    title: Actuellement chez Jewely, ouvert aux opportunités, aux missions freelance à temps partiel et aux échanges.
-    summary: "Plateforme ecommerce, outil interne, connecteur, flux produit, SEO technique ou simple discussion autour d'un projet digital : on peut en parler simplement."
+    title: Basé à Nancy, disponible pour un poste, une mission cadrée ou un échange direct.
+    summary: "Refonte, stabilisation, intégration ERP, sujet produit ou SEO technique : écris avec le contexte et on voit si le cadre correspond."
 ---

@@ -11,7 +11,7 @@ tags:
     - structured-data
     - journal
 seo_title: Technical SEO, sitemaps, and structured data for commerce
-seo_description: Draft article on ecommerce technical SEO, sitemaps, robots.txt, structured data, and the quality of product-data circulation.
+seo_description: Article draft on ecommerce technical SEO, sitemaps, robots.txt, structured data, and the quality of product-data circulation.
 category: journal
 publication_type: journal
 accent_tone: sun
@@ -21,7 +21,7 @@ This text should start from a simple reflex: technical SEO does not begin in a p
 
 In commerce, sitemaps, `robots.txt`, URLs, listings, product pages, and structured data all tell the same story. When they do not line up, the problem is rarely SEO alone. It is usually a data-design problem too.
 
-## To develop
+## What matters here
 
 - The link between information structure and discoverability
 - What sitemaps really say about a site

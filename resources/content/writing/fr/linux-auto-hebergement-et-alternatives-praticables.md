@@ -11,17 +11,17 @@ tags:
     - framasoft
     - journal
 seo_title: Linux, auto-hébergement et alternatives praticables
-seo_description: Brouillon d'article sur Linux, l'auto-hébergement, les services libres et leur adoption réelle dans des contextes associatifs ou professionnels.
+seo_description: Article en cours sur Linux, l'auto-hébergement, les services libres et leur adoption réelle dans des contextes associatifs ou professionnels.
 category: journal
 publication_type: journal
 accent_tone: violet
 ---
 
-Ce brouillon doit parler de mon intérêt ancien pour Linux et pour les écosystèmes complets qui existent hors des plateformes dominantes.
+Ce texte part d'un intérêt ancien pour Linux et pour les écosystèmes complets qui existent hors des plateformes dominantes.
 
 Le point important n'est pas de vendre une pureté idéologique. Il faut plutôt montrer où ces solutions demandent plus de configuration, où elles donnent une vraie autonomie, et quand des acteurs comme Framasoft deviennent des relais précieux.
 
-## À développer
+## Ce qui compte ici
 
 - Ce qui attire dans les stacks libres bien tenues
 - Où commence la charge de configuration

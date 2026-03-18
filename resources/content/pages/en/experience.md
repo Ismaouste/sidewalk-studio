@@ -4,7 +4,7 @@ seo_description: Professional experience across ecommerce, product data, technic
 hero:
     eyebrow: Experience
     title: A taste for systems that genuinely need to run.
-    summary: Ecommerce, CMS, connectors, product data, and delivery in contexts where the work is to understand quickly, structure clearly, and ship cleanly.
+    summary: Ecommerce, CMS, connectors, product data, and delivery in contexts where the first job is to understand what is already in motion before changing it.
 positioning:
     - Understand a project, its usage, and what can move right away.
     - Work with the right people, the right tools, and documentation the team can actually reuse.
@@ -16,7 +16,7 @@ contexts:
 professional_sections:
     - title: Jewely / Flippad
       eyebrow: One company, multiple client contexts
-      summary: For more than four years, including three in work-study, my web path has been taking shape at Jewely / Flippad. It is the company that trained me and still trusts me today across varied projects spanning ecommerce, CMS work, redesigns, and launches in HBJO environments.
+      summary: More than four years in a multi-client environment where ecommerce, CMS work, product data, and release work keep colliding in HBJO contexts.
       paragraphs:
           - At Jewely / Flippad, the scope runs across commerce sites, brand sites, and CMS projects with very different operating realities. It extends from jewelry and watch storefronts to institutional or business-facing sites, with WooCommerce, PrestaShop, Shopify, WordPress, and Laravel or PHP foundations depending on the project.
           - A large share of the value sits in product data and the way it moves between systems. PIM, ERP, stock, exports, APIs, connectors, and synchronizations need to produce information that stays reliable for teams, clear on the front end, and directly usable across ecommerce surfaces.
@@ -60,7 +60,7 @@ associative_note_widget:
 side_project_sections:
     - title: YTMusic Liked Sorter
       eyebrow: Personal project
-      summary: A small personal tool, clean and useful, with a real focus on data, sorting, and output.
+      summary: A small personal tool built around retrieval, sorting, and output instead of surface polish.
       paragraphs:
           - YTMusic Liked Sorter started from a simple need to sort, revisit, and reuse a personal history. It is not an industrial product, but it is a good example of a small clean tool built to be useful and pleasant to use.
           - The public repository captures what I like in this kind of format: a light interface, readable structure, solid filtering, and output that is immediately useful.
@@ -135,5 +135,5 @@ career_snapshot:
         - Core Web Vitals
         - AWS / S3
         - Docker
-looking_for: I am currently most interested in product, commerce, or editorial systems that already exist, already matter, and need steadier engineering, clearer architecture, and a more solid technical foundation than the team can get from implementation throughput alone.
+looking_for: I am most useful in product, commerce, or editorial systems that already matter and need steadier engineering, clearer architecture, and calmer delivery decisions.
 ---

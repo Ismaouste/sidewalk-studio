@@ -4,11 +4,11 @@ seo_description: Point de contact pour parler de projets web, d'outils internes,
 hero:
     eyebrow: Contact
     title: Entrer en contact pour un projet digital ou simplement prolonger la visite.
-    summary: Actuellement en emploi chez Jewely, avec une ouverture claire pour des opportunités, des missions freelance à temps partiel et des échanges autour d'un projet digital.
+    summary: Basé à Nancy. Disponible pour un poste, des missions, ou un échange autour d'un sujet ecommerce, produit ou intégration. Je suis plus utile là où il faut comprendre un existant, arbitrer des contraintes réelles et remettre un système d'aplomb avec l'équipe.
 form:
     eyebrow: Partager le contexte
     title: Un premier message simple, et la conversation peut commencer.
-    summary: Quelques lignes sur le contexte, le besoin ou l'envie d'échanger suffisent. Le formulaire prépare simplement un message WhatsApp propre et direct.
+    summary: Quelques lignes sur le contexte, le besoin ou le blocage suffisent. Le formulaire prépare un message WhatsApp direct, sans autre traitement.
     name_label: Nom
     name_placeholder: Votre nom
     email_label: Email
@@ -29,13 +29,13 @@ services:
     eyebrow: Où je peux aider
     items:
         - title: Développement ecommerce et CMS
-          summary: Sites marchands, WordPress, WooCommerce, PrestaShop, Shopify, Laravel ou PHP pour des refontes, des reprises et des livraisons full stack qui restent lisibles.
+          summary: Sites marchands et CMS pour des refontes, des reprises et des livraisons qui restent lisibles une fois le site en production.
         - title: Donnée produit et scripts
-          summary: PIM, ERP, stock, catalogues, scraping, APIs, exports et synchronisations entre outils métier, connecteurs et surfaces web.
+          summary: Donnée produit, ERP, stock, scraping, APIs, exports et synchronisations entre outils métier, connecteurs et surfaces web.
         - title: Front, intégration et connecteurs
-          summary: Sass, composants, CMS, outils internes, intégration front et mise au propre de connecteurs pour adapter l'outil aux usages réels.
+          summary: Intégration front, outils internes, CMS et remise au propre de connecteurs pour coller aux usages réels.
         - title: Tracking, consentement et acquisition
-          summary: Data layer, pixels, analytics, Consent Mode v2, Microsoft Ads / Bing UET, Meta Ads, campagnes et synchronisation de catalogues produit.
+          summary: Data layer, pixels, analytics, Consent Mode v2 et synchronisation de catalogues sans reléguer la conformité au second plan.
 recruiter_shortcut:
     eyebrow: Repères rapides
     summary: ''

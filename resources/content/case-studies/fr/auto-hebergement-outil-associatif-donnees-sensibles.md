@@ -11,7 +11,7 @@ tags:
     - sante
     - work-sample
 seo_title: Auto-hébergement lisible pour un outil associatif sous données sensibles
-seo_description: Brouillon de cas d'étude autour d'un outil associatif auto-hébergé, entre données sensibles, sécurité, sobriété technique et usages de terrain.
+seo_description: Cas d'étude en cours autour d'un outil associatif auto-hébergé, entre données sensibles, sécurité, sobriété technique et usages de terrain.
 category: work
 publication_type: reference
 accent_tone: coral
@@ -29,19 +29,19 @@ outcomes:
     - Réduire la dépendance à des briques opaques
 ---
 
-Ce brouillon doit raconter un cas très concret : comment concevoir un outil utile pour des équipes de terrain qui manipulent des données sensibles sans transformer le projet en système trop lourd pour une structure associative.
+Ce cas d'étude part d'un problème concret : comment concevoir un outil utile pour des équipes de terrain qui manipulent des données sensibles sans transformer le projet en système trop lourd pour une structure associative.
 
-## Angle
+## Situation
 
 Le sujet n'est pas seulement technique. Il touche au financement du numérique d'intérêt général, au rapport de confiance avec les équipes, et à la lisibilité des choix d'hébergement quand les données méritent mieux qu'un simple service tiers branché par défaut.
 
-## Points à développer
+## Ce qui compte ici
 
 - Pourquoi l'auto-hébergement restait crédible ici
 - Ce qu'apporte l'appui d'un expert de l'hébergeur Octopuce
 - Les contraintes d'usage hors les murs
 - Les arbitrages entre sécurité, simplicité et maintenance
 
-## Ce que cette étude de cas doit montrer
+## Résultat attendu
 
 Un outil associatif bien cadré peut être sobre, sécurisé, compréhensible et réellement adapté au terrain, sans singer un produit SaaS ni abandonner les équipes à des tableurs bricolés.

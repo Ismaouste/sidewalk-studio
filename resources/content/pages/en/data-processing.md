@@ -9,9 +9,9 @@ storage:
     eyebrow: Contact messages
     title: What is stored when you use the form
     points:
-        - Name, email, company, and message are stored in the local site database.
-        - The goal is to start a direct conversation without storing the inquiry in a local database.
-        - This data is used to reply to the inquiry and qualify the brief context.
+        - The public form does not persist name, email, company, or message in the site database.
+        - It validates the fields, then opens a WhatsApp message prepared with the submitted context.
+        - If you prefer email, you can write directly without using the form.
 consent:
     eyebrow: Consent
     title: Analytics and third-party content remain opt-in

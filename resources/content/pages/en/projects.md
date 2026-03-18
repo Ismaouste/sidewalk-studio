@@ -4,7 +4,7 @@ seo_description: Professional experience, demanding ecommerce environments, and 
 hero:
     eyebrow: Experience
     title: A taste for systems that have to keep running.
-    summary: "Fullstack development, ecommerce, CMS work, connectors, product flows, tracking, and technical SEO across varied contexts with the same need for reliability, clarity, and useful execution."
+    summary: "Case studies, delivery notes, and recruiter-facing context around ecommerce systems, product data, Docker Swarm incidents, and design-system decisions that had concrete consequences."
 tracks_section:
     label: Tracks
     intro:
@@ -22,6 +22,6 @@ case_studies_section:
     label: Public references
     eyebrow: References
     title: Case studies and notes to go deeper.
-    summary: 'An archive for going deeper into specific cases: nonprofit tools under real constraints, product data moving between ERP, PIM, and commerce surfaces, plus web formats, sitemaps, robots.txt, and delivery quality.'
+    summary: 'An archive for going deeper into concrete cases: nonprofit tools under constraint, product data between ERP and commerce, Docker Swarm delivery failures, and design-system choices that shaped implementation.'
     archive_cta: Browse all case studies
 ---

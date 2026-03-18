@@ -22,7 +22,7 @@ journal_section:
 engagements_intro:
     eyebrow: Commitments
     title: Associations, civic interests, and the ground I actually stay close to.
-    summary: These are not badges to collect. They are places, causes, and situations that genuinely shape how I work.
+    summary: These are places, causes, and situations that shape the way I look at public services, tools, and everyday interfaces.
 engagements:
     - title: Aremedia
       summary: Aremedia works on harm reduction and public health. I designed and shipped a self-hosted reporting tool there, compatible with health-data constraints, for outreach work with queer people and crack users around Stalingrad.

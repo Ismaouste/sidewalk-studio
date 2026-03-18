@@ -11,17 +11,17 @@ tags:
     - framasoft
     - journal
 seo_title: Linux, self-hosting, and practical alternatives
-seo_description: Draft article on Linux, self-hosting, free online services, and their real adoption in nonprofit or professional settings.
+seo_description: Article draft on Linux, self-hosting, free online services, and their actual adoption in nonprofit or professional settings.
 category: journal
 publication_type: journal
 accent_tone: violet
 ---
 
-This draft should grow out of my long-standing interest in Linux and in whole ecosystems that exist outside dominant platforms.
+This text starts from a long-standing interest in Linux and in the ecosystems that exist outside dominant platforms.
 
 The point is not ideological purity. It is to show where these solutions ask for more configuration, where they return real autonomy, and when actors like Framasoft become practical allies.
 
-## To develop
+## What matters here
 
 - What attracts me in well-kept free stacks
 - Where configuration load begins

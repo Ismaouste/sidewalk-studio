@@ -22,7 +22,7 @@ journal_section:
 engagements_intro:
     eyebrow: Mes engagements
     title: Associations, sujets suivis et terrains qui comptent.
-    summary: Ce ne sont pas des cartes de visite à collectionner mais des lieux, des causes et des contextes qui influencent vraiment ma manière de travailler.
+    summary: Ce sont des lieux, des causes et des contextes qui influencent concrètement ma manière de regarder les services, les outils et l'espace public.
 engagements:
     - title: Aremedia
       summary: Aremedia relève de la prévention des risques et de la santé publique. J'y ai conçu un outil de remontée de données auto-hébergé, compatible avec les contraintes de données de santé, pour des actions hors les murs auprès de publics éloignés, queer ou consommateurs de crack à Stalingrad.

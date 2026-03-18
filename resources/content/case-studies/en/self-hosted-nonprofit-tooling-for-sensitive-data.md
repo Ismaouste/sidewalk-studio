@@ -1,7 +1,7 @@
 ---
 title: Clear self-hosting for nonprofit tooling under sensitive-data constraints
 slug: self-hosted-nonprofit-tooling-for-sensitive-data
-summary: How to frame a self-hosted field tool when public health, security, usable workflows, and nonprofit constraints all have to hold together.
+summary: How to frame a self-hosted field tool when public health, security, usable workflows, and nonprofit constraints all need to hold together.
 status: draft
 published_at: 2026-03-08
 updated_at: 2026-03-08
@@ -11,7 +11,7 @@ tags:
     - health
     - work-sample
 seo_title: Clear self-hosting for nonprofit tooling under sensitive-data constraints
-seo_description: Draft case study about a self-hosted nonprofit tool shaped by sensitive data, security, technical sobriety, and field usage.
+seo_description: Case study draft about a self-hosted nonprofit tool shaped by sensitive data, security, technical sobriety, and field usage.
 category: work
 publication_type: reference
 accent_tone: coral
@@ -29,19 +29,19 @@ outcomes:
     - Reduce dependence on opaque services
 ---
 
-This draft should tell a very concrete story: how to design a useful tool for field teams handling sensitive data without turning the project into a system that becomes too heavy for a nonprofit structure.
+This case study starts from a concrete problem: how to design a useful tool for field teams handling sensitive data without turning the project into something too heavy for a nonprofit structure.
 
-## Angle
+## Situation
 
-The subject is not only technical. It touches funding for public-interest digital work, trust with teams, and the readability of hosting choices when the data deserves better than a default third-party service.
+The subject is not only technical. It also touches trust with teams, funding for public-interest digital work, and the readability of hosting choices when the data deserves better than a default third-party service.
 
-## Points to develop
+## What matters here
 
 - Why self-hosting remained credible here
 - What an Octopuce hosting expert actually helped clarify
 - The constraints of field usage and outreach work
 - Trade-offs between security, simplicity, and maintenance
 
-## What this case study should show
+## Expected outcome
 
 A well-framed nonprofit tool can be sober, secure, understandable, and genuinely adapted to field work without pretending to be a SaaS product.

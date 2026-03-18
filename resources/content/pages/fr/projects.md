@@ -4,7 +4,7 @@ seo_description: Expériences professionnelles, environnements ecommerce exigean
 hero:
     eyebrow: Expérience
     title: Un goût pour les systèmes qui doivent vraiment tourner.
-    summary: "Développement full stack, ecommerce, CMS, connecteurs, flux produit, tracking et SEO technique : des terrains variés, mais le même besoin de rendre un système fiable, lisible et utile."
+    summary: "Case studies, notes de delivery et repères recruteur autour de systèmes ecommerce, d'incidents Docker Swarm, de design system et de données produit qui ont eu des conséquences concrètes."
 tracks_section:
     label: Pistes
     intro:
@@ -22,6 +22,6 @@ case_studies_section:
     label: Références publiques
     eyebrow: Références
     title: Études de cas et notes pour aller plus loin.
-    summary: "Une archive pour entrer dans des cas plus précis : outils associatifs sous contrainte, circulation de la donnée entre ERP, PIM et ecommerce, formats web, sitemaps, robots.txt et qualité de livraison."
+    summary: "Une archive pour entrer dans des cas précis : outils associatifs sous contrainte, circulation de la donnée entre ERP et ecommerce, incident de déploiement Docker Swarm et choix de design system qui ont pesé sur l'implémentation."
     archive_cta: Découvrir toutes les études de cas
 ---
