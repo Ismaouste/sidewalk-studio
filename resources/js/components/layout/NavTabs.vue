@@ -145,10 +145,6 @@ function handleLinkClick(item: NavItem): void {
     closeMenu();
     clearOptimisticTimer();
 
-    if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('sidewalk:navigation-intent'));
-    }
-
     optimisticResetTimer = window.setTimeout(() => {
         pendingMobileHref.value = null;
     }, 2000);
@@ -467,7 +463,6 @@ onBeforeUnmount(() => {
 
 .nav-tabs__link-meta--contact::after {
     transform-origin: center;
-    animation: nav-tabs-phone-ring 1.6s ease-in-out infinite;
 }
 
 .nav-tabs__link--active {
@@ -490,16 +485,6 @@ onBeforeUnmount(() => {
 }
 
 @media (hover: hover) {
-    .nav-tabs__panel:hover .nav-tabs__link {
-        opacity: 0.52;
-    }
-
-    .nav-tabs__panel:hover .nav-tabs__link:hover,
-    .nav-tabs__panel:hover .nav-tabs__link:focus-visible,
-    .nav-tabs__panel:hover .nav-tabs__link--active {
-        opacity: 1;
-    }
-
     .nav-tabs__trigger:hover {
         border-color: color-mix(
             in srgb,
@@ -517,6 +502,11 @@ onBeforeUnmount(() => {
         );
         background: color-mix(in srgb, var(--sw-bg-elevated) 80%, transparent);
         color: var(--sw-text-primary);
+    }
+
+    .nav-tabs__link:hover .nav-tabs__link-meta--contact::after,
+    .nav-tabs__link:focus-visible .nav-tabs__link-meta--contact::after {
+        animation: nav-tabs-phone-ring 0.8s ease;
     }
 }
 

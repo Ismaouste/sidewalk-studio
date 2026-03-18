@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
-import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import AmbientGrid from '@/components/design-system/AmbientGrid.vue';
 import AppFooter from '@/components/layout/AppFooter.vue';
 import AppHeader from '@/components/layout/AppHeader.vue';
@@ -30,22 +30,8 @@ const loaderLibrary = computed<LoaderLine[]>(() =>
 );
 
 const currentLoaderLine = ref<LoaderLine | null>(null);
-const overlayPointer = reactive({
-    x: '50%',
-    y: '38%',
-    active: false,
-});
 let previousLoaderIndex = -1;
 let localSafetyTimer: number | undefined;
-
-function setScrollLock(enabled: boolean) {
-    if (typeof document === 'undefined') {
-        return;
-    }
-
-    document.documentElement.toggleAttribute('data-scroll-lock', enabled);
-    document.body.toggleAttribute('data-scroll-lock', enabled);
-}
 
 function pickLoaderLine() {
     const options = loaderLibrary.value;
@@ -81,8 +67,6 @@ watch(
 
         if (isVisible) {
             pickLoaderLine();
-            setScrollLock(true);
-            overlayPointer.active = false;
 
             localSafetyTimer = window.setTimeout(() => {
                 transitions.dismissOverlay();
@@ -90,40 +74,14 @@ watch(
 
             return;
         }
-
-        setScrollLock(false);
     },
     { immediate: true },
 );
-
-function handleOverlayPointerMove(event: PointerEvent) {
-    const target = event.currentTarget;
-
-    if (!(target instanceof HTMLElement)) {
-        return;
-    }
-
-    const bounds = target.getBoundingClientRect();
-    const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-    const y = ((event.clientY - bounds.top) / bounds.height) * 100;
-
-    overlayPointer.x = `${Math.max(0, Math.min(100, x))}%`;
-    overlayPointer.y = `${Math.max(0, Math.min(100, y))}%`;
-    overlayPointer.active = true;
-}
-
-function resetOverlayPointer() {
-    overlayPointer.active = false;
-    overlayPointer.x = '50%';
-    overlayPointer.y = '38%';
-}
 
 onBeforeUnmount(() => {
     if (localSafetyTimer !== undefined) {
         window.clearTimeout(localSafetyTimer);
     }
-
-    setScrollLock(false);
 });
 </script>
 
@@ -135,17 +93,8 @@ onBeforeUnmount(() => {
             <div
                 v-if="showOverlay"
                 class="sw-shell__loader"
-                :class="{ 'sw-shell__loader--interactive': overlayPointer.active }"
-                :style="{
-                    '--sw-loader-hover-x': overlayPointer.x,
-                    '--sw-loader-hover-y': overlayPointer.y,
-                }"
                 aria-live="polite"
                 aria-atomic="true"
-                @pointermove="handleOverlayPointerMove"
-                @pointerleave="resetOverlayPointer"
-                @wheel.prevent
-                @touchmove.prevent
             >
                 <div class="sw-shell__loader-copy">
                     <span class="type-meta sw-shell__loader-kicker">
@@ -203,60 +152,35 @@ onBeforeUnmount(() => {
     z-index: var(--sw-z-overlay);
     display: grid;
     place-items: center;
-    pointer-events: auto;
-    touch-action: none;
+    pointer-events: none;
     overflow: hidden;
     contain: layout paint style;
     background:
         radial-gradient(
-            circle at var(--sw-loader-hover-x, 50%) var(--sw-loader-hover-y, 38%),
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 12%, transparent),
+            circle at 50% 38%,
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 10%, transparent),
             transparent 22%
         ),
         radial-gradient(
             circle at var(--sw-sun-vx, 14%) var(--sw-sun-vy, 10%),
-            color-mix(in srgb, var(--sw-ambient-flare) 14%, transparent),
+            color-mix(in srgb, var(--sw-ambient-flare) 10%, transparent),
             transparent 34%
         ),
         radial-gradient(
             circle at 78% 18%,
-            color-mix(in srgb, var(--sw-ambient-flare-deep) 7%, transparent),
+            color-mix(in srgb, var(--sw-ambient-flare-deep) 5%, transparent),
             transparent 42%
         ),
         color-mix(
             in srgb,
-            var(--sw-bg-base) 42%,
-            var(--sw-ambient-flare-soft) 6%
+            var(--sw-bg-base) 24%,
+            var(--sw-ambient-flare-soft) 4%
         );
     backdrop-filter: blur(28px);
     transition:
         opacity var(--sw-motion-smooth),
         background var(--sw-motion-smooth),
         backdrop-filter var(--sw-motion-smooth);
-}
-
-.sw-shell__loader--interactive {
-    background:
-        radial-gradient(
-            circle at var(--sw-loader-hover-x, 50%) var(--sw-loader-hover-y, 38%),
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 18%, transparent),
-            transparent 22%
-        ),
-        radial-gradient(
-            circle at var(--sw-sun-vx, 14%) var(--sw-sun-vy, 10%),
-            color-mix(in srgb, var(--sw-ambient-flare) 18%, transparent),
-            transparent 34%
-        ),
-        radial-gradient(
-            circle at 78% 18%,
-            color-mix(in srgb, var(--sw-ambient-flare-deep) 13%, transparent),
-            transparent 42%
-        ),
-        color-mix(
-            in srgb,
-            var(--sw-bg-base) 38%,
-            var(--sw-ambient-flare-soft) 8%
-        );
 }
 
 .sw-shell__loader-copy {

@@ -169,7 +169,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                 :description="props.hero.summary"
             >
                 <template #actions>
-                    <Button href="/case-studies" variant="secondary">
+                    <Button href="/case-studies" variant="primary">
                         {{ copy.overviewCta }}
                     </Button>
                     <Button href="/contact" variant="ghost" arrow>
@@ -285,61 +285,65 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                     </div>
 
                     <div class="projects-page__story-body">
-                        <p
-                            v-for="paragraph in section.paragraphs"
-                            :key="paragraph"
-                            class="type-body projects-page__copy-line"
-                        >
-                            {{ paragraph }}
-                        </p>
-
-                        <div
-                            v-if="section.links?.length"
-                            class="projects-page__story-links"
-                        >
-                            <Button
-                                v-for="link in section.links"
-                                :key="link.href"
-                                :href="link.href"
-                                external
-                                variant="ghost"
-                                arrow
+                        <div class="projects-page__story-copy">
+                            <p
+                                v-for="paragraph in section.paragraphs"
+                                :key="paragraph"
+                                class="type-body projects-page__copy-line"
                             >
-                                {{ link.label }}
-                            </Button>
+                                {{ paragraph }}
+                            </p>
+
+                            <div
+                                v-if="section.links?.length"
+                                class="projects-page__story-links"
+                            >
+                                <Button
+                                    v-for="link in section.links"
+                                    :key="link.href"
+                                    :href="link.href"
+                                    external
+                                    variant="ghost"
+                                    arrow
+                                >
+                                    {{ link.label }}
+                                </Button>
+                            </div>
                         </div>
 
-                        <div
-                            v-for="group in section.detail_groups"
-                            :key="group.title"
-                            class="projects-page__detail-group"
-                        >
-                            <p class="type-nav projects-page__detail-title">
-                                {{ group.title }}
-                            </p>
+                        <div class="projects-page__detail-grid">
                             <div
-                                v-if="group.pills?.length"
-                                class="projects-page__stack-items projects-page__detail-pills"
+                                v-for="group in section.detail_groups"
+                                :key="group.title"
+                                class="projects-page__detail-group"
                             >
-                                <span
-                                    v-for="pill in group.pills"
-                                    :key="pill"
-                                    class="type-meta projects-page__stack-item"
+                                <p class="type-nav projects-page__detail-title">
+                                    {{ group.title }}
+                                </p>
+                                <div
+                                    v-if="group.pills?.length"
+                                    class="projects-page__stack-items projects-page__detail-pills"
                                 >
-                                    {{ pill }}
-                                </span>
+                                    <span
+                                        v-for="pill in group.pills"
+                                        :key="pill"
+                                        class="type-meta projects-page__stack-item"
+                                    >
+                                        {{ pill }}
+                                    </span>
+                                </div>
+                                <ul class="projects-page__detail-list">
+                                    <li
+                                        v-for="item in group.items"
+                                        :key="item"
+                                        class="projects-page__detail-item"
+                                    >
+                                        <p class="type-body projects-page__copy-line">
+                                            {{ item }}
+                                        </p>
+                                    </li>
+                                </ul>
                             </div>
-                            <ul class="projects-page__detail-list">
-                                <li
-                                    v-for="item in group.items"
-                                    :key="item"
-                                    class="projects-page__detail-item"
-                                >
-                                    <p class="type-body projects-page__copy-line">
-                                        {{ item }}
-                                    </p>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </article>
@@ -371,33 +375,37 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                     </div>
 
                     <div class="projects-page__story-body">
-                        <p
-                            v-for="paragraph in section.paragraphs"
-                            :key="paragraph"
-                            class="type-body projects-page__copy-line"
-                        >
-                            {{ paragraph }}
-                        </p>
-
-                        <div
-                            v-for="group in section.detail_groups"
-                            :key="group.title"
-                            class="projects-page__detail-group"
-                        >
-                            <p class="type-nav projects-page__detail-title">
-                                {{ group.title }}
+                        <div class="projects-page__story-copy">
+                            <p
+                                v-for="paragraph in section.paragraphs"
+                                :key="paragraph"
+                                class="type-body projects-page__copy-line"
+                            >
+                                {{ paragraph }}
                             </p>
-                            <ul class="projects-page__detail-list">
-                                <li
-                                    v-for="item in group.items"
-                                    :key="item"
-                                    class="projects-page__detail-item"
-                                >
-                                    <p class="type-body projects-page__copy-line">
-                                        {{ item }}
-                                    </p>
-                                </li>
-                            </ul>
+                        </div>
+
+                        <div class="projects-page__detail-grid">
+                            <div
+                                v-for="group in section.detail_groups"
+                                :key="group.title"
+                                class="projects-page__detail-group"
+                            >
+                                <p class="type-nav projects-page__detail-title">
+                                    {{ group.title }}
+                                </p>
+                                <ul class="projects-page__detail-list">
+                                    <li
+                                        v-for="item in group.items"
+                                        :key="item"
+                                        class="projects-page__detail-item"
+                                    >
+                                        <p class="type-body projects-page__copy-line">
+                                            {{ item }}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -429,33 +437,37 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                     </div>
 
                     <div class="projects-page__story-body">
-                        <p
-                            v-for="paragraph in section.paragraphs"
-                            :key="paragraph"
-                            class="type-body projects-page__copy-line"
-                        >
-                            {{ paragraph }}
-                        </p>
-
-                        <div
-                            v-for="group in section.detail_groups"
-                            :key="group.title"
-                            class="projects-page__detail-group"
-                        >
-                            <p class="type-nav projects-page__detail-title">
-                                {{ group.title }}
+                        <div class="projects-page__story-copy">
+                            <p
+                                v-for="paragraph in section.paragraphs"
+                                :key="paragraph"
+                                class="type-body projects-page__copy-line"
+                            >
+                                {{ paragraph }}
                             </p>
-                            <ul class="projects-page__detail-list">
-                                <li
-                                    v-for="item in group.items"
-                                    :key="item"
-                                    class="projects-page__detail-item"
-                                >
-                                    <p class="type-body projects-page__copy-line">
-                                        {{ item }}
-                                    </p>
-                                </li>
-                            </ul>
+                        </div>
+
+                        <div class="projects-page__detail-grid">
+                            <div
+                                v-for="group in section.detail_groups"
+                                :key="group.title"
+                                class="projects-page__detail-group"
+                            >
+                                <p class="type-nav projects-page__detail-title">
+                                    {{ group.title }}
+                                </p>
+                                <ul class="projects-page__detail-list">
+                                    <li
+                                        v-for="item in group.items"
+                                        :key="item"
+                                        class="projects-page__detail-item"
+                                    >
+                                        <p class="type-body projects-page__copy-line">
+                                            {{ item }}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -511,7 +523,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
             </div>
 
             <div class="projects-page__footer-cta">
-                <Button href="/case-studies" variant="ghost" arrow>
+                <Button href="/case-studies" variant="primary" arrow>
                     {{ props.caseStudiesSection.archive_cta }}
                 </Button>
             </div>
@@ -675,14 +687,29 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 .projects-page__story {
     display: grid;
     gap: var(--sw-space-sm);
-    max-width: 64rem;
-    padding-bottom: var(--sw-space-sm);
-    border-bottom: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
+    padding: clamp(18px, 2.4vw, 26px);
+    border: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
+    border-radius: calc(var(--sw-radius-lg) + 2px);
+    background: color-mix(in srgb, var(--sw-bg-surface) 72%, transparent);
+    box-shadow: var(--sw-shadow-sm);
 }
 
 .projects-page__story-head,
 .projects-page__story-body,
 .projects-page__detail-group {
+    display: grid;
+    gap: var(--sw-space-xs);
+}
+
+.projects-page__story-copy,
+.projects-page__detail-group {
+    padding: clamp(14px, 2vw, 18px);
+    border: 1px solid color-mix(in srgb, var(--sw-border) 62%, transparent);
+    border-radius: calc(var(--sw-radius-lg) - 1px);
+    background: color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent);
+}
+
+.projects-page__detail-grid {
     display: grid;
     gap: var(--sw-space-xs);
 }
@@ -702,11 +729,12 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 }
 
 .projects-page__story-body {
-    max-width: 62rem;
+    gap: var(--sw-space-sm);
 }
 
 .projects-page__story-body .projects-page__copy-line {
-    line-height: 1.56;
+    max-width: 66ch;
+    line-height: 1.52;
 }
 
 .projects-page__detail-title {
@@ -739,7 +767,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 .projects-page__list-item {
     display: grid;
     gap: var(--sw-space-3xs);
-    border-top: 1px solid var(--sw-border);
+    border-top: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
     padding-top: var(--sw-space-xs);
 }
 
@@ -835,8 +863,8 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
         var(--sw-accent-violet) 28%
     );
     box-shadow:
-        0 16px 36px color-mix(in srgb, black 28%, transparent),
-        0 0 0 1px color-mix(in srgb, var(--sw-accent-violet) 8%, transparent),
+        0 16px 32px color-mix(in srgb, black 24%, transparent),
+        0 0 0 1px color-mix(in srgb, var(--sw-accent-violet) 6%, transparent),
         var(--sw-shadow-md);
 }
 
@@ -865,13 +893,13 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     background:
         radial-gradient(
             circle at 14% 0%,
-            color-mix(in srgb, #6ec5ff 22%, transparent),
+            color-mix(in srgb, #6ec5ff 14%, transparent),
             transparent 34%
         ),
         linear-gradient(
             145deg,
-            color-mix(in srgb, var(--sw-bg-surface) 86%, #1f4fff 14%),
-            color-mix(in srgb, var(--sw-bg-elevated) 90%, #0f1f52 10%)
+            color-mix(in srgb, var(--sw-bg-surface) 90%, #3350a5 10%),
+            color-mix(in srgb, var(--sw-bg-elevated) 93%, #152452 7%)
         );
 }
 
@@ -880,12 +908,12 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
         linear-gradient(
             118deg,
             transparent 0%,
-            color-mix(in srgb, #8c6dff 14%, transparent) 44%,
+            color-mix(in srgb, #8c6dff 9%, transparent) 44%,
             transparent 72%
         ),
         linear-gradient(
             180deg,
-            color-mix(in srgb, white 4%, transparent),
+            color-mix(in srgb, white 3%, transparent),
             transparent 58%
         );
 }
@@ -894,18 +922,18 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     background:
         radial-gradient(
             circle at 88% 12%,
-            color-mix(in srgb, #57b8ff 18%, transparent),
+            color-mix(in srgb, #57b8ff 12%, transparent),
             transparent 28%
         ),
         radial-gradient(
             circle at 0% 100%,
-            color-mix(in srgb, #5b6fff 14%, transparent),
+            color-mix(in srgb, #5b6fff 9%, transparent),
             transparent 32%
         ),
         linear-gradient(
             160deg,
-            color-mix(in srgb, var(--sw-bg-grid) 82%, #243e8f 18%),
-            color-mix(in srgb, var(--sw-bg-surface) 88%, #101b44 12%)
+            color-mix(in srgb, var(--sw-bg-grid) 88%, #29428a 12%),
+            color-mix(in srgb, var(--sw-bg-surface) 92%, #101b44 8%)
         );
 }
 
@@ -913,14 +941,14 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     background:
         repeating-linear-gradient(
             90deg,
-            color-mix(in srgb, #87c8ff 7%, transparent) 0,
-            color-mix(in srgb, #87c8ff 7%, transparent) 1px,
+            color-mix(in srgb, #87c8ff 5%, transparent) 0,
+            color-mix(in srgb, #87c8ff 5%, transparent) 1px,
             transparent 1px,
             transparent 38px
         ),
         linear-gradient(
             180deg,
-            color-mix(in srgb, white 5%, transparent),
+            color-mix(in srgb, white 3%, transparent),
             transparent 54%
         );
     mask-image: linear-gradient(
@@ -935,18 +963,18 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     background:
         radial-gradient(
             circle at 78% 0%,
-            color-mix(in srgb, #6ad0ff 20%, transparent),
+            color-mix(in srgb, #6ad0ff 13%, transparent),
             transparent 30%
         ),
         radial-gradient(
             circle at 12% 100%,
-            color-mix(in srgb, #7d67ff 16%, transparent),
+            color-mix(in srgb, #7d67ff 10%, transparent),
             transparent 34%
         ),
         linear-gradient(
             142deg,
-            color-mix(in srgb, var(--sw-bg-surface) 80%, #203774 20%),
-            color-mix(in srgb, var(--sw-bg-elevated) 84%, #161d48 16%)
+            color-mix(in srgb, var(--sw-bg-surface) 88%, #203774 12%),
+            color-mix(in srgb, var(--sw-bg-elevated) 91%, #161d48 9%)
         );
 }
 
@@ -955,15 +983,32 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
         linear-gradient(
             90deg,
             transparent 0%,
-            color-mix(in srgb, #6ad0ff 10%, transparent) 42%,
-            color-mix(in srgb, #9b71ff 8%, transparent) 58%,
+            color-mix(in srgb, #6ad0ff 6%, transparent) 42%,
+            color-mix(in srgb, #9b71ff 5%, transparent) 58%,
             transparent 100%
         ),
         linear-gradient(
             180deg,
-            color-mix(in srgb, white 6%, transparent),
+            color-mix(in srgb, white 3%, transparent),
             transparent 52%
         );
+}
+
+:global(html[data-theme='sunset']) .projects-page__story {
+    background: color-mix(in srgb, var(--sw-bg-surface) 78%, transparent);
+    border-color: color-mix(in srgb, var(--sw-border) 76%, var(--sw-accent-violet) 24%);
+}
+
+:global(html[data-theme='sunset']) .projects-page__story-copy,
+:global(html[data-theme='sunset']) .projects-page__detail-group {
+    border-color: color-mix(in srgb, var(--sw-border) 72%, transparent);
+    background:
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, white 2%, transparent),
+            transparent 46%
+        ),
+        color-mix(in srgb, var(--sw-bg-elevated) 74%, transparent);
 }
 
 :global(html[data-theme='sunset']) .projects-page__work-panel > * {
@@ -1021,6 +1066,27 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
         grid-area: snapshot;
         min-height: 100%;
         padding: calc(var(--sw-space-sm) * 1.08);
+    }
+}
+
+@media (min-width: 1080px) {
+    .projects-page__story {
+        grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+        align-items: start;
+    }
+
+    .projects-page__story-body {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .projects-page__detail-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1560px) {
+    .projects-page__detail-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 

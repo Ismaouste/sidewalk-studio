@@ -74,7 +74,6 @@ const copy = computed(() =>
         ? {
               emailHeroCta: 'Écrire un mail',
               whatsappLabel: 'WhatsApp',
-              workCta: 'Lire les expériences',
               locationChipLabel: props.contact.location,
               locationLabel: props.details.location_label,
               availabilityLabel: 'Disponibilité',
@@ -110,7 +109,6 @@ const copy = computed(() =>
         : {
               emailHeroCta: 'Write an email',
               whatsappLabel: 'WhatsApp',
-              workCta: 'View experiences',
               locationChipLabel: props.contact.location,
               locationLabel: props.details.location_label,
               availabilityLabel: 'Availability',
@@ -239,9 +237,6 @@ function submitInquiry(): void {
                                     />
                                 </svg>
                             </a>
-                            <Button href="/projects" variant="secondary">
-                                {{ copy.workCta }}
-                            </Button>
                         </div>
                     </div>
                 </div>
@@ -391,9 +386,6 @@ function submitInquiry(): void {
                     <div class="contact-page__form-actions">
                         <Button :href="`mailto:${props.contact.email}`">
                             {{ props.form.secondary_cta }}
-                        </Button>
-                        <Button href="/projects" variant="secondary">
-                            {{ copy.workCta }}
                         </Button>
                     </div>
                 </Panel>

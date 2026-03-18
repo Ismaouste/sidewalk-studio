@@ -33,9 +33,9 @@
     --sw-z-modal: 50;
 
     --sw-radius-none: 0px;
-    --sw-radius-sm: 4px;
-    --sw-radius-md: 8px;
-    --sw-radius-lg: 16px;
+    --sw-radius-sm: 3px;
+    --sw-radius-md: 6px;
+    --sw-radius-lg: 12px;
     --sw-radius-xl: 9999px;
     --sw-radius-full: 9999px;
 
@@ -151,20 +151,20 @@ html[data-theme='sunset'] {
     color-scheme: dark;
 
     --sw-bg-base: #0d1020;
-    --sw-bg-surface: #151a31;
-    --sw-bg-grid: #1d2550;
-    --sw-bg-elevated: #252d56;
+    --sw-bg-surface: #14192d;
+    --sw-bg-grid: #1b2346;
+    --sw-bg-elevated: #22294d;
 
     --sw-text-primary: #f6eff7;
     --sw-text-secondary: #d5cad7;
     --sw-text-muted: #9f97b3;
     --sw-text-inverse: #13141b;
 
-    --sw-accent-dominant: #ffd3a1;
+    --sw-accent-dominant: #f6cfaa;
     --sw-accent-green: #62d7c9;
-    --sw-accent-sun: #ff9a62;
-    --sw-accent-coral: #ff6b93;
-    --sw-accent-violet: #8068ff;
+    --sw-accent-sun: #f29968;
+    --sw-accent-coral: #ee7896;
+    --sw-accent-violet: #786fe6;
 
     --sw-border: #394273;
     --sw-border-focus: #ffb57f;
@@ -173,21 +173,21 @@ html[data-theme='sunset'] {
         var(--sw-border) 72%,
         var(--sw-accent-violet) 28%
     );
-    --sw-grid-line: rgba(128, 104, 255, 0.12);
+    --sw-grid-line: rgba(120, 111, 230, 0.1);
     --sw-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.25);
     --sw-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
     --sw-header-bg: linear-gradient(160deg, #191d39, #14172c, #0d1020);
     --sw-sun-gradient: radial-gradient(
         circle at 62% 62%,
-        #ffb579d4,
-        #ff6b9394 30%,
-        #8068ff70 58%,
+        #f4b482c7,
+        #ee78967d 30%,
+        #786fe65c 58%,
         transparent 85%
     );
     --sw-sun-glow: rgba(255, 128, 154, 0.22);
-    --sw-ambient-flare: #ff7d78;
-    --sw-ambient-flare-soft: #ffbf8a;
-    --sw-ambient-flare-deep: #625bff;
+    --sw-ambient-flare: #f08d7e;
+    --sw-ambient-flare-soft: #f4be93;
+    --sw-ambient-flare-deep: #6760e2;
     --sw-sun-size: 240px;
     --sw-sun-top: auto;
     --sw-sun-left: auto;
@@ -201,16 +201,16 @@ html[data-theme='sunset'] {
     --sw-tab-surface: rgba(128, 104, 255, 0.18);
     --sw-button-primary-bg: linear-gradient(
         135deg,
-        #ff8e66,
-        #ff6b93 48%,
-        #7a66ff
+        #ef9a72,
+        #e9789a 48%,
+        #726dde
     );
-    --sw-button-primary-border: #7d6eff;
+    --sw-button-primary-border: #7470da;
     --sw-button-primary-bg-hover: linear-gradient(
         135deg,
-        #ff9d76,
-        #ff7aa0 48%,
-        #8b78ff
+        #f3a57e,
+        #ef83a3 48%,
+        #7e79e6
     );
     --sw-button-primary-text: #f1f4f8;
     --sw-sun-vx: calc(
