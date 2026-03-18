@@ -117,6 +117,15 @@ if ($databaseConnection === 'sqlite' && $envValue('DB_DATABASE') === null) {
     $setEnv('DB_DATABASE', $tmpDatabase);
 }
 
+if ($scheme === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['REQUEST_SCHEME'] = 'https';
+    $_SERVER['SERVER_PORT'] = '443';
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] = 'https';
+    $_SERVER['HTTP_X_FORWARDED_PORT'] = '443';
+    $_SERVER['HTTP_X_FORWARDED_SSL'] = 'on';
+}
+
 $_SERVER['DOCUMENT_ROOT'] = $root.'/public';
 $_SERVER['SCRIPT_FILENAME'] = $root.'/public/index.php';
 $_SERVER['SCRIPT_NAME'] = '/index.php';
