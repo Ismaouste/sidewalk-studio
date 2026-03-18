@@ -1,0 +1,142 @@
+<?php
+
+namespace App\Support;
+
+use Illuminate\Support\Str;
+
+class ContentVisual
+{
+    /**
+     * @param  array<string, mixed>  $item
+     */
+    public static function tone(array $item): string
+    {
+        if (! empty($item['accent_tone'])) {
+            return (string) $item['accent_tone'];
+        }
+
+        if (($item['section'] ?? 'writing') === 'writing') {
+            return 'violet';
+        }
+
+        return (($item['category'] ?? '') === 'work') ? 'green' : 'dominant';
+    }
+
+    /**
+     * @param  array<string, mixed>  $item
+     * @return array{url: string, alt: string, kind: string}
+     */
+    public static function image(array $item): array
+    {
+        $path = trim((string) ($item['featured_image'] ?? ''));
+
+        if ($path !== '') {
+            return [
+                'url' => self::normalizeUrl($path),
+                'alt' => trim((string) ($item['featured_image_alt'] ?? '')) ?: (string) ($item['title'] ?? ''),
+                'kind' => 'image',
+            ];
+        }
+
+        return [
+            'url' => route('content-visuals.show', [
+                'section' => $item['section'],
+                'slug' => $item['slug'],
+                'lang' => (($item['locale'] ?? 'en') !== 'en') ? $item['locale'] : null,
+            ]),
+            'alt' => trim((string) ($item['featured_image_alt'] ?? '')) ?: (string) ($item['title'] ?? ''),
+            'kind' => 'placeholder',
+        ];
+    }
+
+    /**
+     * @param  array<string, mixed>  $item
+     */
+    public static function placeholderSvg(array $item): string
+    {
+        $tone = self::tone($item);
+        $palette = match ($tone) {
+            'green' => [
+                'bgA' => '#0f3b2e',
+                'bgB' => '#1f6d54',
+                'ink' => '#e8f4ef',
+                'accent' => '#b6f09c',
+                'line' => 'rgba(182, 240, 156, 0.18)',
+            ],
+            'violet' => [
+                'bgA' => '#29134f',
+                'bgB' => '#4c2387',
+                'ink' => '#f6e9a2',
+                'accent' => '#f6e9a2',
+                'line' => 'rgba(246, 233, 162, 0.16)',
+            ],
+            'coral' => [
+                'bgA' => '#4d1714',
+                'bgB' => '#8e2d26',
+                'ink' => '#f9d4b8',
+                'accent' => '#f7b36f',
+                'line' => 'rgba(247, 179, 111, 0.16)',
+            ],
+            default => [
+                'bgA' => '#12274b',
+                'bgB' => '#2b5e99',
+                'ink' => '#e9f1ff',
+                'accent' => '#f2c15f',
+                'line' => 'rgba(242, 193, 95, 0.18)',
+            ],
+        };
+
+        $slug = Str::of((string) ($item['slug'] ?? 'content'))
+            ->replace('-', ' ')
+            ->upper()
+            ->limit(30, '')
+            ->toString();
+
+        $title = Str::of((string) ($item['title'] ?? 'Untitled'))
+            ->squish()
+            ->limit(68, '')
+            ->toString();
+
+        $safeSlug = e($slug);
+        $safeTitle = e($title);
+
+        return <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">{$safeTitle}</title>
+  <desc id="desc">Placeholder visual for {$safeTitle}</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="{$palette['bgA']}" />
+      <stop offset="100%" stop-color="{$palette['bgB']}" />
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="44" />
+    </filter>
+  </defs>
+  <rect width="1200" height="630" rx="32" fill="url(#bg)" />
+  <g opacity="0.72">
+    <circle cx="940" cy="130" r="180" fill="{$palette['accent']}" filter="url(#blur)" />
+    <circle cx="260" cy="520" r="220" fill="{$palette['accent']}" filter="url(#blur)" />
+  </g>
+  <g opacity="0.9">
+    <path d="M0 120 H1200" stroke="{$palette['line']}" stroke-width="2" />
+    <path d="M0 210 H1200" stroke="{$palette['line']}" stroke-width="2" />
+    <path d="M0 300 H1200" stroke="{$palette['line']}" stroke-width="2" />
+    <path d="M0 390 H1200" stroke="{$palette['line']}" stroke-width="2" />
+    <path d="M0 480 H1200" stroke="{$palette['line']}" stroke-width="2" />
+  </g>
+  <text x="82" y="332" fill="{$palette['ink']}" font-family="Arial, sans-serif" font-size="84" font-weight="700" letter-spacing="5">{$safeSlug}</text>
+  <text x="86" y="420" fill="{$palette['ink']}" font-family="Arial, sans-serif" font-size="30" opacity="0.92">{$safeTitle}</text>
+</svg>
+SVG;
+    }
+
+    protected static function normalizeUrl(string $path): string
+    {
+        if (Str::startsWith($path, ['http://', 'https://', 'data:'])) {
+            return $path;
+        }
+
+        return url('/'.ltrim($path, '/'));
+    }
+}

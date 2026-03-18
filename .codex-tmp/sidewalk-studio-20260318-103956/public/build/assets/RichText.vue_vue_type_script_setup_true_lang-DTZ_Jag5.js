@@ -1,0 +1,1 @@
+import{d as o,e as t,o as s}from"./app-DbdgpePa.js";const c=["innerHTML"],_=o({__name:"RichText",props:{html:{}},setup(e){const n=e;return(r,p)=>(s(),t("div",{class:"prose-copy",innerHTML:n.html},null,8,c))}});export{_};
