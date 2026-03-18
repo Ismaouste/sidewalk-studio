@@ -1,0 +1,17 @@
+.codex-tmp
+.env
+.env.*
+.git
+.github
+.phpunit.cache
+.phpunit.result.cache
+.specify
+.vercel
+_starter_v0
+dist
+node_modules
+specs
+storage/logs
+tests
+tools
+vendor

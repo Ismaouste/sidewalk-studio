@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Repo-owned Vercel preview runtime support through `api/index.php`, `vercel.json`, and `.vercelignore` for more faithful Laravel previews than the static export alone.
+- Architecture and tracking docs for the supported Vercel preview workflow, including its temp-storage bootstrap behavior and local CLI deployment constraints.
+
+### Changed
+
+- Clarified that GitHub Pages remains the static approximation while Vercel preview is the runtime-oriented preview path.
+
 ## [0.2.0] - 2026-03-08
 
 ### Added

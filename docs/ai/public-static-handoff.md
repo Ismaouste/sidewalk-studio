@@ -60,4 +60,5 @@ The export includes:
 ### Notes
 
 - GitHub Pages remains a static approximation of the public front-end, not the full Laravel runtime.
-- For a more faithful version later, deploy the real Laravel app on a small VPS or home-hosted setup.
+- For a more faithful runtime preview, build locally with `npm run build` and deploy with `npx vercel deploy`.
+- The Vercel preview path is still ephemeral and local-first; it is not yet a full production hosting strategy.

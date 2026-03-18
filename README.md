@@ -5,7 +5,7 @@ Sidewalk Studio is a local-first Laravel portfolio site and a reusable reference
 This repository now serves two purposes at once:
 
 - a public portfolio surface for Ismael Rodmacq
-- a reusable Laravel/Inertia/Vue reference for content, metadata, consent, and static preview export
+- a reusable Laravel/Inertia/Vue reference for content, metadata, consent, static preview export, and Vercel runtime preview
 
 ## What ships in the current release
 
@@ -18,6 +18,7 @@ This repository now serves two purposes at once:
 - server-rendered metadata, canonical tags, JSON-LD, `robots.txt`, and `sitemap.xml`
 - static preview export for GitHub Pages
 - static preview shell with client-side prefetch, installable manifest, and partial offline support
+- Vercel preview runtime support for the real Laravel app through a local CLI deployment flow
 
 ## Product direction
 
@@ -99,6 +100,24 @@ It now also includes:
 - a generated `manifest.webmanifest`
 - a generated `sw.js` service worker for aggressive asset caching and partial offline navigation
 - a portable handoff for another machine: `docs/ai/public-static-handoff.md`
+
+For a more faithful Laravel runtime preview, use the Vercel flow below.
+
+## Vercel preview runtime
+
+The repo now includes a tracked Vercel preview runtime for the Laravel application itself.
+
+```powershell
+npm run build
+npx vercel deploy
+```
+
+Notes:
+
+- the supported path is a local CLI preview from a prepared workspace, not a Git-driven production pipeline
+- `public/build` must exist before deployment so the browser assets are available in preview
+- if the preview needs the current SQLite-backed admin or form state, keep `database/database.sqlite` present locally before deploy
+- runtime details and constraints live in `docs/architecture/vercel-preview-runtime.md`
 
 ## Portable public data
 

@@ -33,7 +33,7 @@ class SiteSettingsServiceTest extends TestCase
         $this->assertInstanceOf(ContactDetailsSettings::class, $settings->contactDetails);
         $this->assertInstanceOf(SeoDefaultsSettings::class, $settings->seoDefaults);
         $this->assertSame('Ismael Rodmacq', $settings->siteIdentity->name);
-        $this->assertSame('contact@studio-atlas.test', $settings->contactDetails->email);
+        $this->assertSame('ismael@rodmacq.com', $settings->contactDetails->email);
         $this->assertDatabaseCount('site_settings', 0);
     }
 

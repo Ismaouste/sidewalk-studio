@@ -7,12 +7,13 @@
 - SQLite for local development because it removes service friction on Windows
 - Tailwind v4 with local font packages to avoid remote font requests
 - `.env` for secrets and runtime infrastructure, with a later bounded `site_settings` layer reserved for non-secret runtime configuration
+- a Vercel preview runtime for local CLI deployments of the Laravel app, separate from the GitHub Pages static export
 
 ## Explicitly deferred
 
 - Docker and containerized local development
 - GitHub Actions and release automation
-- production deployment configuration
+- production deployment automation and Git-driven hosting pipelines
 - real analytics drivers
 - required SSR runtime in day-to-day development
 

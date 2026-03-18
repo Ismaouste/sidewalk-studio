@@ -29,6 +29,11 @@
 - Keep canonical URLs, JSON-LD, sitemap, and robots generated from the app itself.
 - Serve metadata server-side for the first HTML even before SSR is enabled.
 
+### 014-vercel-preview-runtime
+- Keep a repo-owned Vercel preview runtime for local CLI deployments of the Laravel app.
+- Route previews through a versioned PHP entrypoint that stores writable Laravel state in temp storage and disables SSR by default.
+- Keep GitHub Pages static export as a separate public approximation instead of treating Vercel preview as full production automation.
+
 ## Deferred after v0 foundation
 
 ### Database strategy
