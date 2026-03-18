@@ -1,29 +1,71 @@
 ---
-title: Content Systems Should Start With Routing and Metadata
+title: Content systems start with routing and metadata
 slug: content-systems-routing-and-metadata
-summary: A short note on why Markdown-driven publishing only becomes useful once slugs, metadata, and publication state are modeled explicitly.
+summary: Markdown becomes publishable once routing, metadata, and publication state are explicit enough to drive canonical URLs, archives, and sitemap output.
 status: published
 published_at: 2026-03-07
-updated_at: 2026-03-07
+updated_at: 2026-03-19
 tags:
     - content
     - seo
     - laravel
-    - notes-dev
+    - metadata
+seo_title: Content systems start with routing and metadata
+seo_description: Routing and metadata are what turn Markdown into a publishable content system with stable URLs, canonicals, and archive rules.
 category: journal
+publication_type: journal
 accent_tone: violet
-seo_title: Content Systems Should Start With Routing and Metadata
-seo_description: Markdown is only the storage layer. The real system starts with routing, publication state, and metadata discipline.
+schema: article
+canonical: https://sidewalk-studio.vercel.app/en/journal/content-systems-routing-and-metadata
+ogImage: /images/og/content-systems-routing-and-metadata.jpg
 ---
 
-Markdown is the easy part.
+The problem showed up before the first article was worth reading. A Markdown file existed, but the repo still had to decide whether it belonged on `/en/journal/...`, whether it belonged in the sitemap, and whether a draft should stay invisible.
 
-The hard part is deciding what makes a piece of content publishable. For Sidewalk Studio, that baseline is explicit frontmatter: title, slug, summary, publication state, timestamps, tags, and SEO metadata.
+## Problem
 
-That decision lets the application do three things safely:
+Markdown is easy to author. It is not enough to run a public content system.
 
-- reject incomplete documents early
-- expose stable URLs for sitemap and canonical generation
-- separate draft content from public content without extra infrastructure
+The moment a site needs a canonical URL, an archive, a sitemap, a French fallback, and a draft state, the file alone stops being the system. The system is the set of rules that decides whether a document is complete, whether it is public, and where it lives.
 
-A content file is not just text. It is a contract between editorial intent and application behavior.
+That was the real problem in this repo. Without explicit metadata, every next step became fragile:
+
+- a missing slug could break a public route;
+- a missing description could weaken the page-level SEO payload;
+- a draft could leak into an index if the application only saw "a file exists";
+- a localized entry could quietly create duplicate URLs if the routing rules stayed vague.
+
+In practice, content quality and SEO quality were already tied together. The repo needed to treat content as data with a stable contract, not as loose prose sitting in a folder.
+
+## Decision
+
+The decision was to validate the publishing contract at the repository layer instead of leaving it implicit in templates or controllers.
+
+The `ContentRepository` now refuses incomplete frontmatter before the page can render:
+
+```php
+foreach (['title', 'slug', 'summary', 'status', 'published_at', 'updated_at', 'tags', 'seo_title', 'seo_description'] as $field) {
+    if (! array_key_exists($field, $matter)) {
+        throw new RuntimeException("Missing required frontmatter field [{$field}] in [{$path}].");
+    }
+}
+```
+
+That choice mattered more than adding a CMS first. It made the public rules explicit:
+
+- a piece of content has one slug and one publication state;
+- locale-aware routes can resolve against a predictable shape;
+- canonical URLs and sitemap entries can be derived from the same normalized payload;
+- archives stay free of drafts without hand-written exceptions.
+
+The alternative would have been looser and more familiar: let controllers assume the fields they need, and patch the missing cases one by one. That path is cheaper for a week and worse for a year. It spreads the contract across views, controllers, and editorial habit instead of giving it one place to fail loudly.
+
+## Result
+
+The result is not flashy. It is structural.
+
+The site can now move from a Markdown file to a public route, a canonical URL, a JSON-LD payload, and a sitemap entry without each layer inventing its own rules. That also made the later locale-prefixed routes safer, because the content layer already knew how to choose between English, French, and fallback behavior.
+
+It also changed how I think about editorial tooling. A content system does not start when someone adds a rich editor. It starts when the repo becomes strict enough to tell the difference between "a note saved on disk" and "a public document with routing and metadata discipline".
+
+That is also why this topic connects directly to the repo bootstrap documented in [Repository Bootstrap for a Spec-Driven Portfolio](/en/case-studies/repo-bootstrap-foundation). The repo had to decide where governance, content, and runtime rules lived before writing could become reliable. It also connects to [Technical SEO, sitemaps, and structured data for commerce](/en/journal/technical-seo-sitemaps-and-structured-data-for-commerce), because stable metadata is what keeps editorial URLs and SEO surfaces aligned.
