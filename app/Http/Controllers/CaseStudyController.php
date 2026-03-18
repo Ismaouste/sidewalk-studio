@@ -23,6 +23,7 @@ class CaseStudyController extends Controller
                 : 'Case studies about product-data flows, self-hosting, consent, technical SEO, and other constrained web systems.',
             '/case-studies',
             [
+                'robots' => 'index,follow',
                 'breadcrumb' => [
                     ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
                     ['name' => $isFrench ? 'Projets' : 'Projects', 'path' => '/projects'],
@@ -37,7 +38,7 @@ class CaseStudyController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
-    public function show(string $slug): Response
+    public function show(string $locale, string $slug): Response
     {
         $item = $this->content->findPublished('case-studies', $slug);
         $isFrench = app()->getLocale() === 'fr';
@@ -46,13 +47,16 @@ class CaseStudyController extends Controller
             $item['seo_description'],
             '/case-studies/'.$item['slug'],
             [
-                'schema_type' => 'Article',
-                'open_graph_type' => 'article',
+                'schema_variant' => 'creative_work',
                 'published_at' => $item['published_at'],
                 'updated_at' => $item['updated_at'],
+                'robots' => $item['robots'],
+                'canonical_url' => $item['canonical_url'],
+                'keywords' => $item['tags'],
                 'image' => [
-                    'url' => $item['image_url'],
-                    'alt' => $item['image_alt'],
+                    'url' => $item['open_graph_image'],
+                    'alt' => $item['featured_image_alt'] ?: $item['image_alt'],
+                    'slug' => $item['slug'],
                 ],
                 'section' => $isFrench ? 'Cas clients' : 'Case Studies',
                 'breadcrumb' => [

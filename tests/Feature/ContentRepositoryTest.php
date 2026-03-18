@@ -13,16 +13,35 @@ class ContentRepositoryTest extends TestCase
     {
         $items = app(ContentRepository::class)->published('writing');
 
-        $this->assertCount(6, $items);
+        $this->assertCount(7, $items);
         $this->assertContains('content-systems-routing-and-metadata', $items->pluck('slug')->all());
         $this->assertContains('opensurvey-nonprofit-health-data', $items->pluck('slug')->all());
         $this->assertContains('schema-org-rich-results-and-product-images', $items->pluck('slug')->all());
+        $this->assertContains('technical-seo-sitemaps-and-structured-data-for-commerce', $items->pluck('slug')->all());
         $this->assertContains('ytmusic-liked-sorter', $items->pluck('slug')->all());
         $this->assertTrue($items->every(fn (array $item) => $item['status'] === 'published'));
         $this->assertContains('journal', $items->pluck('category')->all());
         $this->assertContains('note', $items->pluck('category')->all());
         $this->assertContains('note', $items->pluck('publication_type')->all());
         $this->assertStringContainsString('/content-visuals/writing/', $items->first()['image_url']);
+        $contentSystems = $items->firstWhere('slug', 'content-systems-routing-and-metadata');
+        $this->assertSame(
+            '/images/og/content-systems-routing-and-metadata.jpg',
+            $contentSystems['open_graph_image'],
+        );
+        $this->assertSame(
+            'https://sidewalk-studio.vercel.app/en/journal/content-systems-routing-and-metadata',
+            $contentSystems['canonical_url'],
+        );
+    }
+
+    public function test_repository_returns_new_published_french_writing_entries(): void
+    {
+        $items = app(ContentRepository::class)->published('writing', 'fr', false);
+
+        $this->assertContains('quand-un-deploiement-reussi-ne-lest-pas', $items->pluck('slug')->all());
+        $this->assertContains('les-interdits-comme-specification', $items->pluck('slug')->all());
+        $this->assertTrue($items->every(fn (array $item) => $item['locale'] === 'fr'));
     }
 
     public function test_repository_adds_locale_hint_to_localized_placeholder_urls(): void

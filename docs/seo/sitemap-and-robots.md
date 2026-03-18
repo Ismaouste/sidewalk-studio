@@ -4,16 +4,17 @@
 
 The sitemap still derives from the normalized public read layer and combines:
 
-- static public pages such as `/`, `/local`, `/projects`, `/labs`, `/journal`, `/case-studies`, and `/contact`
-- published `note` and `journal` entries under `/journal/{slug}`
-- published `case_study` entries under `/case-studies/{slug}`
+- locale-prefixed public pages such as `/en`, `/en/local`, `/en/projects`, `/en/contact`, `/fr/journal`, `/fr/case-studies`, and `/fr/contact`
+- published `note` and `journal` entries under `/{locale}/journal/{slug}`
+- published `case_study` entries under `/{locale}/case-studies/{slug}`
 
 ## Inclusion rules
 
 - only `published` publications are included
 - publication inclusion is decided from database metadata, while the rendered body still comes from the linked Markdown source
 - draft content never appears in the sitemap
-- legacy routes such as `/about`, `/experience`, and `/writing/*` redirect and stay out of the sitemap
+- legacy routes such as `/about`, `/experience`, `/writing/*`, and non-prefixed public paths redirect and stay out of the sitemap
+- utility or sandbox surfaces such as `/labs`, `/cv/*`, and `/data-processing` stay out of the sitemap even when publicly reachable
 - utility download routes such as `/cv/en` and `/cv/fr` remain public but excluded from the sitemap
 - `/data-processing` remains public and footer-linked, but excluded and non-indexable
 
@@ -21,5 +22,6 @@ The sitemap still derives from the normalized public read layer and combines:
 
 - site-wide defaults still come from `site_settings`
 - per-page and per-publication robots directives can now be stored in admin-managed persistence
+- `/contact` is the intentional exception on the public surface and should stay `noindex,follow`
 - routes intentionally marked as internal or preproduction should stay out of the sitemap
-- request-level locale negotiation does not add alternate sitemap entries
+- locale-prefixed pages can each appear once in the sitemap when they resolve to real public content

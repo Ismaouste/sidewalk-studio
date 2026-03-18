@@ -31,10 +31,18 @@
         <meta property="og:url" content="{{ $seo['openGraph']['url'] ?? ($seo['canonical'] ?? config('site.url')) }}">
         <meta property="og:site_name" content="{{ $seo['openGraph']['site_name'] ?? config('site.name') }}">
         <meta property="og:locale" content="{{ $seo['openGraph']['locale'] ?? config('site.locale') }}">
+        @if (!empty($seo['openGraph']['image']))
+            <meta property="og:image" content="{{ $seo['openGraph']['image'] }}">
+            <meta property="og:image:alt" content="{{ $seo['openGraph']['image_alt'] ?? ($seo['title'] ?? config('site.name')) }}">
+        @endif
 
         <meta name="twitter:card" content="{{ $seo['twitter']['card'] ?? 'summary_large_image' }}">
         <meta name="twitter:title" content="{{ $seo['twitter']['title'] ?? ($seo['title'] ?? config('site.name')) }}">
         <meta name="twitter:description" content="{{ $seo['twitter']['description'] ?? ($seo['description'] ?? config('site.description')) }}">
+        @if (!empty($seo['twitter']['image']))
+            <meta name="twitter:image" content="{{ $seo['twitter']['image'] }}">
+            <meta name="twitter:image:alt" content="{{ $seo['twitter']['image_alt'] ?? ($seo['title'] ?? config('site.name')) }}">
+        @endif
 
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">

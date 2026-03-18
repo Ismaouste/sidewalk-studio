@@ -9,7 +9,7 @@ return [
     'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
     'author' => [
         'name' => env('SITE_AUTHOR_NAME', 'Ismael Rodmacq'),
-        'job_title' => env('SITE_AUTHOR_TITLE', 'Fullstack ecommerce developer for product data, integrations, tracking, and technical SEO'),
+        'job_title' => env('SITE_AUTHOR_TITLE', 'Full Stack Developer — E-commerce & Product Data'),
         'email' => env('SITE_CONTACT_EMAIL', 'ismael@rodmacq.com'),
         'same_as' => array_values(array_filter(array_map(
             'trim',
@@ -47,7 +47,7 @@ return [
     ],
     'contact' => [
         'email' => env('SITE_CONTACT_EMAIL', 'ismael@rodmacq.com'),
-        'location' => 'Nancy, Grand-Est',
+        'location' => 'Nancy, Grand Est',
         'availability' => 'Currently working at Jewely and open to conversations, part-time freelance work, and new opportunities.',
     ],
 ];

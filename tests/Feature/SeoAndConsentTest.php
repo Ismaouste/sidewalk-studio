@@ -10,51 +10,90 @@ class SeoAndConsentTest extends TestCase
     public function test_home_page_renders_server_side_metadata(): void
     {
         $description = app(SiteSettingsService::class)->current()->seoDefaults->defaultDescription;
-        $canonical = rtrim((string) config('site.url'), '/');
+        $canonical = rtrim((string) config('site.url'), '/').'/en';
+        $ogImage = rtrim((string) config('site.url'), '/').'/images/og/site-default.jpg';
 
-        $this->get('/')
+        $this->get('/en')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertSee($description)
+            ->assertSee('<meta property="og:image" content="'.$ogImage.'">', false)
             ->assertSee('application/ld+json', false);
     }
 
     public function test_projects_page_renders_breadcrumb_metadata(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/projects';
+        $canonical = rtrim((string) config('site.url'), '/').'/en/projects';
 
-        $this->get('/projects')
+        $this->get('/en/projects')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertSee('Experience | Ismael Rodmacq')
+            ->assertSee('Experience · Ismael Rodmacq')
+            ->assertSee('"@type":"Person"', false)
+            ->assertSee('"jobTitle":"Full Stack Developer — E-commerce & Product Data"', false)
+            ->assertSee('"addressRegion":"Grand Est"', false)
+            ->assertSee('"email":"ismael@rodmacq.com"', false)
             ->assertSee('BreadcrumbList', false);
     }
 
-    public function test_case_study_page_renders_article_metadata(): void
+    public function test_writing_article_page_renders_article_metadata_and_og_image(): void
     {
-        $this->get('/case-studies/repo-bootstrap-foundation')
+        $ogImage = rtrim((string) config('site.url'), '/').'/images/og/content-systems-routing-and-metadata.jpg';
+        $canonical = 'https://sidewalk-studio.vercel.app/en/journal/content-systems-routing-and-metadata';
+
+        $this->get('/en/journal/content-systems-routing-and-metadata')
             ->assertOk()
-            ->assertSee('Repository Bootstrap for a Spec-Driven Portfolio | Ismael Rodmacq')
-            ->assertSee('article', false)
-            ->assertSee('/content-visuals/case-studies/repo-bootstrap-foundation.svg', false)
+            ->assertSee('Content systems start with routing and metadata · Ismael Rodmacq')
+            ->assertSee('<meta property="og:type" content="article">', false)
+            ->assertSee('<meta property="og:image" content="'.$ogImage.'">', false)
+            ->assertSee('<meta name="twitter:image" content="'.$ogImage.'">', false)
+            ->assertSee('"@type":"Article"', false)
+            ->assertSee('"@id":"'.$canonical.'"', false)
+            ->assertSee('BreadcrumbList', false);
+    }
+
+    public function test_case_study_page_renders_creative_work_metadata(): void
+    {
+        $ogImage = rtrim((string) config('site.url'), '/').'/images/og/site-default.jpg';
+
+        $this->get('/en/case-studies/repo-bootstrap-foundation')
+            ->assertOk()
+            ->assertSee('Repository Bootstrap for a Spec-Driven Portfolio · Ismael Rodmacq')
+            ->assertSee('<meta property="og:type" content="website">', false)
+            ->assertSee('<meta property="og:image" content="'.$ogImage.'">', false)
+            ->assertSee('"@type":"CreativeWork"', false)
             ->assertSee('BreadcrumbList', false);
     }
 
     public function test_case_study_page_keeps_stable_canonical_url_when_resolved_in_french(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/case-studies/repo-bootstrap-foundation';
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/case-studies/repo-bootstrap-foundation';
 
         $this->withCookie('sidewalk_locale', 'fr')
-            ->get('/case-studies/repo-bootstrap-foundation')
+            ->get('/fr/case-studies/repo-bootstrap-foundation')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
-            ->assertSee('Bootstrap du repository pour un portfolio piloté par les specs | Ismaël Rodmacq');
+            ->assertSee('Bootstrap du repository pour un portfolio piloté par les specs · Ismaël Rodmacq');
+    }
+
+    public function test_contact_page_is_explicitly_noindex_follow(): void
+    {
+        $this->get('/en/contact')
+            ->assertOk()
+            ->assertSee('<meta name="robots" content="noindex,follow">', false);
+    }
+
+    public function test_default_description_stays_within_155_characters(): void
+    {
+        $description = app(SiteSettingsService::class)->current()->seoDefaults->defaultDescription;
+
+        $this->assertLessThanOrEqual(155, mb_strlen($description));
     }
 
     public function test_labs_page_ships_embed_placeholder_without_loading_third_party_iframe(): void
     {
-        $this->get('/labs')
+        $this->get('/en/labs')
             ->assertOk()
             ->assertSee('&quot;service&quot;:&quot;youtube&quot;', false)
             ->assertDontSee('youtube-nocookie.com', false);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\ContentRepository;
 use App\Services\PageContentRepository;
 use App\Services\SiteSettingsService;
+use App\Support\PublicLocale;
 use App\Support\Seo;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\RedirectResponse;
@@ -29,6 +30,7 @@ class SiteController extends Controller
             $page['seo_title'],
             $page['seo_description'],
             '/',
+            $this->pageSeoOptions($page),
         );
 
         return Inertia::render('Home', [
@@ -60,7 +62,7 @@ class SiteController extends Controller
 
     public function experience(): RedirectResponse
     {
-        return redirect('/projects', 301);
+        return redirect(PublicLocale::localizedPath('/projects'), 301);
     }
 
     public function local(): Response
@@ -70,12 +72,12 @@ class SiteController extends Controller
             $page['seo_title'],
             $page['seo_description'],
             '/local',
-            [
+            $this->pageSeoOptions($page, [
                 'breadcrumb' => [
                     ['name' => 'Home', 'path' => '/'],
                     ['name' => app()->getLocale() === 'fr' ? 'Localisation' : 'Local', 'path' => '/local'],
                 ],
-            ],
+            ]),
         );
 
         return Inertia::render('Local', [
@@ -109,12 +111,25 @@ class SiteController extends Controller
             $page['seo_title'],
             $page['seo_description'],
             '/projects',
-            [
+            $this->pageSeoOptions($page, [
+                'schema_variant' => 'person_surface',
+                'person' => [
+                    'email' => $this->siteSettings->current()->contactDetails->email,
+                    'job_title' => 'Full Stack Developer — E-commerce & Product Data',
+                    'knows_about' => [
+                        'E-commerce engineering',
+                        'Product data management',
+                        'GDPR compliance',
+                        'Laravel',
+                        'Docker Swarm',
+                        'Technical SEO',
+                    ],
+                ],
                 'breadcrumb' => [
                     ['name' => 'Home', 'path' => '/'],
                     ['name' => 'Projects', 'path' => '/projects'],
                 ],
-            ],
+            ]),
         );
 
         return Inertia::render('Projects', [
@@ -228,12 +243,13 @@ class SiteController extends Controller
             $page['seo_title'],
             $page['seo_description'],
             '/contact',
-            [
+            $this->pageSeoOptions($page, [
+                'robots' => 'noindex,follow',
                 'breadcrumb' => [
                     ['name' => 'Home', 'path' => '/'],
                     ['name' => 'Contact', 'path' => '/contact'],
                 ],
-            ],
+            ]),
         );
 
         return Inertia::render('Contact', [
@@ -255,13 +271,13 @@ class SiteController extends Controller
             $page['seo_title'],
             $page['seo_description'],
             '/data-processing',
-            [
+            $this->pageSeoOptions($page, [
                 'breadcrumb' => [
                     ['name' => 'Home', 'path' => '/'],
                     ['name' => 'Data processing', 'path' => '/data-processing'],
                 ],
                 'robots' => 'noindex,nofollow',
-            ],
+            ]),
         );
 
         return Inertia::render('DataProcessing', [
@@ -333,12 +349,14 @@ class SiteController extends Controller
             ? $typeSettings->get($options['publication_type'])
             : null;
 
+        $ctaHref = $presentation['cta_target'] ?? $options['ctaHref'];
+
         return [
             'eyebrow' => $options['eyebrow'],
             'title' => $options['title'],
             'description' => $options['description'],
             'ctaLabel' => $presentation['cta_label'] ?? $options['ctaLabel'],
-            'ctaHref' => $presentation['cta_target'] ?? $options['ctaHref'],
+            'ctaHref' => $ctaHref !== '' ? PublicLocale::localizedPath($ctaHref) : '',
             'accentColor' => $presentation['accent_color'] ?? null,
             'items' => $this->content->feed($options['sections'], [
                 'locale' => app()->getLocale(),
@@ -360,5 +378,24 @@ class SiteController extends Controller
             'writing',
             app()->getLocale() === 'fr' ? $frenchSlug : $englishSlug,
         );
+    }
+
+    /**
+     * @param  array<string, mixed>  $page
+     * @param  array<string, mixed>  $overrides
+     * @return array<string, mixed>
+     */
+    protected function pageSeoOptions(array $page, array $overrides = []): array
+    {
+        $options = [
+            'robots' => $page['robots'] ?: 'index,follow',
+            'canonical_url' => $page['canonical_url'] ?: '',
+            'image' => [
+                'url' => $page['open_graph_image'] ?? '',
+                'alt' => $page['title'] ?: $page['seo_title'],
+            ],
+        ];
+
+        return array_replace_recursive($options, $overrides);
     }
 }

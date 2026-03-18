@@ -9,13 +9,13 @@ class PublicPagesTest extends TestCase
     public function test_public_pages_are_reachable(): void
     {
         $pages = [
-            '/' => 'Ismael Rodmacq',
-            '/local' => 'Local | Ismael Rodmacq',
-            '/projects' => 'Experience | Ismael Rodmacq',
-            '/labs' => 'Labs | Ismael Rodmacq',
-            '/journal' => 'Journal | Ismael Rodmacq',
-            '/case-studies' => 'Case Studies | Ismael Rodmacq',
-            '/contact' => 'Contact | Ismael Rodmacq',
+            '/en' => 'Ismael Rodmacq',
+            '/en/local' => 'Local · Ismael Rodmacq',
+            '/en/projects' => 'Experience · Ismael Rodmacq',
+            '/en/labs' => 'Labs · Ismael Rodmacq',
+            '/en/journal' => 'Journal · Ismael Rodmacq',
+            '/en/case-studies' => 'Case Studies · Ismael Rodmacq',
+            '/en/contact' => 'Contact · Ismael Rodmacq',
         ];
 
         foreach ($pages as $url => $expectedText) {
@@ -28,16 +28,16 @@ class PublicPagesTest extends TestCase
     public function test_legacy_routes_redirect_to_projects(): void
     {
         $this->get('/about')
-            ->assertRedirect('/projects');
+            ->assertRedirect('/en/projects');
 
         $this->get('/experience')
-            ->assertRedirect('/projects');
+            ->assertRedirect('/en/projects');
 
         $this->get('/writing')
-            ->assertRedirect('/journal');
+            ->assertRedirect('/en/journal');
 
         $this->get('/writing/content-systems-routing-and-metadata')
-            ->assertRedirect('/journal/content-systems-routing-and-metadata');
+            ->assertRedirect('/en/journal/content-systems-routing-and-metadata');
     }
 
     public function test_machine_readable_endpoints_are_available(): void
@@ -50,9 +50,19 @@ class PublicPagesTest extends TestCase
             ->assertOk()
             ->assertSee('<?xml version="1.0" encoding="UTF-8"?>', false)
             ->assertDontSee(url('/experience'), false)
-            ->assertSee(url('/projects'), false)
-            ->assertSee(url('/local'), false)
-            ->assertSee(url('/journal/content-systems-routing-and-metadata'), false);
+            ->assertDontSee(url('/en/labs'), false)
+            ->assertSee(url('/en/projects'), false)
+            ->assertSee(url('/fr/projects'), false)
+            ->assertSee(url('/en/local'), false)
+            ->assertSee(url('/fr/local'), false)
+            ->assertSee(url('/en/contact'), false)
+            ->assertSee(url('/fr/contact'), false)
+            ->assertSee(url('/en/journal'), false)
+            ->assertSee(url('/fr/journal'), false)
+            ->assertSee(url('/en/case-studies'), false)
+            ->assertSee(url('/fr/case-studies'), false)
+            ->assertSee(url('/en/journal/content-systems-routing-and-metadata'), false)
+            ->assertSee(url('/fr/journal/content-systems-routing-and-metadata'), false);
     }
 
     public function test_placeholder_visual_endpoints_are_publicly_available(): void

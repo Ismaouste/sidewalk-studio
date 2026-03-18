@@ -2,12 +2,12 @@
 
 The current JSON-LD set stays intentionally limited to the types already needed by Sidewalk Studio:
 
-- `Person`
 - `WebSite`
 - `WebPage`
+- `Person` for `/{locale}/projects`
 - `BreadcrumbList`
-- `BlogPosting` for writing entries
-- `Article` for case studies
+- `Article` for writing entries
+- `CreativeWork` for case studies
 
 ## Source of truth
 
@@ -18,16 +18,19 @@ That means:
 - publication metadata such as title, summary, dates, image references, and canonical intent can now come from database-managed records
 - the long-form article body still comes from the linked Markdown file referenced by that record
 - case-study-specific metadata remains available through the publication `metadata` payload
-- static editorial pages such as `Projects` and `Local` keep the default `WebPage` + `BreadcrumbList` payload
+- static editorial pages such as `Home`, `Local`, and `Journal` keep the default `WebPage` + `BreadcrumbList` payload
+- `/{locale}/projects` is the exception and emits a `Person` schema with job title, email, address, `sameAs`, and `knowsAbout`
 - visible breadcrumbs must reuse the same PHP breadcrumb source as `BreadcrumbList`
 
 ## Current rules
 
-- writing and case-study detail pages may expose an `image` property using either a real featured asset or the generated SVG placeholder route
-- journal archive and detail schema resolve on the `/journal` route tree only
+- writing detail pages expose `Article` with `headline`, description, publish/update dates, nested author and publisher, `mainEntityOfPage`, and an Open Graph image fallback chain
+- case-study detail pages expose `CreativeWork` with description, author, `dateCreated`, keywords, URL, and an Open Graph fallback image
+- journal archive and detail schema resolve on the locale-prefixed `/{locale}/journal` route tree only
 - legacy `/writing` URLs redirect rather than emitting a second structured-data surface
 - binary document downloads do not emit JSON-LD
 - `/data-processing` can keep the default `WebPage` shape, but should not grow richer editorial schema
+- the `Person` payload must keep `name`, `jobTitle`, `url`, `email`, `sameAs`, `address`, and `knowsAbout` populated from site settings and author defaults
 
 ## Dual-mode requirement
 

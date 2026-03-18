@@ -23,6 +23,7 @@ class WritingController extends Controller
                 : 'Notes on architecture, consent orchestration, content modeling, and portfolio system design.',
             '/journal',
             [
+                'robots' => 'index,follow',
                 'breadcrumb' => [
                     ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
                     ['name' => 'Journal', 'path' => '/journal'],
@@ -36,7 +37,7 @@ class WritingController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
-    public function show(string $slug): Response
+    public function show(string $locale, string $slug): Response
     {
         $item = $this->content->findPublished('writing', $slug);
         $isFrench = app()->getLocale() === 'fr';
@@ -45,13 +46,16 @@ class WritingController extends Controller
             $item['seo_description'],
             '/journal/'.$item['slug'],
             [
-                'schema_type' => 'BlogPosting',
-                'open_graph_type' => 'article',
+                'schema_variant' => 'article',
                 'published_at' => $item['published_at'],
                 'updated_at' => $item['updated_at'],
+                'robots' => $item['robots'],
+                'canonical_url' => $item['canonical_url'],
+                'keywords' => $item['tags'],
                 'image' => [
-                    'url' => $item['image_url'],
-                    'alt' => $item['image_alt'],
+                    'url' => $item['open_graph_image'],
+                    'alt' => $item['featured_image_alt'] ?: $item['image_alt'],
+                    'slug' => $item['slug'],
                 ],
                 'section' => 'Journal',
                 'breadcrumb' => [

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Publication;
 use App\Models\PublicationTypeSetting;
 use App\Support\ContentVisual;
+use App\Support\PublicLocale;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -35,9 +36,16 @@ class ContentRepository
                 return $leftPriority <=> $rightPriority;
             }
 
+            $leftSourcePriority = $left['source_driver'] === 'file' ? 0 : 1;
+            $rightSourcePriority = $right['source_driver'] === 'file' ? 0 : 1;
+
+            if ($leftSourcePriority !== $rightSourcePriority) {
+                return $leftSourcePriority <=> $rightSourcePriority;
+            }
+
             return strcmp($right['published_at'] ?: '', $left['published_at'] ?: '');
         })
-            ->unique(fn (array $item): string => "{$item['publication_type']}:{$item['slug']}")
+            ->unique(fn (array $item): string => "{$item['section']}:{$item['slug']}")
             ->values();
     }
 
@@ -392,6 +400,9 @@ class ContentRepository
     {
         $document = YamlFrontMatter::parseFile($path);
         $matter = $document->matter();
+        $canonicalUrl = (string) ($matter['canonical_url'] ?? $matter['canonical'] ?? '');
+        $openGraphImage = (string) ($matter['open_graph_image'] ?? $matter['ogImage'] ?? ($matter['featured_image'] ?? ''));
+        $schema = (string) ($matter['schema'] ?? '');
 
         foreach (['title', 'slug', 'summary', 'status', 'published_at', 'updated_at', 'tags', 'seo_title', 'seo_description'] as $field) {
             if (! array_key_exists($field, $matter)) {
@@ -437,7 +448,6 @@ class ContentRepository
             'seo_title' => (string) $matter['seo_title'],
             'seo_description' => (string) $matter['seo_description'],
             'robots' => (string) ($matter['robots'] ?? 'index,follow'),
-            'canonical_url' => (string) ($matter['canonical_url'] ?? ''),
             'client' => (string) ($matter['client'] ?? ''),
             'role' => (string) ($matter['role'] ?? ''),
             'stack' => $this->normalizeList($matter['stack'] ?? []),
@@ -446,14 +456,16 @@ class ContentRepository
             'body_markdown' => trim($document->body()),
             'body_html' => $html,
             'excerpt' => Str::of(strip_tags($html))->squish()->limit(180)->toString(),
-            'url' => $this->publicUrl($publicationType, (string) $matter['slug']),
+            'url' => $this->publicUrl($publicationType, (string) $matter['slug'], $locale),
             'category' => (string) ($matter['category'] ?? ($section === 'writing' ? 'journal' : 'work')),
             'publication_type' => $publicationType,
             'accent_tone' => (string) ($matter['accent_tone'] ?? ''),
             'featured_image' => (string) ($matter['featured_image'] ?? ''),
             'featured_image_alt' => (string) ($matter['featured_image_alt'] ?? ''),
-            'open_graph_image' => (string) ($matter['open_graph_image'] ?? ($matter['featured_image'] ?? '')),
+            'open_graph_image' => $openGraphImage,
             'featured_video' => (string) ($matter['featured_video'] ?? ''),
+            'canonical_url' => $canonicalUrl,
+            'schema' => $schema,
             'source_path' => $path,
             'source_driver' => 'file',
             'metadata' => [
@@ -461,6 +473,7 @@ class ContentRepository
                 'role' => (string) ($matter['role'] ?? ''),
                 'stack' => $this->normalizeList($matter['stack'] ?? []),
                 'outcomes' => $this->normalizeList($matter['outcomes'] ?? []),
+                'schema' => $schema,
             ],
         ];
 
@@ -506,7 +519,7 @@ class ContentRepository
             'body_markdown' => $bodyMarkdown,
             'body_html' => $html,
             'excerpt' => Str::of(strip_tags($html))->squish()->limit(180)->toString(),
-            'url' => $this->publicUrl($record->type, $record->slug),
+            'url' => $this->publicUrl($record->type, $record->slug, $record->locale),
             'category' => (string) ($record->category ?? ''),
             'publication_type' => $record->type,
             'accent_tone' => (string) ($record->accent_tone ?? ''),
@@ -514,6 +527,7 @@ class ContentRepository
             'featured_image_alt' => (string) ($record->featured_image_alt ?? ''),
             'open_graph_image' => (string) ($record->open_graph_image ?? $record->featured_image ?? ''),
             'featured_video' => (string) ($record->featured_video ?? ''),
+            'schema' => (string) ($metadata['schema'] ?? ''),
             'source_path' => $record->source_path,
             'source_driver' => $record->source_driver ?: 'hybrid',
             'metadata' => $metadata,
@@ -536,11 +550,14 @@ class ContentRepository
         return trim((string) $record->body_markdown);
     }
 
-    protected function publicUrl(string $publicationType, string $slug): string
+    protected function publicUrl(string $publicationType, string $slug, string $locale): string
     {
-        return $publicationType === 'case_study'
-            ? route('case-studies.show', $slug)
-            : route('writing.show', $slug);
+        return PublicLocale::localizedPath(
+            $publicationType === 'case_study'
+                ? "/case-studies/{$slug}"
+                : "/journal/{$slug}",
+            $locale,
+        );
     }
 
     protected function normalizePublicationType(string $section, string $frontmatterValue, mixed $tags): string
