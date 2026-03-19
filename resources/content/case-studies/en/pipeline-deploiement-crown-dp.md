@@ -19,7 +19,7 @@ schema: creative_work
 canonical: "{{site_url}}/en/case-studies/pipeline-deploiement-crown-dp"
 ogImage: /images/og/site-default.jpg
 client: Jewely / Flippad · Crown DP
-role: Incident analysis, deployment hardening, operational stabilization
+role: Incident analysis and deployment hardening
 stack:
     - Docker Swarm
     - Laravel

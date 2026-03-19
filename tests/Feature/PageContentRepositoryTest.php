@@ -27,7 +27,7 @@ class PageContentRepositoryTest extends TestCase
 
         $this->assertSame('Parcours de tech lead e-commerce', $page['seo_title']);
         $this->assertSame(
-            'Un goût pour les systèmes qui doivent vraiment tourner.',
+            'Des systèmes déjà en ligne, avec du réel à tenir.',
             $page['hero']['title'],
         );
         $this->assertSame(

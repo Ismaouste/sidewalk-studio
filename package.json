@@ -13,7 +13,8 @@
         "format:check": "prettier --check resources/",
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
-        "types:check": "vue-tsc --noEmit"
+        "types:check": "vue-tsc --noEmit",
+        "vercel-build": "php -r \"if (! is_dir('database')) { mkdir('database', 0777, true); } if (! file_exists('database/database.sqlite')) { touch('database/database.sqlite'); }\" && php artisan migrate:fresh --seed --force && npm run build"
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",

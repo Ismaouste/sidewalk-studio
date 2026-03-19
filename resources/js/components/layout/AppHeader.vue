@@ -257,6 +257,7 @@ onBeforeUnmount(() => {
     content: '';
     position: absolute;
     inset: -20px -56px -12px -56px;
+    pointer-events: none;
     border-radius: inherit;
     background:
         radial-gradient(

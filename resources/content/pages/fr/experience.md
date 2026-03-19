@@ -3,7 +3,7 @@ seo_title: Parcours de tech lead e-commerce
 seo_description: Parcours de tech lead e-commerce à Nancy, Grand Est, entre données produit, intégrations métier, SEO technique et environnements vivants.
 hero:
     eyebrow: Expérience
-    title: Un goût pour les systèmes qui doivent vraiment tourner.
+    title: Des systèmes déjà en ligne, avec du réel à tenir.
     summary: Ecommerce, CMS, connecteurs, donnée produit et delivery dans des contextes où il faut d'abord comprendre ce qui tourne déjà avant de modifier quoi que ce soit.
 positioning:
     - Comprendre vite un projet, ses usages et ses points de fragilité.
@@ -95,7 +95,7 @@ side_project_sections:
       summary: Un petit outil personnel, propre et utile, avec un vrai rapport à la donnée, au tri et à la restitution.
       paragraphs:
           - YTMusic Liked Sorter est né d'un besoin simple de tri, de reprise et de relecture d'un historique personnel. Ce n'est pas un produit industriel, mais c'est un bon exemple de petit outil net, pensé pour être utile et agréable à utiliser.
-          - Le dépôt public montre bien ce qui m'intéresse dans ce format-là : une interface légère, une structure lisible, un filtrage propre et un résultat directement exploitable.
+          - "Le dépôt public montre bien ce qui m'intéresse dans ce format-là : une interface légère, une structure lisible, un filtrage propre et un résultat directement exploitable."
       links:
           - label: GitHub · ytmusic-liked-sorter
             href: https://github.com/Ismaouste/ytmusic-liked-sorter

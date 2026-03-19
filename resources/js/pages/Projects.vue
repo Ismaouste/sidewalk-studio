@@ -702,10 +702,8 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 }
 
 .projects-page__story-head {
-    justify-items: center;
-    text-align: center;
-    max-width: 68rem;
-    margin-inline: auto;
+    justify-items: start;
+    text-align: left;
 }
 
 .projects-page__story-copy,
@@ -738,7 +736,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
 .projects-page__story-summary {
     color: color-mix(in srgb, var(--sw-text-primary) 76%, var(--sw-text-secondary));
-    max-width: 54rem;
+    max-width: 46rem;
 }
 
 .projects-page__story-body .projects-page__copy-line {

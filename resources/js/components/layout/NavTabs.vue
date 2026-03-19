@@ -44,30 +44,30 @@ function normalizePath(value: string): string {
     return pathname === '' ? '/' : pathname;
 }
 
-function matchesPath(currentPath: string, href: string): boolean {
-    const itemPath = normalizePath(href);
+function stripLocalePrefix(path: string): string {
+    const normalized = normalizePath(path);
+    const localePrefix = normalizePath(`/${page.props.site.locale}`);
 
-    if (itemPath === '/') {
-        return !props.items.some((navItem) => {
-            const navPath = normalizePath(navItem.href);
-
-            if (navPath === '/') {
-                return false;
-            }
-
-            return (
-                currentPath === navPath ||
-                currentPath.endsWith(navPath) ||
-                currentPath.includes(`${navPath}/`)
-            );
-        });
+    if (normalized === localePrefix) {
+        return '/';
     }
 
-    return (
-        currentPath === itemPath ||
-        currentPath.endsWith(itemPath) ||
-        currentPath.includes(`${itemPath}/`)
-    );
+    if (normalized.startsWith(`${localePrefix}/`)) {
+        return normalized.slice(localePrefix.length) || '/';
+    }
+
+    return normalized;
+}
+
+function matchesPath(currentPath: string, href: string): boolean {
+    const itemPath = normalizePath(href);
+    const unlocalizedItemPath = stripLocalePrefix(itemPath);
+
+    if (unlocalizedItemPath === '/') {
+        return currentPath === itemPath;
+    }
+
+    return currentPath === itemPath || currentPath.startsWith(`${itemPath}/`);
 }
 
 const resolvedDesktopPath = computed(() => normalizePath(props.currentUrl));
