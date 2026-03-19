@@ -6,6 +6,7 @@ use App\Services\SiteSettingsService;
 use App\Services\LoaderQuoteService;
 use App\Support\PublicLocale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -15,6 +16,34 @@ class HandleInertiaRequests extends Middleware
     public function version(Request $request): ?string
     {
         return parent::version($request);
+    }
+
+    public function urlResolver(): \Closure
+    {
+        return function (Request $request): string {
+            $relativeUrl = Str::start(
+                Str::after($request->fullUrl(), $request->getSchemeAndHttpHost()),
+                '/',
+            );
+
+            [$pathPart, $fragmentPart] = array_pad(explode('#', $relativeUrl, 2), 2, null);
+            [$pathname, $queryString] = array_pad(explode('?', $pathPart, 2), 2, null);
+
+            if ($queryString === null) {
+                return $relativeUrl;
+            }
+
+            $params = collect(explode('&', $queryString))
+                ->filter()
+                ->reject(fn (string $pair): bool => Str::startsWith($pair, 'path='))
+                ->reject(fn (string $pair): bool => Str::startsWith($pair, 'lang='))
+                ->values();
+
+            $query = $params->isEmpty() ? '' : '?'.$params->implode('&');
+            $fragment = $fragmentPart !== null ? '#'.$fragmentPart : '';
+
+            return "{$pathname}{$query}{$fragment}";
+        };
     }
 
     public function share(Request $request): array

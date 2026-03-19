@@ -122,6 +122,16 @@ function handleImageLoad(): void {
     padding: clamp(0.25rem, 0.6vw, 0.45rem);
 }
 
+@media (max-width: 640px) {
+    .content-visual__image[src$='.svg'],
+    .content-visual--compact .content-visual__image[src$='.svg'] {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        object-fit: cover;
+    }
+}
+
 .content-visual__overlay {
     position: absolute;
     inset: auto 0 0;

@@ -66,7 +66,11 @@ class PublicLocaleResolutionTest extends TestCase
             'X-Vercel-Id' => 'cdg1::test-request',
         ])->get('/fr/projects?path=fr%2Fprojects')
             ->assertOk()
-            ->assertHeader('content-language', 'fr');
+            ->assertHeader('content-language', 'fr')
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('site.locale', 'fr'))
+            ->assertSee('&quot;url&quot;:&quot;\/fr\/projects&quot;', false)
+            ->assertDontSee('&quot;url&quot;:&quot;\/fr\/projects?path=fr%2Fprojects&quot;', false);
     }
 
     public function test_newly_localized_contact_page_renders_french_content(): void
