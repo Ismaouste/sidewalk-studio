@@ -6,6 +6,7 @@
 - no analytics script is loaded
 - the analytics category still exists so the future adapter contract is stable
 - any future heatmap or session-replay mode must stay disabled by default and appear only behind explicit consent
+- the consent copy for this category should stay localized with the page locale
 
 ## Planned later
 

@@ -12,12 +12,12 @@ import type { SeoPayload, SiteProps } from '@/types';
 
 const page = usePage<{ seo?: SeoPayload; site: SiteProps }>();
 const transitions = usePageTransitions();
-const { isSettling, isLoading } = transitions;
+const { isSettling } = transitions;
 const { currentTheme } = useTheme();
 
 const breadcrumbs = computed(() => page.props.seo?.breadcrumbs ?? []);
-const LOADER_DISPLAY_MS = 1350;
-const LOADER_FADE_MS = 320;
+const LOADER_DISPLAY_MS = 980;
+const LOADER_FADE_MS = 260;
 const LOADER_QUOTES_TO_SHOW = 2;
 const LOADER_SESSION_KEY = 'sidewalk-loader-seen';
 
@@ -116,43 +116,26 @@ onBeforeUnmount(() => {
                 aria-atomic="true"
             >
                 <div class="app-loader__content">
-                    <span
-                        class="app-loader__rail"
-                        :class="`app-loader__rail--${currentTheme}`"
-                        aria-hidden="true"
-                    />
-                    <div class="app-loader__stack">
-                        <transition name="app-loader-quote" mode="out-in">
-                            <div
-                                v-if="currentLoaderQuote"
-                                :key="`${loaderQuoteIndex}-${currentLoaderQuote.text}`"
-                                class="app-loader__quote"
+                    <transition name="app-loader-quote" mode="out-in">
+                        <div
+                            v-if="currentLoaderQuote"
+                            :key="`${loaderQuoteIndex}-${currentLoaderQuote.text}`"
+                            class="app-loader__quote"
+                        >
+                            <p
+                                class="app-loader__text"
+                                :class="{
+                                    'app-loader__text--mono':
+                                        currentLoaderQuote.mono,
+                                }"
                             >
-                                <p
-                                    class="app-loader__text"
-                                    :class="{
-                                        'app-loader__text--mono':
-                                            currentLoaderQuote.mono,
-                                    }"
-                                >
-                                    « {{ currentLoaderQuote.text }} »
-                                </p>
-                                <p class="app-loader__author">
-                                    — {{ currentLoaderQuote.author }}
-                                </p>
-                            </div>
-                        </transition>
-                    </div>
-                </div>
-            </div>
-        </transition>
-        <transition name="app-loader-fade">
-            <div
-                v-if="isLoading && !loaderVisible"
-                class="app-loader app-loader--transition"
-                aria-hidden="true"
-            >
-                <div class="app-loader__content app-loader__content--transition">
+                                « {{ currentLoaderQuote.text }} »
+                            </p>
+                            <p class="app-loader__author">
+                                — {{ currentLoaderQuote.author }}
+                            </p>
+                        </div>
+                    </transition>
                     <span
                         class="app-loader__rail"
                         :class="`app-loader__rail--${currentTheme}`"
@@ -191,9 +174,10 @@ onBeforeUnmount(() => {
     z-index: 9999;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     pointer-events: none;
     overflow: hidden;
+    padding-inline: clamp(1rem, 7vw, 6.5rem);
     background:
         radial-gradient(
             circle at 18% 18%,
@@ -224,24 +208,19 @@ onBeforeUnmount(() => {
 
 .app-loader__content {
     display: grid;
-    grid-template-columns: 10px minmax(0, 1fr);
     align-items: start;
-    gap: 0.95rem;
+    justify-items: start;
+    gap: 0.75rem;
     width: min(34rem, calc(100vw - 2rem));
     padding-inline: 0;
     text-align: left;
 }
 
-.app-loader__content--transition {
-    width: auto;
-    padding-inline: 0;
-}
-
 .app-loader__rail {
     position: relative;
     display: block;
-    width: 10px;
-    min-height: clamp(6rem, 14vh, 8.1rem);
+    width: clamp(8.5rem, 22vw, 12rem);
+    height: 8px;
     border-radius: 999px;
     overflow: hidden;
     background: color-mix(in srgb, var(--sw-bg-elevated) 74%, transparent);
@@ -302,47 +281,47 @@ onBeforeUnmount(() => {
     inset: 1px;
     background:
         radial-gradient(
-            circle at 50% 16%,
+            circle at 14% 50%,
             color-mix(in srgb, var(--app-loader-rail-bright) 96%, transparent),
+            transparent 24%
+        ),
+        radial-gradient(
+            circle at 52% 50%,
+            color-mix(in srgb, var(--app-loader-rail-core) 94%, transparent),
             transparent 28%
         ),
         radial-gradient(
-            circle at 50% 50%,
-            color-mix(in srgb, var(--app-loader-rail-core) 92%, transparent),
-            transparent 34%
-        ),
-        radial-gradient(
-            circle at 50% 84%,
+            circle at 86% 50%,
             color-mix(in srgb, var(--app-loader-rail-deep) 88%, transparent),
-            transparent 28%
+            transparent 24%
         ),
         linear-gradient(
-            180deg,
+            90deg,
             color-mix(in srgb, var(--app-loader-rail-deep) 74%, transparent),
             var(--app-loader-rail-core) 34%,
-            var(--app-loader-rail-bright) 62%,
+            var(--app-loader-rail-bright) 58%,
             color-mix(in srgb, var(--app-loader-rail-deep) 78%, transparent)
         );
     background-size:
-        170% 34%,
-        188% 42%,
-        170% 34%,
-        100% 220%;
+        32% 180%,
+        36% 180%,
+        32% 180%,
+        220% 100%;
     background-position:
-        50% -10%,
+        -12% 50%,
         50% 50%,
-        50% 106%,
-        50% 140%;
+        112% 50%,
+        130% 50%;
     filter: saturate(118%);
     animation:
-        app-loader-rail-flow 4.6s linear infinite,
+        app-loader-rail-flow 3.4s linear infinite,
         app-loader-rail-pulse 2.4s ease-in-out infinite alternate;
 }
 
 .app-loader__rail::after {
     inset: -1px;
     background: linear-gradient(
-        180deg,
+        90deg,
         transparent 0%,
         transparent 28%,
         color-mix(in srgb, white 44%, var(--app-loader-rail-bright)) 46%,
@@ -353,13 +332,8 @@ onBeforeUnmount(() => {
     mix-blend-mode: screen;
     opacity: 0.72;
     filter: blur(4px);
-    transform: translateY(-132%);
+    transform: translateX(-132%);
     animation: app-loader-rail-sweep 2.8s ease-in-out infinite;
-}
-
-.app-loader__stack {
-    display: grid;
-    gap: 0.55rem;
 }
 
 .app-loader__quote {
@@ -373,8 +347,8 @@ onBeforeUnmount(() => {
     font-style: italic;
     line-height: 1.55;
     max-width: 26rem;
+    white-space: pre-line;
     color: color-mix(in srgb, var(--sw-text-primary) 86%, var(--sw-text-secondary));
-    text-shadow: 0 1px 0 color-mix(in srgb, var(--sw-bg-base) 26%, transparent);
     text-wrap: pretty;
 }
 
@@ -394,24 +368,6 @@ onBeforeUnmount(() => {
 
 .sw-main__breadcrumb {
     margin-bottom: clamp(2px, 0.5vw, 6px);
-}
-
-.app-loader--transition {
-    align-items: flex-start;
-    justify-content: flex-start;
-    background: transparent;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-}
-
-.app-loader--transition .app-loader__content {
-    margin-top: calc(var(--sw-public-header-height, 0px) + 18px);
-    margin-left: min(4vw, 2rem);
-}
-
-.app-loader--transition .app-loader__rail {
-    min-height: 3.4rem;
-    width: 8px;
 }
 
 .sw-main__content {
@@ -457,44 +413,44 @@ onBeforeUnmount(() => {
 @keyframes app-loader-rail-flow {
     0% {
         background-position:
-            50% -10%,
-            50% 44%,
-            50% 108%,
-            50% 140%;
+            -12% 50%,
+            50% 50%,
+            112% 50%,
+            130% 50%;
     }
 
     50% {
         background-position:
-            50% 12%,
-            50% 56%,
-            50% 92%,
-            50% 18%;
+            8% 50%,
+            60% 50%,
+            92% 50%,
+            20% 50%;
     }
 
     100% {
         background-position:
-            50% 28%,
-            50% 72%,
-            50% 80%,
-            50% -112%;
+            24% 50%,
+            76% 50%,
+            76% 50%,
+            -120% 50%;
     }
 }
 
 @keyframes app-loader-rail-pulse {
     from {
         opacity: 0.86;
-        transform: scaleY(0.96);
+        transform: scaleX(0.96);
     }
 
     to {
         opacity: 1;
-        transform: scaleY(1);
+        transform: scaleX(1);
     }
 }
 
 @keyframes app-loader-rail-sweep {
     0% {
-        transform: translateY(-132%);
+        transform: translateX(-132%);
         opacity: 0;
     }
 
@@ -503,7 +459,7 @@ onBeforeUnmount(() => {
     }
 
     50% {
-        transform: translateY(0%);
+        transform: translateX(0%);
         opacity: 0.82;
     }
 
@@ -512,20 +468,23 @@ onBeforeUnmount(() => {
     }
 
     100% {
-        transform: translateY(132%);
+        transform: translateX(132%);
         opacity: 0;
     }
 }
 
 @media (max-width: 640px) {
+    .app-loader {
+        padding-inline: 1rem;
+    }
+
     .app-loader__content {
         width: calc(100vw - 2rem);
-        gap: 0.75rem;
+        gap: 0.65rem;
     }
 
     .app-loader__rail {
-        width: 9px;
-        min-height: 5.4rem;
+        width: clamp(7rem, 30vw, 9rem);
     }
 }
 

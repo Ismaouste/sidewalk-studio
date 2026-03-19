@@ -284,9 +284,7 @@ onBeforeUnmount(() => {
     gap: var(--sw-space-xs);
     border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
     border-radius: var(--sw-radius-lg);
-    background: color-mix(in srgb, var(--sw-bg-surface) 84%, transparent);
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
+    background: var(--sw-bg-base);
     padding-inline: 1rem;
     color: var(--sw-text-primary);
     transition:
@@ -359,7 +357,7 @@ onBeforeUnmount(() => {
 
 .nav-tabs__trigger--open {
     border-color: color-mix(in srgb, var(--sw-border) 92%, transparent);
-    background: color-mix(in srgb, var(--sw-bg-grid) 82%, transparent);
+    background: var(--sw-bg-grid);
     color: var(--sw-text-primary);
 }
 
@@ -392,9 +390,8 @@ onBeforeUnmount(() => {
     width: 100%;
     padding: 12px;
     border-radius: calc(var(--sw-radius-lg) + 2px);
-    background: color-mix(in srgb, var(--sw-bg-surface) 72%, transparent);
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
+    border: 1px solid color-mix(in srgb, var(--sw-border) 92%, transparent);
+    background: var(--sw-bg-base);
 }
 
 .nav-tabs__link {
@@ -409,15 +406,9 @@ onBeforeUnmount(() => {
     gap: var(--sw-space-xs);
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
     border-radius: var(--sw-radius-lg);
-    background: color-mix(
-        in srgb,
-        var(--sw-bg-elevated) 86%,
-        var(--sw-bg-surface)
-    );
+    background: var(--sw-bg-grid);
     padding: 0.9rem 1rem;
     color: var(--sw-text-primary);
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
     transition:
         background-color 90ms ease,
         border-color 90ms ease,
@@ -433,7 +424,7 @@ onBeforeUnmount(() => {
     background:
         radial-gradient(
             circle at 18% 22%,
-            color-mix(in srgb, var(--sw-accent-dominant) 18%, transparent),
+            color-mix(in srgb, var(--sw-accent-dominant) 14%, var(--sw-bg-grid)),
             transparent 44%
         ),
         linear-gradient(
@@ -455,13 +446,7 @@ onBeforeUnmount(() => {
     border-radius: inherit;
     pointer-events: none;
     opacity: 0;
-    background: color-mix(
-        in srgb,
-        var(--sw-bg-elevated) 72%,
-        var(--sw-bg-surface)
-    );
-    -webkit-backdrop-filter: blur(24px) saturate(1.05);
-    backdrop-filter: blur(24px) saturate(1.05);
+    background: color-mix(in srgb, var(--sw-bg-base) 82%, var(--sw-bg-grid));
     transition: opacity 120ms ease;
 }
 
@@ -529,7 +514,7 @@ onBeforeUnmount(() => {
             var(--sw-accent-dominant) 24%,
             var(--sw-border)
         );
-        background: color-mix(in srgb, var(--sw-bg-elevated) 76%, transparent);
+        background: var(--sw-bg-grid);
     }
 
     .nav-tabs__link:hover {
@@ -538,7 +523,7 @@ onBeforeUnmount(() => {
             var(--sw-accent-dominant) 24%,
             var(--sw-border)
         );
-        background: color-mix(in srgb, var(--sw-bg-elevated) 80%, transparent);
+        background: color-mix(in srgb, var(--sw-bg-base) 76%, var(--sw-bg-grid));
         color: var(--sw-text-primary);
     }
 
@@ -554,28 +539,18 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 959px) {
+    .nav-tabs__link::before,
+    .nav-tabs__link::after {
+        display: none;
+    }
+
     .nav-tabs__link:is(:hover, :focus-visible, :active) {
         border-color: color-mix(
             in srgb,
             var(--sw-accent-dominant) 30%,
             var(--sw-border)
         );
-        background: color-mix(
-            in srgb,
-            var(--sw-bg-elevated) 88%,
-            var(--sw-bg-surface)
-        );
-        -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-        backdrop-filter: var(--sw-surface-backdrop-filter);
-    }
-
-    .nav-tabs__link:is(:hover, :focus-visible, :active)::before {
-        opacity: 1;
-    }
-
-    .nav-tabs__link:is(:hover, :focus-visible, :active)::after {
-        opacity: 1;
-        transform: scale(1);
+        background: var(--sw-bg-grid);
     }
 
     .nav-tabs__link:is(:hover, :focus-visible, :active)

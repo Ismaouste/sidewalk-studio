@@ -147,6 +147,8 @@ const copy = computed(() =>
 .writing-show {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
+    overflow-x: clip;
 }
 
 .writing-show__lead {
@@ -159,17 +161,21 @@ const copy = computed(() =>
     display: grid;
     gap: var(--sw-space-sm);
     align-items: start;
+    min-width: 0;
 }
 
 .writing-show__article {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
+    overflow: clip;
     padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .writing-show__aside {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
 }
 
 .writing-show__sidebar-card {
@@ -204,6 +210,13 @@ const copy = computed(() =>
 @media (min-width: 1040px) {
     .writing-show__layout {
         grid-template-columns: minmax(0, 1fr) minmax(18rem, 20rem);
+    }
+}
+
+@media (max-width: 640px) {
+    .writing-show__article,
+    .writing-show__sidebar-card {
+        padding: var(--sw-space-xs);
     }
 }
 </style>

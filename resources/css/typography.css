@@ -100,7 +100,15 @@ code,
 .prose-copy {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: clip;
     color: var(--sw-text-secondary);
+}
+
+.prose-copy > * {
+    min-width: 0;
+    max-width: 100%;
 }
 
 .prose-copy h2 {
@@ -129,6 +137,8 @@ code,
     max-width: 68ch;
     font-size: 14px;
     line-height: 1.72;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .prose-copy ul {
@@ -151,6 +161,9 @@ code,
 }
 
 .prose-copy pre {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     border: 1px solid var(--sw-border);
     border-radius: var(--sw-radius-lg);
@@ -158,8 +171,47 @@ code,
     padding: var(--sw-space-sm);
 }
 
+.prose-copy :not(pre) > code {
+    overflow-wrap: anywhere;
+}
+
+.prose-copy img,
+.prose-copy svg,
+.prose-copy video,
+.prose-copy iframe,
+.prose-copy table {
+    display: block;
+    max-width: 100%;
+}
+
+.prose-copy table {
+    width: max-content;
+    min-width: 100%;
+    overflow-x: auto;
+}
+
 .prose-copy a {
     color: var(--sw-accent-dominant);
     text-decoration: underline;
     text-underline-offset: 0.18em;
+}
+
+@media (max-width: 640px) {
+    .prose-copy {
+        gap: var(--sw-space-xs);
+    }
+
+    .prose-copy p,
+    .prose-copy li {
+        max-width: 100%;
+    }
+
+    .prose-copy blockquote {
+        padding-left: var(--sw-space-xs);
+        font-size: clamp(22px, 8vw, 30px);
+    }
+
+    .prose-copy pre {
+        padding: var(--sw-space-xs);
+    }
 }

@@ -174,6 +174,8 @@ const copy = computed(() =>
 .case-study-show {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
+    overflow-x: clip;
 }
 
 .case-study-show__lead {
@@ -186,17 +188,21 @@ const copy = computed(() =>
     display: grid;
     gap: var(--sw-space-sm);
     align-items: start;
+    min-width: 0;
 }
 
 .case-study-show__article {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
+    overflow: clip;
     padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .case-study-show__aside {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
 }
 
 .case-study-show__sidebar-card {
@@ -269,6 +275,13 @@ const copy = computed(() =>
 @media (min-width: 1040px) {
     .case-study-show__layout {
         grid-template-columns: minmax(0, 1fr) minmax(19rem, 21rem);
+    }
+}
+
+@media (max-width: 640px) {
+    .case-study-show__article,
+    .case-study-show__sidebar-card {
+        padding: var(--sw-space-xs);
     }
 }
 </style>

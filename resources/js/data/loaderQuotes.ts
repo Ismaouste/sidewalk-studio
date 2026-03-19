@@ -104,6 +104,24 @@ export const loaderQuotes: AppLoaderQuote[] = [
         category: 'lucid',
     },
     {
+        text: "Vous êtes de moins en moins réels\non se parle on s'écoute\non entend notre propre voix",
+        author: 'Laura Vazquez',
+        source: '',
+        category: 'lucid',
+    },
+    {
+        text: "Plus on observe les éléments du monde, plus on s'aperçoit que leur cohérence vient du fait qu'on les observe.",
+        author: 'Laura Vazquez',
+        source: 'Les Forces',
+        category: 'morning',
+    },
+    {
+        text: "L’inconnaissance nous recouvre.",
+        author: 'Laura Vazquez',
+        source: 'Le Livre du large et du long',
+        category: 'sunset',
+    },
+    {
         text: "On n'est pas sérieux quand on a dix-sept ans.",
         author: 'Rimbaud',
         source: 'Roman',
@@ -125,10 +143,40 @@ export const loaderQuotes: AppLoaderQuote[] = [
         mono: true,
     },
     {
-        text: 'La technologie est le trou du cul de la science.',
-        author: 'Romain Gary',
-        source: 'La tête coupable',
+        text: 'Does anyone think global warming is a good thing? I love Lady Gaga.',
+        author: 'Britney Spears',
+        source: 'Twitter',
         category: 'humor',
         mono: true,
+    },
+    {
+        text: 'Information is power.',
+        author: 'Aaron Swartz',
+        source: "The Internet's Own Boy",
+        category: 'lucid',
+    },
+    {
+        text: 'An artist’s duty is to reflect the times.',
+        author: 'Nina Simone',
+        source: 'Interview',
+        category: 'lucid',
+    },
+    {
+        text: "I'll tell you what freedom is: no fear.",
+        author: 'Nina Simone',
+        source: 'Interview',
+        category: 'lucid',
+    },
+    {
+        text: "Ne pas avoir d'opinion, c'est ne pas avoir de limites.",
+        author: 'Laura Vazquez',
+        source: 'Les Forces',
+        category: 'lucid',
+    },
+    {
+        text: 'Personne ne sait écrire, les poèmes existent.',
+        author: 'Laura Vazquez',
+        source: 'Les Forces',
+        category: 'lucid',
     },
 ];

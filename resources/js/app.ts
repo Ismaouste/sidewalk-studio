@@ -104,6 +104,7 @@ createInertiaApp({
             .then(({ initializeConsent }) =>
                 initializeConsent(
                     props.initialPage.props.consent as ConsentConfig,
+                    site.locale,
                 ),
             )
             .catch((error: unknown) => {

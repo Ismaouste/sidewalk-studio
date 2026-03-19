@@ -12,6 +12,131 @@ import type { ConsentConfig } from '@/types';
 
 let initialized = false;
 
+type ConsentLocale = 'en' | 'fr';
+
+const consentTranslations = {
+    en: {
+        consentModal: {
+            title: 'Privacy is part of the architecture',
+            description:
+                'Sidewalk Studio loads only what is needed by default. Analytics stays off and embeds remain blocked until you opt in.',
+            acceptAllBtn: 'Accept all',
+            acceptNecessaryBtn: 'Keep strict mode',
+            showPreferencesBtn: 'Manage preferences',
+        },
+        preferencesModal: {
+            title: 'Consent preferences',
+            acceptAllBtn: 'Accept all',
+            acceptNecessaryBtn: 'Reject optional',
+            savePreferencesBtn: 'Save choices',
+            closeIconLabel: 'Close',
+            sections: [
+                {
+                    title: 'Why these choices exist',
+                    description:
+                        'The repo uses consent categories as a technical boundary: nothing external should load before an explicit choice exists.',
+                },
+                {
+                    title: 'Necessary',
+                    description:
+                        'Required for the consent state and core application delivery. These cannot be disabled.',
+                    linkedCategory: 'necessary',
+                },
+                {
+                    title: 'Analytics',
+                    description:
+                        'Reserved for later privacy-first measurement adapters. In v0 the default driver is a no-op placeholder.',
+                    linkedCategory: 'analytics',
+                },
+                {
+                    title: 'Media',
+                    description:
+                        'Allows iframe-based services such as YouTube to load only after explicit approval.',
+                    linkedCategory: 'media',
+                },
+            ],
+        },
+        youtube: {
+            notice: 'This embed is hosted by YouTube. Loading it means accepting the media category and YouTube terms for this session.',
+            loadBtn: 'Load video',
+            loadAllBtn: 'Always allow YouTube',
+        },
+    },
+    fr: {
+        consentModal: {
+            title: "La vie privée fait partie de l'architecture",
+            description:
+                "Sidewalk Studio ne charge que le strict nécessaire par défaut. Les analytics restent coupés et les embeds sont bloqués tant que vous n'avez pas choisi.",
+            acceptAllBtn: 'Tout accepter',
+            acceptNecessaryBtn: 'Rester en mode strict',
+            showPreferencesBtn: 'Gérer mes choix',
+        },
+        preferencesModal: {
+            title: 'Préférences de consentement',
+            acceptAllBtn: 'Tout accepter',
+            acceptNecessaryBtn: 'Refuser le facultatif',
+            savePreferencesBtn: 'Enregistrer mes choix',
+            closeIconLabel: 'Fermer',
+            sections: [
+                {
+                    title: 'Pourquoi ces choix existent',
+                    description:
+                        "Le site utilise les catégories de consentement comme frontière technique : rien d'externe ne doit se charger sans choix explicite.",
+                },
+                {
+                    title: 'Nécessaire',
+                    description:
+                        "Requis pour l'état du consentement et le fonctionnement essentiel du site. Cette catégorie ne peut pas être désactivée.",
+                    linkedCategory: 'necessary',
+                },
+                {
+                    title: 'Analytics',
+                    description:
+                        "Réservé à des outils de mesure plus respectueux de la vie privée. En v0, le driver par défaut ne charge rien.",
+                    linkedCategory: 'analytics',
+                },
+                {
+                    title: 'Médias',
+                    description:
+                        'Autorise le chargement de services externes basés sur des iframes, comme YouTube, uniquement après accord explicite.',
+                    linkedCategory: 'media',
+                },
+            ],
+        },
+        youtube: {
+            notice: 'Cet embed est hébergé par YouTube. Le charger revient à accepter la catégorie média et les conditions de YouTube pour cette session.',
+            loadBtn: 'Charger la vidéo',
+            loadAllBtn: 'Toujours autoriser YouTube',
+        },
+    },
+} satisfies Record<
+    ConsentLocale,
+    {
+        consentModal: Record<string, string>;
+        preferencesModal: {
+            title: string;
+            acceptAllBtn: string;
+            acceptNecessaryBtn: string;
+            savePreferencesBtn: string;
+            closeIconLabel: string;
+            sections: Array<{
+                title: string;
+                description: string;
+                linkedCategory?: 'necessary' | 'analytics' | 'media';
+            }>;
+        };
+        youtube: {
+            notice: string;
+            loadBtn: string;
+            loadAllBtn: string;
+        };
+    }
+>;
+
+function resolveConsentLocale(locale?: string): ConsentLocale {
+    return locale === 'fr' ? 'fr' : 'en';
+}
+
 function registerDefaults(driver: ConsentConfig['driver']) {
     registerEmbed('youtube', 'media', {
         embedUrl: 'https://www.youtube-nocookie.com/embed/{data-id}',
@@ -21,9 +146,10 @@ function registerDefaults(driver: ConsentConfig['driver']) {
         },
         languages: {
             en: {
-                notice: 'This embed is hosted by YouTube. Loading it means accepting the media category and YouTube terms for this session.',
-                loadBtn: 'Load video',
-                loadAllBtn: 'Always allow YouTube',
+                ...consentTranslations.en.youtube,
+            },
+            fr: {
+                ...consentTranslations.fr.youtube,
             },
         },
     });
@@ -55,8 +181,14 @@ function syncConsentState() {
     syncScripts('media', CookieConsent.acceptedCategory('media'));
 }
 
-export async function initializeConsent(config: ConsentConfig): Promise<void> {
+export async function initializeConsent(
+    config: ConsentConfig,
+    localeCode?: string,
+): Promise<void> {
+    const locale = resolveConsentLocale(localeCode);
+
     if (initialized) {
+        await CookieConsent.setLanguage(locale, true);
         return;
     }
 
@@ -66,7 +198,7 @@ export async function initializeConsent(config: ConsentConfig): Promise<void> {
 
     if (iframeManager) {
         iframeManager.run({
-            currLang: 'en',
+            currLang: locale,
             onChange: ({
                 changedServices,
                 eventSource,
@@ -107,50 +239,10 @@ export async function initializeConsent(config: ConsentConfig): Promise<void> {
             media: {},
         },
         language: {
-            default: 'en',
+            default: locale,
             translations: {
-                en: {
-                    consentModal: {
-                        title: 'Privacy is part of the architecture',
-                        description:
-                            'Sidewalk Studio loads only what is needed by default. Analytics stays off and embeds remain blocked until you opt in.',
-                        acceptAllBtn: 'Accept all',
-                        acceptNecessaryBtn: 'Keep strict mode',
-                        showPreferencesBtn: 'Manage preferences',
-                    },
-                    preferencesModal: {
-                        title: 'Consent preferences',
-                        acceptAllBtn: 'Accept all',
-                        acceptNecessaryBtn: 'Reject optional',
-                        savePreferencesBtn: 'Save choices',
-                        closeIconLabel: 'Close',
-                        sections: [
-                            {
-                                title: 'Why these choices exist',
-                                description:
-                                    'The repo uses consent categories as a technical boundary: nothing external should load before an explicit choice exists.',
-                            },
-                            {
-                                title: 'Necessary',
-                                description:
-                                    'Required for the consent state and core application delivery. These cannot be disabled.',
-                                linkedCategory: 'necessary',
-                            },
-                            {
-                                title: 'Analytics',
-                                description:
-                                    'Reserved for later privacy-first measurement adapters. In v0 the default driver is a no-op placeholder.',
-                                linkedCategory: 'analytics',
-                            },
-                            {
-                                title: 'Media',
-                                description:
-                                    'Allows iframe-based services such as YouTube to load only after explicit approval.',
-                                linkedCategory: 'media',
-                            },
-                        ],
-                    },
-                },
+                en: consentTranslations.en,
+                fr: consentTranslations.fr,
             },
         },
         onFirstConsent: syncConsentState,

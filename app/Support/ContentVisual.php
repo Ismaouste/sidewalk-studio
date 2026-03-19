@@ -93,15 +93,15 @@ class ContentVisual
 
         $title = Str::of((string) ($item['title'] ?? 'Untitled'))
             ->squish()
-            ->limit(88, '')
+            ->limit(80, '')
             ->toString();
         $summary = Str::of((string) ($item['summary'] ?? ''))
             ->squish()
-            ->limit(108, '')
+            ->limit(92, '')
             ->toString();
-        $titleLines = self::wrapTextLines($title, 28, 3);
+        $titleLines = self::wrapTextLines($title, 24, 4);
         $summaryLines = $summary !== ''
-            ? self::wrapTextLines($summary, 56, 2)
+            ? self::wrapTextLines($summary, 38, 3)
             : [];
         $titleMarkup = collect($titleLines)
             ->values()
@@ -140,6 +140,12 @@ class ContentVisual
       <stop offset="0%" stop-color="{$palette['bgA']}" />
       <stop offset="100%" stop-color="{$palette['bgB']}" />
     </linearGradient>
+    <clipPath id="titleClip">
+      <rect x="86" y="174" width="508" height="176" rx="12" />
+    </clipPath>
+    <clipPath id="summaryClip">
+      <rect x="88" y="386" width="520" height="120" rx="12" />
+    </clipPath>
     <filter id="blur">
       <feGaussianBlur stdDeviation="44" />
     </filter>
@@ -156,10 +162,10 @@ class ContentVisual
     <path d="M0 390 H1200" stroke="{$palette['line']}" stroke-width="2" />
     <path d="M0 480 H1200" stroke="{$palette['line']}" stroke-width="2" />
   </g>
-  <rect x="72" y="78" width="288" height="38" rx="10" fill="rgba(255,255,255,0.08)" />
-  <text x="90" y="103" fill="{$palette['ink']}" font-family="DM Sans, Arial, sans-serif" font-size="21" font-weight="600" letter-spacing="2.8">{$safeSlug}</text>
-  <text x="86" y="234" fill="{$palette['ink']}" font-family="Fraunces, Georgia, serif" font-size="32" font-weight="400" opacity="0.97">{$titleMarkup}</text>
-  <text x="88" y="382" fill="{$palette['ink']}" font-family="DM Sans, Arial, sans-serif" font-size="22" opacity="0.78">{$summaryMarkup}</text>
+  <rect x="72" y="78" width="248" height="34" rx="10" fill="rgba(255,255,255,0.08)" />
+  <text x="88" y="100" fill="{$palette['ink']}" font-family="DM Sans, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="2.4">{$safeSlug}</text>
+  <text x="86" y="214" fill="{$palette['ink']}" font-family="Fraunces, Georgia, serif" font-size="28" font-weight="400" opacity="0.97" clip-path="url(#titleClip)">{$titleMarkup}</text>
+  <text x="88" y="406" fill="{$palette['ink']}" font-family="DM Sans, Arial, sans-serif" font-size="18" opacity="0.76" clip-path="url(#summaryClip)">{$summaryMarkup}</text>
 </svg>
 SVG;
     }

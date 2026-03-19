@@ -104,7 +104,9 @@ function handleImageLoad(): void {
 .content-visual__image[src$='.svg'] {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    padding: clamp(0.35rem, 0.8vw, 0.65rem);
+    object-fit: contain;
+    transform: scale(1);
 }
 
 .content-visual--compact .content-visual__image {
@@ -114,6 +116,10 @@ function handleImageLoad(): void {
     height: 100%;
     min-height: 0;
     max-height: none;
+}
+
+.content-visual--compact .content-visual__image[src$='.svg'] {
+    padding: clamp(0.25rem, 0.6vw, 0.45rem);
 }
 
 .content-visual__overlay {
