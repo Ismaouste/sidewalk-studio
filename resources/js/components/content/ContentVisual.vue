@@ -123,7 +123,6 @@ function handleImageLoad(): void {
 }
 
 @media (max-width: 640px) {
-    .content-visual__image[src$='.svg'],
     .content-visual--compact .content-visual__image[src$='.svg'] {
         width: 100%;
         height: 100%;
