@@ -8,6 +8,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import RichText from '@/components/RichText.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
+import { formatPublicDate } from '@/lib/formatDate';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
@@ -22,11 +23,11 @@ const props = defineProps<{
 const caseStudyMeta = computed(() => [
     {
         label: copy.value.publishedLabel,
-        value: props.item.published_at,
+        value: formatPublicDate(props.item.published_at, page.props.site.locale, 'long'),
     },
     {
         label: copy.value.updatedLabel,
-        value: props.item.updated_at,
+        value: formatPublicDate(props.item.updated_at, page.props.site.locale, 'long'),
     },
     {
         label: copy.value.outcomesLabel,
@@ -236,10 +237,7 @@ const copy = computed(() =>
 .case-study-show__stack-item {
     display: inline-flex;
     align-items: center;
-    min-height: 1.75rem;
-    border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent);
-    padding-inline: var(--sw-space-2xs);
+    color: var(--sw-text-muted);
 }
 
 .case-study-show__actions {

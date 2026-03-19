@@ -1,49 +1,41 @@
 ---
 seo_title: Localisation
-seo_description: Contexte éditorial autour de Nancy, du sillon lorrain, des systèmes civiques, des scènes culturelles, des associations soutenues et du lieu depuis lequel le travail est fait.
+seo_description: Basé à Nancy, mobile Grand Est, Paris et remote selon le contexte. Repères simples sur la disponibilité et les terrains suivis hors du site principal.
 hero:
     eyebrow: Où suis-je ?
-    title: Nancy, sillon lorrain, Großregion.
-    summary: Je travaille depuis Nancy, avec Metz et le Luxembourg dans le quotidien. C'est depuis cet axe que je regarde les services, la mobilité, les scènes culturelles et la qualité réelle des interfaces publiques.
+    title: Nancy, Grand Est, remote.
+    summary: Basé à Nancy, mobile Grand Est, Paris et remote selon le cadre. La page sert surtout à situer le terrain, pas à répéter la page d'accueil.
 signals:
-    - Lisibilité de l'espace public, des lieux culturels et des services.
-    - Mobilité régionale entre Nancy, Metz et le Luxembourg, logique des transports et flux d'information locaux.
-    - Écosystèmes associatifs, culturels et militants qui gardent les sujets proches du terrain.
+    - Base à Nancy, déplacements réguliers dans le Grand Est et vers Paris.
+    - Ouvert aux contextes conseil, institutions et équipes produit déjà en place.
+    - Remote possible quand le cadre de travail est clair.
 nancy:
     body:
-        - Nancy reste la base, mais le terrain réel est plus large. Je circule souvent entre Nancy, Metz et le Luxembourg, et cet axe compte autant pour ma recherche d'emploi que pour ma manière d'observer les services, les rythmes urbains et les usages.
-        - J'ai aussi travaillé avec l'OFAJ et sur des sujets de mobilité européenne dans la Grande Région. Cela compte dans ma manière de regarder les circulations, les réseaux, les services et les contextes transfrontaliers.
-        - Je connais bien les lieux publics qui structurent cette vie quotidienne et culturelle, de L'Autre Canal à Nancy jusqu'au BAM, aux Trinitaires, aux Rotondes, à la Rockhal ou aux Francofolies côté Luxembourg. Cela garde le regard branché sur des publics concrets, pas sur des personas abstraits.
-        - Je suis bénévole à Nancy Jazz Pulsations depuis des années, et j'accorde aussi de l'attention aux sujets d'urbanisme, de vélo, de mobilité et de droits numériques qui traversent directement la qualité d'une ville et de ses services.
+        - Nancy reste le point de départ. Je travaille sans difficulté avec des équipes du Grand Est, de Paris ou en remote.
+        - Le lien au terrain compte surtout pour la disponibilité et pour garder un regard concret sur les services, la mobilité, la culture et les usages.
 journal_section:
     eyebrow: Journal
     title: Quelques publications qui prolongent ce terrain.
-    summary: Des notes courtes sur le produit, la circulation de la donnée, les choix de structure et le build du site, présentées ici comme une couche éditoriale intégrée.
+    summary: Des notes courtes sur le build, la donnée et les choix de structure, sans créer une rubrique à part.
 engagements_intro:
     eyebrow: Mes engagements
-    title: Associations, sujets suivis et terrains qui comptent.
-    summary: Ce sont des lieux, des causes et des contextes qui influencent concrètement ma manière de regarder les services, les outils et l'espace public.
+    title: Quelques repères hors du travail salarié.
+    summary: Des engagements associatifs et culturels qui gardent le regard branché sur des usages réels.
 engagements:
     - title: Aremedia
-      summary: Aremedia relève de la prévention des risques et de la santé publique. J'y ai conçu un outil de remontée de données auto-hébergé, compatible avec les contraintes de données de santé, pour des actions hors les murs auprès de publics éloignés, queer ou consommateurs de crack à Stalingrad.
+      summary: Aremedia relève de la prévention des risques et de la santé publique. J'y ai conçu un outil auto-hébergé de remontée de données pour des actions hors les murs.
       items:
-          - Dispositif pensé pour les équipes de terrain, pas pour un usage de bureau.
-          - Sécurisation d'un open survey avec appui externe sur les sujets sensibles.
-          - Travail de structure, de collecte et de restitution utile à l'action.
+          - Outil pensé pour des équipes de terrain.
+          - Contraintes de sécurité et de confiance fortes.
+          - Reprise publique de aremedia.org.
     - title: Nancy Jazz Pulsations, EDEN, La Quadrature du Net
-      summary: Je suis bénévole à Nancy Jazz Pulsations depuis des années, je soutiens EDEN à Nancy sur les sujets d'urbanisme et de vélo, et je suis membre de La Quadrature du Net pour les droits numériques.
+      summary: Bénévolat culturel, sujets d'urbanisme, vélo et droits numériques. Des repères utiles pour ne pas réduire un service à son back-office.
       items:
-          - Vie associative et culturelle réellement fréquentée dans le Grand Est.
-          - Attention constante à la mobilité, au vélo, à l'espace public et aux droits du net.
-          - Même exigence de lisibilité que sur un produit ecommerce ou un service numérique.
-    - title: Ce que je regarde de près
-      summary: Je reviens souvent vers les services numériques d'intérêt public, les petits systèmes d'information locaux, l'open data utile, la cartographie, les APIs et les flux qui rendent la ville plus lisible.
-      items:
-          - Mobilité régionale et information voyageurs entre Nancy, Metz et le Luxembourg.
-          - Systèmes éditoriaux clairs pour des assos, des salles, des structures locales.
-          - Culture, santé publique et droits numériques traités comme des sujets concrets.
+          - Vie associative réellement fréquentée.
+          - Attention continue à la mobilité et à l'espace public.
+          - Même exigence de lisibilité que sur un produit ecommerce.
 notes_section:
     eyebrow: Notes
     title: Notes simples, à parcourir sans détour.
-    summary: Une liste directe des publications, pour prolonger la visite sans créer une rubrique séparée de plus.
+    summary: Une liste directe des publications, pour prolonger la visite sans détour.
 ---

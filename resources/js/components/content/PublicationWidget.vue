@@ -5,6 +5,7 @@ import ContentVisual from '@/components/content/ContentVisual.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import Button from '@/components/ui/Button.vue';
+import { formatPublicDate } from '@/lib/formatDate';
 import Panel from '@/components/ui/Panel.vue';
 import type { PublicationWidget } from '@/types';
 
@@ -53,7 +54,11 @@ function widgetChipLabel(section: string, category: string, client: string): str
         ? 'Journal'
         : isFrench.value
           ? 'Note'
-          : 'Note';
+        : 'Note';
+}
+
+function formattedDate(value: string): string {
+    return formatPublicDate(value, page.props.site.locale, 'month');
 }
 </script>
 
@@ -100,7 +105,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
                                 class="publication-widget__meta-chip"
                             />
                             <span class="type-meta publication-widget__meta-date">
-                                {{ item.published_at }}
+                                {{ formattedDate(item.published_at) }}
                             </span>
                         </div>
 

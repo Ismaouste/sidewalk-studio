@@ -7,6 +7,7 @@ import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
+import { formatPublicDate } from '@/lib/formatDate';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
@@ -80,7 +81,7 @@ function publicationMeta(item: ContentItem) {
     return [
         {
             label: copy.value.publishedLabel,
-            value: item.published_at,
+            value: formatPublicDate(item.published_at, page.props.site.locale, 'month'),
         },
         {
             label: copy.value.readLabel,
@@ -262,7 +263,7 @@ function publicationMeta(item: ContentItem) {
 .local-page__rail-card {
     display: grid;
     gap: var(--sw-space-xs);
-    padding: var(--sw-space-sm);
+    padding: clamp(12px, 2vw, 16px);
 }
 
 .local-page__section-head {
@@ -311,17 +312,12 @@ function publicationMeta(item: ContentItem) {
 
 .local-page__rail {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(18rem, 26rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--sw-space-sm);
-    overflow-x: auto;
-    padding-bottom: var(--sw-space-3xs);
-    scroll-snap-type: x proximity;
 }
 
 .local-page__rail-link {
     display: block;
-    scroll-snap-align: start;
 }
 
 .local-page__rail-card {
@@ -372,15 +368,14 @@ function publicationMeta(item: ContentItem) {
     .local-page__base {
         grid-template-columns: minmax(0, 1fr);
     }
+
+    .local-page__rail {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 @media (max-width: 640px) {
     .local-page {
-        gap: var(--sw-space-xs);
-    }
-
-    .local-page__rail {
-        grid-auto-columns: minmax(16rem, 85vw);
         gap: var(--sw-space-xs);
     }
 }

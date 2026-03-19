@@ -31,7 +31,7 @@ defineProps<{
 .content-meta-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 0;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -43,6 +43,16 @@ defineProps<{
     flex-wrap: wrap;
     gap: 6px;
     max-width: min(100%, 26rem);
+}
+
+.content-meta-row__item::after {
+    content: '·';
+    margin-inline: 10px;
+    color: var(--sw-text-muted);
+}
+
+.content-meta-row__item:last-child::after {
+    content: none;
 }
 
 .content-meta-row__label {
@@ -71,7 +81,7 @@ defineProps<{
 
 @media (max-width: 640px) {
     .content-meta-row {
-        gap: 12px;
+        row-gap: 4px;
     }
 }
 </style>
