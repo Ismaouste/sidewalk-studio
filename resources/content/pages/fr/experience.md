@@ -31,7 +31,7 @@ professional_sections:
                 - Crown DP
             items:
                 - Environnements bijouterie-horlogerie où catalogue, image, confiance, disponibilité produit, SEO et parcours d'achat doivent tenir ensemble.
-                - Delivery sur plusieurs niveaux à la fois : sites marchands, sites de marque, reprises d'existant et évolutions métier.
+                - Le même niveau d'attention sur des sites marchands, des sites de marque, des reprises d'existant et des évolutions métier.
           - title: Développement spécifique avec le partenaire client Rolex
             pills:
                 - Rolex Bespoke

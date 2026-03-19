@@ -33,6 +33,8 @@ type ExperienceSection = {
     }>;
 };
 
+type ExperienceDetailGroup = ExperienceSection['detail_groups'][number];
+
 const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
@@ -155,6 +157,18 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     }
 
     return 'dominant';
+}
+
+function detailGridClasses(section: ExperienceSection) {
+    return {
+        'projects-page__detail-grid--single': section.detail_groups.length === 1,
+    };
+}
+
+function detailListClasses(section: ExperienceSection, _group: ExperienceDetailGroup) {
+    return {
+        'projects-page__detail-list--columns': section.detail_groups.length === 1,
+    };
 }
 </script>
 
@@ -311,7 +325,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                             </div>
                         </div>
 
-                        <div class="projects-page__detail-grid">
+                        <div
+                            class="projects-page__detail-grid"
+                            :class="detailGridClasses(section)"
+                        >
                             <div
                                 v-for="group in section.detail_groups"
                                 :key="group.title"
@@ -332,7 +349,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                                         {{ pill }}
                                     </span>
                                 </div>
-                                <ul class="projects-page__detail-list">
+                                <ul
+                                    class="projects-page__detail-list"
+                                    :class="detailListClasses(section, group)"
+                                >
                                     <li
                                         v-for="item in group.items"
                                         :key="item"
@@ -385,7 +405,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                             </p>
                         </div>
 
-                        <div class="projects-page__detail-grid">
+                        <div
+                            class="projects-page__detail-grid"
+                            :class="detailGridClasses(section)"
+                        >
                             <div
                                 v-for="group in section.detail_groups"
                                 :key="group.title"
@@ -394,7 +417,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                                 <p class="type-nav projects-page__detail-title">
                                     {{ group.title }}
                                 </p>
-                                <ul class="projects-page__detail-list">
+                                <ul
+                                    class="projects-page__detail-list"
+                                    :class="detailListClasses(section, group)"
+                                >
                                     <li
                                         v-for="item in group.items"
                                         :key="item"
@@ -447,7 +473,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                             </p>
                         </div>
 
-                        <div class="projects-page__detail-grid">
+                        <div
+                            class="projects-page__detail-grid"
+                            :class="detailGridClasses(section)"
+                        >
                             <div
                                 v-for="group in section.detail_groups"
                                 :key="group.title"
@@ -456,7 +485,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                                 <p class="type-nav projects-page__detail-title">
                                     {{ group.title }}
                                 </p>
-                                <ul class="projects-page__detail-list">
+                                <ul
+                                    class="projects-page__detail-list"
+                                    :class="detailListClasses(section, group)"
+                                >
                                     <li
                                         v-for="item in group.items"
                                         :key="item"
@@ -686,10 +718,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
 .projects-page__story {
     display: grid;
-    gap: var(--sw-space-sm);
-    padding: clamp(20px, 2.7vw, 30px);
+    gap: clamp(18px, 2vw, 24px);
+    padding: clamp(22px, 2.9vw, 34px);
     border: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
-    border-radius: calc(var(--sw-radius-lg) + 2px);
+    border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-surface) 72%, transparent);
     box-shadow: var(--sw-shadow-sm);
 }
@@ -704,6 +736,9 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 .projects-page__story-head {
     justify-items: start;
     text-align: left;
+    gap: clamp(10px, 1.2vw, 16px);
+    padding-bottom: clamp(16px, 1.9vw, 22px);
+    border-bottom: 1px solid color-mix(in srgb, var(--sw-border) 66%, transparent);
 }
 
 .projects-page__story-copy,
@@ -712,13 +747,20 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 }
 
 .projects-page__story-body {
-    gap: var(--sw-space-sm);
-    padding-top: clamp(8px, 1.8vw, 14px);
+    gap: clamp(20px, 2.1vw, 28px);
+    padding-top: clamp(2px, 0.5vw, 6px);
 }
 
 .projects-page__detail-grid {
     display: grid;
-    gap: clamp(14px, 1.5vw, 18px);
+    gap: clamp(18px, 1.9vw, 24px);
+    padding-top: clamp(18px, 2vw, 24px);
+    border-top: 1px solid color-mix(in srgb, var(--sw-border) 68%, transparent);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+
+.projects-page__detail-grid--single {
+    grid-template-columns: minmax(0, 1fr);
 }
 
 .projects-page__detail-pills {
@@ -726,6 +768,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     flex-wrap: wrap;
     gap: var(--sw-space-3xs);
     margin-top: calc(var(--sw-space-3xs) * -0.15);
+    align-items: flex-start;
 }
 
 .projects-page__story-title,
@@ -736,16 +779,17 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
 .projects-page__story-summary {
     color: color-mix(in srgb, var(--sw-text-primary) 76%, var(--sw-text-secondary));
-    max-width: 46rem;
+    max-width: 62rem;
 }
 
 .projects-page__story-body .projects-page__copy-line {
-    max-width: 58ch;
-    line-height: 1.44;
+    max-width: none;
+    line-height: 1.5;
+    text-wrap: pretty;
 }
 
 .projects-page__story-copy {
-    gap: clamp(10px, 1.2vw, 14px);
+    gap: clamp(12px, 1.4vw, 18px);
 }
 
 .projects-page__detail-title {
@@ -780,6 +824,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     gap: var(--sw-space-3xs);
     border-top: 1px solid color-mix(in srgb, var(--sw-border) 64%, transparent);
     padding-top: clamp(10px, 1.2vw, 14px);
+    min-width: 0;
 }
 
 .projects-page__detail-item:first-child,
@@ -860,11 +905,11 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
 .projects-page__stack-item--detail {
     flex: 0 1 auto;
-    justify-content: center;
-    min-height: 2.1rem;
+    justify-content: flex-start;
+    min-height: 1.95rem;
     max-width: 100%;
-    padding: 0.42rem 0.78rem;
-    text-align: center;
+    padding: 0.36rem 0.72rem;
+    text-align: left;
     white-space: normal;
     text-wrap: balance;
 }
@@ -1078,29 +1123,32 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
         min-height: 100%;
         padding: calc(var(--sw-space-sm) * 1.08);
     }
+
+    .projects-page__story-copy {
+        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+        align-items: start;
+    }
 }
 
 @media (min-width: 1080px) {
-    .projects-page__story-body {
-        grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-        align-items: start;
+    .projects-page__detail-grid {
+        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
     }
 
-    .projects-page__detail-grid {
-        align-self: start;
-        padding-left: clamp(18px, 2vw, 28px);
-        border-left: 1px solid color-mix(in srgb, var(--sw-border) 68%, transparent);
+    .projects-page__detail-list--columns {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: clamp(18px, 2vw, 28px);
+    }
+
+    .projects-page__detail-list--columns .projects-page__detail-item:nth-child(-n + 2) {
+        border-top: 0;
+        padding-top: 0;
     }
 }
 
 @media (min-width: 1560px) {
-    .projects-page__story-body {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
-    }
-
     .projects-page__detail-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
     }
 }
 
@@ -1129,6 +1177,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
         padding-top: var(--sw-space-xs);
     }
 
+    .projects-page__story-head {
+        padding-bottom: var(--sw-space-sm);
+    }
+
     .projects-page__panel-label {
         font-size: 0.7rem;
         padding: 0.42rem 0.68rem;
@@ -1145,9 +1197,8 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 }
 
 @media (max-width: 1079px) {
-    .projects-page__detail-grid {
-        padding-top: clamp(16px, 2vw, 20px);
-        border-top: 1px solid color-mix(in srgb, var(--sw-border) 68%, transparent);
+    .projects-page__detail-list--columns {
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 </style>

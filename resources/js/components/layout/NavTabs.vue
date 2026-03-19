@@ -387,6 +387,9 @@ onBeforeUnmount(() => {
 }
 
 .nav-tabs__link {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -417,6 +420,35 @@ onBeforeUnmount(() => {
         opacity 120ms ease,
         opacity 140ms ease,
         transform 140ms ease;
+}
+
+.nav-tabs__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+        radial-gradient(
+            circle at 18% 22%,
+            color-mix(in srgb, var(--sw-accent-dominant) 18%, transparent),
+            transparent 44%
+        ),
+        linear-gradient(
+            140deg,
+            color-mix(in srgb, white 8%, transparent),
+            transparent 62%
+        );
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+        opacity 120ms ease,
+        transform 150ms ease;
+}
+
+.nav-tabs__link > * {
+    position: relative;
+    z-index: 1;
 }
 
 .nav-tabs__viewport--open .nav-tabs__link {
@@ -509,6 +541,32 @@ onBeforeUnmount(() => {
     .nav-tabs__link:hover .nav-tabs__link-meta--contact::after,
     .nav-tabs__link:focus-visible .nav-tabs__link-meta--contact::after {
         animation: nav-tabs-phone-ring 0.8s ease;
+    }
+}
+
+@media (max-width: 959px) {
+    .nav-tabs__link:is(:hover, :focus-visible, :active) {
+        border-color: color-mix(
+            in srgb,
+            var(--sw-accent-dominant) 30%,
+            var(--sw-border)
+        );
+        background: color-mix(
+            in srgb,
+            var(--sw-bg-elevated) 88%,
+            var(--sw-bg-surface)
+        );
+        box-shadow:
+            0 18px 32px color-mix(in srgb, var(--sw-text-primary) 10%, transparent),
+            0 0 0 1px color-mix(in srgb, var(--sw-accent-dominant) 10%, transparent),
+            var(--sw-shadow-sm);
+        -webkit-backdrop-filter: blur(24px) saturate(145%);
+        backdrop-filter: blur(24px) saturate(145%);
+    }
+
+    .nav-tabs__link:is(:hover, :focus-visible, :active)::after {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
