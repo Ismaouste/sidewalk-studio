@@ -71,7 +71,26 @@ class ResolvePublicLocale
 
     protected function hasLegacyPublicQuery(Request $request): bool
     {
-        return $request->query->has('lang') || $request->query->has('path');
+        if ($request->query->has('lang')) {
+            return true;
+        }
+
+        if (! $request->query->has('path')) {
+            return false;
+        }
+
+        return ! $this->isVercelRewritePathQuery($request);
+    }
+
+    protected function isVercelRewritePathQuery(Request $request): bool
+    {
+        return collect([
+            'x-vercel-id',
+            'x-matched-path',
+            'x-vercel-deployment-url',
+        ])->contains(
+            fn (string $header): bool => filled($request->headers->get($header)),
+        );
     }
 
     protected function canonicalPublicUrl(Request $request, string $preferredLocale): string
