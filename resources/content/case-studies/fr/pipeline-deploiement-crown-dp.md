@@ -1,5 +1,5 @@
 ---
-title: Crown DP, ou comment rendre un pipeline de déploiement honnête
+title: Rendre un pipeline de déploiement honnête en environnement e-commerce
 slug: pipeline-deploiement-crown-dp
 summary: "Un case study e-commerce sur un Docker Swarm rollback silencieux, un déploiement automatique trompeur et le besoin de rendre l'état final vérifiable."
 status: published
@@ -10,7 +10,7 @@ tags:
     - operations
     - ecommerce
     - work-sample
-seo_title: Crown DP, ou comment rendre un pipeline de déploiement honnête
+seo_title: Rendre un pipeline de déploiement honnête en environnement e-commerce
 seo_description: Case study e-commerce sur un Docker Swarm rollback silencieux, un déploiement automatique trompeur et un durcissement progressif avec gestion plus propre des images.
 category: work
 publication_type: reference
@@ -18,7 +18,7 @@ accent_tone: dominant
 schema: creative_work
 canonical: "{{site_url}}/fr/case-studies/pipeline-deploiement-crown-dp"
 ogImage: /images/og/site-default.jpg
-client: Jewely / Flippad · Crown DP
+client: Jewely / Flippad
 role: Analyse incident et stabilisation du déploiement
 stack:
     - Docker Swarm
@@ -38,7 +38,7 @@ Dans un contexte ecommerce, ce type de faux positif coûte cher. On pense avoir 
 
 ## Situation
 
-Le cas Crown DP arrivait dans un environnement déjà vivant, avec ses branches, ses préproductions et ses contraintes de timing. Le but n'était pas de reconstruire une usine à gaz autour du déploiement. Il fallait d'abord comprendre pourquoi le signal de succès mentait, puis remettre une chaîne de décision simple autour de l'état réel du service.
+Le cas arrivait dans un environnement client déjà vivant, avec ses branches, ses préproductions et ses contraintes de timing. Le but n'était pas de reconstruire une usine à gaz autour du déploiement. Il fallait d'abord comprendre pourquoi le signal de succès mentait, puis remettre une chaîne de décision simple autour de l'état réel du service.
 
 Deux angles se sont imposés rapidement :
 

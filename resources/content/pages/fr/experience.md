@@ -16,10 +16,10 @@ contexts:
 professional_sections:
     - title: Jewely E-commerce
       eyebrow: 2023 - aujourd'hui
-      summary: Plateforme multi-tenant pour bijoutiers indépendants. Core partagé, thèmes par client, ERP maison. En production chez deux clients.
+      summary: Plateforme e-commerce multi-tenant pour maisons HBJO. Socle partagé, thèmes par client, ERP maison, catalogue et front déjà en production.
       paragraphs:
-          - Chez Jewely / Flippad, je travaille sur le socle commun et sur des besoins client qui touchent au catalogue, au front et à la mise en ligne.
-          - Le projet mêle Laravel, Vue, donnée produit et contraintes métier propres à la bijouterie.
+          - Chez Jewely / Flippad, je travaille sur le socle commun, sur des besoins spécifiques par maison et sur des sujets qui touchent autant au catalogue qu'au front et à la mise en ligne.
+          - Le périmètre couvre la donnée produit, les connecteurs métier, les thèmes, le SEO technique et des contextes HBJO exigeants, dont des dispositifs Rolex Bespoke et Rolex Certified Pre-Owned.
       detail_groups:
           - title: Stack
             pills:
@@ -29,8 +29,8 @@ professional_sections:
                 - Docker Swarm
                 - AWS
             items:
-                - Core partagé, thèmes par client, connecteurs métier et delivery continu.
-                - Clients suivis dans l'univers HBJO : Auberi, Godchot, Pauliet, Louis Julian et Crown DP.
+                - Core partagé, thèmes par client, connecteurs métier, delivery continu et coordination entre ERP, catalogue et front.
+                - Travail mené dans un cadre HBJO premium avec fortes contraintes de marque, de donnée produit et de mise en ligne.
     - title: Louis Julian - Refonte
       eyebrow: 2025 - aujourd'hui
       summary: Joaillier à Cannes depuis 1862. Refonte site vitrine et e-commerce, avec design system complet et pilotage éditorial.
@@ -47,22 +47,6 @@ professional_sections:
             items:
                 - Refonte vitrine et commerce, dix blocs homepage, composants réutilisables et cadre éditorial stable.
                 - Travail mené avec des contraintes de marque, de lisibilité et de mise à jour côté client.
-    - title: Module SAV Horlogerie
-      eyebrow: 2026
-      summary: Workflow complet de suivi réparation. Huit statuts, machine à états, QR code et devis en ligne avec droit de rétractation quatorze jours.
-      paragraphs:
-          - Le sujet demande un cadre métier clair, des transitions sûres et une interface compréhensible par l'équipe comme par le client.
-          - L'objectif est de suivre une réparation sans perdre ni l'information ni le rythme du traitement.
-      detail_groups:
-          - title: Stack
-            pills:
-                - API REST
-                - Webhooks
-                - Brevo
-                - QR code
-            items:
-                - Suivi réparation, notifications et jalons métier dans un flux unique.
-                - Machine à états pensée pour rester lisible dans le temps.
     - title: Infrastructure
       eyebrow: 2024 - aujourd'hui
       summary: Déploiement Docker Swarm sur AWS. Pipeline automatique via EventBridge, Lambda et SSM, puis durcissement après incident disque.
@@ -97,22 +81,7 @@ associative_note_widget:
     title: ''
     description: ''
     cta_label: ''
-side_project_sections:
-    - title: YTMusic Liked Sorter
-      eyebrow: Projet perso
-      summary: Petit outil personnel centré sur le tri, le filtrage et une restitution lisible.
-      paragraphs:
-          - Le projet part d'un besoin simple de reprise et de lecture d'un historique personnel.
-          - Il montre surtout un goût pour les outils courts, utiles et faciles à relire.
-      links:
-          - label: GitHub · ytmusic-liked-sorter
-            href: https://github.com/Ismaouste/ytmusic-liked-sorter
-      detail_groups:
-          - title: Repères
-            items:
-                - Récupération et relecture d'un historique personnel.
-                - Interface utilitaire, sans surcharge.
-                - Filtrage lisible et résultat immédiatement exploitable.
+side_project_sections: []
 side_projects_widget:
     eyebrow: ''
     title: ''

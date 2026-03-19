@@ -16,10 +16,10 @@ contexts:
 professional_sections:
     - title: Jewely Ecommerce
       eyebrow: 2023 - present
-      summary: Multi-tenant platform for independent jewelers. Shared core, client themes, in-house ERP. Live in production for two clients.
+      summary: Multi-tenant ecommerce platform for jewelry and watch brands. Shared core, client themes, in-house ERP, and already-live catalog and front-end work.
       paragraphs:
-          - At Jewely / Flippad, I work on the shared base and on client needs touching catalog, front-end delivery, and go-live work.
-          - The project mixes Laravel, Vue, product data, and jewelry-specific business constraints.
+          - At Jewely / Flippad, I work on the shared base, on brand-specific needs, and on subjects that touch catalog, front-end delivery, and go-live work at the same time.
+          - The scope covers product data, business connectors, themes, technical SEO, and demanding HBJO environments, including Rolex Bespoke and Rolex Certified Pre-Owned surfaces.
       detail_groups:
           - title: Stack
             pills:
@@ -29,8 +29,8 @@ professional_sections:
                 - Docker Swarm
                 - AWS
             items:
-                - Shared core, client themes, business connectors, and ongoing delivery.
-                - HBJO clients followed in this frame: Auberi, Godchot, Pauliet, Louis Julian, and Crown DP.
+                - Shared core, client themes, business connectors, ongoing delivery, and coordination between ERP, catalog, and front-end surfaces.
+                - Work delivered in a premium HBJO frame with strong brand, product-data, and go-live constraints.
     - title: Louis Julian Redesign
       eyebrow: 2025 - present
       summary: Jeweler in Cannes since 1862. Public site and ecommerce redesign with a full design system and editorial steering.
@@ -47,22 +47,6 @@ professional_sections:
             items:
                 - Public-site and ecommerce redesign, reusable components, and stable editorial framing.
                 - Built under strong brand and content constraints.
-    - title: Watch Repair Module
-      eyebrow: 2026
-      summary: Full repair-tracking workflow. Eight statuses, state machine, QR code, and online quotation with a fourteen-day withdrawal period.
-      paragraphs:
-          - The work needs clear business rules, safe transitions, and an interface that stays understandable for both the team and the customer.
-          - The goal is to track a repair without losing either information or pace.
-      detail_groups:
-          - title: Stack
-            pills:
-                - REST API
-                - Webhooks
-                - Brevo
-                - QR code
-            items:
-                - Repair tracking, notifications, and business milestones in one flow.
-                - State transitions designed to remain readable over time.
     - title: Infrastructure
       eyebrow: 2024 - present
       summary: Docker Swarm deployment on AWS. Automatic pipeline through EventBridge, Lambda, and SSM, then hardening after a disk incident.
@@ -97,22 +81,7 @@ associative_note_widget:
     title: ''
     description: ''
     cta_label: ''
-side_project_sections:
-    - title: YTMusic Liked Sorter
-      eyebrow: Personal project
-      summary: Small personal tool built around sorting, filtering, and readable output.
-      paragraphs:
-          - The project starts from a simple need to revisit and sort a personal listening history.
-          - It shows a preference for short tools that stay useful and easy to read.
-      links:
-          - label: GitHub · ytmusic-liked-sorter
-            href: https://github.com/Ismaouste/ytmusic-liked-sorter
-      detail_groups:
-          - title: Landmarks
-            items:
-                - Retrieval and review of a personal history.
-                - Utility-first interface without extra noise.
-                - Filtering and output designed to be useful right away.
+side_project_sections: []
 side_projects_widget:
     eyebrow: ''
     title: ''

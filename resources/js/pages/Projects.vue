@@ -137,6 +137,12 @@ const uniqueCareerRoles = computed(() =>
         .filter((role) => role !== ''),
 );
 
+const hasSideProjectsContent = computed(
+    () =>
+        props.sideProjectSections.length > 0 ||
+        props.sideProjectsWidget.items.length > 0,
+);
+
 function caseStudyMeta(item: ContentItem) {
     return [
         {
@@ -435,72 +441,74 @@ function detailGridClasses(section: ExperienceSection) {
 
             <PublicationWidget :widget="props.associativeNoteWidget" tone="grid" />
 
-            <p class="type-eyebrow projects-page__section-label">
-                {{ copy.sideProjectsLabel }}
-            </p>
+            <template v-if="hasSideProjectsContent">
+                <p class="type-eyebrow projects-page__section-label">
+                    {{ copy.sideProjectsLabel }}
+                </p>
 
-            <div class="projects-page__section-list">
-                <article
-                    v-for="section in props.sideProjectSections"
-                    :key="section.title"
-                    class="projects-page__story"
-                >
-                    <div class="projects-page__story-head">
-                        <LegendChip
-                            :label="section.eyebrow"
-                            :tone="sectionTone('side')"
-                        />
-                        <h2 class="type-h2 projects-page__story-title">
-                            {{ section.title }}
-                        </h2>
-                        <p class="type-body projects-page__story-summary">
-                            {{ section.summary }}
-                        </p>
-                    </div>
-
-                    <div class="projects-page__story-body">
-                        <div class="projects-page__story-copy">
-                            <p
-                                v-for="paragraph in section.paragraphs"
-                                :key="paragraph"
-                                class="type-body projects-page__copy-line"
-                            >
-                                {{ paragraph }}
+                <div class="projects-page__section-list">
+                    <article
+                        v-for="section in props.sideProjectSections"
+                        :key="section.title"
+                        class="projects-page__story"
+                    >
+                        <div class="projects-page__story-head">
+                            <LegendChip
+                                :label="section.eyebrow"
+                                :tone="sectionTone('side')"
+                            />
+                            <h2 class="type-h2 projects-page__story-title">
+                                {{ section.title }}
+                            </h2>
+                            <p class="type-body projects-page__story-summary">
+                                {{ section.summary }}
                             </p>
                         </div>
 
-                        <div
-                            class="projects-page__detail-grid"
-                            :class="detailGridClasses(section)"
-                        >
-                            <div
-                                v-for="group in section.detail_groups"
-                                :key="group.title"
-                                class="projects-page__detail-group"
-                            >
-                                <p class="type-nav projects-page__detail-title">
-                                    {{ group.title }}
-                                </p>
-                                <ul
-                                    class="projects-page__detail-list"
+                        <div class="projects-page__story-body">
+                            <div class="projects-page__story-copy">
+                                <p
+                                    v-for="paragraph in section.paragraphs"
+                                    :key="paragraph"
+                                    class="type-body projects-page__copy-line"
                                 >
-                                    <li
-                                        v-for="item in group.items"
-                                        :key="item"
-                                        class="projects-page__detail-item"
+                                    {{ paragraph }}
+                                </p>
+                            </div>
+
+                            <div
+                                class="projects-page__detail-grid"
+                                :class="detailGridClasses(section)"
+                            >
+                                <div
+                                    v-for="group in section.detail_groups"
+                                    :key="group.title"
+                                    class="projects-page__detail-group"
+                                >
+                                    <p class="type-nav projects-page__detail-title">
+                                        {{ group.title }}
+                                    </p>
+                                    <ul
+                                        class="projects-page__detail-list"
                                     >
-                                        <p class="type-body projects-page__copy-line">
-                                            {{ item }}
-                                        </p>
-                                    </li>
-                                </ul>
+                                        <li
+                                            v-for="item in group.items"
+                                            :key="item"
+                                            class="projects-page__detail-item"
+                                        >
+                                            <p class="type-body projects-page__copy-line">
+                                                {{ item }}
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </article>
-            </div>
+                    </article>
+                </div>
 
-            <PublicationWidget :widget="props.sideProjectsWidget" tone="surface" />
+                <PublicationWidget :widget="props.sideProjectsWidget" tone="surface" />
+            </template>
 
             <div class="projects-page__header">
                 <SectionIntro

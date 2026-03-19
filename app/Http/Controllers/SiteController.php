@@ -166,16 +166,7 @@ class SiteController extends Controller
                 'description' => $experience['side_projects_widget']['description'],
                 'ctaLabel' => $experience['side_projects_widget']['cta_label'],
                 'ctaHref' => '/journal',
-                'items' => [
-                    $this->localizedWriting(
-                        'volontariat-njp-et-petits-outils',
-                        'njp-volunteering-and-small-tools',
-                    ),
-                    $this->localizedWriting(
-                        'ytmusic-liked-sorter',
-                        'ytmusic-liked-sorter',
-                    ),
-                ],
+                'items' => [],
             ],
             'journalWidget' => $this->publicationWidget([
                 'eyebrow' => app()->getLocale() === 'fr' ? 'Notes' : 'Notes',

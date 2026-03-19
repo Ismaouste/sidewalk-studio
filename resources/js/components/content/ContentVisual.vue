@@ -70,7 +70,6 @@ function handleImageLoad(): void {
 }
 
 .content-visual--compact {
-    aspect-ratio: 3 / 2;
     min-height: 0;
     display: flex;
     align-items: center;

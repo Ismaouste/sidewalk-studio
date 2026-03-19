@@ -1,5 +1,5 @@
 ---
-title: Crown DP and the work of making a deployment pipeline honest
+title: Making a deployment pipeline honest in a live ecommerce environment
 slug: pipeline-deploiement-crown-dp
 summary: "An ecommerce case study about silent Docker Swarm rollbacks, misleading deployment signals, and the work of making the final state verifiable."
 status: published
@@ -10,7 +10,7 @@ tags:
     - operations
     - ecommerce
     - work-sample
-seo_title: Crown DP and the work of making a deployment pipeline honest
+seo_title: Making a deployment pipeline honest in a live ecommerce environment
 seo_description: Ecommerce case study about a silent Docker Swarm rollback, a deployment pipeline that lied, and the hardening needed to make releases auditable again.
 category: work
 publication_type: case_study
@@ -18,7 +18,7 @@ accent_tone: dominant
 schema: creative_work
 canonical: "{{site_url}}/en/case-studies/pipeline-deploiement-crown-dp"
 ogImage: /images/og/site-default.jpg
-client: Jewely / Flippad · Crown DP
+client: Jewely / Flippad
 role: Incident analysis and deployment hardening
 stack:
     - Docker Swarm
@@ -38,7 +38,7 @@ In ecommerce, that kind of false positive is expensive. A catalog correction, a 
 
 ## Situation
 
-This happened in a live Crown DP environment with branches, preproduction surfaces, and real timing pressure. The goal was not to rebuild the whole delivery chain around a cleaner tool. The immediate need was to understand why the success signal was unreliable and to put a simple, auditable decision path back around the actual state of the service.
+This happened in a live client environment with branches, preproduction surfaces, and real timing pressure. The goal was not to rebuild the whole delivery chain around a cleaner tool. The immediate need was to understand why the success signal was unreliable and to put a simple, auditable decision path back around the actual state of the service.
 
 Two checks became central:
 
