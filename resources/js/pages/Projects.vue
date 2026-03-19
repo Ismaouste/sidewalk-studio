@@ -601,6 +601,7 @@ function detailGridClasses(section: ExperienceSection) {
 .projects-page {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
 }
 
 .projects-page__section-label {
@@ -620,6 +621,7 @@ function detailGridClasses(section: ExperienceSection) {
     flex-wrap: wrap;
     align-items: flex-start;
     gap: var(--sw-space-sm);
+    min-width: 0;
 }
 
 .projects-page__work-panel,
@@ -636,6 +638,8 @@ function detailGridClasses(section: ExperienceSection) {
     overflow: hidden;
     isolation: isolate;
     flex: 1 1 clamp(16rem, 28vw, 24rem);
+    max-width: 100%;
+    min-width: 0;
     min-width: min(100%, 16rem);
 }
 
@@ -684,6 +688,7 @@ function detailGridClasses(section: ExperienceSection) {
 .projects-page__story-links {
     display: grid;
     gap: var(--sw-space-xs);
+    min-width: 0;
 }
 
 .projects-page__story-links {
@@ -707,6 +712,7 @@ function detailGridClasses(section: ExperienceSection) {
     display: grid;
     gap: clamp(18px, 2vw, 24px);
     padding: clamp(22px, 2.9vw, 34px);
+    min-width: 0;
     border: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
     border-radius: var(--sw-radius-lg);
     background: var(--sw-bg-surface);
@@ -719,6 +725,7 @@ function detailGridClasses(section: ExperienceSection) {
 .projects-page__detail-group {
     display: grid;
     gap: var(--sw-space-xs);
+    min-width: 0;
 }
 
 .projects-page__story-head {
@@ -746,6 +753,7 @@ function detailGridClasses(section: ExperienceSection) {
     align-items: flex-start;
     gap: clamp(18px, 1.9vw, 24px);
     width: 100%;
+    min-width: 0;
     padding-top: clamp(18px, 2vw, 24px);
     border-top: 1px solid color-mix(in srgb, var(--sw-border) 68%, transparent);
 }
@@ -766,6 +774,7 @@ function detailGridClasses(section: ExperienceSection) {
 .projects-page__case-title {
     margin: 0;
     color: var(--sw-text-primary);
+    overflow-wrap: anywhere;
 }
 
 .projects-page__story-summary {
@@ -777,6 +786,7 @@ function detailGridClasses(section: ExperienceSection) {
     max-width: 62ch;
     line-height: 1.5;
     text-wrap: pretty;
+    overflow-wrap: break-word;
 }
 
 .projects-page__story-copy {
@@ -813,6 +823,7 @@ function detailGridClasses(section: ExperienceSection) {
 .projects-page__detail-group {
     flex: 1 1 clamp(15rem, 22vw, 21rem);
     min-width: min(100%, 15rem);
+    max-width: 100%;
 }
 
 .projects-page__detail-grid--single .projects-page__detail-group {
@@ -867,6 +878,7 @@ function detailGridClasses(section: ExperienceSection) {
 
 .projects-page__case {
     height: 100%;
+    min-width: 0;
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
@@ -878,6 +890,7 @@ function detailGridClasses(section: ExperienceSection) {
     gap: var(--sw-space-3xs);
     align-items: start;
     justify-items: start;
+    min-width: 0;
 }
 
 .projects-page__case-tags,
@@ -907,6 +920,7 @@ function detailGridClasses(section: ExperienceSection) {
     text-align: left;
     white-space: normal;
     text-wrap: balance;
+    overflow-wrap: anywhere;
 }
 
 .projects-page__actions :deep(.sw-button) {
@@ -920,6 +934,19 @@ function detailGridClasses(section: ExperienceSection) {
 .projects-page__work-panel--snapshot {
     gap: var(--sw-space-sm);
     flex: 1.25 1 clamp(18rem, 34vw, 28rem);
+    min-width: 0;
+}
+
+@supports not (text-wrap: pretty) {
+    .projects-page__story-body .projects-page__copy-line {
+        word-break: normal;
+    }
+}
+
+@supports not (text-wrap: balance) {
+    .projects-page__stack-item--detail {
+        word-break: normal;
+    }
 }
 
 :global(html[data-theme='sunset']) .projects-page__work-panel--positioning,

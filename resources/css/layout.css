@@ -3,6 +3,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     overflow: clip;
     background:
         radial-gradient(
@@ -23,6 +24,7 @@
         calc(100% - var(--sw-layout-gutter-lg)),
         var(--sw-shell-max-width)
     );
+    min-width: 0;
     margin-inline: auto;
 }
 
@@ -30,12 +32,24 @@
     position: relative;
     z-index: var(--sw-z-content);
     flex: 1;
+    min-width: 0;
     padding-block: clamp(28px, 4vw, var(--sw-space-lg)) var(--sw-space-2xl);
 }
 
 .sw-main > .sw-container {
     display: grid;
     gap: clamp(var(--sw-space-md), 4vw, var(--sw-space-lg));
+    min-width: 0;
+}
+
+.sw-grid > * {
+    min-width: 0;
+}
+
+@supports not (overflow: clip) {
+    .sw-shell {
+        overflow: hidden;
+    }
 }
 
 .sw-section {

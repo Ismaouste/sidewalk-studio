@@ -608,6 +608,7 @@ const copy = computed(() =>
 .home-hero__support {
     display: grid;
     gap: 0.85rem;
+    min-width: 0;
 }
 
 .home-hero__lead-points {
@@ -650,6 +651,7 @@ const copy = computed(() =>
     position: relative;
     display: inline-flex;
     width: fit-content;
+    max-width: 100%;
     outline: none;
     --home-accent-color: var(--sw-accent-dominant);
 }
@@ -739,7 +741,9 @@ const copy = computed(() =>
 .home-card__title,
 .home-contact__title {
     margin: 0;
+    min-width: 0;
     color: var(--sw-text-primary);
+    overflow-wrap: anywhere;
 }
 
 .home-hero__panel-title {
@@ -818,6 +822,7 @@ const copy = computed(() =>
     gap: var(--sw-space-sm);
     align-items: end;
     justify-content: space-between;
+    min-width: 0;
 }
 
 .home-section__footer-cta {
@@ -849,6 +854,7 @@ const copy = computed(() =>
     display: grid;
     height: 100%;
     gap: var(--sw-space-xs);
+    min-width: 0;
     border-color: color-mix(in srgb, var(--sw-border) 80%, transparent);
     background: var(--sw-bg-surface);
     transition:
@@ -862,6 +868,7 @@ const copy = computed(() =>
     display: grid;
     gap: 0.7rem;
     align-content: start;
+    min-width: 0;
 }
 
 .home-card__meta {
@@ -897,6 +904,7 @@ const copy = computed(() =>
     display: grid;
     gap: 0;
     max-width: 48rem;
+    min-width: 0;
 }
 
 .home-contact__eyebrow {
@@ -924,6 +932,7 @@ const copy = computed(() =>
     justify-items: end;
     align-self: end;
     align-content: end;
+    min-width: 0;
 }
 
 .home-contact__downloads,

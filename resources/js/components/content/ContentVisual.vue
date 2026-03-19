@@ -65,6 +65,7 @@ function handleImageLoad(): void {
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--sw-border) 78%, transparent);
     border-radius: var(--sw-radius-lg);
+    min-width: 0;
     min-height: 8.25rem;
     background: var(--sw-bg-grid);
 }
@@ -85,6 +86,7 @@ function handleImageLoad(): void {
     width: 100%;
     height: 100%;
     min-height: 100%;
+    max-height: 100%;
     object-fit: cover;
     border-radius: 0;
     opacity: 0;
@@ -106,6 +108,12 @@ function handleImageLoad(): void {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.content-visual--compact .content-visual__image {
+    height: auto;
+    min-height: 0;
+    flex: 0 0 auto;
 }
 
 .content-visual__overlay {

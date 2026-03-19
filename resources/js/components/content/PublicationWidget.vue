@@ -133,6 +133,7 @@ function formattedDate(value: string): string {
 .publication-widget {
     display: grid;
     gap: var(--sw-space-xs);
+    min-width: 0;
 }
 
 .publication-widget__header {
@@ -159,11 +160,13 @@ function formattedDate(value: string): string {
     display: grid;
     gap: var(--sw-space-xs);
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0;
 }
 
 .publication-widget__link {
     display: block;
     border-radius: var(--sw-radius-lg);
+    min-width: 0;
 }
 
 .publication-widget__card {
@@ -172,7 +175,8 @@ function formattedDate(value: string): string {
     height: 100%;
     padding: clamp(11px, 1.4vw, 14px);
     align-items: stretch;
-    contain: layout paint style;
+    contain: paint;
+    min-width: 0;
     border-color: color-mix(in srgb, var(--sw-border) 80%, transparent);
     background: var(--sw-bg-surface);
     transition:
@@ -185,6 +189,7 @@ function formattedDate(value: string): string {
     display: grid;
     gap: 0.58rem;
     align-content: start;
+    min-width: 0;
 }
 
 .publication-widget__meta {
@@ -203,6 +208,7 @@ function formattedDate(value: string): string {
 .publication-widget__title {
     color: var(--sw-text-primary);
     line-height: 1.12;
+    overflow-wrap: anywhere;
 }
 
 .publication-widget__summary {
@@ -212,6 +218,7 @@ function formattedDate(value: string): string {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+    overflow-wrap: break-word;
 }
 
 .publication-widget__meta-date {

@@ -47,6 +47,7 @@ const props = withDefaults(
     display: grid;
     gap: clamp(14px, 2.4vw, var(--sw-space-xs));
     max-width: 54rem;
+    min-width: 0;
 }
 
 .section-intro--hero {
@@ -55,7 +56,9 @@ const props = withDefaults(
 }
 
 .section-intro__eyebrow {
+    display: inline-flex;
     width: fit-content;
+    max-width: 100%;
     margin: 0;
 }
 
@@ -67,15 +70,19 @@ const props = withDefaults(
 
 .section-intro__title {
     margin: 0;
+    min-width: 0;
     color: var(--sw-text-primary);
     text-wrap: balance;
+    overflow-wrap: anywhere;
 }
 
 .section-intro__description {
     margin: 0;
     max-width: 44rem;
+    min-width: 0;
     color: var(--sw-text-secondary);
     text-wrap: pretty;
+    overflow-wrap: break-word;
 }
 
 .section-intro__actions {
@@ -90,6 +97,18 @@ const props = withDefaults(
     flex-wrap: wrap;
     gap: 10px;
     padding-top: 6px;
+}
+
+@supports not (text-wrap: balance) {
+    .section-intro__title {
+        word-break: normal;
+    }
+}
+
+@supports not (text-wrap: pretty) {
+    .section-intro__description {
+        word-break: normal;
+    }
 }
 
 @media (max-width: 640px) {

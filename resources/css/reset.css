@@ -13,6 +13,7 @@ html {
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
+    overflow-x: hidden;
     overflow-y: scroll;
     transition:
         background-color var(--sw-motion-sun),
@@ -22,6 +23,7 @@ html {
 body {
     min-height: 100vh;
     margin: 0;
+    overflow-x: hidden;
     background:
         radial-gradient(
             circle at 15% 12%,
