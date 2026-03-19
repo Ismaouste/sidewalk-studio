@@ -205,7 +205,7 @@ html[data-theme='sunset'] .ambient-grid {
 }
 
 .ambient-grid__plane {
-    opacity: 0.9;
+    opacity: 0.76;
     transform: translate3d(var(--ambient-grid-x), var(--ambient-grid-y), 0)
         rotate(var(--ambient-grid-rotate)) scale(var(--ambient-grid-scale));
     background-image:
@@ -394,6 +394,24 @@ html[data-theme='sunset'] .ambient-grid {
 @media (max-width: 640px) {
     .ambient-grid {
         --grid-columns: 4;
+    }
+
+    .ambient-grid__plane {
+        opacity: 0.58;
+    }
+
+    .ambient-grid__shadow {
+        opacity: 0.12;
+    }
+}
+
+@media (max-width: 768px) {
+    .ambient-grid__sun,
+    .ambient-grid__plane,
+    .ambient-grid__shadow {
+        animation: none !important;
+        transition: none;
+        will-change: auto;
     }
 }
 

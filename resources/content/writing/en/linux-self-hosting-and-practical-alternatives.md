@@ -16,7 +16,7 @@ category: journal
 publication_type: journal
 accent_tone: violet
 schema: article
-canonical: https://sidewalk-studio.vercel.app/en/journal/linux-self-hosting-and-practical-alternatives
+canonical: "{{site_url}}/en/journal/linux-self-hosting-and-practical-alternatives"
 ogImage: /images/og/linux-self-hosting-and-practical-alternatives.jpg
 ---
 

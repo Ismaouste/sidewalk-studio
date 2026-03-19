@@ -16,7 +16,7 @@ category: journal
 publication_type: journal
 accent_tone: violet
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/donnees-sensibles-associations-exigences-riches
+canonical: "{{site_url}}/fr/journal/donnees-sensibles-associations-exigences-riches"
 ogImage: /images/og/donnees-sensibles-associations-exigences-riches.jpg
 ---
 

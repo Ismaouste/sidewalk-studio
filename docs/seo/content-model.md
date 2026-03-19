@@ -28,6 +28,8 @@ Optional editorial/media fields:
 - `featured_image`
 - `featured_image_alt`
 - `featured_video`
+- `canonical_url` or the repo-owned `canonical` alias, both of which may use the `{{site_url}}` placeholder
+- `open_graph_image` or the repo-owned `ogImage` alias
 
 ## Case-study-only fields
 
@@ -50,6 +52,7 @@ The `publications` table owns the public-facing metadata contract:
 - freeform metadata for publication-type-specific fields
 
 The long-form body is intentionally not duplicated in the database. Runtime reads load it from the linked Markdown file.
+The public base URL itself is not hardcoded in repo-owned canonicals anymore; it resolves through `SITE_PUBLIC_URL`, with `{{site_url}}` kept as the Markdown placeholder.
 
 ## Hybrid page contract
 

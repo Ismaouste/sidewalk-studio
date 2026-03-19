@@ -45,15 +45,16 @@ class SiteSettingsPublicIntegrationTest extends TestCase
             ]),
         ]);
 
-        $this->get('/')
+        $this->get('/en')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('name', 'Studio Atlas')
                 ->where('site.name', 'Studio Atlas')
                 ->where('site.tagline', 'A settings-backed tagline.')
-                ->where('site.contact.email', 'hello@studio-atlas.test'))
-            ->assertSee('A tailored metadata default for the public site.')
-            ->assertSee('https://github.com/studio-atlas', false);
+                ->where('site.contact.email', 'hello@studio-atlas.test')
+                ->where('site.social.github_url', 'https://github.com/studio-atlas')
+                ->where('site.social.linkedin_url', 'https://www.linkedin.com/company/studio-atlas'))
+            ->assertSee('A tailored metadata default for the public site.');
     }
 
     public function test_contact_page_uses_settings_backed_contact_details(): void
@@ -69,7 +70,7 @@ class SiteSettingsPublicIntegrationTest extends TestCase
             ]),
         ]);
 
-        $this->get('/contact')
+        $this->get('/en/contact')
             ->assertOk()
             ->assertSee('contact@studio-atlas.test')
             ->assertSee('Remote-first')

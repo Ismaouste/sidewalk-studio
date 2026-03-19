@@ -5,6 +5,7 @@ import AccessibilityPanel from '@/components/layout/AccessibilityPanel.vue';
 import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
+import { localizePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
@@ -28,6 +29,9 @@ const footerSignature = {
     name: 'Ismaël Rodmacq',
     email: 'ismael@rodmacq.com',
 };
+const dataProcessingHref = computed(() =>
+    localizePublicHref('/data-processing', page.props.site.locale),
+);
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
@@ -102,7 +106,7 @@ function backToTop(): void {
                         </a>
                         <a
                             class="app-footer__link"
-                            href="/data-processing"
+                            :href="dataProcessingHref"
                             rel="nofollow"
                         >
                             {{ copy.dataLabel }}

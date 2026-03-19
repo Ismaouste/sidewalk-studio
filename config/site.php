@@ -6,7 +6,8 @@ return [
     'tagline' => env('SITE_TAGLINE', 'Fullstack ecommerce. Cross-functional data, reliable flows.'),
     'description' => env('SITE_DESCRIPTION', 'Fullstack web development for ecommerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO.'),
     'locale' => 'en',
-    'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
+    'url' => rtrim(env('SITE_PUBLIC_URL', env('APP_URL', 'http://localhost')), '/'),
+    'url_placeholder' => env('SITE_URL_PLACEHOLDER', '{{site_url}}'),
     'author' => [
         'name' => env('SITE_AUTHOR_NAME', 'Ismael Rodmacq'),
         'job_title' => env('SITE_AUTHOR_TITLE', 'Full Stack Developer — E-commerce & Product Data'),

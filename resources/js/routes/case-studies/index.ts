@@ -2,78 +2,94 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
 * @see app/Http/Controllers/CaseStudyController.php:16
-* @route '/case-studies'
+* @route '/{locale}/case-studies'
 */
-export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
+export const index = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: index.url(args, options),
     method: 'get',
 })
 
 index.definition = {
     methods: ["get","head"],
-    url: '/case-studies',
+    url: '/{locale}/case-studies',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
 * @see app/Http/Controllers/CaseStudyController.php:16
-* @route '/case-studies'
+* @route '/{locale}/case-studies'
 */
-index.url = (options?: RouteQueryOptions) => {
+index.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { locale: args }
+    }
 
 
+    if (Array.isArray(args)) {
+        args = {
+            locale: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
 
 
-    return index.definition.url + queryParams(options)
+    const parsedArgs = {
+        locale: args.locale,
+    }
+
+    return index.definition.url
+            .replace('{locale}', parsedArgs.locale.toString())
+            .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
 * @see app/Http/Controllers/CaseStudyController.php:16
-* @route '/case-studies'
+* @route '/{locale}/case-studies'
 */
-index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
+index.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: index.url(args, options),
     method: 'get',
 })
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
 * @see app/Http/Controllers/CaseStudyController.php:16
-* @route '/case-studies'
+* @route '/{locale}/case-studies'
 */
-index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: index.url(options),
+index.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: index.url(args, options),
     method: 'head',
 })
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
 * @see app/Http/Controllers/CaseStudyController.php:16
-* @route '/case-studies'
+* @route '/{locale}/case-studies'
 */
-const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
+const indexForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(args, options),
     method: 'get',
 })
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
 * @see app/Http/Controllers/CaseStudyController.php:16
-* @route '/case-studies'
+* @route '/{locale}/case-studies'
 */
-indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
+indexForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(args, options),
     method: 'get',
 })
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
 * @see app/Http/Controllers/CaseStudyController.php:16
-* @route '/case-studies'
+* @route '/{locale}/case-studies'
 */
-indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url({
+indexForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: index.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'HEAD',
             ...(options?.query ?? options?.mergeQuery ?? {}),
@@ -86,33 +102,30 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:40
-* @route '/case-studies/{slug}'
+* @see app/Http/Controllers/CaseStudyController.php:41
+* @route '/{locale}/case-studies/{slug}'
 */
-export const show = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 
 show.definition = {
     methods: ["get","head"],
-    url: '/case-studies/{slug}',
+    url: '/{locale}/case-studies/{slug}',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:40
-* @route '/case-studies/{slug}'
+* @see app/Http/Controllers/CaseStudyController.php:41
+* @route '/{locale}/case-studies/{slug}'
 */
-show.url = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions) => {
-    if (typeof args === 'string' || typeof args === 'number') {
-        args = { slug: args }
-    }
-
+show.url = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions) => {
 
     if (Array.isArray(args)) {
         args = {
-            slug: args[0],
+            locale: args[0],
+            slug: args[1],
         }
     }
 
@@ -120,60 +133,62 @@ show.url = (args: { slug: string | number } | [slug: string | number ] | string 
 
 
     const parsedArgs = {
+        locale: args.locale,
         slug: args.slug,
     }
 
     return show.definition.url
+            .replace('{locale}', parsedArgs.locale.toString())
             .replace('{slug}', parsedArgs.slug.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:40
-* @route '/case-studies/{slug}'
+* @see app/Http/Controllers/CaseStudyController.php:41
+* @route '/{locale}/case-studies/{slug}'
 */
-show.get = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:40
-* @route '/case-studies/{slug}'
+* @see app/Http/Controllers/CaseStudyController.php:41
+* @route '/{locale}/case-studies/{slug}'
 */
-show.head = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:40
-* @route '/case-studies/{slug}'
+* @see app/Http/Controllers/CaseStudyController.php:41
+* @route '/{locale}/case-studies/{slug}'
 */
-const showForm = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+const showForm = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: show.url(args, options),
     method: 'get',
 })
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:40
-* @route '/case-studies/{slug}'
+* @see app/Http/Controllers/CaseStudyController.php:41
+* @route '/{locale}/case-studies/{slug}'
 */
-showForm.get = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+showForm.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: show.url(args, options),
     method: 'get',
 })
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:40
-* @route '/case-studies/{slug}'
+* @see app/Http/Controllers/CaseStudyController.php:41
+* @route '/{locale}/case-studies/{slug}'
 */
-showForm.head = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+showForm.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: show.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'HEAD',

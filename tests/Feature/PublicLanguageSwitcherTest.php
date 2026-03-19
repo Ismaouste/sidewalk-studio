@@ -9,7 +9,7 @@ class PublicLanguageSwitcherTest extends TestCase
 {
     public function test_supported_pages_expose_a_language_switcher_with_same_path_links(): void
     {
-        $this->get('/projects')
+        $this->get('/en/projects')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
@@ -17,72 +17,72 @@ class PublicLanguageSwitcherTest extends TestCase
                 ->where('site.languageSwitcher.options.0.code', 'en')
                 ->where(
                     'site.languageSwitcher.options.0.href',
-                    fn (string $href): bool => str_ends_with($href, '/projects?lang=en'),
+                    fn (string $href): bool => str_ends_with($href, '/en/projects'),
                 )
                 ->where('site.languageSwitcher.options.1.code', 'fr')
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/projects?lang=fr'),
+                    fn (string $href): bool => str_ends_with($href, '/fr/projects'),
                 ));
     }
 
     public function test_newly_localized_contact_page_exposes_the_language_switcher(): void
     {
-        $this->get('/contact')
+        $this->get('/en/contact')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/contact?lang=fr'),
+                    fn (string $href): bool => str_ends_with($href, '/fr/contact'),
                 ));
     }
 
     public function test_writing_routes_expose_the_language_switcher_when_a_french_entry_exists(): void
     {
-        $this->get('/journal')
+        $this->get('/en/journal')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/journal?lang=fr'),
+                    fn (string $href): bool => str_ends_with($href, '/fr/journal'),
                 ));
 
-        $this->get('/journal/content-systems-routing-and-metadata')
+        $this->get('/en/journal/content-systems-routing-and-metadata')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/journal/content-systems-routing-and-metadata?lang=fr'),
+                    fn (string $href): bool => str_ends_with($href, '/fr/journal/content-systems-routing-and-metadata'),
                 ));
     }
 
     public function test_case_study_routes_expose_the_language_switcher_when_a_french_entry_exists(): void
     {
-        $this->get('/case-studies')
+        $this->get('/en/case-studies')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/case-studies?lang=fr'),
+                    fn (string $href): bool => str_ends_with($href, '/fr/case-studies'),
                 ));
 
-        $this->get('/case-studies/repo-bootstrap-foundation')
+        $this->get('/en/case-studies/repo-bootstrap-foundation')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/case-studies/repo-bootstrap-foundation?lang=fr'),
+                    fn (string $href): bool => str_ends_with($href, '/fr/case-studies/repo-bootstrap-foundation'),
                 ));
     }
 
     public function test_unsupported_pages_hide_the_language_switcher(): void
     {
-        $this->get('/labs')
+        $this->get('/en/labs')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', false)

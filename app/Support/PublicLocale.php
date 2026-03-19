@@ -22,6 +22,64 @@ class PublicLocale
         return 'en';
     }
 
+    public static function resolveSupportedLocale(mixed $candidate): ?string
+    {
+        if (! is_string($candidate) || $candidate === '') {
+            return null;
+        }
+
+        $normalized = strtolower(trim(explode(',', $candidate)[0]));
+        $language = explode('-', $normalized)[0];
+
+        return in_array($language, self::supported(), true)
+            ? $language
+            : null;
+    }
+
+    public static function localePrefix(string $locale): string
+    {
+        return '/'.trim($locale, '/');
+    }
+
+    public static function localizedPath(string $path, ?string $locale = null): string
+    {
+        if (preg_match('/^https?:\/\//i', $path) === 1) {
+            return $path;
+        }
+
+        $locale ??= app()->getLocale() ?: self::default();
+        $parsed = parse_url($path);
+        $normalizedPath = self::stripLocaleFromPath($parsed['path'] ?? '/');
+        $localized = self::localePrefix($locale);
+
+        if ($normalizedPath !== '/') {
+            $localized .= $normalizedPath;
+        }
+
+        $query = isset($parsed['query']) && $parsed['query'] !== ''
+            ? '?'.$parsed['query']
+            : '';
+        $fragment = isset($parsed['fragment']) && $parsed['fragment'] !== ''
+            ? '#'.$parsed['fragment']
+            : '';
+
+        return $localized.$query.$fragment;
+    }
+
+    public static function pathForRequest(Request $request): string
+    {
+        return self::stripLocaleFromPath('/'.ltrim($request->path(), '/'));
+    }
+
+    public static function preferredLocaleForRequest(Request $request): string
+    {
+        return self::resolveSupportedLocale($request->route('locale'))
+            ?? self::resolveSupportedLocale($request->query('lang'))
+            ?? self::resolveSupportedLocale($request->cookie(self::COOKIE_NAME))
+            ?? self::resolveBrowserLocale($request)
+            ?? self::default();
+    }
+
     public static function pageKeyForRequest(Request $request): ?string
     {
         return match ($request->route()?->getName()) {
@@ -69,7 +127,7 @@ class PublicLocale
         return collect(config('site.navigation'))
             ->map(fn (array $item): array => [
                 'label' => $labels[$item['href']] ?? $item['label'],
-                'href' => $item['href'],
+                'href' => self::localizedPath($item['href'], $locale),
             ])
             ->all();
     }
@@ -181,6 +239,11 @@ class PublicLocale
      */
     public static function switcher(Request $request, string $currentLocale, string $preferredLocale): array
     {
+        $path = self::pathForRequest($request);
+        $query = collect($request->query())
+            ->except(['lang', 'path'])
+            ->all();
+
         $options = collect(self::supported())
             ->map(function (string $locale) use ($request): array {
                 $available = self::isAvailableForRequest($request, $locale);
@@ -189,10 +252,23 @@ class PublicLocale
                     'code' => $locale,
                     'label' => strtoupper($locale),
                     'available' => $available,
-                    'href' => $available
-                        ? $request->fullUrlWithQuery(['lang' => $locale])
-                        : null,
+                    'href' => null,
                 ];
+            })
+            ->map(function (array $option) use ($path, $query): array {
+                if (! $option['available']) {
+                    return $option;
+                }
+
+                $href = self::localizedPath($path, $option['code']);
+
+                if ($query !== []) {
+                    $href .= '?'.http_build_query($query);
+                }
+
+                $option['href'] = $href;
+
+                return $option;
             })
             ->values()
             ->all();
@@ -203,5 +279,38 @@ class PublicLocale
             'preferred' => $preferredLocale,
             'options' => $options,
         ];
+    }
+
+    protected static function resolveBrowserLocale(Request $request): ?string
+    {
+        foreach ($request->getLanguages() as $language) {
+            $locale = self::resolveSupportedLocale($language);
+
+            if ($locale !== null) {
+                return $locale;
+            }
+        }
+
+        return null;
+    }
+
+    protected static function stripLocaleFromPath(string $path): string
+    {
+        $normalized = '/'.ltrim($path, '/');
+        $normalized = preg_replace('#/+#', '/', $normalized) ?: '/';
+
+        foreach (self::supported() as $locale) {
+            $prefix = self::localePrefix($locale);
+
+            if ($normalized === $prefix) {
+                return '/';
+            }
+
+            if (str_starts_with($normalized, $prefix.'/')) {
+                return substr($normalized, strlen($prefix)) ?: '/';
+            }
+        }
+
+        return rtrim($normalized, '/') ?: '/';
     }
 }

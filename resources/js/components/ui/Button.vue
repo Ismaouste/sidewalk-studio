@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import { resolvePublicHref } from '@/lib/publicHref';
+import { localizePublicHref, resolvePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
@@ -45,8 +45,12 @@ const resolvedHref = computed(() => {
         return undefined;
     }
 
+    const localizedHref = isInternalLink.value
+        ? localizePublicHref(props.href, page.props.site.locale)
+        : props.href;
+
     return resolvePublicHref(
-        props.href,
+        localizedHref,
         page.props.site.runtime.staticPreview,
         page.props.site.runtime.staticBasePath,
     );

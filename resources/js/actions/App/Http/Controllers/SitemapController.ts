@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\SitemapController::__invoke
-* @see app/Http/Controllers/SitemapController.php:10
+* @see app/Http/Controllers/SitemapController.php:11
 * @route '/sitemap.xml'
 */
 const SitemapController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ SitemapController.definition = {
 
 /**
 * @see \App\Http\Controllers\SitemapController::__invoke
-* @see app/Http/Controllers/SitemapController.php:10
+* @see app/Http/Controllers/SitemapController.php:11
 * @route '/sitemap.xml'
 */
 SitemapController.url = (options?: RouteQueryOptions) => {
@@ -29,7 +29,7 @@ SitemapController.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\SitemapController::__invoke
-* @see app/Http/Controllers/SitemapController.php:10
+* @see app/Http/Controllers/SitemapController.php:11
 * @route '/sitemap.xml'
 */
 SitemapController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -39,7 +39,7 @@ SitemapController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> =>
 
 /**
 * @see \App\Http\Controllers\SitemapController::__invoke
-* @see app/Http/Controllers/SitemapController.php:10
+* @see app/Http/Controllers/SitemapController.php:11
 * @route '/sitemap.xml'
 */
 SitemapController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -49,7 +49,7 @@ SitemapController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
 
 /**
 * @see \App\Http\Controllers\SitemapController::__invoke
-* @see app/Http/Controllers/SitemapController.php:10
+* @see app/Http/Controllers/SitemapController.php:11
 * @route '/sitemap.xml'
 */
 const SitemapControllerForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -59,7 +59,7 @@ const SitemapControllerForm = (options?: RouteQueryOptions): RouteFormDefinition
 
 /**
 * @see \App\Http\Controllers\SitemapController::__invoke
-* @see app/Http/Controllers/SitemapController.php:10
+* @see app/Http/Controllers/SitemapController.php:11
 * @route '/sitemap.xml'
 */
 SitemapControllerForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -69,7 +69,7 @@ SitemapControllerForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'
 
 /**
 * @see \App\Http\Controllers\SitemapController::__invoke
-* @see app/Http/Controllers/SitemapController.php:10
+* @see app/Http/Controllers/SitemapController.php:11
 * @route '/sitemap.xml'
 */
 SitemapControllerForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

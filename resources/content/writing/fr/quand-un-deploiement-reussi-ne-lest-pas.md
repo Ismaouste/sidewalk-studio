@@ -15,7 +15,7 @@ category: journal
 publication_type: journal
 accent_tone: dominant
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/quand-un-deploiement-reussi-ne-lest-pas
+canonical: "{{site_url}}/fr/journal/quand-un-deploiement-reussi-ne-lest-pas"
 ogImage: /images/og/quand-un-deploiement-reussi-ne-lest-pas.jpg
 ---
 

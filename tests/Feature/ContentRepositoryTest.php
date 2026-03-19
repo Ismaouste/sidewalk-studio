@@ -30,7 +30,7 @@ class ContentRepositoryTest extends TestCase
             $contentSystems['open_graph_image'],
         );
         $this->assertSame(
-            'https://sidewalk-studio.vercel.app/en/journal/content-systems-routing-and-metadata',
+            rtrim((string) config('site.url'), '/').'/en/journal/content-systems-routing-and-metadata',
             $contentSystems['canonical_url'],
         );
     }

@@ -405,6 +405,8 @@ onBeforeUnmount(() => {
     box-shadow:
         0 14px 22px color-mix(in srgb, var(--sw-text-primary) 8%, transparent),
         var(--sw-shadow-sm);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
+    backdrop-filter: blur(18px) saturate(130%);
     opacity: 0;
     transform: translateY(-6px);
     transition:
@@ -567,6 +569,8 @@ onBeforeUnmount(() => {
         text-transform: uppercase;
         color: var(--sw-tab-inactive);
         box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
         opacity: 1;
         transform: none;
         overflow: hidden;

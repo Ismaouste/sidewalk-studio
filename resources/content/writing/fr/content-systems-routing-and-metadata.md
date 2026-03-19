@@ -16,7 +16,7 @@ category: journal
 publication_type: journal
 accent_tone: violet
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/content-systems-routing-and-metadata
+canonical: "{{site_url}}/fr/journal/content-systems-routing-and-metadata"
 ogImage: /images/og/content-systems-routing-and-metadata.jpg
 ---
 

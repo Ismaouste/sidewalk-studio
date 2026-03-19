@@ -10,8 +10,8 @@ class PublicLocaleResolutionTest extends TestCase
 {
     public function test_browser_language_prefers_french_page_content(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/projects';
-        $response = $this->withHeaders([
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/projects';
+        $response = $this->followingRedirects()->withHeaders([
             'Accept-Language' => 'fr-FR,fr;q=0.9,en;q=0.8',
         ])->get('/projects');
 
@@ -38,17 +38,11 @@ class PublicLocaleResolutionTest extends TestCase
     public function test_explicit_lang_query_persists_locale_preference(): void
     {
         $this->get('/local?lang=fr')
-            ->assertOk()
-            ->assertCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.eyebrow', 'Où suis-je ?')
-                ->where('site.locale', 'fr')
-                ->where('site.languageSwitcher.visible', true));
+            ->assertRedirect('/fr/local')
+            ->assertCookie(ResolvePublicLocale::COOKIE_NAME, 'fr');
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->withHeaders([
-                'Accept-Language' => 'en-US,en;q=0.9',
-            ])->get('/')
+            ->get('/fr')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
@@ -59,7 +53,7 @@ class PublicLocaleResolutionTest extends TestCase
     public function test_newly_localized_contact_page_renders_french_content(): void
     {
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/contact')
+            ->get('/fr/contact')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
@@ -71,7 +65,7 @@ class PublicLocaleResolutionTest extends TestCase
     public function test_pages_without_french_source_stay_on_english_even_with_french_preference(): void
     {
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/labs')
+            ->get('/fr/labs')
             ->assertOk()
             ->assertHeader('content-language', 'en')
             ->assertInertia(fn (Assert $page): Assert => $page
@@ -81,10 +75,10 @@ class PublicLocaleResolutionTest extends TestCase
 
     public function test_writing_index_renders_french_entries_when_french_locale_is_resolved(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/journal';
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/journal';
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/journal')
+            ->get('/fr/journal')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
@@ -97,18 +91,22 @@ class PublicLocaleResolutionTest extends TestCase
                         fn (array $item): bool => $item['locale'] === 'fr',
                     ),
                 )
-                ->where('items.0.locale', 'fr')
-                ->where('items.0.title', 'De Nancy API POP à Culturedex')
+                ->where(
+                    'items',
+                    fn ($items): bool => collect($items)->contains(
+                        fn (array $item): bool => $item['slug'] === 'quand-un-deploiement-reussi-ne-lest-pas',
+                    ),
+                )
                 ->where('site.languageSwitcher.visible', true)
                 ->where('seo.canonical', $canonical));
     }
 
     public function test_writing_detail_renders_localized_french_entry_with_stable_canonical_url(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/journal/content-systems-routing-and-metadata';
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/journal/content-systems-routing-and-metadata';
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/journal/content-systems-routing-and-metadata')
+            ->get('/fr/journal/content-systems-routing-and-metadata')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
@@ -144,10 +142,10 @@ This English-only public writing entry should stay reachable even when the prefe
 MD);
 
         try {
-            $canonical = rtrim((string) config('site.url'), '/').'/journal/editorial-english-fallback-public-test';
+            $canonical = rtrim((string) config('site.url'), '/').'/en/journal/editorial-english-fallback-public-test';
 
             $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-                ->get('/journal/editorial-english-fallback-public-test')
+                ->get('/fr/journal/editorial-english-fallback-public-test')
                 ->assertOk()
                 ->assertHeader('content-language', 'en')
                 ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
@@ -163,28 +161,38 @@ MD);
 
     public function test_case_study_index_renders_french_entries_when_french_locale_is_resolved(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/case-studies';
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/case-studies';
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/case-studies')
+            ->get('/fr/case-studies')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
-                ->where('items.0.locale', 'fr')
-                ->where('items.0.title', 'Orchestration du consentement avant les analytics')
+                ->where(
+                    'items',
+                    fn ($items): bool => collect($items)->every(
+                        fn (array $item): bool => $item['locale'] === 'fr',
+                    ),
+                )
+                ->where(
+                    'items',
+                    fn ($items): bool => collect($items)->contains(
+                        fn (array $item): bool => $item['slug'] === 'pipeline-deploiement-crown-dp',
+                    ),
+                )
                 ->where('site.languageSwitcher.visible', true)
                 ->where('seo.canonical', $canonical));
     }
 
     public function test_case_study_detail_renders_localized_french_entry_with_stable_canonical_url(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/case-studies/repo-bootstrap-foundation';
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/case-studies/repo-bootstrap-foundation';
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/case-studies/repo-bootstrap-foundation')
+            ->get('/fr/case-studies/repo-bootstrap-foundation')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
@@ -226,10 +234,10 @@ This English-only public case study should stay reachable even when the preferre
 MD);
 
         try {
-            $canonical = rtrim((string) config('site.url'), '/').'/case-studies/case-study-english-fallback-public-test';
+            $canonical = rtrim((string) config('site.url'), '/').'/en/case-studies/case-study-english-fallback-public-test';
 
             $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-                ->get('/case-studies/case-study-english-fallback-public-test')
+                ->get('/fr/case-studies/case-study-english-fallback-public-test')
                 ->assertOk()
                 ->assertHeader('content-language', 'en')
                 ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
@@ -245,9 +253,9 @@ MD);
 
     public function test_unsupported_locale_falls_back_to_english_canonical_response(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/projects';
+        $canonical = rtrim((string) config('site.url'), '/').'/en/projects';
 
-        $this->withHeaders([
+        $this->followingRedirects()->withHeaders([
             'Accept-Language' => 'de-DE,de;q=0.9',
         ])->get('/projects')
             ->assertOk()

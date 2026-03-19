@@ -22,13 +22,13 @@ class CareerDownloadsTest extends TestCase
 
     public function test_home_projects_and_contact_pages_expose_cv_download_links(): void
     {
-        $this->get('/')
+        $this->get('/en')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('cvDownloads.0.href', fn (string $href): bool => str_ends_with($href, '/cv/en'))
                 ->where('cvDownloads.1.href', fn (string $href): bool => str_ends_with($href, '/cv/fr')));
 
-        $this->get('/projects')
+        $this->get('/en/projects')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('cvDownloads.0.href', fn (string $href): bool => str_ends_with($href, '/cv/en'))
@@ -38,7 +38,7 @@ class CareerDownloadsTest extends TestCase
                     'Recruiter-ready snapshot',
                 ));
 
-        $this->get('/contact')
+        $this->get('/en/contact')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('cvDownloads.0.href', fn (string $href): bool => str_ends_with($href, '/cv/en'))
@@ -47,13 +47,13 @@ class CareerDownloadsTest extends TestCase
 
     public function test_home_and_projects_pages_expose_public_navigation_widgets(): void
     {
-        $this->get('/')
+        $this->get('/en')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->has('featuredCaseStudies', 2)
                 ->has('journalWidget.items', 2));
 
-        $this->get('/projects')
+        $this->get('/en/projects')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->has('journalWidget.items', 2)

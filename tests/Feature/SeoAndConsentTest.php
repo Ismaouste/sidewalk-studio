@@ -39,7 +39,7 @@ class SeoAndConsentTest extends TestCase
     public function test_writing_article_page_renders_article_metadata_and_og_image(): void
     {
         $ogImage = rtrim((string) config('site.url'), '/').'/images/og/content-systems-routing-and-metadata.jpg';
-        $canonical = 'https://sidewalk-studio.vercel.app/en/journal/content-systems-routing-and-metadata';
+        $canonical = rtrim((string) config('site.url'), '/').'/en/journal/content-systems-routing-and-metadata';
 
         $this->get('/en/journal/content-systems-routing-and-metadata')
             ->assertOk()

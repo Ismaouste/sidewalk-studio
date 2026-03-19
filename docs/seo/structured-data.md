@@ -18,6 +18,7 @@ That means:
 - publication metadata such as title, summary, dates, image references, and canonical intent can now come from database-managed records
 - the long-form article body still comes from the linked Markdown file referenced by that record
 - case-study-specific metadata remains available through the publication `metadata` payload
+- repo-owned canonical values may contain `{{site_url}}`, which resolves through `SITE_PUBLIC_URL` before JSON-LD is emitted
 - static editorial pages such as `Home`, `Local`, and `Journal` keep the default `WebPage` + `BreadcrumbList` payload
 - `/{locale}/projects` is the exception and emits a `Person` schema with job title, email, address, `sameAs`, and `knowsAbout`
 - visible breadcrumbs must reuse the same PHP breadcrumb source as `BreadcrumbList`

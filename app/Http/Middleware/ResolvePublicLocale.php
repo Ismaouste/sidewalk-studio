@@ -21,7 +21,7 @@ class ResolvePublicLocale
             return $response;
         }
 
-        $preferredLocale = $this->resolveLocale($request);
+        $preferredLocale = PublicLocale::preferredLocaleForRequest($request);
         $locale = PublicLocale::isAvailableForRequest($request, $preferredLocale)
             ? $preferredLocale
             : PublicLocale::default();
@@ -30,7 +30,10 @@ class ResolvePublicLocale
         $request->attributes->set('public_locale', $locale);
         $request->attributes->set('public_locale_preference', $preferredLocale);
 
-        if ($this->resolveSupportedLocale($request->query('lang')) !== null) {
+        if (
+            PublicLocale::resolveSupportedLocale($request->route('locale')) !== null ||
+            PublicLocale::resolveSupportedLocale($request->query('lang')) !== null
+        ) {
             Cookie::queue(Cookie::make(
                 self::COOKIE_NAME,
                 $preferredLocale,
@@ -63,41 +66,6 @@ class ResolvePublicLocale
             'storage/*',
             'up',
         );
-    }
-
-    protected function resolveLocale(Request $request): string
-    {
-        return $this->resolveSupportedLocale($request->query('lang'))
-            ?? $this->resolveSupportedLocale($request->cookie(self::COOKIE_NAME))
-            ?? $this->resolveBrowserLocale($request)
-            ?? PublicLocale::default();
-    }
-
-    protected function resolveBrowserLocale(Request $request): ?string
-    {
-        foreach ($request->getLanguages() as $language) {
-            $locale = $this->resolveSupportedLocale($language);
-
-            if ($locale !== null) {
-                return $locale;
-            }
-        }
-
-        return null;
-    }
-
-    protected function resolveSupportedLocale(mixed $candidate): ?string
-    {
-        if (! is_string($candidate) || $candidate === '') {
-            return null;
-        }
-
-        $normalized = strtolower(trim(explode(',', $candidate)[0]));
-        $language = explode('-', $normalized)[0];
-
-        return in_array($language, PublicLocale::supported(), true)
-            ? $language
-            : null;
     }
 
     protected function mergeVary(?string $current): string

@@ -46,6 +46,7 @@ English (`en`) remains the public default today. French (`fr`) source files stil
 - `canonical_url`, with `canonical` accepted as a file-backed alias on repo-owned content
 - `open_graph_image`, with `ogImage` accepted as a file-backed alias on repo-owned content
 - `schema` as an optional hint for editorial detail pages
+- repo-owned canonicals may use the `{{site_url}}` placeholder so the public domain can change from one config value instead of rewriting every Markdown file
 
 ## Case study extras
 

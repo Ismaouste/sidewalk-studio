@@ -3,7 +3,7 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import BrandMark from '@/components/branding/BrandMark.vue';
 import NavTabs from '@/components/layout/NavTabs.vue';
-import { resolvePublicHref } from '@/lib/publicHref';
+import { localizePublicHref, resolvePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
@@ -47,7 +47,7 @@ const currentUrl = computed(() => {
 });
 const homeHref = computed(() =>
     resolvePublicHref(
-        '/',
+        localizePublicHref('/', page.props.site.locale),
         page.props.site.runtime.staticPreview,
         page.props.site.runtime.staticBasePath,
     ),

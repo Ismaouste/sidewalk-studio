@@ -16,7 +16,7 @@ category: work
 publication_type: reference
 accent_tone: dominant
 schema: creative_work
-canonical: https://sidewalk-studio.vercel.app/fr/case-studies/pipeline-deploiement-crown-dp
+canonical: "{{site_url}}/fr/case-studies/pipeline-deploiement-crown-dp"
 ogImage: /images/og/site-default.jpg
 client: Jewely / Flippad · Crown DP
 role: Analyse incident, durcissement du déploiement, stabilisation opérationnelle

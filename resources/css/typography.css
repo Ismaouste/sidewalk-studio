@@ -7,6 +7,7 @@ body,
 
 .type-display-xl {
     font-family: var(--sw-font-display);
+    font-optical-sizing: auto;
     font-size: clamp(52px, 6vw, 88px);
     font-style: italic;
     font-weight: 300;
@@ -16,6 +17,7 @@ body,
 
 .type-display-l {
     font-family: var(--sw-font-display);
+    font-optical-sizing: auto;
     font-size: clamp(36px, 4vw, 56px);
     font-style: italic;
     font-weight: 300;
@@ -133,6 +135,7 @@ code,
     border-left: 4px solid var(--sw-accent-sun);
     padding-left: var(--sw-space-sm);
     font-family: var(--sw-font-display);
+    font-optical-sizing: auto;
     font-size: clamp(28px, 3vw, 42px);
     font-style: italic;
     font-weight: 300;

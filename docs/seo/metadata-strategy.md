@@ -12,6 +12,7 @@ Metadata is generated on the backend and passed twice:
 3. Site-wide defaults from `App\Services\SiteSettingsService`
 
 Site-wide defaults such as the title suffix, default description, and public profile links resolve through `SiteSettingsService`, which still falls back to committed defaults when no persisted row exists yet.
+The canonical domain now resolves through `SITE_PUBLIC_URL` first, then `APP_URL`. Repo-owned Markdown canonicals may use `{{site_url}}` so the live domain can be swapped from one config value.
 
 ## Required fields
 

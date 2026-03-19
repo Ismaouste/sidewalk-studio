@@ -327,7 +327,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
                                     <span
                                         v-for="pill in group.pills"
                                         :key="pill"
-                                        class="type-meta projects-page__stack-item"
+                                        class="type-meta projects-page__stack-item projects-page__stack-item--detail"
                                     >
                                         {{ pill }}
                                     </span>
@@ -687,7 +687,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 .projects-page__story {
     display: grid;
     gap: var(--sw-space-sm);
-    padding: clamp(18px, 2.4vw, 26px);
+    padding: clamp(20px, 2.7vw, 30px);
     border: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
     border-radius: calc(var(--sw-radius-lg) + 2px);
     background: color-mix(in srgb, var(--sw-bg-surface) 72%, transparent);
@@ -701,21 +701,33 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     gap: var(--sw-space-xs);
 }
 
+.projects-page__story-head {
+    justify-items: center;
+    text-align: center;
+    max-width: 68rem;
+    margin-inline: auto;
+}
+
 .projects-page__story-copy,
 .projects-page__detail-group {
-    padding: clamp(14px, 2vw, 18px);
-    border: 1px solid color-mix(in srgb, var(--sw-border) 62%, transparent);
-    border-radius: calc(var(--sw-radius-lg) - 1px);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent);
+    align-content: start;
+}
+
+.projects-page__story-body {
+    gap: var(--sw-space-sm);
+    padding-top: clamp(8px, 1.8vw, 14px);
 }
 
 .projects-page__detail-grid {
     display: grid;
-    gap: var(--sw-space-xs);
+    gap: clamp(14px, 1.5vw, 18px);
 }
 
 .projects-page__detail-pills {
-    margin-top: calc(var(--sw-space-3xs) * -0.35);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-3xs);
+    margin-top: calc(var(--sw-space-3xs) * -0.15);
 }
 
 .projects-page__story-title,
@@ -726,15 +738,16 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
 .projects-page__story-summary {
     color: color-mix(in srgb, var(--sw-text-primary) 76%, var(--sw-text-secondary));
-}
-
-.projects-page__story-body {
-    gap: var(--sw-space-sm);
+    max-width: 54rem;
 }
 
 .projects-page__story-body .projects-page__copy-line {
-    max-width: 66ch;
-    line-height: 1.52;
+    max-width: 58ch;
+    line-height: 1.44;
+}
+
+.projects-page__story-copy {
+    gap: clamp(10px, 1.2vw, 14px);
 }
 
 .projects-page__detail-title {
@@ -757,7 +770,7 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 .projects-page__detail-list,
 .projects-page__list {
     display: grid;
-    gap: var(--sw-space-xs);
+    gap: clamp(10px, 1.1vw, 14px);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -767,8 +780,8 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 .projects-page__list-item {
     display: grid;
     gap: var(--sw-space-3xs);
-    border-top: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
-    padding-top: var(--sw-space-xs);
+    border-top: 1px solid color-mix(in srgb, var(--sw-border) 64%, transparent);
+    padding-top: clamp(10px, 1.2vw, 14px);
 }
 
 .projects-page__detail-item:first-child,
@@ -843,7 +856,19 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     color: color-mix(in srgb, var(--sw-text-secondary) 74%, var(--sw-text-primary));
     font-size: 0.78rem;
     font-weight: 600;
+    line-height: 1.2;
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 68%, transparent);
+}
+
+.projects-page__stack-item--detail {
+    flex: 0 1 auto;
+    justify-content: center;
+    min-height: 2.1rem;
+    max-width: 100%;
+    padding: 0.42rem 0.78rem;
+    text-align: center;
+    white-space: normal;
+    text-wrap: balance;
 }
 
 .projects-page__actions :deep(.sw-button) {
@@ -999,18 +1024,6 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     border-color: color-mix(in srgb, var(--sw-border) 76%, var(--sw-accent-violet) 24%);
 }
 
-:global(html[data-theme='sunset']) .projects-page__story-copy,
-:global(html[data-theme='sunset']) .projects-page__detail-group {
-    border-color: color-mix(in srgb, var(--sw-border) 72%, transparent);
-    background:
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, white 2%, transparent),
-            transparent 46%
-        ),
-        color-mix(in srgb, var(--sw-bg-elevated) 74%, transparent);
-}
-
 :global(html[data-theme='sunset']) .projects-page__work-panel > * {
     position: relative;
     z-index: 1;
@@ -1070,21 +1083,24 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 }
 
 @media (min-width: 1080px) {
-    .projects-page__story {
-        grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+    .projects-page__story-body {
+        grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
         align-items: start;
     }
 
-    .projects-page__story-body {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
     .projects-page__detail-grid {
+        align-self: start;
+        padding-left: clamp(18px, 2vw, 28px);
+        border-left: 1px solid color-mix(in srgb, var(--sw-border) 68%, transparent);
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 1560px) {
+    .projects-page__story-body {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    }
+
     .projects-page__detail-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -1107,6 +1123,14 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
         gap: var(--sw-space-xs);
     }
 
+    .projects-page__story {
+        padding: var(--sw-space-sm);
+    }
+
+    .projects-page__story-body {
+        padding-top: var(--sw-space-xs);
+    }
+
     .projects-page__panel-label {
         font-size: 0.7rem;
         padding: 0.42rem 0.68rem;
@@ -1115,6 +1139,17 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
     .projects-page__header {
         gap: var(--sw-space-xs);
         align-items: start;
+    }
+
+    .projects-page__detail-pills {
+        gap: 0.45rem;
+    }
+}
+
+@media (max-width: 1079px) {
+    .projects-page__detail-grid {
+        padding-top: clamp(16px, 2vw, 20px);
+        border-top: 1px solid color-mix(in srgb, var(--sw-border) 68%, transparent);
     }
 }
 </style>

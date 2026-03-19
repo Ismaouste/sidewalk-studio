@@ -15,7 +15,7 @@ category: note
 publication_type: note
 accent_tone: coral
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/ytmusic-liked-sorter
+canonical: "{{site_url}}/fr/journal/ytmusic-liked-sorter"
 ogImage: /images/og/ytmusic-liked-sorter.jpg
 ---
 

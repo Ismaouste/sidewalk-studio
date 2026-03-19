@@ -425,11 +425,39 @@ class Seo
 
     protected static function absoluteUrl(string $candidate, string $siteUrl): string
     {
+        $candidate = self::replaceSiteUrlPlaceholder($candidate, $siteUrl);
+
         if (preg_match('/^https?:\/\//i', $candidate) === 1) {
             return $candidate;
         }
 
         return $siteUrl.'/'.ltrim($candidate, '/');
+    }
+
+    protected static function replaceSiteUrlPlaceholder(string $candidate, string $siteUrl): string
+    {
+        $normalized = trim($candidate);
+
+        foreach (self::siteUrlPlaceholders() as $placeholder) {
+            if ($placeholder !== '' && str_contains($normalized, $placeholder)) {
+                $normalized = str_replace($placeholder, $siteUrl, $normalized);
+            }
+        }
+
+        return $normalized;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected static function siteUrlPlaceholders(): array
+    {
+        return array_values(array_filter(array_unique([
+            (string) config('site.url_placeholder', '{{site_url}}'),
+            '{{site_url}}',
+            '{site_url}',
+            '__SITE_URL__',
+        ])));
     }
 
     protected static function toAtomString(mixed $value): string

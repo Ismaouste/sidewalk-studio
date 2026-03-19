@@ -16,7 +16,7 @@ category: journal
 publication_type: note
 accent_tone: violet
 schema: article
-canonical: https://sidewalk-studio.vercel.app/en/journal/opensurvey-nonprofit-health-data
+canonical: "{{site_url}}/en/journal/opensurvey-nonprofit-health-data"
 ogImage: /images/og/opensurvey-nonprofit-health-data.jpg
 ---
 

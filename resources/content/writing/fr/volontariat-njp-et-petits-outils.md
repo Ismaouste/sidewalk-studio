@@ -16,7 +16,7 @@ category: journal
 publication_type: note
 accent_tone: sun
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/volontariat-njp-et-petits-outils
+canonical: "{{site_url}}/fr/journal/volontariat-njp-et-petits-outils"
 ogImage: /images/og/volontariat-njp-et-petits-outils.jpg
 ---
 

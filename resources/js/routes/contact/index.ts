@@ -1,59 +1,75 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\ContactSubmissionController::store
 * @see app/Http/Controllers/ContactSubmissionController.php:12
-* @route '/contact'
+* @route '/{locale}/contact'
 */
-export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: store.url(options),
+export const store = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(args, options),
     method: 'post',
 })
 
 store.definition = {
     methods: ["post"],
-    url: '/contact',
+    url: '/{locale}/contact',
 } satisfies RouteDefinition<["post"]>
 
 /**
 * @see \App\Http\Controllers\ContactSubmissionController::store
 * @see app/Http/Controllers/ContactSubmissionController.php:12
-* @route '/contact'
+* @route '/{locale}/contact'
 */
-store.url = (options?: RouteQueryOptions) => {
+store.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { locale: args }
+    }
 
 
+    if (Array.isArray(args)) {
+        args = {
+            locale: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
 
 
-    return store.definition.url + queryParams(options)
+    const parsedArgs = {
+        locale: args.locale,
+    }
+
+    return store.definition.url
+            .replace('{locale}', parsedArgs.locale.toString())
+            .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\ContactSubmissionController::store
 * @see app/Http/Controllers/ContactSubmissionController.php:12
-* @route '/contact'
+* @route '/{locale}/contact'
 */
-store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: store.url(options),
+store.post = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(args, options),
     method: 'post',
 })
 
 /**
 * @see \App\Http\Controllers\ContactSubmissionController::store
 * @see app/Http/Controllers/ContactSubmissionController.php:12
-* @route '/contact'
+* @route '/{locale}/contact'
 */
-const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
+const storeForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
     method: 'post',
 })
 
 /**
 * @see \App\Http\Controllers\ContactSubmissionController::store
 * @see app/Http/Controllers/ContactSubmissionController.php:12
-* @route '/contact'
+* @route '/{locale}/contact'
 */
-storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: store.url(options),
+storeForm.post = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    action: store.url(args, options),
     method: 'post',
 })
 

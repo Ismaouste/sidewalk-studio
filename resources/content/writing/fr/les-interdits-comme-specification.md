@@ -15,7 +15,7 @@ category: journal
 publication_type: journal
 accent_tone: sun
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/les-interdits-comme-specification
+canonical: "{{site_url}}/fr/journal/les-interdits-comme-specification"
 ogImage: /images/og/les-interdits-comme-specification.jpg
 ---
 

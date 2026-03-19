@@ -16,7 +16,7 @@ category: journal
 publication_type: journal
 accent_tone: violet
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/from-nancyapipop-to-culturedex
+canonical: "{{site_url}}/fr/journal/from-nancyapipop-to-culturedex"
 ogImage: /images/og/from-nancyapipop-to-culturedex.jpg
 ---
 

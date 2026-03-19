@@ -16,7 +16,7 @@ category: journal
 publication_type: journal
 accent_tone: violet
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/linux-auto-hebergement-et-alternatives-praticables
+canonical: "{{site_url}}/fr/journal/linux-auto-hebergement-et-alternatives-praticables"
 ogImage: /images/og/linux-auto-hebergement-et-alternatives-praticables.jpg
 ---
 

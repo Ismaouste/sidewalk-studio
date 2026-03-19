@@ -1,31 +1,28 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
-* @see [serialized-closure]:2
-* @route '/writing/{slug}'
+* @see routes/web.php:49
+* @route '/{locale}/writing/{slug}'
 */
-export const show = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 
 show.definition = {
     methods: ["get","head"],
-    url: '/writing/{slug}',
+    url: '/{locale}/writing/{slug}',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see [serialized-closure]:2
-* @route '/writing/{slug}'
+* @see routes/web.php:49
+* @route '/{locale}/writing/{slug}'
 */
-show.url = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions) => {
-    if (typeof args === 'string' || typeof args === 'number') {
-        args = { slug: args }
-    }
-
+show.url = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions) => {
 
     if (Array.isArray(args)) {
         args = {
-            slug: args[0],
+            locale: args[0],
+            slug: args[1],
         }
     }
 
@@ -33,55 +30,57 @@ show.url = (args: { slug: string | number } | [slug: string | number ] | string 
 
 
     const parsedArgs = {
+        locale: args.locale,
         slug: args.slug,
     }
 
     return show.definition.url
+            .replace('{locale}', parsedArgs.locale.toString())
             .replace('{slug}', parsedArgs.slug.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
-* @see [serialized-closure]:2
-* @route '/writing/{slug}'
+* @see routes/web.php:49
+* @route '/{locale}/writing/{slug}'
 */
-show.get = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 
 /**
-* @see [serialized-closure]:2
-* @route '/writing/{slug}'
+* @see routes/web.php:49
+* @route '/{locale}/writing/{slug}'
 */
-show.head = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
 
 /**
-* @see [serialized-closure]:2
-* @route '/writing/{slug}'
+* @see routes/web.php:49
+* @route '/{locale}/writing/{slug}'
 */
-const showForm = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+const showForm = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: show.url(args, options),
     method: 'get',
 })
 
 /**
-* @see [serialized-closure]:2
-* @route '/writing/{slug}'
+* @see routes/web.php:49
+* @route '/{locale}/writing/{slug}'
 */
-showForm.get = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+showForm.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: show.url(args, options),
     method: 'get',
 })
 
 /**
-* @see [serialized-closure]:2
-* @route '/writing/{slug}'
+* @see routes/web.php:49
+* @route '/{locale}/writing/{slug}'
 */
-showForm.head = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+showForm.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
     action: show.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'HEAD',

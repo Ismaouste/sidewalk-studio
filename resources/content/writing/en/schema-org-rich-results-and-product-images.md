@@ -16,7 +16,7 @@ category: note
 publication_type: note
 accent_tone: violet
 schema: article
-canonical: https://sidewalk-studio.vercel.app/en/journal/schema-org-rich-results-and-product-images
+canonical: "{{site_url}}/en/journal/schema-org-rich-results-and-product-images"
 ogImage: /images/og/schema-org-rich-results-and-product-images.jpg
 ---
 

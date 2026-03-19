@@ -16,7 +16,7 @@ category: journal
 publication_type: note
 accent_tone: violet
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/opensurvey-associatif-donnees-sante
+canonical: "{{site_url}}/fr/journal/opensurvey-associatif-donnees-sante"
 ogImage: /images/og/opensurvey-associatif-donnees-sante.jpg
 ---
 

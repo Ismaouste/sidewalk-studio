@@ -16,7 +16,7 @@ category: journal
 publication_type: journal
 accent_tone: sun
 schema: article
-canonical: https://sidewalk-studio.vercel.app/fr/journal/seo-technique-sitemaps-et-donnees-structurees
+canonical: "{{site_url}}/fr/journal/seo-technique-sitemaps-et-donnees-structurees"
 ogImage: /images/og/seo-technique-sitemaps-et-donnees-structurees.jpg
 ---
 

@@ -18,29 +18,103 @@ use App\Http\Controllers\ContentVisualController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\WritingController;
+use App\Support\PublicLocale;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [SiteController::class, 'home'])->name('home');
-Route::redirect('/about', '/projects', 301)->name('about');
-Route::get('/experience', [SiteController::class, 'experience'])->name('experience');
-Route::get('/local', [SiteController::class, 'local'])->name('local');
-Route::get('/projects', [SiteController::class, 'projects'])->name('projects');
-Route::get('/labs', [SiteController::class, 'labs'])->name('labs');
-Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
-Route::post('/contact', [ContactSubmissionController::class, 'store'])
-    ->middleware('throttle:6,1')
-    ->name('contact.store');
-Route::get('/data-processing', [SiteController::class, 'dataProcessing'])->name('data-processing');
+Route::get('/', function (Request $request) {
+    return redirect()->to(
+        PublicLocale::localizedPath('/', PublicLocale::preferredLocaleForRequest($request)),
+        302,
+    );
+});
 
-Route::redirect('/writing', '/journal', 301);
-Route::get('/writing/{slug}', function (string $slug) {
-    return redirect("/journal/{$slug}", 301);
-})->name('writing.legacy.show');
-Route::get('/journal', [WritingController::class, 'index'])->name('writing.index');
-Route::get('/journal/{slug}', [WritingController::class, 'show'])->name('writing.show');
+Route::prefix('{locale}')
+    ->whereIn('locale', PublicLocale::supported())
+    ->group(function (): void {
+        Route::get('/', [SiteController::class, 'home'])->name('home');
+        Route::get('/experience', [SiteController::class, 'experience'])->name('experience');
+        Route::get('/local', [SiteController::class, 'local'])->name('local');
+        Route::get('/projects', [SiteController::class, 'projects'])->name('projects');
+        Route::get('/labs', [SiteController::class, 'labs'])->name('labs');
+        Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
+        Route::post('/contact', [ContactSubmissionController::class, 'store'])
+            ->middleware('throttle:6,1')
+            ->name('contact.store');
+        Route::get('/data-processing', [SiteController::class, 'dataProcessing'])->name('data-processing');
 
-Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-studies.index');
-Route::get('/case-studies/{slug}', [CaseStudyController::class, 'show'])->name('case-studies.show');
+        Route::get('/writing', function (string $locale) {
+            return redirect("/{$locale}/journal", 301);
+        });
+        Route::get('/writing/{slug}', function (string $locale, string $slug) {
+            return redirect("/{$locale}/journal/{$slug}", 301);
+        })->name('writing.legacy.show');
+        Route::get('/journal', [WritingController::class, 'index'])->name('writing.index');
+        Route::get('/journal/{slug}', [WritingController::class, 'show'])->name('writing.show');
+
+        Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-studies.index');
+        Route::get('/case-studies/{slug}', [CaseStudyController::class, 'show'])->name('case-studies.show');
+    });
+
+Route::get('/about', function (Request $request) {
+    return redirect()->to(
+        PublicLocale::localizedPath('/projects', PublicLocale::preferredLocaleForRequest($request)),
+        301,
+    );
+});
+
+foreach ([
+    '/local',
+    '/projects',
+    '/labs',
+    '/contact',
+    '/data-processing',
+    '/journal',
+    '/case-studies',
+] as $legacyPath) {
+    Route::get($legacyPath, function (Request $request) use ($legacyPath) {
+        return redirect()->to(
+            PublicLocale::localizedPath($legacyPath, PublicLocale::preferredLocaleForRequest($request)),
+            301,
+        );
+    });
+}
+
+Route::get('/experience', function (Request $request) {
+    return redirect()->to(
+        PublicLocale::localizedPath('/projects', PublicLocale::preferredLocaleForRequest($request)),
+        301,
+    );
+});
+
+Route::get('/writing', function (Request $request) {
+    return redirect()->to(
+        PublicLocale::localizedPath('/journal', PublicLocale::preferredLocaleForRequest($request)),
+        301,
+    );
+});
+
+Route::get('/writing/{slug}', function (Request $request, string $slug) {
+    return redirect()->to(
+        PublicLocale::localizedPath("/journal/{$slug}", PublicLocale::preferredLocaleForRequest($request)),
+        301,
+    );
+});
+
+Route::get('/journal/{slug}', function (Request $request, string $slug) {
+    return redirect()->to(
+        PublicLocale::localizedPath("/journal/{$slug}", PublicLocale::preferredLocaleForRequest($request)),
+        301,
+    );
+})->where('slug', '.*');
+
+Route::get('/case-studies/{slug}', function (Request $request, string $slug) {
+    return redirect()->to(
+        PublicLocale::localizedPath("/case-studies/{$slug}", PublicLocale::preferredLocaleForRequest($request)),
+        301,
+    );
+})->where('slug', '.*');
+
 Route::get('/content-visuals/{section}/{slug}.svg', ContentVisualController::class)->name('content-visuals.show');
 
 Route::get('/cv/{locale}', [SiteController::class, 'downloadCv'])

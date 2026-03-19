@@ -8,6 +8,8 @@ The sitemap still derives from the normalized public read layer and combines:
 - published `note` and `journal` entries under `/{locale}/journal/{slug}`
 - published `case_study` entries under `/{locale}/case-studies/{slug}`
 
+The public domain used in sitemap entries resolves from `SITE_PUBLIC_URL` first. Repo-owned canonical overrides may still use `{{site_url}}` and are expanded before output.
+
 ## Inclusion rules
 
 - only `published` publications are included

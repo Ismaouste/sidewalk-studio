@@ -46,4 +46,13 @@
         animation: none;
     }
 }
+
+@media (max-width: 640px) {
+    .sw-sun-anchor {
+        width: min(var(--sw-sun-size), 192px);
+        height: min(var(--sw-sun-size), 192px);
+        box-shadow: 0 0 56px var(--sw-sun-glow);
+        animation-duration: 18s;
+    }
+}
 </style>

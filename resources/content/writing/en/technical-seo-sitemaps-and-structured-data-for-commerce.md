@@ -16,7 +16,7 @@ category: journal
 publication_type: journal
 accent_tone: sun
 schema: article
-canonical: https://sidewalk-studio.vercel.app/en/journal/technical-seo-sitemaps-and-structured-data-for-commerce
+canonical: "{{site_url}}/en/journal/technical-seo-sitemaps-and-structured-data-for-commerce"
 ogImage: /images/og/technical-seo-sitemaps-and-structured-data-for-commerce.jpg
 ---
 

@@ -400,7 +400,9 @@ class ContentRepository
     {
         $document = YamlFrontMatter::parseFile($path);
         $matter = $document->matter();
-        $canonicalUrl = (string) ($matter['canonical_url'] ?? $matter['canonical'] ?? '');
+        $canonicalUrl = $this->resolveConfiguredUrlPlaceholders(
+            (string) ($matter['canonical_url'] ?? $matter['canonical'] ?? ''),
+        );
         $openGraphImage = (string) ($matter['open_graph_image'] ?? $matter['ogImage'] ?? ($matter['featured_image'] ?? ''));
         $schema = (string) ($matter['schema'] ?? '');
 
@@ -510,7 +512,7 @@ class ContentRepository
             'seo_title' => $record->seo_title,
             'seo_description' => $record->seo_description,
             'robots' => $record->robots,
-            'canonical_url' => (string) ($record->canonical_url ?? ''),
+            'canonical_url' => $this->resolveConfiguredUrlPlaceholders((string) ($record->canonical_url ?? '')),
             'client' => (string) ($metadata['client'] ?? ''),
             'role' => (string) ($metadata['role'] ?? ''),
             'stack' => $this->normalizeList($metadata['stack'] ?? []),
@@ -665,6 +667,38 @@ class ContentRepository
         }
 
         return $this->resolvePublicationSourcePath($type, $locale, $slug);
+    }
+
+    protected function resolveConfiguredUrlPlaceholders(string $value): string
+    {
+        $normalized = trim($value);
+
+        if ($normalized === '') {
+            return '';
+        }
+
+        $siteUrl = rtrim((string) config('site.url'), '/');
+
+        foreach ($this->siteUrlPlaceholders() as $placeholder) {
+            if ($placeholder !== '' && str_contains($normalized, $placeholder)) {
+                $normalized = str_replace($placeholder, $siteUrl, $normalized);
+            }
+        }
+
+        return $normalized;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function siteUrlPlaceholders(): array
+    {
+        return array_values(array_filter(array_unique([
+            (string) config('site.url_placeholder', '{{site_url}}'),
+            '{{site_url}}',
+            '{site_url}',
+            '__SITE_URL__',
+        ])));
     }
 
     /**

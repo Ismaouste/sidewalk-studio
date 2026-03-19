@@ -16,7 +16,7 @@ category: journal
 publication_type: journal
 accent_tone: violet
 schema: article
-canonical: https://sidewalk-studio.vercel.app/en/journal/sensitive-data-poor-tools-high-standards
+canonical: "{{site_url}}/en/journal/sensitive-data-poor-tools-high-standards"
 ogImage: /images/og/sensitive-data-poor-tools-high-standards.jpg
 ---
 
