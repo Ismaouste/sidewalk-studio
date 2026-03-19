@@ -26,7 +26,7 @@
 html #cc-main,
 html .cm__body {
     --cc-font-family: var(--sw-font-body);
-    --cc-modal-border-radius: calc(var(--sw-radius-lg) + 2px);
+    --cc-modal-border-radius: var(--sw-radius-lg);
     --cc-modal-transition-duration: 0.18s;
     --cc-modal-margin: 1rem;
     --cc-z-index: calc(var(--sw-z-modal) + 4);
@@ -123,8 +123,8 @@ html[data-theme='sunset'] .cm__body {
 .cm__body {
     border: var(--sw-runtime-line-thickness, 1px) solid
         color-mix(in srgb, var(--sw-border) 86%, transparent);
-    box-shadow: var(--sw-shadow-md);
-    backdrop-filter: blur(var(--sw-runtime-surface-blur, 18px));
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 #cc-main .cm__desc,
@@ -153,8 +153,7 @@ html[data-theme='sunset'] .cm__body {
     transition:
         background-color var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
-        color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast);
+        color var(--sw-motion-fast);
 }
 
 html[data-motion='reduced'] #cc-main .cm__btn,

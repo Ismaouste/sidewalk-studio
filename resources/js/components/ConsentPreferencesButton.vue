@@ -27,7 +27,7 @@ function openPreferences() {
     min-height: 2.45rem;
     gap: var(--sw-space-3xs);
     border: 1px solid var(--sw-border);
-    border-radius: var(--sw-radius-full);
+    border-radius: 3px;
     background: transparent;
     padding-inline: 0.85rem;
     font-family: var(--sw-font-body);
@@ -38,7 +38,6 @@ function openPreferences() {
         background-color var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
         color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast),
         transform var(--sw-motion-fast);
 }
 
@@ -51,7 +50,6 @@ function openPreferences() {
         transform: translateY(-1px);
         border-color: var(--sw-accent-green);
         background: color-mix(in srgb, var(--sw-bg-elevated) 64%, transparent);
-        box-shadow: var(--sw-shadow-sm);
     }
 }
 </style>

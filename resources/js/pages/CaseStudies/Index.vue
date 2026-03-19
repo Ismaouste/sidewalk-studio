@@ -151,11 +151,10 @@ const copy = computed(() =>
     display: grid;
     gap: var(--sw-space-xs);
     height: 100%;
-    padding: clamp(18px, 2.8vw, var(--sw-space-sm));
+    padding: clamp(12px, 2vw, 16px);
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
 }
 
@@ -191,10 +190,7 @@ const copy = computed(() =>
 .case-studies-index__stack-item {
     display: inline-flex;
     align-items: center;
-    min-height: 1.75rem;
-    border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 72%, transparent);
-    padding-inline: var(--sw-space-2xs);
+    color: var(--sw-text-muted);
 }
 
 .case-studies-index__link:focus-visible {
@@ -204,7 +200,6 @@ const copy = computed(() =>
 .case-studies-index__link:focus-visible .case-studies-index__card,
 .case-studies-index__link:active .case-studies-index__card {
     border-color: var(--sw-border-focus);
-    box-shadow: var(--sw-shadow-md);
 }
 
 .case-studies-index__link:active .case-studies-index__card {
@@ -216,7 +211,6 @@ const copy = computed(() =>
         transform: translateY(-2px);
         border-color: var(--sw-card-hover-border);
         background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
-        box-shadow: var(--sw-shadow-md);
     }
 }
 

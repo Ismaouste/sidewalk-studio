@@ -238,9 +238,7 @@ onBeforeUnmount(() => {
         var(--sw-bg-elevated) 84%,
         var(--sw-ambient-flare-soft) 16%
     );
-    box-shadow:
-        inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 48%, transparent),
-        0 0 22px color-mix(in srgb, var(--sw-ambient-flare) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--sw-border) 48%, transparent);
 }
 
 .sw-shell__loader-line::before,

@@ -51,7 +51,7 @@ const props = withDefaults(
     min-width: min(14rem, calc(100vw - 2rem));
     max-width: min(20rem, calc(100vw - 2rem));
     border: 1px solid color-mix(in srgb, var(--inline-term-accent) 24%, var(--sw-border));
-    border-radius: calc(var(--sw-radius-md) + 2px);
+    border-radius: 4px;
     background: color-mix(in srgb, var(--sw-bg-elevated) 90%, var(--inline-term-accent) 10%);
     padding: 0.52rem 0.68rem;
     color: var(--sw-text-primary);
@@ -60,7 +60,6 @@ const props = withDefaults(
     font-weight: 500;
     line-height: 1.35;
     white-space: normal;
-    box-shadow: var(--sw-shadow-md);
     opacity: 0;
     pointer-events: none;
     transform: translateY(4px);

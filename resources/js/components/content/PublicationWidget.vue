@@ -163,17 +163,16 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 .publication-widget__card {
     display: grid;
-    gap: 0.85rem;
+    gap: 0.7rem;
     height: 100%;
-    padding: clamp(14px, 1.8vw, 18px);
+    padding: clamp(12px, 1.6vw, 16px);
     align-items: stretch;
     contain: layout paint style;
     border-color: color-mix(in srgb, var(--sw-border) 80%, transparent);
-    background: color-mix(in srgb, var(--sw-bg-surface) 90%, transparent);
+    background: var(--sw-bg-surface);
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
 }
 
@@ -229,7 +228,6 @@ function widgetChipLabel(section: string, category: string, client: string): str
 .publication-widget__link:focus-visible .publication-widget__card,
 .publication-widget__link:active .publication-widget__card {
     border-color: var(--sw-border-focus);
-    box-shadow: var(--sw-shadow-md);
 }
 
 .publication-widget__link:active .publication-widget__card {
@@ -239,7 +237,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
 @media (hover: hover) {
     .publication-widget__link:hover .publication-widget__card {
         transform: translateY(-2px);
-        box-shadow: var(--sw-shadow-md);
+        border-color: var(--sw-card-hover-border);
     }
 }
 
@@ -251,7 +249,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 @media (min-width: 720px) {
     .publication-widget__card {
-        grid-template-columns: minmax(6.8rem, 8.2rem) minmax(0, 1fr);
+        grid-template-columns: minmax(5.8rem, 7rem) minmax(0, 1fr);
         column-gap: var(--sw-space-xs);
         row-gap: 0.65rem;
     }
@@ -268,7 +266,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
     }
 
     .publication-widget__grid--single .publication-widget__card {
-        grid-template-columns: minmax(7.2rem, 8.8rem) minmax(0, 1fr);
+        grid-template-columns: minmax(6.2rem, 7.4rem) minmax(0, 1fr);
         column-gap: var(--sw-space-xs);
         row-gap: 0.65rem;
         align-items: center;

@@ -200,7 +200,7 @@ onBeforeUnmount(() => {
     gap: clamp(10px, 2vw, var(--sw-space-xs));
     overflow: visible;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
-    border-radius: calc(var(--sw-radius-lg) + 4px);
+    border-radius: var(--sw-radius-lg);
     background:
         linear-gradient(
             180deg,
@@ -213,11 +213,8 @@ onBeforeUnmount(() => {
             color-mix(in srgb, var(--sw-bg-elevated) 36%, transparent)
         );
     padding: clamp(10px, 1.8vw, var(--sw-space-xs));
-    box-shadow:
-        0 14px 42px color-mix(in srgb, var(--sw-text-primary) 12%, transparent),
-        var(--sw-shadow-md);
-    -webkit-backdrop-filter: blur(30px) saturate(150%);
-    backdrop-filter: blur(30px) saturate(150%);
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 :global(html[data-theme='sunset']) .app-header__inner {
@@ -247,10 +244,6 @@ onBeforeUnmount(() => {
             color-mix(in srgb, var(--sw-accent-violet) 16%, transparent),
             transparent 46%
         );
-    box-shadow:
-        0 18px 46px color-mix(in srgb, black 42%, transparent),
-        0 0 0 1px color-mix(in srgb, var(--sw-accent-violet) 8%, transparent),
-        var(--sw-shadow-md);
 }
 
 .app-header__inner::before {
@@ -314,7 +307,7 @@ onBeforeUnmount(() => {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    box-shadow: inset 0 1px 0 color-mix(in srgb, white 22%, transparent);
+    border: 1px solid color-mix(in srgb, white 8%, transparent);
     pointer-events: none;
 }
 
@@ -350,9 +343,8 @@ onBeforeUnmount(() => {
     flex: 0 0 auto;
     inline-size: 36px;
     block-size: 36px;
-    border-radius: 999px;
+    border-radius: 9999px;
     object-fit: cover;
-    box-shadow: 0 10px 20px color-mix(in srgb, var(--sw-text-primary) 7%, transparent);
 }
 
 .app-header__name {

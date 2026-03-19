@@ -64,36 +64,17 @@ function handleImageLoad(): void {
     position: relative;
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--sw-border) 78%, transparent);
-    border-radius: calc(var(--sw-radius-lg) - 2px);
+    border-radius: var(--sw-radius-lg);
     min-height: 10rem;
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--sw-bg-elevated) 52%, transparent),
-        color-mix(in srgb, var(--sw-bg-grid) 42%, transparent)
-    );
-}
-
-.content-visual::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(
-            circle at 82% 18%,
-            color-mix(in srgb, var(--sw-accent-violet) 10%, transparent),
-            transparent 34%
-        ),
-        linear-gradient(
-            150deg,
-            color-mix(in srgb, var(--sw-bg-elevated) 16%, transparent),
-            transparent 46%
-        );
-    opacity: 0.82;
-    transition: opacity 220ms ease-out;
+    background: var(--sw-bg-grid);
 }
 
 .content-visual--compact {
-    min-height: 6.75rem;
+    aspect-ratio: 3 / 2;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .content-visual--minimal {
@@ -106,6 +87,7 @@ function handleImageLoad(): void {
     height: 100%;
     min-height: inherit;
     object-fit: cover;
+    border-radius: 0;
     opacity: 0;
     filter: blur(18px) saturate(88%);
     transform: scale(1.035);
@@ -115,14 +97,16 @@ function handleImageLoad(): void {
         transform 280ms ease-out;
 }
 
-.content-visual--loaded::before {
-    opacity: 0;
-}
-
 .content-visual--loaded .content-visual__image {
     opacity: 1;
     filter: blur(0) saturate(100%);
     transform: scale(1);
+}
+
+.content-visual__image[src$='.svg'] {
+    width: 70%;
+    height: auto;
+    object-fit: contain;
 }
 
 .content-visual__overlay {

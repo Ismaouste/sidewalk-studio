@@ -642,30 +642,13 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
         var(--sw-ambient-flare-soft) 22%,
         var(--sw-border)
     );
-    background:
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, white 8%, transparent),
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 14% 0%,
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 22%, transparent),
-            transparent 42%
-        ),
-        radial-gradient(
-            circle at 86% 100%,
-            color-mix(in srgb, var(--sw-ambient-flare) 10%, transparent),
-            transparent 48%
-        ),
-        color-mix(
-            in srgb,
-            var(--sw-bg-surface) 74%,
-            var(--sw-ambient-flare-soft) 26%
-        );
-    box-shadow: var(--sw-shadow-md);
-    -webkit-backdrop-filter: blur(24px) saturate(120%);
-    backdrop-filter: blur(24px) saturate(120%);
+    background: color-mix(
+        in srgb,
+        var(--sw-bg-surface) 88%,
+        var(--sw-bg-grid) 12%
+    );
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .projects-page__panel-label {
@@ -674,10 +657,9 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
     gap: 0.55rem;
     width: fit-content;
     margin: 0;
-    padding: 0.48rem 0.95rem 0.48rem 0.8rem;
-    border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 74%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 66%, transparent);
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
     color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
     font-size: 0.73rem;
     letter-spacing: 0.14em;
@@ -687,9 +669,8 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
     content: '';
     width: 0.48rem;
     height: 0.48rem;
-    border-radius: 999px;
+    border-radius: 9999px;
     background: color-mix(in srgb, var(--sw-accent-dominant) 58%, var(--sw-accent-sun));
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--sw-accent-dominant) 10%, transparent);
 }
 
 .projects-page__copy,
@@ -722,8 +703,9 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
     padding: clamp(22px, 2.9vw, 34px);
     border: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
     border-radius: var(--sw-radius-lg);
-    background: color-mix(in srgb, var(--sw-bg-surface) 72%, transparent);
-    box-shadow: var(--sw-shadow-sm);
+    background: var(--sw-bg-surface);
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .projects-page__story-head,
@@ -869,7 +851,6 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
 }
 
@@ -892,23 +873,18 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
 .projects-page__case-tag {
     display: inline-flex;
     align-items: center;
-    min-height: 1.9rem;
-    border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
-    padding-inline: 0.8rem;
+    min-height: 0;
     color: color-mix(in srgb, var(--sw-text-secondary) 74%, var(--sw-text-primary));
     font-size: 0.78rem;
     font-weight: 600;
     line-height: 1.2;
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 68%, transparent);
 }
 
 .projects-page__stack-item--detail {
     flex: 0 1 auto;
     justify-content: flex-start;
-    min-height: 1.95rem;
     max-width: 100%;
-    padding: 0.36rem 0.72rem;
+    padding: 0;
     text-align: left;
     white-space: normal;
     text-wrap: balance;
@@ -930,10 +906,6 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
         var(--sw-border) 72%,
         var(--sw-accent-violet) 28%
     );
-    box-shadow:
-        0 16px 32px color-mix(in srgb, black 24%, transparent),
-        0 0 0 1px color-mix(in srgb, var(--sw-accent-violet) 6%, transparent),
-        var(--sw-shadow-md);
 }
 
 :global(html[data-theme='sunset']) .projects-page__work-panel--positioning::before,
@@ -1073,10 +1045,7 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
 }
 
 :global(html[data-theme='sunset']) .projects-page__panel-label {
-    background: color-mix(in srgb, var(--sw-bg-elevated) 70%, #19356d 30%);
-    box-shadow:
-        inset 0 0 0 1px color-mix(in srgb, #6ec5ff 24%, transparent),
-        0 0 22px color-mix(in srgb, #416dff 10%, transparent);
+    background: transparent;
 }
 
 .projects-page__case-link:focus-visible {
@@ -1086,7 +1055,6 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
 .projects-page__case-link:focus-visible .projects-page__case,
 .projects-page__case-link:active .projects-page__case {
     border-color: var(--sw-border-focus);
-    box-shadow: var(--sw-shadow-md);
 }
 
 .projects-page__case-link:active .projects-page__case {
@@ -1098,7 +1066,6 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
         transform: translateY(-2px);
         border-color: var(--sw-card-hover-border);
         background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
-        box-shadow: var(--sw-shadow-md);
     }
 }
 

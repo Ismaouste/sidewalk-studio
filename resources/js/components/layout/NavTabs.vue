@@ -279,15 +279,13 @@ onBeforeUnmount(() => {
     min-height: 3.25rem;
     gap: var(--sw-space-xs);
     border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
-    border-radius: var(--sw-radius-full);
+    border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-surface) 84%, transparent);
     padding-inline: 1rem;
     color: var(--sw-text-primary);
-    box-shadow: var(--sw-shadow-sm);
     transition:
         border-color 90ms ease,
         background-color 90ms ease,
-        box-shadow 90ms ease,
         color 90ms ease;
 }
 
@@ -326,7 +324,7 @@ onBeforeUnmount(() => {
     left: 0;
     width: 100%;
     height: 2px;
-    border-radius: var(--sw-radius-full);
+    border-radius: 9999px;
     background: currentColor;
     transition:
         transform 90ms ease,
@@ -353,7 +351,6 @@ onBeforeUnmount(() => {
     border-color: color-mix(in srgb, var(--sw-border) 92%, transparent);
     background: color-mix(in srgb, var(--sw-bg-grid) 82%, transparent);
     color: color-mix(in srgb, var(--sw-text-secondary) 88%, var(--sw-text-primary));
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 56%, transparent);
 }
 
 .nav-tabs__viewport {
@@ -397,7 +394,7 @@ onBeforeUnmount(() => {
     min-height: 3.25rem;
     gap: var(--sw-space-xs);
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
-    border-radius: var(--sw-radius-full);
+    border-radius: var(--sw-radius-lg);
     background: color-mix(
         in srgb,
         var(--sw-bg-elevated) 86%,
@@ -405,17 +402,13 @@ onBeforeUnmount(() => {
     );
     padding: 0.9rem 1rem;
     color: var(--sw-text-primary);
-    box-shadow:
-        0 14px 22px color-mix(in srgb, var(--sw-text-primary) 8%, transparent),
-        var(--sw-shadow-sm);
-    -webkit-backdrop-filter: blur(18px) saturate(130%);
-    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
     opacity: 0;
     transform: translateY(-6px);
     transition:
         background-color 90ms ease,
         border-color 90ms ease,
-        box-shadow 90ms ease,
         color 90ms ease,
         opacity 120ms ease,
         opacity 140ms ease,
@@ -511,7 +504,6 @@ onBeforeUnmount(() => {
         var(--sw-bg-surface)
     );
     color: var(--sw-tab-active);
-    box-shadow: var(--sw-shadow-md);
 }
 
 .nav-tabs__link--active .nav-tabs__link-label {
@@ -556,12 +548,8 @@ onBeforeUnmount(() => {
             var(--sw-bg-elevated) 88%,
             var(--sw-bg-surface)
         );
-        box-shadow:
-            0 18px 32px color-mix(in srgb, var(--sw-text-primary) 10%, transparent),
-            0 0 0 1px color-mix(in srgb, var(--sw-accent-dominant) 10%, transparent),
-            var(--sw-shadow-sm);
-        -webkit-backdrop-filter: blur(24px) saturate(145%);
-        backdrop-filter: blur(24px) saturate(145%);
+        -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+        backdrop-filter: var(--sw-surface-backdrop-filter);
     }
 
     .nav-tabs__link:is(:hover, :focus-visible, :active)::after {
@@ -617,7 +605,7 @@ onBeforeUnmount(() => {
         min-height: 0;
         width: auto;
         border: 0;
-        border-radius: var(--sw-radius-full);
+        border-radius: 3px;
         background: transparent;
         padding: calc(var(--sw-space-4xs) + 2px) var(--sw-space-xs);
         font-family: var(--sw-font-heading);
@@ -678,15 +666,14 @@ onBeforeUnmount(() => {
         opacity: 1;
         transform: scale(1);
         background: var(--sw-tab-surface, transparent);
-        box-shadow: inset 0 0 0 1px
-            color-mix(in srgb, var(--sw-tab-active) 10%, transparent);
+        border: 1px solid color-mix(in srgb, var(--sw-tab-active) 10%, transparent);
     }
 }
 
 @media (max-width: 640px) {
     .nav-tabs__trigger {
         min-height: 3rem;
-        border-radius: var(--sw-radius-full);
+        border-radius: var(--sw-radius-lg);
         padding-inline: var(--sw-space-sm);
     }
 

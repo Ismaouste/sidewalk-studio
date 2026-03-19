@@ -152,12 +152,11 @@ const copy = computed(() =>
 .writing-index__card {
     display: grid;
     gap: var(--sw-space-xs);
-    padding: clamp(18px, 2.8vw, var(--sw-space-sm));
+    padding: clamp(12px, 2vw, 16px);
     align-items: stretch;
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
 }
 
@@ -210,10 +209,7 @@ const copy = computed(() =>
 .writing-index__tag {
     display: inline-flex;
     align-items: center;
-    min-height: 1.75rem;
-    border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-grid) 72%, transparent);
-    padding-inline: var(--sw-space-2xs);
+    color: var(--sw-text-muted);
 }
 
 .writing-index__link:focus-visible {
@@ -223,7 +219,6 @@ const copy = computed(() =>
 .writing-index__link:focus-visible .writing-index__card,
 .writing-index__link:active .writing-index__card {
     border-color: var(--sw-border-focus);
-    box-shadow: var(--sw-shadow-md);
 }
 
 .writing-index__link:active .writing-index__card {
@@ -235,13 +230,12 @@ const copy = computed(() =>
         transform: translateY(-2px);
         border-color: var(--sw-card-hover-border);
         background: color-mix(in srgb, var(--sw-bg-elevated) 86%, transparent);
-        box-shadow: var(--sw-shadow-md);
     }
 }
 
 @media (min-width: 720px) {
     .writing-index__card {
-        grid-template-columns: minmax(8.6rem, 10.4rem) minmax(0, 1fr);
+        grid-template-columns: minmax(5.8rem, 7rem) minmax(0, 1fr);
         column-gap: var(--sw-space-sm);
         row-gap: var(--sw-space-2xs);
     }

@@ -551,15 +551,13 @@ function submitInquiry(): void {
     width: 3rem;
     height: 3rem;
     border: 1px solid color-mix(in srgb, #25d366 76%, black 14%);
-    border-radius: var(--sw-radius-md);
+    border-radius: 3px;
     background: #25d366;
     color: #fff;
-    box-shadow: var(--sw-shadow-sm);
     transition:
         transform var(--sw-motion-fast),
         background-color var(--sw-motion-fast),
-        border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast);
+        border-color var(--sw-motion-fast);
 }
 
 .contact-page__whatsapp-icon {
@@ -635,7 +633,7 @@ function submitInquiry(): void {
 .contact-page__status {
     margin: 0;
     border: 1px solid color-mix(in srgb, var(--sw-accent-green) 24%, transparent);
-    border-radius: calc(var(--sw-radius-md) + 2px);
+    border-radius: 4px;
     background: color-mix(in srgb, var(--sw-accent-green) 8%, transparent);
     padding: 0.9rem 1rem;
     color: color-mix(in srgb, var(--sw-accent-green) 88%, var(--sw-text-primary));
@@ -649,16 +647,14 @@ function submitInquiry(): void {
     min-height: 3rem;
     width: 100%;
     border: 1px solid color-mix(in srgb, var(--sw-border) 88%, transparent);
-    border-radius: calc(var(--sw-radius-md) + 2px);
+    border-radius: 4px;
     background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
     padding: 0.9rem 1rem;
     font: inherit;
     color: var(--sw-text-primary);
-    box-shadow: var(--sw-shadow-sm);
     transition:
         border-color var(--sw-motion-fast),
         background-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast),
         transform var(--sw-motion-fast);
 }
 
@@ -726,12 +722,7 @@ function submitInquiry(): void {
 .contact-page__fit-item {
     display: inline-flex;
     align-items: center;
-    min-height: 1.75rem;
-    border-radius: var(--sw-radius-full);
-    background: color-mix(in srgb, var(--sw-bg-elevated) 84%, transparent);
-    padding-inline: var(--sw-space-2xs);
-    color: var(--sw-text-primary);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sw-border) 72%, transparent);
+    color: var(--sw-text-secondary);
 }
 
 @media (hover: hover) {
@@ -748,15 +739,13 @@ function submitInquiry(): void {
         transform: translateY(-1px);
         background: color-mix(in srgb, #25d366 86%, white 14%);
         border-color: color-mix(in srgb, #25d366 84%, black 12%);
-        box-shadow: var(--sw-shadow-md);
     }
 }
 
 .contact-page__input:focus-visible {
     border-color: var(--sw-border-focus);
-    box-shadow:
-        0 0 0 3px color-mix(in srgb, var(--sw-border-focus) 18%, transparent),
-        var(--sw-shadow-md);
+    box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--sw-border-focus) 18%, transparent);
     outline: none;
 }
 

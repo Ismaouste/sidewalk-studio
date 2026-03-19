@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
     min-height: 2rem;
     padding-inline: 0.72rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
-    border-radius: var(--sw-radius-full);
+    border-radius: 3px;
     background: transparent;
     font-family: var(--sw-font-body);
     font-size: 12px;
@@ -168,11 +168,10 @@ onBeforeUnmount(() => {
     width: min(19rem, calc(100vw - 2rem));
     padding: 10px;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
-    border-radius: calc(var(--sw-radius-md) + 4px);
+    border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-elevated) 92%, transparent);
-    box-shadow: var(--sw-shadow-md);
-    -webkit-backdrop-filter: blur(18px);
-    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .accessibility-panel__option {
@@ -183,7 +182,7 @@ onBeforeUnmount(() => {
     width: 100%;
     padding: 0.8rem 0.85rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 74%, transparent);
-    border-radius: calc(var(--sw-radius-md) + 2px);
+    border-radius: 4px;
     background: color-mix(in srgb, var(--sw-bg-surface) 68%, transparent);
     text-align: left;
     transition:
@@ -232,7 +231,6 @@ onBeforeUnmount(() => {
 .accessibility-panel__option--disabled {
     opacity: 0.58;
     cursor: not-allowed;
-    filter: grayscale(1);
 }
 
 .accessibility-panel__option--disabled .accessibility-panel__option-title,

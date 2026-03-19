@@ -21,20 +21,19 @@ const props = withDefaults(
 .panel-frame {
     border: var(--sw-runtime-line-thickness, 1px) solid var(--sw-border);
     border-radius: var(--sw-radius-lg);
-    box-shadow: var(--sw-shadow-sm);
-    backdrop-filter: blur(var(--sw-runtime-surface-blur, 18px));
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .panel-frame--surface {
-    background: color-mix(in srgb, var(--sw-bg-surface) 82%, transparent);
+    background: var(--sw-bg-surface);
 }
 
 .panel-frame--grid {
-    background: color-mix(in srgb, var(--sw-bg-grid) 76%, transparent);
+    background: color-mix(in srgb, var(--sw-bg-grid) 72%, var(--sw-bg-surface));
 }
 
 .panel-frame--elevated {
-    background: color-mix(in srgb, var(--sw-bg-elevated) 82%, transparent);
-    box-shadow: var(--sw-shadow-md);
+    background: var(--sw-bg-elevated);
 }
 </style>

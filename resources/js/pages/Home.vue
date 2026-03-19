@@ -610,7 +610,7 @@ const copy = computed(() =>
     min-width: min(14rem, calc(100vw - 2rem));
     max-width: min(22rem, calc(100vw - 2rem));
     border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
-    border-radius: calc(var(--sw-radius-md) + 2px);
+    border-radius: 4px;
     background: color-mix(in srgb, var(--sw-bg-elevated) 94%, transparent);
     padding: 0.58rem 0.72rem;
     color: var(--sw-text-primary);
@@ -619,7 +619,6 @@ const copy = computed(() =>
     font-weight: 500;
     line-height: 1.35;
     white-space: normal;
-    box-shadow: var(--sw-shadow-md);
     opacity: 0;
     pointer-events: none;
     transform: translateY(4px);
@@ -645,15 +644,15 @@ const copy = computed(() =>
 }
 
 .home-tone--violet {
-    --home-accent-color: #6b33c8;
+    --home-accent-color: var(--sw-accent-violet);
 }
 
 .home-tone--green {
-    --home-accent-color: #87d63f;
+    --home-accent-color: var(--sw-accent-green);
 }
 
 .home-tone--sun {
-    --home-accent-color: #c98714;
+    --home-accent-color: var(--sw-accent-sun);
 }
 
 .home-accent-chip--violet .home-accent-chip__tooltip,
@@ -798,11 +797,10 @@ const copy = computed(() =>
     height: 100%;
     gap: var(--sw-space-xs);
     border-color: color-mix(in srgb, var(--sw-border) 80%, transparent);
-    background: color-mix(in srgb, var(--sw-bg-surface) 90%, transparent);
+    background: var(--sw-bg-surface);
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
     border-radius: inherit;
 }
@@ -822,8 +820,7 @@ const copy = computed(() =>
 .home-card__tag {
     display: inline-flex;
     align-items: center;
-    min-height: 1.35rem;
-    color: var(--sw-accent-dominant);
+    color: var(--sw-text-muted);
 }
 
 .home-card__summary {
@@ -895,7 +892,6 @@ const copy = computed(() =>
 
 .home-card-link:focus-visible .home-card {
     border-color: var(--sw-border-focus);
-    box-shadow: var(--sw-shadow-md);
 }
 
 .home-card-link:active .home-card {
@@ -906,7 +902,6 @@ const copy = computed(() =>
     .home-card-link:hover .home-card {
         transform: translateY(-2px);
         border-color: var(--sw-card-hover-border);
-        box-shadow: var(--sw-shadow-md);
         background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
     }
 }
@@ -917,7 +912,7 @@ const copy = computed(() =>
     }
 
     .home-card {
-        grid-template-columns: minmax(6.9rem, 8.4rem) minmax(0, 1fr);
+        grid-template-columns: minmax(5.8rem, 7rem) minmax(0, 1fr);
         align-items: start;
     }
 

@@ -50,7 +50,6 @@ defineProps<{
 
 .brand-mark__image {
     object-fit: cover;
-    box-shadow: 0 10px 20px color-mix(in srgb, var(--sw-text-primary) 7%, transparent);
 }
 
 .brand-mark__fallback {

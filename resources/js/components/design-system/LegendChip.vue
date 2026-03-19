@@ -29,7 +29,6 @@ const props = withDefaults(
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--chip-accent);
-    text-shadow: 0 1px 0 color-mix(in srgb, var(--sw-bg-base) 72%, transparent);
 }
 
 .legend-chip--green {

@@ -42,10 +42,11 @@ const switcher = computed(() => page.props.site.languageSwitcher);
     gap: 4px;
     min-height: 2.35rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 88%, transparent);
-    border-radius: var(--sw-radius-full);
+    border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-surface) 86%, transparent);
     padding: 3px;
-    box-shadow: var(--sw-shadow-sm);
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .locale-switcher__option {
@@ -54,7 +55,7 @@ const switcher = computed(() => page.props.site.languageSwitcher);
     justify-content: center;
     min-width: 2.2rem;
     min-height: 1.9rem;
-    border-radius: calc(var(--sw-radius-full) - 4px);
+    border-radius: 3px;
     padding-inline: 0.55rem;
     font-family: var(--sw-font-heading);
     font-size: 9px;
@@ -66,15 +67,13 @@ const switcher = computed(() => page.props.site.languageSwitcher);
     transition:
         background-color var(--sw-motion-fast),
         color var(--sw-motion-fast),
-        transform var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast);
+        transform var(--sw-motion-fast);
 }
 
 .locale-switcher__option--current {
     background: var(--sw-bg-elevated);
     color: var(--sw-text-primary);
-    box-shadow: inset 0 0 0 1px
-        color-mix(in srgb, var(--sw-accent-dominant) 16%, transparent);
+    border: 1px solid color-mix(in srgb, var(--sw-accent-dominant) 16%, transparent);
 }
 
 .locale-switcher__option--disabled {

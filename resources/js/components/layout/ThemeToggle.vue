@@ -82,11 +82,11 @@ function handleKeydown(event: KeyboardEvent): void {
     align-items: center;
     min-height: 2.9rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 90%, transparent);
-    border-radius: var(--sw-radius-full);
+    border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-surface) 78%, transparent);
     padding: 3px;
-    backdrop-filter: blur(14px);
-    box-shadow: var(--sw-shadow-sm);
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .theme-toggle__thumb {
@@ -95,13 +95,11 @@ function handleKeydown(event: KeyboardEvent): void {
     bottom: 3px;
     left: 3px;
     width: calc(50% - 3px);
-    border-radius: var(--sw-radius-full);
+    border-radius: calc(var(--sw-radius-lg) - 2px);
     background: var(--sw-bg-elevated);
-    box-shadow: var(--sw-shadow-sm);
     transition:
         transform var(--sw-motion-smooth),
-        background-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast);
+        background-color var(--sw-motion-fast);
 }
 
 .theme-toggle__option {
@@ -110,7 +108,7 @@ function handleKeydown(event: KeyboardEvent): void {
     min-width: 5.5rem;
     min-height: calc(2.9rem - 6px);
     border: 0;
-    border-radius: var(--sw-radius-full);
+    border-radius: 3px;
     background: transparent;
     font-family: var(--sw-font-heading);
     font-size: 10px;

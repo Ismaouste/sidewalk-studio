@@ -20,16 +20,17 @@ const props = defineProps<{
 <style scoped>
 .media-embed {
     border: 1px solid var(--sw-border);
-    border-radius: calc(var(--sw-radius-lg) + 0.5rem);
-    background: var(--sw-bg-elevated);
+    border-radius: var(--sw-radius-lg);
+    background: var(--sw-bg-surface);
     padding: var(--sw-space-3xs);
-    box-shadow: var(--sw-shadow-md);
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .media-embed__frame {
     min-height: 18rem;
     overflow: hidden;
-    border-radius: calc(var(--sw-radius-lg) - 0.25rem);
+    border-radius: 4px;
     background: color-mix(in srgb, var(--sw-bg-grid) 76%, transparent);
 }
 </style>

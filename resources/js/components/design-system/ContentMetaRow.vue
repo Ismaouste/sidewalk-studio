@@ -31,7 +31,7 @@ defineProps<{
 .content-meta-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 16px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -39,58 +39,39 @@ defineProps<{
 
 .content-meta-row__item {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: baseline;
     flex-wrap: wrap;
-    gap: 5px;
-    min-height: 1.75rem;
-    max-width: min(100%, 16rem);
-    border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
-    border-radius: var(--sw-radius-full);
-    background:
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--sw-bg-elevated) 20%, transparent),
-            transparent
-        ),
-        color-mix(in srgb, var(--sw-bg-grid) 68%, transparent);
-    padding: 0.38rem 0.72rem;
-    box-shadow: inset 0 1px 0 color-mix(in srgb, white 18%, transparent);
+    gap: 6px;
+    max-width: min(100%, 26rem);
 }
 
 .content-meta-row__label {
-    font-family: var(--sw-font-heading);
-    font-size: 9px;
-    font-weight: 700;
-    line-height: 1.6;
-    letter-spacing: 0.12em;
+    font-family: var(--sw-font-body);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--sw-accent-sun);
-    transform: translateY(1px);
+    color: var(--sw-text-muted);
 }
 
 .content-meta-row__value {
-    font-family: var(--sw-font-code);
-    font-size: 10px;
+    font-family: var(--sw-font-body);
+    font-size: 13px;
     line-height: 1.35;
     letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;
-    color: var(--sw-text-primary);
-    transform: translateY(1px);
-    text-wrap: balance;
+    color: var(--sw-text-secondary);
+    text-wrap: pretty;
 }
 
 .content-meta-row__item--sun .content-meta-row__value {
-    color: color-mix(in srgb, var(--sw-accent-sun) 78%, var(--sw-text-primary));
+    color: color-mix(in srgb, var(--sw-accent-sun) 78%, var(--sw-text-secondary));
 }
 
 @media (max-width: 640px) {
     .content-meta-row {
-        gap: 8px;
-    }
-
-    .content-meta-row__item {
-        min-height: 2rem;
-        padding-inline: 0.75rem;
+        gap: 12px;
     }
 }
 </style>

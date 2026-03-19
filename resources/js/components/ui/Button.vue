@@ -126,7 +126,7 @@ const componentProps = computed(() => {
     align-items: center;
     justify-content: center;
     gap: var(--sw-space-3xs);
-    border-radius: var(--sw-radius-md);
+    border-radius: 3px;
     font-family:
         var(--sw-font-body),
         'Apple Color Emoji',
@@ -139,8 +139,7 @@ const componentProps = computed(() => {
         transform var(--sw-motion-fast),
         background-color var(--sw-motion-smooth),
         color var(--sw-motion-fast),
-        border-color var(--sw-motion-fast),
-        box-shadow var(--sw-motion-fast);
+        border-color var(--sw-motion-fast);
 }
 
 .sw-button__label {
@@ -178,7 +177,6 @@ const componentProps = computed(() => {
     border: 1px solid var(--sw-button-primary-border);
     background: var(--sw-button-primary-bg);
     color: var(--sw-button-primary-text);
-    box-shadow: var(--sw-shadow-sm);
 }
 
 .sw-button--secondary {
