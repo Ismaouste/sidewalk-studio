@@ -35,7 +35,7 @@ class CareerDownloadsTest extends TestCase
                 ->where('cvDownloads.1.href', fn (string $href): bool => str_ends_with($href, '/cv/fr'))
                 ->where(
                     'careerSnapshot.title',
-                    'Recruiter-ready snapshot',
+                    'Technical snapshot',
                 ));
 
         $this->get('/en/contact')

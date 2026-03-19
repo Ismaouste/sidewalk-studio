@@ -3,86 +3,94 @@ seo_title: Parcours de tech lead e-commerce
 seo_description: Parcours de tech lead e-commerce à Nancy, Grand Est, entre données produit, intégrations métier, SEO technique et environnements vivants.
 hero:
     eyebrow: Expérience
-    title: Des systèmes déjà en ligne, avec du réel à tenir.
-    summary: Ecommerce, CMS, connecteurs, donnée produit et delivery dans des contextes où il faut d'abord comprendre ce qui tourne déjà avant de modifier quoi que ce soit.
+    title: Projets et expérience
+    summary: Développeur e-commerce à Nancy. Quatre contextes principaux pour lire le travail, les choix techniques et la façon de livrer.
 positioning:
-    - Comprendre vite un projet, ses usages et ses points de fragilité.
-    - Cadrer proprement avec les bons interlocuteurs et une documentation qui sert vraiment.
-    - Remettre de l'ordre sans bloquer la production ni casser l'existant.
+    - Comprendre vite l'existant et ses contraintes.
+    - Décider proprement avec les bons interlocuteurs.
+    - Livrer sans perdre la lisibilité du système.
 contexts:
-    - HBJO, sites de marque et ecommerce avec catalogue, stock, médias et lancements fréquents.
-    - WordPress, WooCommerce, PrestaShop, Shopify, Laravel, PIM, ERP et connecteurs déjà en service.
-    - Refontes et lancements où URLs, fiches produit, SEO, tracking et qualité front se cadrent tôt.
+    - Ecommerce HBJO avec catalogue, stock, médias, SEO et donnée produit.
+    - Laravel, WordPress, WooCommerce, PrestaShop, Vue, ERP et connecteurs métier.
+    - Refontes, delivery continu, incidents d'infrastructure et mises en ligne.
 professional_sections:
-    - title: Jewely / Flippad
-      eyebrow: Développement multi-clients dans l'univers HBJO
-      summary: Plus de quatre ans dans un contexte multi-clients où ecommerce, CMS, donnée produit et delivery technique se croisent en permanence dans l'univers HBJO.
+    - title: Jewely E-commerce
+      eyebrow: 2023 - aujourd'hui
+      summary: Plateforme multi-tenant pour bijoutiers indépendants. Core partagé, thèmes par client, ERP maison. En production chez deux clients.
       paragraphs:
-          - Sites marchands, sites de marque et projets CMS avec des fonctionnements très différents, mais le même besoin de stabilité en production.
-          - Le cœur du travail se joue souvent dans la donnée produit, sa circulation entre outils et sa restitution côté front.
-          - J'interviens aussi sur l'intégration front, le SEO technique, le tracking, les lancements et les arbitrages de delivery.
+          - Chez Jewely / Flippad, je travaille sur le socle commun et sur des besoins client qui touchent au catalogue, au front et à la mise en ligne.
+          - Le projet mêle Laravel, Vue, donnée produit et contraintes métier propres à la bijouterie.
       detail_groups:
-          - title: Clients HBJO suivis chez Jewely / Flippad
+          - title: Stack
             pills:
-                - Auberi
-                - Godchot
-                - Pauliet
-                - Bijouterie Louis Julian
-                - Crown DP
-            items:
-                - Environnements bijouterie-horlogerie où catalogue, image, confiance, disponibilité produit, SEO et parcours d'achat doivent tenir ensemble.
-                - Le même niveau d'attention sur des sites marchands, des sites de marque, des reprises d'existant et des évolutions métier.
-          - title: Développement spécifique avec le partenaire client Rolex
-            pills:
-                - Rolex Bespoke
-                - Rolex Certified Pre-Owned
-                - PrestaShop
-                - WordPress
                 - Laravel
-                - Plugins sur mesure
+                - Vue 3
+                - Inertia
+                - Docker Swarm
+                - AWS
             items:
-                - Travail sur les espaces Bespoke et Rolex Certified Pre-Owned avec un niveau d'exigence élevé sur le cadre de marque, la fiabilité et la précision d'exécution.
-                - Développement seul des plugins et pilotage d'une large part de l'exécution technique sur les briques PrestaShop, WordPress et Laravel.
-                - Un bon exemple de contexte où il faut comprendre vite, décider proprement et livrer sur des briques réellement utilisées.
-          - title: PIM, ERP, catalogues et connecteurs
+                - Core partagé, thèmes par client, connecteurs métier et delivery continu.
+                - Clients suivis dans l'univers HBJO : Auberi, Godchot, Pauliet, Louis Julian et Crown DP.
+    - title: Louis Julian - Refonte
+      eyebrow: 2025 - aujourd'hui
+      summary: Joaillier à Cannes depuis 1862. Refonte site vitrine et e-commerce, avec design system complet et pilotage éditorial.
+      paragraphs:
+          - Refonte du site public et du commerce avec une logique de maison plus nette, des blocs homepage pilotables et une base front plus propre.
+          - Le travail porte autant sur la structure que sur la restitution visuelle et la tenue du contenu.
+      detail_groups:
+          - title: Stack
             pills:
-                - PIM
-                - ERP
-                - APIs
-                - XML / CSV
-                - Shopify data
-                - Google Merchant Center
-                - Meta Catalog
+                - Laravel
+                - Blade
+                - Design system
+                - SEO technique
             items:
-                - Synchronisations temps réel, APIs, exports XML ou CSV et hydratation dynamique de la donnée produit.
-                - Structuration catalogue, listing, fiche produit, architecture d'URLs, données structurées et diffusion vers les surfaces marketing.
-          - title: Tracking, acquisition et qualité d'exécution
+                - Refonte vitrine et commerce, dix blocs homepage, composants réutilisables et cadre éditorial stable.
+                - Travail mené avec des contraintes de marque, de lisibilité et de mise à jour côté client.
+    - title: Module SAV Horlogerie
+      eyebrow: 2026
+      summary: Workflow complet de suivi réparation. Huit statuts, machine à états, QR code et devis en ligne avec droit de rétractation quatorze jours.
+      paragraphs:
+          - Le sujet demande un cadre métier clair, des transitions sûres et une interface compréhensible par l'équipe comme par le client.
+          - L'objectif est de suivre une réparation sans perdre ni l'information ni le rythme du traitement.
+      detail_groups:
+          - title: Stack
             pills:
-                - GTM
-                - Meta Pixel
-                - Adobe Analytics
-                - Consent Mode v2
-                - Sass
-                - AWS Lambda
+                - API REST
+                - Webhooks
+                - Brevo
+                - QR code
             items:
-                - GTM, Meta Pixel, Microsoft Ads / Bing UET, Adobe Analytics, data layer et Consent Mode v2.
-                - Imports massifs, normalisation d'attributs, enrichissement catalogue, gestion du stock, intégration front et restitution propre des interfaces.
-                - Scrapers Python sur AWS Lambda à partir de sitemaps de marques pour alimenter et fiabiliser des flux catalogue multi-marques.
-                - Lancements, cadrage de refonte, veille technique et arbitrages pour livrer sans casser la production.
+                - Suivi réparation, notifications et jalons métier dans un flux unique.
+                - Machine à états pensée pour rester lisible dans le temps.
+    - title: Infrastructure
+      eyebrow: 2024 - aujourd'hui
+      summary: Déploiement Docker Swarm sur AWS. Pipeline automatique via EventBridge, Lambda et SSM, puis durcissement après incident disque.
+      paragraphs:
+          - Le travail a porté sur l'automatisation du déploiement, la lecture des retours d'exécution et les garde-fous quand la production ment.
+          - Après incident, l'objectif était simple : rendre le pipeline vérifiable, moins trompeur et plus calme à exploiter.
+      detail_groups:
+          - title: Stack
+            pills:
+                - Docker Swarm
+                - ECR
+                - Lambda
+                - SSM
+                - EventBridge
+            items:
+                - Déploiement automatique, post-mortem, nettoyage préventif et contrôle des rollbacks.
 associative_sections:
     - title: Aremedia
-      eyebrow: Employeur associatif
-      summary: Un cadre salarié très différent du commerce, centré sur les usages de terrain, la santé publique, la confiance et des outils réellement utiles.
+      eyebrow: Associatif
+      summary: Contexte salarié de santé publique. Outil auto-hébergé pour les équipes de terrain et reprise du site public.
       paragraphs:
-          - Travail centré sur la prévention des risques et la santé publique, avec un besoin fort de sobriété et de clarté d'usage.
-          - Conception d'un outil auto-hébergé de remontée de données pour les équipes de terrain, sous contraintes de sécurité et de confiance.
-          - Reprise du site aremedia.org et remise à plat de sa structure publique.
+          - Travail centré sur la prévention, la confiance et la clarté d'usage.
+          - Développement d'un outil de remontée de données sécurisé, puis reprise de la structure publique de aremedia.org.
       detail_groups:
-          - title: Points marquants
+          - title: Repères
             items:
                 - Prévention des risques et dépistage hors les murs.
-                - Open survey sécurisé auto-hébergé, avec l'appui d'un expert de l'hébergeur Octopuce.
-                - Outil pensé pour des usages de terrain, pas de bureau.
+                - Open survey auto-hébergé avec contraintes de sécurité et de confiance.
                 - Reprise du site public aremedia.org.
 associative_note_widget:
     eyebrow: ''
@@ -92,80 +100,75 @@ associative_note_widget:
 side_project_sections:
     - title: YTMusic Liked Sorter
       eyebrow: Projet perso
-      summary: Un petit outil personnel, propre et utile, avec un vrai rapport à la donnée, au tri et à la restitution.
+      summary: Petit outil personnel centré sur le tri, le filtrage et une restitution lisible.
       paragraphs:
-          - YTMusic Liked Sorter est né d'un besoin simple de tri, de reprise et de relecture d'un historique personnel. Ce n'est pas un produit industriel, mais c'est un bon exemple de petit outil net, pensé pour être utile et agréable à utiliser.
-          - "Le dépôt public montre bien ce qui m'intéresse dans ce format-là : une interface légère, une structure lisible, un filtrage propre et un résultat directement exploitable."
+          - Le projet part d'un besoin simple de reprise et de lecture d'un historique personnel.
+          - Il montre surtout un goût pour les outils courts, utiles et faciles à relire.
       links:
           - label: GitHub · ytmusic-liked-sorter
             href: https://github.com/Ismaouste/ytmusic-liked-sorter
       detail_groups:
-          - title: Ce que le projet raconte
+          - title: Repères
             items:
                 - Récupération et relecture d'un historique personnel.
                 - Interface utilitaire, sans surcharge.
-                - Projet fait pour le plaisir, mais avec une vraie logique produit.
+                - Filtrage lisible et résultat immédiatement exploitable.
 side_projects_widget:
     eyebrow: ''
     title: ''
     description: ''
     cta_label: ''
 trajectory:
-    - title: Plateformes commerce sous pression
-      summary: J'ai travaillé dans des environnements où mises en ligne, parcours de conversion, qualité catalogue, visibilité en recherche et stabilité opérationnelle étaient étroitement liées.
-    - title: Laravel comme couche de livraison fiable
-      summary: J'ai utilisé Laravel pour apporter de meilleures limites, des refactors plus sûrs et des conventions plus lisibles à des produits déjà chargés de complexité critique.
-    - title: La documentation comme partie de la livraison
-      summary: J'ai transformé des décisions d'architecture en spécifications, notes et références internes afin que la maintenabilité survive aux changements d'équipe, aux passations et aux cycles suivants.
+    - title: Commerce et données produit
+      summary: Travail sur des systèmes où catalogue, stock, médias, URLs et conversion se tiennent ensemble.
+    - title: Delivery Laravel
+      summary: Laravel sert de base de livraison, de cadrage et de remise au propre sur des produits déjà en service.
+    - title: Documentation utile
+      summary: Les décisions importantes sont écrites pour pouvoir être relues et reprises par l'équipe.
 strengths:
-    - Cartographier une surface legacy confuse vers une architecture plus petite et plus claire.
-    - Relier produit, SEO technique, vie privée, intégrations business et ingénierie sans les séparer en silos.
-    - Écrire du code et de la documentation qui rendent la maintenance future moins coûteuse.
+    - Reprendre un existant sans casser la production.
+    - Relier produit, SEO technique, vie privée et intégrations métier.
+    - Laisser un système plus lisible qu'à l'arrivée.
 focus_areas:
-    - title: Laravel et modernisation du legacy
-      summary: Refactors progressifs, meilleures limites et conventions pratiques pour des systèmes PHP qui ne peuvent pas arrêter de livrer.
+    - title: Laravel et reprise d'existant
+      summary: Refactors progressifs et conventions utiles sur des systèmes qui doivent continuer à livrer.
     - title: SEO technique et architecture de l'information
-      summary: Routing, métadonnées, logique canonique, discipline de sitemap et structures de contenu public qui restent cohérentes après lancement.
-    - title: Vie privée et analytics respectueux du consentement
-      summary: Couches de consentement, blocage des embeds, design des événements et choix analytics qui ne brouillent ni la confiance ni les limites système.
+      summary: URLs, métadonnées, données structurées et logique de contenu public.
+    - title: Consentement et analytics
+      summary: Pixels, data layer et analytics respectueux du cadre RGPD.
 stack_groups:
     - title: Stack cœur
       items:
           - Laravel
           - PHP
-          - Inertia.js
-          - Vue
+          - Vue 3
+          - Inertia
           - SQL
-          - XML et JSON-LD
     - title: Environnements typiques
       items:
-          - Plateformes ecommerce
-          - Sites publics riches en contenu
-          - Monolithes legacy sous pression de livraison
+          - E-commerce
+          - CMS
+          - ERP et connecteurs
+          - Docker
     - title: Méthodes de travail
       items:
-          - Cadrage par spécification
+          - Cadrage
           - Livraison incrémentale
-          - Documentation en parallèle du code
-          - Revue vie privée et SEO dans l'implémentation
+          - Documentation
+          - SEO et RGPD
 career_snapshot:
     title: Repères techniques
-    summary: Plateformes ecommerce et CMS, synchronisation produit, stock, APIs, scraping, tracking, consentement, SEO technique et infrastructure légère.
+    summary: Laravel, Vue, WordPress, PrestaShop, WooCommerce, Docker, tracking, SEO technique et intégrations produit.
     roles:
+        - Laravel
+        - Vue 3
         - WordPress
         - WooCommerce
         - PrestaShop
-        - Shopify
-        - Stripe
-        - Google Tag Manager
-        - Google Merchant Center
-        - Google Consent Mode v2
-        - Meta Ads
-        - Microsoft Ads / Bing UET
-        - Meta Pixel
-        - Adobe Analytics
-        - Core Web Vitals
-        - AWS / S3
         - Docker
-looking_for: Basé à Nancy, Grand Est, je suis plus utile dans des contextes produit, commerce ou éditoriaux déjà vivants, où l'on attend de la clarté technique, de la fiabilité et des décisions calmes dans la durée, en mission remote, hybride ou sur site selon le cadre.
+        - AWS
+        - GTM
+        - Adobe Analytics
+        - SEO technique
+looking_for: Basé à Nancy, disponible pour un poste ou une mission ciblée en remote, hybride ou sur site selon le contexte.
 ---

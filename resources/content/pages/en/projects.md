@@ -3,25 +3,25 @@ seo_title: Tech Lead Ecommerce in Nancy
 seo_description: Tech lead ecommerce work from Nancy, Grand Est, across platform stabilization, product data, Docker Swarm incidents, and remote-friendly delivery.
 hero:
     eyebrow: Experience
-    title: Live systems, real constraints, steady decisions.
-    summary: "Main experience page for a tech lead working from Nancy across delivery, product data, Docker Swarm incidents, design systems, and remote-friendly ecommerce work."
+    title: Ecommerce projects
+    summary: "Four main contexts first, then case studies for the deeper technical detail."
 tracks_section:
-    label: Tracks
+    label: Landmarks
     intro:
-        eyebrow: Focus
-        title: The current system build in three tracks.
-        summary: Each track exists because it solved a real sequencing, content, or release problem.
+        eyebrow: Read
+        title: One page to read the work directly.
+        summary: Projects, context, stack, and decisions. The detailed writeups live in the case studies.
     items:
-        - title: Repository Foundation
-          summary: Bootstrap a repo that can host public specs, docs, and reusable skills without collapsing into a demo-only scaffold.
-        - title: Content System
-          summary: Use versioned Markdown to publish case studies and writing with explicit metadata, stable routing, and enough structure to support future bilingual growth.
-        - title: Consent + SEO
-          summary: Keep privacy, discoverability, and maintainability on the same implementation path instead of letting integrations and SEO drift apart.
+        - title: Ecommerce
+          summary: Delivery, catalog work, integrations, and go-live constraints.
+        - title: Infrastructure
+          summary: Docker Swarm, AWS, incidents, and safeguards.
+        - title: Case studies
+          summary: Public writeups that go deeper into the technical decisions.
 case_studies_section:
     label: Public references
     eyebrow: References
-    title: Case studies and notes to go deeper.
-    summary: 'Each case study starts from the situation, then the decision, then what changed: nonprofit tools under constraint, product data between ERP and commerce, Docker Swarm delivery failures, and design-system rules that shaped implementation.'
+    title: Case studies
+    summary: 'Incidents, product data, consent, and nonprofit tooling: the public technical detail lives here.'
     archive_cta: Browse all case studies
 ---

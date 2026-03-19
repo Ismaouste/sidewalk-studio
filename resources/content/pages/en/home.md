@@ -1,41 +1,41 @@
 ---
-seo_title: Engineering for ecommerce, product data, and privacy
-seo_description: 'Portfolio of Ismael Rodmacq: ecommerce delivery, ERP and PIM integration, privacy-aware tracking, technical SEO, and product systems under real pressure.'
+seo_title: Ecommerce developer in Nancy
+seo_description: 'Ismael Rodmacq, ecommerce developer in Nancy. Laravel, Vue, Docker, ERP integration, and privacy-aware delivery for online selling systems.'
 hero:
-    eyebrow: Ecommerce, product data, and technical SEO
-    title: Engineering for ecommerce, product data, and its flows.
-    summary: I work on ecommerce systems that are already in production, not on clean greenfield builds. The job usually starts where product data, ERP or PIM integration, release pressure, and privacy rules begin to collide. What I try to leave behind is not a prettier stack on paper, but a system that teams can read and trust again.
+    eyebrow: Ecommerce developer · Nancy
+    title: Ismael Rodmacq
+    summary: I build online selling systems for jewelers. Laravel, Vue, Docker.
 hero_panel:
-    - Ecommerce and CMS development across WooCommerce, PrestaShop, Shopify, and decoupled fronts when the project calls for it.
-    - Fullstack Laravel and PHP delivery across APIs, internal tools, technical framing, pragmatic CI/CD, and commerce operations.
-    - Technical SEO, structured data, product feeds, PIM workflows, marketing catalogs, tracking, and data layer design handled as part of delivery.
+    - Ecommerce development on systems that are already live.
+    - ERP integration, product data, APIs, and Laravel delivery.
+    - Technical SEO, privacy, tracking, and go-live work in the same frame.
 focus_areas:
-    - label: Development work
-      title: Take over live ecommerce platforms
-      summary: One page to read the frame, the contexts, the recruiter snapshot, and the way I approach Laravel or PHP systems that already have history.
+    - label: Projects
+      title: Ecommerce experience
+      summary: Four core contexts that show the work, the delivery frame, and the kind of technical choices I make on live systems.
       href: /projects
-      cta: Read the experience
+      cta: View projects
       tone: dominant
-    - label: Experience
-      title: From public health to HBJOAT environments
-      summary: 'Public health, European mobility, HBJOAT environments, and nonprofit or private contexts: the same reflex to understand real usage before touching the stack.'
+    - label: Case studies
+      title: Incidents, product data, consent
+      summary: Practical notes on Docker Swarm incidents, catalog flows, consent orchestration, and decisions made under real constraints.
       href: /case-studies
-      cta: Discover the projects
+      cta: Read case studies
       tone: green
-    - label: Local
-      title: Grand Est, Nancy
-      summary: 'Metz, Luxembourg, Strasbourg, the Greater Region, Paris: my web of work has grown across this whole environment, between mobility, culture, and real-life usage.'
+    - label: Contact
+      title: Nancy, Paris, remote
+      summary: Based in Nancy. Open to Paris for consulting work, and to remote setups when the working frame is clear.
       href: /contact
-      cta: Start a conversation
+      cta: Get in touch
       tone: coral
 local_teaser:
     title: Grand Est, Nancy
-    summary: 'Metz, Luxembourg, Strasbourg, the Greater Region, Paris: my web of work has grown across this whole environment, between mobility, cultural scenes, nonprofit networks, and working ground.'
+    summary: Based in Nancy, able to work in Paris, and comfortable in remote delivery depending on the context.
     points:
-        - Public information design and urban interfaces.
-        - Local APIs, mapping, transport logic, and service clarity.
-        - Associative and cultural communities, including Aremedia.
+        - Grand Est and Paris for in-person work when needed.
+        - Remote when the team, product, and scope fit.
+        - Experience across ecommerce, nonprofit, and practical tools.
 contact_cta:
-    title: Based in Nancy and available for a role, a limited freelance mission, or a direct conversation.
-    summary: 'Ecommerce platform, internal tool, connector, product flow, or technical SEO subject: write with the context and we can discuss it directly.'
+    title: Based in Nancy and available for a role or a focused mission.
+    summary: 'Redesign, stabilization, ERP integration, technical SEO, or ecommerce delivery: a short message with context is enough.'
 ---

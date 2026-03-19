@@ -75,12 +75,12 @@ class PublicPagesTest extends TestCase
             ->assertDontSee('Un goût pour les systèmes qui doivent vraiment tourner.')
             ->assertDontSee('{&quot;Delivery sur plusieurs niveaux à la fois&quot;')
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Des systèmes déjà en ligne, avec des contraintes réelles.')
+                ->where('hero.title', 'Projets e-commerce')
                 ->where(
-                    'professionalSections.0.detail_groups.0.items.1',
-                    'Le même niveau d\'attention sur des sites marchands, des sites de marque, des reprises d\'existant et des évolutions métier.',
+                    'professionalSections.0.detail_groups.0.items.0',
+                    'Core partagé, thèmes par client, connecteurs métier et delivery continu.',
                 )
-                ->where('professionalSections.0.title', 'Jewely / Flippad')
+                ->where('professionalSections.0.title', 'Jewely E-commerce')
                 ->where('associativeSections.0.title', 'Aremedia')
             );
     }

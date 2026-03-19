@@ -3,12 +3,12 @@ seo_title: Contact
 seo_description: Contact point for a tech lead ecommerce role, a focused freelance mission from Nancy, or a stabilization, integration, or delivery-heavy context.
 hero:
     eyebrow: Contact
-    title: Get in touch for a role, a mission, or a context worth understanding.
-    summary: Based in Nancy. Available for a tech lead ecommerce role, a focused freelance mission, or a direct discussion around a live product, integration, or stabilization context. I am most useful when there is real existing material to understand and real tradeoffs to make with a team.
+    title: Talk about a role, a mission, or a specific problem.
+    summary: Based in Nancy. Available for a tech lead ecommerce role or a focused mission in remote, hybrid, or Paris-based settings depending on the frame.
 form:
     eyebrow: Share the context
-    title: A simple first message, and the conversation can begin.
-    summary: A few lines about the context, the need, or the current constraint are enough. The form prepares a direct WhatsApp message, nothing more.
+    title: A simple first message is enough.
+    summary: A few lines about the context, the need, or the current constraint. The form then prepares a direct WhatsApp message, nothing more.
     name_label: Name
     name_placeholder: Your name
     email_label: Email
@@ -29,13 +29,13 @@ services:
     eyebrow: Where I can help
     items:
         - title: Ecommerce and CMS development
-          summary: Commerce sites and CMS work across redesigns, takeovers, and delivery that stays readable once the site is live.
+          summary: Takeovers, redesigns, and go-live work on commerce sites and CMS already in use.
         - title: Product data and scripts
           summary: Product data, stock, exports, scraping, APIs, and synchronization across business tools, connectors, and web surfaces.
         - title: Front-end, integration, and connectors
-          summary: Front-end integration, internal tools, connector cleanup, and CMS work shaped around the way teams actually use the product.
+          summary: Front-end integration, internal tools, connector cleanup, and CMS work shaped around real team usage.
         - title: Tracking, consent, and acquisition
-          summary: Data layer, pixels, analytics, Consent Mode v2, and catalog synchronization without turning compliance into an afterthought.
+          summary: Data layer, pixels, analytics, Consent Mode v2, and marketing catalog sync without pushing compliance aside.
 recruiter_shortcut:
     eyebrow: Quick snapshot
     summary: ''

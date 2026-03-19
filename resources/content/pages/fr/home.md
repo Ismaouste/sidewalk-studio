@@ -1,41 +1,41 @@
 ---
-seo_title: Développeur e-commerce pour la donnée produit et la vie privée
-seo_description: "Portfolio d'Ismael Rodmacq : développeur e-commerce, intégration ERP, conformité RGPD, SEO technique et systèmes produit sous vraie contrainte."
+seo_title: Développeur e-commerce à Nancy
+seo_description: "Ismael Rodmacq, développeur e-commerce à Nancy. Laravel, Vue, Docker, intégration ERP et conformité RGPD pour des sites de vente en ligne."
 hero:
-    eyebrow: Ecommerce, donnée produit et SEO technique
-    title: Ingénierie web pour l'ecommerce, la donnée produit et ses flux.
-    summary: Développeur e-commerce basé à Nancy, je travaille sur des systèmes déjà en production, pas sur des greenfields propres. Le travail commence souvent là où donnée produit, intégration ERP, pression de mise en ligne et conformité RGPD commencent à se gêner. Ce qui compte ensuite, c'est de rendre l'ensemble plus lisible et plus fiable pour l'équipe.
+    eyebrow: Développeur e-commerce · Nancy
+    title: Ismaël Rodmacq
+    summary: Je construis des systèmes de vente en ligne pour des bijoutiers. Laravel, Vue, Docker.
 hero_panel:
-    - Développement ecommerce et CMS sur WooCommerce, PrestaShop, Shopify et fronts découplés quand le projet le demande.
-    - Développement full stack en Laravel et PHP, APIs, outils internes, cadrage technique, CI-CD pragmatique et delivery ecommerce.
-    - SEO technique, données structurées, flux produit, PIM, catalogues marketing, tracking et data layer au même niveau que la mise en ligne.
+    - Développement ecommerce sur des sites déjà en service.
+    - Intégration ERP, donnée produit, APIs et delivery Laravel.
+    - SEO technique, RGPD, tracking et mise en ligne dans le même cadre.
 focus_areas:
-    - label: Projets de développement
-      title: Reprendre des plateformes ecommerce déjà en charge
-      summary: Une seule page pour lire le cadre, les contextes, les repères recruteur et la manière dont j'aborde des environnements Laravel ou PHP avec de l'histoire.
+    - label: Projets
+      title: Expérience e-commerce
+      summary: Quatre contextes principaux pour lire le parcours, la façon de livrer et les choix techniques qui tiennent en production.
       href: /projects
-      cta: Lire les expériences
+      cta: Voir les projets
       tone: dominant
-    - label: Expériences
-      title: De la santé publique à l'univers HBJO
-      summary: "Santé publique, mobilité européenne, univers HBJO et contextes associatifs ou privés : un même réflexe pour comprendre les usages avant de toucher à la stack."
+    - label: Études de cas
+      title: Incidents, données produit, consentement
+      summary: Cas concrets autour de Docker Swarm, du catalogue, du consentement et des décisions prises en contexte réel.
       href: /case-studies
-      cta: Découvrir les projets
+      cta: Lire les études de cas
       tone: green
-    - label: Localisation
-      title: Grand Est, Nancy
-      summary: "Paris, Metz, Luxembourg, Strasbourg, Großregion, internet : ma toile se tisse à travers les frontières, les langues et les usages."
-      href: /local
-      cta: Voir la localisation
+    - label: Contact
+      title: Nancy, Paris, remote
+      summary: Basé à Nancy. Ouvert à Paris pour le conseil, et au remote pour un cadre de travail clair.
+      href: /contact
+      cta: Me contacter
       tone: coral
 local_teaser:
     title: Grand Est, Nancy
-    summary: "Paris, Metz, Luxembourg, Strasbourg, Großregion, internet : ma toile se tisse à travers les frontières, les langues et les usages."
+    summary: Basé à Nancy, mobile à Paris et disponible en remote selon le contexte.
     points:
-        - Design de l'information publique et interfaces urbaines.
-        - APIs locales, cartographie, logique des transports et clarté des services.
-        - Communautés associatives et culturelles, dont Aremedia.
+        - Grand Est et Paris pour les échanges en présence.
+        - Remote quand le cadre, le produit et l'équipe le permettent.
+        - Parcours entre e-commerce, associatif et outils utiles.
 contact_cta:
-    title: Basé à Nancy, disponible pour un poste, une mission cadrée ou un échange direct.
-    summary: "Refonte, stabilisation, intégration ERP, sujet produit ou SEO technique : écris avec le contexte et on voit si le cadre correspond."
+    title: Basé à Nancy, disponible pour un poste ou une mission ciblée.
+    summary: "Refonte, stabilisation, intégration ERP, SEO technique ou delivery e-commerce : un message direct avec le contexte suffit."
 ---

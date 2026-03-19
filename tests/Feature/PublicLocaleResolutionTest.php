@@ -29,7 +29,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Des systèmes déjà en ligne, avec des contraintes réelles.')
+                ->where('hero.title', 'Projets e-commerce')
                 ->where('site.locale', 'fr')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
@@ -46,7 +46,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.eyebrow', 'Ecommerce, donnée produit et SEO technique')
+                ->where('hero.eyebrow', 'Développeur e-commerce · Nancy')
                 ->where('site.locale', 'fr'));
     }
 
@@ -58,7 +58,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
-                ->where('hero.title', 'Entrer en contact pour un projet digital ou simplement prolonger la visite.')
+                ->where('hero.title', "Parler d'un poste, d'une mission ou d'un sujet précis.")
                 ->where('site.languageSwitcher.visible', true));
     }
 
@@ -263,7 +263,7 @@ MD);
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Live systems, real constraints, steady decisions.')
+                ->where('hero.title', 'Ecommerce projects')
                 ->where('site.locale', 'en')
                 ->where('seo.openGraph.locale', 'en'));
     }
