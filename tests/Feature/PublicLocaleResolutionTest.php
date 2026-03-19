@@ -60,6 +60,15 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertCookie(ResolvePublicLocale::COOKIE_NAME, 'fr');
     }
 
+    public function test_vercel_rewrite_path_query_without_lang_does_not_redirect(): void
+    {
+        $this->withHeaders([
+            'X-Vercel-Id' => 'cdg1::sfo1::test',
+        ])->get('/fr/projects?path=fr%2Fprojects')
+            ->assertOk()
+            ->assertHeader('content-language', 'fr');
+    }
+
     public function test_newly_localized_contact_page_renders_french_content(): void
     {
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
