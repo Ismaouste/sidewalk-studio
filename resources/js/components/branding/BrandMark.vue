@@ -14,7 +14,7 @@ defineProps<{
             :src="branding.uploaded_asset_path"
             :alt="branding.active_alt"
             class="brand-mark__image"
-            loading="eager"
+            loading="lazy"
             decoding="async"
         />
         <div v-else class="brand-mark__fallback">

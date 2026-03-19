@@ -203,7 +203,7 @@ function submitInquiry(): void {
                             src="/images/contact-avatar.png"
                             :alt="copy.portraitAlt"
                             class="contact-page__portrait-image"
-                            loading="eager"
+                            loading="lazy"
                             decoding="async"
                         />
                     </figure>

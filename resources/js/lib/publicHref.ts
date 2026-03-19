@@ -3,21 +3,25 @@ export function resolvePublicHref(
     staticPreview: boolean,
     staticBasePath?: string | null,
 ): string {
-    if (!href.startsWith('/') || !staticPreview) {
-        return href;
+    const sanitizedHref = sanitizePublicHref(href);
+
+    if (!sanitizedHref.startsWith('/') || !staticPreview) {
+        return sanitizedHref;
     }
 
     const normalizedBase = normalizeBasePath(staticBasePath);
 
     if (!normalizedBase || normalizedBase === '/') {
-        return href;
+        return sanitizedHref;
     }
 
-    if (href === '/') {
+    if (sanitizedHref === '/') {
         return normalizedBase;
     }
 
-    return href.startsWith(normalizedBase) ? href : `${normalizedBase}${href.slice(1)}`;
+    return sanitizedHref.startsWith(normalizedBase)
+        ? sanitizedHref
+        : `${normalizedBase}${sanitizedHref.slice(1)}`;
 }
 
 export function localizePublicHref(href: string, locale: string): string {
@@ -25,7 +29,7 @@ export function localizePublicHref(href: string, locale: string): string {
         return href;
     }
 
-    const [pathPart, fragmentPart] = href.split('#', 2);
+    const [pathPart, fragmentPart] = sanitizePublicHref(href).split('#', 2);
     const [pathname, queryString] = pathPart.split('?', 2);
     const normalizedPath = stripLocalePrefix(pathname || '/');
     const localizedPath = normalizedPath === '/'
@@ -49,6 +53,28 @@ function normalizeBasePath(value?: string | null): string {
     }
 
     return `/${trimmed.replace(/^\/+|\/+$/g, '')}/`;
+}
+
+function sanitizePublicHref(href: string): string {
+    if (!href.includes('?')) {
+        return href;
+    }
+
+    const [pathPart, fragmentPart] = href.split('#', 2);
+    const [pathname, queryString] = pathPart.split('?', 2);
+
+    if (!queryString) {
+        return href;
+    }
+
+    const params = new URLSearchParams(queryString);
+    params.delete('path');
+    params.delete('lang');
+
+    const normalizedQuery = params.toString();
+    const fragment = fragmentPart ? `#${fragmentPart}` : '';
+
+    return normalizedQuery ? `${pathname}?${normalizedQuery}${fragment}` : `${pathname}${fragment}`;
 }
 
 function stripLocalePrefix(pathname: string): string {

@@ -1,87 +1,106 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
-import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import AmbientGrid from '@/components/design-system/AmbientGrid.vue';
 import AppFooter from '@/components/layout/AppFooter.vue';
 import AppHeader from '@/components/layout/AppHeader.vue';
 import BreadcrumbTrail from '@/components/layout/BreadcrumbTrail.vue';
-import QuoteLinePreview from '@/components/shared/QuoteLinePreview.vue';
 import { usePageTransitions } from '@/composables/usePageTransitions';
+import { useTheme } from '@/composables/useTheme';
+import { loaderQuotes, type AppLoaderQuote } from '@/data/loaderQuotes';
 import type { SeoPayload, SiteProps } from '@/types';
 
 const page = usePage<{ seo?: SeoPayload; site: SiteProps }>();
 const transitions = usePageTransitions();
-const { isSettling, showOverlay } = transitions;
+const { isSettling } = transitions;
+const { currentTheme } = useTheme();
 
 const breadcrumbs = computed(() => page.props.seo?.breadcrumbs ?? []);
+const LOADER_DISPLAY_MS = 2500;
+const LOADER_FADE_MS = 400;
+const LOADER_QUOTES_TO_SHOW = 3;
+const LOADER_SESSION_KEY = 'sidewalk-loader-seen';
 
-type LoaderLine = {
-    text: string;
-    variant: 'message' | 'quote';
-    author?: string;
-};
-
-const loaderLibrary = computed<LoaderLine[]>(() =>
-    (page.props.site.runtime.loaderQuotes ?? []).map((line) => ({
-        text: line.text,
-        variant: line.type,
-        author: line.author ?? undefined,
-    })),
+const loaderVisible = ref(false);
+const loaderQuoteIndex = ref(0);
+const loaderSelection = ref<AppLoaderQuote[]>([]);
+const currentLoaderQuote = computed(
+    () => loaderSelection.value[loaderQuoteIndex.value] ?? null,
 );
 
-const currentLoaderLine = ref<LoaderLine | null>(null);
-let previousLoaderIndex = -1;
-let localSafetyTimer: number | undefined;
+let loaderAdvanceTimer: number | undefined;
+let loaderExitTimer: number | undefined;
 
-function pickLoaderLine() {
-    const options = loaderLibrary.value;
-
-    if (options.length === 0) {
-        currentLoaderLine.value = null;
-        return;
+function clearLoaderTimers(): void {
+    if (loaderAdvanceTimer !== undefined) {
+        window.clearTimeout(loaderAdvanceTimer);
+        loaderAdvanceTimer = undefined;
     }
 
-    if (options.length === 1) {
-        currentLoaderLine.value = options[0];
-        previousLoaderIndex = 0;
-        return;
+    if (loaderExitTimer !== undefined) {
+        window.clearTimeout(loaderExitTimer);
+        loaderExitTimer = undefined;
     }
-
-    let nextIndex = previousLoaderIndex;
-
-    while (nextIndex === previousLoaderIndex) {
-        nextIndex = Math.floor(Math.random() * options.length);
-    }
-
-    previousLoaderIndex = nextIndex;
-    currentLoaderLine.value = options[nextIndex];
 }
 
-watch(
-    showOverlay,
-    (isVisible) => {
-        if (localSafetyTimer !== undefined) {
-            window.clearTimeout(localSafetyTimer);
-            localSafetyTimer = undefined;
-        }
+function shuffleQuotes(items: AppLoaderQuote[]): AppLoaderQuote[] {
+    return [...items].sort(() => Math.random() - 0.5);
+}
 
-        if (isVisible) {
-            pickLoaderLine();
+function pickLoaderSelection(): AppLoaderQuote[] {
+    const categories =
+        currentTheme.value === 'sunset'
+            ? ['sunset', 'lucid', 'humor']
+            : ['morning', 'lucid', 'humor'];
+    const primaryPool = loaderQuotes.filter((quote) =>
+        categories.includes(quote.category),
+    );
+    const candidatePool =
+        primaryPool.length >= LOADER_QUOTES_TO_SHOW ? primaryPool : loaderQuotes;
 
-            localSafetyTimer = window.setTimeout(() => {
-                transitions.dismissOverlay();
-            }, 2600);
+    return shuffleQuotes(candidatePool).slice(0, LOADER_QUOTES_TO_SHOW);
+}
 
-            return;
-        }
-    },
-    { immediate: true },
-);
+function advanceLoaderSequence(): void {
+    if (loaderQuoteIndex.value < loaderSelection.value.length - 1) {
+        loaderAdvanceTimer = window.setTimeout(() => {
+            loaderQuoteIndex.value += 1;
+            advanceLoaderSequence();
+        }, LOADER_DISPLAY_MS);
+
+        return;
+    }
+
+    loaderExitTimer = window.setTimeout(() => {
+        loaderVisible.value = false;
+    }, LOADER_DISPLAY_MS);
+}
+
+onMounted(() => {
+    if (typeof window === 'undefined') {
+        return;
+    }
+
+    const seen = window.sessionStorage.getItem(LOADER_SESSION_KEY) === '1';
+
+    if (seen) {
+        return;
+    }
+
+    loaderSelection.value = pickLoaderSelection();
+
+    if (loaderSelection.value.length === 0) {
+        return;
+    }
+
+    loaderQuoteIndex.value = 0;
+    loaderVisible.value = true;
+    window.sessionStorage.setItem(LOADER_SESSION_KEY, '1');
+    advanceLoaderSequence();
+});
 
 onBeforeUnmount(() => {
-    if (localSafetyTimer !== undefined) {
-        window.clearTimeout(localSafetyTimer);
-    }
+    clearLoaderTimers();
 });
 </script>
 
@@ -89,36 +108,34 @@ onBeforeUnmount(() => {
     <div class="sw-shell">
         <AmbientGrid />
         <AppHeader />
-        <transition name="sw-loader">
+        <transition name="app-loader-fade">
             <div
-                v-if="showOverlay"
-                class="sw-shell__loader"
+                v-if="loaderVisible"
+                class="app-loader"
                 aria-live="polite"
                 aria-atomic="true"
             >
-                <div class="sw-shell__loader-copy">
-                    <span class="type-meta sw-shell__loader-kicker">
-                        {{
-                            page.props.site.locale === 'fr'
-                                ? 'Chargement'
-                                : 'Loading'
-                        }}
-                    </span>
-                    <div class="sw-shell__loader-text-frame">
-                        <transition name="sw-loader-copy" mode="out-in">
-                            <div
-                                :key="`${currentLoaderLine?.variant ?? 'message'}-${currentLoaderLine?.text ?? ''}-${currentLoaderLine?.author ?? ''}`"
-                                class="sw-shell__loader-text-block"
+                <div class="app-loader__content">
+                    <transition name="app-loader-quote" mode="out-in">
+                        <div
+                            v-if="currentLoaderQuote"
+                            :key="`${loaderQuoteIndex}-${currentLoaderQuote.text}`"
+                            class="app-loader__quote"
+                        >
+                            <p
+                                class="app-loader__text"
+                                :class="{
+                                    'app-loader__text--mono':
+                                        currentLoaderQuote.mono,
+                                }"
                             >
-                                <QuoteLinePreview
-                                    :text="currentLoaderLine?.text ?? ''"
-                                    :type="currentLoaderLine?.variant ?? 'message'"
-                                    :author="currentLoaderLine?.author"
-                                />
-                            </div>
-                        </transition>
-                    </div>
-                    <span class="sw-shell__loader-line" />
+                                « {{ currentLoaderQuote.text }} »
+                            </p>
+                            <p class="app-loader__author">
+                                — {{ currentLoaderQuote.author }}
+                            </p>
+                        </div>
+                    </transition>
                 </div>
             </div>
         </transition>
@@ -146,168 +163,50 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.sw-shell__loader {
+.app-loader {
     position: fixed;
     inset: 0;
-    z-index: var(--sw-z-overlay);
+    z-index: 9999;
     display: grid;
     place-items: center;
     pointer-events: none;
-    overflow: hidden;
-    contain: layout paint style;
-    background:
-        radial-gradient(
-            circle at 50% 38%,
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 10%, transparent),
-            transparent 22%
-        ),
-        radial-gradient(
-            circle at var(--sw-sun-vx, 14%) var(--sw-sun-vy, 10%),
-            color-mix(in srgb, var(--sw-ambient-flare) 10%, transparent),
-            transparent 34%
-        ),
-        radial-gradient(
-            circle at 78% 18%,
-            color-mix(in srgb, var(--sw-ambient-flare-deep) 5%, transparent),
-            transparent 42%
-        ),
-        color-mix(
-            in srgb,
-            var(--sw-bg-base) 24%,
-            var(--sw-ambient-flare-soft) 4%
-        );
-    backdrop-filter: blur(28px);
-    transition:
-        opacity var(--sw-motion-smooth),
-        background var(--sw-motion-smooth),
-        backdrop-filter var(--sw-motion-smooth);
+    background: color-mix(in srgb, var(--sw-bg-base) 96%, transparent);
+    transition: opacity 0.6s ease;
 }
 
-.sw-shell__loader-copy {
+.app-loader__content {
     display: grid;
-    gap: 10px;
-    width: min(30rem, calc(100vw - 2 * var(--sw-space-sm)));
-    padding: clamp(18px, 2.8vw, 24px);
-    border: 0;
-    border-radius: calc(var(--sw-radius-lg) + 4px);
-    background: transparent;
-    box-shadow: none;
-    justify-items: stretch;
-    text-align: left;
-    contain: layout paint style;
+    width: min(31.25rem, calc(100vw - 3rem));
+    padding-inline: 1.5rem;
+    text-align: center;
 }
 
-.sw-shell__loader-text-frame {
-    position: relative;
-    min-height: calc(1.28em * 3 + 1rem + 10px);
-}
-
-.sw-shell__loader-text-block {
+.app-loader__quote {
     display: grid;
-    gap: 10px;
+    gap: 0.75rem;
 }
 
-.sw-shell__loader-kicker {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
+.app-loader__text {
+    margin: 0;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--sw-text-secondary);
+    text-wrap: pretty;
+}
+
+.app-loader__text--mono {
+    font-family: var(--sw-font-code);
+    font-size: 13px;
+    font-style: normal;
+}
+
+.app-loader__author {
+    margin: 0;
+    font-size: 11px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--sw-text-muted);
-}
-
-.sw-shell__loader-text-block :deep(.quote-preview__text) {
-    margin: 0;
-    max-width: 24rem;
-    font-size: clamp(1.02rem, 2vw, 1.18rem);
-    text-wrap: balance;
-    transition: color var(--sw-motion-fast);
-}
-
-.sw-shell__loader-text-block :deep(.quote-preview__author) {
-    min-height: 1rem;
-}
-
-.sw-shell__loader-line {
-    position: relative;
-    display: block;
-    width: min(15rem, 54vw);
-    height: 6px;
-    border-radius: var(--sw-radius-full);
-    overflow: hidden;
-    background: color-mix(
-        in srgb,
-        var(--sw-bg-elevated) 84%,
-        var(--sw-ambient-flare-soft) 16%
-    );
-    border: 1px solid color-mix(in srgb, var(--sw-border) 48%, transparent);
-}
-
-.sw-shell__loader-line::before,
-.sw-shell__loader-line::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-}
-
-.sw-shell__loader-line::before {
-    inset: 0.5px;
-    background:
-        radial-gradient(
-            circle at 18% 50%,
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 94%, transparent),
-            transparent 26%
-        ),
-        radial-gradient(
-            circle at 52% 50%,
-            color-mix(in srgb, var(--sw-ambient-flare) 92%, transparent),
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 82% 50%,
-            color-mix(in srgb, var(--sw-ambient-flare-deep) 84%, transparent),
-            transparent 28%
-        ),
-        linear-gradient(
-            90deg,
-            color-mix(in srgb, var(--sw-ambient-flare-deep) 70%, transparent),
-            color-mix(in srgb, var(--sw-ambient-flare) 92%, white 8%) 36%,
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 94%, white 6%) 68%,
-            color-mix(in srgb, var(--sw-ambient-flare-deep) 76%, transparent)
-        );
-    background-size:
-        34% 170%,
-        38% 200%,
-        30% 170%,
-        220% 100%;
-    background-position:
-        0% 50%,
-        56% 50%,
-        100% 50%,
-        140% 50%;
-    filter: saturate(115%);
-    animation:
-        sw-loader-flow 4.6s linear infinite,
-        sw-loader-pulse 2.4s ease-in-out infinite alternate;
-}
-
-.sw-shell__loader-line::after {
-    inset: -1px;
-    background:
-        linear-gradient(
-            90deg,
-            transparent 0%,
-            transparent 28%,
-            color-mix(in srgb, white 44%, var(--sw-ambient-flare-soft)) 46%,
-            color-mix(in srgb, white 18%, transparent) 54%,
-            transparent 70%,
-            transparent 100%
-        );
-    mix-blend-mode: screen;
-    opacity: 0.72;
-    filter: blur(5px);
-    transform: translateX(-132%);
-    animation: sw-loader-sweep 2.8s ease-in-out infinite;
 }
 
 .sw-main__breadcrumb {
@@ -334,98 +233,32 @@ onBeforeUnmount(() => {
     opacity: 0.98;
 }
 
-.sw-loader-enter-active,
-.sw-loader-leave-active {
-    transition: opacity var(--sw-motion-smooth);
+.app-loader-fade-enter-active,
+.app-loader-fade-leave-active {
+    transition: opacity 0.6s ease;
 }
 
-.sw-loader-enter-from,
-.sw-loader-leave-to {
+.app-loader-fade-enter-from,
+.app-loader-fade-leave-to {
     opacity: 0;
 }
 
-.sw-loader-copy-enter-active,
-.sw-loader-copy-leave-active {
-    transition: opacity 120ms ease;
+.app-loader-quote-enter-active,
+.app-loader-quote-leave-active {
+    transition: opacity 0.4s ease;
 }
 
-.sw-loader-copy-enter-from,
-.sw-loader-copy-leave-to {
+.app-loader-quote-enter-from,
+.app-loader-quote-leave-to {
     opacity: 0;
-}
-
-@keyframes sw-loader-flow {
-    0% {
-        background-position:
-            -12% 46%,
-            50% 54%,
-            108% 48%,
-            140% 50%;
-    }
-
-    50% {
-        background-position:
-            10% 54%,
-            62% 44%,
-            92% 56%,
-            16% 50%;
-    }
-
-    100% {
-        background-position:
-            24% 48%,
-            76% 52%,
-            80% 44%,
-            -112% 50%;
-    }
-}
-
-@keyframes sw-loader-pulse {
-    from {
-        opacity: 0.84;
-        transform: scaleY(0.96);
-    }
-
-    to {
-        opacity: 1;
-        transform: scaleY(1);
-    }
-}
-
-@keyframes sw-loader-sweep {
-    0% {
-        transform: translateX(-132%);
-        opacity: 0;
-    }
-
-    12% {
-        opacity: 0.6;
-    }
-
-    50% {
-        transform: translateX(0%);
-        opacity: 0.82;
-    }
-
-    88% {
-        opacity: 0.38;
-    }
-
-    100% {
-        transform: translateX(132%);
-        opacity: 0;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .sw-shell__loader-line::before,
-    .sw-shell__loader-line::after {
-        animation: none;
-    }
-
     .sw-main__content,
-    .sw-loader-enter-active,
-    .sw-loader-leave-active {
+    .app-loader-fade-enter-active,
+    .app-loader-fade-leave-active,
+    .app-loader-quote-enter-active,
+    .app-loader-quote-leave-active {
         transition: none;
     }
 
@@ -434,14 +267,11 @@ onBeforeUnmount(() => {
     }
 }
 
-:global(html[data-motion='reduced'] .sw-shell__loader-line::before),
-:global(html[data-motion='reduced'] .sw-shell__loader-line::after) {
-    animation: none;
-}
-
 :global(html[data-motion='reduced'] .sw-main__content),
-:global(html[data-motion='reduced'] .sw-loader-enter-active),
-:global(html[data-motion='reduced'] .sw-loader-leave-active) {
+:global(html[data-motion='reduced'] .app-loader-fade-enter-active),
+:global(html[data-motion='reduced'] .app-loader-fade-leave-active),
+:global(html[data-motion='reduced'] .app-loader-quote-enter-active),
+:global(html[data-motion='reduced'] .app-loader-quote-leave-active) {
     transition: none;
 }
 
