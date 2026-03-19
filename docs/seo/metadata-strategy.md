@@ -36,6 +36,7 @@ The canonical domain now resolves through `SITE_PUBLIC_URL` first, then `APP_URL
 - collection detail pages can still carry a content image for UI rendering, with a generated SVG placeholder as fallback when needed
 - binary download endpoints such as `/cv/en` and `/cv/fr` are utility routes and should stay out of page-level metadata flows
 - `/contact` is public but intentionally `noindex,follow`
+- `/{locale}/sparkle` is a hidden easter-egg page, intentionally `noindex,nofollow`, and should stay outside discovery surfaces
 - `/data-processing` remains `noindex,nofollow`
 - canonical public URLs now resolve on locale-prefixed routes such as `/en/projects` and `/fr/journal`
 - legacy query parameters such as `?lang=` and `?path=` must be redirected away before rendering so the canonical browser URL stays clean

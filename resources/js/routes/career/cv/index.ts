@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\SiteController::download
-* @see app/Http/Controllers/SiteController.php:292
+* @see app/Http/Controllers/SiteController.php:307
 * @route '/cv/{locale}'
 */
 export const download = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ download.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::download
-* @see app/Http/Controllers/SiteController.php:292
+* @see app/Http/Controllers/SiteController.php:307
 * @route '/cv/{locale}'
 */
 download.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -45,7 +45,7 @@ download.url = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::download
-* @see app/Http/Controllers/SiteController.php:292
+* @see app/Http/Controllers/SiteController.php:307
 * @route '/cv/{locale}'
 */
 download.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -55,7 +55,7 @@ download.get = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::download
-* @see app/Http/Controllers/SiteController.php:292
+* @see app/Http/Controllers/SiteController.php:307
 * @route '/cv/{locale}'
 */
 download.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -65,7 +65,7 @@ download.head = (args: { locale: string | number } | [locale: string | number ] 
 
 /**
 * @see \App\Http\Controllers\SiteController::download
-* @see app/Http/Controllers/SiteController.php:292
+* @see app/Http/Controllers/SiteController.php:307
 * @route '/cv/{locale}'
 */
 const downloadForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -75,7 +75,7 @@ const downloadForm = (args: { locale: string | number } | [locale: string | numb
 
 /**
 * @see \App\Http\Controllers\SiteController::download
-* @see app/Http/Controllers/SiteController.php:292
+* @see app/Http/Controllers/SiteController.php:307
 * @route '/cv/{locale}'
 */
 downloadForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -85,7 +85,7 @@ downloadForm.get = (args: { locale: string | number } | [locale: string | number
 
 /**
 * @see \App\Http\Controllers\SiteController::download
-* @see app/Http/Controllers/SiteController.php:292
+* @see app/Http/Controllers/SiteController.php:307
 * @route '/cv/{locale}'
 */
 downloadForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

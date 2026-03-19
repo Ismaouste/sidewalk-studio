@@ -202,6 +202,107 @@ experienceForm.head = (args: { locale: string | number } | [locale: string | num
 experience.form = experienceForm
 
 /**
+* @see \App\Http\Controllers\SiteController::sparkle
+* @see app/Http/Controllers/SiteController.php:103
+* @route '/{locale}/sparkle'
+*/
+export const sparkle = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: sparkle.url(args, options),
+    method: 'get',
+})
+
+sparkle.definition = {
+    methods: ["get","head"],
+    url: '/{locale}/sparkle',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\SiteController::sparkle
+* @see app/Http/Controllers/SiteController.php:103
+* @route '/{locale}/sparkle'
+*/
+sparkle.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { locale: args }
+    }
+
+
+    if (Array.isArray(args)) {
+        args = {
+            locale: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
+
+
+    const parsedArgs = {
+        locale: args.locale,
+    }
+
+    return sparkle.definition.url
+            .replace('{locale}', parsedArgs.locale.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\SiteController::sparkle
+* @see app/Http/Controllers/SiteController.php:103
+* @route '/{locale}/sparkle'
+*/
+sparkle.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: sparkle.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\SiteController::sparkle
+* @see app/Http/Controllers/SiteController.php:103
+* @route '/{locale}/sparkle'
+*/
+sparkle.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: sparkle.url(args, options),
+    method: 'head',
+})
+
+/**
+* @see \App\Http\Controllers\SiteController::sparkle
+* @see app/Http/Controllers/SiteController.php:103
+* @route '/{locale}/sparkle'
+*/
+const sparkleForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: sparkle.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\SiteController::sparkle
+* @see app/Http/Controllers/SiteController.php:103
+* @route '/{locale}/sparkle'
+*/
+sparkleForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: sparkle.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\SiteController::sparkle
+* @see app/Http/Controllers/SiteController.php:103
+* @route '/{locale}/sparkle'
+*/
+sparkleForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    action: sparkle.url(args, {
+        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+            _method: 'HEAD',
+            ...(options?.query ?? options?.mergeQuery ?? {}),
+        }
+    }),
+    method: 'get',
+})
+
+sparkle.form = sparkleForm
+
+/**
 * @see \App\Http\Controllers\SiteController::local
 * @see app/Http/Controllers/SiteController.php:68
 * @route '/{locale}/local'
@@ -304,7 +405,7 @@ local.form = localForm
 
 /**
 * @see \App\Http\Controllers\SiteController::projects
-* @see app/Http/Controllers/SiteController.php:103
+* @see app/Http/Controllers/SiteController.php:132
 * @route '/{locale}/projects'
 */
 export const projects = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -319,7 +420,7 @@ projects.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::projects
-* @see app/Http/Controllers/SiteController.php:103
+* @see app/Http/Controllers/SiteController.php:132
 * @route '/{locale}/projects'
 */
 projects.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -348,7 +449,7 @@ projects.url = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::projects
-* @see app/Http/Controllers/SiteController.php:103
+* @see app/Http/Controllers/SiteController.php:132
 * @route '/{locale}/projects'
 */
 projects.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -358,7 +459,7 @@ projects.get = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::projects
-* @see app/Http/Controllers/SiteController.php:103
+* @see app/Http/Controllers/SiteController.php:132
 * @route '/{locale}/projects'
 */
 projects.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -368,7 +469,7 @@ projects.head = (args: { locale: string | number } | [locale: string | number ] 
 
 /**
 * @see \App\Http\Controllers\SiteController::projects
-* @see app/Http/Controllers/SiteController.php:103
+* @see app/Http/Controllers/SiteController.php:132
 * @route '/{locale}/projects'
 */
 const projectsForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -378,7 +479,7 @@ const projectsForm = (args: { locale: string | number } | [locale: string | numb
 
 /**
 * @see \App\Http\Controllers\SiteController::projects
-* @see app/Http/Controllers/SiteController.php:103
+* @see app/Http/Controllers/SiteController.php:132
 * @route '/{locale}/projects'
 */
 projectsForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -388,7 +489,7 @@ projectsForm.get = (args: { locale: string | number } | [locale: string | number
 
 /**
 * @see \App\Http\Controllers\SiteController::projects
-* @see app/Http/Controllers/SiteController.php:103
+* @see app/Http/Controllers/SiteController.php:132
 * @route '/{locale}/projects'
 */
 projectsForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -405,7 +506,7 @@ projects.form = projectsForm
 
 /**
 * @see \App\Http\Controllers\SiteController::labs
-* @see app/Http/Controllers/SiteController.php:212
+* @see app/Http/Controllers/SiteController.php:227
 * @route '/{locale}/labs'
 */
 export const labs = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -420,7 +521,7 @@ labs.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::labs
-* @see app/Http/Controllers/SiteController.php:212
+* @see app/Http/Controllers/SiteController.php:227
 * @route '/{locale}/labs'
 */
 labs.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -449,7 +550,7 @@ labs.url = (args: { locale: string | number } | [locale: string | number ] | str
 
 /**
 * @see \App\Http\Controllers\SiteController::labs
-* @see app/Http/Controllers/SiteController.php:212
+* @see app/Http/Controllers/SiteController.php:227
 * @route '/{locale}/labs'
 */
 labs.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -459,7 +560,7 @@ labs.get = (args: { locale: string | number } | [locale: string | number ] | str
 
 /**
 * @see \App\Http\Controllers\SiteController::labs
-* @see app/Http/Controllers/SiteController.php:212
+* @see app/Http/Controllers/SiteController.php:227
 * @route '/{locale}/labs'
 */
 labs.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -469,7 +570,7 @@ labs.head = (args: { locale: string | number } | [locale: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\SiteController::labs
-* @see app/Http/Controllers/SiteController.php:212
+* @see app/Http/Controllers/SiteController.php:227
 * @route '/{locale}/labs'
 */
 const labsForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -479,7 +580,7 @@ const labsForm = (args: { locale: string | number } | [locale: string | number ]
 
 /**
 * @see \App\Http\Controllers\SiteController::labs
-* @see app/Http/Controllers/SiteController.php:212
+* @see app/Http/Controllers/SiteController.php:227
 * @route '/{locale}/labs'
 */
 labsForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -489,7 +590,7 @@ labsForm.get = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::labs
-* @see app/Http/Controllers/SiteController.php:212
+* @see app/Http/Controllers/SiteController.php:227
 * @route '/{locale}/labs'
 */
 labsForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -506,7 +607,7 @@ labs.form = labsForm
 
 /**
 * @see \App\Http\Controllers\SiteController::contact
-* @see app/Http/Controllers/SiteController.php:238
+* @see app/Http/Controllers/SiteController.php:253
 * @route '/{locale}/contact'
 */
 export const contact = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -521,7 +622,7 @@ contact.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::contact
-* @see app/Http/Controllers/SiteController.php:238
+* @see app/Http/Controllers/SiteController.php:253
 * @route '/{locale}/contact'
 */
 contact.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -550,7 +651,7 @@ contact.url = (args: { locale: string | number } | [locale: string | number ] | 
 
 /**
 * @see \App\Http\Controllers\SiteController::contact
-* @see app/Http/Controllers/SiteController.php:238
+* @see app/Http/Controllers/SiteController.php:253
 * @route '/{locale}/contact'
 */
 contact.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -560,7 +661,7 @@ contact.get = (args: { locale: string | number } | [locale: string | number ] | 
 
 /**
 * @see \App\Http\Controllers\SiteController::contact
-* @see app/Http/Controllers/SiteController.php:238
+* @see app/Http/Controllers/SiteController.php:253
 * @route '/{locale}/contact'
 */
 contact.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -570,7 +671,7 @@ contact.head = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::contact
-* @see app/Http/Controllers/SiteController.php:238
+* @see app/Http/Controllers/SiteController.php:253
 * @route '/{locale}/contact'
 */
 const contactForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -580,7 +681,7 @@ const contactForm = (args: { locale: string | number } | [locale: string | numbe
 
 /**
 * @see \App\Http\Controllers\SiteController::contact
-* @see app/Http/Controllers/SiteController.php:238
+* @see app/Http/Controllers/SiteController.php:253
 * @route '/{locale}/contact'
 */
 contactForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -590,7 +691,7 @@ contactForm.get = (args: { locale: string | number } | [locale: string | number 
 
 /**
 * @see \App\Http\Controllers\SiteController::contact
-* @see app/Http/Controllers/SiteController.php:238
+* @see app/Http/Controllers/SiteController.php:253
 * @route '/{locale}/contact'
 */
 contactForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -607,7 +708,7 @@ contact.form = contactForm
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:267
+* @see app/Http/Controllers/SiteController.php:282
 * @route '/{locale}/data-processing'
 */
 export const dataProcessing = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -622,7 +723,7 @@ dataProcessing.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:267
+* @see app/Http/Controllers/SiteController.php:282
 * @route '/{locale}/data-processing'
 */
 dataProcessing.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -651,7 +752,7 @@ dataProcessing.url = (args: { locale: string | number } | [locale: string | numb
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:267
+* @see app/Http/Controllers/SiteController.php:282
 * @route '/{locale}/data-processing'
 */
 dataProcessing.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -661,7 +762,7 @@ dataProcessing.get = (args: { locale: string | number } | [locale: string | numb
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:267
+* @see app/Http/Controllers/SiteController.php:282
 * @route '/{locale}/data-processing'
 */
 dataProcessing.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -671,7 +772,7 @@ dataProcessing.head = (args: { locale: string | number } | [locale: string | num
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:267
+* @see app/Http/Controllers/SiteController.php:282
 * @route '/{locale}/data-processing'
 */
 const dataProcessingForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -681,7 +782,7 @@ const dataProcessingForm = (args: { locale: string | number } | [locale: string 
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:267
+* @see app/Http/Controllers/SiteController.php:282
 * @route '/{locale}/data-processing'
 */
 dataProcessingForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -691,7 +792,7 @@ dataProcessingForm.get = (args: { locale: string | number } | [locale: string | 
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:267
+* @see app/Http/Controllers/SiteController.php:282
 * @route '/{locale}/data-processing'
 */
 dataProcessingForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -792,7 +893,7 @@ sitemapForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 sitemap.form = sitemapForm
 
 /**
-* @see routes/web.php:161
+* @see routes/web.php:179
 * @route '/robots.txt'
 */
 export const robots = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -806,7 +907,7 @@ robots.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:161
+* @see routes/web.php:179
 * @route '/robots.txt'
 */
 robots.url = (options?: RouteQueryOptions) => {
@@ -818,7 +919,7 @@ robots.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/web.php:161
+* @see routes/web.php:179
 * @route '/robots.txt'
 */
 robots.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -827,7 +928,7 @@ robots.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:161
+* @see routes/web.php:179
 * @route '/robots.txt'
 */
 robots.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -836,7 +937,7 @@ robots.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/web.php:161
+* @see routes/web.php:179
 * @route '/robots.txt'
 */
 const robotsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -845,7 +946,7 @@ const robotsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 })
 
 /**
-* @see routes/web.php:161
+* @see routes/web.php:179
 * @route '/robots.txt'
 */
 robotsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -854,7 +955,7 @@ robotsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:161
+* @see routes/web.php:179
 * @route '/robots.txt'
 */
 robotsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

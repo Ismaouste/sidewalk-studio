@@ -85,6 +85,7 @@ class PublicLocale
         return match ($request->route()?->getName()) {
             'home' => 'home',
             'experience' => 'experience',
+            'sparkle' => 'sparkle',
             'local' => 'local',
             'projects' => 'projects',
             'contact' => 'contact',

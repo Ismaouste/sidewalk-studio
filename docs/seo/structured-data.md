@@ -31,6 +31,7 @@ That means:
 - legacy `/writing` URLs redirect rather than emitting a second structured-data surface
 - binary document downloads do not emit JSON-LD
 - `/data-processing` can keep the default `WebPage` shape, but should not grow richer editorial schema
+- `/{locale}/sparkle` keeps a plain `WebPage` payload and remains intentionally non-indexed
 - the `Person` payload must keep `name`, `jobTitle`, `url`, `email`, `sameAs`, `address`, and `knowsAbout` populated from site settings and author defaults
 
 ## Dual-mode requirement

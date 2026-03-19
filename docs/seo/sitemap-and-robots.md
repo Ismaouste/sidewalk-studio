@@ -18,6 +18,7 @@ The public domain used in sitemap entries resolves from `SITE_PUBLIC_URL` first.
 - legacy routes such as `/about`, `/experience`, `/writing/*`, and non-prefixed public paths redirect and stay out of the sitemap
 - legacy query parameters such as `?lang=` and `?path=` are stripped through redirects and never define a second sitemap entry
 - utility or sandbox surfaces such as `/labs`, `/cv/*`, and `/data-processing` stay out of the sitemap even when publicly reachable
+- hidden easter-egg routes such as `/{locale}/sparkle` and `/madeof` stay public but out of the sitemap
 - utility download routes such as `/cv/en` and `/cv/fr` remain public but excluded from the sitemap
 - `/data-processing` remains public and footer-linked, but excluded and non-indexable
 
@@ -26,5 +27,6 @@ The public domain used in sitemap entries resolves from `SITE_PUBLIC_URL` first.
 - site-wide defaults still come from `site_settings`
 - per-page and per-publication robots directives can now be stored in admin-managed persistence
 - `/contact` is the intentional exception on the public surface and should stay `noindex,follow`
+- `/{locale}/sparkle` should stay `noindex,nofollow` even though it remains directly reachable
 - routes intentionally marked as internal or preproduction should stay out of the sitemap
 - locale-prefixed pages can each appear once in the sitemap when they resolve to real public content

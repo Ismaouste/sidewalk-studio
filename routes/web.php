@@ -34,6 +34,10 @@ Route::prefix('{locale}')
     ->group(function (): void {
         Route::get('/', [SiteController::class, 'home'])->name('home');
         Route::get('/experience', [SiteController::class, 'experience'])->name('experience');
+        Route::get('/madeof', function (string $locale) {
+            return redirect("/{$locale}/sparkle", 302);
+        });
+        Route::get('/sparkle', [SiteController::class, 'sparkle'])->name('sparkle');
         Route::get('/local', [SiteController::class, 'local'])->name('local');
         Route::get('/projects', [SiteController::class, 'projects'])->name('projects');
         Route::get('/labs', [SiteController::class, 'labs'])->name('labs');
@@ -79,6 +83,20 @@ foreach ([
         );
     });
 }
+
+Route::get('/madeof', function (Request $request) {
+    return redirect()->to(
+        PublicLocale::localizedPath('/sparkle', PublicLocale::preferredLocaleForRequest($request)),
+        302,
+    );
+});
+
+Route::get('/sparkle', function (Request $request) {
+    return redirect()->to(
+        PublicLocale::localizedPath('/sparkle', PublicLocale::preferredLocaleForRequest($request)),
+        302,
+    );
+});
 
 Route::get('/experience', function (Request $request) {
     return redirect()->to(

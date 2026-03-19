@@ -100,6 +100,35 @@ class SiteController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
+    public function sparkle(): Response
+    {
+        $settings = $this->siteSettings->current();
+        $page = $this->pages->get('sparkle');
+        $seo = Seo::page(
+            $page['seo_title'],
+            $page['seo_description'],
+            '/sparkle',
+            $this->pageSeoOptions($page, [
+                'robots' => 'noindex,nofollow',
+                'breadcrumb' => [
+                    ['name' => 'Home', 'path' => '/'],
+                    ['name' => 'Sparkle', 'path' => '/sparkle'],
+                ],
+            ]),
+        );
+
+        return Inertia::render('Sparkle', [
+            'seo' => $seo,
+            'hero' => $page['hero'],
+            'project' => $page['project'],
+            'controls' => $page['controls'],
+            'cosmicNotes' => $page['cosmic_notes'],
+            'sparkleFacts' => $page['sparkle_facts'],
+            'repoUrl' => $page['repo_url'] ?: 'https://github.com/Ismaouste/sidewalk-studio',
+            'githubProfileUrl' => $settings->socialLinks->githubUrl,
+        ])->withViewData(['seo' => $seo]);
+    }
+
     public function projects(): Response
     {
         $page = $this->pages->get('projects');

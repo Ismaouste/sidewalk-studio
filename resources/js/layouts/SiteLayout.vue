@@ -20,16 +20,24 @@ const LOADER_DISPLAY_MS = 980;
 const LOADER_FADE_MS = 260;
 const LOADER_QUOTES_TO_SHOW = 2;
 const LOADER_SESSION_KEY = 'sidewalk-loader-seen';
+const LOADER_REPLAY_EVENT = 'sidewalk:loader:replay';
 
 const loaderVisible = ref(false);
 const loaderQuoteIndex = ref(0);
 const loaderSelection = ref<AppLoaderQuote[]>([]);
+const loaderHasFinePointer = ref(false);
+const loaderPointerActive = ref(false);
+const loaderPointerX = ref(0);
+const loaderPointerY = ref(0);
 const currentLoaderQuote = computed(
     () => loaderSelection.value[loaderQuoteIndex.value] ?? null,
 );
 
 let loaderAdvanceTimer: number | undefined;
 let loaderExitTimer: number | undefined;
+let loaderReplayListener: ((event: Event) => void) | null = null;
+let loaderPointerMoveListener: ((event: PointerEvent) => void) | null = null;
+let loaderPointerLeaveListener: (() => void) | null = null;
 
 function clearLoaderTimers(): void {
     if (loaderAdvanceTimer !== undefined) {
@@ -61,6 +69,29 @@ function pickLoaderSelection(): AppLoaderQuote[] {
     return shuffleQuotes(candidatePool).slice(0, LOADER_QUOTES_TO_SHOW);
 }
 
+function startLoaderSequence(force = false): void {
+    if (typeof window === 'undefined') {
+        return;
+    }
+
+    loaderSelection.value = pickLoaderSelection();
+
+    if (loaderSelection.value.length === 0) {
+        return;
+    }
+
+    clearLoaderTimers();
+    loaderQuoteIndex.value = 0;
+    loaderVisible.value = true;
+    loaderPointerActive.value = false;
+
+    if (!force) {
+        window.sessionStorage.setItem(LOADER_SESSION_KEY, '1');
+    }
+
+    advanceLoaderSequence();
+}
+
 function advanceLoaderSequence(): void {
     if (loaderQuoteIndex.value < loaderSelection.value.length - 1) {
         loaderAdvanceTimer = window.setTimeout(() => {
@@ -81,26 +112,57 @@ onMounted(() => {
         return;
     }
 
+    loaderHasFinePointer.value = window.matchMedia('(pointer:fine)').matches;
+
+    loaderReplayListener = () => {
+        startLoaderSequence(true);
+    };
+
+    loaderPointerMoveListener = (event: PointerEvent) => {
+        if (!loaderVisible.value || !loaderHasFinePointer.value) {
+            return;
+        }
+
+        loaderPointerX.value = event.clientX;
+        loaderPointerY.value = event.clientY;
+        loaderPointerActive.value = true;
+    };
+
+    loaderPointerLeaveListener = () => {
+        loaderPointerActive.value = false;
+    };
+
+    window.addEventListener(LOADER_REPLAY_EVENT, loaderReplayListener);
+    window.addEventListener('pointermove', loaderPointerMoveListener, {
+        passive: true,
+    });
+    window.addEventListener('pointerleave', loaderPointerLeaveListener);
+
     const seen = window.sessionStorage.getItem(LOADER_SESSION_KEY) === '1';
 
     if (seen) {
         return;
     }
 
-    loaderSelection.value = pickLoaderSelection();
-
-    if (loaderSelection.value.length === 0) {
-        return;
-    }
-
-    loaderQuoteIndex.value = 0;
-    loaderVisible.value = true;
-    window.sessionStorage.setItem(LOADER_SESSION_KEY, '1');
-    advanceLoaderSequence();
+    startLoaderSequence();
 });
 
 onBeforeUnmount(() => {
     clearLoaderTimers();
+
+    if (typeof window !== 'undefined') {
+        if (loaderReplayListener !== null) {
+            window.removeEventListener(LOADER_REPLAY_EVENT, loaderReplayListener);
+        }
+
+        if (loaderPointerMoveListener !== null) {
+            window.removeEventListener('pointermove', loaderPointerMoveListener);
+        }
+
+        if (loaderPointerLeaveListener !== null) {
+            window.removeEventListener('pointerleave', loaderPointerLeaveListener);
+        }
+    }
 });
 </script>
 
@@ -115,6 +177,17 @@ onBeforeUnmount(() => {
                 aria-live="polite"
                 aria-atomic="true"
             >
+                <span
+                    v-if="loaderHasFinePointer"
+                    class="app-loader__cursor-halo"
+                    :class="`app-loader__cursor-halo--${currentTheme}`"
+                    :style="{
+                        left: `${loaderPointerX}px`,
+                        top: `${loaderPointerY}px`,
+                        opacity: loaderPointerActive ? '1' : '0',
+                    }"
+                    aria-hidden="true"
+                />
                 <div class="app-loader__content">
                     <transition name="app-loader-quote" mode="out-in">
                         <div
@@ -207,6 +280,8 @@ onBeforeUnmount(() => {
 }
 
 .app-loader__content {
+    position: relative;
+    z-index: 1;
     display: grid;
     align-items: start;
     justify-items: start;
@@ -214,6 +289,38 @@ onBeforeUnmount(() => {
     width: min(34rem, calc(100vw - 2rem));
     padding-inline: 0;
     text-align: left;
+}
+
+.app-loader__cursor-halo {
+    position: fixed;
+    z-index: 0;
+    width: clamp(7rem, 11vw, 10rem);
+    aspect-ratio: 1;
+    border-radius: 999px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    filter: blur(18px);
+    transition: opacity 160ms ease;
+}
+
+.app-loader__cursor-halo--morning {
+    background:
+        radial-gradient(
+            circle,
+            color-mix(in srgb, var(--sw-accent-green) 26%, transparent),
+            color-mix(in srgb, var(--sw-accent-sun) 16%, transparent) 38%,
+            transparent 72%
+        );
+}
+
+.app-loader__cursor-halo--sunset {
+    background:
+        radial-gradient(
+            circle,
+            color-mix(in srgb, var(--sw-accent-violet) 30%, transparent),
+            color-mix(in srgb, var(--sw-accent-coral) 18%, transparent) 36%,
+            transparent 72%
+        );
 }
 
 .app-loader__rail {

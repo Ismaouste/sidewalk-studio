@@ -54,6 +54,8 @@ class PublicPagesTest extends TestCase
             ->assertSee('<?xml version="1.0" encoding="UTF-8"?>', false)
             ->assertDontSee(url('/experience'), false)
             ->assertDontSee(url('/en/labs'), false)
+            ->assertDontSee(url('/en/sparkle'), false)
+            ->assertDontSee(url('/fr/sparkle'), false)
             ->assertSee(url('/en/projects'), false)
             ->assertSee(url('/fr/projects'), false)
             ->assertSee(url('/en/local'), false)
@@ -66,6 +68,19 @@ class PublicPagesTest extends TestCase
             ->assertSee(url('/fr/case-studies'), false)
             ->assertSee(url('/en/journal/content-systems-routing-and-metadata'), false)
             ->assertSee(url('/fr/journal/content-systems-routing-and-metadata'), false);
+    }
+
+    public function test_hidden_sparkle_page_is_public_but_redirects_cleanly(): void
+    {
+        $this->get('/sparkle')
+            ->assertRedirect('/en/sparkle');
+
+        $this->get('/madeof')
+            ->assertRedirect('/en/sparkle');
+
+        $this->get('/fr/sparkle')
+            ->assertOk()
+            ->assertSee('Sparkle mode · Ismaël Rodmacq');
     }
 
     public function test_french_projects_page_uses_current_markdown_content(): void

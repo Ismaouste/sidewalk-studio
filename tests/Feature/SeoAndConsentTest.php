@@ -84,6 +84,14 @@ class SeoAndConsentTest extends TestCase
             ->assertSee('<meta name="robots" content="noindex,follow">', false);
     }
 
+    public function test_sparkle_page_is_explicitly_noindex_nofollow(): void
+    {
+        $this->get('/en/sparkle')
+            ->assertOk()
+            ->assertSee('<meta name="robots" content="noindex,nofollow">', false)
+            ->assertSee('Sparkle mode · Ismael Rodmacq');
+    }
+
     public function test_default_description_stays_within_155_characters(): void
     {
         $description = app(SiteSettingsService::class)->current()->seoDefaults->defaultDescription;
