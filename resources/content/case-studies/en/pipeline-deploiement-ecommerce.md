@@ -1,6 +1,6 @@
 ---
 title: Making a deployment pipeline honest in a live ecommerce environment
-slug: pipeline-deploiement-crown-dp
+slug: pipeline-deploiement-ecommerce
 summary: "An ecommerce case study about silent Docker Swarm rollbacks, misleading deployment signals, and the work of making the final state verifiable."
 status: published
 published_at: 2026-03-18
@@ -16,7 +16,7 @@ category: work
 publication_type: case_study
 accent_tone: dominant
 schema: creative_work
-canonical: "{{site_url}}/en/case-studies/pipeline-deploiement-crown-dp"
+canonical: "{{site_url}}/en/case-studies/pipeline-deploiement-ecommerce"
 ogImage: /images/og/site-default.jpg
 client: Jewely / Flippad
 role: Incident analysis and deployment hardening

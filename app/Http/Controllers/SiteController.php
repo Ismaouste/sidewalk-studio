@@ -182,6 +182,7 @@ class SiteController extends Controller
                 'tag' => 'notes-dev',
                 'publication_type' => 'note',
                 'limit' => 2,
+                'exclude_slugs' => $this->projectJournalExcludedSlugs(),
             ]),
             'referenceWidget' => $this->publicationWidget([
                 'eyebrow' => app()->getLocale() === 'fr' ? 'Références' : 'References',
@@ -328,7 +329,8 @@ class SiteController extends Controller
      *   tag?: string,
      *   category?: string,
      *   publication_type?: string,
-     *   limit?: int
+     *   limit?: int,
+     *   exclude_slugs?: array<int, string>
      * }  $options
      * @return array<string, mixed>
      */
@@ -341,6 +343,25 @@ class SiteController extends Controller
             : null;
 
         $ctaHref = $presentation['cta_target'] ?? $options['ctaHref'];
+        $items = $this->content->feed($options['sections'], [
+            'locale' => app()->getLocale(),
+            'include_fallback' => false,
+            'tag' => $options['tag'] ?? null,
+            'category' => $options['category'] ?? null,
+            'publication_type' => $options['publication_type'] ?? null,
+        ])->values();
+
+        if (! empty($options['exclude_slugs'])) {
+            $excludedSlugs = $options['exclude_slugs'];
+
+            $items = $items->reject(
+                fn (array $item): bool => in_array($item['slug'], $excludedSlugs, true),
+            )->values();
+        }
+
+        if (! empty($options['limit'])) {
+            $items = $items->take((int) $options['limit'])->values();
+        }
 
         return [
             'eyebrow' => $options['eyebrow'],
@@ -349,15 +370,18 @@ class SiteController extends Controller
             'ctaLabel' => $presentation['cta_label'] ?? $options['ctaLabel'],
             'ctaHref' => $ctaHref !== '' ? PublicLocale::localizedPath($ctaHref) : '',
             'accentColor' => $presentation['accent_color'] ?? null,
-            'items' => $this->content->feed($options['sections'], [
-                'locale' => app()->getLocale(),
-                'include_fallback' => false,
-                'tag' => $options['tag'] ?? null,
-                'category' => $options['category'] ?? null,
-                'publication_type' => $options['publication_type'] ?? null,
-                'limit' => $options['limit'] ?? 2,
-            ])->values(),
+            'items' => $items,
         ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function projectJournalExcludedSlugs(): array
+    {
+        return app()->getLocale() === 'fr'
+            ? ['ytmusic-liked-sorter', 'volontariat-njp-et-petits-outils']
+            : ['ytmusic-liked-sorter', 'njp-volunteering-and-small-tools'];
     }
 
     /**

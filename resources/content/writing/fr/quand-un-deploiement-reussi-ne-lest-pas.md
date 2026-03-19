@@ -23,7 +23,7 @@ Le problème ne commençait pas dans le code applicatif. Il commençait au momen
 
 ## Problème
 
-Le cas rencontré sur Crown DP était simple à résumer et pénible à diagnostiquer. Un `docker service update` se passait sans bruit, le job CI restait vert, puis le service repassait parfois sur l'ancienne image après un rollback automatique. À la lecture du pipeline, le correctif semblait livré. En production, rien n'avait vraiment changé.
+Le cas rencontré côté client était simple à résumer et pénible à diagnostiquer. Un `docker service update` se passait sans bruit, le job CI restait vert, puis le service repassait parfois sur l'ancienne image après un rollback automatique. À la lecture du pipeline, le correctif semblait livré. En production, rien n'avait vraiment changé.
 
 Ce type de faux positif coûte cher. Il abîme la confiance dans l'outillage, la lecture des incidents et la coordination d'équipe. On peut commencer à déboguer au mauvais endroit, ou annoncer une correction alors que la bonne image n'a jamais été effectivement prise en compte.
 
@@ -35,13 +35,14 @@ Concrètement, cela veut dire vérifier l'image réellement retenue après le d�
 
 ```bash
 expected_image="$REGISTRY/$APP_IMAGE:$IMAGE_TAG"
+service_name="$APP_SERVICE"
 
 docker service update \
   --with-registry-auth \
   --image "$expected_image" \
-  crown-dp_app
+  "$service_name"
 
-current_image="$(docker service inspect crown-dp_app \
+current_image="$(docker service inspect "$service_name" \
   --format '{{.Spec.TaskTemplate.ContainerSpec.Image}}')"
 
 if [[ "$current_image" != *"$IMAGE_TAG"* ]]; then
@@ -60,4 +61,4 @@ Dans un contexte ecommerce, c'est essentiel. Quand un correctif catalogue, front
 
 J'aime bien ce type de correction parce qu'elle remet le sujet à la bonne échelle. Il ne s'agissait pas de bâtir une chaîne plus spectaculaire. Il s'agissait de réduire l'écart entre le signal affiché et l'état réellement déployé. C'est souvent là qu'une partie importante du travail de fiabilité se joue.
 
-Cette réflexion prolonge directement le cas d'étude [Rendre un pipeline de déploiement honnête en environnement e-commerce](/fr/case-studies/pipeline-deploiement-crown-dp), où le problème et le durcissement sont racontés à l'échelle du projet. Elle rejoint aussi [Les systèmes de contenu commencent par le routage et les métadonnées](/fr/journal/content-systems-routing-and-metadata), parce que dans les deux cas le sujet profond reste le même : réduire l'écart entre ce qu'un système affirme et ce qu'il fait réellement.
+Cette réflexion prolonge directement le cas d'étude [Rendre un pipeline de déploiement honnête en environnement e-commerce](/fr/case-studies/pipeline-deploiement-ecommerce), où le problème et le durcissement sont racontés à l'échelle du projet. Elle rejoint aussi [Les systèmes de contenu commencent par le routage et les métadonnées](/fr/journal/content-systems-routing-and-metadata), parce que dans les deux cas le sujet profond reste le même : réduire l'écart entre ce qu'un système affirme et ce qu'il fait réellement.

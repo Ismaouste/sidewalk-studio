@@ -78,7 +78,7 @@ class PublicPagesTest extends TestCase
                 ->where('hero.title', 'Projets e-commerce')
                 ->where(
                     'professionalSections.0.detail_groups.0.items.0',
-                    'Core partagé, thèmes par client, connecteurs métier et delivery continu.',
+                    'Core partagé, thèmes par client, connecteurs métier, delivery continu et coordination entre ERP, catalogue et front.',
                 )
                 ->where('professionalSections.0.title', 'Jewely E-commerce')
                 ->where('associativeSections.0.title', 'Aremedia')

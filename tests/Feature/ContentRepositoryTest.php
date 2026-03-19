@@ -60,9 +60,9 @@ class ContentRepositoryTest extends TestCase
 
     public function test_repository_returns_case_study_details(): void
     {
-        $item = app(ContentRepository::class)->findPublished('case-studies', 'pipeline-deploiement-crown-dp');
+        $item = app(ContentRepository::class)->findPublished('case-studies', 'pipeline-deploiement-ecommerce');
 
-        $this->assertSame('Jewely / Flippad · Crown DP', $item['client']);
+        $this->assertSame('Jewely / Flippad', $item['client']);
         $this->assertSame('en', $item['locale']);
         $this->assertContains('Docker Swarm', $item['stack']);
         $this->assertSame('work', $item['category']);
@@ -80,7 +80,7 @@ class ContentRepositoryTest extends TestCase
         $record = Publication::query()
             ->where('type', 'case_study')
             ->where('locale', 'fr')
-            ->where('slug', 'pipeline-deploiement-crown-dp')
+            ->where('slug', 'pipeline-deploiement-ecommerce')
             ->firstOrFail();
 
         $metadata = $record->metadata ?? [];
@@ -91,7 +91,7 @@ class ContentRepositoryTest extends TestCase
             'metadata' => $metadata,
         ])->save();
 
-        $item = app(ContentRepository::class)->findPublished('case-studies', 'pipeline-deploiement-crown-dp', 'fr');
+        $item = app(ContentRepository::class)->findPublished('case-studies', 'pipeline-deploiement-ecommerce', 'fr');
 
         $this->assertSame(
             'Analyse incident et stabilisation du déploiement',

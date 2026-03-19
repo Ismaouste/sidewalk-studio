@@ -52,7 +52,7 @@ professional_sections:
       summary: Docker Swarm deployment on AWS. Automatic pipeline through EventBridge, Lambda, and SSM, then hardening after a disk incident.
       paragraphs:
           - The work focused on deployment automation, clearer execution feedback, and guardrails when production lies.
-          - After the incident, the goal was simple: make the pipeline verifiable, less misleading, and calmer to run.
+          - "After the incident, the goal was simple: make the pipeline verifiable, less misleading, and calmer to run."
       detail_groups:
           - title: Stack
             pills:

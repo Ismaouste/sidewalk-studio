@@ -199,7 +199,7 @@ MD);
                 ->where(
                     'items',
                     fn ($items): bool => collect($items)->contains(
-                        fn (array $item): bool => $item['slug'] === 'pipeline-deploiement-crown-dp',
+                        fn (array $item): bool => $item['slug'] === 'pipeline-deploiement-ecommerce',
                     ),
                 )
                 ->where('site.languageSwitcher.visible', true)
@@ -208,10 +208,10 @@ MD);
 
     public function test_case_study_detail_renders_localized_french_entry_with_stable_canonical_url(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/fr/case-studies/pipeline-deploiement-crown-dp';
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/case-studies/pipeline-deploiement-ecommerce';
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/fr/case-studies/pipeline-deploiement-crown-dp')
+            ->get('/fr/case-studies/pipeline-deploiement-ecommerce')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
@@ -219,7 +219,7 @@ MD);
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
                 ->where('item.locale', 'fr')
-                ->where('item.title', 'Crown DP, ou comment rendre un pipeline de déploiement honnête')
+                ->where('item.title', 'Rendre un pipeline de déploiement honnête en environnement e-commerce')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
     }
