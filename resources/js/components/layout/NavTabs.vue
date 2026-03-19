@@ -285,6 +285,8 @@ onBeforeUnmount(() => {
     border: 1px solid color-mix(in srgb, var(--sw-border) 86%, transparent);
     border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-surface) 84%, transparent);
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
     padding-inline: 1rem;
     color: var(--sw-text-primary);
     transition:
@@ -298,6 +300,7 @@ onBeforeUnmount(() => {
     gap: 2px;
     padding-left: 4px;
     text-align: left;
+    opacity: 1;
 }
 
 .nav-tabs__trigger-label {
@@ -307,6 +310,7 @@ onBeforeUnmount(() => {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
+    opacity: 1;
 }
 
 .nav-tabs__trigger-current {
@@ -314,6 +318,7 @@ onBeforeUnmount(() => {
     font-size: 14px;
     font-weight: 600;
     line-height: 1.15;
+    opacity: 1;
 }
 
 .nav-tabs__trigger-icon {
@@ -321,6 +326,7 @@ onBeforeUnmount(() => {
     width: 18px;
     height: 14px;
     flex: none;
+    opacity: 1;
 }
 
 .nav-tabs__trigger-icon span {
@@ -354,7 +360,7 @@ onBeforeUnmount(() => {
 .nav-tabs__trigger--open {
     border-color: color-mix(in srgb, var(--sw-border) 92%, transparent);
     background: color-mix(in srgb, var(--sw-bg-grid) 82%, transparent);
-    color: color-mix(in srgb, var(--sw-text-secondary) 88%, var(--sw-text-primary));
+    color: var(--sw-text-primary);
 }
 
 .nav-tabs__viewport {
@@ -365,17 +371,17 @@ onBeforeUnmount(() => {
     width: 100%;
     min-width: 100%;
     max-height: 0;
-    opacity: 0;
+    opacity: 1;
+    visibility: hidden;
     pointer-events: none;
     overflow: hidden;
     z-index: 6;
-    transition:
-        max-height 140ms ease,
-        opacity 90ms ease;
+    transition: max-height 140ms ease;
 }
 
 .nav-tabs__viewport--open {
     max-height: 22rem;
+    visibility: visible;
     opacity: 1;
     pointer-events: auto;
 }
@@ -385,6 +391,10 @@ onBeforeUnmount(() => {
     gap: 10px;
     width: 100%;
     padding: 12px;
+    border-radius: calc(var(--sw-radius-lg) + 2px);
+    background: color-mix(in srgb, var(--sw-bg-surface) 72%, transparent);
+    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .nav-tabs__link {
@@ -408,15 +418,10 @@ onBeforeUnmount(() => {
     color: var(--sw-text-primary);
     -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
     backdrop-filter: var(--sw-surface-backdrop-filter);
-    opacity: 0;
-    transform: translateY(-6px);
     transition:
         background-color 90ms ease,
         border-color 90ms ease,
-        color 90ms ease,
-        opacity 120ms ease,
-        opacity 140ms ease,
-        transform 140ms ease;
+        color 90ms ease;
 }
 
 .nav-tabs__link::after {
@@ -463,23 +468,7 @@ onBeforeUnmount(() => {
 .nav-tabs__link > * {
     position: relative;
     z-index: 1;
-}
-
-.nav-tabs__viewport--open .nav-tabs__link {
     opacity: 1;
-    transform: translateY(0);
-}
-
-.nav-tabs__viewport--open .nav-tabs__link:nth-child(1) {
-    transition-delay: 10ms;
-}
-
-.nav-tabs__viewport--open .nav-tabs__link:nth-child(2) {
-    transition-delay: 20ms;
-}
-
-.nav-tabs__viewport--open .nav-tabs__link:nth-child(3) {
-    transition-delay: 30ms;
 }
 
 .nav-tabs__link-label {
@@ -487,6 +476,7 @@ onBeforeUnmount(() => {
     font-size: 14px;
     font-weight: 600;
     line-height: 1.2;
+    opacity: 1;
 }
 
 .nav-tabs__link-meta {
@@ -499,6 +489,7 @@ onBeforeUnmount(() => {
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
+    opacity: 1;
 }
 
 .nav-tabs__link-meta::after {
@@ -613,6 +604,7 @@ onBeforeUnmount(() => {
         position: static;
         max-height: none;
         opacity: 1;
+        visibility: visible;
         pointer-events: auto;
         overflow: visible;
         z-index: auto;

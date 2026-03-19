@@ -193,17 +193,42 @@ onBeforeUnmount(() => {
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    background: color-mix(in srgb, var(--sw-bg-base) 90%, transparent);
-    transition: opacity 0.48s ease;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 18% 18%,
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 14%, transparent),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 82% 22%,
+            color-mix(in srgb, var(--sw-ambient-flare) 12%, transparent),
+            transparent 36%
+        ),
+        radial-gradient(
+            circle at 50% 72%,
+            color-mix(in srgb, var(--sw-ambient-flare-deep) 10%, transparent),
+            transparent 42%
+        ),
+        color-mix(in srgb, var(--sw-bg-base) 34%, transparent);
+    -webkit-backdrop-filter: blur(calc(var(--sw-runtime-surface-blur, 20px) * 1.2))
+        saturate(1.06);
+    backdrop-filter: blur(calc(var(--sw-runtime-surface-blur, 20px) * 1.2))
+        saturate(1.06);
+    transition:
+        opacity 0.48s ease,
+        background-color 0.48s ease,
+        -webkit-backdrop-filter 0.48s ease,
+        backdrop-filter 0.48s ease;
 }
 
 .app-loader__content {
     display: grid;
-    grid-template-columns: 4px minmax(0, 1fr);
+    grid-template-columns: 10px minmax(0, 1fr);
     align-items: start;
-    gap: 0.9rem;
-    width: min(32rem, calc(100vw - 2.5rem));
-    padding-inline: 1.1rem;
+    gap: 0.95rem;
+    width: min(34rem, calc(100vw - 2rem));
+    padding-inline: 0;
     text-align: left;
 }
 
@@ -213,32 +238,123 @@ onBeforeUnmount(() => {
 }
 
 .app-loader__rail {
+    position: relative;
     display: block;
-    width: 4px;
-    min-height: clamp(5.75rem, 14vh, 7.75rem);
+    width: 10px;
+    min-height: clamp(6rem, 14vh, 8.1rem);
     border-radius: 999px;
-    background-size: 170% 170%;
-    animation:
-        app-loader-rail-shift 5.8s ease-in-out infinite,
-        app-loader-rail-glow 8.4s linear infinite;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--sw-bg-elevated) 74%, transparent);
+    border: 1px solid color-mix(in srgb, var(--sw-border) 44%, transparent);
+    box-shadow:
+        inset 0 0 0 1px color-mix(in srgb, white 8%, transparent),
+        0 0 24px color-mix(in srgb, var(--app-loader-rail-glow) 34%, transparent);
 }
 
 .app-loader__rail--morning {
-    background-image: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--sw-accent-dominant) 78%, white 22%),
-        color-mix(in srgb, var(--sw-accent-green) 36%, var(--sw-accent-sun) 64%),
-        color-mix(in srgb, var(--sw-accent-dominant) 88%, var(--sw-accent-coral) 12%)
+    --app-loader-rail-bright: color-mix(
+        in srgb,
+        var(--sw-accent-dominant) 78%,
+        white 22%
     );
+    --app-loader-rail-core: color-mix(
+        in srgb,
+        var(--sw-accent-green) 42%,
+        var(--sw-accent-sun) 58%
+    );
+    --app-loader-rail-deep: color-mix(
+        in srgb,
+        var(--sw-accent-dominant) 84%,
+        var(--sw-accent-coral) 16%
+    );
+    --app-loader-rail-glow: var(--sw-accent-green);
 }
 
 .app-loader__rail--sunset {
-    background-image: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--sw-accent-violet) 72%, white 28%),
-        color-mix(in srgb, var(--sw-accent-sun) 58%, var(--sw-accent-coral) 42%),
-        color-mix(in srgb, var(--sw-accent-violet) 52%, var(--sw-accent-sun) 48%)
+    --app-loader-rail-bright: color-mix(
+        in srgb,
+        var(--sw-accent-violet) 72%,
+        white 28%
     );
+    --app-loader-rail-core: color-mix(
+        in srgb,
+        var(--sw-accent-sun) 58%,
+        var(--sw-accent-coral) 42%
+    );
+    --app-loader-rail-deep: color-mix(
+        in srgb,
+        var(--sw-accent-violet) 54%,
+        var(--sw-accent-sun) 46%
+    );
+    --app-loader-rail-glow: var(--sw-accent-violet);
+}
+
+.app-loader__rail::before,
+.app-loader__rail::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.app-loader__rail::before {
+    inset: 1px;
+    background:
+        radial-gradient(
+            circle at 50% 16%,
+            color-mix(in srgb, var(--app-loader-rail-bright) 96%, transparent),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            color-mix(in srgb, var(--app-loader-rail-core) 92%, transparent),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 50% 84%,
+            color-mix(in srgb, var(--app-loader-rail-deep) 88%, transparent),
+            transparent 28%
+        ),
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--app-loader-rail-deep) 74%, transparent),
+            var(--app-loader-rail-core) 34%,
+            var(--app-loader-rail-bright) 62%,
+            color-mix(in srgb, var(--app-loader-rail-deep) 78%, transparent)
+        );
+    background-size:
+        170% 34%,
+        188% 42%,
+        170% 34%,
+        100% 220%;
+    background-position:
+        50% -10%,
+        50% 50%,
+        50% 106%,
+        50% 140%;
+    filter: saturate(118%);
+    animation:
+        app-loader-rail-flow 4.6s linear infinite,
+        app-loader-rail-pulse 2.4s ease-in-out infinite alternate;
+}
+
+.app-loader__rail::after {
+    inset: -1px;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        transparent 28%,
+        color-mix(in srgb, white 44%, var(--app-loader-rail-bright)) 46%,
+        color-mix(in srgb, white 18%, transparent) 54%,
+        transparent 72%,
+        transparent 100%
+    );
+    mix-blend-mode: screen;
+    opacity: 0.72;
+    filter: blur(4px);
+    transform: translateY(-132%);
+    animation: app-loader-rail-sweep 2.8s ease-in-out infinite;
 }
 
 .app-loader__stack {
@@ -256,7 +372,9 @@ onBeforeUnmount(() => {
     font-size: 15px;
     font-style: italic;
     line-height: 1.55;
-    color: var(--sw-text-secondary);
+    max-width: 26rem;
+    color: color-mix(in srgb, var(--sw-text-primary) 86%, var(--sw-text-secondary));
+    text-shadow: 0 1px 0 color-mix(in srgb, var(--sw-bg-base) 26%, transparent);
     text-wrap: pretty;
 }
 
@@ -282,6 +400,8 @@ onBeforeUnmount(() => {
     align-items: flex-start;
     justify-content: flex-start;
     background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
 
 .app-loader--transition .app-loader__content {
@@ -290,8 +410,8 @@ onBeforeUnmount(() => {
 }
 
 .app-loader--transition .app-loader__rail {
-    min-height: 3.25rem;
-    opacity: 0.88;
+    min-height: 3.4rem;
+    width: 8px;
 }
 
 .sw-main__content {
@@ -334,43 +454,66 @@ onBeforeUnmount(() => {
     opacity: 0;
 }
 
-@keyframes app-loader-rail-shift {
+@keyframes app-loader-rail-flow {
     0% {
-        background-position: 0% 12%;
+        background-position:
+            50% -10%,
+            50% 44%,
+            50% 108%,
+            50% 140%;
     }
 
-    23% {
-        background-position: 86% 42%;
-    }
-
-    51% {
-        background-position: 22% 88%;
-    }
-
-    79% {
-        background-position: 100% 24%;
+    50% {
+        background-position:
+            50% 12%,
+            50% 56%,
+            50% 92%,
+            50% 18%;
     }
 
     100% {
-        background-position: 0% 12%;
+        background-position:
+            50% 28%,
+            50% 72%,
+            50% 80%,
+            50% -112%;
     }
 }
 
-@keyframes app-loader-rail-glow {
-    0%,
-    100% {
-        opacity: 0.88;
+@keyframes app-loader-rail-pulse {
+    from {
+        opacity: 0.86;
+        transform: scaleY(0.96);
+    }
+
+    to {
+        opacity: 1;
         transform: scaleY(1);
     }
+}
 
-    35% {
-        opacity: 1;
-        transform: scaleY(1.04);
+@keyframes app-loader-rail-sweep {
+    0% {
+        transform: translateY(-132%);
+        opacity: 0;
     }
 
-    68% {
-        opacity: 0.78;
-        transform: scaleY(0.97);
+    12% {
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateY(0%);
+        opacity: 0.82;
+    }
+
+    88% {
+        opacity: 0.38;
+    }
+
+    100% {
+        transform: translateY(132%);
+        opacity: 0;
     }
 }
 
@@ -378,12 +521,11 @@ onBeforeUnmount(() => {
     .app-loader__content {
         width: calc(100vw - 2rem);
         gap: 0.75rem;
-        padding-inline: 0.25rem;
     }
 
     .app-loader__rail {
-        width: 3px;
-        min-height: 5.1rem;
+        width: 9px;
+        min-height: 5.4rem;
     }
 }
 
