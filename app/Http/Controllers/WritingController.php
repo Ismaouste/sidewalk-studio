@@ -17,10 +17,10 @@ class WritingController extends Controller
     {
         $isFrench = app()->getLocale() === 'fr';
         $seo = Seo::page(
-            'Journal',
+            $isFrench ? 'Blog technique e-commerce PHP' : 'Journal',
             $isFrench
-                ? "Notes sur l'architecture, l'orchestration du consentement, la modelisation de contenu et la conception d'un portfolio systeme."
-                : 'Notes on architecture, consent orchestration, content modeling, and portfolio system design.',
+                ? "Blog technique sur l'e-commerce PHP, Laravel, l'orchestration du consentement, la modélisation de contenu et les détails qui comptent vraiment en production."
+                : 'Technical notes on ecommerce PHP, Laravel, consent orchestration, content modeling, and the details that matter in production.',
             '/journal',
             [
                 'robots' => 'index,follow',

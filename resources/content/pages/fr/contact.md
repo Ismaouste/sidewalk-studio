@@ -1,10 +1,10 @@
 ---
 seo_title: Contact
-seo_description: Point de contact pour parler de projets web, d'outils internes, de gestion digitale, de connecteurs ou simplement prolonger la visite du studio.
+seo_description: Point de contact pour parler de projets web, de missions remote, d'un besoin de tech lead freelance à Nancy ou d'un sujet ecommerce et intégration.
 hero:
     eyebrow: Contact
     title: Entrer en contact pour un projet digital ou simplement prolonger la visite.
-    summary: Basé à Nancy. Disponible pour un poste, des missions, ou un échange autour d'un sujet ecommerce, produit ou intégration. Je suis plus utile là où il faut comprendre un existant, arbitrer des contraintes réelles et remettre un système d'aplomb avec l'équipe.
+    summary: Basé à Nancy. Disponible pour des missions, un poste ou un échange autour d'un sujet ecommerce, produit ou intégration. Je peux intervenir en remote, en hybride ou localement, et je suis plus utile là où il faut comprendre un existant, arbitrer des contraintes réelles et remettre un système d'aplomb avec l'équipe.
 form:
     eyebrow: Partager le contexte
     title: Un premier message simple, et la conversation peut commencer.

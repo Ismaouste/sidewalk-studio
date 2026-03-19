@@ -1,6 +1,6 @@
 ---
-seo_title: Parcours
-seo_description: Parcours professionnel autour de l'ecommerce, de la donnée produit, du SEO technique, des intégrations métier et de la modernisation de systèmes vivants.
+seo_title: Parcours de tech lead e-commerce
+seo_description: Parcours de tech lead e-commerce à Nancy, Grand Est, entre données produit, intégrations métier, SEO technique et environnements vivants.
 hero:
     eyebrow: Expérience
     title: Un goût pour les systèmes qui doivent vraiment tourner.
@@ -167,5 +167,5 @@ career_snapshot:
         - Core Web Vitals
         - AWS / S3
         - Docker
-looking_for: Je suis plus utile dans des contextes produit, commerce ou éditoriaux déjà vivants, où l'on attend de la clarté technique, de la fiabilité et des décisions calmes dans la durée.
+looking_for: Basé à Nancy, Grand Est, je suis plus utile dans des contextes produit, commerce ou éditoriaux déjà vivants, où l'on attend de la clarté technique, de la fiabilité et des décisions calmes dans la durée, en mission remote, hybride ou sur site selon le cadre.
 ---

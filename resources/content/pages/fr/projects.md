@@ -1,10 +1,10 @@
 ---
-seo_title: Expérience
-seo_description: Expériences professionnelles, environnements ecommerce exigeants et quelques références publiques pour rendre le niveau d'exécution lisible.
+seo_title: Tech lead e-commerce à Nancy
+seo_description: Tech lead e-commerce à Nancy, Grand Est, pour des missions remote ou hybrides autour du delivery, de la donnée produit et du SEO technique.
 hero:
     eyebrow: Expérience
     title: Un goût pour les systèmes qui doivent vraiment tourner.
-    summary: "Case studies, notes de delivery et repères recruteur autour de systèmes ecommerce, d'incidents Docker Swarm, de design system et de données produit qui ont eu des conséquences concrètes."
+    summary: "Surface d'expérience pour lire un parcours de tech lead e-commerce basé à Nancy, Grand Est, entre case studies e-commerce, incidents Docker Swarm, design system et donnée produit. Elle sert aussi de point d'entrée simple pour des missions remote ou hybrides."
 tracks_section:
     label: Pistes
     intro:
@@ -22,6 +22,6 @@ case_studies_section:
     label: Références publiques
     eyebrow: Références
     title: Études de cas et notes pour aller plus loin.
-    summary: "Une archive pour entrer dans des cas précis : outils associatifs sous contrainte, circulation de la donnée entre ERP et ecommerce, incident de déploiement Docker Swarm et choix de design system qui ont pesé sur l'implémentation."
+    summary: "Une archive pour entrer dans des case studies e-commerce précis : outils associatifs sous contrainte, circulation de la donnée entre ERP et ecommerce, incident de déploiement Docker Swarm et choix de design system qui ont pesé sur l'implémentation."
     archive_cta: Découvrir toutes les études de cas
 ---

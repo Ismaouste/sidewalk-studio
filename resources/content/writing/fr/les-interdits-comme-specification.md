@@ -1,7 +1,7 @@
 ---
 title: Les interdits comme spécification
 slug: les-interdits-comme-specification
-summary: Un design system devient plus utile quand il documente aussi ce qu'il faut éviter, pas seulement ce qu'il faut reproduire.
+summary: Dans un design system joaillerie, les règles utiles ne disent pas seulement quoi faire ; elles disent aussi ce qu'il faut éviter pour garder l'identité visuelle technique.
 status: published
 published_at: 2026-03-18
 updated_at: 2026-03-19
@@ -10,7 +10,7 @@ tags:
     - delivery
     - journal
 seo_title: Les interdits comme spécification
-seo_description: Des interdits explicites rendent un design system plus utile quand les arbitrages doivent survivre au temps, au rythme des pages et aux changements d'équipe.
+seo_description: Dans un design system joaillerie, des interdits explicites aident les composants Vue et l'identité visuelle technique à survivre au temps et aux changements d'équipe.
 category: journal
 publication_type: journal
 accent_tone: sun
@@ -19,7 +19,7 @@ canonical: https://sidewalk-studio.vercel.app/fr/journal/les-interdits-comme-spe
 ogImage: /images/og/les-interdits-comme-specification.jpg
 ---
 
-Le moment décisif n'arrive pas quand un composant est enfin documenté. Il arrive quand l'équipe sait aussi ce qu'elle ne doit pas faire, même quand personne n'est disponible pour refaire l'arbitrage.
+Le moment décisif n'arrive pas quand un composant Vue est enfin documenté. Il arrive quand l'équipe sait aussi ce qu'elle ne doit pas faire, même quand personne n'est disponible pour refaire l'arbitrage d'un design system joaillerie.
 
 ## Problème
 

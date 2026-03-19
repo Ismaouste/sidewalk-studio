@@ -1,7 +1,7 @@
 ---
 title: Quand un déploiement réussi ne l'est pas
 slug: quand-un-deploiement-reussi-ne-lest-pas
-summary: Un pipeline peut afficher du vert tout en laissant la production sur l'ancienne image. Le sujet central devient alors la confiance dans le signal livré.
+summary: Un Docker Swarm rollback silencieux peut laisser la production sur l'ancienne image pendant qu'un déploiement automatique affiche du vert.
 status: published
 published_at: 2026-03-18
 updated_at: 2026-03-19
@@ -10,7 +10,7 @@ tags:
     - reliability
     - journal
 seo_title: Quand un déploiement réussi ne l'est pas
-seo_description: Retour sur un pipeline Docker Swarm qui affichait un succès pendant qu'un rollback silencieux remettait l'ancienne image en production.
+seo_description: Retour sur un Docker Swarm rollback silencieux, un déploiement automatique trompeur et le besoin de revoir aussi la rétention d'images côté ECR lifecycle policy.
 category: journal
 publication_type: journal
 accent_tone: dominant
@@ -19,7 +19,7 @@ canonical: https://sidewalk-studio.vercel.app/fr/journal/quand-un-deploiement-re
 ogImage: /images/og/quand-un-deploiement-reussi-ne-lest-pas.jpg
 ---
 
-Le problème ne commençait pas dans le code applicatif. Il commençait au moment précis où le pipeline annonçait un succès alors que la production continuait parfois à tourner sur l'image précédente.
+Le problème ne commençait pas dans le code applicatif. Il commençait au moment précis où un déploiement automatique annonçait un succès alors qu'un Docker Swarm rollback silencieux laissait parfois la production sur l'image précédente.
 
 ## Problème
 
@@ -50,7 +50,7 @@ if [[ "$current_image" != *"$IMAGE_TAG"* ]]; then
 fi
 ```
 
-L'autre décision importante consistait à traiter certains facteurs déclencheurs, comme la pression disque, avant de continuer à lire le pipeline comme s'il s'agissait d'une pure question CI. L'alternative aurait été de garder le même signal vert et d'ajouter des vérifications humaines autour. Cela aurait déplacé le problème au lieu de le résoudre.
+L'autre décision importante consistait à traiter certains facteurs déclencheurs, comme la pression disque, avant de continuer à lire le pipeline comme s'il s'agissait d'une pure question CI. Cela passait aussi par une réflexion plus propre sur la rétention des images et sur ce qu'une ECR lifecycle policy devait éviter d'accumuler entre deux déploiements. L'alternative aurait été de garder le même signal vert et d'ajouter des vérifications humaines autour. Cela aurait déplacé le problème au lieu de le résoudre.
 
 ## Résultat
 
