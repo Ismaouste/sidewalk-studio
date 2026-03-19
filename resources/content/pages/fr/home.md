@@ -4,11 +4,11 @@ seo_description: "Ismael Rodmacq, développeur e-commerce à Nancy. Laravel, Vue
 hero:
     eyebrow: Développeur e-commerce · Nancy
     title: Ismaël Rodmacq
-    summary: Je construis des systèmes de vente en ligne pour des bijoutiers. Laravel, Vue, Docker.
+    summary: Développement e-commerce pour l'écosystème HBJO, avec ERP, PIM, donnée produit, analytics, tracking et SEO technique dans le même cadre.
 hero_panel:
-    - Développement ecommerce sur des sites déjà en service.
-    - Intégration ERP, donnée produit, APIs et delivery Laravel.
-    - SEO technique, RGPD, tracking et mise en ligne dans le même cadre.
+    - Ecommerce HBJO sur des sites déjà en ligne, avec catalogue, stock, médias et contraintes métier.
+    - Intégration ERP, PIM, APIs, donnée produit et delivery Laravel sur des bases qui doivent rester lisibles.
+    - SEO technique, RGPD, tracking, analytics et mise en ligne traités au même niveau que le développement.
 focus_areas:
     - label: Projets
       title: Expérience e-commerce

@@ -101,29 +101,33 @@ const panelItems = computed(() =>
 );
 
 function linkAction(item: NavItem): string {
+    const itemPath = stripLocalePrefix(item.href);
+
     if (page.props.site.locale === 'fr') {
         return (
             {
-                '/': 'Commencer la visite',
-                '/projects': 'Lire plus',
-                '/journal': 'Découvrir',
-                '/contact': 'Échanger',
-            }[item.href] ?? page.props.site.shell.navOpenLabel
+                '/': 'Entrer',
+                '/local': 'Voir la base',
+                '/projects': 'Voir le parcours',
+                '/journal': 'Lire les notes',
+                '/contact': 'Écrire',
+            }[itemPath] ?? page.props.site.shell.navOpenLabel
         );
     }
 
     return (
         {
-            '/': 'Start the visit',
-            '/projects': 'Read more',
-            '/journal': 'Discover',
-            '/contact': 'Reach out',
-        }[item.href] ?? page.props.site.shell.navOpenLabel
+            '/': 'Enter',
+            '/local': 'Read local',
+            '/projects': 'View work',
+            '/journal': 'Read notes',
+            '/contact': 'Write',
+        }[itemPath] ?? page.props.site.shell.navOpenLabel
     );
 }
 
 function isContact(item: NavItem): boolean {
-    return item.href === '/contact';
+    return stripLocalePrefix(item.href) === '/contact';
 }
 
 function closeMenu(): void {
@@ -439,6 +443,23 @@ onBeforeUnmount(() => {
         transform 150ms ease;
 }
 
+.nav-tabs__link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: color-mix(
+        in srgb,
+        var(--sw-bg-elevated) 72%,
+        var(--sw-bg-surface)
+    );
+    -webkit-backdrop-filter: blur(24px) saturate(1.05);
+    backdrop-filter: blur(24px) saturate(1.05);
+    transition: opacity 120ms ease;
+}
+
 .nav-tabs__link > * {
     position: relative;
     z-index: 1;
@@ -530,6 +551,11 @@ onBeforeUnmount(() => {
         color: var(--sw-text-primary);
     }
 
+    .nav-tabs__link:hover::before,
+    .nav-tabs__link:focus-visible::before {
+        opacity: 1;
+    }
+
     .nav-tabs__link:hover .nav-tabs__link-meta--contact::after,
     .nav-tabs__link:focus-visible .nav-tabs__link-meta--contact::after {
         animation: nav-tabs-phone-ring 0.8s ease;
@@ -552,9 +578,18 @@ onBeforeUnmount(() => {
         backdrop-filter: var(--sw-surface-backdrop-filter);
     }
 
+    .nav-tabs__link:is(:hover, :focus-visible, :active)::before {
+        opacity: 1;
+    }
+
     .nav-tabs__link:is(:hover, :focus-visible, :active)::after {
         opacity: 1;
         transform: scale(1);
+    }
+
+    .nav-tabs__link:is(:hover, :focus-visible, :active)
+        .nav-tabs__link-meta--contact::after {
+        animation: nav-tabs-phone-ring 0.8s ease;
     }
 }
 

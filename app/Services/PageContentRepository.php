@@ -16,7 +16,7 @@ class PageContentRepository
      */
     public function get(string $page, ?string $locale = null): array
     {
-        $item = $this->merged($page, $locale ?? app()->getLocale());
+        $item = $this->publicPage($page, $locale ?? app()->getLocale());
 
         if ($item === null) {
             throw new RuntimeException("Missing page content file for [{$page}].");
@@ -121,6 +121,23 @@ class PageContentRepository
         $payload['payload'] = array_replace_recursive($databasePayload['payload'] ?? [], $filePayload['payload'] ?? []);
 
         return $payload;
+    }
+
+    /**
+     * Public pages should stay file-first so versioned content never mixes with
+     * stale database payload fragments on the live site.
+     *
+     * @return array<string, mixed>|null
+     */
+    protected function publicPage(string $page, string $locale): ?array
+    {
+        $filePayload = $this->loadFilePage($page, $locale);
+
+        if ($filePayload !== null) {
+            return $filePayload;
+        }
+
+        return $this->loadDatabasePage($page, $locale);
     }
 
     /**

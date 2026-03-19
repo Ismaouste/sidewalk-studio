@@ -16,6 +16,7 @@ The public domain used in sitemap entries resolves from `SITE_PUBLIC_URL` first.
 - publication inclusion is decided from database metadata, while the rendered body still comes from the linked Markdown source
 - draft content never appears in the sitemap
 - legacy routes such as `/about`, `/experience`, `/writing/*`, and non-prefixed public paths redirect and stay out of the sitemap
+- legacy query parameters such as `?lang=` and `?path=` are stripped through redirects and never define a second sitemap entry
 - utility or sandbox surfaces such as `/labs`, `/cv/*`, and `/data-processing` stay out of the sitemap even when publicly reachable
 - utility download routes such as `/cv/en` and `/cv/fr` remain public but excluded from the sitemap
 - `/data-processing` remains public and footer-linked, but excluded and non-indexable

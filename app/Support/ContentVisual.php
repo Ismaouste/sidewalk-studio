@@ -42,7 +42,6 @@ class ContentVisual
             'url' => route('content-visuals.show', [
                 'section' => $item['section'],
                 'slug' => $item['slug'],
-                'lang' => (($item['locale'] ?? 'en') !== 'en') ? $item['locale'] : null,
             ]),
             'alt' => trim((string) ($item['featured_image_alt'] ?? '')) ?: (string) ($item['title'] ?? ''),
             'kind' => 'placeholder',
@@ -94,8 +93,40 @@ class ContentVisual
 
         $title = Str::of((string) ($item['title'] ?? 'Untitled'))
             ->squish()
-            ->limit(68, '')
+            ->limit(88, '')
             ->toString();
+        $summary = Str::of((string) ($item['summary'] ?? ''))
+            ->squish()
+            ->limit(108, '')
+            ->toString();
+        $titleLines = self::wrapTextLines($title, 28, 3);
+        $summaryLines = $summary !== ''
+            ? self::wrapTextLines($summary, 56, 2)
+            : [];
+        $titleMarkup = collect($titleLines)
+            ->values()
+            ->map(function (string $line, int $index): string {
+                $dy = $index === 0 ? '0' : '38';
+
+                return sprintf(
+                    '<tspan x="86" dy="%s">%s</tspan>',
+                    $dy,
+                    e($line),
+                );
+            })
+            ->implode('');
+        $summaryMarkup = collect($summaryLines)
+            ->values()
+            ->map(function (string $line, int $index): string {
+                $dy = $index === 0 ? '0' : '28';
+
+                return sprintf(
+                    '<tspan x="88" dy="%s">%s</tspan>',
+                    $dy,
+                    e($line),
+                );
+            })
+            ->implode('');
 
         $safeSlug = e($slug);
         $safeTitle = e($title);
@@ -113,7 +144,7 @@ class ContentVisual
       <feGaussianBlur stdDeviation="44" />
     </filter>
   </defs>
-  <rect width="1200" height="630" rx="32" fill="url(#bg)" />
+  <rect width="1200" height="630" rx="24" fill="url(#bg)" />
   <g opacity="0.72">
     <circle cx="940" cy="130" r="180" fill="{$palette['accent']}" filter="url(#blur)" />
     <circle cx="260" cy="520" r="220" fill="{$palette['accent']}" filter="url(#blur)" />
@@ -125,10 +156,54 @@ class ContentVisual
     <path d="M0 390 H1200" stroke="{$palette['line']}" stroke-width="2" />
     <path d="M0 480 H1200" stroke="{$palette['line']}" stroke-width="2" />
   </g>
-  <text x="82" y="332" fill="{$palette['ink']}" font-family="Arial, sans-serif" font-size="84" font-weight="700" letter-spacing="5">{$safeSlug}</text>
-  <text x="86" y="420" fill="{$palette['ink']}" font-family="Arial, sans-serif" font-size="30" opacity="0.92">{$safeTitle}</text>
+  <rect x="72" y="78" width="288" height="38" rx="10" fill="rgba(255,255,255,0.08)" />
+  <text x="90" y="103" fill="{$palette['ink']}" font-family="DM Sans, Arial, sans-serif" font-size="21" font-weight="600" letter-spacing="2.8">{$safeSlug}</text>
+  <text x="86" y="234" fill="{$palette['ink']}" font-family="Fraunces, Georgia, serif" font-size="32" font-weight="400" opacity="0.97">{$titleMarkup}</text>
+  <text x="88" y="382" fill="{$palette['ink']}" font-family="DM Sans, Arial, sans-serif" font-size="22" opacity="0.78">{$summaryMarkup}</text>
 </svg>
 SVG;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected static function wrapTextLines(string $text, int $maxCharacters, int $maxLines): array
+    {
+        $words = preg_split('/\s+/u', trim($text)) ?: [];
+
+        if ($words === []) {
+            return ['Untitled'];
+        }
+
+        $lines = [];
+        $currentLine = '';
+
+        foreach ($words as $index => $word) {
+            $candidate = trim($currentLine === '' ? $word : "{$currentLine} {$word}");
+
+            if (Str::length($candidate) <= $maxCharacters || $currentLine === '') {
+                $currentLine = $candidate;
+
+                continue;
+            }
+
+            $lines[] = $currentLine;
+
+            if (count($lines) === $maxLines - 1) {
+                $remaining = trim(implode(' ', array_slice($words, $index)));
+                $lines[] = Str::of($remaining)->limit($maxCharacters, '')->toString();
+
+                return $lines;
+            }
+
+            $currentLine = $word;
+        }
+
+        if ($currentLine !== '' && count($lines) < $maxLines) {
+            $lines[] = $currentLine;
+        }
+
+        return array_slice($lines, 0, $maxLines);
     }
 
     protected static function normalizeUrl(string $path): string

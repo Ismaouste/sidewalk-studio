@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { sanitizePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
 const switcher = computed(() => page.props.site.languageSwitcher);
+const currentHref = computed(() => sanitizePublicHref(page.url));
 </script>
 
 <template>
@@ -16,7 +18,7 @@ const switcher = computed(() => page.props.site.languageSwitcher);
         <Link
             v-for="option in switcher.options"
             :key="option.code"
-            :href="option.href ?? page.url"
+            :href="option.href ?? currentHref"
             class="locale-switcher__option"
             :class="{
                 'locale-switcher__option--current':

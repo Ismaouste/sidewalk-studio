@@ -118,15 +118,19 @@ const heroAccentChips = computed(() =>
     })),
 );
 
+const heroLeadPoints = computed(() =>
+    props.heroPanel.filter((point) => point.trim() !== '').slice(0, 3),
+);
+
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               projectsCta: 'Lire les expériences',
               contactCta: 'Prendre contact',
               currentFrameLabel: "Aujourd'hui",
-              heroPanelTitle: 'Développeur e-commerce chez Jewely',
+              heroPanelTitle: 'Développeur e-commerce chez Jewely / Flippad',
               heroPanelSummarySuffix:
-                  'donnée produit, flux, tracking et SEO technique.',
+                  'écosystème HBJO, ERP, PIM, flux produit, tracking et SEO technique.',
               hbjoatDefinition:
                   'Horlogerie, bijouterie, joaillerie et orfèvrerie.',
               cmsDefinition:
@@ -170,9 +174,9 @@ const copy = computed(() =>
               projectsCta: 'View experiences',
               contactCta: 'Start a conversation',
               currentFrameLabel: 'Current role',
-              heroPanelTitle: 'E-commerce developer at Jewely',
+              heroPanelTitle: 'E-commerce developer at Jewely / Flippad',
               heroPanelSummarySuffix:
-                  'product data, integrations, tracking, and technical SEO.',
+                  'HBJO commerce, ERP, PIM, product flows, tracking, and technical SEO.',
               hbjoatDefinition:
                   'Watchmaking, jewelry, silverware, and tableware.',
               cmsDefinition:
@@ -227,6 +231,25 @@ const copy = computed(() =>
                     size="hero"
                 >
                     <div class="home-hero__support">
+                        <ul
+                            v-if="heroLeadPoints.length"
+                            class="home-hero__lead-points"
+                        >
+                            <li
+                                v-for="point in heroLeadPoints"
+                                :key="point"
+                                class="home-hero__lead-point"
+                            >
+                                <span
+                                    class="home-hero__lead-bullet"
+                                    aria-hidden="true"
+                                />
+                                <span class="type-body home-hero__lead-copy">
+                                    {{ point }}
+                                </span>
+                            </li>
+                        </ul>
+
                         <div class="home-accent-list">
                             <div
                                 v-for="chip in heroAccentChips"
@@ -587,6 +610,36 @@ const copy = computed(() =>
     gap: 0.85rem;
 }
 
+.home-hero__lead-points {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 48rem;
+}
+
+.home-hero__lead-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+}
+
+.home-hero__lead-bullet {
+    width: 0.42rem;
+    height: 0.42rem;
+    margin-top: 0.52rem;
+    flex: none;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sw-accent-sun) 72%, var(--sw-accent-dominant));
+}
+
+.home-hero__lead-copy {
+    margin: 0;
+    color: color-mix(in srgb, var(--sw-text-primary) 82%, var(--sw-text-secondary));
+    line-height: 1.48;
+}
+
 .home-hero__actions {
     display: flex;
     flex-wrap: wrap;
@@ -827,7 +880,7 @@ const copy = computed(() =>
     line-height: 1.45;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
 }
 
@@ -912,8 +965,9 @@ const copy = computed(() =>
     }
 
     .home-card {
-        grid-template-columns: minmax(5.8rem, 7rem) minmax(0, 1fr);
+        grid-template-columns: minmax(4.8rem, 6rem) minmax(0, 1fr);
         align-items: start;
+        gap: 0.8rem;
     }
 
     .home-card :deep(.content-visual) {

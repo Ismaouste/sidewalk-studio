@@ -65,7 +65,7 @@ function handleImageLoad(): void {
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--sw-border) 78%, transparent);
     border-radius: var(--sw-radius-lg);
-    min-height: 10rem;
+    min-height: 8.25rem;
     background: var(--sw-bg-grid);
 }
 
@@ -85,7 +85,7 @@ function handleImageLoad(): void {
     display: block;
     width: 100%;
     height: 100%;
-    min-height: inherit;
+    min-height: 100%;
     object-fit: cover;
     border-radius: 0;
     opacity: 0;
@@ -104,9 +104,9 @@ function handleImageLoad(): void {
 }
 
 .content-visual__image[src$='.svg'] {
-    width: 70%;
-    height: auto;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .content-visual__overlay {

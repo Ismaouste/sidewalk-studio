@@ -12,13 +12,13 @@ import type { SeoPayload, SiteProps } from '@/types';
 
 const page = usePage<{ seo?: SeoPayload; site: SiteProps }>();
 const transitions = usePageTransitions();
-const { isSettling } = transitions;
+const { isSettling, isLoading } = transitions;
 const { currentTheme } = useTheme();
 
 const breadcrumbs = computed(() => page.props.seo?.breadcrumbs ?? []);
-const LOADER_DISPLAY_MS = 2500;
-const LOADER_FADE_MS = 400;
-const LOADER_QUOTES_TO_SHOW = 3;
+const LOADER_DISPLAY_MS = 1350;
+const LOADER_FADE_MS = 320;
+const LOADER_QUOTES_TO_SHOW = 2;
 const LOADER_SESSION_KEY = 'sidewalk-loader-seen';
 
 const loaderVisible = ref(false);
@@ -73,7 +73,7 @@ function advanceLoaderSequence(): void {
 
     loaderExitTimer = window.setTimeout(() => {
         loaderVisible.value = false;
-    }, LOADER_DISPLAY_MS);
+    }, Math.max(LOADER_DISPLAY_MS - 350, LOADER_FADE_MS * 2));
 }
 
 onMounted(() => {
@@ -116,26 +116,48 @@ onBeforeUnmount(() => {
                 aria-atomic="true"
             >
                 <div class="app-loader__content">
-                    <transition name="app-loader-quote" mode="out-in">
-                        <div
-                            v-if="currentLoaderQuote"
-                            :key="`${loaderQuoteIndex}-${currentLoaderQuote.text}`"
-                            class="app-loader__quote"
-                        >
-                            <p
-                                class="app-loader__text"
-                                :class="{
-                                    'app-loader__text--mono':
-                                        currentLoaderQuote.mono,
-                                }"
+                    <span
+                        class="app-loader__rail"
+                        :class="`app-loader__rail--${currentTheme}`"
+                        aria-hidden="true"
+                    />
+                    <div class="app-loader__stack">
+                        <transition name="app-loader-quote" mode="out-in">
+                            <div
+                                v-if="currentLoaderQuote"
+                                :key="`${loaderQuoteIndex}-${currentLoaderQuote.text}`"
+                                class="app-loader__quote"
                             >
-                                « {{ currentLoaderQuote.text }} »
-                            </p>
-                            <p class="app-loader__author">
-                                — {{ currentLoaderQuote.author }}
-                            </p>
-                        </div>
-                    </transition>
+                                <p
+                                    class="app-loader__text"
+                                    :class="{
+                                        'app-loader__text--mono':
+                                            currentLoaderQuote.mono,
+                                    }"
+                                >
+                                    « {{ currentLoaderQuote.text }} »
+                                </p>
+                                <p class="app-loader__author">
+                                    — {{ currentLoaderQuote.author }}
+                                </p>
+                            </div>
+                        </transition>
+                    </div>
+                </div>
+            </div>
+        </transition>
+        <transition name="app-loader-fade">
+            <div
+                v-if="isLoading && !loaderVisible"
+                class="app-loader app-loader--transition"
+                aria-hidden="true"
+            >
+                <div class="app-loader__content app-loader__content--transition">
+                    <span
+                        class="app-loader__rail"
+                        :class="`app-loader__rail--${currentTheme}`"
+                        aria-hidden="true"
+                    />
                 </div>
             </div>
         </transition>
@@ -167,30 +189,73 @@ onBeforeUnmount(() => {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     pointer-events: none;
-    background: color-mix(in srgb, var(--sw-bg-base) 96%, transparent);
-    transition: opacity 0.6s ease;
+    background: color-mix(in srgb, var(--sw-bg-base) 90%, transparent);
+    transition: opacity 0.48s ease;
 }
 
 .app-loader__content {
     display: grid;
-    width: min(31.25rem, calc(100vw - 3rem));
-    padding-inline: 1.5rem;
-    text-align: center;
+    grid-template-columns: 4px minmax(0, 1fr);
+    align-items: start;
+    gap: 0.9rem;
+    width: min(32rem, calc(100vw - 2.5rem));
+    padding-inline: 1.1rem;
+    text-align: left;
+}
+
+.app-loader__content--transition {
+    width: auto;
+    padding-inline: 0;
+}
+
+.app-loader__rail {
+    display: block;
+    width: 4px;
+    min-height: clamp(5.75rem, 14vh, 7.75rem);
+    border-radius: 999px;
+    background-size: 170% 170%;
+    animation:
+        app-loader-rail-shift 5.8s ease-in-out infinite,
+        app-loader-rail-glow 8.4s linear infinite;
+}
+
+.app-loader__rail--morning {
+    background-image: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--sw-accent-dominant) 78%, white 22%),
+        color-mix(in srgb, var(--sw-accent-green) 36%, var(--sw-accent-sun) 64%),
+        color-mix(in srgb, var(--sw-accent-dominant) 88%, var(--sw-accent-coral) 12%)
+    );
+}
+
+.app-loader__rail--sunset {
+    background-image: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--sw-accent-violet) 72%, white 28%),
+        color-mix(in srgb, var(--sw-accent-sun) 58%, var(--sw-accent-coral) 42%),
+        color-mix(in srgb, var(--sw-accent-violet) 52%, var(--sw-accent-sun) 48%)
+    );
+}
+
+.app-loader__stack {
+    display: grid;
+    gap: 0.55rem;
 }
 
 .app-loader__quote {
     display: grid;
-    gap: 0.75rem;
+    gap: 0.55rem;
 }
 
 .app-loader__text {
     margin: 0;
     font-size: 15px;
     font-style: italic;
-    line-height: 1.6;
+    line-height: 1.55;
     color: var(--sw-text-secondary);
     text-wrap: pretty;
 }
@@ -211,6 +276,22 @@ onBeforeUnmount(() => {
 
 .sw-main__breadcrumb {
     margin-bottom: clamp(2px, 0.5vw, 6px);
+}
+
+.app-loader--transition {
+    align-items: flex-start;
+    justify-content: flex-start;
+    background: transparent;
+}
+
+.app-loader--transition .app-loader__content {
+    margin-top: calc(var(--sw-public-header-height, 0px) + 18px);
+    margin-left: min(4vw, 2rem);
+}
+
+.app-loader--transition .app-loader__rail {
+    min-height: 3.25rem;
+    opacity: 0.88;
 }
 
 .sw-main__content {
@@ -235,7 +316,7 @@ onBeforeUnmount(() => {
 
 .app-loader-fade-enter-active,
 .app-loader-fade-leave-active {
-    transition: opacity 0.6s ease;
+    transition: opacity 0.48s ease;
 }
 
 .app-loader-fade-enter-from,
@@ -245,12 +326,65 @@ onBeforeUnmount(() => {
 
 .app-loader-quote-enter-active,
 .app-loader-quote-leave-active {
-    transition: opacity 0.4s ease;
+    transition: opacity 0.32s ease;
 }
 
 .app-loader-quote-enter-from,
 .app-loader-quote-leave-to {
     opacity: 0;
+}
+
+@keyframes app-loader-rail-shift {
+    0% {
+        background-position: 0% 12%;
+    }
+
+    23% {
+        background-position: 86% 42%;
+    }
+
+    51% {
+        background-position: 22% 88%;
+    }
+
+    79% {
+        background-position: 100% 24%;
+    }
+
+    100% {
+        background-position: 0% 12%;
+    }
+}
+
+@keyframes app-loader-rail-glow {
+    0%,
+    100% {
+        opacity: 0.88;
+        transform: scaleY(1);
+    }
+
+    35% {
+        opacity: 1;
+        transform: scaleY(1.04);
+    }
+
+    68% {
+        opacity: 0.78;
+        transform: scaleY(0.97);
+    }
+}
+
+@media (max-width: 640px) {
+    .app-loader__content {
+        width: calc(100vw - 2rem);
+        gap: 0.75rem;
+        padding-inline: 0.25rem;
+    }
+
+    .app-loader__rail {
+        width: 3px;
+        min-height: 5.1rem;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

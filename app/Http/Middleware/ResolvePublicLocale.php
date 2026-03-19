@@ -30,21 +30,21 @@ class ResolvePublicLocale
         $request->attributes->set('public_locale', $locale);
         $request->attributes->set('public_locale_preference', $preferredLocale);
 
+        if ($this->hasLegacyPublicQuery($request)) {
+            $response = redirect()->to(
+                $this->canonicalPublicUrl($request, $preferredLocale),
+                301,
+            );
+            $this->queueLocaleCookie($request, $preferredLocale);
+
+            return $response;
+        }
+
         if (
             PublicLocale::resolveSupportedLocale($request->route('locale')) !== null ||
             PublicLocale::resolveSupportedLocale($request->query('lang')) !== null
         ) {
-            Cookie::queue(Cookie::make(
-                self::COOKIE_NAME,
-                $preferredLocale,
-                60 * 24 * 365,
-                '/',
-                null,
-                $request->isSecure(),
-                false,
-                false,
-                'lax',
-            ));
+            $this->queueLocaleCookie($request, $preferredLocale);
         }
 
         /** @var Response $response */
@@ -61,11 +61,52 @@ class ResolvePublicLocale
             'admin',
             'admin/*',
             'cv/*',
+            'content-visuals/*',
             'robots.txt',
             'sitemap.xml',
             'storage/*',
             'up',
         );
+    }
+
+    protected function hasLegacyPublicQuery(Request $request): bool
+    {
+        return $request->query->has('lang') || $request->query->has('path');
+    }
+
+    protected function canonicalPublicUrl(Request $request, string $preferredLocale): string
+    {
+        $routeLocale = PublicLocale::resolveSupportedLocale($request->route('locale'));
+        $targetLocale = $routeLocale ?? $preferredLocale;
+        $path = PublicLocale::localizedPath(
+            PublicLocale::pathForRequest($request),
+            $targetLocale,
+        );
+        $query = collect($request->query())
+            ->except(['lang', 'path'])
+            ->filter(fn (mixed $value): bool => $value !== null && $value !== '')
+            ->all();
+
+        if ($query === []) {
+            return $path;
+        }
+
+        return sprintf('%s?%s', $path, http_build_query($query));
+    }
+
+    protected function queueLocaleCookie(Request $request, string $preferredLocale): void
+    {
+        Cookie::queue(Cookie::make(
+            self::COOKIE_NAME,
+            $preferredLocale,
+            60 * 24 * 365,
+            '/',
+            null,
+            $request->isSecure(),
+            false,
+            false,
+            'lax',
+        ));
     }
 
     protected function mergeVary(?string $current): string

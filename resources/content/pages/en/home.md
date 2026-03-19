@@ -4,11 +4,11 @@ seo_description: 'Ismael Rodmacq, ecommerce developer in Nancy. Laravel, Vue, Do
 hero:
     eyebrow: Ecommerce developer · Nancy
     title: Ismael Rodmacq
-    summary: I build online selling systems for jewelers. Laravel, Vue, Docker.
+    summary: Ecommerce delivery for the jewelry and watch ecosystem, with ERP, PIM, product data, analytics, tracking, and technical SEO handled together.
 hero_panel:
-    - Ecommerce development on systems that are already live.
-    - ERP integration, product data, APIs, and Laravel delivery.
-    - Technical SEO, privacy, tracking, and go-live work in the same frame.
+    - HBJO ecommerce on systems that are already live, with catalog, stock, media, and business constraints moving together.
+    - ERP, PIM, APIs, product data, and Laravel delivery on platforms that need to stay readable while shipping.
+    - Technical SEO, privacy, tracking, analytics, and go-live work handled in the same delivery frame.
 focus_areas:
     - label: Projects
       title: Ecommerce experience

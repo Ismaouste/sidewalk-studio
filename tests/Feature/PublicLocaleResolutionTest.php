@@ -50,6 +50,16 @@ class PublicLocaleResolutionTest extends TestCase
                 ->where('site.locale', 'fr'));
     }
 
+    public function test_legacy_public_query_parameters_are_redirected_to_clean_canonical_urls(): void
+    {
+        $this->get('/fr/projects?path=fr%2Fprojects')
+            ->assertRedirect('/fr/projects');
+
+        $this->get('/projects?lang=fr&path=projects')
+            ->assertRedirect('/fr/projects')
+            ->assertCookie(ResolvePublicLocale::COOKIE_NAME, 'fr');
+    }
+
     public function test_newly_localized_contact_page_renders_french_content(): void
     {
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')

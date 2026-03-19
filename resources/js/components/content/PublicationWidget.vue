@@ -168,9 +168,9 @@ function formattedDate(value: string): string {
 
 .publication-widget__card {
     display: grid;
-    gap: 0.7rem;
+    gap: 0.62rem;
     height: 100%;
-    padding: clamp(12px, 1.6vw, 16px);
+    padding: clamp(11px, 1.4vw, 14px);
     align-items: stretch;
     contain: layout paint style;
     border-color: color-mix(in srgb, var(--sw-border) 80%, transparent);
@@ -183,7 +183,7 @@ function formattedDate(value: string): string {
 
 .publication-widget__body {
     display: grid;
-    gap: 0.7rem;
+    gap: 0.58rem;
     align-content: start;
 }
 
@@ -210,7 +210,7 @@ function formattedDate(value: string): string {
     line-height: 1.45;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
 }
 
@@ -254,9 +254,9 @@ function formattedDate(value: string): string {
 
 @media (min-width: 720px) {
     .publication-widget__card {
-        grid-template-columns: minmax(5.8rem, 7rem) minmax(0, 1fr);
+        grid-template-columns: minmax(4.8rem, 6rem) minmax(0, 1fr);
         column-gap: var(--sw-space-xs);
-        row-gap: 0.65rem;
+        row-gap: 0.55rem;
     }
 
     .publication-widget__card :deep(.content-visual) {

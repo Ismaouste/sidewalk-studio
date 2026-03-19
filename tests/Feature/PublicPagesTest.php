@@ -91,15 +91,31 @@ class PublicPagesTest extends TestCase
             $this->artisan('migrate:fresh', ['--seed' => true]);
         }
 
-        $record = Publication::query()
-            ->where('type', 'case_study')
-            ->where('locale', 'fr')
-            ->where('slug', 'repo-bootstrap-foundation')
-            ->firstOrFail();
-
-        $record->forceFill([
+        Publication::query()->updateOrCreate([
+            'type' => 'case_study',
+            'locale' => 'fr',
+            'slug' => 'repo-bootstrap-foundation',
+        ], [
+            'title' => 'Repository Bootstrap for a Spec-Driven Portfolio',
             'status' => 'published',
             'summary' => 'Old database summary that should never leak publicly.',
+            'body_markdown' => 'Legacy publication body.',
+            'published_at' => '2026-03-07',
+            'updated_at_publication' => '2026-03-07',
+            'tags' => ['laravel', 'architecture'],
+            'seo_title' => 'Repository Bootstrap for a Spec-Driven Portfolio',
+            'seo_description' => 'Legacy case study that should stay private once the markdown source is removed.',
+            'robots' => 'index,follow',
+            'category' => 'work',
+            'accent_tone' => 'dominant',
+            'metadata' => [
+                'client' => 'Sidewalk Studio',
+                'role' => 'Product, architecture, implementation',
+                'stack' => ['Laravel 12'],
+                'outcomes' => ['Legacy row'],
+            ],
+            'source_path' => resource_path('content/case-studies/fr/repo-bootstrap-foundation.md'),
+            'source_driver' => 'hybrid',
         ])->save();
 
         $this->get('/fr/case-studies/repo-bootstrap-foundation')

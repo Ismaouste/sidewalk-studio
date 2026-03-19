@@ -41,21 +41,7 @@ export function localizePublicHref(href: string, locale: string): string {
     return `${localizedPath}${query}${fragment}`;
 }
 
-function normalizeBasePath(value?: string | null): string {
-    if (!value) {
-        return '/';
-    }
-
-    const trimmed = value.trim();
-
-    if (!trimmed || trimmed === '/') {
-        return '/';
-    }
-
-    return `/${trimmed.replace(/^\/+|\/+$/g, '')}/`;
-}
-
-function sanitizePublicHref(href: string): string {
+export function sanitizePublicHref(href: string): string {
     if (!href.includes('?')) {
         return href;
     }
@@ -74,7 +60,23 @@ function sanitizePublicHref(href: string): string {
     const normalizedQuery = params.toString();
     const fragment = fragmentPart ? `#${fragmentPart}` : '';
 
-    return normalizedQuery ? `${pathname}?${normalizedQuery}${fragment}` : `${pathname}${fragment}`;
+    return normalizedQuery
+        ? `${pathname}?${normalizedQuery}${fragment}`
+        : `${pathname}${fragment}`;
+}
+
+function normalizeBasePath(value?: string | null): string {
+    if (!value) {
+        return '/';
+    }
+
+    const trimmed = value.trim();
+
+    if (!trimmed || trimmed === '/') {
+        return '/';
+    }
+
+    return `/${trimmed.replace(/^\/+|\/+$/g, '')}/`;
 }
 
 function stripLocalePrefix(pathname: string): string {

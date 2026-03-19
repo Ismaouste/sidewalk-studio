@@ -38,6 +38,7 @@ The canonical domain now resolves through `SITE_PUBLIC_URL` first, then `APP_URL
 - `/contact` is public but intentionally `noindex,follow`
 - `/data-processing` remains `noindex,nofollow`
 - canonical public URLs now resolve on locale-prefixed routes such as `/en/projects` and `/fr/journal`
+- legacy query parameters such as `?lang=` and `?path=` must be redirected away before rendering so the canonical browser URL stays clean
 - legacy non-prefixed public URLs should redirect to the locale-prefixed canonical route instead of emitting a second metadata surface
 - the public title format is `[Page] · Ismael Rodmacq`, while the site root can still keep the bare portfolio name when appropriate
 - request-level locale negotiation should choose the redirect target for legacy URLs, but must not emit duplicate canonical paths or `hreflang` trees yet

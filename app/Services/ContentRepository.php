@@ -366,6 +366,7 @@ class ContentRepository
             ->whereIn('type', $types)
             ->whereIn('locale', $locales)
             ->get()
+            ->reject(fn (Publication $record): bool => $this->isMissingVersionedSource($record))
             ->map(fn (Publication $record): array => $this->shapeDatabaseRecord($record));
 
         return collect($records->all())
@@ -391,6 +392,20 @@ class ContentRepository
             ->sortBy(fn (array $item): int => $item['locale'] === $locale ? 0 : 1)
             ->unique(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug']))
             ->values();
+    }
+
+    protected function isMissingVersionedSource(Publication $record): bool
+    {
+        $sourcePath = is_string($record->source_path) ? trim($record->source_path) : '';
+
+        if ($sourcePath === '' || $record->source_driver !== 'hybrid') {
+            return false;
+        }
+
+        $normalizedPath = str_replace('\\', '/', $sourcePath);
+        $contentRoot = str_replace('\\', '/', resource_path('content')).'/';
+
+        return str_starts_with($normalizedPath, $contentRoot) && ! File::exists($sourcePath);
     }
 
     /**

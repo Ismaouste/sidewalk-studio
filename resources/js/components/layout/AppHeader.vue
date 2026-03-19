@@ -3,7 +3,11 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import BrandMark from '@/components/branding/BrandMark.vue';
 import NavTabs from '@/components/layout/NavTabs.vue';
-import { localizePublicHref, resolvePublicHref } from '@/lib/publicHref';
+import {
+    localizePublicHref,
+    resolvePublicHref,
+    sanitizePublicHref,
+} from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
@@ -37,13 +41,13 @@ const currentUrl = computed(() => {
         page.props.site.runtime.staticPreview &&
         staticLocationPath.value !== null
     ) {
-        return normalizePreviewPath(
+        return sanitizePublicHref(normalizePreviewPath(
             staticLocationPath.value,
             page.props.site.runtime.staticBasePath,
-        );
+        ));
     }
 
-    return page.url;
+    return sanitizePublicHref(page.url);
 });
 const homeHref = computed(() =>
     resolvePublicHref(
@@ -83,7 +87,9 @@ function syncHeaderHeight(): void {
 
 onMounted(() => {
     if (typeof window !== 'undefined') {
-        staticLocationPath.value = window.location.pathname;
+        staticLocationPath.value = sanitizePublicHref(
+            `${window.location.pathname}${window.location.search}`,
+        );
     }
 
     syncHeaderHeight();

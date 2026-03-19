@@ -54,7 +54,8 @@ class ContentRepositoryTest extends TestCase
 
         $this->assertSame('fr', $item['locale']);
         $this->assertStringContainsString('/content-visuals/writing/opensurvey-associatif-donnees-sante.svg', $item['image_url']);
-        $this->assertStringContainsString('lang=fr', $item['image_url']);
+        $this->assertStringNotContainsString('lang=', $item['image_url']);
+        $this->assertStringNotContainsString('path=', $item['image_url']);
     }
 
     public function test_repository_returns_case_study_details(): void

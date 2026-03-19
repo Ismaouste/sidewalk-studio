@@ -33,8 +33,6 @@ type ExperienceSection = {
     }>;
 };
 
-type ExperienceDetailGroup = ExperienceSection['detail_groups'][number];
-
 const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
@@ -134,6 +132,11 @@ const copy = computed(() =>
           },
 );
 
+const uniqueCareerRoles = computed(() =>
+    [...new Set(props.careerSnapshot.roles.map((role) => role.trim()))]
+        .filter((role) => role !== ''),
+);
+
 function caseStudyMeta(item: ContentItem) {
     return [
         {
@@ -165,11 +168,6 @@ function detailGridClasses(section: ExperienceSection) {
     };
 }
 
-function detailListClasses(section: ExperienceSection, _group: ExperienceDetailGroup) {
-    return {
-        'projects-page__detail-list--columns': section.detail_groups.length === 1,
-    };
-}
 </script>
 
 <template>
@@ -254,7 +252,7 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
 
                     <div class="projects-page__stack-items">
                         <span
-                            v-for="role in props.careerSnapshot.roles"
+                            v-for="role in uniqueCareerRoles"
                             :key="role"
                             class="type-meta projects-page__stack-item"
                         >
@@ -351,7 +349,6 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
                                 </div>
                                 <ul
                                     class="projects-page__detail-list"
-                                    :class="detailListClasses(section, group)"
                                 >
                                     <li
                                         v-for="item in group.items"
@@ -419,7 +416,6 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
                                 </p>
                                 <ul
                                     class="projects-page__detail-list"
-                                    :class="detailListClasses(section, group)"
                                 >
                                     <li
                                         v-for="item in group.items"
@@ -487,7 +483,6 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
                                 </p>
                                 <ul
                                     class="projects-page__detail-list"
-                                    :class="detailListClasses(section, group)"
                                 >
                                     <li
                                         v-for="item in group.items"
@@ -613,8 +608,9 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
 }
 
 .projects-page__work-grid {
-    display: grid;
-    align-items: start;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
     gap: var(--sw-space-sm);
 }
 
@@ -631,6 +627,8 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    flex: 1 1 clamp(16rem, 28vw, 24rem);
+    min-width: min(100%, 16rem);
 }
 
 .projects-page__closing {
@@ -729,20 +727,23 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
 }
 
 .projects-page__story-body {
+    display: grid;
     gap: clamp(20px, 2.1vw, 28px);
     padding-top: clamp(2px, 0.5vw, 6px);
 }
 
 .projects-page__detail-grid {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
     gap: clamp(18px, 1.9vw, 24px);
+    width: 100%;
     padding-top: clamp(18px, 2vw, 24px);
     border-top: 1px solid color-mix(in srgb, var(--sw-border) 68%, transparent);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
 }
 
 .projects-page__detail-grid--single {
-    grid-template-columns: minmax(0, 1fr);
+    display: flex;
 }
 
 .projects-page__detail-pills {
@@ -765,13 +766,14 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
 }
 
 .projects-page__story-body .projects-page__copy-line {
-    max-width: none;
+    max-width: 62ch;
     line-height: 1.5;
     text-wrap: pretty;
 }
 
 .projects-page__story-copy {
     gap: clamp(12px, 1.4vw, 18px);
+    max-width: 68rem;
 }
 
 .projects-page__detail-title {
@@ -798,6 +800,15 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+.projects-page__detail-group {
+    flex: 1 1 clamp(15rem, 22vw, 21rem);
+    min-width: min(100%, 15rem);
+}
+
+.projects-page__detail-grid--single .projects-page__detail-group {
+    flex-basis: 100%;
 }
 
 .projects-page__detail-item,
@@ -894,8 +905,13 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
     justify-content: flex-start;
 }
 
+.projects-page__work-panel--snapshot .projects-page__actions {
+    padding-top: var(--sw-space-3xs);
+}
+
 .projects-page__work-panel--snapshot {
     gap: var(--sw-space-sm);
+    flex: 1.25 1 clamp(18rem, 34vw, 28rem);
 }
 
 :global(html[data-theme='sunset']) .projects-page__work-panel--positioning,
@@ -906,142 +922,54 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
         var(--sw-border) 72%,
         var(--sw-accent-violet) 28%
     );
+    background: color-mix(in srgb, var(--sw-bg-surface) 88%, transparent);
 }
 
-:global(html[data-theme='sunset']) .projects-page__work-panel--positioning::before,
-:global(html[data-theme='sunset']) .projects-page__work-panel--contexts::before,
-:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-}
-
-:global(html[data-theme='sunset']) .projects-page__work-panel--positioning::after,
-:global(html[data-theme='sunset']) .projects-page__work-panel--contexts::after,
-:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.9;
-}
-
-:global(html[data-theme='sunset']) .projects-page__work-panel--positioning::before {
+:global(html[data-theme='sunset']) .projects-page__work-panel--positioning {
     background:
         radial-gradient(
-            circle at 14% 0%,
-            color-mix(in srgb, #6ec5ff 14%, transparent),
-            transparent 34%
+            circle at 12% 6%,
+            color-mix(in srgb, #6ec5ff 10%, transparent),
+            transparent 30%
         ),
         linear-gradient(
-            145deg,
-            color-mix(in srgb, var(--sw-bg-surface) 90%, #3350a5 10%),
-            color-mix(in srgb, var(--sw-bg-elevated) 93%, #152452 7%)
+            150deg,
+            color-mix(in srgb, var(--sw-bg-surface) 92%, #22345e 8%),
+            color-mix(in srgb, var(--sw-bg-elevated) 94%, #141b35 6%)
         );
 }
 
-:global(html[data-theme='sunset']) .projects-page__work-panel--positioning::after {
-    background:
-        linear-gradient(
-            118deg,
-            transparent 0%,
-            color-mix(in srgb, #8c6dff 9%, transparent) 44%,
-            transparent 72%
-        ),
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, white 3%, transparent),
-            transparent 58%
-        );
-}
-
-:global(html[data-theme='sunset']) .projects-page__work-panel--contexts::before {
+:global(html[data-theme='sunset']) .projects-page__work-panel--contexts {
     background:
         radial-gradient(
-            circle at 88% 12%,
-            color-mix(in srgb, #57b8ff 12%, transparent),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 0% 100%,
-            color-mix(in srgb, #5b6fff 9%, transparent),
-            transparent 32%
+            circle at 88% 14%,
+            color-mix(in srgb, #57b8ff 9%, transparent),
+            transparent 24%
         ),
         linear-gradient(
-            160deg,
-            color-mix(in srgb, var(--sw-bg-grid) 88%, #29428a 12%),
-            color-mix(in srgb, var(--sw-bg-surface) 92%, #101b44 8%)
+            148deg,
+            color-mix(in srgb, var(--sw-bg-surface) 92%, #1b2750 8%),
+            color-mix(in srgb, var(--sw-bg-elevated) 94%, #15182f 6%)
         );
 }
 
-:global(html[data-theme='sunset']) .projects-page__work-panel--contexts::after {
-    background:
-        repeating-linear-gradient(
-            90deg,
-            color-mix(in srgb, #87c8ff 5%, transparent) 0,
-            color-mix(in srgb, #87c8ff 5%, transparent) 1px,
-            transparent 1px,
-            transparent 38px
-        ),
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, white 3%, transparent),
-            transparent 54%
-        );
-    mask-image: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.78),
-        rgba(0, 0, 0, 0.42) 72%,
-        transparent 100%
-    );
-}
-
-:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot::before {
+:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot {
     background:
         radial-gradient(
             circle at 78% 0%,
-            color-mix(in srgb, #6ad0ff 13%, transparent),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 12% 100%,
-            color-mix(in srgb, #7d67ff 10%, transparent),
-            transparent 34%
+            color-mix(in srgb, #6ad0ff 9%, transparent),
+            transparent 28%
         ),
         linear-gradient(
-            142deg,
-            color-mix(in srgb, var(--sw-bg-surface) 88%, #203774 12%),
-            color-mix(in srgb, var(--sw-bg-elevated) 91%, #161d48 9%)
-        );
-}
-
-:global(html[data-theme='sunset']) .projects-page__work-panel--snapshot::after {
-    background:
-        linear-gradient(
-            90deg,
-            transparent 0%,
-            color-mix(in srgb, #6ad0ff 6%, transparent) 42%,
-            color-mix(in srgb, #9b71ff 5%, transparent) 58%,
-            transparent 100%
-        ),
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, white 3%, transparent),
-            transparent 52%
+            144deg,
+            color-mix(in srgb, var(--sw-bg-surface) 92%, #22345a 8%),
+            color-mix(in srgb, var(--sw-bg-elevated) 94%, #171c39 6%)
         );
 }
 
 :global(html[data-theme='sunset']) .projects-page__story {
     background: color-mix(in srgb, var(--sw-bg-surface) 78%, transparent);
     border-color: color-mix(in srgb, var(--sw-border) 76%, var(--sw-accent-violet) 24%);
-}
-
-:global(html[data-theme='sunset']) .projects-page__work-panel > * {
-    position: relative;
-    z-index: 1;
 }
 
 :global(html[data-theme='sunset']) .projects-page__panel-label {
@@ -1070,63 +998,25 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
 }
 
 @media (min-width: 780px) {
-    .projects-page__work-grid {
-        grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.22fr);
-        grid-template-areas:
-            'positioning snapshot'
-            'contexts snapshot';
-    }
-
-    .projects-page__work-panel--positioning {
-        grid-area: positioning;
-    }
-
-    .projects-page__work-panel--contexts {
-        grid-area: contexts;
-    }
-
     .projects-page__work-panel--snapshot {
-        grid-area: snapshot;
-        min-height: 100%;
-        padding: calc(var(--sw-space-sm) * 1.08);
-    }
-
-    .projects-page__story-copy {
-        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-        align-items: start;
+        padding: calc(var(--sw-space-sm) * 1.04);
     }
 }
 
 @media (min-width: 1080px) {
-    .projects-page__detail-grid {
-        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-    }
-
-    .projects-page__detail-list--columns {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        column-gap: clamp(18px, 2vw, 28px);
-    }
-
-    .projects-page__detail-list--columns .projects-page__detail-item:nth-child(-n + 2) {
-        border-top: 0;
-        padding-top: 0;
+    .projects-page__story-copy {
+        max-width: 72ch;
     }
 }
 
 @media (min-width: 1560px) {
-    .projects-page__detail-grid {
-        grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    .projects-page__detail-group {
+        flex-basis: clamp(16rem, 18vw, 20rem);
     }
 }
 
 @media (max-width: 959px) {
     .projects-page__cases {
-        grid-template-columns: minmax(0, 1fr);
-    }
-}
-
-@media (max-width: 779px) {
-    .projects-page__work-grid {
         grid-template-columns: minmax(0, 1fr);
     }
 }
@@ -1163,9 +1053,4 @@ function detailListClasses(section: ExperienceSection, _group: ExperienceDetailG
     }
 }
 
-@media (max-width: 1079px) {
-    .projects-page__detail-list--columns {
-        grid-template-columns: minmax(0, 1fr);
-    }
-}
 </style>
