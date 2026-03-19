@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Publication;
+use Illuminate\Support\Facades\Schema;
+use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
 class PublicPagesTest extends TestCase
@@ -63,6 +66,44 @@ class PublicPagesTest extends TestCase
             ->assertSee(url('/fr/case-studies'), false)
             ->assertSee(url('/en/journal/content-systems-routing-and-metadata'), false)
             ->assertSee(url('/fr/journal/content-systems-routing-and-metadata'), false);
+    }
+
+    public function test_french_projects_page_uses_current_markdown_content(): void
+    {
+        $this->get('/fr/projects')
+            ->assertOk()
+            ->assertDontSee('Un goût pour les systèmes qui doivent vraiment tourner.')
+            ->assertDontSee('{&quot;Delivery sur plusieurs niveaux à la fois&quot;')
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where('hero.title', 'Des systèmes déjà en ligne, avec des contraintes réelles.')
+                ->where(
+                    'professionalSections.0.detail_groups.0.items.1',
+                    'Le même niveau d\'attention sur des sites marchands, des sites de marque, des reprises d\'existant et des évolutions métier.',
+                )
+                ->where('professionalSections.0.title', 'Jewely / Flippad')
+                ->where('associativeSections.0.title', 'Aremedia')
+            );
+    }
+
+    public function test_draft_case_studies_stay_unreachable_even_if_a_database_record_exists(): void
+    {
+        if (! Schema::hasTable('publications')) {
+            $this->artisan('migrate:fresh', ['--seed' => true]);
+        }
+
+        $record = Publication::query()
+            ->where('type', 'case_study')
+            ->where('locale', 'fr')
+            ->where('slug', 'repo-bootstrap-foundation')
+            ->firstOrFail();
+
+        $record->forceFill([
+            'status' => 'published',
+            'summary' => 'Old database summary that should never leak publicly.',
+        ])->save();
+
+        $this->get('/fr/case-studies/repo-bootstrap-foundation')
+            ->assertNotFound();
     }
 
     public function test_placeholder_visual_endpoints_are_publicly_available(): void

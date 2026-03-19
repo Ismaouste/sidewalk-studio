@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Page;
 use App\Services\PageContentRepository;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 class PageContentRepositoryTest extends TestCase
@@ -33,6 +35,34 @@ class PageContentRepositoryTest extends TestCase
         $this->assertSame(
             'Repères techniques',
             $page['career_snapshot']['title'],
+        );
+    }
+
+    public function test_it_prefers_markdown_over_database_overrides_for_public_pages(): void
+    {
+        if (! Schema::hasTable('pages')) {
+            $this->artisan('migrate:fresh', ['--seed' => true]);
+        }
+
+        $pageRecord = Page::query()
+            ->where('page_key', 'projects')
+            ->where('locale', 'fr')
+            ->firstOrFail();
+
+        $payload = $pageRecord->payload ?? [];
+        $payload['hero']['title'] = 'Old database hero title';
+
+        $pageRecord->forceFill([
+            'seo_title' => 'Old database seo title',
+            'payload' => $payload,
+        ])->save();
+
+        $page = app(PageContentRepository::class)->get('projects', 'fr');
+
+        $this->assertSame('Tech lead e-commerce à Nancy', $page['seo_title']);
+        $this->assertSame(
+            'Des systèmes déjà en ligne, avec des contraintes réelles.',
+            $page['hero']['title'],
         );
     }
 

@@ -3,8 +3,8 @@ seo_title: Tech Lead Ecommerce in Nancy
 seo_description: Tech lead ecommerce work from Nancy, Grand Est, across platform stabilization, product data, Docker Swarm incidents, and remote-friendly delivery.
 hero:
     eyebrow: Experience
-    title: A taste for systems that have to keep running.
-    summary: "This is the main experience surface: case studies, delivery notes, and recruiter-facing context around ecommerce systems that were already live, already constrained, and rarely clean. The useful question is not which stack was present first, but which decision made the system more legible, more honest, or easier to run."
+    title: Live systems, real constraints, steady decisions.
+    summary: "Main experience page for a tech lead working from Nancy across delivery, product data, Docker Swarm incidents, design systems, and remote-friendly ecommerce work."
 tracks_section:
     label: Tracks
     intro:

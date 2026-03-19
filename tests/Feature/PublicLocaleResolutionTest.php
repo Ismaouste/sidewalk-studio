@@ -29,7 +29,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'Un goût pour les systèmes qui doivent vraiment tourner.')
+                ->where('hero.title', 'Des systèmes déjà en ligne, avec des contraintes réelles.')
                 ->where('site.locale', 'fr')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
@@ -263,7 +263,7 @@ MD);
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.title', 'A taste for systems that have to keep running.')
+                ->where('hero.title', 'Live systems, real constraints, steady decisions.')
                 ->where('site.locale', 'en')
                 ->where('seo.openGraph.locale', 'en'));
     }

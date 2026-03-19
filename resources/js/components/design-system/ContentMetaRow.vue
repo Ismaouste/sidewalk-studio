@@ -41,9 +41,9 @@ defineProps<{
     display: inline-flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    gap: 6px;
-    min-height: 2rem;
-    max-width: min(100%, 19rem);
+    gap: 5px;
+    min-height: 1.75rem;
+    max-width: min(100%, 16rem);
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
     border-radius: var(--sw-radius-full);
     background:
@@ -53,13 +53,13 @@ defineProps<{
             transparent
         ),
         color-mix(in srgb, var(--sw-bg-grid) 68%, transparent);
-    padding: 0.46rem 0.82rem;
+    padding: 0.38rem 0.72rem;
     box-shadow: inset 0 1px 0 color-mix(in srgb, white 18%, transparent);
 }
 
 .content-meta-row__label {
     font-family: var(--sw-font-heading);
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
     line-height: 1.6;
     letter-spacing: 0.12em;
@@ -70,7 +70,7 @@ defineProps<{
 
 .content-meta-row__value {
     font-family: var(--sw-font-code);
-    font-size: 11px;
+    font-size: 10px;
     line-height: 1.35;
     letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;

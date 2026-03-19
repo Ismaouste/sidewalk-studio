@@ -327,10 +327,10 @@ class ContentRepository
         $databaseItems = $this->databaseItemsForSection($section, $locale, $includeFallback);
         $fileItems = $this->fileItems($section, $locale, $includeFallback);
 
-        return $databaseItems
+        return $fileItems
             ->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug']))
             ->union(
-                $fileItems->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug'])),
+                $databaseItems->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug'])),
             )
             ->values();
     }

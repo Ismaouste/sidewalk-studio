@@ -63,9 +63,14 @@ function handleImageLoad(): void {
 .content-visual {
     position: relative;
     overflow: hidden;
-    border-radius: calc(var(--sw-radius-lg) - 4px);
-    min-height: 12rem;
-    background: color-mix(in srgb, var(--sw-bg-grid) 70%, transparent);
+    border: 1px solid color-mix(in srgb, var(--sw-border) 78%, transparent);
+    border-radius: calc(var(--sw-radius-lg) - 2px);
+    min-height: 10rem;
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--sw-bg-elevated) 52%, transparent),
+        color-mix(in srgb, var(--sw-bg-grid) 42%, transparent)
+    );
 }
 
 .content-visual::before {
@@ -73,22 +78,26 @@ function handleImageLoad(): void {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(
-            135deg,
-            color-mix(in srgb, var(--sw-bg-elevated) 18%, transparent),
-            transparent 38%
+        radial-gradient(
+            circle at 82% 18%,
+            color-mix(in srgb, var(--sw-accent-violet) 10%, transparent),
+            transparent 34%
         ),
-        color-mix(in srgb, var(--sw-bg-grid) 74%, transparent);
-    opacity: 1;
+        linear-gradient(
+            150deg,
+            color-mix(in srgb, var(--sw-bg-elevated) 16%, transparent),
+            transparent 46%
+        );
+    opacity: 0.82;
     transition: opacity 220ms ease-out;
 }
 
 .content-visual--compact {
-    min-height: 9.5rem;
+    min-height: 6.75rem;
 }
 
 .content-visual--minimal {
-    min-height: 7.25rem;
+    min-height: 5.25rem;
 }
 
 .content-visual__image {

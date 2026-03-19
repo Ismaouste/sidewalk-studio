@@ -3,8 +3,8 @@ seo_title: Tech lead e-commerce à Nancy
 seo_description: Tech lead e-commerce à Nancy, Grand Est, pour des missions remote ou hybrides autour du delivery, de la donnée produit et du SEO technique.
 hero:
     eyebrow: Expérience
-    title: Un goût pour les systèmes qui doivent vraiment tourner.
-    summary: "Surface d'expérience pour lire un parcours de tech lead e-commerce basé à Nancy, Grand Est, entre case studies e-commerce, incidents Docker Swarm, design system et donnée produit. Elle sert aussi de point d'entrée simple pour des missions remote ou hybrides."
+    title: Des systèmes déjà en ligne, avec des contraintes réelles.
+    summary: "Parcours de tech lead e-commerce à Nancy, Grand Est, entre delivery, données produit, incidents Docker Swarm, design system et contextes remote ou hybrides."
 tracks_section:
     label: Pistes
     intro:

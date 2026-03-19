@@ -127,7 +127,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
 <style scoped>
 .publication-widget {
     display: grid;
-    gap: var(--sw-space-sm);
+    gap: var(--sw-space-xs);
 }
 
 .publication-widget__header {
@@ -152,7 +152,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 .publication-widget__grid {
     display: grid;
-    gap: var(--sw-space-sm);
+    gap: var(--sw-space-xs);
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -163,11 +163,13 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 .publication-widget__card {
     display: grid;
-    gap: var(--sw-space-xs);
+    gap: 0.85rem;
     height: 100%;
-    padding: var(--sw-space-sm);
+    padding: clamp(14px, 1.8vw, 18px);
     align-items: stretch;
     contain: layout paint style;
+    border-color: color-mix(in srgb, var(--sw-border) 80%, transparent);
+    background: color-mix(in srgb, var(--sw-bg-surface) 90%, transparent);
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
@@ -177,7 +179,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 .publication-widget__body {
     display: grid;
-    gap: var(--sw-space-xs);
+    gap: 0.7rem;
     align-content: start;
 }
 
@@ -185,7 +187,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 0.55rem;
+    gap: 0.45rem;
     align-items: baseline;
 }
 
@@ -196,10 +198,16 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 .publication-widget__title {
     color: var(--sw-text-primary);
+    line-height: 1.12;
 }
 
 .publication-widget__summary {
     color: var(--sw-text-secondary);
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }
 
 .publication-widget__meta-date {
@@ -243,9 +251,9 @@ function widgetChipLabel(section: string, category: string, client: string): str
 
 @media (min-width: 720px) {
     .publication-widget__card {
-        grid-template-columns: minmax(8.6rem, 10.4rem) minmax(0, 1fr);
-        column-gap: var(--sw-space-sm);
-        row-gap: var(--sw-space-2xs);
+        grid-template-columns: minmax(6.8rem, 8.2rem) minmax(0, 1fr);
+        column-gap: var(--sw-space-xs);
+        row-gap: 0.65rem;
     }
 
     .publication-widget__card :deep(.content-visual) {
@@ -260,18 +268,18 @@ function widgetChipLabel(section: string, category: string, client: string): str
     }
 
     .publication-widget__grid--single .publication-widget__card {
-        grid-template-columns: minmax(9rem, 11rem) minmax(0, 1fr);
-        column-gap: var(--sw-space-sm);
-        row-gap: var(--sw-space-2xs);
+        grid-template-columns: minmax(7.2rem, 8.8rem) minmax(0, 1fr);
+        column-gap: var(--sw-space-xs);
+        row-gap: 0.65rem;
         align-items: center;
     }
 
     .publication-widget__grid--single .publication-widget__card :deep(.content-visual) {
-        min-height: 7.8rem;
+        min-height: 6.6rem;
     }
 }
 
 .publication-widget__card--note :deep(.content-visual) {
-    min-height: 6.8rem;
+    min-height: 5.4rem;
 }
 </style>

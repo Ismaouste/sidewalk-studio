@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Publication;
 use App\Services\ContentRepository;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use RuntimeException;
 use Tests\TestCase;
 
@@ -66,6 +68,38 @@ class ContentRepositoryTest extends TestCase
         $this->assertSame('case_study', $item['publication_type']);
         $this->assertStringContainsString('/content-visuals/case-studies/', $item['image_url']);
         $this->assertStringContainsString('The pipeline already existed', $item['body_html']);
+    }
+
+    public function test_repository_prefers_markdown_over_hybrid_database_records(): void
+    {
+        if (! Schema::hasTable('publications')) {
+            $this->artisan('migrate:fresh', ['--seed' => true]);
+        }
+
+        $record = Publication::query()
+            ->where('type', 'case_study')
+            ->where('locale', 'fr')
+            ->where('slug', 'pipeline-deploiement-crown-dp')
+            ->firstOrFail();
+
+        $metadata = $record->metadata ?? [];
+        $metadata['role'] = 'Old database role';
+
+        $record->forceFill([
+            'summary' => 'Old database summary that should never leak publicly.',
+            'metadata' => $metadata,
+        ])->save();
+
+        $item = app(ContentRepository::class)->findPublished('case-studies', 'pipeline-deploiement-crown-dp', 'fr');
+
+        $this->assertSame(
+            'Analyse incident et stabilisation du déploiement',
+            $item['role'],
+        );
+        $this->assertSame(
+            'Un case study e-commerce sur un Docker Swarm rollback silencieux, un déploiement automatique trompeur et le besoin de rendre l\'état final vérifiable.',
+            $item['summary'],
+        );
     }
 
     public function test_repository_feed_can_filter_publications_by_tag_and_category(): void

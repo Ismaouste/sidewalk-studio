@@ -466,28 +466,30 @@ const copy = computed(() =>
                 >
                     <Panel class="home-card" tone="surface">
                         <ContentVisual :item="item" compact />
-                        <LegendChip
-                            :label="item.client || copy.internalBuildLabel"
-                            tone="green"
-                            class="home-card__eyebrow"
-                        />
-                        <h3 class="type-h2 home-card__title">
-                            {{ item.title }}
-                        </h3>
-                        <p class="type-body-sm home-card__role">
-                            {{ item.role }}
-                        </p>
-                        <p class="type-body home-card__summary">
-                            {{ item.summary }}
-                        </p>
-                        <div class="home-card__meta">
-                            <span
-                                v-for="tag in item.tags.slice(0, 3)"
-                                :key="tag"
-                                class="type-meta home-card__tag"
-                            >
-                                {{ tag }}
-                            </span>
+                        <div class="home-card__body">
+                            <LegendChip
+                                :label="item.client || copy.internalBuildLabel"
+                                tone="green"
+                                class="home-card__eyebrow"
+                            />
+                            <h3 class="type-h2 home-card__title">
+                                {{ item.title }}
+                            </h3>
+                            <p class="type-body-sm home-card__role">
+                                {{ item.role }}
+                            </p>
+                            <p class="type-body home-card__summary">
+                                {{ item.summary }}
+                            </p>
+                            <div class="home-card__meta">
+                                <span
+                                    v-for="tag in item.tags.slice(0, 3)"
+                                    :key="tag"
+                                    class="type-meta home-card__tag"
+                                >
+                                    {{ tag }}
+                                </span>
+                            </div>
                         </div>
                     </Panel>
                 </Link>
@@ -570,8 +572,8 @@ const copy = computed(() =>
 .home-card,
 .home-contact {
     display: grid;
-    gap: var(--sw-space-sm);
-    padding: clamp(18px, 2.8vw, var(--sw-space-sm));
+    gap: var(--sw-space-xs);
+    padding: clamp(16px, 2.2vw, 20px);
 }
 
 .home-accent-list {
@@ -794,6 +796,9 @@ const copy = computed(() =>
     position: relative;
     display: grid;
     height: 100%;
+    gap: var(--sw-space-xs);
+    border-color: color-mix(in srgb, var(--sw-border) 80%, transparent);
+    background: color-mix(in srgb, var(--sw-bg-surface) 90%, transparent);
     transition:
         transform var(--sw-motion-fast),
         border-color var(--sw-motion-fast),
@@ -802,10 +807,16 @@ const copy = computed(() =>
     border-radius: inherit;
 }
 
+.home-card__body {
+    display: grid;
+    gap: 0.7rem;
+    align-content: start;
+}
+
 .home-card__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sw-space-3xs);
+    gap: 6px;
 }
 
 .home-card__tag {
@@ -813,6 +824,14 @@ const copy = computed(() =>
     align-items: center;
     min-height: 1.35rem;
     color: var(--sw-accent-dominant);
+}
+
+.home-card__summary {
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }
 
 .home-contact {
@@ -895,6 +914,16 @@ const copy = computed(() =>
 @media (min-width: 960px) {
     .home-hero {
         grid-template-columns: minmax(0, 1.45fr) minmax(18rem, 0.85fr);
+    }
+
+    .home-card {
+        grid-template-columns: minmax(6.9rem, 8.4rem) minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .home-card :deep(.content-visual) {
+        min-height: 100%;
+        height: 100%;
     }
 
     .home-contact {

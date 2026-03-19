@@ -117,8 +117,8 @@ class PageContentRepository
             return $databasePayload;
         }
 
-        $payload = array_replace_recursive($filePayload, $databasePayload);
-        $payload['payload'] = array_replace_recursive($filePayload['payload'] ?? [], $databasePayload['payload'] ?? []);
+        $payload = array_replace_recursive($databasePayload, $filePayload);
+        $payload['payload'] = array_replace_recursive($databasePayload['payload'] ?? [], $filePayload['payload'] ?? []);
 
         return $payload;
     }
