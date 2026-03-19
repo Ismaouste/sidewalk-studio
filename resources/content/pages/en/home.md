@@ -1,10 +1,10 @@
 ---
 seo_title: Engineering for ecommerce, product data, and privacy
-seo_description: 'Sidewalk Studio is the portfolio of Ismael Rodmacq: Laravel, ecommerce, technical SEO, privacy, consent-aware analytics, and maintainable product systems.'
+seo_description: 'Portfolio of Ismael Rodmacq: ecommerce delivery, ERP and PIM integration, privacy-aware tracking, technical SEO, and product systems under real pressure.'
 hero:
     eyebrow: Ecommerce, product data, and technical SEO
     title: Engineering for ecommerce, product data, and its flows.
-    summary: I work on live ecommerce systems with existing data, existing history, and real release pressure. The work usually starts where product data, integrations, deployment habits, and privacy rules begin to collide. What matters is not a cleaner stack on paper, but a system that teams can read and trust again.
+    summary: I work on ecommerce systems that are already in production, not on clean greenfield builds. The job usually starts where product data, ERP or PIM integration, release pressure, and privacy rules begin to collide. What I try to leave behind is not a prettier stack on paper, but a system that teams can read and trust again.
 hero_panel:
     - Ecommerce and CMS development across WooCommerce, PrestaShop, Shopify, and decoupled fronts when the project calls for it.
     - Fullstack Laravel and PHP delivery across APIs, internal tools, technical framing, pragmatic CI/CD, and commerce operations.

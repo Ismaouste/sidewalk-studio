@@ -1,10 +1,10 @@
 ---
-seo_title: Experience
-seo_description: Professional experience, demanding ecommerce environments, and a few public references that make the level of execution visible.
+seo_title: Tech Lead Ecommerce in Nancy
+seo_description: Tech lead ecommerce work from Nancy, Grand Est, across platform stabilization, product data, Docker Swarm incidents, and remote-friendly delivery.
 hero:
     eyebrow: Experience
     title: A taste for systems that have to keep running.
-    summary: "Case studies, delivery notes, and recruiter-facing context around ecommerce systems, product data, Docker Swarm incidents, and design-system decisions that had concrete consequences."
+    summary: "This is the main experience surface: case studies, delivery notes, and recruiter-facing context around ecommerce systems that were already live, already constrained, and rarely clean. The useful question is not which stack was present first, but which decision made the system more legible, more honest, or easier to run."
 tracks_section:
     label: Tracks
     intro:
@@ -22,6 +22,6 @@ case_studies_section:
     label: Public references
     eyebrow: References
     title: Case studies and notes to go deeper.
-    summary: 'An archive for going deeper into concrete cases: nonprofit tools under constraint, product data between ERP and commerce, Docker Swarm delivery failures, and design-system choices that shaped implementation.'
+    summary: 'Each case study starts from the situation, then the decision, then what changed: nonprofit tools under constraint, product data between ERP and commerce, Docker Swarm delivery failures, and design-system rules that shaped implementation.'
     archive_cta: Browse all case studies
 ---

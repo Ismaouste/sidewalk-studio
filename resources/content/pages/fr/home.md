@@ -1,10 +1,10 @@
 ---
 seo_title: Développeur e-commerce pour la donnée produit et la vie privée
-seo_description: "Sidewalk Studio est le portfolio d'Ismael Rodmacq : développeur e-commerce Laravel, intégration ERP, conformité RGPD, SEO technique et systèmes produit maintenables."
+seo_description: "Portfolio d'Ismael Rodmacq : développeur e-commerce, intégration ERP, conformité RGPD, SEO technique et systèmes produit sous vraie contrainte."
 hero:
     eyebrow: Ecommerce, donnée produit et SEO technique
     title: Ingénierie web pour l'ecommerce, la donnée produit et ses flux.
-    summary: Développeur e-commerce basé à Nancy, je travaille sur des systèmes déjà en production, avec un historique, des dépendances et des zones fragiles. Le travail commence souvent là où donnée produit, intégration ERP, habitudes de déploiement et conformité RGPD commencent à se gêner. Ce qui compte ensuite, c'est de rendre l'ensemble plus lisible et plus fiable pour l'équipe.
+    summary: Développeur e-commerce basé à Nancy, je travaille sur des systèmes déjà en production, pas sur des greenfields propres. Le travail commence souvent là où donnée produit, intégration ERP, pression de mise en ligne et conformité RGPD commencent à se gêner. Ce qui compte ensuite, c'est de rendre l'ensemble plus lisible et plus fiable pour l'équipe.
 hero_panel:
     - Développement ecommerce et CMS sur WooCommerce, PrestaShop, Shopify et fronts découplés quand le projet le demande.
     - Développement full stack en Laravel et PHP, APIs, outils internes, cadrage technique, CI-CD pragmatique et delivery ecommerce.

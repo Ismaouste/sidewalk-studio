@@ -70,13 +70,13 @@ class PublicLanguageSwitcherTest extends TestCase
                     fn (string $href): bool => str_ends_with($href, '/fr/case-studies'),
                 ));
 
-        $this->get('/en/case-studies/repo-bootstrap-foundation')
+        $this->get('/en/case-studies/pipeline-deploiement-crown-dp')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/fr/case-studies/repo-bootstrap-foundation'),
+                    fn (string $href): bool => str_ends_with($href, '/fr/case-studies/pipeline-deploiement-crown-dp'),
                 ));
     }
 

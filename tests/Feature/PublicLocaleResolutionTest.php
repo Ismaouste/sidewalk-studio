@@ -189,10 +189,10 @@ MD);
 
     public function test_case_study_detail_renders_localized_french_entry_with_stable_canonical_url(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/fr/case-studies/repo-bootstrap-foundation';
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/case-studies/pipeline-deploiement-crown-dp';
 
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
-            ->get('/fr/case-studies/repo-bootstrap-foundation')
+            ->get('/fr/case-studies/pipeline-deploiement-crown-dp')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
@@ -200,7 +200,7 @@ MD);
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
                 ->where('item.locale', 'fr')
-                ->where('item.title', 'Bootstrap du repository pour un portfolio piloté par les specs')
+                ->where('item.title', 'Crown DP, ou comment rendre un pipeline de déploiement honnête')
                 ->where('seo.canonical', $canonical)
                 ->where('seo.openGraph.locale', 'fr'));
     }

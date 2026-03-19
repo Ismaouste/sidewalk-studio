@@ -28,7 +28,7 @@ class SeoAndConsentTest extends TestCase
         $this->get('/en/projects')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertSee('Experience · Ismael Rodmacq')
+            ->assertSee('Tech Lead Ecommerce in Nancy · Ismael Rodmacq')
             ->assertSee('"@type":"Person"', false)
             ->assertSee('"jobTitle":"Full Stack Developer — E-commerce & Product Data"', false)
             ->assertSee('"addressRegion":"Grand Est"', false)
@@ -56,9 +56,9 @@ class SeoAndConsentTest extends TestCase
     {
         $ogImage = rtrim((string) config('site.url'), '/').'/images/og/site-default.jpg';
 
-        $this->get('/en/case-studies/repo-bootstrap-foundation')
+        $this->get('/en/case-studies/pipeline-deploiement-crown-dp')
             ->assertOk()
-            ->assertSee('Repository Bootstrap for a Spec-Driven Portfolio · Ismael Rodmacq')
+            ->assertSee('Crown DP and the work of making a deployment pipeline honest · Ismael Rodmacq')
             ->assertSee('<meta property="og:type" content="website">', false)
             ->assertSee('<meta property="og:image" content="'.$ogImage.'">', false)
             ->assertSee('"@type":"CreativeWork"', false)
@@ -67,14 +67,14 @@ class SeoAndConsentTest extends TestCase
 
     public function test_case_study_page_keeps_stable_canonical_url_when_resolved_in_french(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/fr/case-studies/repo-bootstrap-foundation';
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/case-studies/pipeline-deploiement-crown-dp';
 
         $this->withCookie('sidewalk_locale', 'fr')
-            ->get('/fr/case-studies/repo-bootstrap-foundation')
+            ->get('/fr/case-studies/pipeline-deploiement-crown-dp')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
-            ->assertSee('Bootstrap du repository pour un portfolio piloté par les specs · Ismaël Rodmacq');
+            ->assertSee('Crown DP, ou comment rendre un pipeline de déploiement honnête · Ismaël Rodmacq');
     }
 
     public function test_contact_page_is_explicitly_noindex_follow(): void

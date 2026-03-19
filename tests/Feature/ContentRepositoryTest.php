@@ -13,9 +13,11 @@ class ContentRepositoryTest extends TestCase
     {
         $items = app(ContentRepository::class)->published('writing');
 
-        $this->assertCount(7, $items);
+        $this->assertCount(9, $items);
         $this->assertContains('content-systems-routing-and-metadata', $items->pluck('slug')->all());
         $this->assertContains('opensurvey-nonprofit-health-data', $items->pluck('slug')->all());
+        $this->assertContains('quand-un-deploiement-reussi-ne-lest-pas', $items->pluck('slug')->all());
+        $this->assertContains('les-interdits-comme-specification', $items->pluck('slug')->all());
         $this->assertContains('schema-org-rich-results-and-product-images', $items->pluck('slug')->all());
         $this->assertContains('technical-seo-sitemaps-and-structured-data-for-commerce', $items->pluck('slug')->all());
         $this->assertContains('ytmusic-liked-sorter', $items->pluck('slug')->all());
@@ -55,15 +57,15 @@ class ContentRepositoryTest extends TestCase
 
     public function test_repository_returns_case_study_details(): void
     {
-        $item = app(ContentRepository::class)->findPublished('case-studies', 'repo-bootstrap-foundation');
+        $item = app(ContentRepository::class)->findPublished('case-studies', 'pipeline-deploiement-crown-dp');
 
-        $this->assertSame('Sidewalk Studio', $item['client']);
+        $this->assertSame('Jewely / Flippad · Crown DP', $item['client']);
         $this->assertSame('en', $item['locale']);
-        $this->assertContains('Laravel 12', $item['stack']);
+        $this->assertContains('Docker Swarm', $item['stack']);
         $this->assertSame('work', $item['category']);
         $this->assertSame('case_study', $item['publication_type']);
         $this->assertStringContainsString('/content-visuals/case-studies/', $item['image_url']);
-        $this->assertStringContainsString('The first iteration of Sidewalk Studio started from a mismatch', $item['body_html']);
+        $this->assertStringContainsString('The pipeline already existed', $item['body_html']);
     }
 
     public function test_repository_feed_can_filter_publications_by_tag_and_category(): void

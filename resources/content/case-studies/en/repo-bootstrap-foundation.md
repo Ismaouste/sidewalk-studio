@@ -2,7 +2,7 @@
 title: Repository Bootstrap for a Spec-Driven Portfolio
 slug: repo-bootstrap-foundation
 summary: How the repo was normalized from a thin README into a Laravel-first workspace with specs, docs, and AI-operational scaffolding.
-status: published
+status: draft
 published_at: 2026-03-07
 updated_at: 2026-03-07
 tags:

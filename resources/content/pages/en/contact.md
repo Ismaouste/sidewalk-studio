@@ -1,10 +1,10 @@
 ---
 seo_title: Contact
-seo_description: A contact point for web projects, internal tools, digital operations, connectors, or simply continuing the visit.
+seo_description: Contact point for a tech lead ecommerce role, a focused freelance mission from Nancy, or a stabilization, integration, or delivery-heavy context.
 hero:
     eyebrow: Contact
-    title: Get in touch for a digital project or simply continue the visit.
-    summary: Based in Nancy. Available for a role, a focused freelance mission, or a direct discussion around a live ecommerce, product, or integration context.
+    title: Get in touch for a role, a mission, or a context worth understanding.
+    summary: Based in Nancy. Available for a tech lead ecommerce role, a focused freelance mission, or a direct discussion around a live product, integration, or stabilization context. I am most useful when there is real existing material to understand and real tradeoffs to make with a team.
 form:
     eyebrow: Share the context
     title: A simple first message, and the conversation can begin.

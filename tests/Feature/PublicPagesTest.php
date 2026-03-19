@@ -11,7 +11,7 @@ class PublicPagesTest extends TestCase
         $pages = [
             '/en' => 'Ismael Rodmacq',
             '/en/local' => 'Local · Ismael Rodmacq',
-            '/en/projects' => 'Experience · Ismael Rodmacq',
+            '/en/projects' => 'Tech Lead Ecommerce in Nancy · Ismael Rodmacq',
             '/en/labs' => 'Labs · Ismael Rodmacq',
             '/en/journal' => 'Journal · Ismael Rodmacq',
             '/en/case-studies' => 'Case Studies · Ismael Rodmacq',
