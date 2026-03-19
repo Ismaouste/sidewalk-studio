@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { Link, usePage } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import ContentVisual from '@/components/content/ContentVisual.vue';
 import PublicationWidget from '@/components/content/PublicationWidget.vue';
-import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
@@ -11,7 +9,6 @@ import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type {
-    ContentItem,
     PublicationWidget as PublicationWidgetData,
     SeoPayload,
     SiteProps,
@@ -61,23 +58,6 @@ const props = defineProps<{
         label: string;
         href: string;
     }>;
-    tracksSection: {
-        label: string;
-        intro: {
-            eyebrow: string;
-            title: string;
-            summary: string;
-        };
-        items: { title: string; summary: string }[];
-    };
-    caseStudies: ContentItem[];
-    caseStudiesSection: {
-        label: string;
-        eyebrow: string;
-        title: string;
-        summary: string;
-        archive_cta: string;
-    };
     associativeNoteWidget: PublicationWidgetData;
     sideProjectsWidget: PublicationWidgetData;
     journalWidget: PublicationWidgetData;
@@ -89,8 +69,6 @@ const copy = computed(() =>
         ? {
               overviewCta: "Découvrir toutes les études de cas",
               contactCta: "Discuter d'un contexte proche",
-              internalBuildLabel: 'Interne',
-              roleLabel: 'Rôle',
               contextTitles: [
                   'Commerce en charge',
                   'Stacks reprises',
@@ -105,14 +83,10 @@ const copy = computed(() =>
               sideProjectsLabel: 'Culture et hobby',
               stackLabel: 'Stack',
               lookingForLabel: 'Ce que je recherche',
-              outcomesLabel: 'Résultats',
-              outcomesSuffix: 'points',
           }
         : {
               overviewCta: 'Browse all case studies',
               contactCta: 'Discuss a similar context',
-              internalBuildLabel: 'Internal build',
-              roleLabel: 'Role',
               contextTitles: [
                   'Live commerce',
                   'Recovered stacks',
@@ -127,8 +101,6 @@ const copy = computed(() =>
               sideProjectsLabel: 'Culture and hobbies',
               stackLabel: 'Stack',
               lookingForLabel: 'What I am looking for',
-              outcomesLabel: 'Outcomes',
-              outcomesSuffix: 'signals',
           },
 );
 
@@ -142,19 +114,6 @@ const hasSideProjectsContent = computed(
         props.sideProjectSections.length > 0 ||
         props.sideProjectsWidget.items.length > 0,
 );
-
-function caseStudyMeta(item: ContentItem) {
-    return [
-        {
-            label: copy.value.roleLabel,
-            value: item.role,
-        },
-        {
-            label: copy.value.outcomesLabel,
-            value: `${item.outcomes.length} ${copy.value.outcomesSuffix}`,
-        },
-    ];
-}
 
 function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant' | 'coral' | 'sun' {
     if (label === 'associative') {
@@ -510,59 +469,6 @@ function detailGridClasses(section: ExperienceSection) {
                 <PublicationWidget :widget="props.sideProjectsWidget" tone="surface" />
             </template>
 
-            <div class="projects-page__header">
-                <SectionIntro
-                    :eyebrow="props.caseStudiesSection.eyebrow"
-                    :title="props.caseStudiesSection.title"
-                    :description="props.caseStudiesSection.summary"
-                />
-            </div>
-
-            <div class="projects-page__cases">
-                <Link
-                    v-for="item in props.caseStudies"
-                    :key="item.slug"
-                    :href="item.url"
-                    class="projects-page__case-link"
-                >
-                    <Panel class="projects-page__case" tone="grid">
-                        <ContentVisual :item="item" compact />
-                        <div class="projects-page__case-top">
-                            <LegendChip
-                                :label="item.client || copy.internalBuildLabel"
-                                tone="green"
-                            />
-                            <ContentMetaRow :items="caseStudyMeta(item)" />
-                        </div>
-
-                        <h3 class="type-h2 projects-page__case-title">
-                            {{ item.title }}
-                        </h3>
-                        <p class="type-body-sm projects-page__case-role">
-                            {{ item.role }}
-                        </p>
-                        <p class="type-body projects-page__case-summary">
-                            {{ item.summary }}
-                        </p>
-                        <div class="projects-page__case-tags">
-                            <span
-                                v-for="tag in item.tags"
-                                :key="tag"
-                                class="type-meta projects-page__case-tag"
-                            >
-                                {{ tag }}
-                            </span>
-                        </div>
-                    </Panel>
-                </Link>
-            </div>
-
-            <div class="projects-page__footer-cta">
-                <Button href="/case-studies" variant="primary" arrow>
-                    {{ props.caseStudiesSection.archive_cta }}
-                </Button>
-            </div>
-
             <Panel class="projects-page__closing" tone="grid">
                 <p class="type-eyebrow projects-page__panel-label">
                     {{ copy.lookingForLabel }}
@@ -646,7 +552,9 @@ function detailGridClasses(section: ExperienceSection) {
 .projects-page__closing {
     position: relative;
     gap: var(--sw-space-sm);
-    padding-block: clamp(28px, 4vw, 42px);
+    margin-block: clamp(12px, 2vw, 22px) clamp(18px, 3vw, 30px);
+    padding: clamp(24px, 3.2vw, 34px);
+    padding-block: clamp(34px, 5vw, 52px);
     border-color: color-mix(
         in srgb,
         var(--sw-ambient-flare-soft) 22%,
@@ -696,8 +604,6 @@ function detailGridClasses(section: ExperienceSection) {
 }
 
 .projects-page__copy-line,
-.projects-page__case-summary,
-.projects-page__case-role,
 .projects-page__story-summary {
     margin: 0;
     color: var(--sw-text-secondary);
@@ -770,8 +676,7 @@ function detailGridClasses(section: ExperienceSection) {
     align-items: flex-start;
 }
 
-.projects-page__story-title,
-.projects-page__case-title {
+.projects-page__story-title {
     margin: 0;
     color: var(--sw-text-primary);
     overflow-wrap: anywhere;
@@ -843,54 +748,6 @@ function detailGridClasses(section: ExperienceSection) {
 .projects-page__list-item:first-child {
     border-top: 0;
     padding-top: 0;
-}
-
-.projects-page__header {
-    display: grid;
-    gap: var(--sw-space-xs);
-}
-
-.projects-page__header :deep(.section-intro) {
-    max-width: 46rem;
-}
-
-.projects-page__footer-cta {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.projects-page__footer-cta :deep(.sw-button) {
-    max-width: 16rem;
-    white-space: normal;
-    line-height: 1.3;
-}
-
-.projects-page__cases {
-    display: grid;
-    gap: var(--sw-space-sm);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.projects-page__case-link {
-    display: block;
-    border-radius: var(--sw-radius-lg);
-}
-
-.projects-page__case {
-    height: 100%;
-    min-width: 0;
-    transition:
-        transform var(--sw-motion-fast),
-        border-color var(--sw-motion-fast),
-        background-color var(--sw-motion-fast);
-}
-
-.projects-page__case-top {
-    display: grid;
-    gap: var(--sw-space-3xs);
-    align-items: start;
-    justify-items: start;
-    min-width: 0;
 }
 
 .projects-page__case-tags,
@@ -1002,34 +859,14 @@ function detailGridClasses(section: ExperienceSection) {
         );
 }
 
-:global(html[data-theme='sunset']) .projects-page__story {
+:global(html[data-theme='sunset']) .projects-page__story,
+:global(html[data-theme='sunset']) .projects-page__closing {
     background: color-mix(in srgb, var(--sw-bg-surface) 78%, transparent);
     border-color: color-mix(in srgb, var(--sw-border) 76%, var(--sw-accent-violet) 24%);
 }
 
 :global(html[data-theme='sunset']) .projects-page__panel-label {
     background: transparent;
-}
-
-.projects-page__case-link:focus-visible {
-    outline: none;
-}
-
-.projects-page__case-link:focus-visible .projects-page__case,
-.projects-page__case-link:active .projects-page__case {
-    border-color: var(--sw-border-focus);
-}
-
-.projects-page__case-link:active .projects-page__case {
-    transform: translateY(1px);
-}
-
-@media (hover: hover) {
-    .projects-page__case-link:hover .projects-page__case {
-        transform: translateY(-2px);
-        border-color: var(--sw-card-hover-border);
-        background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
-    }
 }
 
 @media (min-width: 780px) {
@@ -1047,12 +884,6 @@ function detailGridClasses(section: ExperienceSection) {
 @media (min-width: 1560px) {
     .projects-page__detail-group {
         flex-basis: clamp(16rem, 18vw, 20rem);
-    }
-}
-
-@media (max-width: 959px) {
-    .projects-page__cases {
-        grid-template-columns: minmax(0, 1fr);
     }
 }
 
@@ -1078,9 +909,10 @@ function detailGridClasses(section: ExperienceSection) {
         padding: 0.42rem 0.68rem;
     }
 
-    .projects-page__header {
-        gap: var(--sw-space-xs);
-        align-items: start;
+    .projects-page__closing {
+        margin-block: var(--sw-space-sm) var(--sw-space-md);
+        padding: var(--sw-space-md);
+        padding-block: clamp(28px, 9vw, 38px);
     }
 
     .projects-page__detail-pills {

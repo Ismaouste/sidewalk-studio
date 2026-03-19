@@ -71,10 +71,7 @@ function handleImageLoad(): void {
 }
 
 .content-visual--compact {
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: clamp(5.4rem, 14vw, 7.2rem);
 }
 
 .content-visual--minimal {
@@ -111,9 +108,12 @@ function handleImageLoad(): void {
 }
 
 .content-visual--compact .content-visual__image {
-    height: auto;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     min-height: 0;
-    flex: 0 0 auto;
+    max-height: none;
 }
 
 .content-visual__overlay {

@@ -104,9 +104,6 @@ class SiteController extends Controller
     {
         $page = $this->pages->get('projects');
         $experience = $this->pages->get('experience');
-        $caseStudies = $this->content->feed(['case-studies'], [
-            'category' => 'work',
-        ])->values();
         $seo = Seo::page(
             $page['seo_title'],
             $page['seo_description'],
@@ -144,9 +141,6 @@ class SiteController extends Controller
             'associativeSections' => $experience['associative_sections'],
             'sideProjectSections' => $experience['side_project_sections'],
             'cvDownloads' => $this->cvDownloads(),
-            'tracksSection' => $page['tracks_section'],
-            'caseStudies' => $caseStudies,
-            'caseStudiesSection' => $page['case_studies_section'],
             'associativeNoteWidget' => [
                 'eyebrow' => $experience['associative_note_widget']['eyebrow'],
                 'title' => $experience['associative_note_widget']['title'],
@@ -367,7 +361,9 @@ class SiteController extends Controller
             'eyebrow' => $options['eyebrow'],
             'title' => $options['title'],
             'description' => $options['description'],
-            'ctaLabel' => $presentation['cta_label'] ?? $options['ctaLabel'],
+            'ctaLabel' => $options['ctaLabel'] !== ''
+                ? $options['ctaLabel']
+                : ($presentation['cta_label'] ?? ''),
             'ctaHref' => $ctaHref !== '' ? PublicLocale::localizedPath($ctaHref) : '',
             'accentColor' => $presentation['accent_color'] ?? null,
             'items' => $items,

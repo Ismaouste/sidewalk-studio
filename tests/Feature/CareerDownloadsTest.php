@@ -57,7 +57,6 @@ class CareerDownloadsTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->has('journalWidget.items', 2)
-                ->has('referenceWidget.items', 2)
-                ->has('caseStudies', 2));
+                ->has('referenceWidget.items', 2));
     }
 }

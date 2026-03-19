@@ -162,8 +162,6 @@ const copy = computed(() =>
                   "Études de cas, notes et références pour entrer dans des situations plus concrètes.",
               openProjectsCta: "Découvrir les projets",
               internalBuildLabel: 'Interne',
-              localGroundLabel: 'Où suis-je ?',
-              readLocalPageCta: 'Voir la localisation',
               notesLabel: 'Notes',
               contactLabel: 'Contact',
               startConversationCta: 'Prendre contact',
@@ -208,8 +206,6 @@ const copy = computed(() =>
                   'Case studies, notes, and references that open more concrete implementation contexts.',
               openProjectsCta: 'Open case studies',
               internalBuildLabel: 'Internal build',
-              localGroundLabel: 'Local ground',
-              readLocalPageCta: 'Read local page',
               notesLabel: 'Notes',
               contactLabel: 'Contact',
               startConversationCta: 'Start a conversation',
@@ -521,19 +517,6 @@ const copy = computed(() =>
             <div class="home-section__footer-cta">
                 <Button href="/case-studies" variant="ghost" arrow>
                     {{ copy.archiveCta }}
-                </Button>
-            </div>
-        </section>
-
-        <section class="sw-section sw-section--flow home-section">
-            <div class="home-section__header">
-                <SectionIntro
-                    :eyebrow="copy.localGroundLabel"
-                    :title="props.localTeaser.title"
-                    :description="props.localTeaser.summary"
-                />
-                <Button href="/local" variant="ghost" arrow>
-                    {{ copy.readLocalPageCta }}
                 </Button>
             </div>
         </section>
