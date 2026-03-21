@@ -155,6 +155,7 @@ const copy = computed(() =>
     display: grid;
     gap: var(--sw-space-xs);
     max-width: 58rem;
+    min-width: 0;
 }
 
 .writing-show__layout {
@@ -187,6 +188,8 @@ const copy = computed(() =>
 .writing-show__sidebar-copy {
     margin: 0;
     color: var(--sw-text-secondary);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .writing-show__tags {
@@ -199,6 +202,8 @@ const copy = computed(() =>
     display: inline-flex;
     align-items: center;
     color: var(--sw-text-muted);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .writing-show__actions {

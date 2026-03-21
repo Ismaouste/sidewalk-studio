@@ -42,6 +42,7 @@ defineProps<{
     align-items: baseline;
     flex-wrap: wrap;
     gap: 6px;
+    min-width: 0;
     max-width: min(100%, 26rem);
 }
 
@@ -72,6 +73,9 @@ defineProps<{
     letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;
     color: var(--sw-text-secondary);
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
     text-wrap: pretty;
 }
 
@@ -82,6 +86,10 @@ defineProps<{
 @media (max-width: 640px) {
     .content-meta-row {
         row-gap: 4px;
+    }
+
+    .content-meta-row__item {
+        max-width: 100%;
     }
 }
 </style>

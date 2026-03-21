@@ -515,6 +515,7 @@ function submitInquiry(): void {
     display: grid;
     align-items: start;
     gap: var(--sw-space-sm);
+    min-width: 0;
 }
 
 .contact-page__hero-toolbar {
@@ -522,14 +523,17 @@ function submitInquiry(): void {
     align-items: center;
     gap: var(--sw-space-xs);
     flex-wrap: wrap;
+    min-width: 0;
 }
 
 .contact-page__hero-toolbar-body {
     display: flex;
+    flex: 1 1 18rem;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-    min-width: min(30rem, 100%);
+    min-width: 0;
+    max-width: 100%;
 }
 
 .contact-page__hero-actions {
@@ -578,11 +582,13 @@ function submitInquiry(): void {
     gap: var(--sw-space-sm);
     align-items: start;
     grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    min-width: 0;
 }
 
 .contact-page__aside {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
 }
 
 .contact-page__form-panel,
@@ -590,6 +596,8 @@ function submitInquiry(): void {
 .contact-page__details {
     display: grid;
     gap: var(--sw-space-sm);
+    min-width: 0;
+    overflow-x: clip;
     padding: clamp(18px, 2.8vw, var(--sw-space-sm));
 }
 
@@ -609,6 +617,8 @@ function submitInquiry(): void {
 
 .contact-page__panel-copy {
     color: var(--sw-text-secondary);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .contact-page__form {
@@ -705,12 +715,16 @@ function submitInquiry(): void {
 .contact-page__detail dd {
     margin: 0;
     color: var(--sw-text-secondary);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .contact-page__detail-link {
     color: var(--sw-accent-dominant);
     text-decoration: underline;
     text-underline-offset: 0.2em;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .contact-page__fit-items {
@@ -723,6 +737,8 @@ function submitInquiry(): void {
     display: inline-flex;
     align-items: center;
     color: var(--sw-text-secondary);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 @media (hover: hover) {

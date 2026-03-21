@@ -28,6 +28,7 @@ const copy = computed(() => {
 const isMinimal = computed(
     () => props.item.section === 'writing' && props.item.category !== 'journal',
 );
+const isPlaceholder = computed(() => props.item.image.kind === 'placeholder');
 
 function handleImageLoad(): void {
     imageLoaded.value = true;
@@ -41,6 +42,7 @@ function handleImageLoad(): void {
             'content-visual--compact': compact,
             'content-visual--loaded': imageLoaded,
             'content-visual--minimal': isMinimal,
+            'content-visual--placeholder': isPlaceholder,
         }"
     >
         <img
@@ -65,13 +67,25 @@ function handleImageLoad(): void {
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--sw-border) 78%, transparent);
     border-radius: var(--sw-radius-lg);
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
     min-height: 8.25rem;
     background: var(--sw-bg-grid);
 }
 
+.content-visual--placeholder {
+    aspect-ratio: 16 / 10;
+    min-height: clamp(11rem, 32vw, 18rem);
+}
+
 .content-visual--compact {
     min-height: clamp(5.4rem, 14vw, 7.2rem);
+}
+
+.content-visual--compact.content-visual--placeholder {
+    aspect-ratio: 3 / 2;
+    min-height: 0;
 }
 
 .content-visual--minimal {
@@ -84,6 +98,8 @@ function handleImageLoad(): void {
     height: 100%;
     min-height: 100%;
     max-height: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     object-fit: cover;
     border-radius: 0;
     opacity: 0;
@@ -109,6 +125,11 @@ function handleImageLoad(): void {
     transform: scale(1);
 }
 
+.content-visual--placeholder .content-visual__image[src$='.svg'] {
+    padding: 0;
+    object-fit: cover;
+}
+
 .content-visual--compact .content-visual__image {
     position: absolute;
     inset: 0;
@@ -123,6 +144,15 @@ function handleImageLoad(): void {
 }
 
 @media (max-width: 640px) {
+    .content-visual--placeholder {
+        aspect-ratio: 14 / 11;
+        min-height: 0;
+    }
+
+    .content-visual--compact.content-visual--placeholder {
+        aspect-ratio: 4 / 3;
+    }
+
     .content-visual--compact .content-visual__image[src$='.svg'] {
         width: 100%;
         height: 100%;

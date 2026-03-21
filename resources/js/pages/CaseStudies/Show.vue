@@ -182,6 +182,7 @@ const copy = computed(() =>
     display: grid;
     gap: var(--sw-space-xs);
     max-width: 60rem;
+    min-width: 0;
 }
 
 .case-study-show__layout {
@@ -232,6 +233,8 @@ const copy = computed(() =>
 .case-study-show__detail dd {
     margin: 0;
     color: var(--sw-text-secondary);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .case-study-show__stack {
@@ -244,6 +247,8 @@ const copy = computed(() =>
     display: inline-flex;
     align-items: center;
     color: var(--sw-text-muted);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .case-study-show__actions {
@@ -265,6 +270,8 @@ const copy = computed(() =>
     border-top: 1px solid var(--sw-border);
     padding-top: var(--sw-space-xs);
     color: var(--sw-text-secondary);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .case-study-show__outcome:first-child {
