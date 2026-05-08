@@ -54,6 +54,16 @@ class HandleInertiaRequests extends Middleware
             $settings->themeSettings->defaultTheme,
         );
 
+        $colophonQuote = empty($loaderQuotes)
+            ? null
+            : (function (array $pool): ?array {
+                $picked = $pool[array_rand($pool)];
+                return [
+                    'text' => $picked['text'],
+                    'author' => $picked['author'] ?? null,
+                ];
+            })($loaderQuotes);
+
         return [
             ...parent::share($request),
             'name' => $settings->siteIdentity->name,
@@ -90,6 +100,7 @@ class HandleInertiaRequests extends Middleware
                     'themeDefaults' => $settings->themeSettings->toArray(),
                     'loaderQuotes' => $loaderQuotes,
                 ],
+                'colophonQuote' => $colophonQuote,
             ],
             'consent' => [
                 'mode' => config('consent.mode'),

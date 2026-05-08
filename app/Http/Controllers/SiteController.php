@@ -308,6 +308,29 @@ class SiteController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
+    public function colophon(): Response
+    {
+        $page = $this->pages->get('colophon');
+        $seo = Seo::page(
+            $page['seo_title'],
+            $page['seo_description'],
+            '/colophon',
+            $this->pageSeoOptions($page, [
+                'breadcrumb' => [
+                    ['name' => 'Home', 'path' => '/'],
+                    ['name' => 'Colophon', 'path' => '/colophon'],
+                ],
+            ]),
+        );
+
+        return Inertia::render('Colophon', [
+            'seo' => $seo,
+            'hero' => $page['hero'],
+            'sections' => $page['sections'],
+            'closing' => $page['closing'],
+        ])->withViewData(['seo' => $seo]);
+    }
+
     public function downloadCv(string $locale): BinaryFileResponse
     {
         abort_unless(in_array($locale, ['en', 'fr'], true), 404);

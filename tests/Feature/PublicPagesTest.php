@@ -19,6 +19,7 @@ class PublicPagesTest extends TestCase
             '/en/journal' => 'Journal · Ismael Rodmacq',
             '/en/case-studies' => 'Case Studies · Ismael Rodmacq',
             '/en/contact' => 'Contact · Ismael Rodmacq',
+            '/en/colophon' => 'Colophon · Ismael Rodmacq',
         ];
 
         foreach ($pages as $url => $expectedText) {
@@ -97,6 +98,25 @@ class PublicPagesTest extends TestCase
                 )
                 ->where('professionalSections.0.title', 'Jewely E-commerce')
                 ->where('associativeSections.0.title', 'Aremedia')
+            );
+    }
+
+    public function test_colophon_route_renders_with_sections_and_quote_prop(): void
+    {
+        $this->get('/fr/colophon')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->component('Colophon')
+                ->has('hero.title')
+                ->has('sections', 4)
+                ->has('closing.title')
+            );
+
+        $this->get('/en/colophon')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->component('Colophon')
+                ->has('sections', 4)
             );
     }
 

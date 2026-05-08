@@ -46,6 +46,7 @@ Route::prefix('{locale}')
             ->middleware('throttle:6,1')
             ->name('contact.store');
         Route::get('/data-processing', [SiteController::class, 'dataProcessing'])->name('data-processing');
+        Route::get('/colophon', [SiteController::class, 'colophon'])->name('colophon');
 
         Route::get('/writing', function (string $locale) {
             return redirect("/{$locale}/journal", 301);

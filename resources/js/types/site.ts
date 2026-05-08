@@ -161,6 +161,10 @@ export type SiteProps = {
         themeDefaults?: ThemeSettings;
         loaderQuotes?: LoaderQuote[];
     };
+    colophonQuote: {
+        text: string;
+        author: string | null;
+    } | null;
 };
 
 export type ConsentCategory = {
