@@ -154,6 +154,10 @@ function handleImageLoad(): void {
         max-height: none;
     }
 
+    .content-visual--placeholder:not(.content-visual--compact) {
+        display: none;
+    }
+
     .content-visual--compact.content-visual--placeholder {
         aspect-ratio: 4 / 3;
     }
