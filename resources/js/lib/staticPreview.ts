@@ -1,5 +1,6 @@
 const NAVIGATION_STORAGE_KEY = 'sidewalk-static-preview:navigation';
 const STALE_NAVIGATION_MS = 8000;
+const PREFETCH_INTENT_DEBOUNCE_MS = 100;
 const PREFETCHED_URLS = new Set<string>();
 
 type NavigationPayload = {
@@ -7,8 +8,40 @@ type NavigationPayload = {
     startedAt: number;
 };
 
+type NetworkInformation = {
+    saveData?: boolean;
+    effectiveType?: '4g' | '3g' | '2g' | 'slow-2g';
+};
+
+type ConnectedNavigator = Navigator & {
+    connection?: NetworkInformation;
+};
+
 let installed = false;
 let serviceWorkerRegistered = false;
+let prefetchIntentTimer: number | undefined;
+
+function shouldPrefetch(): boolean {
+    if (typeof navigator === 'undefined') {
+        return false;
+    }
+
+    const conn = (navigator as ConnectedNavigator).connection;
+
+    if (!conn) {
+        return true;
+    }
+
+    if (conn.saveData) {
+        return false;
+    }
+
+    if (conn.effectiveType && conn.effectiveType !== '4g') {
+        return false;
+    }
+
+    return true;
+}
 
 export function initializeStaticPreviewNavigation(
     enabled: boolean,
@@ -160,13 +193,24 @@ function handlePrefetchIntent(event: Event): void {
         return;
     }
 
-    prefetchAnchor(anchor);
+    if (prefetchIntentTimer !== undefined) {
+        window.clearTimeout(prefetchIntentTimer);
+    }
+
+    prefetchIntentTimer = window.setTimeout(() => {
+        prefetchIntentTimer = undefined;
+        prefetchAnchor(anchor);
+    }, PREFETCH_INTENT_DEBOUNCE_MS);
 }
 
 function prefetchAnchor(anchor: HTMLAnchorElement): void {
     const href = anchor.getAttribute('href');
 
     if (!href || !shouldHandleAnchor(anchor, href)) {
+        return;
+    }
+
+    if (!shouldPrefetch()) {
         return;
     }
 
@@ -179,20 +223,6 @@ function prefetchAnchor(anchor: HTMLAnchorElement): void {
 
     PREFETCHED_URLS.add(cacheKey);
     appendPrefetchHint(url.href);
-
-    const connection = (
-        navigator as Navigator & {
-            connection?: { saveData?: boolean; effectiveType?: string };
-        }
-    ).connection;
-
-    if (
-        connection?.saveData ||
-        connection?.effectiveType === 'slow-2g' ||
-        connection?.effectiveType === '2g'
-    ) {
-        return;
-    }
 
     void fetch(url.href, {
         credentials: 'same-origin',

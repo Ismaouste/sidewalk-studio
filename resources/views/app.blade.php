@@ -54,6 +54,28 @@
             @endforeach
         @endif
 
+        {{-- Speculation Rules: prefetch internal links on Chromium browsers
+             with moderate eagerness. Not prerender — that would execute
+             scripts before vanilla-cookieconsent gates them. Browsers
+             without support ignore the script silently. --}}
+        <script type="speculationrules">
+        {
+            "prefetch": [
+                {
+                    "where": {
+                        "and": [
+                            { "href_matches": "/*" },
+                            { "not": { "href_matches": "/*.pdf" } },
+                            { "not": { "href_matches": "/*.zip" } },
+                            { "not": { "href_matches": "/admin/*" } }
+                        ]
+                    },
+                    "eagerness": "moderate"
+                }
+            ]
+        }
+        </script>
+
         @vite(['resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
