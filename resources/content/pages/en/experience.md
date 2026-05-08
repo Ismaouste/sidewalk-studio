@@ -5,6 +5,7 @@ hero:
     eyebrow: Experience
     title: Projects and experience
     summary: Ecommerce developer based in Nancy. Four core contexts to read the work, the technical choices, and the way I ship.
+thesis: "Take over what's there, make it readable, and leave it calmer than I found it."
 positioning:
     - Understand the existing system and its constraints quickly.
     - Make decisions with the right people and the right scope.
@@ -52,7 +53,7 @@ professional_sections:
       summary: Docker Swarm deployment on AWS. Automatic pipeline through EventBridge, Lambda, and SSM, then hardening after a disk incident.
       paragraphs:
           - The work focused on deployment automation, clearer execution feedback, and guardrails when production lies.
-          - "After the incident, the goal was simple: make the pipeline verifiable, less misleading, and calmer to run."
+          - 'After the incident, the goal was simple: make the pipeline verifiable, less misleading, and calmer to run.'
       detail_groups:
           - title: Stack
             pills:
