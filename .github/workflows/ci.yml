@@ -61,14 +61,14 @@ jobs:
           php artisan migrate --force
           php artisan db:seed --force
 
-      - name: Run backend tests
-        run: php artisan test
-
       - name: Run frontend type checks
         run: npm run types:check
 
       - name: Build frontend assets
         run: npm run build
+
+      - name: Run backend tests
+        run: php artisan test
 
       - name: Verify routes
         run: php artisan route:list
