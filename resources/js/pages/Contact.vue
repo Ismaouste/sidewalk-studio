@@ -77,8 +77,7 @@ const copy = computed(() =>
               locationChipLabel: props.contact.location,
               locationLabel: props.details.location_label,
               availabilityLabel: 'Disponibilité',
-              availabilityText:
-                  '● Freelance / temps partiel / échanges',
+              availabilityText: '● Freelance / temps partiel / échanges',
               opportunitiesLabel: 'Situation actuelle',
               opportunitiesText:
                   "Actuellement en emploi chez Jewely, avec une ouverture claire pour des opportunités, des missions freelance à temps partiel et des échanges autour d'un projet digital.",
@@ -265,7 +264,10 @@ function submitInquiry(): void {
                         </p>
                     </div>
 
-                    <form class="contact-page__form" @submit.prevent="submitInquiry">
+                    <form
+                        class="contact-page__form"
+                        @submit.prevent="submitInquiry"
+                    >
                         <label class="contact-page__field">
                             <span class="type-nav">
                                 {{ props.form.name_label }}
@@ -368,13 +370,11 @@ function submitInquiry(): void {
                     </div>
                 </Panel>
 
-                <Panel
-                    v-else
-                    class="contact-page__form-panel"
-                    tone="surface"
-                >
+                <Panel v-else class="contact-page__form-panel" tone="surface">
                     <div class="contact-page__form-intro">
-                        <p class="type-eyebrow">{{ copy.staticPreviewTitle }}</p>
+                        <p class="type-eyebrow">
+                            {{ copy.staticPreviewTitle }}
+                        </p>
                         <h2 class="type-h2 contact-page__panel-title">
                             {{ props.form.title }}
                         </h2>
@@ -642,11 +642,16 @@ function submitInquiry(): void {
 
 .contact-page__status {
     margin: 0;
-    border: 1px solid color-mix(in srgb, var(--sw-accent-green) 24%, transparent);
+    border: 1px solid
+        color-mix(in srgb, var(--sw-accent-green) 24%, transparent);
     border-radius: 4px;
     background: color-mix(in srgb, var(--sw-accent-green) 8%, transparent);
     padding: 0.9rem 1rem;
-    color: color-mix(in srgb, var(--sw-accent-green) 88%, var(--sw-text-primary));
+    color: color-mix(
+        in srgb,
+        var(--sw-accent-green) 88%,
+        var(--sw-text-primary)
+    );
 }
 
 .contact-page__error {
@@ -777,11 +782,18 @@ function submitInquiry(): void {
     }
 
     .contact-page__hero-toolbar {
-        align-items: start;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--sw-space-xs);
     }
 
     .contact-page__hero-toolbar-body {
+        width: 100%;
         min-width: 0;
+    }
+
+    .contact-page__hero-actions {
+        width: 100%;
     }
 
     .contact-page__form {
