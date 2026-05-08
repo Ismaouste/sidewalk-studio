@@ -5,7 +5,7 @@ hero:
     eyebrow: Experience
     title: Projects and experience
     summary: Ecommerce developer based in Nancy. Four core contexts to read the work, the technical choices, and the way I ship.
-thesis: "Take over what's there, make it readable, and leave it calmer than I found it."
+thesis: 'Ecommerce tech lead. I take over live platforms and make them more stable, more readable, and easier to keep evolving.'
 positioning:
     - Understand the existing system and its constraints quickly.
     - Make decisions with the right people and the right scope.

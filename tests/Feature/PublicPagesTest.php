@@ -107,7 +107,7 @@ class PublicPagesTest extends TestCase
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where(
                     'thesis',
-                    "Reprendre l'existant, le rendre lisible, et le laisser plus calme qu'à l'arrivée.",
+                    'Tech lead e-commerce. Je reprends des plateformes en production et je les rends plus stables, plus lisibles, plus simples à faire évoluer.',
                 )
             );
 
@@ -116,7 +116,7 @@ class PublicPagesTest extends TestCase
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where(
                     'thesis',
-                    "Take over what's there, make it readable, and leave it calmer than I found it.",
+                    'Ecommerce tech lead. I take over live platforms and make them more stable, more readable, and easier to keep evolving.',
                 )
             );
     }

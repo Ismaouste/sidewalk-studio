@@ -5,7 +5,7 @@ hero:
     eyebrow: Expérience
     title: Projets et expérience
     summary: Développeur e-commerce à Nancy. Quatre contextes principaux pour lire le travail, les choix techniques et la façon de livrer.
-thesis: "Reprendre l'existant, le rendre lisible, et le laisser plus calme qu'à l'arrivée."
+thesis: 'Tech lead e-commerce. Je reprends des plateformes en production et je les rends plus stables, plus lisibles, plus simples à faire évoluer.'
 positioning:
     - Comprendre vite l'existant et ses contraintes.
     - Décider proprement avec les bons interlocuteurs.
