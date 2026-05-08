@@ -35,9 +35,12 @@ function scheduleIdleTask(task: () => void) {
     }
 
     if (window.requestIdleCallback) {
-        window.requestIdleCallback(() => {
-            task();
-        }, { timeout: 1200 });
+        window.requestIdleCallback(
+            () => {
+                task();
+            },
+            { timeout: 1200 },
+        );
 
         return;
     }
@@ -64,6 +67,12 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .mount(el);
+
+        scheduleIdleTask(() => {
+            void import('../css/fonts-deferred.css').catch(() => {
+                /* deferred fonts are not critical; ignore failures */
+            });
+        });
 
         if (site.runtime.staticPreview) {
             initializeStaticPreviewNavigation(

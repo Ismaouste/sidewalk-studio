@@ -1,0 +1,12 @@
+/* Loaded from idle callback in resources/js/app.ts. Contains every
+ * font weight and family that is not required for first contentful
+ * paint. Browsers fetch the underlying woff2 files lazily once the
+ * idle import resolves. */
+
+@import '@fontsource/dm-sans/300.css';
+@import '@fontsource/dm-sans/600.css';
+@import '@fontsource/fraunces/300-italic.css';
+@import '@fontsource/fraunces/400-italic.css';
+@import '@fontsource/syne/700.css';
+@import '@fontsource/syne/800.css';
+@import '@fontsource/dm-mono/400.css';
