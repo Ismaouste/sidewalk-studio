@@ -1,3 +1,14 @@
+.type-display-xl,
+.type-display-l,
+.type-h1,
+.type-h2,
+.type-h3,
+.sw-section h1,
+.sw-section h2,
+.sw-section h3 {
+    text-wrap: balance;
+}
+
 body,
 .type-body {
     font-family: var(--sw-font-body);
