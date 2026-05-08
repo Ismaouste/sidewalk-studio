@@ -141,6 +141,9 @@ onBeforeUnmount(() => {
         var(--sw-text-muted) 86%,
         var(--sw-text-secondary)
     );
+    text-transform: none;
+    letter-spacing: 0.01em;
+    font-size: 0.78rem;
     transition: color var(--sw-motion-fast);
 }
 
@@ -172,9 +175,9 @@ onBeforeUnmount(() => {
     }
 
     .breadcrumb-trail--stuck {
-        background: color-mix(in srgb, var(--sw-bg-base) 38%, transparent);
-        -webkit-backdrop-filter: blur(20px) saturate(118%);
-        backdrop-filter: blur(20px) saturate(118%);
+        background: transparent;
+        -webkit-backdrop-filter: blur(18px) saturate(112%);
+        backdrop-filter: blur(18px) saturate(112%);
     }
 
     .breadcrumb-trail__list {
@@ -193,11 +196,12 @@ onBeforeUnmount(() => {
     .breadcrumb-trail__current {
         display: inline-flex;
         align-items: center;
-        min-height: 2.2rem;
+        min-height: 2rem;
         padding-inline: 0.35rem;
         white-space: nowrap;
         font-size: 0.78rem;
         line-height: 1.2;
+        text-transform: none;
     }
 
     .breadcrumb-trail__current {

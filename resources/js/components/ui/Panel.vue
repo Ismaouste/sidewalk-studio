@@ -19,6 +19,10 @@ const props = withDefaults(
 
 <style scoped>
 .panel-frame {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     border: var(--sw-runtime-line-thickness, 1px) solid var(--sw-border);
     border-radius: var(--sw-radius-lg);
     -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);

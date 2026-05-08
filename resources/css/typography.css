@@ -218,6 +218,8 @@ code,
     color: var(--sw-accent-dominant);
     text-decoration: underline;
     text-underline-offset: 0.18em;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 @media (max-width: 640px) {

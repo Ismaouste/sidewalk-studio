@@ -3,8 +3,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    overflow: clip;
+    overflow-x: clip;
     background:
         radial-gradient(
             circle at top left,
@@ -48,7 +47,7 @@
 
 @supports not (overflow: clip) {
     .sw-shell {
-        overflow: hidden;
+        overflow-x: hidden;
     }
 }
 

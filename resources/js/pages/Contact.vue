@@ -785,19 +785,32 @@ function submitInquiry(): void {
         gap: var(--sw-space-3xs);
     }
 
+    .contact-page__portrait-image {
+        width: 44px;
+        height: 44px;
+    }
+
     .contact-page__hero-toolbar {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
         gap: var(--sw-space-3xs);
     }
 
     .contact-page__hero-toolbar-body {
-        width: 100%;
+        flex: 1 1 auto;
+        width: auto;
         min-width: 0;
     }
 
     .contact-page__hero-actions {
-        width: 100%;
+        flex: 1 1 auto;
+        gap: var(--sw-space-3xs);
+    }
+
+    .contact-page__whatsapp-button {
+        width: 2.4rem;
+        height: 2.4rem;
     }
 
     .contact-page__form {
