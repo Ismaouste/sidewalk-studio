@@ -8,10 +8,7 @@ const page = usePage<{ site: SiteProps }>();
 const isOpen = ref(false);
 const rootRef = ref<HTMLElement | null>(null);
 
-const {
-    motionPreference,
-    toggleReducedMotion,
-} = useAccessibilityPreferences();
+const { motionPreference, toggleReducedMotion } = useAccessibilityPreferences();
 
 const copy = computed(() =>
     page.props.site.locale === 'fr'
@@ -22,7 +19,8 @@ const copy = computed(() =>
               reducedMotionHint:
                   'Fond ambient, loader et transitions plus sobres.',
               contrast: 'Contraste renforcé',
-              contrastHint: 'Prévu ensuite. Le mode est affiché mais pas encore disponible.',
+              contrastHint:
+                  'Prévu ensuite. Le mode est affiché mais pas encore disponible.',
               unavailable: 'Bientôt',
           }
         : {
@@ -32,7 +30,8 @@ const copy = computed(() =>
               reducedMotionHint:
                   'Ambient background, loader, and transitions become quieter.',
               contrast: 'Boost contrast',
-              contrastHint: 'Planned next. The control is visible but not available yet.',
+              contrastHint:
+                  'Planned next. The control is visible but not available yet.',
               unavailable: 'Soon',
           },
 );
@@ -172,6 +171,17 @@ onBeforeUnmount(() => {
     background: color-mix(in srgb, var(--sw-bg-elevated) 92%, transparent);
     -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
     backdrop-filter: var(--sw-surface-backdrop-filter);
+}
+
+@media (max-width: 640px) {
+    .accessibility-panel__popover {
+        position: fixed;
+        right: var(--sw-space-xs);
+        left: var(--sw-space-xs);
+        bottom: var(--sw-space-md);
+        width: auto;
+        max-width: calc(100vw - 2 * var(--sw-space-xs));
+    }
 }
 
 .accessibility-panel__option {
