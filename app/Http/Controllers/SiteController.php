@@ -315,12 +315,7 @@ class SiteController extends Controller
             $page['seo_title'],
             $page['seo_description'],
             '/colophon',
-            $this->pageSeoOptions($page, [
-                'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
-                    ['name' => 'Colophon', 'path' => '/colophon'],
-                ],
-            ]),
+            $this->pageSeoOptions($page),
         );
 
         return Inertia::render('Colophon', [

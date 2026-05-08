@@ -90,6 +90,7 @@ class PublicLocale
             'projects' => 'projects',
             'contact' => 'contact',
             'data-processing' => 'data-processing',
+            'colophon' => 'colophon',
             default => null,
         };
     }
