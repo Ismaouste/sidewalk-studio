@@ -54,7 +54,10 @@ function handleImageLoad(): void {
             @load="handleImageLoad"
         />
         <div v-if="props.item.featured_video" class="content-visual__overlay">
-            <span v-if="props.item.featured_video" class="content-visual__badge">
+            <span
+                v-if="props.item.featured_video"
+                class="content-visual__badge"
+            >
                 {{ copy.videoLabel }}
             </span>
         </div>
@@ -77,6 +80,7 @@ function handleImageLoad(): void {
 .content-visual--placeholder {
     aspect-ratio: 16 / 10;
     min-height: clamp(11rem, 32vw, 18rem);
+    max-height: clamp(18rem, 36vw, 26rem);
 }
 
 .content-visual--compact {
@@ -147,6 +151,7 @@ function handleImageLoad(): void {
     .content-visual--placeholder {
         aspect-ratio: 14 / 11;
         min-height: 0;
+        max-height: none;
     }
 
     .content-visual--compact.content-visual--placeholder {
@@ -158,6 +163,13 @@ function handleImageLoad(): void {
         height: 100%;
         padding: 0;
         object-fit: cover;
+    }
+}
+
+@media (min-width: 1040px) {
+    .content-visual--placeholder {
+        aspect-ratio: 16 / 7;
+        max-height: 22rem;
     }
 }
 
