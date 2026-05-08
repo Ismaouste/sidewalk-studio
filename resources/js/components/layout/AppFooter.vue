@@ -32,10 +32,14 @@ const footerSignature = {
 const dataProcessingHref = computed(() =>
     localizePublicHref('/data-processing', page.props.site.locale),
 );
+const colophonHref = computed(() =>
+    localizePublicHref('/colophon', page.props.site.locale),
+);
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
               dataLabel: 'Traitement des données',
+              colophonLabel: 'Colophon',
               contactLabel: 'Mail',
               linkedinLabel: 'LinkedIn',
               backToTopLabel: 'Retour en haut',
@@ -45,6 +49,7 @@ const copy = computed(() =>
           }
         : {
               dataLabel: 'Data processing',
+              colophonLabel: 'Colophon',
               contactLabel: 'Direct contact',
               linkedinLabel: 'LinkedIn',
               backToTopLabel: 'Back to top',
@@ -74,7 +79,6 @@ function backToTop(): void {
         <div class="sw-container app-footer__inner">
             <div class="app-footer__content">
                 <div class="app-footer__copy">
-
                     <p class="app-footer__note">
                         {{ page.props.site.shell.footerNote }}
                     </p>
@@ -111,6 +115,9 @@ function backToTop(): void {
                         >
                             {{ copy.dataLabel }}
                         </a>
+                        <a class="app-footer__link" :href="colophonHref">
+                            {{ copy.colophonLabel }}
+                        </a>
                         <button
                             type="button"
                             class="app-footer__link app-footer__link--button"
@@ -137,13 +144,23 @@ function backToTop(): void {
                             <LocaleSwitcher />
                             <ThemeToggle compact />
                             <AccessibilityPanel />
-                            <ConsentPreferencesButton
-                                v-if="!isStaticPreview"
-                            />
+                            <ConsentPreferencesButton v-if="!isStaticPreview" />
                         </div>
                     </div>
                 </div>
             </div>
+
+            <p v-if="page.props.site.colophonQuote" class="app-footer__quote">
+                <span class="app-footer__quote-text">
+                    « {{ page.props.site.colophonQuote.text }} »
+                </span>
+                <span
+                    v-if="page.props.site.colophonQuote.author"
+                    class="app-footer__quote-author"
+                >
+                    — {{ page.props.site.colophonQuote.author }}
+                </span>
+            </p>
 
             <div class="app-footer__legal">
                 <a
@@ -210,6 +227,43 @@ function backToTop(): void {
     display: grid;
     gap: 10px;
     align-items: start;
+}
+
+.app-footer__quote {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-items: baseline;
+    margin: 0;
+    padding: var(--sw-space-3xs) 0;
+    color: color-mix(
+        in srgb,
+        var(--sw-text-muted) 80%,
+        var(--sw-text-secondary)
+    );
+    font-style: italic;
+    text-wrap: pretty;
+    max-width: 56rem;
+}
+
+.app-footer__quote-text {
+    font-family: var(--sw-font-display);
+    font-size: 0.86rem;
+    line-height: 1.45;
+    color: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 78%,
+        var(--sw-text-primary)
+    );
+}
+
+.app-footer__quote-author {
+    font-family: var(--sw-font-heading);
+    font-size: 0.66rem;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sw-text-muted);
 }
 
 .app-footer__legal {
@@ -295,7 +349,8 @@ function backToTop(): void {
     .app-footer__actions {
         justify-items: end;
         padding-left: clamp(20px, 3vw, var(--sw-space-md));
-        border-left: 1px solid color-mix(in srgb, var(--sw-border) 76%, transparent);
+        border-left: 1px solid
+            color-mix(in srgb, var(--sw-border) 76%, transparent);
     }
 
     .app-footer__meta {
