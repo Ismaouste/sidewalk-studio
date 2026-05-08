@@ -17,21 +17,26 @@ contexts:
 professional_sections:
     - title: Jewely E-commerce
       eyebrow: Tech lead — 2023-2026
-      summary: Plateforme e-commerce multi-tenant pour maisons HBJO. Socle Laravel / Vue partagé, ERP maison, thèmes par client, catalogue produit et delivery continu.
+      summary: Plateforme e-commerce multi-tenant pour maisons HBJO. Socle Laravel / Vue partagé, ERP maison, PIM produit custom, connecteurs marketing et delivery continu.
       paragraphs:
-          - Chez Jewely / Flippad, j'interviens sur le socle commun, sur les besoins spécifiques par maison et sur les chantiers transversaux qui touchent autant à la donnée produit qu'au front et à la mise en ligne.
-          - Périmètre HBJO premium avec fortes contraintes de marque, de donnée produit et de mise en ligne — dont des dispositifs Rolex Bespoke et Rolex Certified Pre-Owned, et une refonte en cours pour une maison joaillière de Cannes installée depuis 1862.
+          - Chez Jewely / Flippad, j'interviens sur le socle commun (Laravel + Vue + Inertia), sur les besoins spécifiques par maison et sur les chantiers transversaux qui touchent à la donnée produit, au front, aux connecteurs métier et à la mise en ligne.
+          - 'Périmètre HBJO premium avec marques principales en portefeuille — notamment Godechot-Pauliet, Auberi et Crown-DP — ainsi que des dispositifs Rolex Bespoke et Rolex Certified Pre-Owned.'
+          - Sur le PIM (Product Information Manager) maison, j'ai construit les algos Python de scrap et d'enrichissement qui alimentent aujourd'hui +20 000 fiches produit, leurs images et leurs vidéos sur le périmètre HBJO.
+          - Côté commerce, j'ai conçu et tenu les connecteurs entre l'ERP, le PIM et les catalogues marchand: création produit automatique et orchestration de synchronisation vers Google Merchant Center, Facebook Catalog et les pipelines marketing aval.
       detail_groups:
           - title: Stack
             pills:
                 - Laravel
                 - Vue 3
                 - Inertia
+                - Python
                 - Docker Swarm
                 - AWS
             items:
                 - Core partagé, thèmes par client, connecteurs métier, delivery continu et coordination entre ERP, catalogue et front.
-                - Travail mené dans un cadre HBJO premium avec fortes contraintes de marque, de donnée produit et de mise en ligne.
+                - Algos Python de scrap + enrichissement PIM HBJO — +20 000 fiches produit avec médias actives.
+                - Création produit auto + sync Google Merchant Center, Facebook Catalog, pipelines marketing.
+                - Cadre HBJO premium — Godechot-Pauliet, Auberi, Crown-DP, Rolex Bespoke, Rolex Certified Pre-Owned.
     - title: Infrastructure
       eyebrow: Devops transversal — 2024-2026
       summary: Déploiement Docker Swarm sur AWS pour la plateforme Jewely. Pipeline automatique via EventBridge, Lambda et SSM, puis durcissement après incident disque.
@@ -48,6 +53,22 @@ professional_sections:
                 - EventBridge
             items:
                 - Déploiement automatique, post-mortem, nettoyage préventif et contrôle des rollbacks.
+    - title: Freelance — Sites WordPress et e-commerce
+      eyebrow: Développeur full-stack — Avant 2023
+      summary: Réalisation et maintenance de sites WordPress, WooCommerce et PrestaShop pour des clients TPE/PME — vitrines, e-commerce, plugins métier et SEO technique.
+      paragraphs:
+          - Avant Jewely, plusieurs années à mener et à reprendre des sites WordPress et WooCommerce pour des clients PME/TPE. Le travail allait de l'intégration de templates au développement de plugins métier, en passant par l'optimisation SEO et la maintenance long terme.
+      detail_groups:
+          - title: Stack
+            pills:
+                - WordPress
+                - WooCommerce
+                - PrestaShop
+                - PHP
+                - SEO technique
+            items:
+                - Sites vitrines et e-commerce avec personnalisations métier.
+                - Optimisation performance, SEO technique et maintenance long terme.
 associative_sections:
     - title: Aremedia
       eyebrow: Associatif
@@ -125,4 +146,10 @@ career_snapshot:
         - Adobe Analytics
         - SEO technique
 looking_for: Basé à Nancy, disponible pour un poste ou une mission ciblée en remote, hybride ou sur site selon le contexte.
+hobbies:
+    - Vélo et urbanisme
+    - Jazz et musique contemporaine
+    - Cinéma indépendant
+    - Poésie et fiction contemporaine
+    - Photographie urbaine
 ---

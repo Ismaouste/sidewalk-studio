@@ -42,6 +42,7 @@ const props = defineProps<{
     trajectory: Array<{ title: string; summary: string }>;
     strengths: string[];
     focusAreas: Array<{ title: string; summary: string }>;
+    hobbies?: string[];
     lookingFor: string;
     cvDownloads: Array<{ label: string; href: string }>;
 }>();
@@ -57,7 +58,9 @@ const copy = computed(() =>
               trajectoryLabel: 'Parcours',
               strengthsLabel: 'Forces',
               focusAreasLabel: 'Domaines',
+              hobbiesLabel: 'À côté du travail',
               lookingForLabel: 'Ce que je recherche',
+              nudgeJournalCta: 'Continuer vers le journal',
           }
         : {
               overviewCta: 'Browse all case studies',
@@ -68,7 +71,9 @@ const copy = computed(() =>
               trajectoryLabel: 'Trajectory',
               strengthsLabel: 'Strengths',
               focusAreasLabel: 'Focus areas',
+              hobbiesLabel: 'Outside work',
               lookingForLabel: 'What I am looking for',
+              nudgeJournalCta: 'Continue to the journal',
           },
 );
 
@@ -166,6 +171,28 @@ const signageItems = computed(() =>
                 :focus-areas-label="copy.focusAreasLabel"
             />
 
+            <section
+                v-if="props.hobbies?.length"
+                class="experience-page__hobbies"
+                aria-labelledby="experience-hobbies"
+            >
+                <p
+                    id="experience-hobbies"
+                    class="type-eyebrow experience-page__hobbies-label"
+                >
+                    {{ copy.hobbiesLabel }}
+                </p>
+                <div class="experience-page__hobbies-pills">
+                    <span
+                        v-for="hobby in props.hobbies"
+                        :key="hobby"
+                        class="type-meta experience-page__hobby"
+                    >
+                        {{ hobby }}
+                    </span>
+                </div>
+            </section>
+
             <Panel class="experience-page__closer" tone="grid">
                 <p class="type-eyebrow">{{ copy.lookingForLabel }}</p>
                 <p class="type-body">{{ props.lookingFor }}</p>
@@ -178,6 +205,12 @@ const signageItems = computed(() =>
                     </Button>
                 </div>
             </Panel>
+
+            <nav class="experience-page__nudge" aria-label="Next step">
+                <Button href="/journal" variant="ghost" arrow>
+                    {{ copy.nudgeJournalCta }}
+                </Button>
+            </nav>
         </section>
     </SiteLayout>
 </template>
@@ -218,6 +251,44 @@ const signageItems = computed(() =>
     gap: var(--sw-space-3xs);
 }
 
+.experience-page__hobbies {
+    display: grid;
+    gap: var(--sw-space-3xs);
+    padding: var(--sw-space-sm) 0;
+    border-top: 1px solid color-mix(in srgb, var(--sw-border) 56%, transparent);
+}
+
+.experience-page__hobbies-label {
+    margin: 0;
+    color: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 84%,
+        var(--sw-text-primary)
+    );
+}
+
+.experience-page__hobbies-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-3xs);
+}
+
+.experience-page__hobby {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.22rem 0.7rem;
+    border: 1px solid color-mix(in srgb, var(--sw-border) 70%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--sw-bg-surface) 60%, transparent);
+    color: var(--sw-text-secondary);
+}
+
+.experience-page__nudge {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: var(--sw-space-xs);
+}
+
 @media (max-width: 640px) {
     .experience-page {
         gap: var(--sw-space-sm);
@@ -225,6 +296,15 @@ const signageItems = computed(() =>
 
     .experience-page__spreads {
         gap: var(--sw-space-xl);
+    }
+
+    .experience-page__nudge {
+        justify-content: stretch;
+    }
+
+    .experience-page__nudge :deep(.sw-button) {
+        width: 100%;
+        justify-content: space-between;
     }
 }
 </style>

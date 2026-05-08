@@ -17,21 +17,26 @@ contexts:
 professional_sections:
     - title: Jewely Ecommerce
       eyebrow: Tech lead — 2023-2026
-      summary: Multi-tenant ecommerce platform for jewelry and watch brands. Shared Laravel / Vue core, in-house ERP, client themes, product data, and ongoing delivery.
+      summary: Multi-tenant ecommerce platform for jewelry and watch brands. Shared Laravel / Vue core, in-house ERP, custom product PIM, marketing connectors, and ongoing delivery.
       paragraphs:
-          - At Jewely / Flippad, I work on the shared base, on brand-specific needs, and on the cross-cutting work that touches product data, front-end, and go-live at the same time.
-          - Premium HBJO frame with strong brand, product-data, and go-live constraints — including Rolex Bespoke and Rolex Certified Pre-Owned surfaces, and an in-flight redesign for a Cannes jeweller in business since 1862.
+          - At Jewely / Flippad, I worked on the shared base (Laravel + Vue + Inertia), on brand-specific needs, and on the cross-cutting work that touched product data, front-end, business connectors, and go-live at the same time.
+          - 'Premium HBJO portfolio with leading houses including Godechot-Pauliet, Auberi, and Crown-DP, plus Rolex Bespoke and Rolex Certified Pre-Owned surfaces.'
+          - On the in-house PIM (Product Information Manager), I built the Python scraping and enrichment algorithms now powering +20 000 product entries, their images, and their videos across the HBJO scope.
+          - On the commerce side, I designed and maintained the connectors between the ERP, the PIM, and merchant catalogs — automatic product creation and synchronization toward Google Merchant Center, Facebook Catalog, and the downstream marketing pipelines.
       detail_groups:
           - title: Stack
             pills:
                 - Laravel
                 - Vue 3
                 - Inertia
+                - Python
                 - Docker Swarm
                 - AWS
             items:
                 - Shared core, client themes, business connectors, ongoing delivery, and coordination between ERP, catalog, and front-end surfaces.
-                - Work delivered in a premium HBJO frame with strong brand, product-data, and go-live constraints.
+                - Python scrape + enrichment algorithms on the HBJO PIM — +20 000 active product entries with media.
+                - Automatic product creation + sync to Google Merchant Center, Facebook Catalog, and marketing pipelines.
+                - Premium HBJO frame — Godechot-Pauliet, Auberi, Crown-DP, Rolex Bespoke, Rolex Certified Pre-Owned.
     - title: Infrastructure
       eyebrow: Cross-cutting devops — 2024-2026
       summary: Docker Swarm deployment on AWS for the Jewely platform. Automatic pipeline through EventBridge, Lambda, and SSM, then hardening after a disk incident.
@@ -48,6 +53,22 @@ professional_sections:
                 - EventBridge
             items:
                 - Automated deployment, post-mortem work, preventive cleanup, and rollback checks.
+    - title: Freelance — WordPress and ecommerce sites
+      eyebrow: Full-stack developer — Before 2023
+      summary: Building and maintaining WordPress, WooCommerce, and PrestaShop sites for SMB / micro-business clients — showcase sites, ecommerce, business plugins, and technical SEO.
+      paragraphs:
+          - Before Jewely, several years leading or recovering WordPress and WooCommerce sites for SMB / micro-business clients. The work ranged from template integration to custom plugin work, with technical SEO and long-term maintenance throughout.
+      detail_groups:
+          - title: Stack
+            pills:
+                - WordPress
+                - WooCommerce
+                - PrestaShop
+                - PHP
+                - Technical SEO
+            items:
+                - Showcase and ecommerce sites with custom business plugins.
+                - Performance optimization, technical SEO, and long-term maintenance.
 associative_sections:
     - title: Aremedia
       eyebrow: Nonprofit
@@ -125,4 +146,10 @@ career_snapshot:
         - Adobe Analytics
         - Technical SEO
 looking_for: Based in Nancy, available for a role or a focused mission in remote, hybrid, or on-site settings depending on the context.
+hobbies:
+    - Cycling and urbanism
+    - Jazz and contemporary music
+    - Independent cinema
+    - Poetry and contemporary fiction
+    - Urban photography
 ---

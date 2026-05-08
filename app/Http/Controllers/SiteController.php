@@ -173,6 +173,7 @@ class SiteController extends Controller
             'trajectory' => $experience['trajectory'],
             'strengths' => $experience['strengths'],
             'focusAreas' => $experience['focus_areas'],
+            'hobbies' => $experience['hobbies'] ?? [],
             'cvDownloads' => $this->cvDownloads(),
             'associativeNoteWidget' => [
                 'eyebrow' => $experience['associative_note_widget']['eyebrow'],
