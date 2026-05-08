@@ -23,6 +23,38 @@ let finishTimer: number | undefined;
 let settlingTimer: number | undefined;
 let safetyTimer: number | undefined;
 
+type ViewTransitionDocument = Document & {
+    startViewTransition?: (callback: () => void | Promise<void>) => {
+        finished: Promise<void>;
+    };
+};
+
+let viewTransitionResolve: (() => void) | null = null;
+
+function reducedMotionPreferred(): boolean {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function beginViewTransition(): void {
+    if (typeof document === 'undefined') return;
+    const doc = document as ViewTransitionDocument;
+    if (!doc.startViewTransition || reducedMotionPreferred()) return;
+
+    completeViewTransition();
+    const transitionPromise = new Promise<void>((resolve) => {
+        viewTransitionResolve = resolve;
+    });
+    doc.startViewTransition(() => transitionPromise);
+}
+
+function completeViewTransition(): void {
+    if (viewTransitionResolve) {
+        viewTransitionResolve();
+        viewTransitionResolve = null;
+    }
+}
+
 function clearTimers() {
     if (showTimer !== undefined) {
         window.clearTimeout(showTimer);
@@ -53,6 +85,7 @@ function releaseOverlay() {
     shownAt = 0;
     clearStaticPreviewNavigation();
     window.dispatchEvent(new CustomEvent('sidewalk:navigation-settle'));
+    completeViewTransition();
 
     settlingTimer = window.setTimeout(() => {
         state.isSettling = false;
@@ -119,19 +152,28 @@ function installTransitionListeners() {
     lastStart = window.performance.now();
 
     router.on('start', () => {
+        beginViewTransition();
         startTransition();
     });
 
     router.on('finish', () => {
         finishTransition();
+        completeViewTransition();
+    });
+
+    router.on('cancel', () => {
+        finishTransition();
+        completeViewTransition();
     });
 
     router.on('invalid', () => {
         finishTransition();
+        completeViewTransition();
     });
 
     router.on('exception', () => {
         finishTransition();
+        completeViewTransition();
     });
 }
 
@@ -173,7 +215,9 @@ function installStaticPreviewTransitionListeners() {
     });
 }
 
-export function configurePageTransitions(options?: { staticPreview?: boolean }) {
+export function configurePageTransitions(options?: {
+    staticPreview?: boolean;
+}) {
     if (options?.staticPreview) {
         transitionMode = 'static';
         installStaticPreviewTransitionListeners();

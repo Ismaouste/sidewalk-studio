@@ -1,0 +1,25 @@
+/* View Transitions on same-document Inertia navigation. The page-hero
+ * and article-cover-* named transitions are reserved for Phase 2; this
+ * file ships the global root crossfade defaults. */
+
+@supports (view-transition-name: none) {
+    @media (prefers-reduced-motion: no-preference) {
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+            animation-duration: 220ms;
+            animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+            animation-duration: 0s;
+        }
+    }
+
+    html[data-motion='reduced'] ::view-transition-old(root),
+    html[data-motion='reduced'] ::view-transition-new(root) {
+        animation-duration: 0s;
+    }
+}
