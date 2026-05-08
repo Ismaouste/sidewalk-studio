@@ -15,7 +15,10 @@ const navigation = computed(() => page.props.site.navigation);
 const brandName = 'Ismaël Rodmacq';
 const staticLocationPath = ref<string | null>(null);
 
-function normalizePreviewPath(pathname: string, basePath?: string | null): string {
+function normalizePreviewPath(
+    pathname: string,
+    basePath?: string | null,
+): string {
     const base = (basePath ?? '').trim();
 
     if (!base || base === '/') {
@@ -41,10 +44,12 @@ const currentUrl = computed(() => {
         page.props.site.runtime.staticPreview &&
         staticLocationPath.value !== null
     ) {
-        return sanitizePublicHref(normalizePreviewPath(
-            staticLocationPath.value,
-            page.props.site.runtime.staticBasePath,
-        ));
+        return sanitizePublicHref(
+            normalizePreviewPath(
+                staticLocationPath.value,
+                page.props.site.runtime.staticBasePath,
+            ),
+        );
     }
 
     return sanitizePublicHref(page.url);
@@ -123,7 +128,10 @@ onBeforeUnmount(() => {
             <div class="app-header__inner">
                 <div class="app-header__topline">
                     <Link :href="homeHref" class="app-header__brand">
-                        <BrandMark :branding="branding" class-name="app-header__avatar" />
+                        <BrandMark
+                            :branding="branding"
+                            class-name="app-header__avatar"
+                        />
                         <span class="app-header__identity">
                             <span class="type-eyebrow app-header__name">
                                 {{ brandName }}
@@ -237,8 +245,16 @@ onBeforeUnmount(() => {
         ),
         linear-gradient(
             135deg,
-            color-mix(in srgb, var(--sw-bg-surface) 80%, var(--sw-accent-violet) 20%),
-            color-mix(in srgb, var(--sw-bg-elevated) 78%, var(--sw-accent-sun) 22%)
+            color-mix(
+                in srgb,
+                var(--sw-bg-surface) 80%,
+                var(--sw-accent-violet) 20%
+            ),
+            color-mix(
+                in srgb,
+                var(--sw-bg-elevated) 78%,
+                var(--sw-accent-sun) 22%
+            )
         ),
         radial-gradient(
             circle at 14% 0%,
@@ -277,8 +293,7 @@ onBeforeUnmount(() => {
         )
     );
     opacity: calc(
-        var(--sw-sun-opacity-global, 0.68) *
-            var(--sw-header-glow-opacity, 1)
+        var(--sw-sun-opacity-global, 0.68) * var(--sw-header-glow-opacity, 1)
     );
     pointer-events: none;
 }
@@ -304,8 +319,14 @@ onBeforeUnmount(() => {
             color-mix(in srgb, var(--sw-accent-sun) 12%, transparent) 34%,
             transparent 66%
         );
-    background-size: 160% 160%, 180% 180%, 170% 170%;
-    background-position: 0% 0%, 100% 100%, 18% 24%;
+    background-size:
+        160% 160%,
+        180% 180%,
+        170% 170%;
+    background-position:
+        0% 0%,
+        100% 100%,
+        18% 24%;
 }
 
 .app-header__inner::after {
@@ -407,25 +428,32 @@ onBeforeUnmount(() => {
     }
 
     .app-header::before {
-        height: calc(100% + 40px);
+        display: none;
     }
 
     .app-header__shell {
         width: 100%;
     }
 
-    .app-header__inner::before {
-        inset: -28px -36px -10px -36px;
-    }
-
     .app-header__inner {
         border-radius: 0;
         border-inline: 0;
         padding-inline: var(--sw-space-sm);
+        background: color-mix(in srgb, var(--sw-bg-base) 94%, transparent);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+
+    .app-header__inner::before {
+        display: none;
     }
 
     .app-header__inner::after {
         border-radius: 0;
+    }
+
+    :global(html[data-theme='sunset']) .app-header__inner {
+        background: color-mix(in srgb, var(--sw-bg-base) 94%, transparent);
     }
 
     .app-header__identity {
@@ -437,5 +465,4 @@ onBeforeUnmount(() => {
         block-size: 32px;
     }
 }
-
 </style>

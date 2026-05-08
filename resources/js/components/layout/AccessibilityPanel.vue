@@ -15,6 +15,7 @@ const copy = computed(() =>
         ? {
               buttonLabel: 'Accessibilité',
               panelLabel: "Réglages d'accessibilité",
+              closeLabel: 'Fermer le panneau',
               reducedMotion: 'Animations réduites',
               reducedMotionHint:
                   'Fond ambient, loader et transitions plus sobres.',
@@ -26,6 +27,7 @@ const copy = computed(() =>
         : {
               buttonLabel: 'Accessibility',
               panelLabel: 'Accessibility settings',
+              closeLabel: 'Close panel',
               reducedMotion: 'Reduced motion',
               reducedMotionHint:
                   'Ambient background, loader, and transitions become quieter.',
@@ -84,12 +86,29 @@ onBeforeUnmount(() => {
             {{ copy.buttonLabel }}
         </button>
 
+        <button
+            v-if="isOpen"
+            type="button"
+            class="accessibility-panel__backdrop"
+            :aria-label="copy.closeLabel"
+            tabindex="-1"
+            @click="closePanel"
+        />
+
         <div
             v-if="isOpen"
             class="accessibility-panel__popover"
             role="dialog"
             :aria-label="copy.panelLabel"
         >
+            <button
+                type="button"
+                class="accessibility-panel__close"
+                :aria-label="copy.closeLabel"
+                @click="closePanel"
+            >
+                ✕
+            </button>
             <button
                 type="button"
                 class="accessibility-panel__option"
@@ -157,6 +176,36 @@ onBeforeUnmount(() => {
         background-color var(--sw-motion-fast);
 }
 
+.accessibility-panel__backdrop {
+    display: none;
+}
+
+.accessibility-panel__close {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 1.8rem;
+    height: 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--sw-text-muted);
+    font-family: var(--sw-font-body);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color var(--sw-motion-fast);
+}
+
+.accessibility-panel__close:hover,
+.accessibility-panel__close:focus-visible {
+    background: color-mix(in srgb, var(--sw-border) 60%, transparent);
+    color: var(--sw-text-primary);
+    outline: none;
+}
+
 .accessibility-panel__popover {
     position: absolute;
     right: 0;
@@ -166,6 +215,7 @@ onBeforeUnmount(() => {
     gap: 8px;
     width: min(19rem, calc(100vw - 2rem));
     padding: 10px;
+    padding-top: 28px;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
     border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-elevated) 92%, transparent);
@@ -174,6 +224,19 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 640px) {
+    .accessibility-panel__backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 4;
+        border: 0;
+        padding: 0;
+        background: color-mix(in srgb, black 32%, transparent);
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+        cursor: pointer;
+    }
+
     .accessibility-panel__popover {
         position: fixed;
         right: var(--sw-space-xs);
@@ -181,6 +244,7 @@ onBeforeUnmount(() => {
         bottom: var(--sw-space-md);
         width: auto;
         max-width: calc(100vw - 2 * var(--sw-space-xs));
+        z-index: 5;
     }
 }
 

@@ -63,13 +63,15 @@ const props = withDefaults(
     box-shadow:
         0 12px 32px -16px color-mix(in srgb, black 36%, transparent),
         0 0 0 1px color-mix(in srgb, white 6%, transparent) inset;
-    padding: 0.5rem 0.7rem;
+    padding: 0.6rem 0.8rem;
     color: var(--sw-text-primary);
     font-family: var(--sw-font-body);
-    font-size: 0.7rem;
+    font-size: 0.78rem;
     font-weight: 500;
-    line-height: 1.4;
-    letter-spacing: 0.005em;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-transform: none;
+    text-align: left;
     white-space: normal;
     opacity: 0;
     pointer-events: none;
@@ -125,9 +127,26 @@ const props = withDefaults(
 
 @media (max-width: 640px) {
     .inline-term-tooltip__popup {
-        width: min(15rem, calc(100vw - 2rem));
-        max-width: calc(100vw - 2rem);
-        font-size: 0.68rem;
+        position: fixed;
+        bottom: var(--sw-space-md);
+        left: var(--sw-space-xs);
+        right: var(--sw-space-xs);
+        top: auto;
+        width: auto;
+        min-width: 0;
+        max-width: calc(100vw - 2 * var(--sw-space-xs));
+        transform: translateY(8px);
+        font-size: 0.78rem;
+    }
+
+    .inline-term-tooltip__popup::after {
+        display: none;
+    }
+
+    .inline-term-tooltip:hover .inline-term-tooltip__popup,
+    .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
+    .inline-term-tooltip:focus .inline-term-tooltip__popup {
+        transform: translateY(0);
     }
 }
 </style>
