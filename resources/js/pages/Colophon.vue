@@ -95,6 +95,60 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
     gap: var(--sw-space-md);
     min-width: 0;
     max-width: 64rem;
+    position: relative;
+    isolation: isolate;
+}
+
+.colophon-page::before {
+    content: '';
+    position: absolute;
+    inset: -8vh -12vw 30% -12vw;
+    z-index: -1;
+    background:
+        radial-gradient(
+            ellipse 70% 60% at 50% 0%,
+            color-mix(in oklch, var(--sw-twilight-sky) 32%, transparent),
+            transparent 72%
+        ),
+        radial-gradient(
+            ellipse 40% 30% at 18% 8%,
+            color-mix(in oklch, var(--sw-twilight-sky) 22%, transparent),
+            transparent 68%
+        ),
+        radial-gradient(
+            ellipse 35% 25% at 82% 12%,
+            color-mix(in oklch, var(--sw-twilight-glow) 18%, transparent),
+            transparent 70%
+        );
+    pointer-events: none;
+    filter: blur(36px);
+    transform-origin: 50% 0%;
+    will-change: transform;
+}
+
+@supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .colophon-page::before {
+            animation: colophon-sky-drift 26s ease-in-out infinite alternate;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .colophon-page::before {
+        animation: none;
+    }
+}
+
+@keyframes colophon-sky-drift {
+    from {
+        transform: translate3d(-1.2%, 0, 0) scale(1);
+        opacity: 0.82;
+    }
+    to {
+        transform: translate3d(1.5%, -0.8%, 0) scale(1.04);
+        opacity: 1;
+    }
 }
 
 .colophon-page__sections {
@@ -110,7 +164,11 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
 }
 
 .colophon-page__eyebrow {
-    color: var(--sw-accent-violet);
+    color: color-mix(
+        in oklch,
+        var(--sw-twilight-sky) 72%,
+        var(--sw-text-secondary) 28%
+    );
 }
 
 .colophon-page__title,

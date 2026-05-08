@@ -294,7 +294,10 @@ html[data-motion='reduced'] * {
 
 /* === Twilight interpolation tokens ===
    Mix Morning + Sunset endpoints. Reserved for the experience-page
-   hero in Phase 2; defined here so they auto-flip with the theme. */
+   hero in Phase 2; defined here so they auto-flip with the theme.
+   --sw-twilight-sky is the soft sky band used by atmospheric page
+   backdrops (notably the colophon page) — light cyan in morning,
+   dusk lavender in sunset. */
 :root,
 html[data-theme='morning'],
 html[data-theme='sunset'] {
@@ -308,6 +311,14 @@ html[data-theme='sunset'] {
         var(--sw-accent-sun) 58%,
         var(--sw-bg-elevated) 42%
     );
+}
+
+html[data-theme='morning'] {
+    --sw-twilight-sky: oklch(82% 0.08 235);
+}
+
+html[data-theme='sunset'] {
+    --sw-twilight-sky: oklch(58% 0.13 295);
 }
 
 html[data-contrast='boost'] {
