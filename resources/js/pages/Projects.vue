@@ -207,8 +207,8 @@ const signageItems = computed(() =>
     );
     border-color: color-mix(
         in srgb,
-        var(--sw-border) 64%,
-        var(--sw-accent-violet) 36%
+        var(--sw-border) 56%,
+        var(--sw-accent-sun) 44%
     );
 }
 

@@ -28,8 +28,10 @@ defineProps<{
     view-transition-name: page-hero;
     contain: layout;
     position: relative;
-    padding: var(--sw-space-sm) 0;
+    padding: clamp(var(--sw-space-sm), 3vw, var(--sw-space-md))
+        clamp(var(--sw-space-sm), 3vw, var(--sw-space-md));
     isolation: isolate;
+    border-radius: var(--sw-radius-lg);
 }
 
 .manifesto-opener::before {
@@ -38,9 +40,9 @@ defineProps<{
     inset: 0;
     z-index: -1;
     background: radial-gradient(
-        ellipse at 18% 12%,
-        color-mix(in oklch, var(--sw-twilight-glow) 40%, transparent),
-        transparent 58%
+        ellipse at 14% 8%,
+        color-mix(in oklch, var(--sw-twilight-glow) 26%, transparent),
+        transparent 64%
     );
     pointer-events: none;
     border-radius: var(--sw-radius-lg);
