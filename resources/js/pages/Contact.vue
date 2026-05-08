@@ -778,13 +778,17 @@ function submitInquiry(): void {
 
 @media (max-width: 640px) {
     .contact-page {
-        gap: var(--sw-space-xs);
+        gap: var(--sw-space-3xs);
+    }
+
+    .contact-page__hero {
+        gap: var(--sw-space-3xs);
     }
 
     .contact-page__hero-toolbar {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--sw-space-xs);
+        gap: var(--sw-space-3xs);
     }
 
     .contact-page__hero-toolbar-body {
