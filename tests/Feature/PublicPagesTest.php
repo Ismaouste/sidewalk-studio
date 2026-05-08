@@ -100,6 +100,27 @@ class PublicPagesTest extends TestCase
             );
     }
 
+    public function test_projects_page_exposes_thesis_line_for_manifesto_opener(): void
+    {
+        $this->get('/fr/projects')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where(
+                    'thesis',
+                    "Reprendre l'existant, le rendre lisible, et le laisser plus calme qu'à l'arrivée.",
+                )
+            );
+
+        $this->get('/en/projects')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page): Assert => $page
+                ->where(
+                    'thesis',
+                    "Take over what's there, make it readable, and leave it calmer than I found it.",
+                )
+            );
+    }
+
     public function test_draft_case_studies_stay_unreachable_even_if_a_database_record_exists(): void
     {
         if (! Schema::hasTable('publications')) {

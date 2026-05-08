@@ -161,6 +161,7 @@ class SiteController extends Controller
         return Inertia::render('Projects', [
             'seo' => $seo,
             'hero' => $page['hero'],
+            'thesis' => $experience['thesis'],
             'positioning' => $experience['positioning'],
             'contexts' => $experience['contexts'],
             'stackGroups' => $experience['stack_groups'],

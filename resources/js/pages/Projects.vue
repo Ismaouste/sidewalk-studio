@@ -39,6 +39,7 @@ const props = defineProps<{
         title: string;
         summary: string;
     };
+    thesis: string;
     positioning: string[];
     contexts: string[];
     stackGroups: Array<{
@@ -67,7 +68,7 @@ const props = defineProps<{
 const copy = computed(() =>
     page.props.site.locale === 'fr'
         ? {
-              overviewCta: "Découvrir toutes les études de cas",
+              overviewCta: 'Découvrir toutes les études de cas',
               contactCta: "Discuter d'un contexte proche",
               contextTitles: [
                   'Commerce en charge',
@@ -87,11 +88,7 @@ const copy = computed(() =>
         : {
               overviewCta: 'Browse all case studies',
               contactCta: 'Discuss a similar context',
-              contextTitles: [
-                  'Live commerce',
-                  'Recovered stacks',
-                  'Redesigns',
-              ],
+              contextTitles: ['Live commerce', 'Recovered stacks', 'Redesigns'],
               workFrameLabel: 'Frame',
               positioningLabel: 'How I work',
               contextsLabel: 'Contexts',
@@ -105,8 +102,9 @@ const copy = computed(() =>
 );
 
 const uniqueCareerRoles = computed(() =>
-    [...new Set(props.careerSnapshot.roles.map((role) => role.trim()))]
-        .filter((role) => role !== ''),
+    [...new Set(props.careerSnapshot.roles.map((role) => role.trim()))].filter(
+        (role) => role !== '',
+    ),
 );
 
 const hasSideProjectsContent = computed(
@@ -115,7 +113,9 @@ const hasSideProjectsContent = computed(
         props.sideProjectsWidget.items.length > 0,
 );
 
-function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant' | 'coral' | 'sun' {
+function sectionTone(
+    label: 'professional' | 'associative' | 'side',
+): 'dominant' | 'coral' | 'sun' {
     if (label === 'associative') {
         return 'coral';
     }
@@ -129,10 +129,10 @@ function sectionTone(label: 'professional' | 'associative' | 'side'): 'dominant'
 
 function detailGridClasses(section: ExperienceSection) {
     return {
-        'projects-page__detail-grid--single': section.detail_groups.length === 1,
+        'projects-page__detail-grid--single':
+            section.detail_groups.length === 1,
     };
 }
-
 </script>
 
 <template>
@@ -312,15 +312,15 @@ function detailGridClasses(section: ExperienceSection) {
                                         {{ pill }}
                                     </span>
                                 </div>
-                                <ul
-                                    class="projects-page__detail-list"
-                                >
+                                <ul class="projects-page__detail-list">
                                     <li
                                         v-for="item in group.items"
                                         :key="item"
                                         class="projects-page__detail-item"
                                     >
-                                        <p class="type-body projects-page__copy-line">
+                                        <p
+                                            class="type-body projects-page__copy-line"
+                                        >
                                             {{ item }}
                                         </p>
                                     </li>
@@ -379,15 +379,15 @@ function detailGridClasses(section: ExperienceSection) {
                                 <p class="type-nav projects-page__detail-title">
                                     {{ group.title }}
                                 </p>
-                                <ul
-                                    class="projects-page__detail-list"
-                                >
+                                <ul class="projects-page__detail-list">
                                     <li
                                         v-for="item in group.items"
                                         :key="item"
                                         class="projects-page__detail-item"
                                     >
-                                        <p class="type-body projects-page__copy-line">
+                                        <p
+                                            class="type-body projects-page__copy-line"
+                                        >
                                             {{ item }}
                                         </p>
                                     </li>
@@ -398,7 +398,10 @@ function detailGridClasses(section: ExperienceSection) {
                 </article>
             </div>
 
-            <PublicationWidget :widget="props.associativeNoteWidget" tone="grid" />
+            <PublicationWidget
+                :widget="props.associativeNoteWidget"
+                tone="grid"
+            />
 
             <template v-if="hasSideProjectsContent">
                 <p class="type-eyebrow projects-page__section-label">
@@ -444,18 +447,20 @@ function detailGridClasses(section: ExperienceSection) {
                                     :key="group.title"
                                     class="projects-page__detail-group"
                                 >
-                                    <p class="type-nav projects-page__detail-title">
+                                    <p
+                                        class="type-nav projects-page__detail-title"
+                                    >
                                         {{ group.title }}
                                     </p>
-                                    <ul
-                                        class="projects-page__detail-list"
-                                    >
+                                    <ul class="projects-page__detail-list">
                                         <li
                                             v-for="item in group.items"
                                             :key="item"
                                             class="projects-page__detail-item"
                                         >
-                                            <p class="type-body projects-page__copy-line">
+                                            <p
+                                                class="type-body projects-page__copy-line"
+                                            >
                                                 {{ item }}
                                             </p>
                                         </li>
@@ -466,7 +471,10 @@ function detailGridClasses(section: ExperienceSection) {
                     </article>
                 </div>
 
-                <PublicationWidget :widget="props.sideProjectsWidget" tone="surface" />
+                <PublicationWidget
+                    :widget="props.sideProjectsWidget"
+                    tone="surface"
+                />
             </template>
 
             <Panel class="projects-page__closing" tone="grid">
@@ -513,7 +521,11 @@ function detailGridClasses(section: ExperienceSection) {
 .projects-page__section-label {
     width: fit-content;
     margin: 0;
-    color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 84%,
+        var(--sw-text-primary)
+    );
     font-size: 0.72rem;
     letter-spacing: 0.16em;
 }
@@ -578,7 +590,11 @@ function detailGridClasses(section: ExperienceSection) {
     padding: 0;
     border-radius: 0;
     background: transparent;
-    color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 84%,
+        var(--sw-text-primary)
+    );
     font-size: 0.73rem;
     letter-spacing: 0.14em;
 }
@@ -588,7 +604,11 @@ function detailGridClasses(section: ExperienceSection) {
     width: 0.48rem;
     height: 0.48rem;
     border-radius: 9999px;
-    background: color-mix(in srgb, var(--sw-accent-dominant) 58%, var(--sw-accent-sun));
+    background: color-mix(
+        in srgb,
+        var(--sw-accent-dominant) 58%,
+        var(--sw-accent-sun)
+    );
 }
 
 .projects-page__copy,
@@ -639,7 +659,8 @@ function detailGridClasses(section: ExperienceSection) {
     text-align: left;
     gap: clamp(10px, 1.2vw, 16px);
     padding-bottom: clamp(16px, 1.9vw, 22px);
-    border-bottom: 1px solid color-mix(in srgb, var(--sw-border) 66%, transparent);
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--sw-border) 66%, transparent);
 }
 
 .projects-page__story-copy,
@@ -683,7 +704,11 @@ function detailGridClasses(section: ExperienceSection) {
 }
 
 .projects-page__story-summary {
-    color: color-mix(in srgb, var(--sw-text-primary) 76%, var(--sw-text-secondary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-primary) 76%,
+        var(--sw-text-secondary)
+    );
     max-width: 62rem;
 }
 
@@ -705,14 +730,22 @@ function detailGridClasses(section: ExperienceSection) {
     align-items: center;
     gap: 0.55rem;
     padding: 0.65rem 0.5rem 0.55rem 0;
-    color: color-mix(in srgb, var(--sw-text-secondary) 88%, var(--sw-text-primary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 88%,
+        var(--sw-text-primary)
+    );
     font-size: 0.84rem;
     letter-spacing: 0.13em;
 }
 
 .projects-page__detail-title::before {
     content: '•';
-    color: color-mix(in srgb, var(--sw-accent-dominant) 74%, var(--sw-accent-sun));
+    color: color-mix(
+        in srgb,
+        var(--sw-accent-dominant) 74%,
+        var(--sw-accent-sun)
+    );
     font-size: 0.92em;
 }
 
@@ -763,7 +796,11 @@ function detailGridClasses(section: ExperienceSection) {
     display: inline-flex;
     align-items: center;
     min-height: 0;
-    color: color-mix(in srgb, var(--sw-text-secondary) 74%, var(--sw-text-primary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 74%,
+        var(--sw-text-primary)
+    );
     font-size: 0.78rem;
     font-weight: 600;
     line-height: 1.2;
@@ -862,7 +899,11 @@ function detailGridClasses(section: ExperienceSection) {
 :global(html[data-theme='sunset']) .projects-page__story,
 :global(html[data-theme='sunset']) .projects-page__closing {
     background: color-mix(in srgb, var(--sw-bg-surface) 78%, transparent);
-    border-color: color-mix(in srgb, var(--sw-border) 76%, var(--sw-accent-violet) 24%);
+    border-color: color-mix(
+        in srgb,
+        var(--sw-border) 76%,
+        var(--sw-accent-violet) 24%
+    );
 }
 
 :global(html[data-theme='sunset']) .projects-page__panel-label {
@@ -919,5 +960,4 @@ function detailGridClasses(section: ExperienceSection) {
         gap: 0.45rem;
     }
 }
-
 </style>
