@@ -127,26 +127,11 @@ const props = withDefaults(
 
 @media (max-width: 640px) {
     .inline-term-tooltip__popup {
-        position: fixed;
-        bottom: var(--sw-space-md);
-        left: var(--sw-space-xs);
-        right: var(--sw-space-xs);
-        top: auto;
-        width: auto;
-        min-width: 0;
-        max-width: calc(100vw - 2 * var(--sw-space-xs));
-        transform: translateY(8px);
-        font-size: 0.78rem;
-    }
-
-    .inline-term-tooltip__popup::after {
-        display: none;
-    }
-
-    .inline-term-tooltip:hover .inline-term-tooltip__popup,
-    .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
-    .inline-term-tooltip:focus .inline-term-tooltip__popup {
-        transform: translateY(0);
+        width: min(15rem, calc(100vw - 2rem));
+        min-width: min(11rem, calc(100vw - 2rem));
+        max-width: calc(100vw - 2rem);
+        font-size: 0.76rem;
+        padding: 0.55rem 0.75rem;
     }
 }
 </style>

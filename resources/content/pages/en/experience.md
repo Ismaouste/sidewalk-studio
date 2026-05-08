@@ -5,7 +5,7 @@ hero:
     eyebrow: Experience
     title: Projects and experience
     summary: Ecommerce developer based in Nancy. Four core contexts to read the work, the technical choices, and the way I ship.
-thesis: 'Ecommerce tech lead. I take over live platforms and make them more stable, more readable, and easier to keep evolving.'
+thesis: 'Ecommerce developer. I take over live platforms and make them more stable, more readable, and easier to keep evolving.'
 positioning:
     - Understand the existing system and its constraints quickly.
     - Make decisions with the right people and the right scope.
@@ -16,7 +16,7 @@ contexts:
     - Redesigns, ongoing delivery, infrastructure incidents, and go-live work.
 professional_sections:
     - title: Jewely Ecommerce
-      eyebrow: Tech lead — 2023-2026
+      eyebrow: Ecommerce developer — 2023-2026
       summary: Multi-tenant ecommerce platform for jewelry and watch brands. Shared Laravel / Vue core, in-house ERP, custom product PIM, marketing connectors, and ongoing delivery.
       paragraphs:
           - At Jewely / Flippad, I worked on the shared base (Laravel + Vue + Inertia), on brand-specific needs, and on the cross-cutting work that touched product data, front-end, business connectors, and go-live at the same time.
@@ -71,7 +71,7 @@ professional_sections:
                 - Performance optimization, technical SEO, and long-term maintenance.
 associative_sections:
     - title: Aremedia
-      eyebrow: Nonprofit
+      eyebrow: Nonprofit salaried — Before 2023
       summary: Public-health salaried context. Self-hosted reporting tool for field teams and rework of the public site.
       paragraphs:
           - The work centered on prevention, trust, and simple usage.

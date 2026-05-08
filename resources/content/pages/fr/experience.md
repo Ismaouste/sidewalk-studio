@@ -5,7 +5,7 @@ hero:
     eyebrow: Expérience
     title: Projets et expérience
     summary: Développeur e-commerce à Nancy. Quatre contextes principaux pour lire le travail, les choix techniques et la façon de livrer.
-thesis: 'Tech lead e-commerce. Je reprends des plateformes en production et je les rends plus stables, plus lisibles, plus simples à faire évoluer.'
+thesis: 'Développeur e-commerce. Je reprends des plateformes en production et je les rends plus stables, plus lisibles, plus simples à faire évoluer.'
 positioning:
     - Comprendre vite l'existant et ses contraintes.
     - Décider proprement avec les bons interlocuteurs.
@@ -16,7 +16,7 @@ contexts:
     - Refontes, delivery continu, incidents d'infrastructure et mises en ligne.
 professional_sections:
     - title: Jewely E-commerce
-      eyebrow: Tech lead — 2023-2026
+      eyebrow: Développeur e-commerce — 2023-2026
       summary: Plateforme e-commerce multi-tenant pour maisons HBJO. Socle Laravel / Vue partagé, ERP maison, PIM produit custom, connecteurs marketing et delivery continu.
       paragraphs:
           - Chez Jewely / Flippad, j'interviens sur le socle commun (Laravel + Vue + Inertia), sur les besoins spécifiques par maison et sur les chantiers transversaux qui touchent à la donnée produit, au front, aux connecteurs métier et à la mise en ligne.
@@ -71,7 +71,7 @@ professional_sections:
                 - Optimisation performance, SEO technique et maintenance long terme.
 associative_sections:
     - title: Aremedia
-      eyebrow: Associatif
+      eyebrow: Salarié associatif — Avant 2023
       summary: Contexte salarié de santé publique. Outil auto-hébergé pour les équipes de terrain et reprise du site public.
       paragraphs:
           - Travail centré sur la prévention, la confiance et la clarté d'usage.

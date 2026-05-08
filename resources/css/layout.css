@@ -1,9 +1,12 @@
+html {
+    overflow-x: clip;
+}
+
 .sw-shell {
     position: relative;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-x: clip;
     background:
         radial-gradient(
             circle at top left,
@@ -46,7 +49,7 @@
 }
 
 @supports not (overflow: clip) {
-    .sw-shell {
+    html {
         overflow-x: hidden;
     }
 }
