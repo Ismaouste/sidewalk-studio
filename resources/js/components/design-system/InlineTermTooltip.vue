@@ -44,25 +44,36 @@ const props = withDefaults(
 
 .inline-term-tooltip__popup {
     position: absolute;
-    left: 0;
+    left: 50%;
     bottom: calc(100% + 10px);
     z-index: 3;
     width: max-content;
-    min-width: min(14rem, calc(100vw - 2rem));
-    max-width: min(20rem, calc(100vw - 2rem));
-    border: 1px solid color-mix(in srgb, var(--inline-term-accent) 24%, var(--sw-border));
-    border-radius: 4px;
-    background: color-mix(in srgb, var(--sw-bg-elevated) 90%, var(--inline-term-accent) 10%);
-    padding: 0.52rem 0.68rem;
+    min-width: min(11rem, calc(100vw - 2rem));
+    max-width: min(17rem, calc(100vw - 2rem));
+    border: 1px solid
+        color-mix(in srgb, var(--inline-term-accent) 22%, var(--sw-border));
+    border-radius: 6px;
+    background: color-mix(
+        in srgb,
+        var(--sw-bg-elevated) 56%,
+        var(--inline-term-accent) 4%
+    );
+    -webkit-backdrop-filter: blur(14px) saturate(132%);
+    backdrop-filter: blur(14px) saturate(132%);
+    box-shadow:
+        0 12px 32px -16px color-mix(in srgb, black 36%, transparent),
+        0 0 0 1px color-mix(in srgb, white 6%, transparent) inset;
+    padding: 0.5rem 0.7rem;
     color: var(--sw-text-primary);
     font-family: var(--sw-font-body);
-    font-size: 0.79rem;
+    font-size: 0.7rem;
     font-weight: 500;
-    line-height: 1.35;
+    line-height: 1.4;
+    letter-spacing: 0.005em;
     white-space: normal;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(4px);
+    transform: translate(-50%, 4px);
     transition:
         opacity var(--sw-motion-fast),
         transform var(--sw-motion-fast);
@@ -71,12 +82,14 @@ const props = withDefaults(
 .inline-term-tooltip__popup::after {
     content: '';
     position: absolute;
-    left: 16px;
+    left: calc(50% - 5px);
     top: calc(100% - 1px);
     width: 10px;
     height: 10px;
-    border-right: 1px solid color-mix(in srgb, var(--inline-term-accent) 24%, var(--sw-border));
-    border-bottom: 1px solid color-mix(in srgb, var(--inline-term-accent) 24%, var(--sw-border));
+    border-right: 1px solid
+        color-mix(in srgb, var(--inline-term-accent) 22%, var(--sw-border));
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--inline-term-accent) 22%, var(--sw-border));
     transform: rotate(45deg);
     background: inherit;
 }
@@ -101,26 +114,20 @@ const props = withDefaults(
 .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
 .inline-term-tooltip:focus .inline-term-tooltip__popup {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .inline-term-tooltip__popup {
+        transition: none;
+    }
 }
 
 @media (max-width: 640px) {
     .inline-term-tooltip__popup {
-        left: 50%;
-        width: min(18rem, calc(100vw - 2rem));
-        min-width: 0;
+        width: min(15rem, calc(100vw - 2rem));
         max-width: calc(100vw - 2rem);
-        transform: translate(-50%, 4px);
-    }
-
-    .inline-term-tooltip__popup::after {
-        left: calc(50% - 5px);
-    }
-
-    .inline-term-tooltip:hover .inline-term-tooltip__popup,
-    .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
-    .inline-term-tooltip:focus .inline-term-tooltip__popup {
-        transform: translate(-50%, 0);
+        font-size: 0.68rem;
     }
 }
 </style>
