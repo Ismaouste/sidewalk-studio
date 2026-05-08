@@ -16,11 +16,11 @@ contexts:
     - Redesigns, ongoing delivery, infrastructure incidents, and go-live work.
 professional_sections:
     - title: Jewely Ecommerce
-      eyebrow: 2023 - present
-      summary: Multi-tenant ecommerce platform for jewelry and watch brands. Shared core, client themes, in-house ERP, and already-live catalog and front-end work.
+      eyebrow: Tech lead — 2023-2026
+      summary: Multi-tenant ecommerce platform for jewelry and watch brands. Shared Laravel / Vue core, in-house ERP, client themes, product data, and ongoing delivery.
       paragraphs:
-          - At Jewely / Flippad, I work on the shared base, on brand-specific needs, and on subjects that touch catalog, front-end delivery, and go-live work at the same time.
-          - The scope covers product data, business connectors, themes, technical SEO, and demanding HBJO environments, including Rolex Bespoke and Rolex Certified Pre-Owned surfaces.
+          - At Jewely / Flippad, I work on the shared base, on brand-specific needs, and on the cross-cutting work that touches product data, front-end, and go-live at the same time.
+          - Premium HBJO frame with strong brand, product-data, and go-live constraints — including Rolex Bespoke and Rolex Certified Pre-Owned surfaces, and an in-flight redesign for a Cannes jeweller in business since 1862.
       detail_groups:
           - title: Stack
             pills:
@@ -32,25 +32,9 @@ professional_sections:
             items:
                 - Shared core, client themes, business connectors, ongoing delivery, and coordination between ERP, catalog, and front-end surfaces.
                 - Work delivered in a premium HBJO frame with strong brand, product-data, and go-live constraints.
-    - title: Louis Julian Redesign
-      eyebrow: 2025 - present
-      summary: Jeweler in Cannes since 1862. Public site and ecommerce redesign with a full design system and editorial steering.
-      paragraphs:
-          - The work covers both structure and visual delivery, with reusable homepage blocks and a cleaner front-end base.
-          - The main goal is to keep the site readable for the house, the client team, and the long-term implementation.
-      detail_groups:
-          - title: Stack
-            pills:
-                - Laravel
-                - Blade
-                - Design system
-                - Technical SEO
-            items:
-                - Public-site and ecommerce redesign, reusable components, and stable editorial framing.
-                - Built under strong brand and content constraints.
     - title: Infrastructure
-      eyebrow: 2024 - present
-      summary: Docker Swarm deployment on AWS. Automatic pipeline through EventBridge, Lambda, and SSM, then hardening after a disk incident.
+      eyebrow: Cross-cutting devops — 2024-2026
+      summary: Docker Swarm deployment on AWS for the Jewely platform. Automatic pipeline through EventBridge, Lambda, and SSM, then hardening after a disk incident.
       paragraphs:
           - The work focused on deployment automation, clearer execution feedback, and guardrails when production lies.
           - 'After the incident, the goal was simple: make the pipeline verifiable, less misleading, and calmer to run.'

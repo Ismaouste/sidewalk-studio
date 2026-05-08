@@ -16,11 +16,11 @@ contexts:
     - Refontes, delivery continu, incidents d'infrastructure et mises en ligne.
 professional_sections:
     - title: Jewely E-commerce
-      eyebrow: 2023 - aujourd'hui
-      summary: Plateforme e-commerce multi-tenant pour maisons HBJO. Socle partagé, thèmes par client, ERP maison, catalogue et front déjà en production.
+      eyebrow: Tech lead — 2023-2026
+      summary: Plateforme e-commerce multi-tenant pour maisons HBJO. Socle Laravel / Vue partagé, ERP maison, thèmes par client, catalogue produit et delivery continu.
       paragraphs:
-          - Chez Jewely / Flippad, je travaille sur le socle commun, sur des besoins spécifiques par maison et sur des sujets qui touchent autant au catalogue qu'au front et à la mise en ligne.
-          - Le périmètre couvre la donnée produit, les connecteurs métier, les thèmes, le SEO technique et des contextes HBJO exigeants, dont des dispositifs Rolex Bespoke et Rolex Certified Pre-Owned.
+          - Chez Jewely / Flippad, j'interviens sur le socle commun, sur les besoins spécifiques par maison et sur les chantiers transversaux qui touchent autant à la donnée produit qu'au front et à la mise en ligne.
+          - Périmètre HBJO premium avec fortes contraintes de marque, de donnée produit et de mise en ligne — dont des dispositifs Rolex Bespoke et Rolex Certified Pre-Owned, et une refonte en cours pour une maison joaillière de Cannes installée depuis 1862.
       detail_groups:
           - title: Stack
             pills:
@@ -32,25 +32,9 @@ professional_sections:
             items:
                 - Core partagé, thèmes par client, connecteurs métier, delivery continu et coordination entre ERP, catalogue et front.
                 - Travail mené dans un cadre HBJO premium avec fortes contraintes de marque, de donnée produit et de mise en ligne.
-    - title: Louis Julian - Refonte
-      eyebrow: 2025 - aujourd'hui
-      summary: Joaillier à Cannes depuis 1862. Refonte site vitrine et e-commerce, avec design system complet et pilotage éditorial.
-      paragraphs:
-          - Refonte du site public et du commerce avec une logique de maison plus nette, des blocs homepage pilotables et une base front plus propre.
-          - Le travail porte autant sur la structure que sur la restitution visuelle et la tenue du contenu.
-      detail_groups:
-          - title: Stack
-            pills:
-                - Laravel
-                - Blade
-                - Design system
-                - SEO technique
-            items:
-                - Refonte vitrine et commerce, dix blocs homepage, composants réutilisables et cadre éditorial stable.
-                - Travail mené avec des contraintes de marque, de lisibilité et de mise à jour côté client.
     - title: Infrastructure
-      eyebrow: 2024 - aujourd'hui
-      summary: Déploiement Docker Swarm sur AWS. Pipeline automatique via EventBridge, Lambda et SSM, puis durcissement après incident disque.
+      eyebrow: Devops transversal — 2024-2026
+      summary: Déploiement Docker Swarm sur AWS pour la plateforme Jewely. Pipeline automatique via EventBridge, Lambda et SSM, puis durcissement après incident disque.
       paragraphs:
           - Le travail a porté sur l'automatisation du déploiement, la lecture des retours d'exécution et les garde-fous quand la production ment.
           - "Après incident, l'objectif était simple : rendre le pipeline vérifiable, moins trompeur et plus calme à exploiter."

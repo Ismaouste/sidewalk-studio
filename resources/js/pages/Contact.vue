@@ -80,7 +80,7 @@ const copy = computed(() =>
               availabilityText: '● Freelance / temps partiel / échanges',
               opportunitiesLabel: 'Situation actuelle',
               opportunitiesText:
-                  "Actuellement en emploi chez Jewely, avec une ouverture claire pour des opportunités, des missions freelance à temps partiel et des échanges autour d'un projet digital.",
+                  "Ouvert aux opportunités tech-lead / engineering, missions freelance à temps partiel et échanges autour d'un produit en route — recrutement, renfort technique ou cadrage sur un sujet précis.",
               subjectPrefix: 'Prise de contact',
               bodyNameLabel: 'Nom',
               bodyEmailLabel: 'Email',
@@ -114,7 +114,7 @@ const copy = computed(() =>
               availabilityText: '● Freelance / part-time / conversations',
               opportunitiesLabel: 'Current situation',
               opportunitiesText:
-                  'Currently employed at Jewely, while staying open to opportunities, part-time freelance work, and conversations around digital products.',
+                  'Open to tech-lead / engineering opportunities, part-time freelance work, and conversations around a product already in motion — hiring, technical reinforcement, or scoping on a focused topic.',
               subjectPrefix: 'Inquiry',
               bodyNameLabel: 'Name',
               bodyEmailLabel: 'Email',
