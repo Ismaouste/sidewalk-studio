@@ -170,6 +170,9 @@ class SiteController extends Controller
             'professionalSections' => $experience['professional_sections'],
             'associativeSections' => $experience['associative_sections'],
             'sideProjectSections' => $experience['side_project_sections'],
+            'trajectory' => $experience['trajectory'],
+            'strengths' => $experience['strengths'],
+            'focusAreas' => $experience['focus_areas'],
             'cvDownloads' => $this->cvDownloads(),
             'associativeNoteWidget' => [
                 'eyebrow' => $experience['associative_note_widget']['eyebrow'],
