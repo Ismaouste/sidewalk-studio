@@ -151,7 +151,11 @@ html[data-theme='morning'] {
         var(--sw-accent-sun) 84%,
         black 8%
     );
-    --sw-button-primary-bg-hover: color-mix(in srgb, #a3724c 92%, white 8%);
+    --sw-button-primary-bg-hover: color-mix(
+        in srgb,
+        var(--sw-accent-coral) 92%,
+        white 8%
+    );
     --sw-button-primary-text: var(--sw-text-inverse);
     --sw-surface-backdrop-filter: blur(20px) saturate(1.3);
     --sw-sun-vx: calc(
@@ -238,12 +242,20 @@ html[data-theme='sunset'] {
     --sw-header-glow-blur-factor: 0.26;
     --sw-tab-active: #e8e8e6;
     --sw-tab-inactive: rgba(232, 232, 230, 0.52);
-    --sw-tab-line: #d4a578;
+    --sw-tab-line: var(--sw-accent-coral);
     --sw-tab-surface: rgba(201, 151, 106, 0.1);
-    --sw-button-primary-bg: #c9976a;
-    --sw-button-primary-border: #c9976a;
-    --sw-button-primary-bg-hover: #d4a578;
-    --sw-button-primary-text: #131316;
+    --sw-button-primary-bg: var(--sw-accent-sun);
+    --sw-button-primary-border: color-mix(
+        in srgb,
+        var(--sw-accent-sun) 88%,
+        black 12%
+    );
+    --sw-button-primary-bg-hover: color-mix(
+        in srgb,
+        var(--sw-accent-sun) 78%,
+        var(--sw-accent-coral) 22%
+    );
+    --sw-button-primary-text: var(--sw-text-inverse);
     --sw-runtime-surface-blur: 24px;
     --sw-surface-backdrop-filter: blur(24px) saturate(0.85) brightness(0.95);
     --sw-sun-vx: calc(
