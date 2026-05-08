@@ -46,6 +46,7 @@ const copy = computed(() =>
               publishedEntriesLabel: `${props.items.length} publications`,
               publishedLabel: 'Publié',
               readLabel: 'Lecture',
+              nudgeContactCta: 'Échangeons sur un contexte proche',
           }
         : {
               eyebrow: 'Journal',
@@ -58,6 +59,7 @@ const copy = computed(() =>
               publishedEntriesLabel: `${props.items.length} publications`,
               publishedLabel: 'Published',
               readLabel: 'Read',
+              nudgeContactCta: 'Talk about a similar context',
           },
 );
 </script>
@@ -132,6 +134,12 @@ const copy = computed(() =>
                     </Panel>
                 </Link>
             </div>
+
+            <nav class="writing-index__nudge" aria-label="Next step">
+                <Button href="/contact" variant="ghost" arrow>
+                    {{ copy.nudgeContactCta }}
+                </Button>
+            </nav>
         </section>
     </SiteLayout>
 </template>
@@ -250,6 +258,13 @@ const copy = computed(() =>
     }
 }
 
+.writing-index__nudge {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: var(--sw-space-sm);
+    border-top: 1px solid color-mix(in srgb, var(--sw-border) 56%, transparent);
+}
+
 @media (max-width: 640px) {
     .writing-index {
         gap: var(--sw-space-xs);
@@ -258,6 +273,15 @@ const copy = computed(() =>
     .writing-index__meta {
         align-items: start;
         justify-content: flex-start;
+    }
+
+    .writing-index__nudge {
+        justify-content: stretch;
+    }
+
+    .writing-index__nudge :deep(.sw-button) {
+        width: 100%;
+        justify-content: space-between;
     }
 }
 </style>
