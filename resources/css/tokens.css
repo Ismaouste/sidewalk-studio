@@ -1,3 +1,20 @@
+/* ============================================================
+ * Sidewalk Studio — design tokens (single source of truth)
+ * Edit accent values per theme below to retune the whole site.
+ * ============================================================ */
+
+@property --sw-sun-angle {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+}
+
+@property --sw-grid-line-opacity {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 1;
+}
+
 :root {
     --sw-font-display: 'Fraunces', Georgia, serif;
     --sw-font-heading: 'Syne', 'Trebuchet MS', sans-serif;
@@ -62,44 +79,62 @@
     --sw-surface-backdrop-filter: blur(20px) saturate(1.3);
 }
 
+/* ============================================================
+ * THEME: Morning Grid (light, architectural, civic daylight)
+ * Palette intent: vibrant urban primaries on chalk neutrals.
+ * Edit the accent block below to retune the whole morning theme;
+ * sun-gradient and ambient flares derive from these via color-mix.
+ * ============================================================ */
 :root,
 html[data-theme='morning'] {
     color-scheme: light;
 
+    /* Surfaces — chalk / paper / concrete */
     --sw-bg-base: #fafaf8;
     --sw-bg-surface: rgba(255, 255, 255, 0.45);
     --sw-bg-grid: #f3f2ee;
     --sw-bg-elevated: rgba(255, 255, 255, 0.64);
 
+    /* Text */
     --sw-text-primary: #1a1a1a;
     --sw-text-secondary: #6b6b6b;
     --sw-text-muted: #a0a0a0;
     --sw-text-inverse: #fafaf8;
 
-    --sw-accent-dominant: #b8845c;
-    --sw-accent-green: #8f8577;
-    --sw-accent-sun: #b8845c;
-    --sw-accent-coral: #a3724c;
-    --sw-accent-violet: #94867a;
+    /* === Accents — Civic Triad (vibrant primaries) ===
+       Edit these 5 hexes to retune the entire morning palette. */
+    --sw-accent-sun: #e6722e; /* warm urban orange */
+    --sw-accent-dominant: #d83a2a; /* signal coral red */
+    --sw-accent-green: #2a8754; /* civic / mobility green */
+    --sw-accent-violet: #1f5fd6; /* wayfinding blue */
+    --sw-accent-coral: #c2462a; /* brick red */
 
-    --sw-border: rgba(0, 0, 0, 0.04);
-    --sw-border-focus: #b8845c;
-    --sw-card-hover-border: rgba(0, 0, 0, 0.1);
-    --sw-grid-line: rgba(0, 0, 0, 0.04);
+    /* Lines / borders / focus */
+    --sw-border: rgba(0, 0, 0, 0.06);
+    --sw-border-focus: var(--sw-accent-violet);
+    --sw-card-hover-border: rgba(0, 0, 0, 0.12);
+    --sw-grid-line: rgba(0, 0, 0, 0.05);
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
     --sw-header-bg: linear-gradient(160deg, #fafaf8, #f6f5f1, #f3f2ee);
+
+    /* Sun + ambient atmosphere — derive from accents so editing
+       the accent block above flows through automatically. */
     --sw-sun-gradient: radial-gradient(
         circle at 38% 38%,
-        rgba(201, 151, 106, 0.38),
-        rgba(184, 132, 92, 0.16) 34%,
-        rgba(163, 114, 76, 0.12) 56%,
+        color-mix(in oklch, var(--sw-accent-sun) 56%, transparent),
+        color-mix(in oklch, var(--sw-accent-sun) 28%, transparent) 34%,
+        color-mix(in oklch, var(--sw-accent-coral) 16%, transparent) 56%,
         transparent 85%
     );
-    --sw-sun-glow: rgba(201, 151, 106, 0.18);
-    --sw-ambient-flare: #b8845c;
-    --sw-ambient-flare-soft: #d8c0aa;
-    --sw-ambient-flare-deep: #a3724c;
+    --sw-sun-glow: color-mix(in oklch, var(--sw-accent-sun) 22%, transparent);
+    --sw-ambient-flare: var(--sw-accent-sun);
+    --sw-ambient-flare-soft: color-mix(
+        in oklch,
+        var(--sw-accent-sun) 60%,
+        white 40%
+    );
+    --sw-ambient-flare-deep: var(--sw-accent-coral);
     --sw-sun-size: 224px;
     --sw-sun-top: -72px;
     --sw-sun-left: -72px;
@@ -116,11 +151,7 @@ html[data-theme='morning'] {
         var(--sw-accent-sun) 84%,
         black 8%
     );
-    --sw-button-primary-bg-hover: color-mix(
-        in srgb,
-        #a3724c 92%,
-        white 8%
-    );
+    --sw-button-primary-bg-hover: color-mix(in srgb, #a3724c 92%, white 8%);
     --sw-button-primary-text: var(--sw-text-inverse);
     --sw-surface-backdrop-filter: blur(20px) saturate(1.3);
     --sw-sun-vx: calc(
@@ -145,43 +176,59 @@ html[data-theme='morning'] {
     );
 }
 
+/* ============================================================
+ * THEME: Sunset Signal (dark, cinematic, electric dusk)
+ * Palette intent: glowing primaries on deep mineral surfaces.
+ * Edit the accent block below to retune the whole sunset theme.
+ * ============================================================ */
 html[data-theme='sunset'] {
     color-scheme: dark;
 
+    /* Surfaces — deep mineral */
     --sw-bg-base: #131316;
     --sw-bg-surface: rgba(255, 255, 255, 0.04);
     --sw-bg-grid: #1c1c20;
     --sw-bg-elevated: rgba(255, 255, 255, 0.07);
 
+    /* Text */
     --sw-text-primary: #e8e8e6;
     --sw-text-secondary: #8a8a8a;
     --sw-text-muted: #5a5a5a;
     --sw-text-inverse: #131316;
 
-    --sw-accent-dominant: #c9976a;
-    --sw-accent-green: #8b8378;
-    --sw-accent-sun: #c9976a;
-    --sw-accent-coral: #d4a578;
-    --sw-accent-violet: #726962;
+    /* === Accents — Electric Triad (glowing primaries) ===
+       Edit these 5 hexes to retune the entire sunset palette. */
+    --sw-accent-sun: #ffb155; /* warm sun amber */
+    --sw-accent-dominant: #ff6f5e; /* electric coral */
+    --sw-accent-green: #3acb86; /* phosphorescent green */
+    --sw-accent-violet: #5a78ff; /* glowing wayfinding blue */
+    --sw-accent-coral: #ff5e4d; /* vivid magenta-coral */
 
-    --sw-border: rgba(255, 255, 255, 0.04);
-    --sw-border-focus: #d4a578;
-    --sw-card-hover-border: rgba(255, 255, 255, 0.1);
-    --sw-grid-line: rgba(255, 255, 255, 0.04);
+    /* Lines / borders / focus */
+    --sw-border: rgba(255, 255, 255, 0.06);
+    --sw-border-focus: var(--sw-accent-violet);
+    --sw-card-hover-border: rgba(255, 255, 255, 0.12);
+    --sw-grid-line: rgba(255, 255, 255, 0.05);
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
     --sw-header-bg: linear-gradient(160deg, #16161a, #141417, #131316);
+
+    /* Sun + ambient — token-driven, glow via color-mix */
     --sw-sun-gradient: radial-gradient(
         circle at 62% 62%,
-        rgba(201, 151, 106, 0.34),
-        rgba(212, 165, 120, 0.14) 30%,
-        rgba(114, 105, 98, 0.08) 58%,
+        color-mix(in oklch, var(--sw-accent-sun) 48%, transparent),
+        color-mix(in oklch, var(--sw-accent-dominant) 24%, transparent) 30%,
+        color-mix(in oklch, var(--sw-accent-violet) 14%, transparent) 58%,
         transparent 85%
     );
-    --sw-sun-glow: rgba(201, 151, 106, 0.16);
-    --sw-ambient-flare: #c9976a;
-    --sw-ambient-flare-soft: #d4a578;
-    --sw-ambient-flare-deep: #726962;
+    --sw-sun-glow: color-mix(in oklch, var(--sw-accent-sun) 20%, transparent);
+    --sw-ambient-flare: var(--sw-accent-dominant);
+    --sw-ambient-flare-soft: color-mix(
+        in oklch,
+        var(--sw-accent-sun) 56%,
+        var(--sw-accent-coral) 44%
+    );
+    --sw-ambient-flare-deep: var(--sw-accent-violet);
     --sw-sun-size: 240px;
     --sw-sun-top: auto;
     --sw-sun-left: auto;
@@ -232,10 +279,53 @@ html[data-motion='reduced'] * {
     scroll-behavior: auto !important;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --sw-motion-fast: 0ms linear;
+        --sw-motion-smooth: 0ms linear;
+        --sw-motion-reveal: 0ms linear;
+        --sw-motion-sun: 0ms linear;
+    }
+
+    * {
+        scroll-behavior: auto !important;
+    }
+}
+
+/* === Twilight interpolation tokens ===
+   Mix Morning + Sunset endpoints. Reserved for the experience-page
+   hero in Phase 2; defined here so they auto-flip with the theme. */
+:root,
+html[data-theme='morning'],
+html[data-theme='sunset'] {
+    --sw-twilight-anchor: color-mix(
+        in oklch,
+        var(--sw-bg-base) 88%,
+        var(--sw-accent-coral) 12%
+    );
+    --sw-twilight-glow: color-mix(
+        in oklch,
+        var(--sw-accent-sun) 58%,
+        var(--sw-bg-elevated) 42%
+    );
+}
+
 html[data-contrast='boost'] {
-    --sw-text-secondary: color-mix(in srgb, var(--sw-text-primary) 82%, var(--sw-bg-base));
-    --sw-text-muted: color-mix(in srgb, var(--sw-text-primary) 62%, var(--sw-bg-base));
-    --sw-border: color-mix(in srgb, var(--sw-text-primary) 22%, var(--sw-bg-base));
+    --sw-text-secondary: color-mix(
+        in srgb,
+        var(--sw-text-primary) 82%,
+        var(--sw-bg-base)
+    );
+    --sw-text-muted: color-mix(
+        in srgb,
+        var(--sw-text-primary) 62%,
+        var(--sw-bg-base)
+    );
+    --sw-border: color-mix(
+        in srgb,
+        var(--sw-text-primary) 22%,
+        var(--sw-bg-base)
+    );
     --sw-card-hover-border: color-mix(
         in srgb,
         var(--sw-text-primary) 28%,

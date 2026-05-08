@@ -1,130 +1,18 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted } from 'vue';
-
-let themeObserver: MutationObserver | null = null;
-let previousMorningPalette = -1;
-let previousSunsetPalette = -1;
-
-type ThemeMode = 'morning' | 'sunset';
-type AmbientPalette = {
-    flare: string;
-    soft: string;
-    deep: string;
-};
-
-const morningPalettes: AmbientPalette[] = [
-    {
-        flare: '#cf6445',
-        soft: '#f1c58d',
-        deep: '#b83528',
-    },
-    {
-        flare: '#d8892d',
-        soft: '#f5d39a',
-        deep: '#c95c2c',
-    },
-    {
-        flare: '#c97b60',
-        soft: '#f0c0a2',
-        deep: '#b04f44',
-    },
-    {
-        flare: '#b83528',
-        soft: '#efb68a',
-        deep: '#8f2b26',
-    },
-];
-
-const sunsetPalettes: AmbientPalette[] = [
-    {
-        flare: '#ff7b7a',
-        soft: '#ffc28d',
-        deep: '#665eff',
-    },
-    {
-        flare: '#ff6d98',
-        soft: '#f1a6ff',
-        deep: '#5a63ff',
-    },
-    {
-        flare: '#53c9ff',
-        soft: '#9dd8ff',
-        deep: '#7c5cff',
-    },
-    {
-        flare: '#ff9968',
-        soft: '#ffd6a2',
-        deep: '#9a57ff',
-    },
-];
-
-function currentTheme(): ThemeMode {
-    return document.documentElement.getAttribute('data-theme') === 'sunset'
-        ? 'sunset'
-        : 'morning';
-}
-
-function pickPalette(theme: ThemeMode): AmbientPalette {
-    const palettes = theme === 'sunset' ? sunsetPalettes : morningPalettes;
-
-    if (palettes.length === 1) {
-        return palettes[0];
-    }
-
-    const previousIndex =
-        theme === 'sunset' ? previousSunsetPalette : previousMorningPalette;
-    let nextIndex = previousIndex;
-
-    while (nextIndex === previousIndex) {
-        nextIndex = Math.floor(Math.random() * palettes.length);
-    }
-
-    if (theme === 'sunset') {
-        previousSunsetPalette = nextIndex;
-    } else {
-        previousMorningPalette = nextIndex;
-    }
-
-    return palettes[nextIndex];
-}
-
-function applyAmbientPalette(theme = currentTheme()): void {
-    const palette = pickPalette(theme);
-    const rootStyle = document.documentElement.style;
-
-    rootStyle.setProperty('--sw-ambient-flare', palette.flare);
-    rootStyle.setProperty('--sw-ambient-flare-soft', palette.soft);
-    rootStyle.setProperty('--sw-ambient-flare-deep', palette.deep);
-}
-
-function handleThemeMutation(): void {
-    applyAmbientPalette();
-}
-
-onMounted(() => {
-    applyAmbientPalette();
-
-    themeObserver = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-            if (
-                mutation.type === 'attributes' &&
-                mutation.attributeName === 'data-theme'
-            ) {
-                handleThemeMutation();
-                break;
-            }
-        }
-    });
-
-    themeObserver.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['data-theme'],
-    });
-});
-
-onBeforeUnmount(() => {
-    themeObserver?.disconnect();
-});
+/**
+ * AmbientGrid is now driven entirely by tokens + CSS.
+ * - Palette: read from --sw-ambient-flare(/-soft/-deep) defined per theme
+ *   in resources/css/tokens.css. Theme switching auto-propagates via
+ *   html[data-theme] and CSS variable inheritance.
+ * - Movement: scroll-driven keyframes, gated on
+ *   @supports (animation-timeline: scroll()) and prefers-reduced-motion.
+ *   On unsupported browsers / reduced motion / mobile, the layers render
+ *   as a static atmospheric placeholder.
+ *
+ * Kept as a Vue file so the existing import path stays stable and a
+ * future enhancement can add reactive props if needed.
+ */
+defineOptions({ name: 'AmbientGrid' });
 </script>
 
 <template>
@@ -191,8 +79,7 @@ html[data-theme='sunset'] .ambient-grid {
         radial-gradient(
             circle at var(--ambient-sun-x) var(--ambient-sun-y),
             color-mix(in srgb, white 22%, transparent) 0,
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 48%, transparent)
-                7%,
+            color-mix(in srgb, var(--sw-ambient-flare-soft) 48%, transparent) 7%,
             color-mix(in srgb, var(--sw-ambient-flare) 26%, transparent) 18%,
             color-mix(in srgb, var(--sw-accent-dominant) 14%, transparent) 28%,
             transparent 36%
