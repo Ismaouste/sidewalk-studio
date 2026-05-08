@@ -46,7 +46,7 @@ defineProps<{
 }
 
 .signage-strip__chip:hover {
-    background: color-mix(in srgb, var(--sw-accent-violet) 14%, transparent);
+    background: color-mix(in srgb, var(--sw-accent-coral) 14%, transparent);
     transform: translateY(-1px);
 }
 
@@ -61,7 +61,7 @@ defineProps<{
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--sw-accent-violet);
+    color: var(--sw-accent-coral);
 }
 
 .signage-strip__label {

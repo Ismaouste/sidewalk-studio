@@ -136,12 +136,20 @@ onBeforeUnmount(() => {
     align-items: center;
     min-height: 1.8rem;
     padding-inline: 0.15rem;
-    color: color-mix(in srgb, var(--sw-text-muted) 86%, var(--sw-text-secondary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-muted) 86%,
+        var(--sw-text-secondary)
+    );
     transition: color var(--sw-motion-fast);
 }
 
 .breadcrumb-trail__current {
-    color: color-mix(in srgb, var(--sw-text-secondary) 92%, var(--sw-text-primary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 92%,
+        var(--sw-text-primary)
+    );
 }
 
 @media (hover: hover) {
@@ -164,14 +172,9 @@ onBeforeUnmount(() => {
     }
 
     .breadcrumb-trail--stuck {
-        background:
-            linear-gradient(
-                180deg,
-                color-mix(in srgb, var(--sw-bg-base) 84%, transparent),
-                color-mix(in srgb, var(--sw-bg-base) 58%, transparent)
-            );
-        -webkit-backdrop-filter: blur(12px) saturate(128%);
-        backdrop-filter: blur(12px) saturate(128%);
+        background: color-mix(in srgb, var(--sw-bg-base) 38%, transparent);
+        -webkit-backdrop-filter: blur(20px) saturate(118%);
+        backdrop-filter: blur(20px) saturate(118%);
     }
 
     .breadcrumb-trail__list {
