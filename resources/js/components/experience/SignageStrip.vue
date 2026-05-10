@@ -1,6 +1,11 @@
 <script setup lang="ts">
 defineProps<{
-    items: Array<{ id: string; eyebrow: string; label: string }>;
+    items: Array<{
+        id: string;
+        eyebrow: string;
+        label: string;
+        dateRange?: string;
+    }>;
     ariaLabel?: string;
 }>();
 </script>
@@ -13,8 +18,11 @@ defineProps<{
             :href="`#${item.id}`"
             class="signage-strip__chip"
         >
-            <span class="signage-strip__eyebrow">{{ item.eyebrow }}</span>
+            <span v-if="item.dateRange" class="signage-strip__date">{{
+                item.dateRange
+            }}</span>
             <span class="signage-strip__label">{{ item.label }}</span>
+            <span class="signage-strip__eyebrow">{{ item.eyebrow }}</span>
         </a>
     </nav>
 </template>
@@ -55,19 +63,31 @@ defineProps<{
     outline-offset: 2px;
 }
 
-.signage-strip__eyebrow {
-    font-family: var(--sw-font-heading);
+.signage-strip__date {
+    font-family: var(--sw-font-code, monospace);
     font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     color: var(--sw-accent-coral);
+    text-transform: none;
+    line-height: 1.2;
 }
 
 .signage-strip__label {
     font-family: var(--sw-font-body);
     font-size: 14px;
     font-weight: 500;
+    line-height: 1.2;
+}
+
+.signage-strip__eyebrow {
+    font-family: var(--sw-font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--sw-text-muted);
+    line-height: 1.3;
 }
 
 @media (prefers-reduced-motion: reduce) {

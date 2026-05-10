@@ -90,18 +90,34 @@ type Spread = ExperienceSection & {
     id: string;
     pills: string[];
     items: string[];
+    role: string;
+    dateRange: string;
 };
+
+function splitEyebrow(eyebrow: string): { role: string; dateRange: string } {
+    const parts = eyebrow.split(/\s+[—–-]\s+/);
+    if (parts.length >= 2) {
+        return {
+            role: parts[0]!.trim(),
+            dateRange: parts.slice(1).join(' — ').trim(),
+        };
+    }
+    return { role: eyebrow.trim(), dateRange: '' };
+}
 
 function toSpread(section: ExperienceSection): Spread {
     const stackGroup = section.detail_groups.find(
         (group) => group.pills?.length,
     );
     const itemsGroup = section.detail_groups[0];
+    const { role, dateRange } = splitEyebrow(section.eyebrow);
     return {
         ...section,
         id: slugify(section.title),
         pills: stackGroup?.pills ?? [],
         items: itemsGroup?.items ?? [],
+        role,
+        dateRange,
     };
 }
 
@@ -114,8 +130,9 @@ const allSpreads = computed<Spread[]>(() => [
 const signageItems = computed(() =>
     allSpreads.value.map((spread) => ({
         id: spread.id,
-        eyebrow: spread.eyebrow,
+        eyebrow: spread.role,
         label: spread.title,
+        dateRange: spread.dateRange,
     })),
 );
 </script>
