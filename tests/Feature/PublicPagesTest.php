@@ -19,7 +19,7 @@ class PublicPagesTest extends TestCase
             '/en/journal' => 'Journal · Ismael Rodmacq',
             '/en/case-studies' => 'Case Studies · Ismael Rodmacq',
             '/en/contact' => 'Contact · Ismael Rodmacq',
-            '/en/colophon' => 'Colophon · Ismael Rodmacq',
+            '/en/colophon' => 'Colophon — how this site is built · Ismael Rodmacq',
         ];
 
         foreach ($pages as $url => $expectedText) {

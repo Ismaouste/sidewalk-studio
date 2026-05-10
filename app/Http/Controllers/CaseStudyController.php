@@ -42,6 +42,10 @@ class CaseStudyController extends Controller
     {
         $item = $this->content->findPublished('case-studies', $slug);
         $isFrench = app()->getLocale() === 'fr';
+        $related = $this->content->published('case-studies', app()->getLocale(), false)
+            ->reject(fn (array $candidate): bool => $candidate['slug'] === $item['slug'])
+            ->take(3)
+            ->values();
         $seo = Seo::page(
             $item['seo_title'],
             $item['seo_description'],
@@ -71,6 +75,7 @@ class CaseStudyController extends Controller
         return Inertia::render('CaseStudies/Show', [
             'seo' => $seo,
             'item' => $item,
+            'related' => $related,
         ])->withViewData(['seo' => $seo]);
     }
 }

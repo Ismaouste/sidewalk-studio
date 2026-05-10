@@ -31,6 +31,9 @@ const props = withDefaults(
     display: inline-flex;
     align-items: baseline;
     outline: none;
+    text-transform: none;
+    letter-spacing: normal;
+    anchor-name: --inline-term-anchor;
 }
 
 .inline-term-tooltip__label {
@@ -40,6 +43,8 @@ const props = withDefaults(
     text-decoration-thickness: 1px;
     text-underline-offset: 0.18em;
     cursor: help;
+    text-transform: none;
+    letter-spacing: normal;
 }
 
 .inline-term-tooltip__popup {
@@ -116,7 +121,42 @@ const props = withDefaults(
 .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
 .inline-term-tooltip:focus .inline-term-tooltip__popup {
     opacity: 1;
+    pointer-events: auto;
     transform: translate(-50%, 0);
+}
+
+@supports (anchor-name: --x) {
+    .inline-term-tooltip__popup {
+        position: fixed;
+        inset: auto;
+        position-anchor: --inline-term-anchor;
+        position-area: top;
+        justify-self: anchor-center;
+        margin-bottom: 10px;
+        margin-inline: var(--sw-space-xs);
+        width: max-content;
+        max-width: min(17rem, calc(100dvw - 2 * var(--sw-space-xs)));
+        transform: translateY(4px);
+        position-try-fallbacks:
+            --inline-term-shift-end, --inline-term-shift-start, flip-block;
+        position-try-order: most-block-size;
+    }
+
+    .inline-term-tooltip:hover .inline-term-tooltip__popup,
+    .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
+    .inline-term-tooltip:focus .inline-term-tooltip__popup {
+        transform: translateY(0);
+    }
+}
+
+@position-try --inline-term-shift-end {
+    position-area: top span-right;
+    justify-self: anchor-end;
+}
+
+@position-try --inline-term-shift-start {
+    position-area: top span-left;
+    justify-self: anchor-start;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -127,11 +167,12 @@ const props = withDefaults(
 
 @media (max-width: 640px) {
     .inline-term-tooltip__popup {
-        width: min(15rem, calc(100vw - 2rem));
-        min-width: min(11rem, calc(100vw - 2rem));
-        max-width: calc(100vw - 2rem);
         font-size: 0.76rem;
         padding: 0.55rem 0.75rem;
+    }
+
+    .inline-term-tooltip__popup::after {
+        display: none;
     }
 }
 </style>

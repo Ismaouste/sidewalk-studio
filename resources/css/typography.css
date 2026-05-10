@@ -134,6 +134,8 @@ code,
     letter-spacing: -0.02em;
     line-height: 1.16;
     color: var(--sw-text-primary);
+    scroll-margin-top: var(--sw-space-md);
+    position: relative;
 }
 
 .prose-copy h3 {
@@ -143,6 +145,47 @@ code,
     font-weight: 500;
     line-height: 1.34;
     color: var(--sw-text-primary);
+    scroll-margin-top: var(--sw-space-md);
+    position: relative;
+}
+
+.prose-copy .prose-anchor {
+    display: inline-block;
+    margin-left: 0.4em;
+    padding: 0 0.15em;
+    color: var(--sw-text-muted);
+    font-family: var(--sw-font-code, monospace);
+    font-size: 0.7em;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(-0.05em);
+    transition:
+        opacity var(--sw-motion-fast),
+        color var(--sw-motion-fast);
+    vertical-align: middle;
+}
+
+.prose-copy .prose-anchor:hover,
+.prose-copy .prose-anchor:focus-visible {
+    color: var(--sw-accent-dominant);
+    text-decoration: none;
+    opacity: 1;
+}
+
+.prose-copy h2:hover .prose-anchor,
+.prose-copy h2:focus-within .prose-anchor,
+.prose-copy h3:hover .prose-anchor,
+.prose-copy h3:focus-within .prose-anchor {
+    opacity: 0.7;
+}
+
+@media (hover: none) {
+    .prose-copy .prose-anchor {
+        opacity: 0.5;
+    }
 }
 
 .prose-copy p,

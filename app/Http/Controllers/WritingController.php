@@ -41,6 +41,10 @@ class WritingController extends Controller
     {
         $item = $this->content->findPublished('writing', $slug);
         $isFrench = app()->getLocale() === 'fr';
+        $related = $this->content->published('writing', app()->getLocale(), false)
+            ->reject(fn (array $candidate): bool => $candidate['slug'] === $item['slug'])
+            ->take(3)
+            ->values();
         $seo = Seo::page(
             $item['seo_title'],
             $item['seo_description'],
@@ -69,6 +73,7 @@ class WritingController extends Controller
         return Inertia::render('Writing/Show', [
             'seo' => $seo,
             'item' => $item,
+            'related' => $related,
         ])->withViewData(['seo' => $seo]);
     }
 }
