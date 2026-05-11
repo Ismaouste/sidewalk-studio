@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const props = withDefaults(
     defineProps<{
         label: string;
@@ -9,16 +11,59 @@ const props = withDefaults(
         tone: 'dominant',
     },
 );
+
+const triggerRef = ref<HTMLElement | null>(null);
+const popupRef = ref<HTMLElement | null>(null);
+
+function positionPopup(): void {
+    const trigger = triggerRef.value;
+    const popup = popupRef.value;
+    if (!trigger || !popup) return;
+
+    const t = trigger.getBoundingClientRect();
+    const margin = 8;
+
+    popup.style.visibility = 'hidden';
+    popup.style.opacity = '1';
+    popup.style.left = '0';
+    popup.style.top = '0';
+    const popupWidth = popup.offsetWidth;
+    const popupHeight = popup.offsetHeight;
+    popup.style.visibility = '';
+    popup.style.opacity = '';
+
+    const wantedLeft = t.left + t.width / 2 - popupWidth / 2;
+    const left = Math.max(
+        margin,
+        Math.min(wantedLeft, window.innerWidth - popupWidth - margin),
+    );
+
+    const aboveTop = t.top - popupHeight - 10;
+    const top = aboveTop >= margin ? aboveTop : t.bottom + 10;
+
+    const arrowX = t.left + t.width / 2 - left;
+    popup.style.left = `${left}px`;
+    popup.style.top = `${top}px`;
+    popup.style.setProperty('--inline-term-arrow-x', `${arrowX}px`);
+    popup.style.setProperty(
+        '--inline-term-arrow-side',
+        aboveTop >= margin ? 'bottom' : 'top',
+    );
+}
 </script>
 
 <template>
     <span
+        ref="triggerRef"
         class="inline-term-tooltip"
         :class="`inline-term-tooltip--${props.tone}`"
         tabindex="0"
+        @mouseenter="positionPopup"
+        @focus="positionPopup"
+        @touchstart.passive="positionPopup"
     >
         <span class="inline-term-tooltip__label">{{ props.label }}</span>
-        <span class="inline-term-tooltip__popup" role="note">
+        <span ref="popupRef" class="inline-term-tooltip__popup" role="note">
             {{ props.definition }}
         </span>
     </span>
@@ -27,13 +72,14 @@ const props = withDefaults(
 <style scoped>
 .inline-term-tooltip {
     --inline-term-accent: var(--sw-accent-dominant);
+    --inline-term-arrow-x: 50%;
+    --inline-term-arrow-side: bottom;
     position: relative;
     display: inline-flex;
     align-items: baseline;
     outline: none;
     text-transform: none;
     letter-spacing: normal;
-    anchor-name: --inline-term-anchor;
 }
 
 .inline-term-tooltip__label {
@@ -48,9 +94,9 @@ const props = withDefaults(
 }
 
 .inline-term-tooltip__popup {
-    position: absolute;
-    left: 50%;
-    bottom: calc(100% + 10px);
+    position: fixed;
+    left: 0;
+    top: 0;
     z-index: 3;
     width: max-content;
     min-width: min(11rem, calc(100vw - 2rem));
@@ -80,7 +126,7 @@ const props = withDefaults(
     white-space: normal;
     opacity: 0;
     pointer-events: none;
-    transform: translate(-50%, 4px);
+    transform: translateY(4px);
     transition:
         opacity var(--sw-motion-fast),
         transform var(--sw-motion-fast);
@@ -89,16 +135,24 @@ const props = withDefaults(
 .inline-term-tooltip__popup::after {
     content: '';
     position: absolute;
-    left: calc(50% - 5px);
-    top: calc(100% - 1px);
+    left: calc(var(--inline-term-arrow-x) - 5px);
     width: 10px;
     height: 10px;
+    background: inherit;
+    transform: rotate(45deg);
+}
+
+.inline-term-tooltip__popup:where([style*='--inline-term-arrow-side: bottom']),
+.inline-term-tooltip__popup {
+    /* default: arrow on bottom edge of popup (popup is above trigger) */
+}
+
+.inline-term-tooltip__popup::after {
+    top: calc(100% - 6px);
     border-right: 1px solid
         color-mix(in srgb, var(--inline-term-accent) 22%, var(--sw-border));
     border-bottom: 1px solid
         color-mix(in srgb, var(--inline-term-accent) 22%, var(--sw-border));
-    transform: rotate(45deg);
-    background: inherit;
 }
 
 .inline-term-tooltip--green {
@@ -122,30 +176,7 @@ const props = withDefaults(
 .inline-term-tooltip:focus .inline-term-tooltip__popup {
     opacity: 1;
     pointer-events: auto;
-    transform: translate(-50%, 0);
-}
-
-@supports (anchor-name: --x) {
-    .inline-term-tooltip__popup {
-        position: fixed;
-        inset: auto;
-        position-anchor: --inline-term-anchor;
-        position-area: top span-all;
-        justify-self: anchor-center;
-        margin: 0 var(--sw-space-xs) 10px;
-        width: max-content;
-        max-width: min(17rem, calc(100dvw - 2 * var(--sw-space-xs)));
-        translate: 0 4px;
-        transform: none;
-        position-try-fallbacks: flip-block;
-    }
-
-    .inline-term-tooltip:hover .inline-term-tooltip__popup,
-    .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
-    .inline-term-tooltip:focus .inline-term-tooltip__popup {
-        translate: 0 0;
-        transform: none;
-    }
+    transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -158,10 +189,6 @@ const props = withDefaults(
     .inline-term-tooltip__popup {
         font-size: 0.76rem;
         padding: 0.55rem 0.75rem;
-    }
-
-    .inline-term-tooltip__popup::after {
-        display: none;
     }
 }
 </style>
