@@ -23,7 +23,7 @@ sections:
       cta_href: https://github.com/Ismaouste/sidewalk-studio
     - title: Vie privée
       eyebrow: Posture
-      summary: 'Le formulaire de contact ne stocke pas de donnée. Les analytics restent en opt-in explicite. Les cookies tiers sont gérés via Vanilla Cookie Consent.'
+      summary: 'Le formulaire de contact ne stocke pas de donnée. Les analytics restent en opt-in explicite, cookieless, sans pixel marketing et sans heatmap. Deux drivers supportés au choix : Umami auto-hébergé ou Vercel Web Analytics + Speed Insights. Do Not Track est respecté.'
       cta_label: Voir la page traitement
       cta_href: /data-processing
 closing:

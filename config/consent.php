@@ -15,7 +15,7 @@ return [
         [
             'key' => 'analytics',
             'label' => 'Analytics',
-            'description' => 'Reserved for privacy-first metrics adapters such as Matomo or PostHog once the dedicated spec lands.',
+            'description' => 'Cookie-less, opt-in measurement. Disabled until you accept this category.',
             'readonly' => false,
             'enabled' => false,
         ],
@@ -30,6 +30,13 @@ return [
     'services' => [
         'analytics' => [
             'driver' => env('ANALYTICS_DRIVER', 'none'),
+            'umami' => [
+                'website_id' => env('UMAMI_WEBSITE_ID'),
+                'script_url' => env('UMAMI_SCRIPT_URL'),
+            ],
+            'vercel' => [
+                'enabled' => filter_var(env('VERCEL_ANALYTICS_ENABLED', false), FILTER_VALIDATE_BOOLEAN),
+            ],
         ],
         'media' => [
             'youtube' => [

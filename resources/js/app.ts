@@ -109,6 +109,14 @@ createInertiaApp({
                 });
         });
 
+        void import('@/lib/analytics-drivers').then(
+            ({ setupAnalyticsAdapters }) => {
+                const consent = props.initialPage.props
+                    .consent as ConsentConfig;
+                setupAnalyticsAdapters(consent.services.analytics);
+            },
+        );
+
         void import('@/lib/consent')
             .then(({ initializeConsent }) =>
                 initializeConsent(

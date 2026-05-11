@@ -24,6 +24,11 @@
         <meta name="description" content="{{ $seo['description'] ?? config('site.description') }}">
         <meta name="robots" content="{{ $seo['robots'] ?? 'index,follow' }}">
         <link rel="canonical" href="{{ $seo['canonical'] ?? config('site.url') }}">
+        @if (!empty($seo['alternates']))
+            @foreach ($seo['alternates'] as $alternate)
+                <link rel="alternate" hreflang="{{ $alternate['hreflang'] }}" href="{{ $alternate['href'] }}">
+            @endforeach
+        @endif
 
         <meta property="og:title" content="{{ $seo['openGraph']['title'] ?? ($seo['title'] ?? config('site.name')) }}">
         <meta property="og:description" content="{{ $seo['openGraph']['description'] ?? ($seo['description'] ?? config('site.description')) }}">
@@ -104,6 +109,9 @@
         @inertiaHead
     </head>
     <body>
+        <a href="#main-content" class="sw-skip-link">
+            {{ app()->getLocale() === 'fr' ? 'Aller au contenu principal' : 'Skip to main content' }}
+        </a>
         @inertia
     </body>
 </html>

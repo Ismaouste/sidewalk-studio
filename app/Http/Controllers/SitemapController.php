@@ -14,18 +14,22 @@ class SitemapController extends Controller
             ->merge($content->published('writing', 'en', false)->map(fn (array $item) => [
                 'loc' => url($item['url']),
                 'lastmod' => $item['updated_at'],
+                'alternates' => [],
             ]))
             ->merge($content->published('writing', 'fr', false)->map(fn (array $item) => [
                 'loc' => url($item['url']),
                 'lastmod' => $item['updated_at'],
+                'alternates' => [],
             ]))
             ->merge($content->published('case-studies', 'en', false)->map(fn (array $item) => [
                 'loc' => url($item['url']),
                 'lastmod' => $item['updated_at'],
+                'alternates' => [],
             ]))
             ->merge($content->published('case-studies', 'fr', false)->map(fn (array $item) => [
                 'loc' => url($item['url']),
                 'lastmod' => $item['updated_at'],
+                'alternates' => [],
             ]))
             ->unique('loc')
             ->values();
@@ -36,43 +40,44 @@ class SitemapController extends Controller
     }
 
     /**
-     * @return array<int, array{loc: string, lastmod: string}>
+     * @return array<int, array{loc: string, lastmod: string, alternates: array<int, array{hreflang: string, href: string}>}>
      */
     protected function staticPageEntries(): array
     {
-        return collect([
-            ['locale' => 'en', 'path' => '/'],
-            ['locale' => 'en', 'path' => '/local'],
-            ['locale' => 'en', 'path' => '/projects'],
-            ['locale' => 'en', 'path' => '/contact'],
-            ['locale' => 'fr', 'path' => '/'],
-            ['locale' => 'fr', 'path' => '/local'],
-            ['locale' => 'fr', 'path' => '/projects'],
-            ['locale' => 'fr', 'path' => '/contact'],
-        ])
+        $paths = ['/', '/local', '/projects', '/contact', '/journal', '/case-studies'];
+
+        return collect(PublicLocale::supported())
+            ->crossJoin($paths)
+            ->map(fn (array $pair): array => [
+                'locale' => $pair[0],
+                'path' => $pair[1],
+            ])
             ->map(fn (array $entry): array => [
                 'loc' => url(PublicLocale::localizedPath($entry['path'], $entry['locale'])),
                 'lastmod' => now()->toDateString(),
-            ])
-            ->merge([
-                [
-                    'loc' => url(PublicLocale::localizedPath('/journal', 'en')),
-                    'lastmod' => now()->toDateString(),
-                ],
-                [
-                    'loc' => url(PublicLocale::localizedPath('/journal', 'fr')),
-                    'lastmod' => now()->toDateString(),
-                ],
-                [
-                    'loc' => url(PublicLocale::localizedPath('/case-studies', 'en')),
-                    'lastmod' => now()->toDateString(),
-                ],
-                [
-                    'loc' => url(PublicLocale::localizedPath('/case-studies', 'fr')),
-                    'lastmod' => now()->toDateString(),
-                ],
+                'alternates' => $this->alternatesFor($entry['path']),
             ])
             ->values()
             ->all();
+    }
+
+    /**
+     * @return array<int, array{hreflang: string, href: string}>
+     */
+    protected function alternatesFor(string $path): array
+    {
+        $alternates = collect(PublicLocale::supported())
+            ->map(fn (string $locale): array => [
+                'hreflang' => $locale,
+                'href' => url(PublicLocale::localizedPath($path, $locale)),
+            ])
+            ->all();
+
+        $alternates[] = [
+            'hreflang' => 'x-default',
+            'href' => url(PublicLocale::localizedPath($path, PublicLocale::default())),
+        ];
+
+        return $alternates;
     }
 }

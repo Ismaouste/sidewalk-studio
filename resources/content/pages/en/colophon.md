@@ -23,7 +23,7 @@ sections:
       cta_href: https://github.com/Ismaouste/sidewalk-studio
     - title: Privacy
       eyebrow: Stance
-      summary: 'The contact form does not store data. Analytics stays explicit opt-in. Third-party cookies go through Vanilla Cookie Consent.'
+      summary: "The contact form does not store data. Analytics stays explicit opt-in, cookieless, with no marketing pixel and no heatmap. Two drivers supported, operator's choice: self-hosted Umami or Vercel Web Analytics + Speed Insights. Do Not Track is honored."
       cta_label: Open the data-processing page
       cta_href: /data-processing
 closing:

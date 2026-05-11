@@ -175,12 +175,33 @@ export type ConsentCategory = {
     enabled: boolean;
 };
 
+export type AnalyticsDriver = 'none' | 'umami' | 'vercel';
+
+export type AnalyticsServices = {
+    driver: AnalyticsDriver;
+    umami?: {
+        website_id: string | null;
+        script_url: string | null;
+    };
+    vercel?: {
+        enabled: boolean;
+    };
+};
+
 export type ConsentConfig = {
     mode: string;
-    driver: 'none' | 'matomo' | 'posthog';
+    driver: AnalyticsDriver;
     cookieName: string;
     categories: ConsentCategory[];
-    services: Record<string, unknown>;
+    services: {
+        analytics?: AnalyticsServices;
+        [key: string]: unknown;
+    };
+};
+
+export type SeoAlternate = {
+    hreflang: string;
+    href: string;
 };
 
 export type SeoPayload = {
@@ -188,6 +209,7 @@ export type SeoPayload = {
     description: string;
     canonical: string;
     robots: string;
+    alternates: SeoAlternate[];
     openGraph: Record<string, string>;
     twitter: Record<string, string>;
     jsonLd: Record<string, unknown>[];

@@ -64,7 +64,9 @@ function pickLoaderSelection(): AppLoaderQuote[] {
         categories.includes(quote.category),
     );
     const candidatePool =
-        primaryPool.length >= LOADER_QUOTES_TO_SHOW ? primaryPool : loaderQuotes;
+        primaryPool.length >= LOADER_QUOTES_TO_SHOW
+            ? primaryPool
+            : loaderQuotes;
 
     return shuffleQuotes(candidatePool).slice(0, LOADER_QUOTES_TO_SHOW);
 }
@@ -102,9 +104,12 @@ function advanceLoaderSequence(): void {
         return;
     }
 
-    loaderExitTimer = window.setTimeout(() => {
-        loaderVisible.value = false;
-    }, Math.max(LOADER_DISPLAY_MS - 350, LOADER_FADE_MS * 2));
+    loaderExitTimer = window.setTimeout(
+        () => {
+            loaderVisible.value = false;
+        },
+        Math.max(LOADER_DISPLAY_MS - 350, LOADER_FADE_MS * 2),
+    );
 }
 
 onMounted(() => {
@@ -152,15 +157,24 @@ onBeforeUnmount(() => {
 
     if (typeof window !== 'undefined') {
         if (loaderReplayListener !== null) {
-            window.removeEventListener(LOADER_REPLAY_EVENT, loaderReplayListener);
+            window.removeEventListener(
+                LOADER_REPLAY_EVENT,
+                loaderReplayListener,
+            );
         }
 
         if (loaderPointerMoveListener !== null) {
-            window.removeEventListener('pointermove', loaderPointerMoveListener);
+            window.removeEventListener(
+                'pointermove',
+                loaderPointerMoveListener,
+            );
         }
 
         if (loaderPointerLeaveListener !== null) {
-            window.removeEventListener('pointerleave', loaderPointerLeaveListener);
+            window.removeEventListener(
+                'pointerleave',
+                loaderPointerLeaveListener,
+            );
         }
     }
 });
@@ -217,7 +231,7 @@ onBeforeUnmount(() => {
                 </div>
             </div>
         </transition>
-        <main class="sw-main">
+        <main id="main-content" class="sw-main">
             <div class="sw-container">
                 <BreadcrumbTrail
                     v-if="breadcrumbs.length"
@@ -268,7 +282,9 @@ onBeforeUnmount(() => {
             transparent 42%
         ),
         color-mix(in srgb, var(--sw-bg-base) 34%, transparent);
-    -webkit-backdrop-filter: blur(calc(var(--sw-runtime-surface-blur, 20px) * 1.2))
+    -webkit-backdrop-filter: blur(
+            calc(var(--sw-runtime-surface-blur, 20px) * 1.2)
+        )
         saturate(1.06);
     backdrop-filter: blur(calc(var(--sw-runtime-surface-blur, 20px) * 1.2))
         saturate(1.06);
@@ -304,23 +320,21 @@ onBeforeUnmount(() => {
 }
 
 .app-loader__cursor-halo--morning {
-    background:
-        radial-gradient(
-            circle,
-            color-mix(in srgb, var(--sw-accent-green) 26%, transparent),
-            color-mix(in srgb, var(--sw-accent-sun) 16%, transparent) 38%,
-            transparent 72%
-        );
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--sw-accent-green) 26%, transparent),
+        color-mix(in srgb, var(--sw-accent-sun) 16%, transparent) 38%,
+        transparent 72%
+    );
 }
 
 .app-loader__cursor-halo--sunset {
-    background:
-        radial-gradient(
-            circle,
-            color-mix(in srgb, var(--sw-accent-violet) 30%, transparent),
-            color-mix(in srgb, var(--sw-accent-coral) 18%, transparent) 36%,
-            transparent 72%
-        );
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--sw-accent-violet) 30%, transparent),
+        color-mix(in srgb, var(--sw-accent-coral) 18%, transparent) 36%,
+        transparent 72%
+    );
 }
 
 .app-loader__rail {
@@ -334,7 +348,8 @@ onBeforeUnmount(() => {
     border: 1px solid color-mix(in srgb, var(--sw-border) 44%, transparent);
     box-shadow:
         inset 0 0 0 1px color-mix(in srgb, white 8%, transparent),
-        0 0 24px color-mix(in srgb, var(--app-loader-rail-glow) 34%, transparent);
+        0 0 24px
+            color-mix(in srgb, var(--app-loader-rail-glow) 34%, transparent);
 }
 
 .app-loader__rail--morning {
@@ -455,7 +470,11 @@ onBeforeUnmount(() => {
     line-height: 1.55;
     max-width: 26rem;
     white-space: pre-line;
-    color: color-mix(in srgb, var(--sw-text-primary) 86%, var(--sw-text-secondary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-primary) 86%,
+        var(--sw-text-secondary)
+    );
     text-wrap: pretty;
 }
 
