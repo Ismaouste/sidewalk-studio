@@ -198,13 +198,25 @@ function submitInquiry(): void {
 
                 <div class="contact-page__hero-toolbar">
                     <figure class="contact-page__portrait">
-                        <img
-                            src="/images/contact-avatar.png"
-                            :alt="copy.portraitAlt"
-                            class="contact-page__portrait-image"
-                            loading="lazy"
-                            decoding="async"
-                        />
+                        <picture>
+                            <source
+                                srcset="/images/contact-avatar.avif"
+                                type="image/avif"
+                            />
+                            <source
+                                srcset="/images/contact-avatar.webp"
+                                type="image/webp"
+                            />
+                            <img
+                                src="/images/contact-avatar.png"
+                                :alt="copy.portraitAlt"
+                                class="contact-page__portrait-image"
+                                width="960"
+                                height="960"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </picture>
                     </figure>
 
                     <div class="contact-page__hero-toolbar-body">

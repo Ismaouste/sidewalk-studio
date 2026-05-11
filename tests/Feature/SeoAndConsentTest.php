@@ -73,7 +73,9 @@ class SeoAndConsentTest extends TestCase
             ->get('/fr/case-studies/pipeline-deploiement-ecommerce')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertDontSee('hreflang', false)
+            ->assertSee('hreflang="fr"', false)
+            ->assertSee('hreflang="en"', false)
+            ->assertSee('hreflang="x-default"', false)
             ->assertSee('Rendre un pipeline de déploiement honnête en environnement e-commerce · Ismaël Rodmacq');
     }
 

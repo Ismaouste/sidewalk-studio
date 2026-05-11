@@ -27,7 +27,9 @@ class PublicLocaleResolutionTest extends TestCase
         $response->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertDontSee('hreflang', false)
+            ->assertSee('hreflang="fr"', false)
+            ->assertSee('hreflang="en"', false)
+            ->assertSee('hreflang="x-default"', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('hero.title', 'Projets e-commerce')
                 ->where('site.locale', 'fr')
@@ -105,7 +107,9 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertDontSee('hreflang', false)
+            ->assertSee('hreflang="fr"', false)
+            ->assertSee('hreflang="en"', false)
+            ->assertSee('hreflang="x-default"', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
                 ->where(
@@ -133,7 +137,9 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertDontSee('hreflang', false)
+            ->assertSee('hreflang="fr"', false)
+            ->assertSee('hreflang="en"', false)
+            ->assertSee('hreflang="x-default"', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
                 ->where('item.locale', 'fr')
@@ -191,7 +197,9 @@ MD);
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertDontSee('hreflang', false)
+            ->assertSee('hreflang="fr"', false)
+            ->assertSee('hreflang="en"', false)
+            ->assertSee('hreflang="x-default"', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
                 ->where(
@@ -219,7 +227,9 @@ MD);
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertDontSee('hreflang', false)
+            ->assertSee('hreflang="fr"', false)
+            ->assertSee('hreflang="en"', false)
+            ->assertSee('hreflang="x-default"', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
                 ->where('item.locale', 'fr')
@@ -284,7 +294,9 @@ MD);
             ->assertOk()
             ->assertHeader('content-language', 'en')
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertDontSee('hreflang', false)
+            ->assertSee('hreflang="fr"', false)
+            ->assertSee('hreflang="en"', false)
+            ->assertSee('hreflang="x-default"', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('hero.title', 'Ecommerce projects')
                 ->where('site.locale', 'en')

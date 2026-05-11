@@ -59,11 +59,18 @@ class Seo
             ),
         ]));
 
+        $alternates = self::resolveAlternates(
+            $options['alternates'] ?? null,
+            $path,
+            $siteUrl,
+        );
+
         return [
             'title' => $fullTitle,
             'description' => $resolvedDescription,
             'canonical' => $canonical,
             'robots' => $options['robots'] ?? $settings->seoDefaults->defaultRobots,
+            'alternates' => $alternates,
             'breadcrumbs' => collect($options['breadcrumb'] ?? [])
                 ->values()
                 ->map(fn (array $item): array => [
@@ -387,6 +394,31 @@ class Seo
         }
 
         return self::absoluteUrl(PublicLocale::localizedPath($path, $locale), $siteUrl);
+    }
+
+    /**
+     * @param  array<int, array{hreflang: string, href: string}>|null  $explicit
+     * @return array<int, array{hreflang: string, href: string}>
+     */
+    protected static function resolveAlternates(?array $explicit, string $path, string $siteUrl): array
+    {
+        if (is_array($explicit) && $explicit !== []) {
+            return array_values($explicit);
+        }
+
+        $alternates = collect(PublicLocale::supported())
+            ->map(fn (string $loc): array => [
+                'hreflang' => $loc,
+                'href' => self::absoluteUrl(PublicLocale::localizedPath($path, $loc), $siteUrl),
+            ])
+            ->all();
+
+        $alternates[] = [
+            'hreflang' => 'x-default',
+            'href' => self::absoluteUrl(PublicLocale::localizedPath($path, PublicLocale::default()), $siteUrl),
+        ];
+
+        return $alternates;
     }
 
     /**

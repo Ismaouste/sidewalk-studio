@@ -2,6 +2,29 @@ html {
     overflow-x: clip;
 }
 
+.sw-skip-link {
+    position: absolute;
+    top: var(--sw-space-2xs);
+    left: var(--sw-space-2xs);
+    z-index: 9999;
+    padding: var(--sw-space-3xs) var(--sw-space-2xs);
+    background: var(--sw-bg-base);
+    color: var(--sw-text-primary);
+    border: 1px solid var(--sw-border-focus);
+    border-radius: var(--sw-radius-md);
+    font-family: var(--sw-font-body);
+    text-decoration: none;
+    transform: translateY(-150%);
+    transition: transform var(--sw-motion-fast);
+}
+
+.sw-skip-link:focus,
+.sw-skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--sw-border-focus);
+    outline-offset: 2px;
+}
+
 .sw-shell {
     position: relative;
     min-height: 100vh;
