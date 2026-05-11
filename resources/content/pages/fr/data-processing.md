@@ -17,7 +17,9 @@ consent:
     title: Analytics et contenus tiers restent opt-in
     points:
         - Les embeds externes restent bloqués tant que la catégorie media n'est pas acceptée.
-        - Une intégration analytics ou carte de chaleur doit rester désactivée par défaut et n'apparaître qu'après opt-in explicite.
+        - L'analytics est cookie-less et opt-in. Le site supporte deux drivers, au choix de l'opérateur: Umami auto-hébergé (sans cookie, sans PII) ou Vercel Web Analytics couplé à Speed Insights (cookieless, perf et pages-vues uniquement).
+        - Aucun script analytics n'est chargé tant que la catégorie analytics n'a pas été acceptée. Aucune carte de chaleur, aucun pixel marketing, aucun GTM.
+        - Le navigateur en mode Do Not Track est respecté même après acceptation.
         - Le bouton de préférences permet de rouvrir la modale de consentement et de modifier ce choix à tout moment.
 operator:
     eyebrow: Opérateur
