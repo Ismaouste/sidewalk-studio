@@ -154,7 +154,7 @@ const inquiryMeta = computed(() => [
 ]);
 
 const statusMessage = computed(() => page.props.flash?.status ?? null);
-const whatsappHref = 'https://wa.me/33684907698';
+const whatsappHref = 'https://wa.me/33684907608';
 
 const mailtoHref = computed(() => {
     const subjectBase = inquiry.company.trim()
@@ -178,9 +178,9 @@ const mailtoHref = computed(() => {
 });
 
 function submitInquiry(): void {
-    inquiry.post('/contact', {
-        preserveScroll: true,
-    });
+    if (typeof window !== 'undefined') {
+        window.location.href = mailtoHref.value;
+    }
 }
 </script>
 

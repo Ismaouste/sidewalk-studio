@@ -18,20 +18,26 @@ class ContactSubmissionController extends Controller
             'summary' => ['required', 'string', 'min:20', 'max:4000'],
         ]);
 
-        $prefix = app()->getLocale() === 'fr'
-            ? "Bonjour Ismaël,%0A%0AVoici un premier message depuis le site :%0A"
-            : "Hello Ismael,%0A%0AHere is a first message from the website:%0A";
+        $isFrench = app()->getLocale() === 'fr';
+        $subject = ($isFrench ? 'Prise de contact' : 'Inquiry')
+            .($payload['company'] ? ': '.$payload['company'] : '');
 
         $lines = array_filter([
-            'Name: '.$payload['name'],
-            'Email: '.$payload['email'],
-            $payload['company'] ? 'Company: '.$payload['company'] : null,
+            ($isFrench ? 'Nom : ' : 'Name: ').$payload['name'],
+            ($isFrench ? 'Email : ' : 'Email: ').$payload['email'],
+            $payload['company']
+                ? ($isFrench ? 'Entreprise ou produit : ' : 'Company or product: ').$payload['company']
+                : null,
             '',
             $payload['summary'],
         ]);
 
+        $email = (string) config('site.contact.email', 'ismael@rodmacq.com');
+
         return Inertia::location(
-            'https://wa.me/33684907698?text='.$prefix.rawurlencode(implode("\n", $lines))
+            'mailto:'.$email
+            .'?subject='.rawurlencode($subject)
+            .'&body='.rawurlencode(implode("\n", $lines))
         );
     }
 }
