@@ -118,8 +118,18 @@ defineProps<{
     padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.article-show__article > * {
+.article-show__article > :deep(*) {
     min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.article-show__article :deep(img),
+.article-show__article :deep(svg),
+.article-show__article :deep(video),
+.article-show__article :deep(iframe),
+.article-show__article :deep(pre),
+.article-show__article :deep(table) {
     max-width: 100%;
 }
 
@@ -130,9 +140,10 @@ defineProps<{
     max-width: 100%;
 }
 
-.article-show__aside > * {
+.article-show__aside > :deep(*) {
     min-width: 0;
     max-width: 100%;
+    box-sizing: border-box;
 }
 
 @media (min-width: 1040px) {

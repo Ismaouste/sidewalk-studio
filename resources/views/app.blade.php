@@ -48,6 +48,30 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+        @php
+            $manifestPath = public_path('build/manifest.json');
+            $criticalFonts = [];
+            if (is_file($manifestPath)) {
+                $manifest = json_decode((string) file_get_contents($manifestPath), true) ?? [];
+                $criticalFonts = collect($manifest)
+                    ->pluck('assets')
+                    ->filter()
+                    ->flatten()
+                    ->filter(fn ($asset) => is_string($asset) && str_ends_with($asset, '.woff2'))
+                    ->filter(fn ($asset) => str_contains($asset, '-latin-') && ! str_contains($asset, '-latin-ext-'))
+                    ->filter(fn ($asset) => str_contains($asset, 'dm-sans-latin-400')
+                        || str_contains($asset, 'dm-sans-latin-500')
+                        || str_contains($asset, 'syne-latin-700')
+                        || str_contains($asset, 'fraunces-latin-400-italic'))
+                    ->unique()
+                    ->values()
+                    ->all();
+            }
+        @endphp
+        @foreach ($criticalFonts as $font)
+            <link rel="preload" href="/build/{{ $font }}" as="font" type="font/woff2" crossorigin>
+        @endforeach
+
         @if (!empty($seo['jsonLd']))
             @foreach ($seo['jsonLd'] as $schema)
                 <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>

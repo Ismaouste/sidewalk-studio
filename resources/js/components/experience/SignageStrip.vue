@@ -112,6 +112,34 @@ defineProps<{
         overflow-x: auto;
         flex-wrap: nowrap;
         scrollbar-width: thin;
+        scrollbar-color: color-mix(
+                in srgb,
+                var(--sw-accent-coral) 55%,
+                transparent
+            )
+            transparent;
+        scrollbar-gutter: stable;
+        padding-bottom: calc(var(--sw-space-3xs) + 6px);
+    }
+
+    .signage-strip::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .signage-strip::-webkit-scrollbar-track {
+        background: transparent;
+        margin-inline: var(--sw-space-3xs);
+    }
+
+    .signage-strip::-webkit-scrollbar-thumb {
+        background: color-mix(in srgb, var(--sw-accent-coral) 45%, transparent);
+        border-radius: 999px;
+        transition: background-color var(--sw-motion-fast);
+    }
+
+    .signage-strip::-webkit-scrollbar-thumb:hover,
+    .signage-strip::-webkit-scrollbar-thumb:active {
+        background: color-mix(in srgb, var(--sw-accent-coral) 75%, transparent);
     }
 }
 </style>

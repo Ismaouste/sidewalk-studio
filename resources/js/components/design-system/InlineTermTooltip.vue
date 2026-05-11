@@ -130,33 +130,45 @@ const props = withDefaults(
         position: fixed;
         inset: auto;
         position-anchor: --inline-term-anchor;
-        position-area: top;
-        justify-self: anchor-center;
-        margin-bottom: 10px;
-        margin-inline: var(--sw-space-xs);
+        bottom: anchor(top);
+        left: anchor(center);
+        translate: -50% calc(-10px - 4px);
+        margin: 0;
         width: max-content;
         max-width: min(17rem, calc(100dvw - 2 * var(--sw-space-xs)));
-        transform: translateY(4px);
+        transform: none;
         position-try-fallbacks:
-            --inline-term-shift-end, --inline-term-shift-start, flip-block;
-        position-try-order: most-block-size;
+            --inline-term-shift-end, --inline-term-shift-start,
+            --inline-term-flip-bottom;
     }
 
     .inline-term-tooltip:hover .inline-term-tooltip__popup,
     .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
     .inline-term-tooltip:focus .inline-term-tooltip__popup {
-        transform: translateY(0);
+        translate: -50% -10px;
+        transform: none;
     }
 }
 
 @position-try --inline-term-shift-end {
-    position-area: top span-right;
-    justify-self: anchor-end;
+    left: auto;
+    right: var(--sw-space-xs);
+    bottom: anchor(top);
+    translate: 0 -10px;
 }
 
 @position-try --inline-term-shift-start {
-    position-area: top span-left;
-    justify-self: anchor-start;
+    left: var(--sw-space-xs);
+    right: auto;
+    bottom: anchor(top);
+    translate: 0 -10px;
+}
+
+@position-try --inline-term-flip-bottom {
+    bottom: auto;
+    top: anchor(bottom);
+    left: anchor(center);
+    translate: -50% 10px;
 }
 
 @media (prefers-reduced-motion: reduce) {
