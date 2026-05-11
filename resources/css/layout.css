@@ -44,6 +44,11 @@ html {
     min-width: 0;
 }
 
+.sw-main > .sw-container > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
 .sw-grid > * {
     min-width: 0;
 }
