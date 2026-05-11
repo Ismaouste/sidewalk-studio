@@ -130,45 +130,22 @@ const props = withDefaults(
         position: fixed;
         inset: auto;
         position-anchor: --inline-term-anchor;
-        bottom: anchor(top);
-        left: anchor(center);
-        translate: -50% calc(-10px - 4px);
-        margin: 0;
+        position-area: top span-all;
+        justify-self: anchor-center;
+        margin: 0 var(--sw-space-xs) 10px;
         width: max-content;
         max-width: min(17rem, calc(100dvw - 2 * var(--sw-space-xs)));
+        translate: 0 4px;
         transform: none;
-        position-try-fallbacks:
-            --inline-term-shift-end, --inline-term-shift-start,
-            --inline-term-flip-bottom;
+        position-try-fallbacks: flip-block;
     }
 
     .inline-term-tooltip:hover .inline-term-tooltip__popup,
     .inline-term-tooltip:focus-within .inline-term-tooltip__popup,
     .inline-term-tooltip:focus .inline-term-tooltip__popup {
-        translate: -50% -10px;
+        translate: 0 0;
         transform: none;
     }
-}
-
-@position-try --inline-term-shift-end {
-    left: auto;
-    right: var(--sw-space-xs);
-    bottom: anchor(top);
-    translate: 0 -10px;
-}
-
-@position-try --inline-term-shift-start {
-    left: var(--sw-space-xs);
-    right: auto;
-    bottom: anchor(top);
-    translate: 0 -10px;
-}
-
-@position-try --inline-term-flip-bottom {
-    bottom: auto;
-    top: anchor(bottom);
-    left: anchor(center);
-    translate: -50% 10px;
 }
 
 @media (prefers-reduced-motion: reduce) {
