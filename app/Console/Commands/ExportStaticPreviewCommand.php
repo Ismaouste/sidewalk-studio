@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Services\ContentRepository;
+use App\Services\SiteSettingsService;
+use App\Support\CareerAsset;
 use App\Support\ContentVisual;
 use DOMDocument;
 use DOMElement;
@@ -413,12 +415,10 @@ class ExportStaticPreviewCommand extends Command
         [$targetLocale, $suffix] = $this->extractTargetLocale($suffix, $locale);
         $localePrefix = $this->localePrefix($targetLocale);
 
-        if ($cleanPath === '/cv/en') {
-            return $basePath.'assets/cv/ismael-rodmacq-cv-en.pdf'.$suffix;
-        }
-
-        if ($cleanPath === '/cv/fr') {
-            return $basePath.'assets/cv/ismael-rodmacq-cv-fr.pdf'.$suffix;
+        if ($cleanPath === '/cv/en' || $cleanPath === '/cv/fr') {
+            return $basePath
+                .CareerAsset::exportRelativePath(substr($cleanPath, -2))
+                .$suffix;
         }
 
         if ($this->isAssetPath($cleanPath)) {
@@ -568,23 +568,28 @@ class ExportStaticPreviewCommand extends Command
 
     protected function copyCareerPdf(string $outputPath, string $locale): void
     {
-        $source = base_path("docs/career/output/ismael-rodmacq-cv-{$locale}.pdf");
-
-        if (! File::exists($source)) {
+        if (! CareerAsset::exists($locale)) {
             return;
         }
 
-        $targetDirectory = $outputPath.'/assets/cv';
+        $target = $outputPath.'/'.CareerAsset::exportRelativePath($locale);
 
-        File::ensureDirectoryExists($targetDirectory);
-        File::copy($source, $targetDirectory."/ismael-rodmacq-cv-{$locale}.pdf");
+        File::ensureDirectoryExists(dirname($target));
+        File::copy(CareerAsset::sourcePath($locale), $target);
     }
 
     protected function generateStaticManifest(string $outputPath, string $basePath): void
     {
+        $identity = app(SiteSettingsService::class)->current()->siteIdentity;
+
         $manifest = [
-            'name' => 'Ismael Rodmacq',
-            'short_name' => 'Rodmacq',
+            'name' => $identity->name,
+            /**
+             * The install banner and the home-screen icon get roughly twelve
+             * characters, so the short name is the last word of the site's
+             * name rather than the whole of it.
+             */
+            'short_name' => Str::afterLast($identity->name, ' '),
             'description' => 'Static preview for full-stack e-commerce, product data, technical SEO, and editorial work.',
             'start_url' => rtrim($basePath, '/').'/',
             'scope' => $basePath,

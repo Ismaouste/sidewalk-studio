@@ -12,6 +12,13 @@ return [
             'location' => 'Nancy, Grand-Est',
             'availability' => 'Currently working at Jewely and open to conversations, part-time freelance work, and new opportunities.',
         ],
+        'social_links' => [
+            'github_url' => 'https://github.com/Ismaouste',
+            'linkedin_url' => 'https://www.linkedin.com/in/ismaelrodmacq',
+        ],
+        'branding_settings' => [
+            'active_alt_format' => '%s portrait',
+        ],
         'consent_copy' => [
             'preferences_title' => 'Consent preferences',
             'preferences_description' => 'Choose which optional services may load on this site. Analytics stays disabled unless you opt in.',

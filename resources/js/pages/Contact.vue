@@ -130,7 +130,7 @@ function submitInquiry(): void {
                     <figure class="contact-page__portrait">
                         <img
                             src="/images/contact-avatar.png"
-                            :alt="copy.portraitAlt"
+                            :alt="copy.portraitAlt(page.props.site.name)"
                             class="contact-page__portrait-image"
                             loading="lazy"
                             decoding="async"

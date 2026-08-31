@@ -17,7 +17,12 @@ export default {
     opportunitiesLabel: 'Situation actuelle',
     opportunitiesText:
         "Ouvert aux opportunités tech-lead / engineering, missions freelance à temps partiel et échanges autour d'un produit en route — recrutement, renfort technique ou cadrage sur un sujet précis.",
-    portraitAlt: "Portrait illustré d'Ismael Rodmacq",
+    /**
+     * Apposition rather than `de ${name}`: the name is a runtime value, so a
+     * vowel-initial one would read as "de Alice" where French wants "d'Alice",
+     * and the elision cannot be decided here.
+     */
+    portraitAlt: (name: string) => `${name}, portrait illustré`,
     recruiterDecisionCopy:
         "Recrutement, renfort ponctuel, mission freelance, revue technique, reprise de plateforme, connecteur à fiabiliser ou premier échange autour d'un produit déjà lancé.",
     recruiterDecisionLabel: 'Formats',

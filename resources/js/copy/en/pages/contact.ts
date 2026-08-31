@@ -14,7 +14,7 @@ export default {
     opportunitiesLabel: 'Current situation',
     opportunitiesText:
         'Open to tech-lead / engineering opportunities, part-time freelance work, and conversations around a product already in motion — hiring, technical reinforcement, or scoping on a focused topic.',
-    portraitAlt: 'Illustrated portrait of Ismael Rodmacq',
+    portraitAlt: (name: string) => `Illustrated portrait of ${name}`,
     recruiterDecisionCopy:
         'Hiring, freelance support, technical review, platform recovery, connector hardening, or a first conversation around a product already in motion.',
     recruiterDecisionLabel: 'Formats',

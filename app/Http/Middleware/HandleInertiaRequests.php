@@ -80,6 +80,7 @@ class HandleInertiaRequests extends Middleware
                 'description' => $settings->siteIdentity->description,
                 'locale' => app()->getLocale(),
                 'url' => config('site.url'),
+                'repositoryUrl' => config('site.repository_url'),
                 'navigation' => PublicLocale::navigation(
                     app()->getLocale(),
                     PublicLocale::pathForRequest($request),

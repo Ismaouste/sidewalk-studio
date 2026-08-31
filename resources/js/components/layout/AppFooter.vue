@@ -24,12 +24,12 @@ const linkedinUrl = computed(() => {
 
     return value;
 });
-const footerSignature = {
-    license: '© MIT',
-    licenseHref: 'https://github.com/Ismaouste/sidewalk-studio',
-    name: 'Ismaël Rodmacq',
-    email: 'ismael@rodmacq.com',
-};
+/**
+ * The signature used to hold its own copy of the name and the email, three
+ * elements away from the ones this footer already reads off `site`. Two
+ * copies of an identity in one component is one too many: the settings won.
+ */
+const repositoryUrl = computed(() => page.props.site.repositoryUrl);
 const dataProcessingHref = computed(() =>
     localizePublicHref('/data-processing', page.props.site.locale),
 );
@@ -144,18 +144,18 @@ function backToTop(): void {
             <div class="app-footer__legal">
                 <a
                     class="app-footer__legal-link"
-                    :href="footerSignature.licenseHref"
+                    :href="repositoryUrl"
                     target="_blank"
                     rel="noreferrer nofollow"
                 >
-                    {{ footerSignature.license }}
+                    {{ copy.licenseLabel }}
                 </a>
                 <a
                     class="app-footer__legal-link"
-                    :href="`mailto:${footerSignature.email}`"
+                    :href="`mailto:${page.props.site.contact.email}`"
                     rel="nofollow"
                 >
-                    {{ footerSignature.name }}
+                    {{ page.props.site.name }}
                 </a>
             </div>
         </div>

@@ -20,6 +20,25 @@ class CareerDownloadsTest extends TestCase
             ->assertHeader('x-robots-tag', 'noindex, nofollow');
     }
 
+    /**
+     * The file on disk is named `cv-{locale}.pdf` and says nothing about who
+     * it belongs to, so a fork drops its own in and changes nothing else. The
+     * name the browser saves is built from the site identity instead, because
+     * `cv-en.pdf` among thirty other files in a downloads folder is useless to
+     * the person who saved it.
+     */
+    public function test_the_saved_filename_comes_from_the_site_identity_not_from_the_file_on_disk(): void
+    {
+        foreach (['en', 'fr'] as $locale) {
+            $this->get("/cv/{$locale}")
+                ->assertOk()
+                ->assertHeader(
+                    'content-disposition',
+                    "attachment; filename=ismael-rodmacq-cv-{$locale}.pdf",
+                );
+        }
+    }
+
     public function test_home_projects_and_contact_pages_expose_cv_download_links(): void
     {
         $this->get('/en')

@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Services\ContentRepository;
 use App\Services\PageContentRepository;
 use App\Services\SiteSettingsService;
+use App\Support\CareerAsset;
 use App\Support\PublicCopy;
 use App\Support\PublicLocale;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -311,13 +311,11 @@ class SiteController extends Controller
     {
         abort_unless(in_array($locale, ['en', 'fr'], true), 404);
 
-        $path = base_path("docs/career/output/ismael-rodmacq-cv-{$locale}.pdf");
-
-        abort_unless(File::exists($path), 404);
+        abort_unless(CareerAsset::exists($locale), 404);
 
         return response()->download(
-            $path,
-            "ismael-rodmacq-cv-{$locale}.pdf",
+            CareerAsset::sourcePath($locale),
+            CareerAsset::downloadName($locale),
             [
                 'Content-Type' => 'application/pdf',
                 'X-Robots-Tag' => 'noindex, nofollow',

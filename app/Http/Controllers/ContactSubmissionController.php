@@ -32,7 +32,7 @@ class ContactSubmissionController extends Controller
             $payload['summary'],
         ]);
 
-        $email = (string) config('site.contact.email', 'ismael@rodmacq.com');
+        $email = (string) config('site.contact.email');
 
         return Inertia::location(
             'mailto:'.$email

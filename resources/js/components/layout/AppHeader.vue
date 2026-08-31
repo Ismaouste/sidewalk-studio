@@ -8,7 +8,7 @@ import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
 const navigation = computed(() => page.props.site.navigation);
-const brandName = 'Ismaël Rodmacq';
+const brandName = computed(() => page.props.site.name);
 const homeHref = computed(() =>
     resolvePublicHref(
         localizePublicHref('/', page.props.site.locale),

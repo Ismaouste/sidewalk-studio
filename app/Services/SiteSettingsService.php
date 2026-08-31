@@ -143,8 +143,10 @@ class SiteSettingsService
                 'availability' => (string) ($localized['contact_details']['availability'] ?? $contact['availability'] ?? ''),
             ],
             'social_links' => [
-                'github_url' => $this->firstProfileUrlContaining($profiles, 'github.com'),
-                'linkedin_url' => $this->firstProfileUrlContaining($profiles, 'linkedin.com'),
+                'github_url' => (string) ($localized['social_links']['github_url']
+                    ?? $this->firstProfileUrlContaining($profiles, 'github.com')),
+                'linkedin_url' => (string) ($localized['social_links']['linkedin_url']
+                    ?? $this->firstProfileUrlContaining($profiles, 'linkedin.com')),
             ],
             'seo_defaults' => [
                 'title_suffix' => (string) ($localized['site_identity']['name'] ?? $site['name'] ?? config('app.name')),
@@ -174,7 +176,15 @@ class SiteSettingsService
                 'fallback_variant' => 'monogram_circle',
                 'fallback_label' => 'IR',
                 'fallback_subtitle' => 'Sidewalk Studio',
-                'active_alt' => 'Ismael Rodmacq portrait',
+                /**
+                 * Built from the identity rather than repeated, so renaming
+                 * the site cannot leave a stale name in the alt text of its
+                 * own portrait — where only a screen reader would find it.
+                 */
+                'active_alt' => trim(sprintf(
+                    (string) ($localized['branding_settings']['active_alt_format'] ?? '%s portrait'),
+                    (string) ($localized['site_identity']['name'] ?? $site['name'] ?? ''),
+                )),
             ],
             'static_export_settings' => [
                 'static_mode_enabled' => true,

@@ -133,6 +133,7 @@ export type SiteProps = {
     description: string;
     locale: PublicLocale;
     url: string;
+    repositoryUrl: string;
     navigation: NavItem[];
     author: SiteAuthor;
     contact: SiteContact;

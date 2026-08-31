@@ -234,7 +234,7 @@ class Seo
         array $keywords,
         string $siteUrl,
     ): array {
-        $authorName = (string) ($author['name'] ?? 'Ismael Rodmacq');
+        $authorName = (string) ($author['name'] ?? (string) config('site.author.name'));
         $published = self::toAtomString($publishedAt);
         $updated = $updatedAt !== null ? self::toAtomString($updatedAt) : $published;
 
@@ -296,7 +296,7 @@ class Seo
             'description' => $description,
             'author' => [
                 '@type' => 'Person',
-                'name' => (string) ($author['name'] ?? 'Ismael Rodmacq'),
+                'name' => (string) ($author['name'] ?? (string) config('site.author.name')),
             ],
             'url' => $canonical,
             'inLanguage' => $locale,
@@ -335,7 +335,7 @@ class Seo
         $schema = [
             '@context' => 'https://schema.org',
             '@type' => 'Person',
-            'name' => (string) ($author['name'] ?? 'Ismael Rodmacq'),
+            'name' => (string) ($author['name'] ?? (string) config('site.author.name')),
             'jobTitle' => $jobTitle ?: (string) ($author['job_title'] ?? 'Full Stack Developer — E-commerce & Product Data'),
             'url' => $siteUrl,
             'sameAs' => $sameAs,
