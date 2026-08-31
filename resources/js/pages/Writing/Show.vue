@@ -61,7 +61,7 @@ const writingMeta = computed(() => [
 </script>
 
 <template>
-    <ArticleShowLayout :seo="props.seo">
+    <ArticleShowLayout :seo="props.seo" :slug="props.item.slug">
         <template #lead>
             <SectionIntro
                 :eyebrow="entryEyebrow"

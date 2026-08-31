@@ -51,7 +51,7 @@ const caseStudyMeta = computed(() => [
 </script>
 
 <template>
-    <ArticleShowLayout :seo="props.seo">
+    <ArticleShowLayout :seo="props.seo" :slug="props.item.slug">
         <template #lead>
             <SectionIntro
                 :eyebrow="copy.eyebrow"

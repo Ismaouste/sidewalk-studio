@@ -16,6 +16,12 @@ Current motion behaviors in code:
   closing frame is not skipped
 - page transitions on Inertia visits, wrapped around the page swap by the
   framework rather than by this codebase
+- read-progress rail on articles, scaled along
+  `animation-timeline: scroll(root block)` — no listener, and hidden entirely
+  under `@supports not` and under `prefers-reduced-motion`
+- resuming a partly-read article jumps under a view transition, so the two
+  scroll positions crossfade; reduced motion, in either of its two forms,
+  takes the jump without it
 
 State reported through the compositor rather than animated:
 

@@ -163,17 +163,37 @@ export function useLocalMemory() {
             : null;
     }
 
+    /**
+     * Records where the reader got to, but only when that is worth recording.
+     *
+     * The bounds are not just presentation. Opening an article and leaving
+     * without scrolling would otherwise overwrite a real position with zero —
+     * so a reader who came back to check one thing would lose the place they
+     * had earned. Below the floor, whatever was already remembered stands.
+     * Above the ceiling they have finished, and an article that keeps offering
+     * to return you to its last paragraph is a nuisance, so the memory of it
+     * is dropped instead.
+     */
     function rememberReadingPosition(slug: string, ratio: number): void {
         if (typeof window === 'undefined' || !Number.isFinite(ratio)) {
             return;
         }
 
+        const clamped = Math.min(Math.max(ratio, 0), 1);
+
+        if (clamped > MAX_RESUME_RATIO) {
+            forgetReadingPosition(slug);
+
+            return;
+        }
+
+        if (clamped < MIN_RESUME_RATIO) {
+            return;
+        }
+
         const positions = readPositions();
 
-        positions[slug] = {
-            ratio: Math.min(Math.max(ratio, 0), 1),
-            at: Date.now(),
-        };
+        positions[slug] = { ratio: clamped, at: Date.now() };
 
         writePositions(positions);
     }

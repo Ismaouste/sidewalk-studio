@@ -1,11 +1,11 @@
 ---
 linear_issue: TODO
 github_project_item: TODO
-github_project_status: proposed
+github_project_status: implemented
 obsidian_note: TODO
 release: post-v0
 title: Local Memory
-status: proposed
+status: implemented
 ---
 
 # Feature Specification: Local Memory
@@ -75,21 +75,21 @@ no request carrying it, because there is none.
 
 ## Acceptance criteria
 
-- [ ] A first-ever visitor sees no "new" marks — everything being new is the
+- [x] A first-ever visitor sees no "new" marks — everything being new is the
       same as nothing being new, and marking all of it is noise.
-- [ ] After a visit, returning with no newly published entries shows no marks.
-- [ ] An entry published after the stored timestamp is marked; one published
+- [x] After a visit, returning with no newly published entries shows no marks.
+- [x] An entry published after the stored timestamp is marked; one published
       before it is not.
-- [ ] Marks survive a reload within the same session rather than vanishing
+- [x] Marks survive a reload within the same session rather than vanishing
       because the timestamp was just rewritten.
-- [ ] Clearing site data returns the site to its first-visit state.
-- [ ] With `localStorage` throwing, the journal and article pages render
+- [x] Clearing site data returns the site to its first-visit state.
+- [x] With `localStorage` throwing, the journal and article pages render
       normally and no error reaches the console.
-- [ ] The resume invitation appears only when a stored position is far enough
+- [x] The resume invitation appears only when a stored position is far enough
       down the article to be worth restoring, and never scrolls on its own.
-- [ ] The progress indicator registers no scroll listener.
-- [ ] Every visible string resolves from `resources/js/copy/<locale>/`.
-- [ ] `npm run check`, `composer run lint:check` and `php artisan test` stay
+- [x] The progress indicator registers no scroll listener.
+- [x] Every visible string resolves from `resources/js/copy/<locale>/`.
+- [x] `npm run check`, `composer run lint:check` and `php artisan test` stay
       green.
 
 ## Tracking

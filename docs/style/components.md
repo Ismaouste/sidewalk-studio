@@ -39,6 +39,20 @@ Platform primitives the layout leans on instead of components:
   `--sw-motion-fast` all resolve inside it.
 - Which navigation entry is active is resolved by `PublicLocale::navigation()`
   and read from props. The client does not parse URLs.
+- `ArticleShowLayout` carries a read-progress rail on
+  `animation-timeline: scroll(root block)`, so it costs no scroll listener and
+  hides itself under `@supports not`.
+
+Surfaces that depend on what the browser remembers:
+
+- The journal's "new since your last visit" badge and the article's resume
+  invitation both read `useLocalMemory`, and neither can be part of the
+  server-rendered markup — everyone is served the same HTML, so both appear
+  after mount. See `specs/015-local-memory`.
+- The resume invitation sits in the flow rather than over the page, and never
+  scrolls on its own. Accepting it jumps under a view transition, which
+  crossfades between the two positions instead of dragging the reader through
+  everything in between.
 
 Current migration coverage:
 
