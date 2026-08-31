@@ -10,6 +10,11 @@
 - Moved every bilingual UI string out of components into `resources/js/copy/<locale>/<group>/`, where each French module is checked against its English counterpart at compile time and keys are kept sorted by lint.
 - Wired the lint, format and Pint gates into CI, which previously ran only type checks, the build and the test suite. CI now also runs a PHP 8.4 / 8.5 matrix so the version Vercel serves is exercised.
 - Moved `laravel/tinker` to `require-dev` and build-only npm packages to `devDependencies`.
+- Rebuilt the mobile navigation sheet and the accessibility panel on the `popover` attribute, so opening, closing, light dismiss, Escape and the top layer come from the browser. Neither needs a z-index or an outside-click listener any more, and the panel's full-screen scrim element is now a `::backdrop`. Above its breakpoint the navigation panel keeps the attribute and simply renders as the tab row, because the UA's `display: none` for a closed popover is outranked by one author media query.
+- Moved the active navigation entry to `PublicLocale::navigation()`. The client no longer reimplements locale-prefix and section-prefix matching that the routing table already performs.
+- Replaced the breadcrumb's scroll listener, `requestAnimationFrame`, `getBoundingClientRect` and `getComputedStyle` with a `view-timeline` on a one-pixel sentinel, inset by the header height, so the stuck state is reported off the main thread.
+- Handed page transitions back to Inertia 3, which wraps the page swap itself. The hand-rolled version started the transition on `start` and held the old frame for the entire request, which is what its 2.2s safety timer existed for. Of the composable's five exports only one had a consumer, and its two custom events had no listeners.
+- Stopped CI from naming database, cache, session and queue settings at job level. A job-level `env` becomes a real environment variable and outranks `phpunit.xml`, so the test step no longer runs against different infrastructure from the one developers use.
 
 ### Fixed
 
@@ -17,6 +22,10 @@
 - The static preview export silently stopped rewriting URLs under Inertia 3, which moves the page payload from a `data-page` attribute into a `<script type="application/json">` element.
 - `startViewTransition` rejections were never caught, surfacing an `InvalidStateError` in the console on interrupted navigations.
 - Anchor links landed underneath the sticky header for want of `scroll-padding-top`.
+- The sticky breadcrumb never actually stuck. `overflow-x: hidden` was set on `body` as well as on `html`, and a non-`visible` value on one axis makes the other compute to `auto`, which turns `body` into a scroll container — a sticky descendant then resolves against its scrollport instead of the viewport. Measured before the fix: at a scroll offset of 1500 the bar sat at −1340, well off screen, while the JavaScript kept applying its blur to it.
+- The site rendered a blank page for any visitor whose browser refuses web storage. Reading `window.localStorage` throws rather than returning null when site data is blocked, and the anti-flash theme script in `app.blade.php` read it unguarded before anything else ran; `useTheme`, `SiteLayout` and `staticPreview` had the same unguarded reads. All storage access now goes through `resources/js/lib/safeStorage.ts`.
+- CI had been failing on `main`, for a configuration reason rather than a code one: the workflow declared `DB_DATABASE`, so the suite ran against a file database that the first `RefreshDatabase` case had already emptied, while `phpunit.xml` asks for an in-memory one. The two affected tests guarded their seed with `Schema::hasTable`, which cannot distinguish a missing table from a present and empty one.
+- Removed a focus-ring suppression on the accessibility panel's close button, whose replacement background computed to roughly 3% alpha in the light theme.
 
 ### Removed
 
@@ -26,6 +35,8 @@
 
 ### Added
 
+- Local memory (`specs/015-local-memory`): the journal marks entries published since a reader's last visit, and an article offers a partly-read position back. Both live entirely in that reader's browser — no cookie is set, no request carries them, and nothing is recorded server-side, so clearing site data returns the site to its first-visit state. A first-ever reader is shown nothing, since everything being new is indistinguishable from nothing being new, and the comparison point is frozen for the visit so the marks survive a reload. The resume invitation never scrolls on its own; accepting it jumps under a view transition.
+- `--sw-scrim` and `--sw-scrim-backdrop-filter` per theme, mixed from `--sw-bg-base` rather than from black, so a scrim darkens the theme instead of draining it. A black scrim over the dark theme's aubergine flattens its violet wash to neutral.
 - Hover prefetching on primary navigation and content links, and `content-visibility: auto` on below-the-fold sections.
 - Repo-owned Vercel preview runtime support through `api/index.php`, `vercel.json`, and `.vercelignore` for more faithful Laravel previews than the static export alone.
 - Architecture and tracking docs for the supported Vercel preview workflow, including its temp-storage bootstrap behavior and local CLI deployment constraints.
