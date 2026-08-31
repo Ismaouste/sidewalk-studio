@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useAccessibilityPreferences } from '@/composables/useAccessibilityPreferences';
 import { copy as copyTree } from '@/copy';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
+const panelId = 'accessibility-preferences';
 const isOpen = ref(false);
-const rootRef = ref<HTMLElement | null>(null);
 
 const {
     motionPreference,
@@ -20,74 +20,41 @@ const copy = computed(
     () => copyTree[page.props.site.locale].layout.accessibility,
 );
 
-function togglePanel(): void {
-    isOpen.value = !isOpen.value;
+// Opening, closing, click-outside, Escape, the top layer and the scrim are all
+// the popover attribute's job. The invoker's expanded state is the one thing
+// Chromium does not expose yet, so `toggle` mirrors back what the UA just did.
+function handleToggle(event: ToggleEvent): void {
+    isOpen.value = event.newState === 'open';
 }
-
-function closePanel(): void {
-    isOpen.value = false;
-}
-
-function handleDocumentClick(event: MouseEvent): void {
-    if (!isOpen.value || !rootRef.value) {
-        return;
-    }
-
-    if (!rootRef.value.contains(event.target as Node)) {
-        closePanel();
-    }
-}
-
-function handleEscape(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-        closePanel();
-    }
-}
-
-onMounted(() => {
-    document.addEventListener('click', handleDocumentClick);
-    document.addEventListener('keydown', handleEscape);
-});
-
-onBeforeUnmount(() => {
-    document.removeEventListener('click', handleDocumentClick);
-    document.removeEventListener('keydown', handleEscape);
-});
 </script>
 
 <template>
-    <div ref="rootRef" class="accessibility-panel">
+    <div class="accessibility-panel">
         <button
             type="button"
             class="accessibility-panel__trigger"
+            :popovertarget="panelId"
             :aria-expanded="isOpen"
-            :aria-haspopup="'dialog'"
+            aria-haspopup="dialog"
             :aria-label="copy.buttonLabel"
-            @click="togglePanel"
         >
             {{ copy.buttonLabel }}
         </button>
 
-        <button
-            v-if="isOpen"
-            type="button"
-            class="accessibility-panel__backdrop"
-            :aria-label="copy.closeLabel"
-            tabindex="-1"
-            @click="closePanel"
-        />
-
         <div
-            v-if="isOpen"
+            :id="panelId"
+            popover
             class="accessibility-panel__popover"
             role="dialog"
             :aria-label="copy.panelLabel"
+            @toggle="handleToggle"
         >
             <button
                 type="button"
                 class="accessibility-panel__close"
+                :popovertarget="panelId"
+                popovertargetaction="hide"
                 :aria-label="copy.closeLabel"
-                @click="closePanel"
             >
                 ✕
             </button>
@@ -141,10 +108,6 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.accessibility-panel {
-    position: relative;
-}
-
 .accessibility-panel__trigger {
     display: inline-flex;
     align-items: center;
@@ -152,7 +115,7 @@ onBeforeUnmount(() => {
     min-height: 2rem;
     padding-inline: 0.72rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
-    border-radius: 3px;
+    border-radius: var(--sw-radius-md);
     background: transparent;
     font-family: var(--sw-font-body);
     font-size: 12px;
@@ -161,10 +124,6 @@ onBeforeUnmount(() => {
         border-color var(--sw-motion-fast),
         color var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
-}
-
-.accessibility-panel__backdrop {
-    display: none;
 }
 
 .accessibility-panel__close {
@@ -193,45 +152,47 @@ onBeforeUnmount(() => {
     outline: none;
 }
 
+/* The UA gives every [popover] a centred fixed box with a border and a system
+   background; each declaration below replaces one of those. Sitting in the top
+   layer is what lets the panel drop its z-index and its stacking contract with
+   the footer — nothing can paint over it. */
 .accessibility-panel__popover {
-    position: absolute;
-    right: 0;
-    bottom: calc(100% + 10px);
-    z-index: 5;
+    position: fixed;
+    inset: auto var(--sw-space-xs) var(--sw-space-md) auto;
+    width: min(19rem, calc(100vw - 2 * var(--sw-space-xs)));
+    max-width: none;
+    height: auto;
+    max-height: none;
+    margin: 0;
     display: grid;
-    gap: 8px;
-    width: min(19rem, calc(100vw - 2rem));
+    gap: var(--sw-space-3xs);
     padding: 10px;
     padding-top: 28px;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
     border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-elevated) 92%, transparent);
+    color: var(--sw-text-primary);
+    overflow: visible;
     -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
     backdrop-filter: var(--sw-surface-backdrop-filter);
+    opacity: 0;
+    translate: 0 var(--sw-space-4xs);
+    transition:
+        opacity var(--sw-motion-fast),
+        translate var(--sw-motion-fast),
+        display var(--sw-motion-fast) allow-discrete,
+        overlay var(--sw-motion-fast) allow-discrete;
 }
 
-@media (max-width: 640px) {
-    .accessibility-panel__backdrop {
-        display: block;
-        position: fixed;
-        inset: 0;
-        z-index: 4;
-        border: 0;
-        padding: 0;
-        background: color-mix(in srgb, black 32%, transparent);
-        -webkit-backdrop-filter: blur(2px);
-        backdrop-filter: blur(2px);
-        cursor: pointer;
-    }
+.accessibility-panel__popover:popover-open {
+    opacity: 1;
+    translate: none;
+}
 
-    .accessibility-panel__popover {
-        position: fixed;
-        right: var(--sw-space-xs);
-        left: var(--sw-space-xs);
-        bottom: var(--sw-space-md);
-        width: auto;
-        max-width: calc(100vw - 2 * var(--sw-space-xs));
-        z-index: 5;
+@starting-style {
+    .accessibility-panel__popover:popover-open {
+        opacity: 0;
+        translate: 0 var(--sw-space-4xs);
     }
 }
 
@@ -239,7 +200,7 @@ onBeforeUnmount(() => {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    gap: 12px;
+    gap: var(--sw-space-2xs);
     width: 100%;
     padding: 0.8rem 0.85rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 74%, transparent);
@@ -287,6 +248,37 @@ onBeforeUnmount(() => {
         var(--sw-bg-elevated) 88%,
         var(--sw-accent-dominant) 12%
     );
+}
+
+@media (max-width: 640px) {
+    .accessibility-panel__popover {
+        inset: auto var(--sw-space-xs) var(--sw-space-md) var(--sw-space-xs);
+        width: auto;
+    }
+
+    /* The scrim used to be a full-screen <button> rendered only to catch the
+       click that closed the panel. Light dismiss catches that click, so the
+       element is gone and the dimming is the top layer's own ::backdrop. */
+    .accessibility-panel__popover::backdrop {
+        background: color-mix(in srgb, black 32%, transparent);
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+        opacity: 0;
+        transition:
+            opacity var(--sw-motion-fast),
+            display var(--sw-motion-fast) allow-discrete,
+            overlay var(--sw-motion-fast) allow-discrete;
+    }
+
+    .accessibility-panel__popover:popover-open::backdrop {
+        opacity: 1;
+    }
+
+    @starting-style {
+        .accessibility-panel__popover:popover-open::backdrop {
+            opacity: 0;
+        }
+    }
 }
 
 @media (hover: hover) {
