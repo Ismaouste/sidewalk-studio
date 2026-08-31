@@ -26,6 +26,15 @@ defineOptions({ name: 'AmbientGrid' });
 <style scoped>
 .ambient-grid {
     --grid-columns: 12;
+    /* A setting-out grid, so it needs rows as well as columns and a major
+       division: it is the every-fifth line that makes a grid read as
+       something measured rather than as a pattern. */
+    --grid-row: 5.2rem;
+    --grid-major: 5;
+    /* Placed opposite the warm one, low, so the two lights come from
+       different directions instead of stacking into a single tint. */
+    --ambient-cool-x: 88%;
+    --ambient-cool-y: 76%;
     --ambient-sun-x: 14%;
     --ambient-sun-y: 10%;
     --ambient-sun-scale: 1.04;
@@ -44,6 +53,8 @@ defineOptions({ name: 'AmbientGrid' });
 }
 
 html[data-theme='sunset'] .ambient-grid {
+    --ambient-cool-x: 14%;
+    --ambient-cool-y: 80%;
     --ambient-sun-x: 78%;
     --ambient-sun-y: 18%;
     --ambient-sun-scale: 1.08;
@@ -88,20 +99,38 @@ html[data-theme='sunset'] .ambient-grid {
             circle at var(--ambient-sun-x) var(--ambient-sun-y),
             color-mix(in srgb, var(--sw-ambient-flare) 20%, transparent),
             transparent 48%
+        ),
+        radial-gradient(
+            ellipse 62% 52% at var(--ambient-cool-x) var(--ambient-cool-y),
+            color-mix(in srgb, var(--sw-ambient-flare-cool) 30%, transparent),
+            transparent 62%
         );
 }
 
 .ambient-grid__plane {
-    opacity: 0.76;
+    opacity: 0.95;
     transform: translate3d(var(--ambient-grid-x), var(--ambient-grid-y), 0)
         rotate(var(--ambient-grid-rotate)) scale(var(--ambient-grid-scale));
     background-image:
         repeating-linear-gradient(
             90deg,
-            var(--sw-grid-line) 0,
-            var(--sw-grid-line) 1px,
-            transparent 1px,
-            transparent calc(100% / var(--grid-columns))
+            var(--sw-grid-line-major) 0 1px,
+            transparent 1px calc(100% / var(--grid-columns) * var(--grid-major))
+        ),
+        repeating-linear-gradient(
+            180deg,
+            var(--sw-grid-line-major) 0 1px,
+            transparent 1px calc(var(--grid-row) * var(--grid-major))
+        ),
+        repeating-linear-gradient(
+            90deg,
+            var(--sw-grid-line) 0 1px,
+            transparent 1px calc(100% / var(--grid-columns))
+        ),
+        repeating-linear-gradient(
+            180deg,
+            var(--sw-grid-line) 0 1px,
+            transparent 1px var(--grid-row)
         ),
         linear-gradient(
             180deg,
@@ -125,6 +154,30 @@ html[data-theme='sunset'] .ambient-grid {
         rgba(0, 0, 0, 0.52) 58%,
         transparent 94%
     );
+}
+
+/* The grid is revealed by the light rather than drawn at a fixed strength:
+   one mask is the fade down the page, the other is the lamp, and intersecting
+   them means the lines are brightest where the flare already is and vanish in
+   the corners it does not reach. Without compositing support the fade alone
+   still applies, which is what the browser was doing before. */
+@supports (mask-composite: intersect) {
+    .ambient-grid__plane {
+        mask-image:
+            radial-gradient(
+                circle at var(--ambient-sun-x) var(--ambient-sun-y),
+                rgb(0 0 0 / 1) 0%,
+                rgb(0 0 0 / 0.72) 40%,
+                rgb(0 0 0 / 0.42) 78%
+            ),
+            linear-gradient(
+                180deg,
+                rgb(0 0 0 / 0.92),
+                rgb(0 0 0 / 0.58) 58%,
+                transparent 94%
+            );
+        mask-composite: intersect;
+    }
 }
 
 .ambient-grid__shadow {

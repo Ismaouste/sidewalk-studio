@@ -95,25 +95,34 @@ html[data-theme='morning'] {
     --sw-bg-grid: #f3f2ee;
     --sw-bg-elevated: rgba(255, 255, 255, 0.64);
 
-    /* Text */
-    --sw-text-primary: #1a1a1a;
-    --sw-text-secondary: #6b6b6b;
-    --sw-text-muted: #a0a0a0;
+    /* Text — the neutrals carry a blue cast rather than being true grey.
+       Pure grey beside a warm accent reads as dust; the same value pulled a
+       few degrees toward the sky accent reads as shade. */
+    --sw-text-primary: #17191d;
+    --sw-text-secondary: #5c636f;
+    --sw-text-muted: #6e7686;
     --sw-text-inverse: #fafaf8;
 
     /* === Accents — Civic Triad (vibrant primaries) ===
-       Edit these 5 hexes to retune the entire morning palette. */
+       Edit these 6 hexes to retune the entire morning palette.
+
+       The pairing is the one a works site actually uses: orange for the
+       barrier, blue for the sign that tells you where to go instead. */
     --sw-accent-sun: #e6722e; /* warm urban orange */
     --sw-accent-dominant: #d83a2a; /* signal coral red */
     --sw-accent-green: #2a8754; /* civic / mobility green */
     --sw-accent-violet: #1f5fd6; /* wayfinding blue */
     --sw-accent-coral: #c2462a; /* brick red */
+    --sw-accent-sky: #4f9bff; /* setting-out blue — the cool counterweight */
 
     /* Lines / borders / focus */
-    --sw-border: rgba(0, 0, 0, 0.06);
+    --sw-border: rgba(31, 95, 214, 0.11);
     --sw-border-focus: var(--sw-accent-violet);
-    --sw-card-hover-border: rgba(0, 0, 0, 0.12);
-    --sw-grid-line: rgba(0, 0, 0, 0.05);
+    --sw-card-hover-border: rgba(31, 95, 214, 0.24);
+    /* Blueprint lines, not pencil, and a major every fifth division: it is
+       the major that makes a grid read as something measured. */
+    --sw-grid-line: rgba(79, 155, 255, 0.28);
+    --sw-grid-line-major: rgba(31, 95, 214, 0.44);
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
     --sw-header-bg: linear-gradient(160deg, #fafaf8, #f6f5f1, #f3f2ee);
@@ -127,8 +136,13 @@ html[data-theme='morning'] {
         ),
         radial-gradient(
             circle at 82% 8%,
-            color-mix(in srgb, var(--sw-accent-dominant) 18%, transparent),
+            color-mix(in srgb, var(--sw-accent-dominant) 16%, transparent),
             transparent 26%
+        ),
+        radial-gradient(
+            ellipse 110% 55% at 50% 104%,
+            color-mix(in srgb, var(--sw-accent-sky) 22%, transparent),
+            transparent 62%
         ),
         var(--sw-bg-base);
 
@@ -149,6 +163,10 @@ html[data-theme='morning'] {
         white 40%
     );
     --sw-ambient-flare-deep: var(--sw-accent-coral);
+    /* The second lamp. The page wash is as tall as the document, so a cool
+       note placed there only shows near the footer; this one rides the
+       viewport-fixed ambient layer and is in frame from the first screen. */
+    --sw-ambient-flare-cool: var(--sw-accent-sky);
     --sw-sun-size: 224px;
     --sw-sun-top: -72px;
     --sw-sun-left: -72px;
@@ -212,13 +230,15 @@ html[data-theme='morning'] {
 html[data-theme='sunset'] {
     color-scheme: dark;
 
-    /* Surfaces — deep aubergine, violet-tinted glass.
-       The surfaces carry a violet tint rather than plain white alpha,
-       so blurred panels pick up the palette instead of greying it. */
+    /* Surfaces — deep aubergine, and glass that is nearly colourless.
+       The violet used to be mixed into every surface, which is what made it
+       read as thick paint. It lives in the wash now: the panels are clear and
+       pick the colour up through their own blur, so the same violet arrives as
+       light falling on glass rather than as a coat applied to it. */
     --sw-bg-base: #0d0a17;
-    --sw-bg-surface: rgba(158, 130, 255, 0.055);
-    --sw-bg-grid: #151027;
-    --sw-bg-elevated: rgba(170, 143, 255, 0.095);
+    --sw-bg-surface: rgba(232, 228, 250, 0.045);
+    --sw-bg-grid: #131120;
+    --sw-bg-elevated: rgba(232, 228, 250, 0.075);
 
     /* Text — warmed slightly toward violet so it sits in the palette */
     --sw-text-primary: #ece8f8;
@@ -236,12 +256,20 @@ html[data-theme='sunset'] {
     --sw-accent-green: #3ad8ff; /* electric cyan (no green in this theme) */
     --sw-accent-violet: #7c5cff; /* electric indigo */
     --sw-accent-coral: #e264ff; /* orchid */
+    /* The cool counterweight, and the same slot morning fills with its
+       setting-out blue. Violet against more violet has nothing to measure
+       itself by; the cyan is what gives the violet a temperature. */
+    --sw-accent-sky: #3ad8ff;
 
-    /* Lines / borders / focus — violet-tinted, the glass edge highlight */
-    --sw-border: rgba(176, 154, 255, 0.12);
+    /* Lines / borders / focus — the glass edge highlight, nearly colourless
+       for the same reason the surfaces are. */
+    --sw-border: rgba(226, 222, 248, 0.11);
     --sw-border-focus: var(--sw-accent-violet);
-    --sw-card-hover-border: rgba(196, 174, 255, 0.26);
-    --sw-grid-line: rgba(160, 138, 255, 0.07);
+    --sw-card-hover-border: rgba(226, 222, 248, 0.24);
+    /* Violet minors, cyan majors: the second colour earns its keep by
+       carrying the measure rather than by being sprinkled around. */
+    --sw-grid-line: rgba(160, 138, 255, 0.22);
+    --sw-grid-line-major: rgba(58, 216, 255, 0.34);
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
     --sw-header-bg: linear-gradient(160deg, #1a1230, #140e26, #0d0a17);
@@ -252,12 +280,12 @@ html[data-theme='sunset'] {
     --sw-body-wash:
         radial-gradient(
             ellipse 120% 80% at 8% 0%,
-            color-mix(in oklch, var(--sw-accent-violet) 30%, transparent),
+            color-mix(in oklch, var(--sw-accent-violet) 40%, transparent),
             transparent 58%
         ),
         radial-gradient(
             ellipse 100% 70% at 92% 4%,
-            color-mix(in oklch, var(--sw-accent-dominant) 22%, transparent),
+            color-mix(in oklch, var(--sw-accent-dominant) 28%, transparent),
             transparent 55%
         ),
         radial-gradient(
@@ -265,6 +293,13 @@ html[data-theme='sunset'] {
             color-mix(in oklch, var(--sw-accent-sun) 18%, transparent),
             transparent 62%
         ),
+        /* Three violets and a magenta was one light source described four
+           times. This is the second lamp. */
+        radial-gradient(
+                ellipse 80% 60% at 18% 88%,
+                color-mix(in oklch, var(--sw-accent-sky) 28%, transparent),
+                transparent 60%
+            ),
         var(--sw-bg-base);
 
     /* Sun + ambient — token-driven, glow via color-mix */
@@ -283,6 +318,7 @@ html[data-theme='sunset'] {
         var(--sw-accent-coral) 44%
     );
     --sw-ambient-flare-deep: var(--sw-accent-violet);
+    --sw-ambient-flare-cool: var(--sw-accent-sky);
     --sw-sun-size: 240px;
     --sw-sun-top: auto;
     --sw-sun-left: auto;

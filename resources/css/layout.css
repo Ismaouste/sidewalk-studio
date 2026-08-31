@@ -39,8 +39,12 @@ html {
 }
 
 .sw-main > .sw-container {
+    /* Named so a child can measure against it. The breadcrumb needs to sit
+       nearer the page it labels than this rhythm allows. */
+    --sw-container-gap: clamp(var(--sw-space-md), 4vw, var(--sw-space-lg));
+
     display: grid;
-    gap: clamp(var(--sw-space-md), 4vw, var(--sw-space-lg));
+    gap: var(--sw-container-gap);
     min-width: 0;
 }
 

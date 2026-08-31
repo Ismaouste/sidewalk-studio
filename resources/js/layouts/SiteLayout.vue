@@ -499,8 +499,13 @@ onBeforeUnmount(() => {
     color: var(--sw-text-muted);
 }
 
+/* A breadcrumb belongs to the page below it, so it should read as a label on
+   that page rather than as a band of its own. The container's row rhythm is
+   40-64px, which is right between sections and far too much here: a negative
+   margin shrinks this item's track, since a grid track sizes to its item's
+   outer height, and the row gap that follows becomes the whole distance. */
 .sw-main__breadcrumb {
-    margin-bottom: clamp(2px, 0.5vw, 6px);
+    margin-bottom: calc(var(--sw-space-sm) - var(--sw-container-gap));
 }
 
 /* A one-pixel marker holding the place the breadcrumb occupies before it
