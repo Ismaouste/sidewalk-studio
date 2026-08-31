@@ -21,14 +21,23 @@ into `resources/js/copy/`, NavTabs and AccessibilityPanel rebuilt on the Popover
 API, BreadcrumbTrail on a `view-timeline`, page transitions handed back to
 Inertia, and two local-memory features (`specs/015-local-memory`).
 
-PR #20 is **open, not merged**: the palette rework and the breadcrumb fixes on
-`feat/light-blue-and-lit-grid`. Look at it in a browser before deciding.
+PR #20 is **merged** (`52d6fc5` on `main`): the palette rework and the
+breadcrumb fixes from `feat/light-blue-and-lit-grid`.
+
+`feat/declared-content-schema` is **pushed, not merged**:
+`specs/016-declared-content-schema/` built end to end, in eight commits that
+each land one shippable step. The content model is declared in
+`app/Content/Schema/`, the database is authoritative with Markdown as the seed,
+and `/admin` generates its page editor from the declaration. See the changelog
+and
+`docs/architecture/decisions/2026-08-31-declared-content-schema-and-database-precedence.md`.
 
 ## Baseline that must stay green
 
 `npm run check`, `composer run lint:check`, `php artisan test`
-(**85 tests / 756 assertions**), `npm run build:ssr`. Both themes get checked in
-a browser on any visual change.
+(**124 tests / 1428 assertions** on `feat/declared-content-schema`; 85 / 756 on
+`main` before it), `npm run build:ssr`. Both themes get checked in a browser on
+any visual change.
 
 ## Toolchain
 
@@ -51,20 +60,39 @@ session that wrote this. Use the Edit tool.
 
 ## Open work
 
-### 1. Finish the visual rework (PR #20)
+### 1. Review and merge `feat/declared-content-schema`
 
-Still to do on that branch: run the `design-conformance-reviewer` subagent,
-check contrast on the _new_ light-theme neutrals (they moved), test mobile, and
-sync `docs/style/tokens.md` and `docs/style/theme-system.md` — a required sync
-point in CLAUDE.md.
+The knot is untied: the precedence is reversed, behind
+`config('site.content_source')`, so it is one default to change back if the
+review disagrees. Worth a browser pass on `/admin/pages/experience/fr` before
+merging — that is the heaviest page and the one the generated editor was
+designed around.
 
-### 2. Editorial back-office and an agnostic site
+Two things deliberately **not** done on that branch, both stated in the spec:
 
-Scoped in `docs/architecture/configurability-inventory.md`, and opened by
-`docs/ai/AUDIT_PROMPT_EDITORIAL.md`. The knot is the Markdown-versus-database
-precedence: repositories deliberately prefer Markdown over database rows, with
-tests pinning it, so the admin can already edit publications the public site
-ignores. Every editorial feature is blocked behind that decision.
+- The copy tree under `resources/js/copy/` keeps its compile-time guarantee.
+  It moves once the mechanism has proved itself on pages, and its five
+  function entries (pluralisation) have no row representation yet.
+- Publications still use the tree editor at `/admin/publications`; only pages
+  have a generated form. Their declaration exists and validates, so the same
+  `SchemaField` component can drive them.
+
+### 2. The rest of the configurability map
+
+`docs/architecture/configurability-inventory.md` now carries a table of what
+shipped and what did not. Untouched: routes and slugs, locales beyond the
+current two, and runtime-editable design tokens.
+
+### 3. Two things found and left alone
+
+- **`SESSION_DRIVER=cookie` caps a session at 4KB**, which silently swallowed
+  a validation message during this work until the controller stopped
+  reflashing the request input. Anything else that flashes a page-sized
+  payload will hit the same wall without saying so.
+- **The `<title>` carries its suffix twice** — `Contact · Ismaël Rodmacq |
+Ismael Rodmacq` — and the two halves disagree on the accent, because they
+  come from different sources. Visible on every page, unrelated to this work,
+  and not touched by it.
 
 ## Known debts, to take when they cross the path
 
@@ -82,8 +110,7 @@ ignores. Every editorial feature is blocked behind that decision.
 - `actions/checkout@v4` and `actions/setup-node@v4` are forced onto Node 24 —
   move to `@v5`.
 - ContentVisual SVGs are served `max-age=3600`, so a palette change takes up to
-  an hour to reach returning visitors. **Immediately relevant** while PR #20 is
-  in flight.
+  an hour to reach returning visitors.
 
 ## Conventions
 

@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+
+- Declared the content model. Every page key and publication type now states its fields in `app/Content/Schema/` — the type of each value, whether it is required, whether it repeats, and which child field names an item inside a repeating group. One declaration drives four things that had no single source before: the save path validates against it, the seeder knows what to seed from it, `/admin` generates its form from it, and the cross-locale parity check compares two payloads through it. Undeclared keys are rejected rather than ignored, because a misspelt key would otherwise read as a missing one and send the operator looking in the wrong place.
+- Made the database authoritative for pages and publications, with Markdown as the seed format and the revert path. An edit saved from `/admin` now changes the public page, which is what the admin was built to do. Which source wins is `config('site.content_source')`, so the reversal is one default and rolling it back is an environment variable rather than a release; either source falls back to the other for what it does not hold, so a deployment with no database serves the Markdown exactly as before.
+- Replaced the page editor's JSON tree with a form generated from the declaration. Repeating groups collapse into one `<details>` per item, summarised by the field the declaration names — seventeen named rows on the experience record rather than a hundred and twenty-five inputs at once. Prose fields grow to fit with `field-sizing: content`, and every control is 44px at the narrow breakpoint.
+- Added a preview that renders the real route from a saved draft, an operator-facing revert to the Markdown seed, and a notice listing declared fields that no content fills — which is what happens when a developer adds a slot to a page written before it existed.
+- Added `translation_key` to every publication, pairing it with its other-language self. Six of eleven journal slugs and two of four case studies differ between languages, and nothing in the data linked them: each locale was a directory, and the directory was the link.
+- Added `SiteIsAgnosticTest`, which reads the owner's identity out of the settings rather than spelling it, and fails on that identity appearing anywhere under `app/`, `config/`, `routes/`, `resources/js` or `resources/views`. The CV is now addressed by a setting, and the name the browser saves it under is built from the identity at request time.
+
 ### Changed
 
 - Moved the stack a full major generation forward: Laravel 12 to 13, Inertia 2 to 3 on both sides, Vite 7 to 8 (Rolldown replaces Rollup), ESLint 9 to 10, PHPUnit 11 to 13, and Wayfinder 0.1.11 to 0.1.21. TypeScript stays on 5.9: TypeScript 7 is the native Go compiler and no longer exposes the JavaScript compiler API that `vue-tsc` and `typescript-eslint` both drive.
@@ -18,6 +27,14 @@
 
 ### Fixed
 
+- The French experience page printed a JSON blob at its readers. An unquoted YAML scalar containing a colon-space resolves to a single-key mapping rather than a string, and `EditorialSpread.vue` declares `paragraphs: string[]`, so Vue serialised the object into the body copy of `/fr/projects`. The English file used an em dash in the same position and was unaffected. A declared type now rejects it, and a regression test reconstructs the exact line.
+- The publication sort stopped at the publication date, so three journal entries sharing 2026-03-08 were ordered by whatever order the source enumerated them in — readdir order for files, primary-key order for rows. The listing order of a published journal should not depend on how a filesystem returns a directory.
+- `/colophon` answered 404 without a locale prefix, alone among the eight public pages, and was consequently missing from the static export — which fetches unprefixed paths — so the exported preview 404'd on a page every footer links to.
+- The admin page editor had never mounted: `structuredClone` throws `DataCloneError` on Inertia's reactive props.
+- The admin showed a different page from the public one, merging the Markdown over the database row, so an operator who saved an edit was shown the file's version back in the form.
+- Six `aria-label`s on the public surface were English in both locales, so a French screen-reader user heard "Related items", "Content metadata", "Breadcrumb", "Next step" and "Color theme" in the middle of a French page.
+- `/projects` announced a job title in its `Person` schema that the rest of the site had stopped using, and the test pinned the stale copy.
+- The French navigation table carried a `/local` label that no entry could match.
 - The boost-contrast accessibility mode was unreachable: its composable ignored its own argument and always wrote `default`, while the panel advertised the control as "Soon". Its tokens were already fully authored.
 - The static preview export silently stopped rewriting URLs under Inertia 3, which moves the page payload from a `data-page` attribute into a `<script type="application/json">` element.
 - `startViewTransition` rejections were never caught, surfacing an `InvalidStateError` in the console on interrupted navigations.

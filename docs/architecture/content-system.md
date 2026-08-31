@@ -2,6 +2,37 @@
 
 Sidewalk Studio now uses a normalized hybrid content layer with explicit ownership boundaries.
 
+## The declaration, and which source wins
+
+Every page key and publication type declares its fields in
+`app/Content/Schema/`: the type of each value, whether it is required,
+whether it repeats, and — for a repeating group — which child field names an
+item. That one declaration drives four things that used to have no single
+source: the save path validates against it, the seeder knows what to seed
+from it, `/admin` generates its form from it, and the cross-locale parity
+check compares two payloads through it.
+
+Two rules follow from it and are worth stating plainly:
+
+- **Undeclared keys are rejected**, not ignored. A misspelt key would
+  otherwise read as a missing one and send the operator looking in the wrong
+  place.
+- **Adding a page is a two-part change** — the Markdown file and its
+  declaration — and a test fails if only one arrives.
+
+`config('site.content_source')` decides which source wins when both hold the
+same item. It defaults to `database`: Markdown is the seed format and the
+revert path, the database is authoritative once seeded, and either falls back
+to the other for what it does not hold. See
+`docs/architecture/decisions/2026-08-31-declared-content-schema-and-database-precedence.md`
+for why, and for what that gives up.
+
+A publication carries a `translation_key` pairing it with its other-language
+self. Six of eleven journal slugs differ between languages, and before the
+key existed the only thing linking a translation to its original was the
+directory it sat in — which stops being true the moment publications are rows
+in one table.
+
 ## Sources
 
 Long-form editorial sources still live in locale-aware Markdown folders:
@@ -25,6 +56,7 @@ English (`en`) remains the public default today. French (`fr`) source files stil
 - The linked Markdown file owns the long-form body.
 - Public rendering and static export consume one normalized DTO built from DB metadata plus Markdown body.
 - Frontmatter inside managed Markdown files is intentionally minimal and deterministic. It is informational only; the database wins for metadata.
+- It is no longer unvalidated, though. `ContentRepository` checks every file against `PublicationSchemas`, which replaced two flat presence lists that asked whether a key was there and never what it held.
 
 ## Legacy frontmatter
 

@@ -54,6 +54,13 @@ return [
         ],
     ],
 
+    'contact_mail' => [
+        'subject' => 'Prise de contact',
+        'name' => 'Nom : ',
+        'email' => 'Email : ',
+        'company' => 'Entreprise ou produit : ',
+    ],
+
     'widgets' => [
         'home_journal' => [
             'eyebrow' => 'Journal',

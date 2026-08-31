@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\PublicCopy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -18,16 +19,20 @@ class ContactSubmissionController extends Controller
             'summary' => ['required', 'string', 'min:20', 'max:4000'],
         ]);
 
-        $isFrench = app()->getLocale() === 'fr';
-        $subject = ($isFrench ? 'Prise de contact' : 'Inquiry')
+        /**
+         * The visitor reads this in their own mail client before sending it,
+         * so it is copy like any other — and it was the last pair of
+         * locale-branched strings left in a controller.
+         */
+        $copy = PublicCopy::group('contact_mail');
+
+        $subject = $copy['subject']
             .($payload['company'] ? ': '.$payload['company'] : '');
 
         $lines = array_filter([
-            ($isFrench ? 'Nom : ' : 'Name: ').$payload['name'],
-            ($isFrench ? 'Email : ' : 'Email: ').$payload['email'],
-            $payload['company']
-                ? ($isFrench ? 'Entreprise ou produit : ' : 'Company or product: ').$payload['company']
-                : null,
+            $copy['name'].$payload['name'],
+            $copy['email'].$payload['email'],
+            $payload['company'] ? $copy['company'].$payload['company'] : null,
             '',
             $payload['summary'],
         ]);

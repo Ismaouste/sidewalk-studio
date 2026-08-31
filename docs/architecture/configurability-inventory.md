@@ -7,6 +7,13 @@ than the thing itself.
 Written 2026-08-31 as the input to a dedicated session. Nothing here is a
 decision yet: it is the map, with the hard parts named.
 
+> **Updated 2026-08-31, after that session.** The decision is taken and most
+> of this map is now built: see
+> `docs/architecture/decisions/2026-08-31-declared-content-schema-and-database-precedence.md`
+> and `specs/016-declared-content-schema/`. Sections below are annotated with
+> what shipped. One finding in this document was **wrong**, and the correction
+> is the first annotation.
+
 ## The target
 
 Two properties, and the second is the harder one:
@@ -36,6 +43,19 @@ Two candidate shapes, to be decided by the audit that
 One finding weighs on that choice more than any other. **The content model is
 already typed, and the type is already respected everywhere — but it is
 declared nowhere.**
+
+> **Correction.** The middle clause was false, and a defect on the live site
+> proved it. `resources/content/pages/fr/experience.md:25` held an unquoted
+> YAML scalar containing a colon-space; YAML resolved it to a mapping instead
+> of a string; `EditorialSpread.vue` declares `paragraphs: string[]`; and a
+> JSON blob rendered in the body copy of `/fr/projects`. The English file used
+> an em dash in the same position and was fine. Two of the forty-four keys a
+> page can hold were being checked — 4.5% — so the type was respected by
+> convention and by review, which is not the same as being respected.
+>
+> The first and third clauses were right, and the argument they make is
+> stronger for the correction: a declared `string[]` rejects that defect
+> mechanically. It now does.
 
 `resources/content/pages/en/home.md` carries `hero {eyebrow,title,summary}`,
 `hero_panel []`, `focus_areas [{label,title,summary,href,cta,tone}]`,
@@ -193,3 +213,49 @@ but they are the most obviously personal artefacts in the repository.
 - Nothing here should reach the visitor's browser as new tracking. The
   local-memory features are client-only by design; a configurable site must not
   quietly become a configurable data collector.
+
+---
+
+## What shipped, 2026-08-31
+
+`specs/016-declared-content-schema/` answered the approach question and built
+most of this map. Section by section:
+
+| §   | Item                      | Status                                                                                                                                                                |
+| --- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Copy tree                 | **Deferred on purpose.** It keeps its compile-time guarantee until the mechanism has proved itself on pages, and its function entries have no row representation yet. |
+| 2   | Shell copy and navigation | **Done**, to `lang/{locale}/public.php` rather than to settings — see below.                                                                                          |
+| 3   | Names in components       | **Done.** `SiteIsAgnosticTest` now fails on the owner's identity anywhere under `app/`, `config/`, `routes/`, `resources/js` or `resources/views`.                    |
+| 4   | Markdown versus database  | **Reversed.** The database is authoritative; Markdown is the seed and the revert path.                                                                                |
+| 5   | Routes and slugs          | Untouched, as suggested.                                                                                                                                              |
+| 6   | Locales                   | Untouched.                                                                                                                                                            |
+| 7   | Design tokens             | Untouched.                                                                                                                                                            |
+| 8   | Career assets             | **Done.** The CV is addressed by a setting; the file on disk is `cv-{locale}.pdf` and the name the browser saves is built from the identity.                          |
+
+Three things this document did not anticipate:
+
+**Server-resolved copy needed a home the settings could not give it.** §2
+proposed moving shell copy "into settings". Half of the editorial prose in
+controllers is written into the response before any component runs — SEO
+titles, schema.org breadcrumb and section names — so it cannot live in the
+TypeScript copy tree, and settings are a value object rather than a translation
+table. It went to `lang/{en,fr}/public.php`, which `LanguageFileService`
+already exposes at `/admin/language-files`, with `LanguageFileParityTest`
+replacing the guarantee the copy tree would have given it.
+
+**The inventory of names was short by more than half.** §3 listed three
+component literals. The sweep also found nine strings in
+`PublicLocale::shellCopy()`, five in its navigation table, a job title in the
+Person schema that had _drifted_ from the configured one, and six untranslated
+`aria-label`s that a French screen-reader user heard in English.
+
+**Publications needed a field before rows were possible.** Six of eleven
+journal slugs and two of four case studies differ between languages, and
+nothing linked a translation to its original — each locale was a directory,
+and the directory was the link. `translation_key` had to land before the
+precedence reversal, not with it.
+
+The three constraints at the end of this document were all met: the parity
+guarantee became a tested runtime check, `migrate:fresh --seed` is proven to
+reproduce the current site by rendering seventeen routes from both sources and
+comparing, and nothing new reaches the visitor's browser.

@@ -89,6 +89,18 @@ return [
     ],
 
     /**
+     * The mailto: the contact form opens. The visitor reads it in their own
+     * mail client before sending it, so it is copy like any other — and it
+     * was the last pair of locale-branched strings left in a controller.
+     */
+    'contact_mail' => [
+        'subject' => 'Inquiry',
+        'name' => 'Name: ',
+        'email' => 'Email: ',
+        'company' => 'Company or product: ',
+    ],
+
+    /**
      * Publication widgets, keyed by the page they sit on and the feed they
      * pull. The items come from the content repository; this is the framing
      * around them.

@@ -1,11 +1,11 @@
 ---
 linear_issue: TODO
 github_project_item: TODO
-github_project_status: proposed
+github_project_status: implemented
 obsidian_note: TODO
 release: TODO
 title: Declared Content Schema
-status: proposed
+status: implemented
 ---
 
 # Feature Specification: Declared Content Schema
@@ -198,18 +198,18 @@ publication edits that the public site ignores.
 
 ## Acceptance criteria
 
-- [ ] `fr/experience.md` renders as prose, and a test rejects the mapping form.
-- [ ] Every page key and publication type has a declaration, and a test asserts
+- [x] `fr/experience.md` renders as prose, and a test rejects the mapping form.
+- [x] Every page key and publication type has a declaration, and a test asserts
       every Markdown file under `resources/content/` validates against its own.
-- [ ] A test asserts EN and FR resolve to the same shape for every page key,
+- [x] A test asserts EN and FR resolve to the same shape for every page key,
       and fails on the drift that is live today.
-- [ ] Saving a page from `/admin` changes the public page.
-- [ ] `migrate:fresh --seed` produces a database whose rendered output matches
+- [x] Saving a page from `/admin` changes the public page.
+- [x] `migrate:fresh --seed` produces a database whose rendered output matches
       the current Markdown-rendered site exactly.
-- [ ] An operator can revert a page to its seeded state without a developer.
-- [ ] The admin page editor renders typed inputs, not a JSON tree.
-- [ ] No editorial string remains in a controller or a Vue template.
-- [ ] The agnostic test runs in CI and passes with the owner's name present
+- [x] An operator can revert a page to its seeded state without a developer.
+- [x] The admin page editor renders typed inputs, not a JSON tree.
+- [x] No editorial string remains in a controller or a Vue template.
+- [x] The agnostic test runs in CI and passes with the owner's name present
       only in seeds and settings defaults.
 
 ## Tracking

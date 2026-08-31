@@ -1,10 +1,27 @@
 # Sanity Content Strategy
 
+> **Updated 2026-08-31.** The content model moved underneath this document,
+> and the move strengthens rather than reverses its conclusion. Pages and
+> publications now declare their fields in `app/Content/Schema/`, and the
+> database is authoritative once seeded from Markdown — so the editorial
+> back-office this document says a CMS would provide is built, in the
+> application, without a remote content source. What follows still holds; the
+> lines below marked "since" say what changed.
+>
+> See
+> `docs/architecture/decisions/2026-08-31-declared-content-schema-and-database-precedence.md`.
+
 ## Decision summary
 
 - Do not adopt Sanity as a live content source now.
 - Keep core public pages code-driven.
+  _Since: their layouts stay in code and their **slots** are declared. The
+  eight pages share three top-level keys out of forty-four, so there was no
+  block vocabulary to move to a CMS — they are eight bespoke layouts, and the
+  layouts are the portfolio._
 - Keep Writing and Case Studies repo-versioned for the current release line.
+  _Since: repo-versioned as the **seed**. The database is authoritative once
+  seeded, and the Markdown is what an operator reverts to._
 - Revisit Sanity later only as a bounded content layer for one editorial domain at a time.
 - If Sanity is adopted later, introduce it through a thin application adapter instead of wiring it directly into page components.
 
@@ -81,9 +98,9 @@ That means the adapter belongs in Laravel application services, not in Vue pages
 
 1. Keep the current architecture as-is through the current public/content polish phase.
 2. Revisit Sanity only when one of these becomes true:
-   - editorial volume grows enough that repo-only authoring becomes friction
-   - non-technical contributors need a safer editing surface
-   - media-heavy content starts to justify a dedicated structured asset workflow
+    - editorial volume grows enough that repo-only authoring becomes friction
+    - non-technical contributors need a safer editing surface
+    - media-heavy content starts to justify a dedicated structured asset workflow
 3. If that threshold is reached, start with one new collection only.
 4. Add a thin source boundary in PHP for that collection before touching any existing Markdown collection.
 5. Keep Writing and Case Studies local until the first Sanity-backed collection has proved its value.
