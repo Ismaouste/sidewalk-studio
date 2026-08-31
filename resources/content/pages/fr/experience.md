@@ -22,7 +22,7 @@ professional_sections:
           - Chez Jewely / Flippad, j'interviens sur le socle commun (Laravel + Vue + Inertia), sur les besoins spécifiques par maison et sur les chantiers transversaux qui touchent à la donnée produit, au front, aux connecteurs métier et à la mise en ligne.
           - 'Périmètre HBJO premium avec marques principales en portefeuille — notamment Godechot-Pauliet, Auberi et Crown-DP — ainsi que des dispositifs Rolex Bespoke et Rolex Certified Pre-Owned.'
           - Sur le PIM (Product Information Manager) maison, j'ai construit les algos Python de scrap et d'enrichissement qui alimentent aujourd'hui +20 000 fiches produit, leurs images et leurs vidéos sur le périmètre HBJO.
-          - Côté commerce, j'ai conçu et tenu les connecteurs entre l'ERP, le PIM et les catalogues marchand: création produit automatique et orchestration de synchronisation vers Google Merchant Center, Facebook Catalog et les pipelines marketing aval.
+          - "Côté commerce, j'ai conçu et tenu les connecteurs entre l'ERP, le PIM et les catalogues marchand : création produit automatique et orchestration de synchronisation vers Google Merchant Center, Facebook Catalog et les pipelines marketing aval."
       detail_groups:
           - title: Stack
             pills:
