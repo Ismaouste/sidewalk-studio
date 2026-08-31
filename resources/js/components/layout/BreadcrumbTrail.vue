@@ -99,11 +99,12 @@ defineProps<{
         var(--sw-text-primary)
     );
     /* `text-overflow` only applies to a block container, so this one cannot be
-       the flex box its siblings are — which is why the single line is centred
-       with line-height instead. Without that it sits at the top of its own
-       min-height and the crumbs beside it look like they have dropped. */
+       the flex box its siblings are. It keeps their line-height rather than
+       inventing one — a taller line box puts the glyphs on a different
+       baseline, which is what made this crumb sit a fraction below the others
+       — and gives up its min-height so the parent item centres it instead. */
     display: block;
-    line-height: 1.8rem;
+    min-height: 0;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

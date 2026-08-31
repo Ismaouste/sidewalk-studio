@@ -21,6 +21,47 @@ Two properties, and the second is the harder one:
 The test for (2) is blunt: grep the codebase for the owner's name and for any
 sentence a visitor could read. Today both return hits in compiled code.
 
+## The approach question, and the finding that bears on it
+
+Two candidate shapes, to be decided by the audit that
+`docs/ai/AUDIT_PROMPT_EDITORIAL.md` opens — not here:
+
+- **A, content-managed pages.** Pages become rows and the components become
+  block renderers, WordPress-style.
+- **B, template with declared slots.** Layouts stay code, because for a design
+  portfolio the layouts are the product. What becomes editable is the set of
+  slots each page declares, and the editor is generated from those
+  declarations.
+
+One finding weighs on that choice more than any other. **The content model is
+already typed, and the type is already respected everywhere — but it is
+declared nowhere.**
+
+`resources/content/pages/en/home.md` carries `hero {eyebrow,title,summary}`,
+`hero_panel []`, `focus_areas [{label,title,summary,href,cta,tone}]`,
+`local_teaser {title,summary,points[]}`, `contact_cta {title,summary}`. Every
+page has a shape like that, and every French file mirrors its English
+counterpart exactly.
+
+That shape lives in three disconnected places:
+
+1. the Markdown files themselves;
+2. a flat required-fields list in `PageContentRepository` and
+   `ContentRepository`, which only throws on a missing top-level key;
+3. a prose checklist in the `i18n-content-parity` skill, enforced at review
+   time by a human or an agent.
+
+Nothing in the codebase can enumerate the fields of a page. That is exactly why
+`Admin/Pages/Edit.vue` hands the content to `AdminStructuredValueEditor` — a
+raw JSON tree editor whose own comment calls the payload "arbitrary nested
+JSON". It is a tree editor because there is no schema to build a form from.
+
+Declaring that schema once would give, from a single source: code-level parity
+validation replacing the review-time checklist, a generated guided editor,
+a definition of what to seed, and the site's shape stated independently of its
+content — which is the agnostic goal restated. Whether that argues decisively
+for B is the audit's call, not this document's.
+
 ## Already data — nothing to do
 
 These are done and should not be reopened:

@@ -100,7 +100,10 @@ html[data-theme='morning'] {
        few degrees toward the sky accent reads as shade. */
     --sw-text-primary: #17191d;
     --sw-text-secondary: #5c636f;
-    --sw-text-muted: #6e7686;
+    /* Drives `.type-meta` — 11px, uppercase, tracked — across breadcrumbs,
+       archive cards and the footer, so it is measured against the worst case:
+       over the ambient cool lamp, not against the bare base colour. */
+    --sw-text-muted: #5f6675;
     --sw-text-inverse: #fafaf8;
 
     /* === Accents — Civic Triad (vibrant primaries) ===
@@ -115,19 +118,35 @@ html[data-theme='morning'] {
     --sw-accent-coral: #c2462a; /* brick red */
     --sw-accent-sky: #4f9bff; /* setting-out blue — the cool counterweight */
 
-    /* Lines / borders / focus */
-    --sw-border: rgba(31, 95, 214, 0.11);
+    /* Lines / borders / focus — mixed from the accents above rather than
+       hand-copied from their channels, so the retune promise on line 107
+       actually holds for them. */
+    --sw-border: color-mix(in srgb, var(--sw-accent-violet) 11%, transparent);
     --sw-border-focus: var(--sw-accent-violet);
-    --sw-card-hover-border: rgba(31, 95, 214, 0.24);
+    --sw-card-hover-border: color-mix(
+        in srgb,
+        var(--sw-accent-violet) 24%,
+        transparent
+    );
     /* Blueprint lines, not pencil, and a major every fifth division: it is
        the major that makes a grid read as something measured. */
-    --sw-grid-line: rgba(79, 155, 255, 0.28);
-    --sw-grid-line-major: rgba(31, 95, 214, 0.44);
+    --sw-grid-line: color-mix(in srgb, var(--sw-accent-sky) 28%, transparent);
+    --sw-grid-line-major: color-mix(
+        in srgb,
+        var(--sw-accent-violet) 44%,
+        transparent
+    );
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
     --sw-header-bg: linear-gradient(160deg, #fafaf8, #f6f5f1, #f3f2ee);
 
-    /* Ambient page wash. Two soft flares on paper: daylight, not atmosphere. */
+    /* Ambient page wash. Two soft flares on paper: daylight, not atmosphere.
+       NOTE: this token currently paints nothing. `body` carries it, but
+       `.sw-shell` is the first child of #app and paints an opaque gradient of
+       its own over the whole document (layout.css:5-22). Left in place because
+       removing a documented token is a decision of its own, but do not add
+       stops here expecting to see them — the ambient layer is where a light
+       that has to be visible belongs. */
     --sw-body-wash:
         radial-gradient(
             circle at 15% 12%,
@@ -138,11 +157,6 @@ html[data-theme='morning'] {
             circle at 82% 8%,
             color-mix(in srgb, var(--sw-accent-dominant) 16%, transparent),
             transparent 26%
-        ),
-        radial-gradient(
-            ellipse 110% 55% at 50% 104%,
-            color-mix(in srgb, var(--sw-accent-sky) 22%, transparent),
-            transparent 62%
         ),
         var(--sw-bg-base);
 
@@ -236,18 +250,20 @@ html[data-theme='sunset'] {
        pick the colour up through their own blur, so the same violet arrives as
        light falling on glass rather than as a coat applied to it. */
     --sw-bg-base: #0d0a17;
-    --sw-bg-surface: rgba(232, 228, 250, 0.045);
+    --sw-bg-surface: rgba(232, 228, 250, 0.06);
     --sw-bg-grid: #131120;
-    --sw-bg-elevated: rgba(232, 228, 250, 0.075);
+    --sw-bg-elevated: rgba(232, 228, 250, 0.1);
 
     /* Text — warmed slightly toward violet so it sits in the palette */
     --sw-text-primary: #ece8f8;
     --sw-text-secondary: #a49bc4;
-    --sw-text-muted: #6d648c;
+    /* Raised with the surfaces below: once the panels stopped carrying a
+       violet body, this stopped having anything to sit against. */
+    --sw-text-muted: #8b82ab;
     --sw-text-inverse: #0d0a17;
 
     /* === Accents — Violet Signal ===
-       Edit these 5 hexes to retune the entire sunset palette.
+       Edit these 6 hexes to retune the entire sunset palette.
        `--sw-accent-green` keeps its slot name because components
        reference it as a tone; in this theme it holds electric cyan,
        the one cool note that keeps the palette from going monochrome. */
@@ -258,18 +274,35 @@ html[data-theme='sunset'] {
     --sw-accent-coral: #e264ff; /* orchid */
     /* The cool counterweight, and the same slot morning fills with its
        setting-out blue. Violet against more violet has nothing to measure
-       itself by; the cyan is what gives the violet a temperature. */
-    --sw-accent-sky: #3ad8ff;
+       itself by; the cool note is what gives the violet a temperature.
+       Deliberately not the same value as `--sw-accent-green` above: two named
+       slots holding one hex cannot be told apart, and retuning one would
+       silently drag the other. This sits a step deeper so the majors read as
+       structure rather than as another chip colour. */
+    --sw-accent-sky: #2bb8e6;
 
     /* Lines / borders / focus — the glass edge highlight, nearly colourless
-       for the same reason the surfaces are. */
-    --sw-border: rgba(226, 222, 248, 0.11);
+       for the same reason the surfaces are. The violet used to carry part of
+       the separation between surface tiers as chroma; with that gone the edge
+       has to carry it alone, so it is heavier than the tint it replaced.
+       WCAG 1.4.11 wants 3:1 on the boundary of a control, and the panel option
+       buttons are controls. */
+    --sw-border: rgba(226, 222, 248, 0.22);
     --sw-border-focus: var(--sw-accent-violet);
     --sw-card-hover-border: rgba(226, 222, 248, 0.24);
-    /* Violet minors, cyan majors: the second colour earns its keep by
-       carrying the measure rather than by being sprinkled around. */
-    --sw-grid-line: rgba(160, 138, 255, 0.22);
-    --sw-grid-line-major: rgba(58, 216, 255, 0.34);
+    /* Violet minors, cool majors: the second colour earns its keep by carrying
+       the measure rather than by being sprinkled around. Mixed from the
+       accents so the retune promise above holds for them too. */
+    --sw-grid-line: color-mix(
+        in srgb,
+        var(--sw-accent-violet) 26%,
+        transparent
+    );
+    --sw-grid-line-major: color-mix(
+        in srgb,
+        var(--sw-accent-sky) 40%,
+        transparent
+    );
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
     --sw-header-bg: linear-gradient(160deg, #1a1230, #140e26, #0d0a17);
@@ -293,13 +326,6 @@ html[data-theme='sunset'] {
             color-mix(in oklch, var(--sw-accent-sun) 18%, transparent),
             transparent 62%
         ),
-        /* Three violets and a magenta was one light source described four
-           times. This is the second lamp. */
-        radial-gradient(
-                ellipse 80% 60% at 18% 88%,
-                color-mix(in oklch, var(--sw-accent-sky) 28%, transparent),
-                transparent 60%
-            ),
         var(--sw-bg-base);
 
     /* Sun + ambient — token-driven, glow via color-mix */

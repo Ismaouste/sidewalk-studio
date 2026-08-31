@@ -100,11 +100,18 @@ html[data-theme='sunset'] .ambient-grid {
             color-mix(in srgb, var(--sw-ambient-flare) 20%, transparent),
             transparent 48%
         ),
+        /* Capped at 18%. This layer sits behind every column of text, so its
+           strength is a contrast budget, not a taste setting: at 30% it cost
+           muted text nearly a full point of ratio. */
         radial-gradient(
-            ellipse 62% 52% at var(--ambient-cool-x) var(--ambient-cool-y),
-            color-mix(in srgb, var(--sw-ambient-flare-cool) 30%, transparent),
-            transparent 62%
-        );
+                ellipse 62% 52% at var(--ambient-cool-x) var(--ambient-cool-y),
+                color-mix(
+                    in srgb,
+                    var(--sw-ambient-flare-cool) 18%,
+                    transparent
+                ),
+                transparent 62%
+            );
 }
 
 .ambient-grid__plane {
@@ -334,6 +341,9 @@ html[data-theme='sunset'] .ambient-grid {
 @media (max-width: 640px) {
     .ambient-grid {
         --grid-columns: 4;
+        /* Four columns cannot carry a major every fifth: the period would
+           exceed the whole width and no major line would ever be drawn. */
+        --grid-major: 2;
     }
 
     .ambient-grid__plane {
