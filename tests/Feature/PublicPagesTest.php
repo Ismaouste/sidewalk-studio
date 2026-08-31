@@ -29,6 +29,33 @@ class PublicPagesTest extends TestCase
         }
     }
 
+    /**
+     * Every public page answers without a locale prefix by sending the reader
+     * to their own language.
+     *
+     * `/colophon` did not. It was the one page missing from that list, so a
+     * typed or external link to it answered 404 while its seven siblings
+     * redirected — and the static export, which fetches unprefixed paths,
+     * could not export the page at all. Found by running a real export.
+     */
+    public function test_every_public_page_redirects_from_its_unprefixed_path(): void
+    {
+        $paths = [
+            '/local',
+            '/projects',
+            '/labs',
+            '/contact',
+            '/data-processing',
+            '/colophon',
+            '/journal',
+            '/case-studies',
+        ];
+
+        foreach ($paths as $path) {
+            $this->get($path)->assertRedirect("/en{$path}");
+        }
+    }
+
     public function test_legacy_routes_redirect_to_projects(): void
     {
         $this->get('/about')

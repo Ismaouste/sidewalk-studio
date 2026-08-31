@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Content\ContentSource;
 use App\Content\Schema\PublicationSchemas;
 use App\Models\Publication;
 use App\Services\ContentRepository;
@@ -73,7 +74,21 @@ class ContentRepositoryTest extends TestCase
         $this->assertStringContainsString('The pipeline already existed', $item['body_html']);
     }
 
-    public function test_repository_prefers_markdown_over_hybrid_database_records(): void
+    /**
+     * The inverse of the assertion this test used to make.
+     *
+     * It used to pin Markdown as the winner, and it documented a deliberate
+     * decision: versioned content could not be quietly overwritten by a stale
+     * row. That decision had a consequence nobody wanted — the admin has been
+     * saving publication edits that the public site ignored — and this spec
+     * reverses it. The test is rewritten rather than deleted, because the
+     * direction of the precedence deserves to be asserted in whichever
+     * direction it points.
+     *
+     * The Markdown is still there, and still the seed. It is now what an
+     * operator reverts to, not what overrules them.
+     */
+    public function test_a_database_row_overrides_the_markdown_file_it_was_seeded_from(): void
     {
         // This case needs a seeded row, so it checks for the row as well as
         // the table. A RefreshDatabase case earlier in the run migrates the
@@ -89,25 +104,51 @@ class ContentRepositoryTest extends TestCase
         }
 
         $record = $seededRecord()->firstOrFail();
+        $fileSummary = 'Un case study e-commerce sur un Docker Swarm rollback '
+            ."silencieux, un déploiement automatique trompeur et le besoin de rendre l'état final vérifiable.";
 
         $metadata = $record->metadata ?? [];
-        $metadata['role'] = 'Old database role';
+        $metadata['role'] = 'Role edited from the admin';
 
         $record->forceFill([
-            'summary' => 'Old database summary that should never leak publicly.',
+            'summary' => 'Summary edited from the admin.',
             'metadata' => $metadata,
         ])->save();
 
-        $item = app(ContentRepository::class)->findPublished('case-studies', 'pipeline-deploiement-ecommerce', 'fr');
+        $item = app(ContentRepository::class)
+            ->findPublished('case-studies', 'pipeline-deploiement-ecommerce', 'fr');
 
-        $this->assertSame(
-            'Analyse incident et stabilisation du déploiement',
-            $item['role'],
-        );
-        $this->assertSame(
-            'Un case study e-commerce sur un Docker Swarm rollback silencieux, un déploiement automatique trompeur et le besoin de rendre l\'état final vérifiable.',
-            $item['summary'],
-        );
+        $this->assertSame('Role edited from the admin', $item['role']);
+        $this->assertSame('Summary edited from the admin.', $item['summary']);
+        $this->assertNotSame($fileSummary, $item['summary']);
+    }
+
+    /**
+     * The setting is the whole of the precedence, so the old direction is
+     * still available and still correct when asked for. This is the rollback
+     * path: an environment variable, not a release.
+     */
+    public function test_the_old_direction_is_still_one_setting_away(): void
+    {
+        $seededRecord = fn () => Publication::query()
+            ->where('type', 'case_study')
+            ->where('locale', 'fr')
+            ->where('slug', 'pipeline-deploiement-ecommerce');
+
+        if (! Schema::hasTable('publications') || $seededRecord()->doesntExist()) {
+            $this->artisan('migrate:fresh', ['--seed' => true]);
+        }
+
+        $seededRecord()->firstOrFail()->forceFill([
+            'summary' => 'Summary edited from the admin.',
+        ])->save();
+
+        config(['site.content_source' => ContentSource::Files->value]);
+
+        $item = app(ContentRepository::class)
+            ->findPublished('case-studies', 'pipeline-deploiement-ecommerce', 'fr');
+
+        $this->assertStringStartsWith('Un case study e-commerce', $item['summary']);
     }
 
     public function test_repository_feed_can_filter_publications_by_tag_and_category(): void

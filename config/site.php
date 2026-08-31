@@ -21,8 +21,14 @@ return [
      * `files` or `database` — which source wins when both hold the same page
      * or publication. See `App\Content\ContentSource` for what the choice
      * means and why it is a setting rather than an edit.
+     *
+     * The default is `database`, which is what makes an edit saved from
+     * /admin appear on the public site. Either source falls back to the other
+     * for what it does not hold, so a deployment with no database — the
+     * Vercel one, where SQLite is not in the repository — serves the Markdown
+     * exactly as before and is unaffected by this default.
      */
-    'content_source' => env('SITE_CONTENT_SOURCE', 'files'),
+    'content_source' => env('SITE_CONTENT_SOURCE', 'database'),
     'name' => env('SITE_NAME', 'Sidewalk Studio'),
     'tagline' => env('SITE_TAGLINE', 'Fullstack ecommerce. Cross-functional data, reliable flows.'),
     'description' => env('SITE_DESCRIPTION', 'Fullstack web development for ecommerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO.'),

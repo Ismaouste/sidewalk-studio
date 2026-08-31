@@ -110,6 +110,52 @@ class ContentSeedFidelityTest extends TestCase
     }
 
     /**
+     * Re-seeding overwrites what the admin changed, because the Markdown is
+     * the seed and the seed is what re-seeding applies.
+     *
+     * This is not a hypothetical. The importer used to read whichever source
+     * won, which was correct while Markdown always did and became silently
+     * wrong the moment the database did: the seeder read the database and
+     * wrote it straight back, preserving exactly the edits it was meant to
+     * overwrite. It reported success and seeded nothing, and no count or
+     * exception would have shown it.
+     */
+    public function test_reseeding_overwrites_a_database_edit_with_the_markdown(): void
+    {
+        $importer = app(ContentImportService::class);
+        $importer->importAll();
+
+        $seededTitle = Page::query()
+            ->where('page_key', 'colophon')
+            ->where('locale', 'en')
+            ->firstOrFail()
+            ->payload['hero']['title'];
+
+        $record = Page::query()
+            ->where('page_key', 'colophon')
+            ->where('locale', 'en')
+            ->firstOrFail();
+
+        $payload = $record->payload;
+        $payload['hero']['title'] = 'Edited from the admin';
+        $record->forceFill(['payload' => $payload])->save();
+
+        config(['site.content_source' => ContentSource::Database->value]);
+
+        $importer->importAll();
+
+        $this->assertSame(
+            $seededTitle,
+            Page::query()
+                ->where('page_key', 'colophon')
+                ->where('locale', 'en')
+                ->firstOrFail()
+                ->payload['hero']['title'],
+            'Re-seeding preserved a database edit, so the Markdown is not the seed.',
+        );
+    }
+
+    /**
      * The seeded publications carry their translation pairing, or the admin
      * cannot offer "the French version of this" once rows are authoritative.
      */

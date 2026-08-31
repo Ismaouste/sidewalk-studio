@@ -68,12 +68,19 @@ Route::get('/about', function (Request $request) {
     );
 });
 
+/**
+ * Unprefixed paths redirect to the reader's locale. `/colophon` was the one
+ * public page missing from this list, so `site.test/colophon` answered 404
+ * while its seven siblings redirected — and the static export, which fetches
+ * unprefixed paths, could not export it at all.
+ */
 foreach ([
     '/local',
     '/projects',
     '/labs',
     '/contact',
     '/data-processing',
+    '/colophon',
     '/journal',
     '/case-studies',
 ] as $legacyPath) {
@@ -164,6 +171,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::get('/pages', [AdminPageController::class, 'index'])->name('pages.index');
         Route::get('/pages/{page}/{locale}', [AdminPageController::class, 'edit'])->name('pages.edit');
         Route::put('/pages/{page}/{locale}', [AdminPageController::class, 'update'])->name('pages.update');
+        Route::post('/pages/{page}/{locale}/revert', [AdminPageController::class, 'revert'])->name('pages.revert');
         Route::get('/publications', [AdminPublicationController::class, 'index'])->name('publications.index');
         Route::get('/publications/create/{type}', [AdminPublicationController::class, 'create'])->name('publications.create');
         Route::post('/publications', [AdminPublicationController::class, 'store'])->name('publications.store');

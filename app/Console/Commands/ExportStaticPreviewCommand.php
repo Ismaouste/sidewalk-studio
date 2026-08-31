@@ -185,10 +185,29 @@ class ExportStaticPreviewCommand extends Command
     }
 
     /**
+     * The one place the export knows anything about content.
+     *
+     * Everything else it does goes through HTTP against a running server, so
+     * rendering follows whatever the application reads and the export needed
+     * no change when the precedence reversed. This method is the exception —
+     * it enumerates publication URLs — and it follows for the same reason,
+     * because it asks the same repository. Public so a test can say that out
+     * loud rather than assume it.
+     *
      * @return array<int, string>
      */
-    protected function routesToExport(ContentRepository $content, string $locale): array
+    public function routesToExport(ContentRepository $content, string $locale): array
     {
+        /**
+         * `/colophon` was missing from this list, so the static preview
+         * answered 404 for a page every footer on the site links to. Found by
+         * running a real export to verify something else, which is the usual
+         * way a gap in a hard-coded list gets found.
+         *
+         * `/sparkle` stays out on purpose: it is `noindex,nofollow`, absent
+         * from the navigation, and reached by people who already know it is
+         * there.
+         */
         $routes = [
             '/',
             '/projects',
@@ -196,6 +215,7 @@ class ExportStaticPreviewCommand extends Command
             '/journal',
             '/contact',
             '/data-processing',
+            '/colophon',
             '/case-studies',
             '/labs',
         ];

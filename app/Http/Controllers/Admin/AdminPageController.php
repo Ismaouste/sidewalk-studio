@@ -9,6 +9,7 @@ use App\Services\PageContentRepository;
 use App\Services\SiteSettingsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -34,6 +35,47 @@ class AdminPageController extends Controller
         ]);
     }
 
+    /**
+     * Puts a page back to what its Markdown says.
+     *
+     * This is what makes an authoritative database safe for someone who does
+     * not write code. Before the precedence reversal, a bad edit was harmless
+     * because the public site ignored it; now it is live, and the operator
+     * needs a way back that is not a developer and a deploy.
+     *
+     * The Markdown is that way back. The admin never writes to it, so it
+     * stays the reviewed, versioned copy of every page — and reverting is
+     * saving it over the row, which leaves the audit log a record of what
+     * happened rather than a hole where a row used to be.
+     */
+    public function revert(Request $request, string $page, string $locale): RedirectResponse
+    {
+        $seed = $this->pages->seededPage($page, $locale);
+
+        if ($seed === null) {
+            return back()->with(
+                'status',
+                "No Markdown seed exists for [{$page}] in [{$locale}], so there is nothing to revert to.",
+            );
+        }
+
+        $this->pages->savePage($page, $locale, $seed);
+        $this->siteSettings->markRebuildRequired("Page {$page} ({$locale}) reverted to its seed.");
+        $this->auditLogs->recordAction(
+            action: 'page.reverted',
+            subject: 'page',
+            summary: [
+                'page_key' => $page,
+                'locale' => $locale,
+                'source_path' => $seed['source_path'] ?? null,
+            ],
+            actor: $request->user() instanceof User ? $request->user() : null,
+        );
+
+        return to_route('admin.pages.edit', ['page' => $page, 'locale' => $locale])
+            ->with('status', 'Page reverted to its Markdown seed.');
+    }
+
     public function update(Request $request, string $page, string $locale): RedirectResponse
     {
         $payload = $request->validate([
@@ -46,6 +88,22 @@ class AdminPageController extends Controller
             'open_graph_image' => ['nullable', 'string', 'max:255'],
             'payload' => ['required', 'array'],
         ]);
+
+        /**
+         * The two locales are edited one at a time — side by side does not fit
+         * a phone — and sequential editing is exactly how `fr/experience.md`
+         * came to differ from its English counterpart. So the save runs the
+         * shape comparison against the other locale and refuses a difference,
+         * naming the field. This converts the editor's biggest risk into the
+         * feature's main guarantee.
+         */
+        $differences = $this->pages->localeShapeDifferences($page, $locale, $payload);
+
+        if ($differences !== []) {
+            throw ValidationException::withMessages([
+                'payload' => $differences,
+            ]);
+        }
 
         $saved = $this->pages->savePage($page, $locale, $payload);
         $this->siteSettings->markRebuildRequired("Page {$page} ({$locale}) changed.");

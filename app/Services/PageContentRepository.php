@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Content\ContentSource;
 use App\Content\Schema\PageSchemas;
 use App\Models\Page;
+use App\Support\PublicLocale;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
@@ -46,7 +47,7 @@ class PageContentRepository
      */
     public function adminFind(string $pageKey, string $locale): array
     {
-        $page = $this->merged($pageKey, $locale);
+        $page = $this->publicPage($pageKey, $locale);
 
         if ($page === null) {
             abort(404);
@@ -61,6 +62,12 @@ class PageContentRepository
      */
     public function savePage(string $pageKey, string $locale, array $payload): array
     {
+        $this->assertMatchesSchema(
+            $pageKey,
+            $this->asFrontmatter($payload),
+            "the {$locale} version of [{$pageKey}]",
+        );
+
         $record = Page::query()->updateOrCreate(
             ['page_key' => $pageKey, 'locale' => $locale],
             [
@@ -86,7 +93,7 @@ class PageContentRepository
     protected function all(string $locale): Collection
     {
         $filePages = collect($this->resolveKnownPageKeys())
-            ->map(fn (string $page): ?array => $this->merged($page, $locale))
+            ->map(fn (string $page): ?array => $this->publicPage($page, $locale))
             ->filter()
             ->values();
 
@@ -104,32 +111,18 @@ class PageContentRepository
     }
 
     /**
-     * @return array<string, mixed>|null
-     */
-    protected function merged(string $page, string $locale): ?array
-    {
-        $filePayload = $this->loadFilePage($page, $locale);
-        $databasePayload = $this->loadDatabasePage($page, $locale);
-
-        if ($databasePayload === null) {
-            return $filePayload;
-        }
-
-        if ($filePayload === null) {
-            return $databasePayload;
-        }
-
-        $payload = array_replace_recursive($databasePayload, $filePayload);
-        $payload['payload'] = array_replace_recursive($databasePayload['payload'] ?? [], $filePayload['payload'] ?? []);
-
-        return $payload;
-    }
-
-    /**
      * One source wins outright; the other is a fallback for what it does not
-     * hold. They are never merged field by field, in either direction — a
-     * page assembled half from a row and half from a file is a page nobody
-     * wrote, and reviewing it means reading both.
+     * hold. They are never merged field by field, in either direction.
+     *
+     * The admin used to see a different page from the public one: this method
+     * did an `array_replace_recursive` with the file on top, so an operator
+     * who saved an edit was shown the file's version back in the form on the
+     * next load. Two readings of "what this page says" is one too many, and
+     * the one the editor shows had better be the one it is about to
+     * overwrite.
+     *
+     * A page assembled half from a row and half from a file is also a page
+     * nobody wrote, and reviewing it means reading both.
      *
      * @return array<string, mixed>|null
      */
@@ -138,6 +131,111 @@ class PageContentRepository
         return ContentSource::databaseWins()
             ? ($this->loadDatabasePage($page, $locale) ?? $this->loadFilePage($page, $locale))
             : ($this->loadFilePage($page, $locale) ?? $this->loadDatabasePage($page, $locale));
+    }
+
+    /**
+     * The frontmatter a payload would be, if it were written back to Markdown.
+     *
+     * The declaration describes the content file, where metadata and content
+     * are one flat mapping. The database splits them — columns for the
+     * metadata, a JSON payload for the rest — so validating a save means
+     * putting them back together first.
+     *
+     * Empty optional metadata is dropped rather than sent through as `''`.
+     * The form posts every field it renders whether or not the operator
+     * filled it in, and an absent optional field and an empty one mean the
+     * same thing here; keeping the empty string would make a saved page
+     * differ in shape from the file it was seeded from, which is precisely
+     * what the parity check exists to catch.
+     *
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
+    protected function asFrontmatter(array $payload): array
+    {
+        $frontmatter = $payload['payload'] ?? [];
+
+        foreach (['seo_title', 'seo_description'] as $field) {
+            $frontmatter[$field] = (string) ($payload[$field] ?? '');
+        }
+
+        foreach (['title', 'description', 'robots', 'canonical_url', 'open_graph_image'] as $field) {
+            $value = (string) ($payload[$field] ?? '');
+
+            if ($value !== '') {
+                $frontmatter[$field] = $value;
+            }
+        }
+
+        return $frontmatter;
+    }
+
+    /**
+     * Blocks a save that would leave the two locales holding different
+     * shapes, naming the field that differs.
+     *
+     * This is the runtime replacement for the review-time checklist, and it
+     * is the answer to the risk the guided editor introduces: the two locales
+     * are edited one at a time, because side-by-side does not fit a phone,
+     * and sequential editing is exactly how `fr/experience.md` drifted from
+     * its English counterpart in the first place.
+     *
+     * @param  array<string, mixed>  $payload
+     * @return array<int, string>
+     */
+    public function localeShapeDifferences(string $pageKey, string $locale, array $payload): array
+    {
+        $schema = PageSchemas::for($pageKey);
+        $candidate = $schema->shapeOf($this->asFrontmatter($payload));
+        $differences = [];
+
+        foreach (PublicLocale::supported() as $other) {
+            if ($other === $locale) {
+                continue;
+            }
+
+            $counterpart = $this->publicPage($pageKey, $other);
+
+            if ($counterpart === null) {
+                continue;
+            }
+
+            $otherShape = $schema->shapeOf($this->asFrontmatter($counterpart));
+
+            foreach ($this->flattenShape($candidate) as $path => $shape) {
+                $otherPart = $this->flattenShape($otherShape)[$path] ?? null;
+
+                if ($otherPart !== $shape) {
+                    $differences[] = "[{$path}] is {$shape} in {$locale} and "
+                        .($otherPart === null ? 'absent' : $otherPart)." in {$other}.";
+                }
+            }
+        }
+
+        return $differences;
+    }
+
+    /**
+     * @param  array<string, mixed>  $shape
+     * @return array<string, string>
+     */
+    protected function flattenShape(array $shape, string $prefix = ''): array
+    {
+        $flat = [];
+
+        foreach ($shape as $key => $value) {
+            $path = $prefix === '' ? (string) $key : "{$prefix}.{$key}";
+
+            if (is_array($value)) {
+                $flat += $this->flattenShape($value, $path);
+
+                continue;
+            }
+
+            $flat[$path] = (string) $value;
+        }
+
+        return $flat;
     }
 
     /**

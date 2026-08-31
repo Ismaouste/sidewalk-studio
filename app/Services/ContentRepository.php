@@ -18,6 +18,8 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class ContentRepository
 {
+    public const SECTIONS = ['writing', 'case-studies'];
+
     public function __construct(
         protected ManagedMarkdownFileService $markdownFiles,
     ) {}
@@ -103,6 +105,27 @@ class ContentRepository
         }
 
         return $item;
+    }
+
+    /**
+     * Publications as their Markdown files state them, whatever the live
+     * source is.
+     *
+     * The importer has to ask for this explicitly, and the reason is a trap
+     * worth naming: it used to read `adminIndex()`, which returns whichever
+     * source wins. That was correct while Markdown always won, and became
+     * silently wrong the moment the database did — the seeder started reading
+     * the database and writing it back, so re-seeding preserved the very
+     * edits it was supposed to overwrite, and "Markdown is the seed format"
+     * quietly stopped being true.
+     *
+     * @return Collection<int, array<string, mixed>>
+     */
+    public function fileBackedItems(string $locale): Collection
+    {
+        return collect(self::SECTIONS)
+            ->flatMap(fn (string $section) => $this->fileItems($section, $locale, false))
+            ->values();
     }
 
     /**

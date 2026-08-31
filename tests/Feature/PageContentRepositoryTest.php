@@ -38,7 +38,17 @@ class PageContentRepositoryTest extends TestCase
         );
     }
 
-    public function test_it_prefers_markdown_over_database_overrides_for_public_pages(): void
+    /**
+     * The inverse of the assertion this test used to make, and the point of
+     * the whole spec: an edit saved from /admin now changes the public page.
+     *
+     * It used to pin Markdown as the winner. That was a real decision —
+     * versioned content should not be silently overwritten by a stale row —
+     * and its consequence was that the admin saved page edits the site
+     * ignored. The Markdown is still there and still the seed; it is now what
+     * an operator reverts to rather than what overrules them.
+     */
+    public function test_a_database_page_overrides_the_markdown_it_was_seeded_from(): void
     {
         // Checks for the seeded row as well as the table, for the reason
         // spelled out in ContentRepositoryTest: after a RefreshDatabase case
@@ -55,20 +65,41 @@ class PageContentRepositoryTest extends TestCase
         $pageRecord = $seededPage()->firstOrFail();
 
         $payload = $pageRecord->payload ?? [];
-        $payload['hero']['title'] = 'Old database hero title';
+        $payload['hero']['title'] = 'Hero title edited from the admin';
 
         $pageRecord->forceFill([
-            'seo_title' => 'Old database seo title',
+            'seo_title' => 'SEO title edited from the admin',
             'payload' => $payload,
         ])->save();
 
-        $page = app(PageContentRepository::class)->get('projects', 'fr');
+        $repository = app(PageContentRepository::class);
+        $page = $repository->get('projects', 'fr');
 
-        $this->assertSame('Tech lead e-commerce à Nancy', $page['seo_title']);
-        $this->assertSame(
-            'Projets e-commerce',
-            $page['hero']['title'],
-        );
+        $this->assertSame('SEO title edited from the admin', $page['seo_title']);
+        $this->assertSame('Hero title edited from the admin', $page['hero']['title']);
+
+        // And the seed is still addressable, which is the revert path.
+        $seed = $repository->seededPage('projects', 'fr');
+
+        $this->assertSame('Tech lead e-commerce à Nancy', $seed['seo_title']);
+        $this->assertSame('Projets e-commerce', $seed['hero']['title']);
+    }
+
+    /**
+     * A page the database does not hold still renders. This is what makes the
+     * new default safe on a deployment with no database at all — the Vercel
+     * one, where SQLite is not in the repository.
+     */
+    public function test_a_page_missing_from_the_database_still_renders_from_markdown(): void
+    {
+        if (Schema::hasTable('pages')) {
+            Page::query()->where('page_key', 'colophon')->delete();
+        }
+
+        $page = app(PageContentRepository::class)->get('colophon', 'en');
+
+        $this->assertSame('file', $page['source_driver']);
+        $this->assertNotSame('', $page['seo_title']);
     }
 
     public function test_it_loads_newly_localized_contact_page_content(): void
