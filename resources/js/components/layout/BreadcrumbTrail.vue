@@ -98,7 +98,12 @@ defineProps<{
         var(--sw-text-secondary) 92%,
         var(--sw-text-primary)
     );
+    /* `text-overflow` only applies to a block container, so this one cannot be
+       the flex box its siblings are — which is why the single line is centred
+       with line-height instead. Without that it sits at the top of its own
+       min-height and the crumbs beside it look like they have dropped. */
     display: block;
+    line-height: 1.8rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

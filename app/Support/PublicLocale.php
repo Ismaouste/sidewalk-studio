@@ -149,6 +149,24 @@ class PublicLocale
     }
 
     /**
+     * What the site calls its own front page, taken from the navigation so the
+     * two cannot disagree. Ten controller call sites used to spell it out as
+     * "Home" / "Accueil", which is not what the navigation has said for a
+     * while — and a breadcrumb that names a page differently from the menu
+     * pointing at it is a breadcrumb the reader has to translate.
+     */
+    public static function homeLabel(string $locale): string
+    {
+        foreach (self::navigation($locale) as $entry) {
+            if ($entry['path'] === '/') {
+                return $entry['label'];
+            }
+        }
+
+        return 'Home';
+    }
+
+    /**
      * A section owns its whole subtree, so `/journal` stays lit on
      * `/journal/<slug>`. Home is the exception: it owns only itself, or the
      * prefix rule would light it up on every page.

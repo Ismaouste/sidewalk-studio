@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
-* @see app/Http/Controllers/CaseStudyController.php:16
+* @see app/Http/Controllers/CaseStudyController.php:17
 * @route '/{locale}/case-studies'
 */
 export const index = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
-* @see app/Http/Controllers/CaseStudyController.php:16
+* @see app/Http/Controllers/CaseStudyController.php:17
 * @route '/{locale}/case-studies'
 */
 index.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -45,7 +45,7 @@ index.url = (args: { locale: string | number } | [locale: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
-* @see app/Http/Controllers/CaseStudyController.php:16
+* @see app/Http/Controllers/CaseStudyController.php:17
 * @route '/{locale}/case-studies'
 */
 index.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -55,7 +55,7 @@ index.get = (args: { locale: string | number } | [locale: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
-* @see app/Http/Controllers/CaseStudyController.php:16
+* @see app/Http/Controllers/CaseStudyController.php:17
 * @route '/{locale}/case-studies'
 */
 index.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -65,7 +65,7 @@ index.head = (args: { locale: string | number } | [locale: string | number ] | s
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
-* @see app/Http/Controllers/CaseStudyController.php:16
+* @see app/Http/Controllers/CaseStudyController.php:17
 * @route '/{locale}/case-studies'
 */
 const indexForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -75,7 +75,7 @@ const indexForm = (args: { locale: string | number } | [locale: string | number 
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
-* @see app/Http/Controllers/CaseStudyController.php:16
+* @see app/Http/Controllers/CaseStudyController.php:17
 * @route '/{locale}/case-studies'
 */
 indexForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -85,7 +85,7 @@ indexForm.get = (args: { locale: string | number } | [locale: string | number ] 
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::index
-* @see app/Http/Controllers/CaseStudyController.php:16
+* @see app/Http/Controllers/CaseStudyController.php:17
 * @route '/{locale}/case-studies'
 */
 indexForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -102,7 +102,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:41
+* @see app/Http/Controllers/CaseStudyController.php:42
 * @route '/{locale}/case-studies/{slug}'
 */
 export const show = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -117,7 +117,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:41
+* @see app/Http/Controllers/CaseStudyController.php:42
 * @route '/{locale}/case-studies/{slug}'
 */
 show.url = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions) => {
@@ -145,7 +145,7 @@ show.url = (args: { locale: string | number, slug: string | number } | [locale: 
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:41
+* @see app/Http/Controllers/CaseStudyController.php:42
 * @route '/{locale}/case-studies/{slug}'
 */
 show.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -155,7 +155,7 @@ show.get = (args: { locale: string | number, slug: string | number } | [locale: 
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:41
+* @see app/Http/Controllers/CaseStudyController.php:42
 * @route '/{locale}/case-studies/{slug}'
 */
 show.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -165,7 +165,7 @@ show.head = (args: { locale: string | number, slug: string | number } | [locale:
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:41
+* @see app/Http/Controllers/CaseStudyController.php:42
 * @route '/{locale}/case-studies/{slug}'
 */
 const showForm = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -175,7 +175,7 @@ const showForm = (args: { locale: string | number, slug: string | number } | [lo
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:41
+* @see app/Http/Controllers/CaseStudyController.php:42
 * @route '/{locale}/case-studies/{slug}'
 */
 showForm.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -185,7 +185,7 @@ showForm.get = (args: { locale: string | number, slug: string | number } | [loca
 
 /**
 * @see \App\Http\Controllers\CaseStudyController::show
-* @see app/Http/Controllers/CaseStudyController.php:41
+* @see app/Http/Controllers/CaseStudyController.php:42
 * @route '/{locale}/case-studies/{slug}'
 */
 showForm.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

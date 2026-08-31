@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ContentRepository;
+use App\Support\PublicLocale;
 use App\Support\Seo;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -25,7 +26,7 @@ class CaseStudyController extends Controller
             [
                 'robots' => 'index,follow',
                 'breadcrumb' => [
-                    ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => $isFrench ? 'Projets' : 'Projects', 'path' => '/projects'],
                     ['name' => $isFrench ? 'Études de cas' : 'Case Studies', 'path' => '/case-studies'],
                 ],
@@ -64,7 +65,7 @@ class CaseStudyController extends Controller
                 ],
                 'section' => $isFrench ? 'Cas clients' : 'Case Studies',
                 'breadcrumb' => [
-                    ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => $isFrench ? 'Projets' : 'Projects', 'path' => '/projects'],
                     ['name' => $isFrench ? 'Études de cas' : 'Case Studies', 'path' => '/case-studies'],
                     ['name' => $item['title'], 'path' => '/case-studies/'.$item['slug']],
