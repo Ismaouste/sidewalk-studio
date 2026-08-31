@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Content\Schema\PageSchemas;
 use App\Models\Page;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -154,11 +155,7 @@ class PageContentRepository
         $document = YamlFrontMatter::parseFile($path);
         $matter = $document->matter();
 
-        foreach (['seo_title', 'seo_description'] as $field) {
-            if (! array_key_exists($field, $matter)) {
-                throw new RuntimeException("Missing required frontmatter field [{$field}] in [{$path}].");
-            }
-        }
+        $this->assertMatchesSchema($page, $matter, $path);
 
         return [
             ...$matter,
@@ -175,6 +172,34 @@ class PageContentRepository
             'source_path' => $path,
             'source_driver' => 'file',
         ];
+    }
+
+    /**
+     * Two of the forty-four keys a page can hold used to be checked, and only
+     * for presence: `seo_title` and `seo_description`. Four and a half per
+     * cent. Everything else went into `payload` unread, which is how a
+     * paragraph that YAML had resolved into a mapping travelled from a content
+     * file to the body copy of /fr/projects without anything objecting.
+     *
+     * A page key with no declaration is not silently waved through either.
+     * Adding a Markdown file is now a two-part change — the file and its
+     * declaration — and that is the point rather than a friction to smooth
+     * over.
+     *
+     * @param  array<string, mixed>  $matter
+     */
+    protected function assertMatchesSchema(string $page, array $matter, string $path): void
+    {
+        $violations = PageSchemas::for($page)->violations($matter);
+
+        if ($violations === []) {
+            return;
+        }
+
+        throw new RuntimeException(
+            "Content in [{$path}] does not match the [{$page}] schema:".PHP_EOL
+            .'  - '.implode(PHP_EOL.'  - ', $violations),
+        );
     }
 
     /**
