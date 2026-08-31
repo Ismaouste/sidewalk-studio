@@ -65,6 +65,18 @@ class LanguageFileService
                 'locale' => 'fr',
                 'path' => lang_path('fr/site.php'),
             ],
+            [
+                'key' => 'en.public',
+                'label' => 'English public surface copy',
+                'locale' => 'en',
+                'path' => lang_path('en/public.php'),
+            ],
+            [
+                'key' => 'fr.public',
+                'label' => 'French public surface copy',
+                'locale' => 'fr',
+                'path' => lang_path('fr/public.php'),
+            ],
         ];
     }
 

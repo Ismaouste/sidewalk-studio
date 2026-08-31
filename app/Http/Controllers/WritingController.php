@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ContentRepository;
+use App\Support\PublicCopy;
 use App\Support\PublicLocale;
 use App\Support\Seo;
 use Inertia\Inertia;
@@ -16,18 +17,15 @@ class WritingController extends Controller
 
     public function index(): Response
     {
-        $isFrench = app()->getLocale() === 'fr';
         $seo = Seo::page(
-            $isFrench ? 'Blog technique e-commerce PHP' : 'Journal',
-            $isFrench
-                ? "Blog technique sur l'e-commerce PHP, Laravel, l'orchestration du consentement, la modélisation de contenu et les détails qui comptent vraiment en production."
-                : 'Technical notes on ecommerce PHP, Laravel, consent orchestration, content modeling, and the details that matter in production.',
+            PublicCopy::line('seo.journal.title'),
+            PublicCopy::line('seo.journal.description'),
             '/journal',
             [
                 'robots' => 'index,follow',
                 'breadcrumb' => [
                     ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-                    ['name' => 'Journal', 'path' => '/journal'],
+                    ['name' => PublicCopy::line('breadcrumbs.journal'), 'path' => '/journal'],
                 ],
             ],
         );
@@ -41,7 +39,6 @@ class WritingController extends Controller
     public function show(string $locale, string $slug): Response
     {
         $item = $this->content->findPublished('writing', $slug);
-        $isFrench = app()->getLocale() === 'fr';
         $related = $this->content->published('writing', app()->getLocale(), false)
             ->reject(fn (array $candidate): bool => $candidate['slug'] === $item['slug'])
             ->take(3)
@@ -62,10 +59,10 @@ class WritingController extends Controller
                     'alt' => $item['featured_image_alt'] ?: $item['image_alt'],
                     'slug' => $item['slug'],
                 ],
-                'section' => 'Journal',
+                'section' => PublicCopy::line('sections.journal'),
                 'breadcrumb' => [
                     ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-                    ['name' => 'Journal', 'path' => '/journal'],
+                    ['name' => PublicCopy::line('breadcrumbs.journal'), 'path' => '/journal'],
                     ['name' => $item['title'], 'path' => '/journal/'.$item['slug']],
                 ],
             ],

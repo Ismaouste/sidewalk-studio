@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\ContentRepository;
 use App\Services\PageContentRepository;
 use App\Services\SiteSettingsService;
+use App\Support\PublicCopy;
 use App\Support\PublicLocale;
 use App\Support\Seo;
 use Illuminate\Http\RedirectResponse;
@@ -40,14 +41,7 @@ class SiteController extends Controller
             'focusAreas' => $page['focus_areas'],
             'featuredCaseStudies' => $caseStudies->take(2)->values(),
             'journalWidget' => $this->publicationWidget([
-                'eyebrow' => app()->getLocale() === 'fr' ? 'Journal' : 'Journal',
-                'title' => app()->getLocale() === 'fr'
-                    ? 'Articles, notes et détails techniques qui valent le détour.'
-                    : 'Articles, notes, and technical details worth opening.',
-                'description' => app()->getLocale() === 'fr'
-                    ? 'Des textes plus construits et des mémos plus courts pour parler terrain, flux produit, SEO, données structurées, outils associatifs et détails de build.'
-                    : 'Longer articles and shorter memos about product flows, structured data, SEO, nonprofit tooling, and build details.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? 'Découvrir le journal' : 'Discover the journal',
+                ...$this->widgetCopy('home_journal'),
                 'ctaHref' => '/journal',
                 'sections' => ['writing'],
                 'tag' => 'notes-dev',
@@ -75,7 +69,7 @@ class SiteController extends Controller
             $this->pageSeoOptions($page, [
                 'breadcrumb' => [
                     ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-                    ['name' => app()->getLocale() === 'fr' ? 'Localisation' : 'Local', 'path' => '/local'],
+                    ['name' => PublicCopy::line('breadcrumbs.local'), 'path' => '/local'],
                 ],
             ]),
         );
@@ -112,7 +106,7 @@ class SiteController extends Controller
                 'robots' => 'noindex,nofollow',
                 'breadcrumb' => [
                     ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-                    ['name' => 'Sparkle', 'path' => '/sparkle'],
+                    ['name' => PublicCopy::line('breadcrumbs.sparkle'), 'path' => '/sparkle'],
                 ],
             ]),
         );
@@ -197,14 +191,7 @@ class SiteController extends Controller
                 'items' => [],
             ],
             'journalWidget' => $this->publicationWidget([
-                'eyebrow' => app()->getLocale() === 'fr' ? 'Notes' : 'Notes',
-                'title' => app()->getLocale() === 'fr'
-                    ? 'Mémos techniques, anecdotes utiles, détails qui comptent.'
-                    : 'Technical memos, useful anecdotes, and details that matter.',
-                'description' => app()->getLocale() === 'fr'
-                    ? 'Des notes courtes pour parler schéma.org, données produit, catalogues, images, formats web et autres détails techniques qui finissent par faire une vraie différence.'
-                    : 'Short notes about schema.org, product data, catalogs, images, web formats, and the technical details that end up making a real difference.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? 'Consulter les notes' : 'Browse notes',
+                ...$this->widgetCopy('projects_notes'),
                 'ctaHref' => '/journal',
                 'sections' => ['writing'],
                 'tag' => 'notes-dev',
@@ -213,14 +200,7 @@ class SiteController extends Controller
                 'exclude_slugs' => $this->projectJournalExcludedSlugs(),
             ]),
             'referenceWidget' => $this->publicationWidget([
-                'eyebrow' => app()->getLocale() === 'fr' ? 'Références' : 'References',
-                'title' => app()->getLocale() === 'fr'
-                    ? 'Études de cas et notes pour aller plus loin.'
-                    : 'Case studies and notes to go deeper.',
-                'description' => app()->getLocale() === 'fr'
-                    ? 'Une archive pour entrer dans des cas plus précis : outils associatifs sous contrainte, circulation de la donnée entre ERP, PIM et e-commerce, formats web, sitemaps, robots.txt et qualité de livraison.'
-                    : 'An archive for more precise cases: constrained nonprofit tooling, data flow between ERP, PIM, and commerce, web formats, sitemaps, robots.txt, and delivery quality.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? 'Découvrir toutes les études de cas' : 'Browse all case studies',
+                ...$this->widgetCopy('projects_references'),
                 'ctaHref' => '/case-studies',
                 'sections' => ['case-studies'],
                 'category' => 'work',
@@ -232,13 +212,13 @@ class SiteController extends Controller
     public function labs(): Response
     {
         $seo = Seo::page(
-            'Labs',
-            'Sandbox areas reserved for consent, structured data, and later design-system experiments.',
+            PublicCopy::line('seo.labs.title'),
+            PublicCopy::line('seo.labs.description'),
             '/labs',
             [
                 'breadcrumb' => [
                     ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-                    ['name' => 'Labs', 'path' => '/labs'],
+                    ['name' => PublicCopy::line('breadcrumbs.labs'), 'path' => '/labs'],
                 ],
             ],
         );
@@ -346,12 +326,29 @@ class SiteController extends Controller
     }
 
     /**
+     * The framing around a publication feed — everything the widget says that
+     * is not one of the items. Spread into the widget options so the call site
+     * keeps naming only what varies: which feed, and where the CTA points.
+     *
+     * @return array{eyebrow: string, title: string, description: string, ctaLabel: string}
+     */
+    protected function widgetCopy(string $key): array
+    {
+        $copy = PublicCopy::group("widgets.{$key}");
+
+        return [
+            'eyebrow' => $copy['eyebrow'],
+            'title' => $copy['title'],
+            'description' => $copy['description'],
+            'ctaLabel' => $copy['cta_label'],
+        ];
+    }
+
+    /**
      * @return array<int, array{label: string, href: string}>
      */
     protected function cvDownloads(): array
     {
-        $isFrench = app()->getLocale() === 'fr';
-
         return [
             [
                 'label' => 'CV EN / PDF',

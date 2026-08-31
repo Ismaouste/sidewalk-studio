@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ContentRepository;
+use App\Support\PublicCopy;
 use App\Support\PublicLocale;
 use App\Support\Seo;
 use Inertia\Inertia;
@@ -16,20 +17,13 @@ class CaseStudyController extends Controller
 
     public function index(): Response
     {
-        $isFrench = app()->getLocale() === 'fr';
         $seo = Seo::page(
-            $isFrench ? 'Études de cas' : 'Case Studies',
-            $isFrench
-                ? "Études de cas sur les flux produit, l'auto-hébergement, le consentement, le SEO technique et d'autres systèmes web sous contrainte."
-                : 'Case studies about product-data flows, self-hosting, consent, technical SEO, and other constrained web systems.',
+            PublicCopy::line('seo.case_studies.title'),
+            PublicCopy::line('seo.case_studies.description'),
             '/case-studies',
             [
                 'robots' => 'index,follow',
-                'breadcrumb' => [
-                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-                    ['name' => $isFrench ? 'Projets' : 'Projects', 'path' => '/projects'],
-                    ['name' => $isFrench ? 'Études de cas' : 'Case Studies', 'path' => '/case-studies'],
-                ],
+                'breadcrumb' => $this->indexBreadcrumb(),
             ],
         );
 
@@ -42,7 +36,6 @@ class CaseStudyController extends Controller
     public function show(string $locale, string $slug): Response
     {
         $item = $this->content->findPublished('case-studies', $slug);
-        $isFrench = app()->getLocale() === 'fr';
         $related = $this->content->published('case-studies', app()->getLocale(), false)
             ->reject(fn (array $candidate): bool => $candidate['slug'] === $item['slug'])
             ->take(3)
@@ -63,11 +56,9 @@ class CaseStudyController extends Controller
                     'alt' => $item['featured_image_alt'] ?: $item['image_alt'],
                     'slug' => $item['slug'],
                 ],
-                'section' => $isFrench ? 'Cas clients' : 'Case Studies',
+                'section' => PublicCopy::line('sections.case_studies'),
                 'breadcrumb' => [
-                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-                    ['name' => $isFrench ? 'Projets' : 'Projects', 'path' => '/projects'],
-                    ['name' => $isFrench ? 'Études de cas' : 'Case Studies', 'path' => '/case-studies'],
+                    ...$this->indexBreadcrumb(),
                     ['name' => $item['title'], 'path' => '/case-studies/'.$item['slug']],
                 ],
             ],
@@ -78,5 +69,20 @@ class CaseStudyController extends Controller
             'item' => $item,
             'related' => $related,
         ])->withViewData(['seo' => $seo]);
+    }
+
+    /**
+     * The trail down to the index, shared by both actions so a rename of a
+     * segment cannot land on one of them only.
+     *
+     * @return array<int, array{name: string, path: string}>
+     */
+    protected function indexBreadcrumb(): array
+    {
+        return [
+            ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
+            ['name' => PublicCopy::line('breadcrumbs.projects'), 'path' => '/projects'],
+            ['name' => PublicCopy::line('breadcrumbs.case_studies'), 'path' => '/case-studies'],
+        ];
     }
 }

@@ -126,15 +126,7 @@ class PublicLocale
      */
     public static function navigation(string $locale, ?string $currentPath = null): array
     {
-        $labels = $locale === 'fr'
-            ? [
-                '/' => 'Hello',
-                '/local' => 'Localisation',
-                '/projects' => 'Expériences',
-                '/journal' => 'Journal',
-                '/contact' => 'Contact ✍🏽',
-            ]
-            : [];
+        $labels = PublicCopy::group('navigation', $locale);
 
         $current = self::normalizeSectionPath($currentPath ?? '/');
 
@@ -203,32 +195,29 @@ class PublicLocale
      *     privacyControlsLabel: string
      * }
      */
+    /**
+     * The keys cross a language boundary here: `lang/` is snake_case by
+     * convention and `SiteProps.shell` is camelCase because TypeScript reads
+     * it. Mapping them one by one rather than transforming the case keeps the
+     * contract between the two readable in one screen — and makes a key added
+     * on one side without the other a type error rather than a blank label.
+     *
+     * @return array<string, string>
+     */
     public static function shellCopy(string $locale): array
     {
-        if ($locale === 'fr') {
-            return [
-                'headerTagline' => 'Développeur e-commerce full stack. Data transverse, flux fiables.',
-                'localeSwitcherLabel' => 'Langue',
-                'navAriaLabel' => 'Navigation principale',
-                'navMenuLabel' => 'Menu',
-                'navFallbackLabel' => 'Navigation',
-                'navCurrentLabel' => 'Actif',
-                'navOpenLabel' => 'Lire plus',
-                'footerNote' => 'Développement web, donnée produit, connecteurs, outils internes et SEO technique pour des équipes qui ont déjà du réel à faire tourner.',
-                'privacyControlsLabel' => 'Réglages vie privée',
-            ];
-        }
+        $copy = PublicCopy::group('shell', $locale);
 
         return [
-            'headerTagline' => 'Full-stack e-commerce. Cross-functional data, reliable flows.',
-            'localeSwitcherLabel' => 'Language',
-            'navAriaLabel' => 'Primary navigation',
-            'navMenuLabel' => 'Menu',
-            'navFallbackLabel' => 'Navigation',
-            'navCurrentLabel' => 'Current',
-            'navOpenLabel' => 'Read more',
-            'footerNote' => 'Web engineering for product data, integrations, internal tools, and technical SEO in teams already running real operations.',
-            'privacyControlsLabel' => 'Privacy controls',
+            'headerTagline' => $copy['header_tagline'],
+            'localeSwitcherLabel' => $copy['locale_switcher_label'],
+            'navAriaLabel' => $copy['nav_aria_label'],
+            'navMenuLabel' => $copy['nav_menu_label'],
+            'navFallbackLabel' => $copy['nav_fallback_label'],
+            'navCurrentLabel' => $copy['nav_current_label'],
+            'navOpenLabel' => $copy['nav_open_label'],
+            'footerNote' => $copy['footer_note'],
+            'privacyControlsLabel' => $copy['privacy_controls_label'],
         ];
     }
 
