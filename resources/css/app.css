@@ -2,22 +2,12 @@
 @import '@fontsource/dm-sans/500.css';
 @import '@fontsource/syne/700.css';
 @import '@fontsource/fraunces/400-italic.css';
-@import 'tailwindcss';
+@import './base.css';
 @import './tokens.css';
 @import './reset.css';
 @import './typography.css';
 @import './layout.css';
 @import './view-transitions.css';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-
-@theme inline {
-    --font-sans: var(--sw-font-body);
-    --font-display: var(--sw-font-display);
-    --font-heading: var(--sw-font-heading);
-    --font-mono: var(--sw-font-code);
-}
 
 html #cc-main,
 html .cm__body {

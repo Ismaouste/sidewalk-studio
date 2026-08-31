@@ -18,7 +18,7 @@ sections:
       cta_href: https://github.com/Ismaouste/sidewalk-studio/tree/main/docs/ai/obsidian/build-journal
     - title: Stack et hébergement
       eyebrow: Implémentation
-      summary: "Laravel 12, Inertia, Vue 3, Tailwind v4, Vite. SQLite en local, déploiement Vercel. Aucune dépendance JavaScript d'animation. Tokens CSS comme seule surface publique de design."
+      summary: "Laravel 13, Inertia 3, Vue 3, Vite 8 (Rolldown). SQLite en local, déploiement Vercel. Aucune dépendance JavaScript d'animation, aucun framework CSS. Tokens CSS comme seule surface publique de design."
       cta_label: Voir le code source
       cta_href: https://github.com/Ismaouste/sidewalk-studio
     - title: Vie privée

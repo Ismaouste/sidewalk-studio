@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Personal portfolio site for Isma. Stack: Laravel 12 + Inertia + Vue 3 + Tailwind v4 + Vite, deployed on Vercel. See `AGENTS.md` for the full repo contract; this file documents Claude-Code-specific conventions.
+Personal portfolio site for Isma. Stack: Laravel 13 + Inertia 3 + Vue 3 + Vite 8 (Rolldown), deployed on Vercel. There is no CSS framework: all styling is hand-authored against `--sw-*` tokens. See `AGENTS.md` for the full repo contract; this file documents Claude-Code-specific conventions.
 
 ## Working rules
 

@@ -9,7 +9,7 @@ This repository now serves two purposes at once:
 
 ## What ships in the current release
 
-- Laravel 12 + Inertia.js + Vue 3 + TypeScript application shell
+- Laravel 13 + Inertia.js 3 + Vue 3 + TypeScript application shell
 - reusable public design system with token-driven `Morning` and `Sunset` themes
 - public pages for `Hello`, `Experience`, `Journal`, `Contact`, `Projects`, `Case Studies`, `Local`, and `Labs`
 - Markdown-driven public content in French and English for pages, notes, journal entries, and case studies
@@ -31,7 +31,7 @@ The portfolio is intentionally opinionated:
 
 ## Stack
 
-- Laravel 12
+- Laravel 13
 - PHP 8.4 for CI/static preview
 - Inertia.js
 - Vue 3
