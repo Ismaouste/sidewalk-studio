@@ -21,9 +21,21 @@ html {
         );
 }
 
+/* The shell's gutter, named once so that a child meant to bleed past it can
+   reach the screen edge exactly instead of restating a guess. The width is
+   derived from it, so the two can no longer drift: the sticky breadcrumb
+   compensated a hardcoded 16px against a gutter that is 12px below 480px, and
+   overhung the left edge by the difference.
+
+   It describes the gutter, not always the margin — past
+   `--sw-shell-max-width` the `min()` picks the cap and the real margin is
+   wider. Every full-bleed use of it is below 640px, where the first branch
+   always wins. */
 .sw-container {
+    --sw-container-inset: calc(var(--sw-layout-gutter-lg) / 2);
+
     width: min(
-        calc(100% - var(--sw-layout-gutter-lg)),
+        calc(100% - 2 * var(--sw-container-inset)),
         var(--sw-shell-max-width)
     );
     min-width: 0;
@@ -51,6 +63,14 @@ html {
 .sw-main > .sw-container > * {
     min-width: 0;
     max-width: 100%;
+}
+
+/* The one child meant to be wider than its track. Capping it turned the
+   breadcrumb's negative right margin into an indent: a stretched grid item
+   whose width is bounded stops stretching and falls back to start alignment,
+   so the bar bled past the left edge and stopped short of the right one. */
+.sw-main > .sw-container > .sw-main__breadcrumb {
+    max-width: none;
 }
 
 .sw-grid > * {
@@ -127,10 +147,7 @@ html {
 
 @media (max-width: 1024px) {
     .sw-container {
-        width: min(
-            calc(100% - calc(var(--sw-layout-gutter-md) + 16px)),
-            var(--sw-shell-max-width)
-        );
+        --sw-container-inset: calc((var(--sw-layout-gutter-md) + 16px) / 2);
     }
 }
 
@@ -153,10 +170,7 @@ html {
 
 @media (max-width: 640px) {
     .sw-container {
-        width: min(
-            calc(100% - var(--sw-layout-gutter-md)),
-            var(--sw-shell-max-width)
-        );
+        --sw-container-inset: calc(var(--sw-layout-gutter-md) / 2);
     }
 
     .sw-main {
@@ -179,9 +193,6 @@ html {
 
 @media (max-width: 480px) {
     .sw-container {
-        width: min(
-            calc(100% - var(--sw-layout-gutter-sm)),
-            var(--sw-shell-max-width)
-        );
+        --sw-container-inset: calc(var(--sw-layout-gutter-sm) / 2);
     }
 }

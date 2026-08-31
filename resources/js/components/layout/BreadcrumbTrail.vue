@@ -123,12 +123,18 @@ const copy = computed(() => copyTree[page.props.site.locale].layout.landmarks);
 }
 
 @media (max-width: 640px) {
+    /* The bar bleeds the shell's gutter on both sides, so the glass it picks up
+       when it sticks meets both screen edges rather than stopping just inside
+       them. It reads the gutter from the container instead of restating it:
+       that number narrows twice more below this breakpoint, and a literal here
+       was wrong on a phone in one direction and short in the other. */
     .breadcrumb-trail {
         position: sticky;
         top: calc(var(--sw-public-header-height, 104px) - 1px);
         z-index: calc(var(--sw-z-header) - 2);
-        margin-inline: calc(-1 * var(--sw-space-xs));
-        padding: 0.16rem var(--sw-space-xs) 0;
+        margin-inline: calc(-1 * var(--sw-container-inset, var(--sw-space-xs)));
+        padding-block: 0.16rem 0;
+        padding-inline: var(--sw-container-inset, var(--sw-space-xs));
         border-bottom: 1px solid transparent;
     }
 
