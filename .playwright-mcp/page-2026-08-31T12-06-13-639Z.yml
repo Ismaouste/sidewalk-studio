@@ -1,0 +1,254 @@
+- generic [ref=f21e3]:
+  - banner [ref=f21e4]:
+    - generic [ref=f21e6]:
+      - link "Ismael Rodmacq portrait Ismaël Rodmacq Full-stack e-commerce. Cross-functional data, reliable flows." [ref=f21e8] [cursor=pointer]:
+        - /url: /en
+        - img "Ismael Rodmacq portrait" [ref=f21e10]
+        - generic [ref=f21e11]:
+          - generic [ref=f21e12]: Ismaël Rodmacq
+          - generic [ref=f21e13]: Full-stack e-commerce. Cross-functional data, reliable flows.
+      - navigation "Primary navigation" [ref=f21e15]:
+        - button "Menu Journal" [ref=f21e16] [cursor=pointer]:
+          - generic [ref=f21e17]:
+            - generic [ref=f21e18]: Menu
+            - generic [ref=f21e19]: Journal
+        - generic [ref=f21e23]:
+          - link "Hello Enter →" [ref=f21e24] [cursor=pointer]:
+            - /url: /en
+            - generic [ref=f21e25]: Hello
+            - generic [ref=f21e26]:
+              - generic [ref=f21e27]: Enter
+              - text: →
+          - link "Experience View work →" [ref=f21e28] [cursor=pointer]:
+            - /url: /en/projects
+            - generic [ref=f21e29]: Experience
+            - generic [ref=f21e30]:
+              - generic [ref=f21e31]: View work
+              - text: →
+          - text: →
+          - link "Contact ✍🏽 Write →" [ref=f21e32] [cursor=pointer]:
+            - /url: /en/contact
+            - generic [ref=f21e33]: Contact ✍🏽
+            - generic [ref=f21e34]:
+              - generic [ref=f21e35]: Write
+              - text: →
+  - main [ref=f21e36]:
+    - generic [ref=f21e37]:
+      - navigation "Breadcrumb" [ref=f21e39]:
+        - list [ref=f21e40]:
+          - listitem [ref=f21e41]:
+            - link "Home" [ref=f21e42] [cursor=pointer]:
+              - /url: /en
+            - text: /
+          - listitem [ref=f21e43]:
+            - generic [ref=f21e44]: Journal
+      - generic [ref=f21e46]:
+        - generic [ref=f21e47]:
+          - paragraph [ref=f21e48]: Journal
+          - heading "Articles, short notes, and build markers." [level=2] [ref=f21e49]
+          - paragraph [ref=f21e50]: A public journal that mixes richer essays and shorter notes around build work, architecture, content systems, and the field contexts behind the studio.
+          - generic [ref=f21e51]:
+            - link "Browse references" [ref=f21e52] [cursor=pointer]:
+              - /url: /en/projects
+            - link "Contact" [ref=f21e54] [cursor=pointer]:
+              - /url: /en/contact
+          - generic [ref=f21e56]:
+            - generic [ref=f21e57]: Articles and notes
+            - generic [ref=f21e58]: 9 publications
+        - generic [ref=f21e59]:
+          - link "Constraints can be part of the design system Journal / March 2026 / 3 min Constraints can be part of the design system In a jewelry design system, the most useful rules do not only describe what to build; they also explain what must stay forbidden to protect the visual identity. design-system delivery journal" [ref=f21e60] [cursor=pointer]:
+            - /url: /en/journal/les-interdits-comme-specification
+            - generic [ref=f21e61]:
+              - img "Constraints can be part of the design system" [ref=f21e63]
+              - generic [ref=f21e64]:
+                - generic [ref=f21e65]:
+                  - generic [ref=f21e66]: Journal
+                  - generic [ref=f21e67]: / March 2026
+                  - generic [ref=f21e68]: / 3 min
+                - heading "Constraints can be part of the design system" [level=2] [ref=f21e69]
+                - paragraph [ref=f21e70]: In a jewelry design system, the most useful rules do not only describe what to build; they also explain what must stay forbidden to protect the visual identity.
+                - generic [ref=f21e71]:
+                  - generic [ref=f21e72]: design-system
+                  - generic [ref=f21e73]: delivery
+                  - generic [ref=f21e74]: journal
+          - link "When a deployment succeeds without really succeeding Journal / March 2026 / 3 min When a deployment succeeds without really succeeding A silent Docker Swarm rollback can leave production on the old image while an automated deployment still reports success. deployment reliability journal" [ref=f21e75] [cursor=pointer]:
+            - /url: /en/journal/quand-un-deploiement-reussi-ne-lest-pas
+            - generic [ref=f21e76]:
+              - img "When a deployment succeeds without really succeeding" [ref=f21e78]
+              - generic [ref=f21e79]:
+                - generic [ref=f21e80]:
+                  - generic [ref=f21e81]: Journal
+                  - generic [ref=f21e82]: / March 2026
+                  - generic [ref=f21e83]: / 3 min
+                - heading "When a deployment succeeds without really succeeding" [level=2] [ref=f21e84]
+                - paragraph [ref=f21e85]: A silent Docker Swarm rollback can leave production on the old image while an automated deployment still reports success.
+                - generic [ref=f21e86]:
+                  - generic [ref=f21e87]: deployment
+                  - generic [ref=f21e88]: reliability
+                  - generic [ref=f21e89]: journal
+          - link "From nancyapipop to Culturedex Journal / March 2026 / 3 min From nancyapipop to Culturedex Two public-data projects around the French POP API, from a Nancy prototype to a more structured backend for exploring cultural records. pop-api nestjs public-data cultural-data" [ref=f21e90] [cursor=pointer]:
+            - /url: /en/journal/from-nancyapipop-to-culturedex
+            - generic [ref=f21e91]:
+              - img "From nancyapipop to Culturedex" [ref=f21e93]
+              - generic [ref=f21e94]:
+                - generic [ref=f21e95]:
+                  - generic [ref=f21e96]: Journal
+                  - generic [ref=f21e97]: / March 2026
+                  - generic [ref=f21e98]: / 3 min
+                - heading "From nancyapipop to Culturedex" [level=2] [ref=f21e99]
+                - paragraph [ref=f21e100]: Two public-data projects around the French POP API, from a Nancy prototype to a more structured backend for exploring cultural records.
+                - generic [ref=f21e101]:
+                  - generic [ref=f21e102]: pop-api
+                  - generic [ref=f21e103]: nestjs
+                  - generic [ref=f21e104]: public-data
+                  - generic [ref=f21e105]: cultural-data
+          - link "Schema.org, rich results, and product images Note / March 2026 / 3 min Schema.org, rich results, and product images Product structured data only stays useful when images, offer data, and page intent remain aligned with what the catalog can really support. schema-org seo structured-data notes-dev" [ref=f21e106] [cursor=pointer]:
+            - /url: /en/journal/schema-org-rich-results-and-product-images
+            - generic [ref=f21e107]:
+              - img "Schema.org, rich results, and product images" [ref=f21e109]
+              - generic [ref=f21e110]:
+                - generic [ref=f21e111]:
+                  - generic [ref=f21e112]: Note
+                  - generic [ref=f21e113]: / March 2026
+                  - generic [ref=f21e114]: / 3 min
+                - heading "Schema.org, rich results, and product images" [level=2] [ref=f21e115]
+                - paragraph [ref=f21e116]: Product structured data only stays useful when images, offer data, and page intent remain aligned with what the catalog can really support.
+                - generic [ref=f21e117]:
+                  - generic [ref=f21e118]: schema-org
+                  - generic [ref=f21e119]: seo
+                  - generic [ref=f21e120]: structured-data
+                  - generic [ref=f21e121]: notes-dev
+          - link "Technical SEO, sitemaps, and structured data for commerce Journal / March 2026 / 3 min Technical SEO, sitemaps, and structured data for commerce Technical SEO in ecommerce starts with coherent URLs, sitemap coverage, robots rules, and structured data that stays aligned with the catalog. seo ecommerce structured-data sitemap" [ref=f21e122] [cursor=pointer]:
+            - /url: /en/journal/technical-seo-sitemaps-and-structured-data-for-commerce
+            - generic [ref=f21e123]:
+              - img "Technical SEO, sitemaps, and structured data for commerce" [ref=f21e125]
+              - generic [ref=f21e126]:
+                - generic [ref=f21e127]:
+                  - generic [ref=f21e128]: Journal
+                  - generic [ref=f21e129]: / March 2026
+                  - generic [ref=f21e130]: / 3 min
+                - heading "Technical SEO, sitemaps, and structured data for commerce" [level=2] [ref=f21e131]
+                - paragraph [ref=f21e132]: Technical SEO in ecommerce starts with coherent URLs, sitemap coverage, robots rules, and structured data that stays aligned with the catalog.
+                - generic [ref=f21e133]:
+                  - generic [ref=f21e134]: seo
+                  - generic [ref=f21e135]: ecommerce
+                  - generic [ref=f21e136]: structured-data
+                  - generic [ref=f21e137]: sitemap
+          - link "Content systems start with routing and metadata Journal / March 2026 / 3 min Content systems start with routing and metadata Markdown becomes publishable once routing, metadata, and publication state are explicit enough to drive canonical URLs, archives, and sitemap output. content seo laravel metadata" [ref=f21e138] [cursor=pointer]:
+            - /url: /en/journal/content-systems-routing-and-metadata
+            - generic [ref=f21e139]:
+              - img "Content systems start with routing and metadata" [ref=f21e141]
+              - generic [ref=f21e142]:
+                - generic [ref=f21e143]:
+                  - generic [ref=f21e144]: Journal
+                  - generic [ref=f21e145]: / March 2026
+                  - generic [ref=f21e146]: / 3 min
+                - heading "Content systems start with routing and metadata" [level=2] [ref=f21e147]
+                - paragraph [ref=f21e148]: Markdown becomes publishable once routing, metadata, and publication state are explicit enough to drive canonical URLs, archives, and sitemap output.
+                - generic [ref=f21e149]:
+                  - generic [ref=f21e150]: content
+                  - generic [ref=f21e151]: seo
+                  - generic [ref=f21e152]: laravel
+                  - generic [ref=f21e153]: metadata
+          - link "YTMusic Liked Sorter Note / March 2026 / 2 min YTMusic Liked Sorter A small personal utility became useful once it turned a long like history into something sortable, readable, and worth revisiting again. ytmusic-liked-sorter notes-dev hobby" [ref=f21e154] [cursor=pointer]:
+            - /url: /en/journal/ytmusic-liked-sorter
+            - generic [ref=f21e155]:
+              - img "YTMusic Liked Sorter" [ref=f21e157]
+              - generic [ref=f21e158]:
+                - generic [ref=f21e159]:
+                  - generic [ref=f21e160]: Note
+                  - generic [ref=f21e161]: / March 2026
+                  - generic [ref=f21e162]: / 2 min
+                - heading "YTMusic Liked Sorter" [level=2] [ref=f21e163]
+                - paragraph [ref=f21e164]: A small personal utility became useful once it turned a long like history into something sortable, readable, and worth revisiting again.
+                - generic [ref=f21e165]:
+                  - generic [ref=f21e166]: ytmusic-liked-sorter
+                  - generic [ref=f21e167]: notes-dev
+                  - generic [ref=f21e168]: hobby
+          - link "NJP volunteering and small useful tools Journal / March 2026 / 2 min NJP volunteering and small useful tools Volunteering at Nancy Jazz Pulsations keeps software tied to real constraints and explains why some of the most useful tools stay small on purpose. njp volunteering personal-project notes-dev" [ref=f21e169] [cursor=pointer]:
+            - /url: /en/journal/njp-volunteering-and-small-tools
+            - generic [ref=f21e170]:
+              - img "NJP volunteering and small useful tools" [ref=f21e172]
+              - generic [ref=f21e173]:
+                - generic [ref=f21e174]:
+                  - generic [ref=f21e175]: Journal
+                  - generic [ref=f21e176]: / March 2026
+                  - generic [ref=f21e177]: / 2 min
+                - heading "NJP volunteering and small useful tools" [level=2] [ref=f21e178]
+                - paragraph [ref=f21e179]: Volunteering at Nancy Jazz Pulsations keeps software tied to real constraints and explains why some of the most useful tools stay small on purpose.
+                - generic [ref=f21e180]:
+                  - generic [ref=f21e181]: njp
+                  - generic [ref=f21e182]: volunteering
+                  - generic [ref=f21e183]: personal-project
+                  - generic [ref=f21e184]: notes-dev
+          - link "Open survey, non-profit work, and health data constraints Journal / March 2026 / 2 min Open survey, non-profit work, and health data constraints A reporting tool for Aremedia had to stay sober, understandable, and secure enough for health-related field work without becoming a heavy platform. opensurvey health nonprofit notes-dev" [ref=f21e185] [cursor=pointer]:
+            - /url: /en/journal/opensurvey-nonprofit-health-data
+            - generic [ref=f21e186]:
+              - img "Open survey, non-profit work, and health data constraints" [ref=f21e188]
+              - generic [ref=f21e189]:
+                - generic [ref=f21e190]:
+                  - generic [ref=f21e191]: Journal
+                  - generic [ref=f21e192]: / March 2026
+                  - generic [ref=f21e193]: / 2 min
+                - heading "Open survey, non-profit work, and health data constraints" [level=2] [ref=f21e194]
+                - paragraph [ref=f21e195]: A reporting tool for Aremedia had to stay sober, understandable, and secure enough for health-related field work without becoming a heavy platform.
+                - generic [ref=f21e196]:
+                  - generic [ref=f21e197]: opensurvey
+                  - generic [ref=f21e198]: health
+                  - generic [ref=f21e199]: nonprofit
+                  - generic [ref=f21e200]: notes-dev
+        - navigation "Next step" [ref=f21e201]:
+          - link "Talk about a similar context" [ref=f21e202] [cursor=pointer]:
+            - /url: /en/contact
+            - generic [ref=f21e204]: →
+  - contentinfo [ref=f21e205]:
+    - generic [ref=f21e206]:
+      - generic [ref=f21e207]:
+        - generic [ref=f21e208]:
+          - paragraph [ref=f21e209]: Web engineering for product data, integrations, internal tools, and technical SEO in teams already running real operations.
+          - paragraph [ref=f21e210]: Analytics stays explicit opt-in.
+        - generic [ref=f21e211]:
+          - generic [ref=f21e212]:
+            - link "LinkedIn" [ref=f21e213] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ismaelrodmacq
+            - link "Direct contact" [ref=f21e214] [cursor=pointer]:
+              - /url: mailto:ismael@rodmacq.com
+            - link "Data processing" [ref=f21e215] [cursor=pointer]:
+              - /url: /en/data-processing
+            - link "Colophon" [ref=f21e216] [cursor=pointer]:
+              - /url: /en/colophon
+            - button "Back to top" [ref=f21e217] [cursor=pointer]
+          - generic [ref=f21e218]:
+            - generic [ref=f21e219]:
+              - generic [ref=f21e220]: Nancy, Grand-Est
+              - link "ismael@rodmacq.com" [ref=f21e221] [cursor=pointer]:
+                - /url: mailto:ismael@rodmacq.com
+            - generic [ref=f21e222]:
+              - navigation "Language" [ref=f21e223]:
+                - link "EN" [ref=f21e224] [cursor=pointer]:
+                  - /url: /en/journal
+                - link "FR" [ref=f21e225] [cursor=pointer]:
+                  - /url: /fr/journal
+              - radiogroup "Color theme" [ref=f21e226]:
+                - radio "Use Morning theme" [checked] [ref=f21e228] [cursor=pointer]: Morning
+                - radio "Use Sunset theme" [ref=f21e229] [cursor=pointer]: Sunset
+              - generic [ref=f21e230]:
+                - button "Accessibility" [ref=f21e231] [cursor=pointer]
+                - dialog "Accessibility settings" [ref=f21e232]:
+                  - button "Close panel" [ref=f21e233] [cursor=pointer]: ✕
+                  - button "Reduced motion Ambient background, loader, and transitions become quieter. Off" [ref=f21e234] [cursor=pointer]:
+                    - generic [ref=f21e235]:
+                      - generic [ref=f21e236]: Reduced motion
+                      - generic [ref=f21e237]: Ambient background, loader, and transitions become quieter.
+                    - generic [ref=f21e238]: "Off"
+                  - button "Boost contrast Secondary text and borders gain weight in both themes. Off" [ref=f21e239] [cursor=pointer]:
+                    - generic [ref=f21e240]:
+                      - generic [ref=f21e241]: Boost contrast
+                      - generic [ref=f21e242]: Secondary text and borders gain weight in both themes.
+                    - generic [ref=f21e243]: "Off"
+              - button "Privacy controls" [ref=f21e244] [cursor=pointer]
+      - generic [ref=f21e245]:
+        - link "© MIT" [ref=f21e246] [cursor=pointer]:
+          - /url: https://github.com/Ismaouste/sidewalk-studio
+        - link "Ismaël Rodmacq" [ref=f21e247] [cursor=pointer]:
+          - /url: mailto:ismael@rodmacq.com

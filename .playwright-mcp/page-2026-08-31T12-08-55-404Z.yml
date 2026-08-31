@@ -1,0 +1,187 @@
+- generic [ref=f22e183]:
+  - banner [ref=f22e184]:
+    - generic [ref=f22e186]:
+      - link "Ismael Rodmacq portrait Ismaël Rodmacq Full-stack e-commerce. Cross-functional data, reliable flows." [ref=f22e188] [cursor=pointer]:
+        - /url: /en
+        - img "Ismael Rodmacq portrait" [ref=f22e190]
+        - generic [ref=f22e191]:
+          - generic [ref=f22e192]: Ismaël Rodmacq
+          - generic [ref=f22e193]: Full-stack e-commerce. Cross-functional data, reliable flows.
+      - navigation "Primary navigation" [ref=f22e195]:
+        - generic [ref=f22e196]:
+          - link "Hello" [ref=f22e197] [cursor=pointer]:
+            - /url: /en
+            - text: →
+          - link "Experience" [ref=f22e199] [cursor=pointer]:
+            - /url: /en/projects
+            - text: →
+          - link "Journal" [ref=f22e201] [cursor=pointer]:
+            - /url: /en/journal
+            - text: →
+          - link "Contact ✍🏽" [ref=f22e203] [cursor=pointer]:
+            - /url: /en/contact
+            - text: →
+  - main [ref=f22e205]:
+    - generic [ref=f22e206]:
+      - navigation "Breadcrumb" [ref=f22e207]:
+        - list [ref=f22e208]:
+          - listitem [ref=f22e209]:
+            - link "Home" [ref=f22e210] [cursor=pointer]:
+              - /url: /en
+            - text: /
+          - listitem [ref=f22e211]:
+            - link "Journal" [ref=f22e212] [cursor=pointer]:
+              - /url: /en/journal
+            - text: /
+          - listitem [ref=f22e213]:
+            - generic [ref=f22e214]: Constraints can be part of the design system
+      - generic [ref=f22e216]:
+        - generic [ref=f22e217]:
+          - generic [ref=f22e218]:
+            - paragraph [ref=f22e219]: Journal
+            - heading "Constraints can be part of the design system" [level=2] [ref=f22e220]
+            - paragraph [ref=f22e221]: The decisive moment does not happen when a Vue component is finally documented. It happens when the team also knows what not to do, even when nobody is available to repeat the orig...
+            - generic [ref=f22e222]:
+              - generic [ref=f22e223]: Article
+              - generic [ref=f22e224]: 3 tagged threads
+          - list "Content metadata" [ref=f22e225]:
+            - listitem [ref=f22e226]:
+              - generic [ref=f22e227]: Published
+              - generic [ref=f22e228]: 18 March 2026
+              - text: ·
+            - listitem [ref=f22e229]:
+              - generic [ref=f22e230]: Updated
+              - generic [ref=f22e231]: 20 March 2026
+              - text: ·
+            - listitem [ref=f22e232]:
+              - generic [ref=f22e233]: Read
+              - generic [ref=f22e234]: 3 min
+        - generic [ref=f22e235]:
+          - article [ref=f22e236]:
+            - img "Constraints can be part of the design system" [ref=f22e238]
+            - generic [ref=f22e239]:
+              - paragraph [ref=f22e240]: The decisive moment does not happen when a Vue component is finally documented. It happens when the team also knows what not to do, even when nobody is available to repeat the original design decision inside a jewelry design system.
+              - heading [level=2] [ref=f22e241]:
+                - text: Problem
+                - link "Copier le lien vers cette section" [ref=f22e242] [cursor=pointer]:
+                  - /url: "#problem"
+                  - text: "#"
+              - paragraph [ref=f22e243]: Design-system documentation usually describes components, spacing, colors, and approved variants. That is necessary. It is not enough in projects where pages live for a long time, teams change, and no permanent designer is available to arbitrate every new page.
+              - paragraph [ref=f22e244]: Without negative rules, the system stays too open. A homepage ends up showing a price that breaks the brand tone. A filled button appears because it felt more visible. A title turns bold while the whole typographic logic of the site depended on something quieter. Nobody necessarily worked badly. The boundary was simply never written down.
+              - heading [level=2] [ref=f22e245]:
+                - text: Decision
+                - link "Copier le lien vers cette section" [ref=f22e246] [cursor=pointer]:
+                  - /url: "#decision"
+                  - text: "#"
+              - paragraph [ref=f22e247]: The most useful decision is to document constraints with the same seriousness as positive rules.
+              - paragraph [ref=f22e248]: Saying that a homepage hero does not show prices, that a filled button does not belong in a certain visual language, or that a heading must not become bold is not a minor stylistic preference. It is a way to make a design decision durable. The team no longer has to guess the original intent. It can rely on an explicit constraint.
+              - paragraph [ref=f22e249]: The alternative looks more flexible but costs more over time. Without stated constraints, every new page silently reopens decisions that should have remained stable. Development, content, and design end up replaying the same micro-arbitrations, with slightly different results each time.
+              - heading [level=2] [ref=f22e250]:
+                - text: Result
+                - link "Copier le lien vers cette section" [ref=f22e251] [cursor=pointer]:
+                  - /url: "#result"
+                  - text: "#"
+              - paragraph [ref=f22e252]: Well-written constraints make delivery lighter. They reduce the number of decisions that need to be revisited and protect the character of the site when production continues with a different team from one week to the next.
+              - paragraph [ref=f22e253]: "They also do something else that matters: they force a better reading of the brand or product. To write down what must not happen, the team has to understand what that choice would degrade. Documentation becomes sharper. It stops being a gallery of components and starts acting like a technical translation of editorial, visual, and commercial intent."
+              - paragraph [ref=f22e254]: That is why I think of constraints as a form of negative specification. They say less "here is the expected rendering" than "here is what we refuse if we want the system to stay coherent." On a live project, that often protects quality better than a longer catalog of positive examples.
+              - paragraph [ref=f22e255]:
+                - text: This article belongs next to
+                - link "When a deployment succeeds without really succeeding" [ref=f22e256] [cursor=pointer]:
+                  - /url: /en/journal/quand-un-deploiement-reussi-ne-lest-pas
+                - text: "for a reason that goes beyond design. In both cases, the useful work is the same: make something explicit before ambiguity gets a chance to settle inside the system."
+          - complementary [ref=f22e257]:
+            - generic [ref=f22e258]:
+              - paragraph [ref=f22e259]: Article
+              - paragraph [ref=f22e260]: In a jewelry design system, the most useful rules do not only describe what to build; they also explain what must stay forbidden to protect the visual identity.
+              - generic [ref=f22e261]:
+                - generic [ref=f22e262]: design-system
+                - generic [ref=f22e263]: delivery
+                - generic [ref=f22e264]: journal
+            - generic [ref=f22e265]:
+              - paragraph [ref=f22e266]: Continue the thread
+              - paragraph [ref=f22e267]: Case studies show how the same architectural choices behave under delivery pressure and stakeholder constraints.
+              - generic [ref=f22e268]:
+                - link "Open case studies" [ref=f22e269] [cursor=pointer]:
+                  - /url: /en/case-studies
+                - link "Contact" [ref=f22e271] [cursor=pointer]:
+                  - /url: /en/contact
+        - region "Related items" [ref=f22e274]:
+          - generic [ref=f22e275]:
+            - paragraph [ref=f22e276]: Read next
+            - heading "More notes and articles in the same thread" [level=2] [ref=f22e277]
+          - list [ref=f22e278]:
+            - listitem [ref=f22e279]:
+              - link [ref=f22e280] [cursor=pointer]:
+                - /url: /en/journal/quand-un-deploiement-reussi-ne-lest-pas
+                - img "When a deployment succeeds without really succeeding" [ref=f22e282]
+                - generic [ref=f22e283]:
+                  - paragraph [ref=f22e284]: March 2026
+                  - heading "When a deployment succeeds without really succeeding" [level=3] [ref=f22e285]
+                  - paragraph [ref=f22e286]: A silent Docker Swarm rollback can leave production on the old image while an automated deployment still reports success.
+            - listitem [ref=f22e287]:
+              - link [ref=f22e288] [cursor=pointer]:
+                - /url: /en/journal/from-nancyapipop-to-culturedex
+                - img "From nancyapipop to Culturedex" [ref=f22e290]
+                - generic [ref=f22e291]:
+                  - paragraph [ref=f22e292]: March 2026
+                  - heading "From nancyapipop to Culturedex" [level=3] [ref=f22e293]
+                  - paragraph [ref=f22e294]: Two public-data projects around the French POP API, from a Nancy prototype to a more structured backend for exploring cultural records.
+            - listitem [ref=f22e295]:
+              - link [ref=f22e296] [cursor=pointer]:
+                - /url: /en/journal/schema-org-rich-results-and-product-images
+                - img "Schema.org, rich results, and product images" [ref=f22e298]
+                - generic [ref=f22e299]:
+                  - paragraph [ref=f22e300]: March 2026
+                  - heading "Schema.org, rich results, and product images" [level=3] [ref=f22e301]
+                  - paragraph [ref=f22e302]: Product structured data only stays useful when images, offer data, and page intent remain aligned with what the catalog can really support.
+  - contentinfo [ref=f22e303]:
+    - generic [ref=f22e304]:
+      - generic [ref=f22e305]:
+        - generic [ref=f22e306]:
+          - paragraph [ref=f22e307]: Web engineering for product data, integrations, internal tools, and technical SEO in teams already running real operations.
+          - paragraph [ref=f22e308]: Analytics stays explicit opt-in.
+        - generic [ref=f22e309]:
+          - generic [ref=f22e310]:
+            - link "LinkedIn" [ref=f22e311] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ismaelrodmacq
+            - link "Direct contact" [ref=f22e312] [cursor=pointer]:
+              - /url: mailto:ismael@rodmacq.com
+            - link "Data processing" [ref=f22e313] [cursor=pointer]:
+              - /url: /en/data-processing
+            - link "Colophon" [ref=f22e314] [cursor=pointer]:
+              - /url: /en/colophon
+            - button "Back to top" [ref=f22e315] [cursor=pointer]
+          - generic [ref=f22e316]:
+            - generic [ref=f22e317]:
+              - generic [ref=f22e318]: Nancy, Grand-Est
+              - link "ismael@rodmacq.com" [ref=f22e319] [cursor=pointer]:
+                - /url: mailto:ismael@rodmacq.com
+            - generic [ref=f22e320]:
+              - navigation "Language" [ref=f22e321]:
+                - link "EN" [ref=f22e322] [cursor=pointer]:
+                  - /url: /en/journal/les-interdits-comme-specification
+                - link "FR" [ref=f22e323] [cursor=pointer]:
+                  - /url: /fr/journal/les-interdits-comme-specification
+              - radiogroup "Color theme" [ref=f22e324]:
+                - radio "Use Morning theme" [checked] [ref=f22e326] [cursor=pointer]: Morning
+                - radio "Use Sunset theme" [ref=f22e327] [cursor=pointer]: Sunset
+              - generic [ref=f22e328]:
+                - button "Accessibility" [ref=f22e329] [cursor=pointer]
+                - dialog "Accessibility settings" [ref=f22e330]:
+                  - button "Close panel" [ref=f22e331] [cursor=pointer]: ✕
+                  - button "Reduced motion Ambient background, loader, and transitions become quieter. Off" [ref=f22e332] [cursor=pointer]:
+                    - generic [ref=f22e333]:
+                      - generic [ref=f22e334]: Reduced motion
+                      - generic [ref=f22e335]: Ambient background, loader, and transitions become quieter.
+                    - generic [ref=f22e336]: "Off"
+                  - button "Boost contrast Secondary text and borders gain weight in both themes. Off" [ref=f22e337] [cursor=pointer]:
+                    - generic [ref=f22e338]:
+                      - generic [ref=f22e339]: Boost contrast
+                      - generic [ref=f22e340]: Secondary text and borders gain weight in both themes.
+                    - generic [ref=f22e341]: "Off"
+              - button "Privacy controls" [ref=f22e342] [cursor=pointer]
+      - generic [ref=f22e343]:
+        - link "© MIT" [ref=f22e344] [cursor=pointer]:
+          - /url: https://github.com/Ismaouste/sidewalk-studio
+        - link "Ismaël Rodmacq" [ref=f22e345] [cursor=pointer]:
+          - /url: mailto:ismael@rodmacq.com
