@@ -7,7 +7,9 @@ import AppHeader from '@/components/layout/AppHeader.vue';
 import BreadcrumbTrail from '@/components/layout/BreadcrumbTrail.vue';
 import { usePageTransitions } from '@/composables/usePageTransitions';
 import { useTheme } from '@/composables/useTheme';
-import { loaderQuotes, type AppLoaderQuote } from '@/data/loaderQuotes';
+import { loaderQuotes } from '@/data/loaderQuotes';
+import type { AppLoaderQuote } from '@/data/loaderQuotes';
+import { readStorage, writeStorage } from '@/lib/safeStorage';
 import type { SeoPayload, SiteProps } from '@/types';
 
 const page = usePage<{ seo?: SeoPayload; site: SiteProps }>();
@@ -64,7 +66,9 @@ function pickLoaderSelection(): AppLoaderQuote[] {
         categories.includes(quote.category),
     );
     const candidatePool =
-        primaryPool.length >= LOADER_QUOTES_TO_SHOW ? primaryPool : loaderQuotes;
+        primaryPool.length >= LOADER_QUOTES_TO_SHOW
+            ? primaryPool
+            : loaderQuotes;
 
     return shuffleQuotes(candidatePool).slice(0, LOADER_QUOTES_TO_SHOW);
 }
@@ -86,7 +90,7 @@ function startLoaderSequence(force = false): void {
     loaderPointerActive.value = false;
 
     if (!force) {
-        window.sessionStorage.setItem(LOADER_SESSION_KEY, '1');
+        writeStorage('session', LOADER_SESSION_KEY, '1');
     }
 
     advanceLoaderSequence();
@@ -102,9 +106,12 @@ function advanceLoaderSequence(): void {
         return;
     }
 
-    loaderExitTimer = window.setTimeout(() => {
-        loaderVisible.value = false;
-    }, Math.max(LOADER_DISPLAY_MS - 350, LOADER_FADE_MS * 2));
+    loaderExitTimer = window.setTimeout(
+        () => {
+            loaderVisible.value = false;
+        },
+        Math.max(LOADER_DISPLAY_MS - 350, LOADER_FADE_MS * 2),
+    );
 }
 
 onMounted(() => {
@@ -138,7 +145,7 @@ onMounted(() => {
     });
     window.addEventListener('pointerleave', loaderPointerLeaveListener);
 
-    const seen = window.sessionStorage.getItem(LOADER_SESSION_KEY) === '1';
+    const seen = readStorage('session', LOADER_SESSION_KEY) === '1';
 
     if (seen) {
         return;
@@ -152,15 +159,24 @@ onBeforeUnmount(() => {
 
     if (typeof window !== 'undefined') {
         if (loaderReplayListener !== null) {
-            window.removeEventListener(LOADER_REPLAY_EVENT, loaderReplayListener);
+            window.removeEventListener(
+                LOADER_REPLAY_EVENT,
+                loaderReplayListener,
+            );
         }
 
         if (loaderPointerMoveListener !== null) {
-            window.removeEventListener('pointermove', loaderPointerMoveListener);
+            window.removeEventListener(
+                'pointermove',
+                loaderPointerMoveListener,
+            );
         }
 
         if (loaderPointerLeaveListener !== null) {
-            window.removeEventListener('pointerleave', loaderPointerLeaveListener);
+            window.removeEventListener(
+                'pointerleave',
+                loaderPointerLeaveListener,
+            );
         }
     }
 });
@@ -219,11 +235,16 @@ onBeforeUnmount(() => {
         </transition>
         <main class="sw-main">
             <div class="sw-container">
-                <BreadcrumbTrail
-                    v-if="breadcrumbs.length"
-                    :items="breadcrumbs"
-                    class="sw-main__breadcrumb"
-                />
+                <template v-if="breadcrumbs.length">
+                    <div
+                        class="sw-main__breadcrumb-sentinel"
+                        aria-hidden="true"
+                    />
+                    <BreadcrumbTrail
+                        :items="breadcrumbs"
+                        class="sw-main__breadcrumb"
+                    />
+                </template>
                 <div
                     class="sw-main__content"
                     :class="{
@@ -268,7 +289,9 @@ onBeforeUnmount(() => {
             transparent 42%
         ),
         color-mix(in srgb, var(--sw-bg-base) 34%, transparent);
-    -webkit-backdrop-filter: blur(calc(var(--sw-runtime-surface-blur, 20px) * 1.2))
+    -webkit-backdrop-filter: blur(
+            calc(var(--sw-runtime-surface-blur, 20px) * 1.2)
+        )
         saturate(1.06);
     backdrop-filter: blur(calc(var(--sw-runtime-surface-blur, 20px) * 1.2))
         saturate(1.06);
@@ -304,23 +327,21 @@ onBeforeUnmount(() => {
 }
 
 .app-loader__cursor-halo--morning {
-    background:
-        radial-gradient(
-            circle,
-            color-mix(in srgb, var(--sw-accent-green) 26%, transparent),
-            color-mix(in srgb, var(--sw-accent-sun) 16%, transparent) 38%,
-            transparent 72%
-        );
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--sw-accent-green) 26%, transparent),
+        color-mix(in srgb, var(--sw-accent-sun) 16%, transparent) 38%,
+        transparent 72%
+    );
 }
 
 .app-loader__cursor-halo--sunset {
-    background:
-        radial-gradient(
-            circle,
-            color-mix(in srgb, var(--sw-accent-violet) 30%, transparent),
-            color-mix(in srgb, var(--sw-accent-coral) 18%, transparent) 36%,
-            transparent 72%
-        );
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--sw-accent-violet) 30%, transparent),
+        color-mix(in srgb, var(--sw-accent-coral) 18%, transparent) 36%,
+        transparent 72%
+    );
 }
 
 .app-loader__rail {
@@ -334,7 +355,8 @@ onBeforeUnmount(() => {
     border: 1px solid color-mix(in srgb, var(--sw-border) 44%, transparent);
     box-shadow:
         inset 0 0 0 1px color-mix(in srgb, white 8%, transparent),
-        0 0 24px color-mix(in srgb, var(--app-loader-rail-glow) 34%, transparent);
+        0 0 24px
+            color-mix(in srgb, var(--app-loader-rail-glow) 34%, transparent);
 }
 
 .app-loader__rail--morning {
@@ -455,7 +477,11 @@ onBeforeUnmount(() => {
     line-height: 1.55;
     max-width: 26rem;
     white-space: pre-line;
-    color: color-mix(in srgb, var(--sw-text-primary) 86%, var(--sw-text-secondary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-primary) 86%,
+        var(--sw-text-secondary)
+    );
     text-wrap: pretty;
 }
 
@@ -475,6 +501,50 @@ onBeforeUnmount(() => {
 
 .sw-main__breadcrumb {
     margin-bottom: clamp(2px, 0.5vw, 6px);
+}
+
+/* A one-pixel marker holding the place the breadcrumb occupies before it
+   sticks. Insetting the scrollport by the header height makes the marker leave
+   view at exactly the moment the bar meets the header, so BreadcrumbTrail can
+   read `exit` on this timeline instead of measuring on every scroll frame.
+
+   It lives here rather than inside the component because a sticky element only
+   sticks within its containing block: giving the nav its own wrapper would
+   have capped its travel at its own height. And it is taken out of flow
+   because this container is a grid — an in-flow marker would claim a track of
+   its own and push the breadcrumb down by a full gap. Out of flow it costs no
+   track, and `top: 0` lands it exactly on the first row's edge, which is where
+   the breadcrumb sits before it lifts. */
+/* The bar is only sticky below 640px, so the marker only exists there. Left in
+   flow it would claim a grid track and push the breadcrumb down by a full gap,
+   which is also what keeps it out of the way when the browser has no view
+   timelines to offer. */
+.sw-main__breadcrumb-sentinel {
+    display: none;
+}
+
+@supports (animation-timeline: view()) {
+    @media (max-width: 640px) {
+        .sw-container {
+            position: relative;
+            timeline-scope: --sw-breadcrumb-sentinel;
+        }
+
+        .sw-main__breadcrumb-sentinel {
+            display: block;
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: 0;
+            width: 1px;
+            height: 1px;
+            view-timeline-name: --sw-breadcrumb-sentinel;
+            view-timeline-axis: block;
+            view-timeline-inset: calc(
+                    var(--sw-public-header-height, 104px) - 1px
+                )
+                auto;
+        }
+    }
 }
 
 .sw-main__content {

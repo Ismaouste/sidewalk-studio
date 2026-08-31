@@ -1,204 +1,79 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import type { SiteProps } from '@/types';
-
-type NavItem = {
-    label: string;
-    href: string;
-};
+import { copy as copyTree } from '@/copy';
+import { isNavPath } from '@/copy/navPath';
+import type { NavItem, SiteProps } from '@/types';
 
 const props = defineProps<{
     items: NavItem[];
-    currentUrl: string;
 }>();
+
+/** Kept in step with the `min-width: 960px` block in this file's styles. */
+const DESKTOP_QUERY = '(min-width: 960px)';
 
 const page = usePage<{ site: SiteProps }>();
 const menuId = 'primary-navigation';
-const mobileMenuOpen = ref(false);
-const isDesktopViewport = ref(false);
-const pendingMobileHref = ref<string | null>(null);
-
-let desktopMediaQuery: MediaQueryList | null = null;
-let optimisticResetTimer: number | undefined;
-
-function normalizePath(value: string): string {
-    if (!value) {
-        return '/';
-    }
-
-    let pathname = value;
-
-    try {
-        pathname = new URL(value, 'http://sidewalk.local').pathname;
-    } catch {
-        pathname = value;
-    }
-
-    if (!pathname.startsWith('/')) {
-        pathname = `/${pathname}`;
-    }
-
-    pathname = pathname.replace(/\/+$/, '');
-
-    return pathname === '' ? '/' : pathname;
-}
-
-function stripLocalePrefix(path: string): string {
-    const normalized = normalizePath(path);
-    const localePrefix = normalizePath(`/${page.props.site.locale}`);
-
-    if (normalized === localePrefix) {
-        return '/';
-    }
-
-    if (normalized.startsWith(`${localePrefix}/`)) {
-        return normalized.slice(localePrefix.length) || '/';
-    }
-
-    return normalized;
-}
-
-function matchesPath(currentPath: string, href: string): boolean {
-    const itemPath = normalizePath(href);
-    const unlocalizedItemPath = stripLocalePrefix(itemPath);
-
-    if (unlocalizedItemPath === '/') {
-        return currentPath === itemPath;
-    }
-
-    return currentPath === itemPath || currentPath.startsWith(`${itemPath}/`);
-}
-
-const resolvedDesktopPath = computed(() => normalizePath(props.currentUrl));
-const resolvedMobilePath = computed(() =>
-    normalizePath(pendingMobileHref.value ?? props.currentUrl),
-);
-
-function isDesktopActive(item: NavItem): boolean {
-    return matchesPath(resolvedDesktopPath.value, item.href);
-}
+const menuRef = ref<HTMLElement | null>(null);
+const isOpen = ref(false);
 
 const activeItem = computed(
-    () =>
-        props.items.find((item) =>
-            matchesPath(
-                isDesktopViewport.value
-                    ? resolvedDesktopPath.value
-                    : resolvedMobilePath.value,
-                item.href,
-            ),
-        ) ??
-        props.items[0] ??
-        null,
-);
-const panelItems = computed(() =>
-    isDesktopViewport.value
-        ? props.items
-        : props.items.filter(
-              (item) => !matchesPath(resolvedMobilePath.value, item.href),
-          ),
+    () => props.items.find((item) => item.active) ?? null,
 );
 
 function linkAction(item: NavItem): string {
-    const itemPath = stripLocalePrefix(item.href);
-
-    if (page.props.site.locale === 'fr') {
-        return (
-            {
-                '/': 'Entrer',
-                '/local': 'Voir la base',
-                '/projects': 'Voir le parcours',
-                '/journal': 'Lire les notes',
-                '/contact': 'Écrire',
-            }[itemPath] ?? page.props.site.shell.navOpenLabel
-        );
-    }
-
-    return (
-        {
-            '/': 'Enter',
-            '/local': 'Read local',
-            '/projects': 'View work',
-            '/journal': 'Read notes',
-            '/contact': 'Write',
-        }[itemPath] ?? page.props.site.shell.navOpenLabel
-    );
-}
-
-function isContact(item: NavItem): boolean {
-    return stripLocalePrefix(item.href) === '/contact';
+    return isNavPath(item.path)
+        ? copyTree[page.props.site.locale].layout.navigation.action[item.path]
+        : page.props.site.shell.navOpenLabel;
 }
 
 function closeMenu(): void {
-    mobileMenuOpen.value = false;
-}
-
-function clearOptimisticTimer(): void {
-    if (optimisticResetTimer !== undefined) {
-        window.clearTimeout(optimisticResetTimer);
-        optimisticResetTimer = undefined;
+    if (menuRef.value?.matches(':popover-open')) {
+        menuRef.value.hidePopover();
     }
 }
 
-function handleLinkClick(item: NavItem): void {
-    if (!isDesktopViewport.value) {
-        pendingMobileHref.value = item.href;
-    }
-
-    closeMenu();
-    clearOptimisticTimer();
-
-    optimisticResetTimer = window.setTimeout(() => {
-        pendingMobileHref.value = null;
-    }, 2000);
+// The popover attribute already covers opening, light dismiss, Escape and the
+// top layer. Three cases are left over, and they are the only reason this
+// component still runs any script:
+//
+// 1. Chromium does not currently expose the invoker's expanded state to
+//    assistive technology, so the disclosure has to say it out loud. The UA
+//    stays the source of truth — `toggle` reports what it just did, and
+//    nothing here ever decides the state itself. The trigger's open styling
+//    reads the sheet directly with :has(), so only ARIA depends on this.
+function handleToggle(event: ToggleEvent): void {
+    isOpen.value = event.newState === 'open';
 }
 
-function toggleMenu(): void {
-    mobileMenuOpen.value = !mobileMenuOpen.value;
-}
+// 2. The header lives in the persistent layout, so a visit started from inside
+//    the sheet leaves it open over the new page. Nothing closes a popover when
+//    a link inside it navigates.
+watch(
+    () => page.url,
+    () => {
+        closeMenu();
+    },
+);
 
-function handleViewportChange(event: MediaQueryListEvent): void {
-    isDesktopViewport.value = event.matches;
+// 3. An open popover stays in the top layer whatever `position` says, so the
+//    desktop media query cannot fold the sheet back into the header row on its
+//    own. Crossing the breakpoint has to close it.
+let desktopQuery: MediaQueryList | null = null;
 
+function handleDesktopChange(event: MediaQueryListEvent): void {
     if (event.matches) {
         closeMenu();
     }
 }
 
-function handleKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-        closeMenu();
-    }
-}
-
-watch(
-    () => props.currentUrl,
-    () => {
-        pendingMobileHref.value = null;
-        clearOptimisticTimer();
-        closeMenu();
-    },
-);
-
 onMounted(() => {
-    if (typeof window === 'undefined') {
-        return;
-    }
-
-    desktopMediaQuery = window.matchMedia('(min-width: 960px)');
-    isDesktopViewport.value = desktopMediaQuery.matches;
-    desktopMediaQuery.addEventListener('change', handleViewportChange);
-    window.addEventListener('keydown', handleKeydown);
+    desktopQuery = window.matchMedia(DESKTOP_QUERY);
+    desktopQuery.addEventListener('change', handleDesktopChange);
 });
 
 onBeforeUnmount(() => {
-    desktopMediaQuery?.removeEventListener('change', handleViewportChange);
-    clearOptimisticTimer();
-
-    if (typeof window !== 'undefined') {
-        window.removeEventListener('keydown', handleKeydown);
-    }
+    desktopQuery?.removeEventListener('change', handleDesktopChange);
 });
 </script>
 
@@ -207,10 +82,8 @@ onBeforeUnmount(() => {
         <button
             type="button"
             class="nav-tabs__trigger"
-            :class="{ 'nav-tabs__trigger--open': mobileMenuOpen }"
-            :aria-controls="menuId"
-            :aria-expanded="mobileMenuOpen"
-            @click="toggleMenu"
+            :popovertarget="menuId"
+            :aria-expanded="isOpen"
         >
             <span class="nav-tabs__trigger-copy">
                 <span class="nav-tabs__trigger-label">
@@ -230,47 +103,44 @@ onBeforeUnmount(() => {
         </button>
 
         <div
-            class="nav-tabs__viewport"
-            :class="{ 'nav-tabs__viewport--open': mobileMenuOpen }"
+            :id="menuId"
+            ref="menuRef"
+            popover
+            class="nav-tabs__panel"
+            @toggle="handleToggle"
         >
-            <div
-                v-if="panelItems.length"
-                :id="menuId"
-                class="nav-tabs__panel"
+            <Link
+                v-for="item in items"
+                :key="item.href"
+                :href="item.href"
+                prefetch="hover"
+                cache-for="30s"
+                class="nav-tabs__link"
+                :class="{ 'nav-tabs__link--active': item.active }"
             >
-                <Link
-                    v-for="item in panelItems"
-                    :key="item.href"
-                    :href="item.href"
-                    class="nav-tabs__link"
+                <span class="nav-tabs__link-label">{{ item.label }}</span>
+                <span
+                    class="nav-tabs__link-meta"
                     :class="{
-                        'nav-tabs__link--active':
-                            isDesktopViewport && isDesktopActive(item),
+                        'nav-tabs__link-meta--contact':
+                            item.path === '/contact',
                     }"
-                    @click="handleLinkClick(item)"
                 >
-                    <span class="nav-tabs__link-label">{{ item.label }}</span>
-                    <span
-                        class="nav-tabs__link-meta"
-                        :class="{
-                            'nav-tabs__link-meta--contact': isContact(item),
-                        }"
-                    >
-                        <span>{{ linkAction(item) }}</span>
-                    </span>
-                </Link>
-            </div>
+                    <span>{{ linkAction(item) }}</span>
+                </span>
+            </Link>
         </div>
     </nav>
 </template>
 
 <style scoped>
 .nav-tabs {
+    --nav-tabs-sheet-width: 380px;
+
     position: relative;
     display: grid;
-    gap: 6px;
     width: 100%;
-    max-width: 380px;
+    max-width: var(--nav-tabs-sheet-width);
     justify-self: start;
     justify-items: stretch;
 }
@@ -288,9 +158,9 @@ onBeforeUnmount(() => {
     padding-inline: 1rem;
     color: var(--sw-text-primary);
     transition:
-        border-color 90ms ease,
-        background-color 90ms ease,
-        color 90ms ease;
+        border-color var(--sw-motion-fast),
+        background-color var(--sw-motion-fast),
+        color var(--sw-motion-fast);
 }
 
 .nav-tabs__trigger-copy {
@@ -298,7 +168,6 @@ onBeforeUnmount(() => {
     gap: 2px;
     padding-left: 4px;
     text-align: left;
-    opacity: 1;
 }
 
 .nav-tabs__trigger-label {
@@ -308,7 +177,6 @@ onBeforeUnmount(() => {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
-    opacity: 1;
 }
 
 .nav-tabs__trigger-current {
@@ -316,7 +184,6 @@ onBeforeUnmount(() => {
     font-size: 14px;
     font-weight: 600;
     line-height: 1.15;
-    opacity: 1;
 }
 
 .nav-tabs__trigger-icon {
@@ -324,7 +191,6 @@ onBeforeUnmount(() => {
     width: 18px;
     height: 14px;
     flex: none;
-    opacity: 1;
 }
 
 .nav-tabs__trigger-icon span {
@@ -334,9 +200,7 @@ onBeforeUnmount(() => {
     height: 2px;
     border-radius: 9999px;
     background: currentColor;
-    transition:
-        transform 90ms ease,
-        opacity 90ms ease;
+    transition: transform var(--sw-motion-fast);
 }
 
 .nav-tabs__trigger-icon span:first-child {
@@ -347,51 +211,72 @@ onBeforeUnmount(() => {
     bottom: 3px;
 }
 
-.nav-tabs__trigger--open .nav-tabs__trigger-icon span:first-child {
+/* The sheet is a sibling in the DOM even while it paints in the top layer,
+   so the trigger can read its state without holding a copy of it. */
+.nav-tabs:has(.nav-tabs__panel:popover-open) .nav-tabs__trigger {
+    border-color: color-mix(in srgb, var(--sw-border) 92%, transparent);
+    background: var(--sw-bg-grid);
+}
+
+.nav-tabs:has(.nav-tabs__panel:popover-open)
+    .nav-tabs__trigger-icon
+    span:first-child {
     transform: translateY(3px) rotate(45deg);
 }
 
-.nav-tabs__trigger--open .nav-tabs__trigger-icon span:last-child {
+.nav-tabs:has(.nav-tabs__panel:popover-open)
+    .nav-tabs__trigger-icon
+    span:last-child {
     transform: translateY(-3px) rotate(-45deg);
 }
 
-.nav-tabs__trigger--open {
-    border-color: color-mix(in srgb, var(--sw-border) 92%, transparent);
-    background: var(--sw-bg-grid);
-    color: var(--sw-text-primary);
-}
-
-.nav-tabs__viewport {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    right: auto;
-    width: 100%;
-    min-width: 100%;
-    max-height: 0;
-    opacity: 1;
-    visibility: hidden;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 6;
-    transition: max-height 140ms ease;
-}
-
-.nav-tabs__viewport--open {
-    max-height: 22rem;
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-}
-
+/* The UA sheet hands every [popover] a centred fixed box with a border, a
+   system background and `display: none` when closed. All of it is UA-origin,
+   so these author declarations win — including the desktop block below, which
+   is why the row needs no JavaScript to exist. Being in the top layer also
+   means the sheet needs no z-index: it cannot be covered. */
 .nav-tabs__panel {
+    position: fixed;
+    inset: calc(var(--sw-public-header-height, 104px) + var(--sw-space-4xs))
+        auto auto calc(var(--sw-layout-gutter-md) / 2);
+    width: min(
+        var(--nav-tabs-sheet-width),
+        calc(100% - var(--sw-layout-gutter-md))
+    );
+    max-width: none;
+    height: auto;
+    max-height: none;
+    margin: 0;
     display: grid;
     gap: 10px;
-    width: 100%;
-    padding: 12px;
-    border-radius: calc(var(--sw-radius-lg) + 2px);
+    padding: var(--sw-space-2xs);
     border: 1px solid color-mix(in srgb, var(--sw-border) 92%, transparent);
+    border-radius: calc(var(--sw-radius-lg) + 2px);
     background: var(--sw-bg-base);
+    color: var(--sw-text-primary);
+    overflow: visible;
+    opacity: 0;
+    translate: 0 calc(-1 * var(--sw-space-4xs));
+    transition:
+        opacity var(--sw-motion-fast),
+        translate var(--sw-motion-fast),
+        display var(--sw-motion-fast) allow-discrete,
+        overlay var(--sw-motion-fast) allow-discrete;
+}
+
+.nav-tabs__panel:popover-open {
+    opacity: 1;
+    translate: none;
+}
+
+/* Without a starting state the sheet would pop in at full opacity: it has no
+   previous computed style to transition from on the frame it stops being
+   `display: none`. */
+@starting-style {
+    .nav-tabs__panel:popover-open {
+        opacity: 0;
+        translate: 0 calc(-1 * var(--sw-space-4xs));
+    }
 }
 
 .nav-tabs__link {
@@ -410,9 +295,9 @@ onBeforeUnmount(() => {
     padding: 0.9rem 1rem;
     color: var(--sw-text-primary);
     transition:
-        background-color 90ms ease,
-        border-color 90ms ease,
-        color 90ms ease;
+        background-color var(--sw-motion-fast),
+        border-color var(--sw-motion-fast),
+        color var(--sw-motion-fast);
 }
 
 .nav-tabs__link::after {
@@ -424,7 +309,11 @@ onBeforeUnmount(() => {
     background:
         radial-gradient(
             circle at 18% 22%,
-            color-mix(in srgb, var(--sw-accent-dominant) 14%, var(--sw-bg-grid)),
+            color-mix(
+                in srgb,
+                var(--sw-accent-dominant) 14%,
+                var(--sw-bg-grid)
+            ),
             transparent 44%
         ),
         linear-gradient(
@@ -435,8 +324,8 @@ onBeforeUnmount(() => {
     opacity: 0;
     transform: scale(0.96);
     transition:
-        opacity 120ms ease,
-        transform 150ms ease;
+        opacity var(--sw-motion-fast),
+        transform var(--sw-motion-fast);
 }
 
 .nav-tabs__link::before {
@@ -447,13 +336,12 @@ onBeforeUnmount(() => {
     pointer-events: none;
     opacity: 0;
     background: color-mix(in srgb, var(--sw-bg-base) 82%, var(--sw-bg-grid));
-    transition: opacity 120ms ease;
+    transition: opacity var(--sw-motion-fast);
 }
 
 .nav-tabs__link > * {
     position: relative;
     z-index: 1;
-    opacity: 1;
 }
 
 .nav-tabs__link-label {
@@ -461,7 +349,6 @@ onBeforeUnmount(() => {
     font-size: 14px;
     font-weight: 600;
     line-height: 1.2;
-    opacity: 1;
 }
 
 .nav-tabs__link-meta {
@@ -474,7 +361,6 @@ onBeforeUnmount(() => {
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
-    opacity: 1;
 }
 
 .nav-tabs__link-meta::after {
@@ -523,7 +409,11 @@ onBeforeUnmount(() => {
             var(--sw-accent-dominant) 24%,
             var(--sw-border)
         );
-        background: color-mix(in srgb, var(--sw-bg-base) 76%, var(--sw-bg-grid));
+        background: color-mix(
+            in srgb,
+            var(--sw-bg-base) 76%,
+            var(--sw-bg-grid)
+        );
         color: var(--sw-text-primary);
     }
 
@@ -541,6 +431,13 @@ onBeforeUnmount(() => {
 @media (max-width: 959px) {
     .nav-tabs__link::before,
     .nav-tabs__link::after {
+        display: none;
+    }
+
+    /* The sheet lists where you can go, not where you are — the trigger
+       already names the current section. Filtering it out used to need a
+       media-query listener and a second derived list. */
+    .nav-tabs__link--active {
         display: none;
     }
 
@@ -574,20 +471,15 @@ onBeforeUnmount(() => {
         display: none;
     }
 
-    .nav-tabs__viewport {
-        display: block;
-        position: static;
-        max-height: none;
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        overflow: visible;
-        z-index: auto;
-    }
-
-    .nav-tabs__panel,
-    .nav-tabs__viewport--open .nav-tabs__panel {
+    /* Above the breakpoint the panel stops being a sheet and becomes the tab
+       row. Every declaration here overrides either a UA popover style or its
+       mobile counterpart, so the element never has to lose its `popover`
+       attribute. */
+    .nav-tabs__panel {
         display: flex;
+        position: static;
+        inset: auto;
+        width: auto;
         flex-wrap: wrap;
         justify-content: flex-end;
         gap: var(--sw-space-2xs);
@@ -595,10 +487,10 @@ onBeforeUnmount(() => {
         border: 0;
         border-radius: 0;
         background: transparent;
-        box-shadow: none;
-        -webkit-backdrop-filter: none;
-        backdrop-filter: none;
         overflow: visible;
+        opacity: 1;
+        translate: none;
+        transition: none;
     }
 
     .nav-tabs__link {
@@ -607,7 +499,7 @@ onBeforeUnmount(() => {
         min-height: 0;
         width: auto;
         border: 0;
-        border-radius: 3px;
+        border-radius: var(--sw-radius-md);
         background: transparent;
         padding: calc(var(--sw-space-4xs) + 2px) var(--sw-space-xs);
         font-family: var(--sw-font-heading);
@@ -616,13 +508,8 @@ onBeforeUnmount(() => {
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--sw-tab-inactive);
-        box-shadow: none;
-        -webkit-backdrop-filter: none;
-        backdrop-filter: none;
-        opacity: 1;
-        transform: none;
         overflow: hidden;
-        transition: color 120ms ease-out;
+        transition: color var(--sw-motion-fast);
     }
 
     .nav-tabs__link::before {
@@ -638,11 +525,10 @@ onBeforeUnmount(() => {
         );
         opacity: 0;
         transform: scale(0.92);
-        will-change: opacity, transform;
         transition:
-            opacity 70ms linear,
-            transform 150ms ease-out,
-            background-color 120ms ease-out;
+            opacity var(--sw-motion-fast),
+            transform var(--sw-motion-fast),
+            background-color var(--sw-motion-fast);
     }
 
     .nav-tabs__link-label {
@@ -661,14 +547,14 @@ onBeforeUnmount(() => {
     .nav-tabs__link--active {
         background: transparent;
         color: var(--sw-tab-active);
-        box-shadow: none;
     }
 
     .nav-tabs__link--active::before {
         opacity: 1;
         transform: scale(1);
         background: var(--sw-tab-surface, transparent);
-        border: 1px solid color-mix(in srgb, var(--sw-tab-active) 10%, transparent);
+        border: 1px solid
+            color-mix(in srgb, var(--sw-tab-active) 10%, transparent);
     }
 }
 
@@ -677,15 +563,6 @@ onBeforeUnmount(() => {
         min-height: 3rem;
         border-radius: var(--sw-radius-lg);
         padding-inline: var(--sw-space-sm);
-    }
-
-    .nav-tabs__viewport {
-        top: calc(100% + 4px);
-    }
-
-    .nav-tabs__panel,
-    .nav-tabs__viewport--open .nav-tabs__panel {
-        padding: 12px;
     }
 
     .nav-tabs__link {

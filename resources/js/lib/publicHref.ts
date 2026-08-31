@@ -29,12 +29,14 @@ export function localizePublicHref(href: string, locale: string): string {
         return href;
     }
 
-    const [pathPart, fragmentPart] = sanitizePublicHref(href).split('#', 2);
+    const [pathPart = '', fragmentPart] = sanitizePublicHref(href).split(
+        '#',
+        2,
+    );
     const [pathname, queryString] = pathPart.split('?', 2);
     const normalizedPath = stripLocalePrefix(pathname || '/');
-    const localizedPath = normalizedPath === '/'
-        ? `/${locale}`
-        : `/${locale}${normalizedPath}`;
+    const localizedPath =
+        normalizedPath === '/' ? `/${locale}` : `/${locale}${normalizedPath}`;
     const query = queryString ? `?${queryString}` : '';
     const fragment = fragmentPart ? `#${fragmentPart}` : '';
 
@@ -46,7 +48,7 @@ export function sanitizePublicHref(href: string): string {
         return href;
     }
 
-    const [pathPart, fragmentPart] = href.split('#', 2);
+    const [pathPart = '', fragmentPart] = href.split('#', 2);
     const [pathname, queryString] = pathPart.split('?', 2);
 
     if (!queryString) {

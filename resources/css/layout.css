@@ -63,6 +63,22 @@ html {
     padding-block: var(--sw-space-xl);
 }
 
+/*
+ * Sections below the fold skip layout, paint and style work until they scroll
+ * near the viewport. On these pages that is most of the document, and it is
+ * what keeps scrolling smooth now that every surface is blurred glass —
+ * backdrop-filter is expensive precisely because it samples what is behind it.
+ *
+ * `contain-intrinsic-size: auto <fallback>` lets the browser remember each
+ * section's real height after it has been rendered once, so the scrollbar stops
+ * jumping; the fallback only applies before first render. The hero is excluded
+ * because it is always visible and must not be deferred.
+ */
+.sw-section:not(.sw-section--hero) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+}
+
 .sw-section--flow {
     display: grid;
     gap: var(--sw-space-sm);

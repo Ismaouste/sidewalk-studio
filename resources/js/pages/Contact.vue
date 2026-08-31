@@ -7,11 +7,9 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { FlashProps, SeoPayload, SiteContact, SiteProps } from '@/types';
-
-const page = usePage<{ site: SiteProps; flash: FlashProps }>();
-const isStaticPreview = computed(() => page.props.site.runtime.staticPreview);
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -59,6 +57,8 @@ const props = defineProps<{
         summary: string;
     };
 }>();
+const page = usePage<{ site: SiteProps; flash: FlashProps }>();
+const isStaticPreview = computed(() => page.props.site.runtime.staticPreview);
 
 const serviceTones = ['dominant', 'green', 'coral'] as const;
 
@@ -69,81 +69,11 @@ const inquiry = useForm({
     summary: '',
 });
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              emailHeroCta: 'Écrire un mail',
-              whatsappLabel: 'WhatsApp',
-              locationChipLabel: props.contact.location,
-              locationLabel: props.details.location_label,
-              availabilityLabel: 'Disponibilité',
-              availabilityText: '● Freelance / temps partiel / échanges',
-              opportunitiesLabel: 'Situation actuelle',
-              opportunitiesText:
-                  "Ouvert aux opportunités tech-lead / engineering, missions freelance à temps partiel et échanges autour d'un produit en route — recrutement, renfort technique ou cadrage sur un sujet précis.",
-              subjectPrefix: 'Prise de contact',
-              bodyNameLabel: 'Nom',
-              bodyEmailLabel: 'Email',
-              bodyCompanyLabel: 'Entreprise ou produit',
-              bodyBriefFallback: 'Brief projet :',
-              recruiterFitLabel: 'Rôles et terrains',
-              recruiterFitRoles: [
-                  'Lead web / produit',
-                  'Gestion de projet',
-                  'Développeur full stack',
-                  'E-commerce et CMS',
-                  'Connecteurs et data',
-                  'Tracking / consentement',
-                  'Outils internes',
-              ],
-              recruiterDecisionLabel: 'Formats',
-              recruiterDecisionCopy:
-                  "Recrutement, renfort ponctuel, mission freelance, revue technique, reprise de plateforme, connecteur à fiabiliser ou premier échange autour d'un produit déjà lancé.",
-              cvLabel: 'CV',
-              portraitAlt: "Portrait illustré d'Ismael Rodmacq",
-              staticPreviewTitle: 'Preview statique',
-              staticPreviewSummary:
-                  "Le formulaire est volontairement retiré de ce package HTML. Pour échanger, le plus direct reste l'email.",
-          }
-        : {
-              emailHeroCta: 'Write an email',
-              whatsappLabel: 'WhatsApp',
-              locationChipLabel: props.contact.location,
-              locationLabel: props.details.location_label,
-              availabilityLabel: 'Availability',
-              availabilityText: '● Freelance / part-time / conversations',
-              opportunitiesLabel: 'Current situation',
-              opportunitiesText:
-                  'Open to tech-lead / engineering opportunities, part-time freelance work, and conversations around a product already in motion — hiring, technical reinforcement, or scoping on a focused topic.',
-              subjectPrefix: 'Inquiry',
-              bodyNameLabel: 'Name',
-              bodyEmailLabel: 'Email',
-              bodyCompanyLabel: 'Company or product',
-              bodyBriefFallback: 'Project brief:',
-              recruiterFitLabel: 'Roles and contexts',
-              recruiterFitRoles: [
-                  'Web / product lead',
-                  'Project delivery',
-                  'Full-stack developer',
-                  'E-commerce and CMS',
-                  'Connectors and data',
-                  'Tracking / consent',
-                  'Internal tools',
-              ],
-              recruiterDecisionLabel: 'Formats',
-              recruiterDecisionCopy:
-                  'Hiring, freelance support, technical review, platform recovery, connector hardening, or a first conversation around a product already in motion.',
-              cvLabel: 'CV',
-              portraitAlt: 'Illustrated portrait of Ismael Rodmacq',
-              staticPreviewTitle: 'Static preview',
-              staticPreviewSummary:
-                  'The contact form is intentionally removed from this HTML package. Email remains the direct path.',
-          },
-);
+const copy = computed(() => copyTree[page.props.site.locale].pages.contact);
 
 const inquiryMeta = computed(() => [
     {
-        label: copy.value.locationLabel,
+        label: props.details.location_label,
         value: `📍 ${props.contact.location}`,
     },
     {

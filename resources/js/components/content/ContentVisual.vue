@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
-import type { ContentItem } from '@/types';
-
-const page = usePage<{ site: { locale: string } }>();
+import { copy as copyTree } from '@/copy';
+import type { ContentItem, SiteProps } from '@/types';
 
 const props = withDefaults(
     defineProps<{
@@ -15,15 +14,13 @@ const props = withDefaults(
     },
 );
 
+const page = usePage<{ site: SiteProps }>();
+
 const imageLoaded = ref(false);
 
-const copy = computed(() => {
-    const isFrench = page.props.site.locale === 'fr';
-
-    return {
-        videoLabel: isFrench ? 'vidéo prête' : 'video ready',
-    };
-});
+const copy = computed(
+    () => copyTree[page.props.site.locale].content.contentVisual,
+);
 
 const isMinimal = computed(
     () => props.item.section === 'writing' && props.item.category !== 'journal',

@@ -18,24 +18,41 @@ const status = computed(() => page.props.flash?.status ?? null);
             <header class="admin-pages__header">
                 <div>
                     <p class="type-eyebrow">Static pages</p>
-                    <h1 class="type-h1 admin-pages__title">Manage public page payloads and SEO.</h1>
+                    <h1 class="type-h1 admin-pages__title">
+                        Manage public page payloads and SEO.
+                    </h1>
                     <p class="type-body admin-pages__copy">
-                        Pages remain compatible with file-backed defaults while allowing clean admin overrides.
+                        Pages remain compatible with file-backed defaults while
+                        allowing clean admin overrides.
                     </p>
                 </div>
                 <span v-if="status" class="type-meta">{{ status }}</span>
             </header>
 
             <div class="admin-pages__grid">
-                <Panel v-for="entry in props.pages" :key="`${entry.page_key}-${entry.locale}`" class="admin-pages__card" tone="surface">
+                <Panel
+                    v-for="entry in props.pages"
+                    :key="`${entry.page_key}-${entry.locale}`"
+                    class="admin-pages__card"
+                    tone="surface"
+                >
                     <div class="admin-pages__card-head">
                         <div>
                             <p class="type-nav">{{ entry.page_key }}</p>
-                            <p class="type-meta admin-pages__meta">{{ entry.locale.toUpperCase() }} · {{ entry.source_driver }}</p>
+                            <p class="type-meta admin-pages__meta">
+                                {{ entry.locale.toUpperCase() }} ·
+                                {{ entry.source_driver }}
+                            </p>
                         </div>
-                        <Link :href="`/admin/pages/${entry.page_key}/${entry.locale}`" class="admin-pages__link">Edit</Link>
+                        <Link
+                            :href="`/admin/pages/${entry.page_key}/${entry.locale}`"
+                            class="admin-pages__link"
+                            >Edit</Link
+                        >
                     </div>
-                    <p class="type-body-sm admin-pages__copy">{{ entry.seo_description }}</p>
+                    <p class="type-body-sm admin-pages__copy">
+                        {{ entry.seo_description }}
+                    </p>
                 </Panel>
             </div>
         </div>

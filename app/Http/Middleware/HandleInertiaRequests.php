@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Services\SiteSettingsService;
 use App\Services\LoaderQuoteService;
+use App\Services\SiteSettingsService;
 use App\Support\PublicLocale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -58,6 +58,7 @@ class HandleInertiaRequests extends Middleware
             ? null
             : (function (array $pool): ?array {
                 $picked = $pool[array_rand($pool)];
+
                 return [
                     'text' => $picked['text'],
                     'author' => $picked['author'] ?? null,
@@ -79,7 +80,10 @@ class HandleInertiaRequests extends Middleware
                 'description' => $settings->siteIdentity->description,
                 'locale' => app()->getLocale(),
                 'url' => config('site.url'),
-                'navigation' => PublicLocale::navigation(app()->getLocale()),
+                'navigation' => PublicLocale::navigation(
+                    app()->getLocale(),
+                    PublicLocale::pathForRequest($request),
+                ),
                 'author' => config('site.author'),
                 'contact' => $settings->contactDetails->toArray(),
                 'social' => $settings->socialLinks->toArray(),

@@ -76,3 +76,8 @@
 - Keep `Home`, `Experience`, `Local`, and `Contact` code-driven.
 - Keep Writing and Case Studies repo-backed until a concrete editorial workflow justifies a pilot.
 - If explored later, prefer a new low-risk collection such as `local_notes` before touching existing Markdown domains.
+
+### 015-local-memory
+- Let the site remember what a returning reader needs, without a cookie, a request, or a server-side record — so the privacy position is checkable in devtools rather than only stated in prose.
+- Shipped: entries marked as new since the last visit, and a resume offer on partly-read articles.
+- Do not extend this into anything that leaves the browser. If a future feature cannot survive "clear site data and watch it disappear", it belongs in a consent category instead.

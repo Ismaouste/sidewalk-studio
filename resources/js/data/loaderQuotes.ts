@@ -116,7 +116,7 @@ export const loaderQuotes: AppLoaderQuote[] = [
         category: 'morning',
     },
     {
-        text: "L’inconnaissance nous recouvre.",
+        text: 'L’inconnaissance nous recouvre.',
         author: 'Laura Vazquez',
         source: 'Le Livre du large et du long',
         category: 'sunset',

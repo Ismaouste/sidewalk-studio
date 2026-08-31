@@ -84,5 +84,14 @@ watch(
 </script>
 
 <template>
+    <!--
+        `html` is always CommonMark output from ContentRepository, which renders
+        with html_input => 'strip' and allow_unsafe_links => false on both the
+        file-backed and database-backed paths. Raw HTML and javascript: URLs are
+        removed before this component ever sees the string, so there is no
+        untrusted markup to escape here.
+    -->
+    <!-- eslint-disable vue/no-v-html -->
     <div ref="root" class="prose-copy" v-html="props.html" />
+    <!-- eslint-enable vue/no-v-html -->
 </template>

@@ -20,9 +20,9 @@ class LoaderQuoteService
             ->where('locale', $locale)
             ->where('is_active', true)
             ->when($theme !== null, fn ($query) => $query->where(function ($subquery) use ($theme): void {
-                    $subquery->whereNull('theme_target')
-                        ->orWhere('theme_target', $theme);
-                }))
+                $subquery->whereNull('theme_target')
+                    ->orWhere('theme_target', $theme);
+            }))
             ->orderByDesc('weight')
             ->orderBy('id')
             ->get()

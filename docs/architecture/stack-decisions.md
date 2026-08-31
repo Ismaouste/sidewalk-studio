@@ -2,10 +2,10 @@
 
 ## Kept for v0
 
-- Laravel 12 for routing, configuration, content loading, and testable backend behavior
+- Laravel 13 for routing, configuration, content loading, and testable backend behavior
 - Inertia + Vue 3 + TypeScript for the public shell because the repo is also meant to demonstrate modern app ergonomics
 - SQLite for local development because it removes service friction on Windows
-- Tailwind v4 with local font packages to avoid remote font requests
+- No CSS framework. Styling is hand-authored against the `--sw-*` tokens in `resources/css/tokens.css`, with base element normalisation owned by `resources/css/base.css`. Local font packages avoid remote font requests.
 - `.env` for secrets and runtime infrastructure, with a later bounded `site_settings` layer reserved for non-secret runtime configuration
 - a Vercel preview runtime for local CLI deployments of the Laravel app, separate from the GitHub Pages static export
 

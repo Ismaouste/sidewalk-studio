@@ -32,14 +32,22 @@ defineProps<{
     align-items: center;
     gap: 0.5rem;
     padding-inline: 0.15rem;
-    color: color-mix(in srgb, var(--sw-text-secondary) 84%, var(--sw-text-primary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 84%,
+        var(--sw-text-primary)
+    );
     font-size: 12px;
     letter-spacing: 0.16em;
 }
 
 .section-divider__label::before {
     content: '•';
-    color: color-mix(in srgb, var(--sw-accent-dominant) 70%, var(--sw-accent-sun));
+    color: color-mix(
+        in srgb,
+        var(--sw-accent-dominant) 70%,
+        var(--sw-accent-sun)
+    );
     font-size: 0.9em;
 }
 </style>

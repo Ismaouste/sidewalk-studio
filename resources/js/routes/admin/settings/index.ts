@@ -154,11 +154,9 @@ updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => (
 
 update.form = updateForm
 
-
-
 const settings = {
     edit: Object.assign(edit, edit),
-    update: Object.assign(update, update),
+update: Object.assign(update, update),
 }
 
 export default settings

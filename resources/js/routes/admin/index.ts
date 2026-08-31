@@ -299,23 +299,21 @@ logoutForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 logout.form = logoutForm
 
-
-
 const admin = {
     index: Object.assign(index, index),
-    onboarding: Object.assign(onboarding, onboarding),
-    login: Object.assign(login, login),
-    authenticate: Object.assign(authenticate, authenticate),
-    contactSubmissions: Object.assign(contactSubmissions, contactSubmissions),
-    auditLog: Object.assign(auditLog, auditLog),
-    settings: Object.assign(settings, settings),
-    theme: Object.assign(theme, theme),
-    branding: Object.assign(branding, branding),
-    loaderQuotes: Object.assign(loaderQuotes, loaderQuotes),
-    pages: Object.assign(pages, pages),
-    publications: Object.assign(publications, publications),
-    languageFiles: Object.assign(languageFiles, languageFiles),
-    logout: Object.assign(logout, logout),
+onboarding: Object.assign(onboarding, onboarding),
+login: Object.assign(login, login),
+authenticate: Object.assign(authenticate, authenticate),
+contactSubmissions: Object.assign(contactSubmissions, contactSubmissions),
+auditLog: Object.assign(auditLog, auditLog),
+settings: Object.assign(settings, settings),
+theme: Object.assign(theme, theme),
+branding: Object.assign(branding, branding),
+loaderQuotes: Object.assign(loaderQuotes, loaderQuotes),
+pages: Object.assign(pages, pages),
+publications: Object.assign(publications, publications),
+languageFiles: Object.assign(languageFiles, languageFiles),
+logout: Object.assign(logout, logout),
 }
 
 export default admin

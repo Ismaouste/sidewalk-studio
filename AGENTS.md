@@ -4,13 +4,14 @@
 
 Sidewalk Studio is a portfolio site and a reusable Laravel reference implementation. Treat public code, docs, and specs as equally important outputs.
 GitHub Spec Kit is the official specification standard for this repository.
-Codex is the current execution workflow, but this environment must not claim native `/speckit.*` command availability unless it is actually present.
+Agents must not claim native `/speckit.*` command availability unless it is actually present. Repo-local skills under `tools/codex/skills/` are named for the tool that first used them; they are tool-neutral in content.
 
 ## Working rules
 
 - Keep the repo English-only for code, docs, specs, and public content.
 - Prefer local-first workflows: SQLite, `php artisan serve`, `npm run dev`.
-- Do not add Docker, deployment files, or CI workflows in this stage unless the user explicitly asks.
+- Do not add Docker or deployment files unless the user explicitly asks.
+- CI (`.github/workflows/ci.yml`) runs format, lint, Pint, types, build, tests and `route:list` on a PHP 8.4 / 8.5 matrix. If you add a quality gate as a script, add it to CI in the same change — gates that live only in `package.json` rot silently.
 - Keep SSR-compatible structure, but do not require the SSR runtime for normal development.
 - Follow GitHub Spec Kit phases and artifacts through the repo-local files under `.specify/` and `specs/`.
 
@@ -27,6 +28,9 @@ Codex is the current execution workflow, but this environment must not claim nat
 - `resources/content/`: case studies and writing entries with frontmatter
 
 ## Required sync points
+
+When changing bilingual UI copy, edit `resources/js/copy/<locale>/<group>/<domain>.ts`
+for both locales. Never reintroduce `locale === 'fr' ? {…} : {…}` in a component.
 
 When changing the content model, update:
 

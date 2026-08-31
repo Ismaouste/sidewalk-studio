@@ -73,15 +73,20 @@ class ContentRepositoryTest extends TestCase
 
     public function test_repository_prefers_markdown_over_hybrid_database_records(): void
     {
-        if (! Schema::hasTable('publications')) {
+        // This case needs a seeded row, so it checks for the row as well as
+        // the table. A RefreshDatabase case earlier in the run migrates the
+        // database fresh without seeding, which leaves the table in place and
+        // empty — a state `Schema::hasTable` alone reports as fine.
+        $seededRecord = fn () => Publication::query()
+            ->where('type', 'case_study')
+            ->where('locale', 'fr')
+            ->where('slug', 'pipeline-deploiement-ecommerce');
+
+        if (! Schema::hasTable('publications') || $seededRecord()->doesntExist()) {
             $this->artisan('migrate:fresh', ['--seed' => true]);
         }
 
-        $record = Publication::query()
-            ->where('type', 'case_study')
-            ->where('locale', 'fr')
-            ->where('slug', 'pipeline-deploiement-ecommerce')
-            ->firstOrFail();
+        $record = $seededRecord()->firstOrFail();
 
         $metadata = $record->metadata ?? [];
         $metadata['role'] = 'Old database role';

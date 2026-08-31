@@ -1,27 +1,41 @@
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
+import {
+    defineConfigWithVueTs,
+    vueTsConfigs,
+} from '@vue/eslint-config-typescript';
 import prettier from 'eslint-config-prettier/flat';
-import importPlugin from 'eslint-plugin-import';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
+import importX from 'eslint-plugin-import-x';
 import vue from 'eslint-plugin-vue';
 
 export default defineConfigWithVueTs(
-    vue.configs['flat/essential'],
+    vue.configs['flat/recommended'],
     vueTsConfigs.recommended,
     {
         plugins: {
-            import: importPlugin,
+            'import-x': importX,
         },
         settings: {
-            'import/resolver': {
-                typescript: {
+            // The solution config references both the app and the build-tooling
+            // projects, so pointing at it covers every import in one pass.
+            'import-x/resolver-next': [
+                createTypeScriptImportResolver({
                     alwaysTryTypes: true,
                     project: './tsconfig.json',
-                },
-                node: true,
-            },
+                }),
+            ],
         },
         rules: {
+            // Single-word page and layout components are the convention here
+            // (Home.vue, Contact.vue), and Inertia resolves pages by filename.
             'vue/multi-word-component-names': 'off',
-            '@typescript-eslint/no-explicit-any': 'off',
+
+            'vue/component-api-style': ['error', ['script-setup']],
+            'vue/define-macros-order': [
+                'error',
+                { order: ['defineProps', 'defineEmits'] },
+            ],
+            'vue/prefer-true-attribute-shorthand': 'error',
+
             '@typescript-eslint/consistent-type-imports': [
                 'error',
                 {
@@ -29,34 +43,87 @@ export default defineConfigWithVueTs(
                     fixStyle: 'separate-type-imports',
                 },
             ],
-            'import/order': [
+            '@typescript-eslint/no-unused-vars': [
                 'error',
                 {
-                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+                    argsIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                    caughtErrorsIgnorePattern: '^_',
+                },
+            ],
+
+            'import-x/order': [
+                'error',
+                {
+                    groups: [
+                        'builtin',
+                        'external',
+                        'internal',
+                        'parent',
+                        'sibling',
+                        'index',
+                    ],
                     alphabetize: {
                         order: 'asc',
                         caseInsensitive: true,
                     },
                 },
             ],
-            'import/consistent-type-specifier-style': [
+            'import-x/consistent-type-specifier-style': [
                 'error',
                 'prefer-top-level',
+            ],
+            'import-x/no-duplicates': 'error',
+
+            // console.warn/error are used deliberately for optional-module
+            // failures that must stay visible; console.log is not.
+            'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
+            eqeqeq: ['error', 'always', { null: 'ignore' }],
+            'object-shorthand': ['error', 'always'],
+            'prefer-const': ['error', { destructuring: 'all' }],
+            'no-var': 'error',
+        },
+    },
+    {
+        // The copy tree is a translation surface, not application logic: the
+        // two locales are meant to read as parallel columns, so key order is
+        // enforced rather than left to whoever edited last.
+        files: ['resources/js/copy/**/*.ts'],
+        rules: {
+            'sort-keys': [
+                'error',
+                'asc',
+                { caseSensitive: false, natural: true },
+            ],
+            // Each French module derives its shape from its English twin with
+            // `typeof import('…').default`. A default-exported object has no
+            // named type to import, so the inline form is the only one that
+            // expresses this.
+            '@typescript-eslint/consistent-type-imports': [
+                'error',
+                {
+                    prefer: 'type-imports',
+                    fixStyle: 'separate-type-imports',
+                    disallowTypeAnnotations: false,
+                },
             ],
         },
     },
     {
         ignores: [
+            // Third-party and build output.
             'vendor',
             'node_modules',
             'public',
+            'storage',
             'bootstrap/ssr',
+            '.codex-tmp',
             '_starter_v0/**',
-            'tailwind.config.js',
-            'vite.config.ts',
+
+            // Generated by Laravel Wayfinder from PHP routes.
             'resources/js/actions/**',
-            'resources/js/components/ui/*',
             'resources/js/routes/**',
+            'resources/js/wayfinder/**',
         ],
     },
     prettier, // Turn off all rules that might conflict with Prettier

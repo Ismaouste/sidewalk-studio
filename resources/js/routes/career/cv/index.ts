@@ -100,8 +100,6 @@ downloadForm.head = (args: { locale: string | number } | [locale: string | numbe
 
 download.form = downloadForm
 
-
-
 const cv = {
     download: Object.assign(download, download),
 }

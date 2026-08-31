@@ -247,8 +247,7 @@ class ExportStaticPreviewCommand extends Command
         string $basePath,
         string $serverUrl,
         string $locale,
-    ): string
-    {
+    ): string {
         $dom = new DOMDocument('1.0', 'UTF-8');
         @$dom->loadHTML($html, LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED | LIBXML_NOERROR | LIBXML_NOWARNING);
 
@@ -275,25 +274,38 @@ class ExportStaticPreviewCommand extends Command
             }
         }
 
-        foreach ($xpath->query('//*[@data-page]') ?: [] as $node) {
+        // Inertia 3 delivers the page object as JSON inside
+        // <script type="application/json" data-page="app">. Up to Inertia 2 it
+        // was an HTML-escaped data-page attribute on the mount element, and
+        // that element still carries a data-page attribute here — it just holds
+        // "app" rather than the payload, so matching on the attribute alone
+        // would decode nothing and skip the rewrite silently.
+        foreach ($xpath->query('//script[@type="application/json"][@data-page]') ?: [] as $node) {
             if (! $node instanceof DOMElement) {
                 continue;
             }
 
-            $page = json_decode($node->getAttribute('data-page'), true);
+            $page = json_decode($node->textContent, true);
 
             if (! is_array($page)) {
                 continue;
             }
 
-            $rewrittenPage = $this->rewritePayloadValue($page, $basePath, $serverUrl, $locale);
-            $node->setAttribute(
-                'data-page',
-                json_encode(
-                    $rewrittenPage,
-                    JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
-                ) ?: $node->getAttribute('data-page'),
+            // Encoded to pure ASCII with no <, >, &, ' or " left inside string
+            // values. DOMDocument entity-encodes text nodes on save, and a
+            // <script type="application/json"> body is raw text to the browser:
+            // entities are never decoded there, so an accented character would
+            // reach JSON.parse as a literal "&euml;". Escaping these at the
+            // JSON level leaves the serialiser nothing to rewrite, and also
+            // keeps "</script>" from ending the element early.
+            $rewritten = json_encode(
+                $this->rewritePayloadValue($page, $basePath, $serverUrl, $locale),
+                JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT,
             );
+
+            if ($rewritten !== false) {
+                $node->textContent = $rewritten;
+            }
         }
 
         $head = $dom->getElementsByTagName('head')->item(0);
@@ -325,8 +337,7 @@ class ExportStaticPreviewCommand extends Command
         string $basePath,
         string $serverUrl,
         string $locale,
-    ): mixed
-    {
+    ): mixed {
         if (is_array($value)) {
             $rewritten = [];
 
@@ -349,8 +360,7 @@ class ExportStaticPreviewCommand extends Command
         string $basePath,
         string $serverUrl,
         string $locale,
-    ): string
-    {
+    ): string {
         if ($value === '') {
             return $value;
         }

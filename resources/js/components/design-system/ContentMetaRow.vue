@@ -80,7 +80,11 @@ defineProps<{
 }
 
 .content-meta-row__item--sun .content-meta-row__value {
-    color: color-mix(in srgb, var(--sw-accent-sun) 78%, var(--sw-text-secondary));
+    color: color-mix(
+        in srgb,
+        var(--sw-accent-sun) 78%,
+        var(--sw-text-secondary)
+    );
 }
 
 @media (max-width: 640px) {

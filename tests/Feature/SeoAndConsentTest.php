@@ -103,7 +103,7 @@ class SeoAndConsentTest extends TestCase
     {
         $this->get('/en/labs')
             ->assertOk()
-            ->assertSee('&quot;service&quot;:&quot;youtube&quot;', false)
+            ->assertSee('"service":"youtube"', false)
             ->assertDontSee('youtube-nocookie.com', false);
     }
 }

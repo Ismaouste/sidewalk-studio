@@ -75,7 +75,8 @@ const currentHref = computed(() => sanitizePublicHref(page.url));
 .locale-switcher__option--current {
     background: var(--sw-bg-elevated);
     color: var(--sw-text-primary);
-    border: 1px solid color-mix(in srgb, var(--sw-accent-dominant) 16%, transparent);
+    border: 1px solid
+        color-mix(in srgb, var(--sw-accent-dominant) 16%, transparent);
 }
 
 .locale-switcher__option--disabled {

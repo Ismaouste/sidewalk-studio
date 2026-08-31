@@ -3,57 +3,12 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import BrandMark from '@/components/branding/BrandMark.vue';
 import NavTabs from '@/components/layout/NavTabs.vue';
-import {
-    localizePublicHref,
-    resolvePublicHref,
-    sanitizePublicHref,
-} from '@/lib/publicHref';
+import { localizePublicHref, resolvePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
 const navigation = computed(() => page.props.site.navigation);
 const brandName = 'Ismaël Rodmacq';
-const staticLocationPath = ref<string | null>(null);
-
-function normalizePreviewPath(
-    pathname: string,
-    basePath?: string | null,
-): string {
-    const base = (basePath ?? '').trim();
-
-    if (!base || base === '/') {
-        return pathname || '/';
-    }
-
-    const normalizedBase = `/${base.replace(/^\/+|\/+$/g, '')}`;
-    let path = pathname;
-
-    if (path.startsWith(normalizedBase)) {
-        path = path.slice(normalizedBase.length) || '/';
-    }
-
-    if (path.endsWith('/index.html')) {
-        path = path.slice(0, -'/index.html'.length) || '/';
-    }
-
-    return path === '' ? '/' : path;
-}
-
-const currentUrl = computed(() => {
-    if (
-        page.props.site.runtime.staticPreview &&
-        staticLocationPath.value !== null
-    ) {
-        return sanitizePublicHref(
-            normalizePreviewPath(
-                staticLocationPath.value,
-                page.props.site.runtime.staticBasePath,
-            ),
-        );
-    }
-
-    return sanitizePublicHref(page.url);
-});
 const homeHref = computed(() =>
     resolvePublicHref(
         localizePublicHref('/', page.props.site.locale),
@@ -91,12 +46,6 @@ function syncHeaderHeight(): void {
 }
 
 onMounted(() => {
-    if (typeof window !== 'undefined') {
-        staticLocationPath.value = sanitizePublicHref(
-            `${window.location.pathname}${window.location.search}`,
-        );
-    }
-
     syncHeaderHeight();
 
     if (typeof window === 'undefined') {
@@ -144,7 +93,7 @@ onBeforeUnmount(() => {
                 </div>
 
                 <div class="app-header__controls">
-                    <NavTabs :items="navigation" :current-url="currentUrl" />
+                    <NavTabs :items="navigation" />
                 </div>
             </div>
         </div>

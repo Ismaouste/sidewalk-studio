@@ -69,8 +69,6 @@ updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => (
 
 update.form = updateForm
 
-
-
 const typeSettings = {
     update: Object.assign(update, update),
 }

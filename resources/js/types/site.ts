@@ -1,6 +1,18 @@
+/**
+ * The locales the backend can resolve, mirroring PublicLocale::supported().
+ * Kept as a union rather than `string` so a copy table keyed by locale is
+ * exhaustive at compile time.
+ */
+export type PublicLocale = 'en' | 'fr';
+
 export type NavItem = {
     label: string;
+    /** Localized, ready to hand to `<Link>`. */
     href: string;
+    /** Locale-stripped route, and the key the navigation copy table uses. */
+    path: string;
+    /** Resolved by `PublicLocale::navigation()`, never recomputed client-side. */
+    active: boolean;
 };
 
 export type BreadcrumbItem = {
@@ -62,10 +74,7 @@ export type BrandingSettings = {
     asset_mode: 'uploaded' | 'fallback';
     uploaded_asset_path: string | null;
     fallback_variant:
-        | 'avatar'
-        | 'monogram_circle'
-        | 'monogram_square'
-        | 'wordmark';
+        'avatar' | 'monogram_circle' | 'monogram_square' | 'wordmark';
     fallback_label: string;
     fallback_subtitle: string;
     active_alt: string;
@@ -76,7 +85,7 @@ export type LoaderQuote = {
     text: string;
     type: 'message' | 'quote';
     author: string | null;
-    locale: 'en' | 'fr';
+    locale: PublicLocale;
     is_active: boolean;
     theme_target: 'morning' | 'sunset' | null;
     weight: number;
@@ -122,7 +131,7 @@ export type SiteProps = {
     name: string;
     tagline: string;
     description: string;
-    locale: string;
+    locale: PublicLocale;
     url: string;
     navigation: NavItem[];
     author: SiteAuthor;
@@ -196,7 +205,7 @@ export type SeoPayload = {
 
 export type ContentItem = {
     section: 'writing' | 'case-studies';
-    locale: string;
+    locale: PublicLocale;
     title: string;
     slug: string;
     summary: string;

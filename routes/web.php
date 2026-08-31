@@ -1,16 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuditLogController;
+use App\Http\Controllers\Admin\AdminBrandingController;
 use App\Http\Controllers\Admin\AdminContactSubmissionController;
 use App\Http\Controllers\Admin\AdminEntryController;
-use App\Http\Controllers\Admin\AdminBrandingController;
 use App\Http\Controllers\Admin\AdminLanguageFileController;
 use App\Http\Controllers\Admin\AdminLoaderQuoteController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminPublicationController;
 use App\Http\Controllers\Admin\AdminThemeController;
-use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\AdminOnboardingController;
+use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\SiteSettingsController as AdminSiteSettingsController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\ContactSubmissionController;

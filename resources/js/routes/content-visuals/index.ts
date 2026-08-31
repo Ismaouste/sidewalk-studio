@@ -99,8 +99,6 @@ showForm.head = (args: { section: string | number, slug: string | number } | [se
 
 show.form = showForm
 
-
-
 const contentVisuals = {
     show: Object.assign(show, show),
 }

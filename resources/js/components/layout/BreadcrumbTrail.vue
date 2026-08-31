@@ -1,84 +1,14 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { onBeforeUnmount, onMounted, ref } from 'vue';
 import type { BreadcrumbItem } from '@/types';
 
 defineProps<{
     items: BreadcrumbItem[];
 }>();
-
-const rootRef = ref<HTMLElement | null>(null);
-const isStuck = ref(false);
-let stickyRaf = 0;
-
-function readStickyTop(): number {
-    if (typeof window === 'undefined') {
-        return 103;
-    }
-
-    const value = getComputedStyle(document.documentElement).getPropertyValue(
-        '--sw-public-header-height',
-    );
-
-    return Math.max(0, (Number.parseFloat(value) || 104) - 1);
-}
-
-function updateStickyState(): void {
-    stickyRaf = 0;
-
-    if (typeof window === 'undefined' || !rootRef.value) {
-        return;
-    }
-
-    if (!window.matchMedia('(max-width: 640px)').matches) {
-        isStuck.value = false;
-        return;
-    }
-
-    const top = rootRef.value.getBoundingClientRect().top;
-    isStuck.value = top <= readStickyTop() + 1;
-}
-
-function requestStickyState(): void {
-    if (stickyRaf !== 0 || typeof window === 'undefined') {
-        return;
-    }
-
-    stickyRaf = window.requestAnimationFrame(updateStickyState);
-}
-
-onMounted(() => {
-    requestStickyState();
-
-    if (typeof window === 'undefined') {
-        return;
-    }
-
-    window.addEventListener('scroll', requestStickyState, { passive: true });
-    window.addEventListener('resize', requestStickyState, { passive: true });
-});
-
-onBeforeUnmount(() => {
-    if (typeof window === 'undefined') {
-        return;
-    }
-
-    window.removeEventListener('scroll', requestStickyState);
-    window.removeEventListener('resize', requestStickyState);
-
-    if (stickyRaf !== 0) {
-        window.cancelAnimationFrame(stickyRaf);
-    }
-});
 </script>
 
 <template>
-    <nav
-        ref="rootRef"
-        class="breadcrumb-trail"
-        :class="{ 'breadcrumb-trail--stuck': isStuck }"
-        aria-label="Breadcrumb"
-    >
+    <nav class="breadcrumb-trail" aria-label="Breadcrumb">
         <ol class="breadcrumb-trail__list">
             <li
                 v-for="(item, index) in items"
@@ -169,15 +99,6 @@ onBeforeUnmount(() => {
         margin-inline: calc(-1 * var(--sw-space-xs));
         padding: 0.16rem var(--sw-space-xs) 0;
         border-bottom: 1px solid transparent;
-        transition:
-            background-color var(--sw-motion-fast),
-            backdrop-filter var(--sw-motion-fast);
-    }
-
-    .breadcrumb-trail--stuck {
-        background: transparent;
-        -webkit-backdrop-filter: blur(18px) saturate(112%);
-        backdrop-filter: blur(18px) saturate(112%);
     }
 
     .breadcrumb-trail__list {
@@ -201,11 +122,56 @@ onBeforeUnmount(() => {
         white-space: nowrap;
         font-size: 0.78rem;
         line-height: 1.2;
-        text-transform: none;
     }
 
     .breadcrumb-trail__current {
         color: var(--sw-text-primary);
+    }
+}
+
+/* Knowing whether the bar has reached the header used to mean a scroll
+   listener, a rAF, a getBoundingClientRect and a getComputedStyle on every
+   frame — four main-thread reads to answer one yes-or-no question. The
+   sentinel that answers it now lives in SiteLayout, because a sticky element
+   can only stick within its containing block: wrapping this nav to hold its
+   own sentinel would have left it nothing to stick to.
+   Without support the bar stays sticky and simply never gains the backdrop,
+   which is why the animation is gated rather than merely declared. */
+@supports (animation-timeline: view()) {
+    @media (max-width: 640px) {
+        .breadcrumb-trail {
+            animation-name: breadcrumb-stuck;
+            animation-fill-mode: both;
+            /* A switch, not a fade: the bar is either against the header or
+               it is not. */
+            animation-timing-function: step-end;
+            animation-timeline: --sw-breadcrumb-sentinel;
+            animation-range: exit;
+        }
+
+        /* reset.css blanks `animation` under reduced motion, and it is right
+           to: that rule is aimed at time-based movement. This animation has no
+           duration and moves nothing — it reports a position. Dropping it
+           would leave the breadcrumb transparent over the content scrolling
+           underneath it, so it opts back in. */
+        html[data-motion='reduced'] .breadcrumb-trail {
+            animation-name: breadcrumb-stuck !important;
+            animation-fill-mode: both !important;
+            animation-timing-function: step-end !important;
+            animation-timeline: --sw-breadcrumb-sentinel !important;
+            animation-range: exit !important;
+        }
+    }
+}
+
+/* The glass the bar picks up once it is against the header. Reading the token
+   rather than a literal is what keeps it in step with every other blurred
+   surface: morning and sunset define different blur radii and saturations,
+   and sunset's has to stay above 1. */
+@keyframes breadcrumb-stuck {
+    to {
+        -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+        backdrop-filter: var(--sw-surface-backdrop-filter);
     }
 }
 </style>

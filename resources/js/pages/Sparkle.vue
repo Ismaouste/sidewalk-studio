@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
+import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
-import SectionIntro from '@/components/design-system/SectionIntro.vue';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { SeoPayload, SiteProps } from '@/types';
 
@@ -22,9 +23,6 @@ type CosmicPalette = {
     surface: string;
     surfaceDeep: string;
 };
-
-const LOADER_REPLAY_EVENT = 'sidewalk:loader:replay';
-const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -52,6 +50,8 @@ const props = defineProps<{
     repoUrl: string;
     githubProfileUrl: string | null;
 }>();
+const LOADER_REPLAY_EVENT = 'sidewalk:loader:replay';
+const page = usePage<{ site: SiteProps }>();
 
 const shuffleActive = ref(false);
 const currentPalette = ref<CosmicPalette | null>(null);
@@ -98,17 +98,7 @@ const shuffleLabel = computed(() =>
         : props.controls.theme_button_on,
 );
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              controlsTitle: 'Commandes',
-              notesTitle: 'Notes cosmiques',
-          }
-        : {
-              controlsTitle: 'Controls',
-              notesTitle: 'Cosmic notes',
-          },
-);
+const copy = computed(() => copyTree[page.props.site.locale].pages.sparkle);
 
 function toggleShuffle(): void {
     if (shuffleActive.value) {
@@ -189,7 +179,9 @@ function replayLoader(): void {
                     </ul>
                 </Panel>
 
-                <Panel class="sparkle-page__panel sparkle-page__panel--controls">
+                <Panel
+                    class="sparkle-page__panel sparkle-page__panel--controls"
+                >
                     <p class="sparkle-page__panel-title">
                         {{ copy.controlsTitle }}
                     </p>
@@ -273,7 +265,11 @@ function replayLoader(): void {
     border: 1px solid color-mix(in srgb, var(--sparkle-border) 82%, transparent);
     border-radius: var(--sw-radius-lg);
     background:
-        radial-gradient(circle at 16% 12%, var(--sparkle-glow), transparent 30%),
+        radial-gradient(
+            circle at 16% 12%,
+            var(--sparkle-glow),
+            transparent 30%
+        ),
         radial-gradient(
             circle at 82% 18%,
             color-mix(in srgb, var(--sparkle-accent-hot) 26%, transparent),
@@ -333,12 +329,11 @@ function replayLoader(): void {
     gap: 14px;
     padding: clamp(16px, 2vw, 20px);
     border-color: color-mix(in srgb, var(--sparkle-border) 86%, transparent);
-    background:
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--sparkle-surface) 86%, transparent),
-            color-mix(in srgb, var(--sparkle-surface-deep) 92%, transparent)
-        );
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--sparkle-surface) 86%, transparent),
+        color-mix(in srgb, var(--sparkle-surface-deep) 92%, transparent)
+    );
     color: var(--sparkle-text);
 }
 
@@ -395,7 +390,8 @@ function replayLoader(): void {
         var(--sparkle-accent),
         var(--sparkle-accent-hot)
     );
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--sparkle-glow) 48%, transparent);
+    box-shadow: 0 0 0 4px
+        color-mix(in srgb, var(--sparkle-glow) 48%, transparent);
 }
 
 .sparkle-page__facts {

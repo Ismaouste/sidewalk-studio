@@ -99,6 +99,4 @@ ContentVisualControllerForm.head = (args: { section: string | number, slug: stri
 
 ContentVisualController.form = ContentVisualControllerForm
 
-
-
 export default ContentVisualController

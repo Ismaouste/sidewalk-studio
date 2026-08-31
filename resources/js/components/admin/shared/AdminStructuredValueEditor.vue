@@ -1,68 +1,98 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import Panel from '@/components/ui/Panel.vue';
+import type { JsonObject, JsonValue } from '@/types';
+
+const props = defineProps<{
+    label: string;
+    value: JsonValue;
+}>();
+
+const emit = defineEmits<{
+    'update:value': [value: JsonValue];
+}>();
+
 defineOptions({
     name: 'AdminStructuredValueEditor',
 });
 
-import Panel from '@/components/ui/Panel.vue';
+/**
+ * The template iterates these rather than `value` directly: v-for over a union
+ * makes Vue infer the key as `number | "valueOf"`, picking up Object.prototype
+ * members. Narrowing once in script keeps the markup honestly typed.
+ */
+const objectEntries = computed<JsonObject | null>(() =>
+    isObject(props.value) ? props.value : null,
+);
 
-const props = defineProps<{
-    label: string;
-    value: unknown;
-}>();
+const arrayItems = computed<JsonValue[] | null>(() =>
+    Array.isArray(props.value) ? props.value : null,
+);
 
-const emit = defineEmits<{
-    'update:value': [value: unknown];
-}>();
-
-function updateObjectEntry(key: string, value: unknown) {
-    emit('update:value', {
-        ...(props.value as Record<string, unknown>),
-        [key]: value,
-    });
+function currentObject(): JsonObject {
+    return isObject(props.value) ? props.value : {};
 }
 
-function updateArrayEntry(index: number, value: unknown) {
-    const items = [...((props.value as unknown[]) ?? [])];
+function currentArray(): JsonValue[] {
+    return Array.isArray(props.value) ? props.value : [];
+}
+
+function updateObjectEntry(key: string, value: JsonValue) {
+    emit('update:value', { ...currentObject(), [key]: value });
+}
+
+function updateArrayEntry(index: number, value: JsonValue) {
+    const items = [...currentArray()];
     items[index] = value;
     emit('update:value', items);
 }
 
 function removeArrayEntry(index: number) {
-    const items = [...((props.value as unknown[]) ?? [])];
+    const items = [...currentArray()];
     items.splice(index, 1);
     emit('update:value', items);
 }
 
 function addScalarArrayEntry() {
-    emit('update:value', [...((props.value as unknown[]) ?? []), '']);
+    emit('update:value', [...currentArray(), '']);
 }
 
 function addObjectArrayEntry() {
-    const items = ((props.value as unknown[]) ?? []);
-    const template = firstObjectTemplate(items);
-    emit('update:value', [...items, template]);
+    const items = currentArray();
+    emit('update:value', [...items, firstObjectTemplate(items)]);
 }
 
-function firstObjectTemplate(items: unknown[]) {
-    const firstObject = items.find((item) => isObject(item)) as Record<string, unknown> | undefined;
+/**
+ * New rows in an object array copy the shape of the first existing row with
+ * every leaf blanked, so the editor never invents keys the backend does not
+ * already accept.
+ */
+function firstObjectTemplate(items: JsonValue[]): JsonObject {
+    const firstObject = items.find((item) => isObject(item));
 
     if (!firstObject) {
         return {};
     }
 
     return Object.fromEntries(
-        Object.entries(firstObject).map(([key, value]) => [key, defaultForValue(value)]),
+        Object.entries(firstObject).map(([key, value]) => [
+            key,
+            defaultForValue(value),
+        ]),
     );
 }
 
-function defaultForValue(value: unknown): unknown {
+function defaultForValue(value: JsonValue): JsonValue {
     if (Array.isArray(value)) {
         return [];
     }
 
     if (isObject(value)) {
         return Object.fromEntries(
-            Object.entries(value).map(([key, item]) => [key, defaultForValue(item)]),
+            Object.entries(value).map(([key, item]) => [
+                key,
+                defaultForValue(item),
+            ]),
         );
     }
 
@@ -81,20 +111,26 @@ function updateScalar(value: string | boolean) {
     emit('update:value', value);
 }
 
-function isObject(value: unknown): value is Record<string, unknown> {
+function isObject(value: JsonValue): value is JsonObject {
     return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
-function isScalarArray(value: unknown): boolean {
-    return Array.isArray(value) && value.every((item) => !isObject(item) && !Array.isArray(item));
+function isScalarArray(value: JsonValue): boolean {
+    return (
+        Array.isArray(value) &&
+        value.every((item) => !isObject(item) && !Array.isArray(item))
+    );
 }
 
-function isObjectArray(value: unknown): boolean {
+function isObjectArray(value: JsonValue): boolean {
     return Array.isArray(value) && value.every((item) => isObject(item));
 }
 
-function shouldUseTextarea(value: unknown): boolean {
-    return typeof value === 'string' && (value.includes('\n') || value.length > 110);
+function shouldUseTextarea(value: JsonValue): boolean {
+    return (
+        typeof value === 'string' &&
+        (value.includes('\n') || value.length > 110)
+    );
 }
 
 function prettify(key: string): string {
@@ -106,26 +142,28 @@ function prettify(key: string): string {
 
 <template>
     <div class="structured-editor">
-        <template v-if="isObject(value)">
+        <template v-if="objectEntries">
             <div class="structured-editor__group">
                 <div
-                    v-for="(entryValue, entryKey) in value"
+                    v-for="(entryValue, entryKey) in objectEntries"
                     :key="`${label}-${String(entryKey)}`"
                     class="structured-editor__entry"
                 >
                     <AdminStructuredValueEditor
                         :label="prettify(String(entryKey))"
                         :value="entryValue"
-                        @update:value="updateObjectEntry(String(entryKey), $event)"
+                        @update:value="
+                            updateObjectEntry(String(entryKey), $event)
+                        "
                     />
                 </div>
             </div>
         </template>
 
-        <template v-else-if="isScalarArray(value)">
+        <template v-else-if="arrayItems && isScalarArray(value)">
             <div class="structured-editor__array">
                 <div
-                    v-for="(entryValue, index) in value"
+                    v-for="(entryValue, index) in arrayItems"
                     :key="`${label}-${index}`"
                     class="structured-editor__array-row"
                 >
@@ -134,13 +172,23 @@ function prettify(key: string): string {
                         :value="String(entryValue ?? '')"
                         class="structured-editor__input"
                         type="text"
-                        @input="updateArrayEntry(index, ($event.target as HTMLInputElement).value)"
+                        @input="
+                            updateArrayEntry(
+                                index,
+                                ($event.target as HTMLInputElement).value,
+                            )
+                        "
                     />
                     <label v-else class="structured-editor__toggle">
                         <input
                             :checked="entryValue"
                             type="checkbox"
-                            @change="updateArrayEntry(index, ($event.target as HTMLInputElement).checked)"
+                            @change="
+                                updateArrayEntry(
+                                    index,
+                                    ($event.target as HTMLInputElement).checked,
+                                )
+                            "
                         />
                         <span>{{ label }} {{ index + 1 }}</span>
                     </label>
@@ -152,16 +200,20 @@ function prettify(key: string): string {
                         Remove
                     </button>
                 </div>
-                <button class="structured-editor__add" type="button" @click="addScalarArrayEntry">
+                <button
+                    class="structured-editor__add"
+                    type="button"
+                    @click="addScalarArrayEntry"
+                >
                     Add item
                 </button>
             </div>
         </template>
 
-        <template v-else-if="isObjectArray(value)">
+        <template v-else-if="arrayItems && isObjectArray(value)">
             <div class="structured-editor__array">
                 <Panel
-                    v-for="(entryValue, index) in value"
+                    v-for="(entryValue, index) in arrayItems"
                     :key="`${label}-${index}`"
                     class="structured-editor__panel"
                     tone="grid"
@@ -182,7 +234,11 @@ function prettify(key: string): string {
                         @update:value="updateArrayEntry(index, $event)"
                     />
                 </Panel>
-                <button class="structured-editor__add" type="button" @click="addObjectArrayEntry">
+                <button
+                    class="structured-editor__add"
+                    type="button"
+                    @click="addObjectArrayEntry"
+                >
                     Add block
                 </button>
             </div>
@@ -193,7 +249,11 @@ function prettify(key: string): string {
                 <input
                     :checked="value"
                     type="checkbox"
-                    @change="updateScalar(($event.target as HTMLInputElement).checked)"
+                    @change="
+                        updateScalar(
+                            ($event.target as HTMLInputElement).checked,
+                        )
+                    "
                 />
                 <span>{{ label }}</span>
             </label>
@@ -207,14 +267,20 @@ function prettify(key: string): string {
                     class="structured-editor__input structured-editor__input--textarea"
                     rows="4"
                     :value="String(value ?? '')"
-                    @input="updateScalar(($event.target as HTMLTextAreaElement).value)"
+                    @input="
+                        updateScalar(
+                            ($event.target as HTMLTextAreaElement).value,
+                        )
+                    "
                 />
                 <input
                     v-else
                     class="structured-editor__input"
                     type="text"
                     :value="String(value ?? '')"
-                    @input="updateScalar(($event.target as HTMLInputElement).value)"
+                    @input="
+                        updateScalar(($event.target as HTMLInputElement).value)
+                    "
                 />
             </label>
         </template>

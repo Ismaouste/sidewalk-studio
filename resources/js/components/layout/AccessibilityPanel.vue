@@ -1,111 +1,60 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useAccessibilityPreferences } from '@/composables/useAccessibilityPreferences';
+import { copy as copyTree } from '@/copy';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
+const panelId = 'accessibility-preferences';
 const isOpen = ref(false);
-const rootRef = ref<HTMLElement | null>(null);
 
-const { motionPreference, toggleReducedMotion } = useAccessibilityPreferences();
+const {
+    motionPreference,
+    contrastPreference,
+    toggleReducedMotion,
+    toggleBoostContrast,
+} = useAccessibilityPreferences();
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              buttonLabel: 'Accessibilité',
-              panelLabel: "Réglages d'accessibilité",
-              closeLabel: 'Fermer le panneau',
-              reducedMotion: 'Animations réduites',
-              reducedMotionHint:
-                  'Fond ambient, loader et transitions plus sobres.',
-              contrast: 'Contraste renforcé',
-              contrastHint:
-                  'Prévu ensuite. Le mode est affiché mais pas encore disponible.',
-              unavailable: 'Bientôt',
-          }
-        : {
-              buttonLabel: 'Accessibility',
-              panelLabel: 'Accessibility settings',
-              closeLabel: 'Close panel',
-              reducedMotion: 'Reduced motion',
-              reducedMotionHint:
-                  'Ambient background, loader, and transitions become quieter.',
-              contrast: 'Boost contrast',
-              contrastHint:
-                  'Planned next. The control is visible but not available yet.',
-              unavailable: 'Soon',
-          },
+const copy = computed(
+    () => copyTree[page.props.site.locale].layout.accessibility,
 );
 
-function togglePanel(): void {
-    isOpen.value = !isOpen.value;
+// Opening, closing, click-outside, Escape, the top layer and the scrim are all
+// the popover attribute's job. The invoker's expanded state is the one thing
+// Chromium does not expose yet, so `toggle` mirrors back what the UA just did.
+function handleToggle(event: ToggleEvent): void {
+    isOpen.value = event.newState === 'open';
 }
-
-function closePanel(): void {
-    isOpen.value = false;
-}
-
-function handleDocumentClick(event: MouseEvent): void {
-    if (!isOpen.value || !rootRef.value) {
-        return;
-    }
-
-    if (!rootRef.value.contains(event.target as Node)) {
-        closePanel();
-    }
-}
-
-function handleEscape(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-        closePanel();
-    }
-}
-
-onMounted(() => {
-    document.addEventListener('click', handleDocumentClick);
-    document.addEventListener('keydown', handleEscape);
-});
-
-onBeforeUnmount(() => {
-    document.removeEventListener('click', handleDocumentClick);
-    document.removeEventListener('keydown', handleEscape);
-});
 </script>
 
 <template>
-    <div ref="rootRef" class="accessibility-panel">
+    <div class="accessibility-panel">
         <button
             type="button"
             class="accessibility-panel__trigger"
+            :popovertarget="panelId"
             :aria-expanded="isOpen"
-            :aria-haspopup="'dialog'"
+            aria-haspopup="dialog"
             :aria-label="copy.buttonLabel"
-            @click="togglePanel"
         >
             {{ copy.buttonLabel }}
         </button>
 
-        <button
-            v-if="isOpen"
-            type="button"
-            class="accessibility-panel__backdrop"
-            :aria-label="copy.closeLabel"
-            tabindex="-1"
-            @click="closePanel"
-        />
-
         <div
-            v-if="isOpen"
+            :id="panelId"
+            popover
             class="accessibility-panel__popover"
             role="dialog"
             :aria-label="copy.panelLabel"
+            @toggle="handleToggle"
         >
             <button
                 type="button"
                 class="accessibility-panel__close"
+                :popovertarget="panelId"
+                popovertargetaction="hide"
                 :aria-label="copy.closeLabel"
-                @click="closePanel"
             >
                 ✕
             </button>
@@ -116,6 +65,7 @@ onBeforeUnmount(() => {
                     'accessibility-panel__option--active':
                         motionPreference === 'reduced',
                 }"
+                :aria-pressed="motionPreference === 'reduced'"
                 @click="toggleReducedMotion"
             >
                 <span class="accessibility-panel__option-copy">
@@ -127,15 +77,23 @@ onBeforeUnmount(() => {
                     </span>
                 </span>
                 <span class="accessibility-panel__state">
-                    {{ motionPreference === 'reduced' ? 'On' : 'Off' }}
+                    {{
+                        motionPreference === 'reduced'
+                            ? copy.stateOn
+                            : copy.stateOff
+                    }}
                 </span>
             </button>
 
             <button
                 type="button"
-                class="accessibility-panel__option accessibility-panel__option--disabled"
-                disabled
-                aria-disabled="true"
+                class="accessibility-panel__option"
+                :class="{
+                    'accessibility-panel__option--active':
+                        contrastPreference === 'boost',
+                }"
+                :aria-pressed="contrastPreference === 'boost'"
+                @click="toggleBoostContrast"
             >
                 <span class="accessibility-panel__option-copy">
                     <span class="accessibility-panel__option-title">
@@ -146,7 +104,11 @@ onBeforeUnmount(() => {
                     </span>
                 </span>
                 <span class="accessibility-panel__state">
-                    {{ copy.unavailable }}
+                    {{
+                        contrastPreference === 'boost'
+                            ? copy.stateOn
+                            : copy.stateOff
+                    }}
                 </span>
             </button>
         </div>
@@ -154,10 +116,6 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.accessibility-panel {
-    position: relative;
-}
-
 .accessibility-panel__trigger {
     display: inline-flex;
     align-items: center;
@@ -165,7 +123,7 @@ onBeforeUnmount(() => {
     min-height: 2rem;
     padding-inline: 0.72rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
-    border-radius: 3px;
+    border-radius: var(--sw-radius-md);
     background: transparent;
     font-family: var(--sw-font-body);
     font-size: 12px;
@@ -174,10 +132,6 @@ onBeforeUnmount(() => {
         border-color var(--sw-motion-fast),
         color var(--sw-motion-fast),
         background-color var(--sw-motion-fast);
-}
-
-.accessibility-panel__backdrop {
-    display: none;
 }
 
 .accessibility-panel__close {
@@ -203,48 +157,49 @@ onBeforeUnmount(() => {
 .accessibility-panel__close:focus-visible {
     background: color-mix(in srgb, var(--sw-border) 60%, transparent);
     color: var(--sw-text-primary);
-    outline: none;
 }
 
+/* The UA gives every [popover] a centred fixed box with a border and a system
+   background; each declaration below replaces one of those. Sitting in the top
+   layer is what lets the panel drop its z-index and its stacking contract with
+   the footer — nothing can paint over it. */
 .accessibility-panel__popover {
-    position: absolute;
-    right: 0;
-    bottom: calc(100% + 10px);
-    z-index: 5;
+    position: fixed;
+    inset: auto var(--sw-space-xs) var(--sw-space-md) auto;
+    width: min(19rem, calc(100vw - 2 * var(--sw-space-xs)));
+    max-width: none;
+    height: auto;
+    max-height: none;
+    margin: 0;
     display: grid;
-    gap: 8px;
-    width: min(19rem, calc(100vw - 2rem));
+    gap: var(--sw-space-3xs);
     padding: 10px;
     padding-top: 28px;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
     border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-elevated) 92%, transparent);
+    color: var(--sw-text-primary);
+    overflow: visible;
     -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
     backdrop-filter: var(--sw-surface-backdrop-filter);
+    opacity: 0;
+    translate: 0 var(--sw-space-4xs);
+    transition:
+        opacity var(--sw-motion-fast),
+        translate var(--sw-motion-fast),
+        display var(--sw-motion-fast) allow-discrete,
+        overlay var(--sw-motion-fast) allow-discrete;
 }
 
-@media (max-width: 640px) {
-    .accessibility-panel__backdrop {
-        display: block;
-        position: fixed;
-        inset: 0;
-        z-index: 4;
-        border: 0;
-        padding: 0;
-        background: color-mix(in srgb, black 32%, transparent);
-        -webkit-backdrop-filter: blur(2px);
-        backdrop-filter: blur(2px);
-        cursor: pointer;
-    }
+.accessibility-panel__popover:popover-open {
+    opacity: 1;
+    translate: none;
+}
 
-    .accessibility-panel__popover {
-        position: fixed;
-        right: var(--sw-space-xs);
-        left: var(--sw-space-xs);
-        bottom: var(--sw-space-md);
-        width: auto;
-        max-width: calc(100vw - 2 * var(--sw-space-xs));
-        z-index: 5;
+@starting-style {
+    .accessibility-panel__popover:popover-open {
+        opacity: 0;
+        translate: 0 var(--sw-space-4xs);
     }
 }
 
@@ -252,7 +207,7 @@ onBeforeUnmount(() => {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    gap: 12px;
+    gap: var(--sw-space-2xs);
     width: 100%;
     padding: 0.8rem 0.85rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 74%, transparent);
@@ -302,15 +257,38 @@ onBeforeUnmount(() => {
     );
 }
 
-.accessibility-panel__option--disabled {
-    opacity: 0.58;
-    cursor: not-allowed;
-}
+@media (max-width: 640px) {
+    .accessibility-panel__popover {
+        inset: auto var(--sw-space-xs) var(--sw-space-md) var(--sw-space-xs);
+        width: auto;
+    }
 
-.accessibility-panel__option--disabled .accessibility-panel__option-title,
-.accessibility-panel__option--disabled .accessibility-panel__option-hint,
-.accessibility-panel__option--disabled .accessibility-panel__state {
-    color: color-mix(in srgb, var(--sw-text-muted) 88%, transparent);
+    /* The scrim used to be a full-screen <button> rendered only to catch the
+       click that closed the panel. Light dismiss catches that click, so the
+       element is gone and the dimming is the top layer's own ::backdrop.
+       ::backdrop inherits from its originating element, so the tokens resolve
+       here — including --sw-motion-fast, which is what makes the fade honour
+       reduced motion without a rule of its own. */
+    .accessibility-panel__popover::backdrop {
+        background: var(--sw-scrim);
+        -webkit-backdrop-filter: var(--sw-scrim-backdrop-filter);
+        backdrop-filter: var(--sw-scrim-backdrop-filter);
+        opacity: 0;
+        transition:
+            opacity var(--sw-motion-fast),
+            display var(--sw-motion-fast) allow-discrete,
+            overlay var(--sw-motion-fast) allow-discrete;
+    }
+
+    .accessibility-panel__popover:popover-open::backdrop {
+        opacity: 1;
+    }
+
+    @starting-style {
+        .accessibility-panel__popover:popover-open::backdrop {
+            opacity: 0;
+        }
+    }
 }
 
 @media (hover: hover) {
@@ -331,11 +309,6 @@ onBeforeUnmount(() => {
             var(--sw-accent-dominant) 24%,
             var(--sw-border)
         );
-    }
-
-    .accessibility-panel__option--disabled:hover {
-        transform: none;
-        border-color: color-mix(in srgb, var(--sw-border) 74%, transparent);
     }
 }
 </style>

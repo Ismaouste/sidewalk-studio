@@ -170,11 +170,9 @@ updateForm.put = (args: { key: string | number } | [key: string | number ] | str
 
 update.form = updateForm
 
-
-
 const languageFiles = {
     index: Object.assign(index, index),
-    update: Object.assign(update, update),
+update: Object.assign(update, update),
 }
 
 export default languageFiles

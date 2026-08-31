@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
-import { formatPublicDate } from '@/lib/formatDate';
 import Panel from '@/components/ui/Panel.vue';
+import { useLocalMemory } from '@/composables/useLocalMemory';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
+import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
-
-const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
     items: ContentItem[];
 }>();
+
+const page = usePage<{ site: SiteProps }>();
 
 function writingMeta(item: ContentItem) {
     return [
@@ -25,43 +27,33 @@ function writingMeta(item: ContentItem) {
     ];
 }
 
-function entryLabel(item: ContentItem): string {
-    if (item.category === 'journal') {
-        return 'Journal';
-    }
+const copy = computed(
+    () => copyTree[page.props.site.locale].pages.writingIndex,
+);
 
-    return page.props.site.locale === 'fr' ? 'Note' : 'Note';
+function entryLabel(item: ContentItem): string {
+    return item.category === 'journal'
+        ? copy.value.entryLabelJournal
+        : copy.value.entryLabelNote;
 }
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              eyebrow: 'Journal',
-              title: 'Articles, notes courtes et repères de build.',
-              description:
-                  "Un flux de journal public avec des articles plus riches et des notes plus courtes autour du build, de l'architecture, du contenu et des terrains qui nourrissent le studio.",
-              projectsCta: 'Voir les références',
-              contactCta: 'Prendre contact',
-              editorialLabel: 'Articles et notes',
-              publishedEntriesLabel: `${props.items.length} publications`,
-              publishedLabel: 'Publié',
-              readLabel: 'Lecture',
-              nudgeContactCta: 'Échangeons sur un contexte proche',
-          }
-        : {
-              eyebrow: 'Journal',
-              title: 'Articles, short notes, and build markers.',
-              description:
-                  'A public journal that mixes richer essays and shorter notes around build work, architecture, content systems, and the field contexts behind the studio.',
-              projectsCta: 'Browse references',
-              contactCta: 'Contact',
-              editorialLabel: 'Articles and notes',
-              publishedEntriesLabel: `${props.items.length} publications`,
-              publishedLabel: 'Published',
-              readLabel: 'Read',
-              nudgeContactCta: 'Talk about a similar context',
-          },
-);
+/**
+ * Which entries are new is a fact about this browser, so it cannot be part of
+ * the server-rendered markup — everyone is served the same HTML. The set stays
+ * empty through the first render and fills in on mount, which is also why
+ * there is no hydration mismatch to reconcile.
+ */
+const newSlugs = ref(new Set<string>());
+
+onMounted(() => {
+    const { isNewSinceLastVisit } = useLocalMemory();
+
+    newSlugs.value = new Set(
+        props.items
+            .filter((item) => isNewSinceLastVisit(item.published_at))
+            .map((item) => item.slug),
+    );
+});
 </script>
 
 <template>
@@ -82,7 +74,10 @@ const copy = computed(() =>
                 </template>
 
                 <LegendChip :label="copy.editorialLabel" tone="violet" />
-                <LegendChip :label="copy.publishedEntriesLabel" tone="sun" />
+                <LegendChip
+                    :label="copy.publishedEntriesLabel(props.items.length)"
+                    tone="sun"
+                />
             </SectionIntro>
 
             <div class="writing-index__list">
@@ -90,12 +85,21 @@ const copy = computed(() =>
                     v-for="item in props.items"
                     :key="item.slug"
                     :href="item.url"
+                    prefetch="hover"
+                    cache-for="30s"
                     class="writing-index__link"
+                    :data-new="newSlugs.has(item.slug) ? '' : null"
                 >
                     <Panel class="writing-index__card" tone="surface">
                         <ContentVisual :item="item" compact />
                         <div class="writing-index__body">
                             <div class="writing-index__meta">
+                                <span
+                                    class="writing-index__new"
+                                    :title="copy.newBadgeDescription"
+                                >
+                                    {{ copy.newBadge }}
+                                </span>
                                 <LegendChip
                                     :label="entryLabel(item)"
                                     :tone="
@@ -190,6 +194,38 @@ const copy = computed(() =>
     display: inline-flex;
     align-items: baseline;
     color: var(--sw-text-muted);
+}
+
+/* The badge ships on every card and CSS decides which ones show it, so the
+   only thing script does is set an attribute. `display: none` also keeps the
+   hidden ones out of the accessibility tree, which a visually-hidden
+   treatment would not.
+
+   Outlined, not filled, and the label takes --sw-text-primary rather than an
+   accent. Both filled and tinted treatments were measured and both fail in
+   morning at this size — accent-on-transparent lands at 3.7:1, and the
+   primary button's own pair is near-white on orange at 2.95:1. Text-primary
+   is legible on a card surface in either theme by construction, so the accent
+   carries the emphasis through the border where contrast rules are 3:1 and
+   not 4.5:1. Typography mirrors LegendChip, which sits beside it — two chips
+   in one row should not be set in two typefaces. */
+.writing-index__new {
+    display: none;
+    align-items: center;
+    padding-inline: var(--sw-space-4xs);
+    border: var(--sw-runtime-line-thickness, 1px) solid
+        var(--sw-accent-dominant);
+    border-radius: var(--sw-radius-sm);
+    color: var(--sw-text-primary);
+    font-family: var(--sw-font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.writing-index__link[data-new] .writing-index__new {
+    display: inline-flex;
 }
 
 .writing-index__meta-item::before {

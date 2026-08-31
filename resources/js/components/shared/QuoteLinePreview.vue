@@ -15,10 +15,7 @@ defineProps<{
         >
             {{ text }}
         </strong>
-        <cite
-            v-if="author"
-            class="quote-preview__author"
-        >
+        <cite v-if="author" class="quote-preview__author">
             {{ author }}
         </cite>
     </div>
@@ -34,7 +31,11 @@ defineProps<{
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.35;
-    color: color-mix(in srgb, var(--sw-text-secondary) 88%, var(--sw-text-primary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-secondary) 88%,
+        var(--sw-text-primary)
+    );
 }
 
 .quote-preview__text--quote {

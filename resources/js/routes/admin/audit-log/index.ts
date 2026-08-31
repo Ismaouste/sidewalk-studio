@@ -84,8 +84,6 @@ indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 index.form = indexForm
 
-
-
 const auditLog = {
     index: Object.assign(index, index),
 }

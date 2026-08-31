@@ -269,12 +269,10 @@ updateForm.put = (args: { page: string | number, locale: string | number } | [pa
 
 update.form = updateForm
 
-
-
 const pages = {
     index: Object.assign(index, index),
-    edit: Object.assign(edit, edit),
-    update: Object.assign(update, update),
+edit: Object.assign(edit, edit),
+update: Object.assign(update, update),
 }
 
 export default pages

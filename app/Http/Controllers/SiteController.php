@@ -7,8 +7,8 @@ use App\Services\PageContentRepository;
 use App\Services\SiteSettingsService;
 use App\Support\PublicLocale;
 use App\Support\Seo;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -45,7 +45,7 @@ class SiteController extends Controller
                     ? 'Articles, notes et détails techniques qui valent le détour.'
                     : 'Articles, notes, and technical details worth opening.',
                 'description' => app()->getLocale() === 'fr'
-                    ? "Des textes plus construits et des mémos plus courts pour parler terrain, flux produit, SEO, données structurées, outils associatifs et détails de build."
+                    ? 'Des textes plus construits et des mémos plus courts pour parler terrain, flux produit, SEO, données structurées, outils associatifs et détails de build.'
                     : 'Longer articles and shorter memos about product flows, structured data, SEO, nonprofit tooling, and build details.',
                 'ctaLabel' => app()->getLocale() === 'fr' ? 'Découvrir le journal' : 'Discover the journal',
                 'ctaHref' => '/journal',
@@ -202,7 +202,7 @@ class SiteController extends Controller
                     ? 'Mémos techniques, anecdotes utiles, détails qui comptent.'
                     : 'Technical memos, useful anecdotes, and details that matter.',
                 'description' => app()->getLocale() === 'fr'
-                    ? "Des notes courtes pour parler schéma.org, données produit, catalogues, images, formats web et autres détails techniques qui finissent par faire une vraie différence."
+                    ? 'Des notes courtes pour parler schéma.org, données produit, catalogues, images, formats web et autres détails techniques qui finissent par faire une vraie différence.'
                     : 'Short notes about schema.org, product data, catalogs, images, web formats, and the technical details that end up making a real difference.',
                 'ctaLabel' => app()->getLocale() === 'fr' ? 'Consulter les notes' : 'Browse notes',
                 'ctaHref' => '/journal',
@@ -218,9 +218,9 @@ class SiteController extends Controller
                     ? 'Études de cas et notes pour aller plus loin.'
                     : 'Case studies and notes to go deeper.',
                 'description' => app()->getLocale() === 'fr'
-                    ? "Une archive pour entrer dans des cas plus précis : outils associatifs sous contrainte, circulation de la donnée entre ERP, PIM et e-commerce, formats web, sitemaps, robots.txt et qualité de livraison."
+                    ? 'Une archive pour entrer dans des cas plus précis : outils associatifs sous contrainte, circulation de la donnée entre ERP, PIM et e-commerce, formats web, sitemaps, robots.txt et qualité de livraison.'
                     : 'An archive for more precise cases: constrained nonprofit tooling, data flow between ERP, PIM, and commerce, web formats, sitemaps, robots.txt, and delivery quality.',
-                'ctaLabel' => app()->getLocale() === 'fr' ? "Découvrir toutes les études de cas" : 'Browse all case studies',
+                'ctaLabel' => app()->getLocale() === 'fr' ? 'Découvrir toutes les études de cas' : 'Browse all case studies',
                 'ctaHref' => '/case-studies',
                 'sections' => ['case-studies'],
                 'category' => 'work',

@@ -2,7 +2,7 @@
 ## Design System Rules for Figma MCP Integration
 
 > Generated via `Figma:create_design_system_rules` — Vue · TypeScript · PHP · CSS
-> Stack: Laravel 12 · Inertia.js 2 · Vue 3 · TypeScript · Tailwind CSS v4 · Vite 6
+> Stack: Laravel 13 · Inertia.js 3 · Vue 3 · TypeScript · Vite 8 (Rolldown) — no CSS framework
 > Theme: **Morning Grid** (light) · **Sunset Signal** (dark) — one system, two atmospheric states
 > Author: Ismael Rodmacq · Nancy, Grand Est · March 2026
 
@@ -17,7 +17,8 @@ resources/css/tokens.css   ← SINGLE SOURCE OF TRUTH for all --sw-* tokens
 ```
 
 No JSON tokens. No Style Dictionary pipeline. No separate theme files.
-Tokens go: `tokens.css` → Tailwind extend → scoped Vue `<style>` blocks.
+Tokens go: `tokens.css` → scoped Vue `<style>` blocks. Base element
+normalisation lives in `base.css` under `@layer reset`.
 
 ### Token format
 
@@ -330,90 +331,51 @@ No Storybook. Figma file `Sidewalk Studio — Design System` → page `04 · Com
 
 | Layer | Tech | Version |
 |---|---|---|
-| Backend | Laravel | 12.x |
-| Language | PHP | 8.3 |
-| Bridge | Inertia.js | 2.x |
+| Backend | Laravel | 13.x |
+| Language | PHP | 8.3+ (8.5 on Vercel) |
+| Bridge | Inertia.js | 3.x |
 | UI | Vue | 3.5.x |
-| Types | TypeScript | 5.x |
-| CSS | Tailwind CSS | v4 |
-| Build | Vite | 6.x |
-| PHP tests | Pest | 3.x |
-| JS tests | Vitest | latest |
-| DB (dev) | SQLite | — |
-| DB (prod) | PostgreSQL | 16.x |
+| Types | TypeScript | 5.9.x |
+| CSS | none — hand-authored on `--sw-*` tokens | — |
+| Build | Vite (Rolldown) | 8.x |
+| PHP tests | PHPUnit | 13.x |
+| JS tests | none | — |
+| DB (dev and prod) | SQLite | — |
 
-### Tailwind v4 config
+### CSS entry point
 
-```ts
-// tailwind.config.ts
-import type { Config } from 'tailwindcss'
+There is no CSS framework and no framework config. `resources/css/app.css` is
+the entry: it imports the fonts, then `base.css` (element normalisation inside
+`@layer reset`), then `tokens.css`, `reset.css`, `typography.css`, `layout.css`
+and `view-transitions.css` in that order.
 
-export default {
-  content: [
-    './resources/js/**/*.{vue,ts}',
-    './resources/views/**/*.blade.php',
-  ],
-  theme: {
-    extend: {
-      colors: {
-        sw: {
-          'bg-base':        'var(--sw-bg-base)',
-          'bg-surface':     'var(--sw-bg-surface)',
-          'bg-grid':        'var(--sw-bg-grid)',
-          'text-primary':   'var(--sw-text-primary)',
-          'text-secondary': 'var(--sw-text-secondary)',
-          'text-muted':     'var(--sw-text-muted)',
-          'accent-dominant':'var(--sw-accent-dominant)',
-          'accent-green':   'var(--sw-accent-green)',
-          'accent-sun':     'var(--sw-accent-sun)',
-          'accent-coral':   'var(--sw-accent-coral)',
-          'border':         'var(--sw-border)',
-        },
-      },
-      spacing: {
-        'sw-4xs': 'var(--sw-space-4xs)',
-        'sw-3xs': 'var(--sw-space-3xs)',
-        'sw-xs':  'var(--sw-space-xs)',
-        'sw-sm':  'var(--sw-space-sm)',
-        'sw-md':  'var(--sw-space-md)',
-        'sw-lg':  'var(--sw-space-lg)',
-        'sw-xl':  'var(--sw-space-xl)',
-        'sw-2xl': 'var(--sw-space-2xl)',
-      },
-      borderRadius: {
-        'sw-sm': 'var(--sw-radius-sm)',
-        'sw-md': 'var(--sw-radius-md)',
-        'sw-lg': 'var(--sw-radius-lg)',
-      },
-      fontFamily: {
-        display: ['var(--sw-font-display)'],
-        heading: ['var(--sw-font-heading)'],
-        body:    ['var(--sw-font-body)'],
-        code:    ['var(--sw-font-code)'],
-      },
-    },
-  },
-} satisfies Config
-```
+Unlayered rules always beat layered ones regardless of specificity, so
+everything after `base.css` overrides it without needing higher specificity.
 
 ### Vite config
 
 ```ts
-// vite.config.ts
-import { defineConfig } from 'vite'
-import laravel from 'laravel-vite-plugin'
+// vite.config.ts — abridged; see the file for the wayfinder and analyze plugins
+import { wayfinder } from '@laravel/vite-plugin-wayfinder'
 import vue from '@vitejs/plugin-vue'
-import tailwindcss from '@tailwindcss/vite'
+import laravel from 'laravel-vite-plugin'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [
-    laravel({ input: ['resources/css/app.css', 'resources/js/app.ts'], refresh: true }),
+    laravel({
+      input: ['resources/js/app.ts'],
+      ssr: 'resources/js/ssr.ts',
+      refresh: true,
+    }),
     vue(),
-    tailwindcss(),
+    wayfinder({ formVariants: true }),
   ],
-  resolve: { alias: { '@': '/resources/js' } },
 })
 ```
+
+`app.css` is imported from `resources/js/app.ts`, not listed as a Vite input.
+The `@` alias comes from `tsconfig.app.json` paths.
 
 ### Inertia bootstrap
 
@@ -564,11 +526,13 @@ withDefaults(defineProps<{ size?: number; color?: string }>(), {
 
 ```
 resources/css/
-  tokens.css        ← all --sw-* custom properties (NEVER edit hex elsewhere)
-  typography.css    ← .type-display-xl through .type-code
-  layout.css        ← .layout-grid, .section-*, breakpoint helpers
-  reset.css         ← box-sizing, smoothing, global defaults
-  app.css           ← entry: @import all above + @tailwind directives
+  app.css              ← entry: @import fonts, then every file below in order
+  base.css             ← element normalisation inside @layer reset
+  tokens.css           ← all --sw-* custom properties (NEVER edit hex elsewhere)
+  reset.css            ← box-sizing, smoothing, body wash, motion preferences
+  typography.css       ← .type-* scale and .prose-copy
+  layout.css           ← .sw-container, .sw-section, breakpoint helpers
+  view-transitions.css ← cross-page transition names
 ```
 
 ### Global styles (reset.css extract)
@@ -782,7 +746,6 @@ sidewalk-studio/
 │   └── Feature/SiteSettings/SiteSettingsServiceTest.php
 │
 ├── public/images/                 see section 4
-├── tailwind.config.ts
 ├── vite.config.ts
 ├── tsconfig.json
 └── CLAUDE.md                      ← this file
@@ -912,7 +875,7 @@ When translating a Figma component to Vue using MCP:
 # No hardcoded hex colors in components — expected: empty output
 grep -rn '#[0-9A-Fa-f]\{6\}' resources/js/components/ --include="*.vue"
 
-# PHP test suite (Pest)
+# PHP test suite (PHPUnit)
 php artisan test
 
 # PHP static analysis + CS

@@ -3,9 +3,9 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import AdminHint from '@/components/admin/shared/AdminHint.vue';
 import BrandMark from '@/components/branding/BrandMark.vue';
+import QuoteLinePreview from '@/components/shared/QuoteLinePreview.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
-import QuoteLinePreview from '@/components/shared/QuoteLinePreview.vue';
 import type { Auth, FlashProps, LoaderQuote, SiteProps, User } from '@/types';
 
 type AdminPageProps = {
@@ -79,7 +79,9 @@ function pickHoverQuote() {
     }
 
     hoverQuote.value =
-        loaderQuotes.value[Math.floor(Math.random() * loaderQuotes.value.length)];
+        loaderQuotes.value[
+            Math.floor(Math.random() * loaderQuotes.value.length)
+        ] ?? null;
 }
 </script>
 
@@ -155,8 +157,9 @@ function pickHoverQuote() {
                 <Panel class="admin-shell__note" tone="grid">
                     <p class="type-eyebrow">Boundaries</p>
                     <p class="type-body-sm admin-shell__note-copy">
-                        Use admin for content operations and runtime presentation.
-                        Keep infrastructure secrets in <code>.env</code>.
+                        Use admin for content operations and runtime
+                        presentation. Keep infrastructure secrets in
+                        <code>.env</code>.
                     </p>
                 </Panel>
             </aside>

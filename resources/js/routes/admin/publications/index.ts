@@ -437,15 +437,13 @@ updateForm.put = (args: { type: string | number, locale: string | number, slug: 
 
 update.form = updateForm
 
-
-
 const publications = {
     index: Object.assign(index, index),
-    create: Object.assign(create, create),
-    store: Object.assign(store, store),
-    edit: Object.assign(edit, edit),
-    update: Object.assign(update, update),
-    typeSettings: Object.assign(typeSettings, typeSettings),
+create: Object.assign(create, create),
+store: Object.assign(store, store),
+edit: Object.assign(edit, edit),
+update: Object.assign(update, update),
+typeSettings: Object.assign(typeSettings, typeSettings),
 }
 
 export default publications

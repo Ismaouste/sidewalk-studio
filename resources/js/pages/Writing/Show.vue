@@ -10,10 +10,9 @@ import ArticleShowLayout from '@/components/layout/ArticleShowLayout.vue';
 import RichText from '@/components/RichText.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
-
-const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -21,44 +20,20 @@ const props = defineProps<{
     related?: ContentItem[];
 }>();
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              eyebrow: props.item.category === 'journal' ? 'Journal' : 'Note',
-              editorialLabel:
-                  props.item.category === 'journal'
-                      ? 'Article'
-                      : 'Note éditoriale',
-              taggedThreadsLabel: `${props.item.tags.length} fils étiquetés`,
-              continueLabel: 'Poursuivre le fil',
-              continueDescription:
-                  "Les cas clients montrent comment les mêmes choix d'architecture se comportent sous pression de livraison et contraintes parties prenantes.",
-              caseStudiesCta: 'Ouvrir cas clients',
-              contactCta: 'Contact',
-              publishedLabel: 'Publié',
-              updatedLabel: 'Maj',
-              readLabel: 'Lecture',
-              relatedEyebrow: 'À lire ensuite',
-              relatedTitle: 'Autres notes et articles dans le même fil',
-          }
-        : {
-              eyebrow: props.item.category === 'journal' ? 'Journal' : 'Note',
-              editorialLabel:
-                  props.item.category === 'journal'
-                      ? 'Article'
-                      : 'Editorial note',
-              taggedThreadsLabel: `${props.item.tags.length} tagged threads`,
-              continueLabel: 'Continue the thread',
-              continueDescription:
-                  'Case studies show how the same architectural choices behave under delivery pressure and stakeholder constraints.',
-              caseStudiesCta: 'Open case studies',
-              contactCta: 'Contact',
-              publishedLabel: 'Published',
-              updatedLabel: 'Updated',
-              readLabel: 'Read',
-              relatedEyebrow: 'Read next',
-              relatedTitle: 'More notes and articles in the same thread',
-          },
+const page = usePage<{ site: SiteProps }>();
+
+const copy = computed(() => copyTree[page.props.site.locale].pages.writingShow);
+
+const isJournal = computed(() => props.item.category === 'journal');
+
+const entryEyebrow = computed(() =>
+    isJournal.value ? copy.value.eyebrowJournal : copy.value.eyebrowNote,
+);
+
+const editorialLabel = computed(() =>
+    isJournal.value
+        ? copy.value.editorialLabelJournal
+        : copy.value.editorialLabelNote,
 );
 
 const writingMeta = computed(() => [
@@ -86,15 +61,18 @@ const writingMeta = computed(() => [
 </script>
 
 <template>
-    <ArticleShowLayout :seo="props.seo">
+    <ArticleShowLayout :seo="props.seo" :slug="props.item.slug">
         <template #lead>
             <SectionIntro
-                :eyebrow="copy.eyebrow"
+                :eyebrow="entryEyebrow"
                 :title="props.item.title"
                 :description="props.item.excerpt || props.item.summary"
             >
-                <LegendChip :label="copy.editorialLabel" tone="violet" />
-                <LegendChip :label="copy.taggedThreadsLabel" tone="sun" />
+                <LegendChip :label="editorialLabel" tone="violet" />
+                <LegendChip
+                    :label="copy.taggedThreadsLabel(props.item.tags.length)"
+                    tone="sun"
+                />
             </SectionIntro>
 
             <ContentMetaRow :items="writingMeta" />
@@ -107,7 +85,7 @@ const writingMeta = computed(() => [
 
         <template #aside>
             <Panel class="writing-show__sidebar-card" tone="surface">
-                <p class="type-eyebrow">{{ copy.editorialLabel }}</p>
+                <p class="type-eyebrow">{{ editorialLabel }}</p>
                 <p class="type-body-sm writing-show__sidebar-copy">
                     {{ props.item.summary }}
                 </p>

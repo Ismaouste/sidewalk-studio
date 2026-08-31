@@ -9,7 +9,10 @@ import type { BrandingSettings, FlashProps } from '@/types';
 
 const props = defineProps<{
     brandingSettings: BrandingSettings;
-    fallbackVariants: Array<{ value: BrandingSettings['fallback_variant']; label: string }>;
+    fallbackVariants: Array<{
+        value: BrandingSettings['fallback_variant'];
+        label: string;
+    }>;
 }>();
 
 const page = usePage<{ flash: FlashProps }>();
@@ -42,12 +45,15 @@ function setUpload(event: Event) {
                     <p class="type-eyebrow">Branding</p>
                     <h1 class="type-h1">Shared public/admin identity asset.</h1>
                     <p class="type-body admin-branding__copy">
-                        The same active mark is used in the public header and the admin shell.
+                        The same active mark is used in the public header and
+                        the admin shell.
                     </p>
                 </div>
                 <div class="admin-branding__actions">
                     <span v-if="status" class="type-meta">{{ status }}</span>
-                    <Button type="submit" :disabled="form.processing">Save branding</Button>
+                    <Button type="submit" :disabled="form.processing"
+                        >Save branding</Button
+                    >
                 </div>
             </header>
 
@@ -59,18 +65,30 @@ function setUpload(event: Event) {
                     </div>
                     <label class="admin-branding__field">
                         <span class="type-nav">Asset mode</span>
-                        <select v-model="form.branding_settings.asset_mode" class="admin-branding__input">
+                        <select
+                            v-model="form.branding_settings.asset_mode"
+                            class="admin-branding__input"
+                        >
                             <option value="uploaded">Uploaded asset</option>
                             <option value="fallback">Generated fallback</option>
                         </select>
                     </label>
                     <label class="admin-branding__field">
                         <span class="type-nav">Upload or replace asset</span>
-                        <input class="admin-branding__input" type="file" accept="image/*" @change="setUpload" />
+                        <input
+                            class="admin-branding__input"
+                            type="file"
+                            accept="image/*"
+                            @change="setUpload"
+                        />
                     </label>
                     <label class="admin-branding__field">
                         <span class="type-nav">Active alt text</span>
-                        <input v-model="form.branding_settings.active_alt" class="admin-branding__input" type="text" />
+                        <input
+                            v-model="form.branding_settings.active_alt"
+                            class="admin-branding__input"
+                            type="text"
+                        />
                     </label>
                 </Panel>
 
@@ -78,7 +96,10 @@ function setUpload(event: Event) {
                     <p class="type-eyebrow">Fallback system</p>
                     <label class="admin-branding__field">
                         <span class="type-nav">Fallback variant</span>
-                        <select v-model="form.branding_settings.fallback_variant" class="admin-branding__input">
+                        <select
+                            v-model="form.branding_settings.fallback_variant"
+                            class="admin-branding__input"
+                        >
                             <option
                                 v-for="variant in fallbackVariants"
                                 :key="variant.value"
@@ -90,11 +111,19 @@ function setUpload(event: Event) {
                     </label>
                     <label class="admin-branding__field">
                         <span class="type-nav">Fallback label</span>
-                        <input v-model="form.branding_settings.fallback_label" class="admin-branding__input" type="text" />
+                        <input
+                            v-model="form.branding_settings.fallback_label"
+                            class="admin-branding__input"
+                            type="text"
+                        />
                     </label>
                     <label class="admin-branding__field">
                         <span class="type-nav">Fallback subtitle</span>
-                        <input v-model="form.branding_settings.fallback_subtitle" class="admin-branding__input" type="text" />
+                        <input
+                            v-model="form.branding_settings.fallback_subtitle"
+                            class="admin-branding__input"
+                            type="text"
+                        />
                     </label>
                 </Panel>
             </div>

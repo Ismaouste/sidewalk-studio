@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
+import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
-import { formatPublicDate } from '@/lib/formatDate';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
+import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
-
-const page = usePage<{ site: SiteProps }>();
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -49,39 +48,19 @@ const props = defineProps<{
     notes: ContentItem[];
 }>();
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              projectsCta: 'Voir les références',
-              contactCta: 'Prendre contact',
-              heroChipBase: 'Grand Est',
-              heroChipMobility: 'Mobilité',
-              heroChipJournal: 'Journal',
-              signalsLabel: 'Ce que je regarde',
-              publicationLabel: 'Publication',
-              noteLabel: 'Note',
-              publishedLabel: 'Publié',
-              readLabel: 'Lecture',
-          }
-        : {
-              projectsCta: 'Browse references',
-              contactCta: 'Contact',
-              heroChipBase: 'Lorraine corridor',
-              heroChipMobility: 'Mobility',
-              heroChipJournal: 'Journal',
-              signalsLabel: 'What I keep watching',
-              publicationLabel: 'Entry',
-              noteLabel: 'Note',
-              publishedLabel: 'Published',
-              readLabel: 'Read',
-          },
-);
+const page = usePage<{ site: SiteProps }>();
+
+const copy = computed(() => copyTree[page.props.site.locale].pages.local);
 
 function publicationMeta(item: ContentItem) {
     return [
         {
             label: copy.value.publishedLabel,
-            value: formatPublicDate(item.published_at, page.props.site.locale, 'month'),
+            value: formatPublicDate(
+                item.published_at,
+                page.props.site.locale,
+                'month',
+            ),
         },
         {
             label: copy.value.readLabel,
@@ -342,7 +321,8 @@ function publicationMeta(item: ContentItem) {
     gap: var(--sw-space-xs);
     max-width: 52rem;
     padding-bottom: var(--sw-space-xs);
-    border-bottom: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--sw-border) 72%, transparent);
 }
 
 .local-page__note-link {

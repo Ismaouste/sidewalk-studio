@@ -12,7 +12,11 @@ const props = withDefaults(
 </script>
 
 <template>
-    <component :is="props.as" class="panel-frame" :class="`panel-frame--${props.tone}`">
+    <component
+        :is="props.as"
+        class="panel-frame"
+        :class="`panel-frame--${props.tone}`"
+    >
         <slot />
     </component>
 </template>
