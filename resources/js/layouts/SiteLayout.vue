@@ -234,11 +234,16 @@ onBeforeUnmount(() => {
         </transition>
         <main class="sw-main">
             <div class="sw-container">
-                <BreadcrumbTrail
-                    v-if="breadcrumbs.length"
-                    :items="breadcrumbs"
-                    class="sw-main__breadcrumb"
-                />
+                <template v-if="breadcrumbs.length">
+                    <div
+                        class="sw-main__breadcrumb-sentinel"
+                        aria-hidden="true"
+                    />
+                    <BreadcrumbTrail
+                        :items="breadcrumbs"
+                        class="sw-main__breadcrumb"
+                    />
+                </template>
                 <div
                     class="sw-main__content"
                     :class="{
@@ -495,6 +500,50 @@ onBeforeUnmount(() => {
 
 .sw-main__breadcrumb {
     margin-bottom: clamp(2px, 0.5vw, 6px);
+}
+
+/* A one-pixel marker holding the place the breadcrumb occupies before it
+   sticks. Insetting the scrollport by the header height makes the marker leave
+   view at exactly the moment the bar meets the header, so BreadcrumbTrail can
+   read `exit` on this timeline instead of measuring on every scroll frame.
+
+   It lives here rather than inside the component because a sticky element only
+   sticks within its containing block: giving the nav its own wrapper would
+   have capped its travel at its own height. And it is taken out of flow
+   because this container is a grid — an in-flow marker would claim a track of
+   its own and push the breadcrumb down by a full gap. Out of flow it costs no
+   track, and `top: 0` lands it exactly on the first row's edge, which is where
+   the breadcrumb sits before it lifts. */
+/* The bar is only sticky below 640px, so the marker only exists there. Left in
+   flow it would claim a grid track and push the breadcrumb down by a full gap,
+   which is also what keeps it out of the way when the browser has no view
+   timelines to offer. */
+.sw-main__breadcrumb-sentinel {
+    display: none;
+}
+
+@supports (animation-timeline: view()) {
+    @media (max-width: 640px) {
+        .sw-container {
+            position: relative;
+            timeline-scope: --sw-breadcrumb-sentinel;
+        }
+
+        .sw-main__breadcrumb-sentinel {
+            display: block;
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: 0;
+            width: 1px;
+            height: 1px;
+            view-timeline-name: --sw-breadcrumb-sentinel;
+            view-timeline-axis: block;
+            view-timeline-inset: calc(
+                    var(--sw-public-header-height, 104px) - 1px
+                )
+                auto;
+        }
+    }
 }
 
 .sw-main__content {

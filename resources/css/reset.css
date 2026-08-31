@@ -26,7 +26,12 @@ html {
 body {
     min-height: 100vh;
     margin: 0;
-    overflow-x: hidden;
+    /* No overflow-x here. Setting one axis to anything but `visible` makes the
+       other compute to `auto`, which turns body into a scroll container — and
+       a `position: sticky` descendant then resolves against body's scrollport
+       instead of the viewport, so it never sticks. The horizontal clipping
+       this used to provide is already done by `overflow-x: hidden` on html,
+       which propagates to the viewport. */
     /* The ambient wash every translucent surface refracts. Defined per theme
        in tokens.css so the two themes can differ in shape, not just in hue. */
     background: var(--sw-body-wash);
