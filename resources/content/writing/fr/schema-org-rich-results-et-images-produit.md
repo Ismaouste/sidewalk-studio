@@ -1,6 +1,7 @@
 ---
 title: Schema.org, rich results et images produit
 slug: schema-org-rich-results-et-images-produit
+translation_key: schema-org-rich-results-and-product-images
 summary: Les données structurées produit restent utiles quand image, offre et intention de page correspondent vraiment à ce que le catalogue peut soutenir.
 status: published
 published_at: 2026-03-08

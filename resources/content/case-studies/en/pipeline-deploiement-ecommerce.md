@@ -1,6 +1,7 @@
 ---
 title: Making a deployment pipeline honest in a live ecommerce environment
 slug: pipeline-deploiement-ecommerce
+translation_key: pipeline-deploiement-ecommerce
 summary: "An ecommerce case study about silent Docker Swarm rollbacks, misleading deployment signals, and the work of making the final state verifiable."
 status: published
 published_at: 2026-03-18

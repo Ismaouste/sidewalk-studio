@@ -1,6 +1,7 @@
 ---
 title: YTMusic Liked Sorter
 slug: ytmusic-liked-sorter
+translation_key: ytmusic-liked-sorter
 summary: Un petit outil personnel devient utile dès qu'il rend un historique YouTube de nouveau triable, lisible et exploitable.
 status: published
 published_at: 2026-03-07

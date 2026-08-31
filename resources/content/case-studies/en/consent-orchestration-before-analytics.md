@@ -1,6 +1,7 @@
 ---
 title: Consent Orchestration Before Analytics
 slug: consent-orchestration-before-analytics
+translation_key: consent-orchestration-before-analytics
 summary: Why the consent system was built as a reusable gating layer before any real analytics provider was connected.
 status: published
 published_at: 2026-03-07

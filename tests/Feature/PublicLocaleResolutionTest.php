@@ -153,6 +153,9 @@ class PublicLocaleResolutionTest extends TestCase
 ---
 title: Editorial English Fallback Public Test
 slug: editorial-english-fallback-public-test
+translation_key: editorial-english-fallback-public-test
+category: journal
+accent_tone: violet
 summary: This published writing entry exists only in English and should stay safely reachable.
 status: published
 published_at: 2026-03-08
@@ -239,6 +242,9 @@ MD);
 ---
 title: Case Study English Fallback Public Test
 slug: case-study-english-fallback-public-test
+translation_key: case-study-english-fallback-public-test
+category: work
+accent_tone: violet
 summary: This published case study exists only in English and should stay safely reachable.
 status: published
 published_at: 2026-03-09

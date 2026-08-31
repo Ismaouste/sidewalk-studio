@@ -1,6 +1,7 @@
 ---
 title: Volontariat NJP et petits outils utiles
 slug: volontariat-njp-et-petits-outils
+translation_key: njp-volunteering-and-small-tools
 summary: Le bénévolat à Nancy Jazz Pulsations rappelle qu'un petit outil utile vaut souvent mieux qu'une idée de produit trop large et sans terrain.
 status: published
 published_at: 2026-03-06

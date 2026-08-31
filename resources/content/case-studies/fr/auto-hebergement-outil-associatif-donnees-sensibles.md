@@ -1,6 +1,7 @@
 ---
 title: Auto-hébergement lisible pour un outil associatif sous données sensibles
 slug: auto-hebergement-outil-associatif-donnees-sensibles
+translation_key: self-hosted-nonprofit-tooling-for-sensitive-data
 summary: Comment cadrer un outil de terrain auto-hébergé quand santé publique, sécurité, simplicité d'usage et contraintes associatives doivent tenir ensemble.
 status: draft
 published_at: 2026-03-08

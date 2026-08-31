@@ -1,6 +1,7 @@
 ---
 title: Open survey, non-profit work, and health data constraints
 slug: opensurvey-nonprofit-health-data
+translation_key: opensurvey-nonprofit-health-data
 summary: A reporting tool for Aremedia had to stay sober, understandable, and secure enough for health-related field work without becoming a heavy platform.
 status: published
 published_at: 2026-03-06

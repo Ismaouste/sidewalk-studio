@@ -1,6 +1,7 @@
 ---
 title: Content systems start with routing and metadata
 slug: content-systems-routing-and-metadata
+translation_key: content-systems-routing-and-metadata
 summary: Markdown becomes publishable once routing, metadata, and publication state are explicit enough to drive canonical URLs, archives, and sitemap output.
 status: published
 published_at: 2026-03-07

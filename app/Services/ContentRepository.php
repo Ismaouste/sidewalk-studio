@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Content\Schema\PublicationSchemas;
 use App\Models\Publication;
 use App\Models\PublicationTypeSetting;
 use App\Support\ContentVisual;
@@ -102,6 +103,29 @@ class ContentRepository
     {
         $item = $this->published($section, $locale)
             ->firstWhere('slug', $slug);
+
+        if (! $item) {
+            abort(404);
+        }
+
+        return $item;
+    }
+
+    /**
+     * The same publication, in whichever language is being served.
+     *
+     * Six of the eleven journal entries have a different slug in French, so
+     * before `translation_key` existed the only way to ask this question was
+     * to name both slugs at the call site — which is how `SiteController`
+     * ended up carrying translation pairs as literals, in two places, where
+     * nothing would notice them going stale.
+     *
+     * @return array<string, mixed>
+     */
+    public function findPublishedTranslation(string $section, string $translationKey, ?string $locale = null): array
+    {
+        $item = $this->published($section, $locale)
+            ->firstWhere('translation_key', $translationKey);
 
         if (! $item) {
             abort(404);
@@ -421,25 +445,9 @@ class ContentRepository
         $openGraphImage = (string) ($matter['open_graph_image'] ?? $matter['ogImage'] ?? ($matter['featured_image'] ?? ''));
         $schema = (string) ($matter['schema'] ?? '');
 
-        foreach (['title', 'slug', 'summary', 'status', 'published_at', 'updated_at', 'tags', 'seo_title', 'seo_description'] as $field) {
-            if (! array_key_exists($field, $matter)) {
-                throw new RuntimeException("Missing required frontmatter field [{$field}] in [{$path}].");
-            }
-        }
-
-        if ($section === 'case-studies') {
-            foreach (['client', 'role', 'stack', 'outcomes'] as $field) {
-                if (! array_key_exists($field, $matter)) {
-                    throw new RuntimeException("Missing case study field [{$field}] in [{$path}].");
-                }
-            }
-        }
+        $this->assertMatchesSchema($section, $matter, $path);
 
         $status = (string) $matter['status'];
-
-        if (! in_array($status, ['draft', 'published'], true)) {
-            throw new RuntimeException("Invalid status [{$status}] in [{$path}]. Expected draft or published.");
-        }
 
         $html = (string) Str::markdown($document->body(), [
             'html_input' => 'strip',
@@ -457,6 +465,7 @@ class ContentRepository
             'locale' => $locale,
             'title' => (string) $matter['title'],
             'slug' => (string) $matter['slug'],
+            'translation_key' => (string) $matter['translation_key'],
             'summary' => (string) $matter['summary'],
             'status' => $status,
             'published_at' => $this->parseDate($matter['published_at'])->toDateString(),
@@ -503,6 +512,32 @@ class ContentRepository
     }
 
     /**
+     * The declaration replaces two flat presence lists and one enum check.
+     *
+     * What those lists could not do is the point: they asked whether a key
+     * was there, never what it held. `summary` could be a mapping, `tags`
+     * could be a string, `published_at` could be the word "soon", and all
+     * three passed. The declaration answers both questions at once, and
+     * reports every failure rather than the first, so fixing a file is one
+     * pass instead of a game of whack-a-mole.
+     *
+     * @param  array<string, mixed>  $matter
+     */
+    protected function assertMatchesSchema(string $section, array $matter, string $path): void
+    {
+        $violations = PublicationSchemas::for($section)->violations($matter);
+
+        if ($violations === []) {
+            return;
+        }
+
+        throw new RuntimeException(
+            "Content in [{$path}] does not match the [{$section}] schema:".PHP_EOL
+            .'  - '.implode(PHP_EOL.'  - ', $violations),
+        );
+    }
+
+    /**
      * @return array<string, mixed>
      */
     protected function shapeDatabaseRecord(Publication $record): array
@@ -519,6 +554,11 @@ class ContentRepository
             'locale' => $record->locale,
             'title' => $record->title,
             'slug' => $record->slug,
+            /**
+             * A row written before the column existed pairs with itself,
+             * which is the same thing a publication with no translation does.
+             */
+            'translation_key' => (string) ($record->translation_key ?? $record->slug),
             'summary' => $record->summary,
             'status' => $record->status,
             'published_at' => $record->published_at?->toDateString() ?? '',

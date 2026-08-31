@@ -1,6 +1,7 @@
 ---
 title: De Nancy API POP à Culturedex
 slug: from-nancyapipop-to-culturedex
+translation_key: from-nancyapipop-to-culturedex
 summary: Deux projets autour de l'API POP du ministère de la Culture, d'un prototype centré sur Nancy à un backend plus structuré pour explorer les notices.
 status: published
 published_at: 2026-03-08

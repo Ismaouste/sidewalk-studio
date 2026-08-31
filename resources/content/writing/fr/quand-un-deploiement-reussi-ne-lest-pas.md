@@ -1,6 +1,7 @@
 ---
 title: Quand un déploiement réussi ne l'est pas
 slug: quand-un-deploiement-reussi-ne-lest-pas
+translation_key: quand-un-deploiement-reussi-ne-lest-pas
 summary: Un Docker Swarm rollback silencieux peut laisser la production sur l'ancienne image pendant qu'un déploiement automatique affiche du vert.
 status: published
 published_at: 2026-03-18

@@ -30,7 +30,13 @@ class SeoAndConsentTest extends TestCase
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertSee('Tech Lead Ecommerce in Nancy · Ismael Rodmacq')
             ->assertSee('"@type":"Person"', false)
-            ->assertSee('"jobTitle":"Full Stack Developer — E-commerce & Product Data"', false)
+            /**
+             * Read from the setting rather than repeated here. The literal
+             * this replaces had drifted: /projects was announcing a job title
+             * the rest of the site had stopped using, and the test was
+             * pinning the stale one.
+             */
+            ->assertSee('"jobTitle":'.json_encode(config('site.author.job_title')), false)
             ->assertSee('"addressRegion":"Grand Est"', false)
             ->assertSee('"email":"ismael@rodmacq.com"', false)
             ->assertSee('BreadcrumbList', false);

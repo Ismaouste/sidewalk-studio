@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Content\Schema\PublicationSchemas;
 use App\Models\Publication;
 use App\Services\ContentRepository;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use RuntimeException;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tests\TestCase;
 
 class ContentRepositoryTest extends TestCase
@@ -132,6 +134,9 @@ class ContentRepositoryTest extends TestCase
 ---
 title: Case Study Locale Priority Test
 slug: case-study-locale-priority-test
+translation_key: case-study-locale-priority-test
+category: work
+accent_tone: violet
 summary: A localized case study should replace the English version when both share the same slug.
 status: published
 published_at: 2026-03-09
@@ -155,6 +160,9 @@ MD);
 ---
 title: Case Study English Fallback Test
 slug: case-study-english-fallback-test
+translation_key: case-study-english-fallback-test
+category: work
+accent_tone: violet
 summary: An English-only case study should stay available when no French translation exists.
 status: published
 published_at: 2026-03-09
@@ -200,6 +208,9 @@ MD);
 ---
 title: Editorial Locale Priority Test
 slug: editorial-locale-priority-test
+translation_key: editorial-locale-priority-test
+category: journal
+accent_tone: violet
 summary: A locale-specific entry should replace the English entry when both share the same slug.
 status: published
 published_at: 2026-03-08
@@ -218,6 +229,9 @@ MD);
 ---
 title: Editorial English Fallback Test
 slug: editorial-english-fallback-test
+translation_key: editorial-english-fallback-test
+category: journal
+accent_tone: violet
 summary: An English-only entry should stay available when no French translation exists.
 status: published
 published_at: 2026-03-08
@@ -255,6 +269,9 @@ MD);
 ---
 title: Legacy Root Fallback
 slug: legacy-root-fallback
+translation_key: legacy-root-fallback
+category: journal
+accent_tone: violet
 summary: A temporary root-level file should still be available during the locale migration.
 status: published
 published_at: 2026-03-07
@@ -288,6 +305,9 @@ MD);
 ---
 title: Invalid frontmatter entry
 slug: invalid-frontmatter-entry
+translation_key: invalid-frontmatter-entry
+category: journal
+accent_tone: violet
 summary: This file intentionally misses updated_at.
 status: published
 published_at: 2026-03-07
@@ -305,11 +325,119 @@ MD);
             $this->fail('Expected invalid frontmatter to raise a runtime exception.');
         } catch (RuntimeException $exception) {
             $this->assertStringContainsString(
-                'Missing required frontmatter field [updated_at]',
+                '[updated_at] is required and missing',
                 $exception->getMessage(),
             );
         } finally {
             File::delete($path);
+        }
+    }
+
+    /**
+     * The check the old presence list could not perform, and the reason this
+     * feature exists.
+     *
+     * A colon-space inside an unquoted YAML scalar makes the parser return a
+     * one-key mapping instead of a string. The value is still *there*, so a
+     * presence list passes it, and the page renders a JSON blob at its
+     * readers — which is exactly what /fr/projects did until step 0 of this
+     * spec.
+     *
+     * The trap is only silent inside a *sequence*, which is why the defect
+     * survived where it did. Written at mapping level — `summary: a: b` —
+     * YAML refuses to parse the document at all and the failure is loud and
+     * immediate. Written as a list item, it resolves quietly to a mapping and
+     * travels all the way to the reader's screen. So the fixture puts it in a
+     * list, where the real one was.
+     */
+    public function test_repository_rejects_a_value_whose_type_is_wrong_not_only_one_that_is_absent(): void
+    {
+        $path = resource_path('content/writing/colon-trap.md');
+
+        File::put($path, <<<'MD'
+---
+title: Colon trap
+slug: colon-trap
+translation_key: colon-trap
+category: journal
+accent_tone: violet
+summary: A tag below is not a tag.
+status: published
+published_at: 2026-03-07
+updated_at: 2026-03-07
+tags:
+    - notes-dev
+    - here is the trap: an unquoted scalar with a colon-space
+seo_title: Colon trap
+seo_description: This file proves a wrongly typed value fails as loudly as a missing one.
+---
+
+The second tag parses as a mapping, not a string.
+MD);
+
+        try {
+            app(ContentRepository::class)->all('writing');
+            $this->fail('Expected a wrongly typed value to raise a runtime exception.');
+        } catch (RuntimeException $exception) {
+            $this->assertStringContainsString('[tags.1] should be a line', $exception->getMessage());
+            $this->assertStringContainsString('got a mapping', $exception->getMessage());
+        } finally {
+            File::delete($path);
+        }
+    }
+
+    /**
+     * Every publication in the repository validates against its own
+     * declaration. This is the check that runs in CI, and the one that would
+     * have made the /fr/projects defect impossible to ship.
+     */
+    public function test_every_publication_on_disk_validates_against_its_declaration(): void
+    {
+        $failures = [];
+
+        foreach (PublicationSchemas::SECTIONS as $section) {
+            $schema = PublicationSchemas::for($section);
+
+            foreach (glob(resource_path("content/{$section}/*/*.md")) as $file) {
+                $violations = $schema->violations(
+                    YamlFrontMatter::parseFile($file)->matter(),
+                );
+
+                foreach ($violations as $violation) {
+                    $failures[] = basename(dirname($file)).'/'.basename($file).': '.$violation;
+                }
+            }
+        }
+
+        $this->assertSame([], $failures);
+    }
+
+    /**
+     * A translation and its original are two files that say they are the same
+     * publication. Nothing linked them before: each locale was a directory,
+     * and the directory was the link — which stops being true the moment
+     * publications are rows in one table.
+     */
+    public function test_translation_keys_pair_each_publication_with_its_other_locale(): void
+    {
+        foreach (PublicationSchemas::SECTIONS as $section) {
+            $byKey = [];
+
+            foreach (glob(resource_path("content/{$section}/*/*.md")) as $file) {
+                $matter = YamlFrontMatter::parseFile($file)->matter();
+                $byKey[$matter['translation_key']][] = basename(dirname($file));
+            }
+
+            foreach ($byKey as $key => $locales) {
+                sort($locales);
+
+                $this->assertSame(
+                    ['en', 'fr'],
+                    $locales,
+                    "Translation key [{$key}] in [{$section}] does not pair one "
+                    .'English file with one French file.',
+                );
+            }
         }
     }
 }

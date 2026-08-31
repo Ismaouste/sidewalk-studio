@@ -118,7 +118,7 @@ class SiteController extends Controller
             'controls' => $page['controls'],
             'cosmicNotes' => $page['cosmic_notes'],
             'sparkleFacts' => $page['sparkle_facts'],
-            'repoUrl' => $page['repo_url'] ?: 'https://github.com/Ismaouste/sidewalk-studio',
+            'repoUrl' => $page['repo_url'] ?: config('site.repository_url'),
             'githubProfileUrl' => $settings->socialLinks->githubUrl,
         ])->withViewData(['seo' => $seo]);
     }
@@ -135,7 +135,7 @@ class SiteController extends Controller
                 'schema_variant' => 'person_surface',
                 'person' => [
                     'email' => $this->siteSettings->current()->contactDetails->email,
-                    'job_title' => 'Full Stack Developer — E-commerce & Product Data',
+                    'job_title' => (string) config('site.author.job_title'),
                     'knows_about' => [
                         'E-commerce engineering',
                         'Product data management',
@@ -147,7 +147,7 @@ class SiteController extends Controller
                 ],
                 'breadcrumb' => [
                     ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-                    ['name' => 'Projects', 'path' => '/projects'],
+                    ['name' => PublicCopy::line('breadcrumbs.projects'), 'path' => '/projects'],
                 ],
             ]),
         );
@@ -176,8 +176,8 @@ class SiteController extends Controller
                 'ctaLabel' => $experience['associative_note_widget']['cta_label'],
                 'ctaHref' => '',
                 'items' => [
-                    $this->localizedWriting(
-                        'opensurvey-associatif-donnees-sante',
+                    $this->content->findPublishedTranslation(
+                        'writing',
                         'opensurvey-nonprofit-health-data',
                     ),
                 ],
@@ -197,7 +197,7 @@ class SiteController extends Controller
                 'tag' => 'notes-dev',
                 'publication_type' => 'note',
                 'limit' => 2,
-                'exclude_slugs' => $this->projectJournalExcludedSlugs(),
+                'exclude_translations' => $this->projectJournalExcludedTranslations(),
             ]),
             'referenceWidget' => $this->publicationWidget([
                 ...$this->widgetCopy('projects_references'),
@@ -371,7 +371,7 @@ class SiteController extends Controller
      *   category?: string,
      *   publication_type?: string,
      *   limit?: int,
-     *   exclude_slugs?: array<int, string>
+     *   exclude_translations?: array<int, string>
      * }  $options
      * @return array<string, mixed>
      */
@@ -392,11 +392,11 @@ class SiteController extends Controller
             'publication_type' => $options['publication_type'] ?? null,
         ])->values();
 
-        if (! empty($options['exclude_slugs'])) {
-            $excludedSlugs = $options['exclude_slugs'];
+        if (! empty($options['exclude_translations'])) {
+            $excluded = $options['exclude_translations'];
 
             $items = $items->reject(
-                fn (array $item): bool => in_array($item['slug'], $excludedSlugs, true),
+                fn (array $item): bool => in_array($item['translation_key'], $excluded, true),
             )->values();
         }
 
@@ -418,24 +418,19 @@ class SiteController extends Controller
     }
 
     /**
+     * Two entries the projects page shows elsewhere on the same screen, so
+     * the notes widget would repeat them.
+     *
+     * They used to be named twice, once per locale, because six of the eleven
+     * journal entries have a different French slug and nothing in the data
+     * paired them. `translation_key` does, so one list serves both languages
+     * and cannot go half stale.
+     *
      * @return array<int, string>
      */
-    protected function projectJournalExcludedSlugs(): array
+    protected function projectJournalExcludedTranslations(): array
     {
-        return app()->getLocale() === 'fr'
-            ? ['ytmusic-liked-sorter', 'volontariat-njp-et-petits-outils']
-            : ['ytmusic-liked-sorter', 'njp-volunteering-and-small-tools'];
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    protected function localizedWriting(string $frenchSlug, string $englishSlug): array
-    {
-        return $this->content->findPublished(
-            'writing',
-            app()->getLocale() === 'fr' ? $frenchSlug : $englishSlug,
-        );
+        return ['ytmusic-liked-sorter', 'njp-volunteering-and-small-tools'];
     }
 
     /**

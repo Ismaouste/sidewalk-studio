@@ -1,6 +1,7 @@
 ---
 title: NJP volunteering and small useful tools
 slug: njp-volunteering-and-small-tools
+translation_key: njp-volunteering-and-small-tools
 summary: Volunteering at Nancy Jazz Pulsations keeps software tied to real constraints and explains why some of the most useful tools stay small on purpose.
 status: published
 published_at: 2026-03-06

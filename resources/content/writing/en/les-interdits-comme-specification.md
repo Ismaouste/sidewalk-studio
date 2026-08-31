@@ -1,6 +1,7 @@
 ---
 title: Constraints can be part of the design system
 slug: les-interdits-comme-specification
+translation_key: les-interdits-comme-specification
 summary: In a jewelry design system, the most useful rules do not only describe what to build; they also explain what must stay forbidden to protect the visual identity.
 status: published
 published_at: 2026-03-18

@@ -1,6 +1,7 @@
 ---
 title: Technical SEO, sitemaps, and structured data for commerce
 slug: technical-seo-sitemaps-and-structured-data-for-commerce
+translation_key: technical-seo-sitemaps-and-structured-data-for-commerce
 summary: Technical SEO in ecommerce starts with coherent URLs, sitemap coverage, robots rules, and structured data that stays aligned with the catalog.
 status: published
 published_at: 2026-03-08

@@ -1,6 +1,7 @@
 ---
 title: Données sensibles, associations pauvres, exigences riches
 slug: donnees-sensibles-associations-exigences-riches
+translation_key: sensitive-data-poor-tools-high-standards
 summary: Beaucoup d'associations manipulent des données sensibles avec des outils trop faibles, non par légèreté, mais par manque structurel de moyens numériques.
 status: draft
 published_at: 2026-03-08

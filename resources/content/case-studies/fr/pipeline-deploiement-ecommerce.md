@@ -1,6 +1,7 @@
 ---
 title: Rendre un pipeline de déploiement honnête en environnement e-commerce
 slug: pipeline-deploiement-ecommerce
+translation_key: pipeline-deploiement-ecommerce
 summary: "Un case study e-commerce sur un Docker Swarm rollback silencieux, un déploiement automatique trompeur et le besoin de rendre l'état final vérifiable."
 status: published
 published_at: 2026-03-18

@@ -1,6 +1,7 @@
 ---
 title: Les interdits comme spécification
 slug: les-interdits-comme-specification
+translation_key: les-interdits-comme-specification
 summary: Dans un design system joaillerie, les règles utiles ne disent pas seulement quoi faire ; elles disent aussi ce qu'il faut éviter pour garder l'identité visuelle technique.
 status: published
 published_at: 2026-03-18

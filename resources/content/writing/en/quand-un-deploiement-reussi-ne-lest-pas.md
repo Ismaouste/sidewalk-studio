@@ -1,6 +1,7 @@
 ---
 title: When a deployment succeeds without really succeeding
 slug: quand-un-deploiement-reussi-ne-lest-pas
+translation_key: quand-un-deploiement-reussi-ne-lest-pas
 summary: A silent Docker Swarm rollback can leave production on the old image while an automated deployment still reports success.
 status: published
 published_at: 2026-03-18

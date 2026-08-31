@@ -11,6 +11,7 @@ class Publication extends Model
         'locale',
         'title',
         'slug',
+        'translation_key',
         'summary',
         'body_markdown',
         'status',
