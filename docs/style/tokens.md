@@ -26,9 +26,20 @@ Current token families:
 - surfaces and text: `--sw-bg-*`, `--sw-text-*`
 - accents and chrome: `--sw-accent-*`, `--sw-border`, `--sw-grid-line`, `--sw-shadow-*`
 - atmospheric shell tokens: `--sw-header-bg`, `--sw-body-wash`, `--sw-sun-*`, `--sw-tab-*`
+- glass and top layer: `--sw-surface-backdrop-filter`, `--sw-scrim`, `--sw-scrim-backdrop-filter`
 
 Each theme defines `--sw-body-wash` as its full page background, so the two
 themes can differ in the shape of the ambient gradient and not only its hue.
+
+`--sw-surface-backdrop-filter` is the blur every translucent surface reads,
+and each theme sets its own radius and saturation. Sunset saturates above 1 on
+purpose: pushing saturation down is what dragged its accents toward brown.
+
+`--sw-scrim` is the dimming behind a top-layer surface, mixed from
+`--sw-bg-base` rather than from black, so it darkens the theme instead of
+draining it — a black scrim over sunset's aubergine flattens the violet wash to
+neutral. It is consumed from `::backdrop`, which inherits from its originating
+element, so tokens resolve there normally.
 
 The temporary compatibility aliases used during the migration have been removed.
 Public code should read `--sw-*` tokens directly.

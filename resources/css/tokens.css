@@ -172,6 +172,10 @@ html[data-theme='morning'] {
     );
     --sw-button-primary-text: var(--sw-text-inverse);
     --sw-surface-backdrop-filter: blur(20px) saturate(1.3);
+    /* The dimming behind a top-layer surface. Built from the page ground
+       rather than from black so it darkens the theme instead of draining it. */
+    --sw-scrim: color-mix(in srgb, var(--sw-bg-base) 68%, transparent);
+    --sw-scrim-backdrop-filter: blur(2px) saturate(1.1);
     --sw-sun-vx: calc(
         14% + (34% * var(--sw-ambient-progress)) +
             (2% * var(--sw-ambient-navigation-shift))
@@ -307,6 +311,11 @@ html[data-theme='sunset'] {
        and dimmed every blurred surface, which is what pushed the warm accents
        toward brown; pushing saturation up is what makes glass read as glass. */
     --sw-surface-backdrop-filter: blur(26px) saturate(1.45);
+    /* Aubergine, not black: this base is already dark, so a black scrim would
+       flatten the violet wash to neutral. Saturation stays above 1 here for
+       the same reason the surface filter does. */
+    --sw-scrim: color-mix(in srgb, var(--sw-bg-base) 74%, transparent);
+    --sw-scrim-backdrop-filter: blur(3px) saturate(1.25);
     --sw-sun-vx: calc(
         78% - (12% * var(--sw-ambient-progress)) -
             (2.6% * var(--sw-ambient-navigation-shift))

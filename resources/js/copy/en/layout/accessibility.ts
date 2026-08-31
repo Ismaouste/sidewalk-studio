@@ -11,4 +11,7 @@ export default {
     reducedMotion: 'Reduced motion',
     reducedMotionHint:
         'Ambient background, loader, and transitions become quieter.',
+    /** Reads as the state of the option beside it, not as a verb. */
+    stateOff: 'Off',
+    stateOn: 'On',
 };

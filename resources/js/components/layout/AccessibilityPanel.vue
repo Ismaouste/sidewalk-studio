@@ -77,7 +77,11 @@ function handleToggle(event: ToggleEvent): void {
                     </span>
                 </span>
                 <span class="accessibility-panel__state">
-                    {{ motionPreference === 'reduced' ? 'On' : 'Off' }}
+                    {{
+                        motionPreference === 'reduced'
+                            ? copy.stateOn
+                            : copy.stateOff
+                    }}
                 </span>
             </button>
 
@@ -100,7 +104,11 @@ function handleToggle(event: ToggleEvent): void {
                     </span>
                 </span>
                 <span class="accessibility-panel__state">
-                    {{ contrastPreference === 'boost' ? 'On' : 'Off' }}
+                    {{
+                        contrastPreference === 'boost'
+                            ? copy.stateOn
+                            : copy.stateOff
+                    }}
                 </span>
             </button>
         </div>
@@ -149,7 +157,6 @@ function handleToggle(event: ToggleEvent): void {
 .accessibility-panel__close:focus-visible {
     background: color-mix(in srgb, var(--sw-border) 60%, transparent);
     color: var(--sw-text-primary);
-    outline: none;
 }
 
 /* The UA gives every [popover] a centred fixed box with a border and a system
@@ -258,11 +265,14 @@ function handleToggle(event: ToggleEvent): void {
 
     /* The scrim used to be a full-screen <button> rendered only to catch the
        click that closed the panel. Light dismiss catches that click, so the
-       element is gone and the dimming is the top layer's own ::backdrop. */
+       element is gone and the dimming is the top layer's own ::backdrop.
+       ::backdrop inherits from its originating element, so the tokens resolve
+       here — including --sw-motion-fast, which is what makes the fade honour
+       reduced motion without a rule of its own. */
     .accessibility-panel__popover::backdrop {
-        background: color-mix(in srgb, black 32%, transparent);
-        -webkit-backdrop-filter: blur(2px);
-        backdrop-filter: blur(2px);
+        background: var(--sw-scrim);
+        -webkit-backdrop-filter: var(--sw-scrim-backdrop-filter);
+        backdrop-filter: var(--sw-scrim-backdrop-filter);
         opacity: 0;
         transition:
             opacity var(--sw-motion-fast),

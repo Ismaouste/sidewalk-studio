@@ -14,4 +14,6 @@ export default {
     panelLabel: "Réglages d'accessibilité",
     reducedMotion: 'Animations réduites',
     reducedMotionHint: 'Fond ambient, loader et transitions plus sobres.',
+    stateOff: 'Off',
+    stateOn: 'On',
 } satisfies Reference;

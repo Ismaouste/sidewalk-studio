@@ -164,10 +164,14 @@ defineProps<{
     }
 }
 
+/* The glass the bar picks up once it is against the header. Reading the token
+   rather than a literal is what keeps it in step with every other blurred
+   surface: morning and sunset define different blur radii and saturations,
+   and sunset's has to stay above 1. */
 @keyframes breadcrumb-stuck {
     to {
-        -webkit-backdrop-filter: blur(18px) saturate(112%);
-        backdrop-filter: blur(18px) saturate(112%);
+        -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
+        backdrop-filter: var(--sw-surface-backdrop-filter);
     }
 }
 </style>
