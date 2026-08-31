@@ -7,7 +7,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
-import { contactCopy } from '@/copy/contact';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { FlashProps, SeoPayload, SiteContact, SiteProps } from '@/types';
 
@@ -69,7 +69,7 @@ const inquiry = useForm({
     summary: '',
 });
 
-const copy = computed(() => contactCopy[page.props.site.locale]);
+const copy = computed(() => copyTree[page.props.site.locale].pages.contact);
 
 const inquiryMeta = computed(() => [
     {

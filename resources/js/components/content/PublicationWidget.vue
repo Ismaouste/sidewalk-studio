@@ -6,17 +6,20 @@ import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import { formatPublicDate } from '@/lib/formatDate';
-import type { PublicationWidget } from '@/types';
+import type { PublicationWidget, SiteProps } from '@/types';
 
 const props = defineProps<{
     widget: PublicationWidget;
     tone?: 'surface' | 'grid';
 }>();
 
-const page = usePage<{ site: { locale: string } }>();
+const page = usePage<{ site: SiteProps }>();
 
-const isFrench = computed(() => page.props.site.locale === 'fr');
+const copy = computed(
+    () => copyTree[page.props.site.locale].content.publicationWidget,
+);
 const hasHeader = computed(
     () =>
         Boolean(props.widget.eyebrow) ||
@@ -51,14 +54,12 @@ function widgetChipLabel(
     client: string,
 ): string {
     if (section === 'case-studies') {
-        return client || (isFrench.value ? 'Référence' : 'Reference');
+        return client || copy.value.referenceLabel;
     }
 
     return category === 'journal'
-        ? 'Journal'
-        : isFrench.value
-          ? 'Note'
-          : 'Note';
+        ? copy.value.journalLabel
+        : copy.value.noteLabel;
 }
 
 function formattedDate(value: string): string {

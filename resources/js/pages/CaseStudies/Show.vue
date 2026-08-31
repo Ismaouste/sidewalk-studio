@@ -10,6 +10,7 @@ import ArticleShowLayout from '@/components/layout/ArticleShowLayout.vue';
 import RichText from '@/components/RichText.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
 
@@ -21,42 +22,8 @@ const props = defineProps<{
 
 const page = usePage<{ site: SiteProps }>();
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              eyebrow: 'Cas client',
-              internalBuildLabel: 'Build interne',
-              implementationToolsLabel: `${props.item.stack.length} outils implémentation`,
-              projectFrameLabel: 'Cadre projet',
-              clientLabel: 'Client',
-              roleLabel: 'Rôle',
-              stackLabel: 'Stack',
-              contactCta: 'Discuter un brief similaire',
-              outcomesTitle: 'Résultats',
-              publishedLabel: 'Publié',
-              updatedLabel: 'Maj',
-              outcomesLabel: 'Résultats',
-              signalsSuffix: 'signaux',
-              relatedEyebrow: 'Cas suivants',
-              relatedTitle: 'Autres cas clients à explorer',
-          }
-        : {
-              eyebrow: 'Case study',
-              internalBuildLabel: 'Internal build',
-              implementationToolsLabel: `${props.item.stack.length} implementation tools`,
-              projectFrameLabel: 'Project frame',
-              clientLabel: 'Client',
-              roleLabel: 'Role',
-              stackLabel: 'Stack',
-              contactCta: 'Discuss a similar brief',
-              outcomesTitle: 'Outcomes',
-              publishedLabel: 'Published',
-              updatedLabel: 'Updated',
-              outcomesLabel: 'Outcomes',
-              signalsSuffix: 'signals',
-              relatedEyebrow: 'Next case studies',
-              relatedTitle: 'Other case studies worth exploring',
-          },
+const copy = computed(
+    () => copyTree[page.props.site.locale].pages.caseStudiesShow,
 );
 
 const caseStudyMeta = computed(() => [
@@ -96,7 +63,9 @@ const caseStudyMeta = computed(() => [
                     tone="green"
                 />
                 <LegendChip
-                    :label="copy.implementationToolsLabel"
+                    :label="
+                        copy.implementationToolsLabel(props.item.stack.length)
+                    "
                     tone="dominant"
                 />
             </SectionIntro>

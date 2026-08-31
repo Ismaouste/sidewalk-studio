@@ -8,6 +8,7 @@ import SignageStrip from '@/components/experience/SignageStrip.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { SeoPayload, SiteProps } from '@/types';
 
@@ -47,35 +48,7 @@ const props = defineProps<{
 
 const page = usePage<{ site: SiteProps }>();
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              overviewCta: 'Découvrir toutes les études de cas',
-              contactCta: "Discuter d'un contexte proche",
-              openerEyebrow: 'Comment je travaille',
-              signageAriaLabel: 'Aller à un projet',
-              spreadStackLabel: 'Stack',
-              trajectoryLabel: 'Parcours',
-              strengthsLabel: 'Forces',
-              focusAreasLabel: 'Domaines',
-              hobbiesLabel: 'À côté du travail',
-              lookingForLabel: 'Ce que je recherche',
-              nudgeJournalCta: 'Continuer vers le journal',
-          }
-        : {
-              overviewCta: 'Browse all case studies',
-              contactCta: 'Discuss a similar context',
-              openerEyebrow: 'How I work',
-              signageAriaLabel: 'Jump to a project',
-              spreadStackLabel: 'Stack',
-              trajectoryLabel: 'Trajectory',
-              strengthsLabel: 'Strengths',
-              focusAreasLabel: 'Focus areas',
-              hobbiesLabel: 'Outside work',
-              lookingForLabel: 'What I am looking for',
-              nudgeJournalCta: 'Continue to the journal',
-          },
-);
+const copy = computed(() => copyTree[page.props.site.locale].pages.projects);
 
 function slugify(input: string): string {
     return input

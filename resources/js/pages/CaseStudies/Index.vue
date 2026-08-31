@@ -8,6 +8,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
@@ -36,36 +37,8 @@ function caseStudyMeta(item: ContentItem) {
     ];
 }
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              eyebrow: 'Études de cas',
-              title: 'Décisions techniques, outils utiles, détails qui comptent.',
-              description:
-                  "Des cas plus précis autour des flux produit, de l'auto-hébergement, du consentement, du SEO technique et des systèmes web qui demandent de la tenue.",
-              projectsCta: 'Lire les expériences',
-              contactCta: 'Discuter un build similaire',
-              reviewLabel: 'Format revue technique',
-              publicSlicesLabel: `${props.items.length} cas publiés`,
-              internalBuildLabel: 'Build interne',
-              publishedLabel: 'Publié',
-              stackLabel: 'Stack',
-              toolsSuffix: 'outils',
-          }
-        : {
-              eyebrow: 'Case studies',
-              title: 'Technical decisions, useful tools, details that matter.',
-              description:
-                  'More focused cases around product-data flows, self-hosting, consent, technical SEO, and web systems that need real staying power.',
-              projectsCta: 'Read the experience',
-              contactCta: 'Discuss a similar build',
-              reviewLabel: 'Technical review format',
-              publicSlicesLabel: `${props.items.length} published cases`,
-              internalBuildLabel: 'Internal build',
-              publishedLabel: 'Published',
-              stackLabel: 'Stack',
-              toolsSuffix: 'tools',
-          },
+const copy = computed(
+    () => copyTree[page.props.site.locale].pages.caseStudiesIndex,
 );
 </script>
 
@@ -87,7 +60,10 @@ const copy = computed(() =>
                 </template>
 
                 <LegendChip :label="copy.reviewLabel" tone="green" />
-                <LegendChip :label="copy.publicSlicesLabel" tone="sun" />
+                <LegendChip
+                    :label="copy.publicSlicesLabel(props.items.length)"
+                    tone="sun"
+                />
             </SectionIntro>
 
             <div class="case-studies-index__grid">

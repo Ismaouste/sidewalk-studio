@@ -85,6 +85,31 @@ export default defineConfigWithVueTs(
         },
     },
     {
+        // The copy tree is a translation surface, not application logic: the
+        // two locales are meant to read as parallel columns, so key order is
+        // enforced rather than left to whoever edited last.
+        files: ['resources/js/copy/**/*.ts'],
+        rules: {
+            'sort-keys': [
+                'error',
+                'asc',
+                { caseSensitive: false, natural: true },
+            ],
+            // Each French module derives its shape from its English twin with
+            // `typeof import('…').default`. A default-exported object has no
+            // named type to import, so the inline form is the only one that
+            // expresses this.
+            '@typescript-eslint/consistent-type-imports': [
+                'error',
+                {
+                    prefer: 'type-imports',
+                    fixStyle: 'separate-type-imports',
+                    disallowTypeAnnotations: false,
+                },
+            ],
+        },
+    },
+    {
         ignores: [
             // Third-party and build output.
             'vendor',

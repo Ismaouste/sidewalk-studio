@@ -9,7 +9,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
-import { heroCapabilityCopy, homeCopy } from '@/copy/home';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type {
     ContentItem,
@@ -53,12 +53,12 @@ const props = defineProps<{
 
 const page = usePage<{ site: SiteProps }>();
 
-const copy = computed(() => homeCopy[page.props.site.locale]);
+const copy = computed(() => copyTree[page.props.site.locale].pages.home);
 
 // The static half of each capability is translated copy; the summary line comes
 // from the page's own content payload, so the two are joined here by position.
 const heroCapabilities = computed(() =>
-    heroCapabilityCopy[page.props.site.locale].map((capability, index) => ({
+    copy.value.heroCapabilities.map((capability, index) => ({
         ...capability,
         summary: props.heroPanel[index] ?? '',
     })),
@@ -147,11 +147,7 @@ const heroLeadPoints = computed(() =>
                     </h2>
                     <p class="type-body-sm home-hero__panel-summary">
                         <InlineTermTooltip
-                            :label="
-                                page.props.site.locale === 'fr'
-                                    ? 'HBJO'
-                                    : 'HBJOAT'
-                            "
+                            :label="copy.hbjoatLabel"
                             :definition="copy.hbjoatDefinition"
                             tone="green"
                         />
@@ -172,11 +168,7 @@ const heroLeadPoints = computed(() =>
                                 <template v-if="item.label === 'Laravel'">
                                     <InlineTermTooltip
                                         label="Laravel"
-                                        :definition="
-                                            page.props.site.locale === 'fr'
-                                                ? 'Framework PHP pour applications web modernes.'
-                                                : 'PHP framework for modern web applications.'
-                                        "
+                                        :definition="copy.laravelDefinition"
                                         tone="green"
                                     />
                                     {{ ' / ' }}

@@ -8,6 +8,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
@@ -49,33 +50,7 @@ const props = defineProps<{
 
 const page = usePage<{ site: SiteProps }>();
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              projectsCta: 'Voir les références',
-              contactCta: 'Prendre contact',
-              heroChipBase: 'Grand Est',
-              heroChipMobility: 'Mobilité',
-              heroChipJournal: 'Journal',
-              signalsLabel: 'Ce que je regarde',
-              publicationLabel: 'Publication',
-              noteLabel: 'Note',
-              publishedLabel: 'Publié',
-              readLabel: 'Lecture',
-          }
-        : {
-              projectsCta: 'Browse references',
-              contactCta: 'Contact',
-              heroChipBase: 'Lorraine corridor',
-              heroChipMobility: 'Mobility',
-              heroChipJournal: 'Journal',
-              signalsLabel: 'What I keep watching',
-              publicationLabel: 'Entry',
-              noteLabel: 'Note',
-              publishedLabel: 'Published',
-              readLabel: 'Read',
-          },
-);
+const copy = computed(() => copyTree[page.props.site.locale].pages.local);
 
 function publicationMeta(item: ContentItem) {
     return [

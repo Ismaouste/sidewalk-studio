@@ -5,6 +5,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { SeoPayload, SiteProps } from '@/types';
 
@@ -97,17 +98,7 @@ const shuffleLabel = computed(() =>
         : props.controls.theme_button_on,
 );
 
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              controlsTitle: 'Commandes',
-              notesTitle: 'Notes cosmiques',
-          }
-        : {
-              controlsTitle: 'Controls',
-              notesTitle: 'Cosmic notes',
-          },
-);
+const copy = computed(() => copyTree[page.props.site.locale].pages.sparkle);
 
 function toggleShuffle(): void {
     if (shuffleActive.value) {

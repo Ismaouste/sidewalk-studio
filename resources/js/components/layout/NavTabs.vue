@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { isNavPath, navActionCopy } from '@/copy/navigation';
+import { copy as copyTree } from '@/copy';
+import { isNavPath } from '@/copy/navPath';
 import type { SiteProps } from '@/types';
 
 type NavItem = {
@@ -105,7 +106,7 @@ function linkAction(item: NavItem): string {
     const itemPath = stripLocalePrefix(item.href);
 
     return isNavPath(itemPath)
-        ? navActionCopy[page.props.site.locale][itemPath]
+        ? copyTree[page.props.site.locale].layout.navigation.action[itemPath]
         : page.props.site.shell.navOpenLabel;
 }
 

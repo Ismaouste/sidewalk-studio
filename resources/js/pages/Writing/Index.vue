@@ -7,6 +7,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
@@ -25,43 +26,15 @@ function writingMeta(item: ContentItem) {
     ];
 }
 
-function entryLabel(item: ContentItem): string {
-    if (item.category === 'journal') {
-        return 'Journal';
-    }
-
-    return page.props.site.locale === 'fr' ? 'Note' : 'Note';
-}
-
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              eyebrow: 'Journal',
-              title: 'Articles, notes courtes et repères de build.',
-              description:
-                  "Un flux de journal public avec des articles plus riches et des notes plus courtes autour du build, de l'architecture, du contenu et des terrains qui nourrissent le studio.",
-              projectsCta: 'Voir les références',
-              contactCta: 'Prendre contact',
-              editorialLabel: 'Articles et notes',
-              publishedEntriesLabel: `${props.items.length} publications`,
-              publishedLabel: 'Publié',
-              readLabel: 'Lecture',
-              nudgeContactCta: 'Échangeons sur un contexte proche',
-          }
-        : {
-              eyebrow: 'Journal',
-              title: 'Articles, short notes, and build markers.',
-              description:
-                  'A public journal that mixes richer essays and shorter notes around build work, architecture, content systems, and the field contexts behind the studio.',
-              projectsCta: 'Browse references',
-              contactCta: 'Contact',
-              editorialLabel: 'Articles and notes',
-              publishedEntriesLabel: `${props.items.length} publications`,
-              publishedLabel: 'Published',
-              readLabel: 'Read',
-              nudgeContactCta: 'Talk about a similar context',
-          },
+const copy = computed(
+    () => copyTree[page.props.site.locale].pages.writingIndex,
 );
+
+function entryLabel(item: ContentItem): string {
+    return item.category === 'journal'
+        ? copy.value.entryLabelJournal
+        : copy.value.entryLabelNote;
+}
 </script>
 
 <template>
@@ -82,7 +55,10 @@ const copy = computed(() =>
                 </template>
 
                 <LegendChip :label="copy.editorialLabel" tone="violet" />
-                <LegendChip :label="copy.publishedEntriesLabel" tone="sun" />
+                <LegendChip
+                    :label="copy.publishedEntriesLabel(props.items.length)"
+                    tone="sun"
+                />
             </SectionIntro>
 
             <div class="writing-index__list">

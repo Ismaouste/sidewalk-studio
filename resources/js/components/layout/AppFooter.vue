@@ -5,6 +5,7 @@ import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue'
 import AccessibilityPanel from '@/components/layout/AccessibilityPanel.vue';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
+import { copy as copyTree } from '@/copy';
 import { localizePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
@@ -35,29 +36,7 @@ const dataProcessingHref = computed(() =>
 const colophonHref = computed(() =>
     localizePublicHref('/colophon', page.props.site.locale),
 );
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              dataLabel: 'Traitement des données',
-              colophonLabel: 'Colophon',
-              contactLabel: 'Mail',
-              linkedinLabel: 'LinkedIn',
-              backToTopLabel: 'Retour en haut',
-              consentNote: 'Mesure d’audience en opt-in explicite.',
-              staticPreviewNote:
-                  'Preview statique : formulaire et préférences avancées désactivés.',
-          }
-        : {
-              dataLabel: 'Data processing',
-              colophonLabel: 'Colophon',
-              contactLabel: 'Direct contact',
-              linkedinLabel: 'LinkedIn',
-              backToTopLabel: 'Back to top',
-              consentNote: 'Analytics stays explicit opt-in.',
-              staticPreviewNote:
-                  'Static preview: form handling and advanced preferences are disabled.',
-          },
-);
+const copy = computed(() => copyTree[page.props.site.locale].layout.footer);
 
 function backToTop(): void {
     if (typeof window === 'undefined') {
