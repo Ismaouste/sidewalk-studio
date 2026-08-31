@@ -1,3 +1,20 @@
+/**
+ * JSON as it round-trips between the content backend and the admin editors.
+ *
+ * Typed structurally rather than as `unknown` so Inertia's form helper can
+ * prove the payload is serialisable: its FormDataType mapping resolves
+ * `unknown` to `never` and rejects the form outright.
+ */
+export type JsonValue =
+    string | number | boolean | null | JsonValue[] | JsonObject;
+
+// An interface (not an alias) so TypeScript defers resolution: Inertia's
+// FormDataKeys walks the shape to build dotted key paths and an alias here
+// trips its recursion limit.
+export interface JsonObject {
+    [key: string]: JsonValue;
+}
+
 export type AdminAuditLogEntry = {
     id: number;
     actor: {
@@ -85,7 +102,7 @@ export type AdminPageEntry = {
     robots: string;
     canonical_url: string;
     open_graph_image: string;
-    payload: Record<string, unknown>;
+    payload: JsonObject;
     source_path: string | null;
     source_driver: 'file' | 'database' | 'hybrid';
 };
@@ -106,5 +123,5 @@ export type ManagedLanguageFile = {
     label: string;
     locale: 'en' | 'fr';
     path: string;
-    payload: Record<string, unknown>;
+    payload: JsonObject;
 };

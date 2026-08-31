@@ -3,8 +3,6 @@ import { usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import type { ContentItem } from '@/types';
 
-const page = usePage<{ site: { locale: string } }>();
-
 const props = withDefaults(
     defineProps<{
         item: ContentItem;
@@ -14,6 +12,8 @@ const props = withDefaults(
         compact: false,
     },
 );
+
+const page = usePage<{ site: { locale: string } }>();
 
 const imageLoaded = ref(false);
 

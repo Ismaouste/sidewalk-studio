@@ -1,17 +1,34 @@
 <script setup lang="ts">
 import { Head, useForm, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import AdminStructuredValueEditor from '@/components/admin/shared/AdminStructuredValueEditor.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
-import type { AdminPageEntry, FlashProps } from '@/types';
+import type { AdminPageEntry, FlashProps, JsonObject } from '@/types';
+
+/**
+ * The flat metadata fields only. `payload` is arbitrary nested JSON and is
+ * held outside the form: Inertia derives dotted key paths from the value type
+ * to address per-field errors, and that derivation cannot terminate on a
+ * recursive type. It is merged back in at submit time.
+ */
+type PageEditForm = Pick<
+    AdminPageEntry,
+    | 'title'
+    | 'description'
+    | 'seo_title'
+    | 'seo_description'
+    | 'robots'
+    | 'canonical_url'
+    | 'open_graph_image'
+>;
 
 const props = defineProps<{ page: AdminPageEntry }>();
 const pageState = usePage<{ flash: FlashProps }>();
 const status = computed(() => pageState.props.flash?.status ?? null);
 
-const form = useForm<any>({
+const form = useForm<PageEditForm>({
     title: props.page.title,
     description: props.page.description,
     seo_title: props.page.seo_title,
@@ -19,11 +36,14 @@ const form = useForm<any>({
     robots: props.page.robots,
     canonical_url: props.page.canonical_url,
     open_graph_image: props.page.open_graph_image,
-    payload: structuredClone(props.page.payload),
 });
 
+const payload = ref<JsonObject>(structuredClone(props.page.payload));
+
 function submit() {
-    form.put(`/admin/pages/${props.page.page_key}/${props.page.locale}`);
+    form.transform((data) => ({ ...data, payload: payload.value })).put(
+        `/admin/pages/${props.page.page_key}/${props.page.locale}`,
+    );
 }
 </script>
 
@@ -115,10 +135,8 @@ function submit() {
                     <p class="type-eyebrow">Structured payload</p>
                     <AdminStructuredValueEditor
                         label="Payload"
-                        :value="form.payload"
-                        @update:value="
-                            form.payload = $event as Record<string, unknown>
-                        "
+                        :value="payload"
+                        @update:value="payload = $event as JsonObject"
                     />
                 </Panel>
             </div>

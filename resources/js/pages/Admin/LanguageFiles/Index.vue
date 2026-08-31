@@ -1,25 +1,31 @@
 <script setup lang="ts">
-import { Head, useForm, usePage } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { Head, router, usePage } from '@inertiajs/vue3';
+import { computed, reactive, ref } from 'vue';
 import AdminStructuredValueEditor from '@/components/admin/shared/AdminStructuredValueEditor.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
-import type { FlashProps, ManagedLanguageFile } from '@/types';
+import type { FlashProps, JsonObject, ManagedLanguageFile } from '@/types';
 
 const props = defineProps<{ files: ManagedLanguageFile[] }>();
 const activeKey = ref(props.files[0]?.key ?? '');
 const page = usePage<{ flash: FlashProps }>();
 const status = computed(() => page.props.flash?.status ?? null);
 
-const forms = Object.fromEntries(
-    props.files.map((file) => [
-        file.key,
-        useForm<any>({
-            payload: structuredClone(file.payload),
-        }),
-    ]),
-) as Record<string, ReturnType<typeof useForm<any>>>;
+/**
+ * Deliberately plain state rather than useForm. A language file's payload is
+ * arbitrary nested JSON, and Inertia's form helper derives dotted key paths
+ * from the value type — which cannot terminate on a recursive one. Nothing
+ * here needs per-field errors or dirty tracking, only a payload and a pending
+ * flag, so the router call is both simpler and typeable.
+ */
+const payloads = reactive<Record<string, JsonObject>>(
+    Object.fromEntries(
+        props.files.map((file) => [file.key, structuredClone(file.payload)]),
+    ),
+);
+
+const savingKey = ref<string | null>(null);
 
 const activeFile = computed(
     () =>
@@ -27,8 +33,29 @@ const activeFile = computed(
         props.files[0],
 );
 
+const activePayload = computed(() =>
+    activeFile.value ? payloads[activeFile.value.key] : undefined,
+);
+
 function save(key: string) {
-    forms[key].put(`/admin/language-files/${key}`);
+    const payload = payloads[key];
+
+    if (!payload || savingKey.value) {
+        return;
+    }
+
+    savingKey.value = key;
+
+    router.put(
+        `/admin/language-files/${key}`,
+        { payload },
+        {
+            preserveScroll: true,
+            onFinish: () => {
+                savingKey.value = null;
+            },
+        },
+    );
 }
 </script>
 
@@ -47,7 +74,7 @@ function save(key: string) {
                 <span v-if="status" class="type-meta">{{ status }}</span>
             </header>
 
-            <div class="admin-language__grid" v-if="activeFile">
+            <div v-if="activeFile" class="admin-language__grid">
                 <Panel class="admin-language__nav" tone="grid">
                     <button
                         v-for="file in props.files"
@@ -65,6 +92,7 @@ function save(key: string) {
                 </Panel>
 
                 <form
+                    v-if="activeFile && activePayload"
                     class="admin-language__editor"
                     @submit.prevent="save(activeFile.key)"
                 >
@@ -76,16 +104,15 @@ function save(key: string) {
                             </div>
                             <Button
                                 type="submit"
-                                :disabled="forms[activeFile.key].processing"
+                                :disabled="savingKey === activeFile.key"
                                 >Save file</Button
                             >
                         </div>
                         <AdminStructuredValueEditor
                             label="Language payload"
-                            :value="forms[activeFile.key].payload"
+                            :value="activePayload"
                             @update:value="
-                                forms[activeFile.key].payload =
-                                    $event as Record<string, unknown>
+                                payloads[activeFile.key] = $event as JsonObject
                             "
                         />
                     </Panel>

@@ -62,10 +62,7 @@ export type BrandingSettings = {
     asset_mode: 'uploaded' | 'fallback';
     uploaded_asset_path: string | null;
     fallback_variant:
-        | 'avatar'
-        | 'monogram_circle'
-        | 'monogram_square'
-        | 'wordmark';
+        'avatar' | 'monogram_circle' | 'monogram_square' | 'wordmark';
     fallback_label: string;
     fallback_subtitle: string;
     active_alt: string;

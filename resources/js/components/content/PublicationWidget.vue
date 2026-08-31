@@ -9,12 +9,12 @@ import Panel from '@/components/ui/Panel.vue';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { PublicationWidget } from '@/types';
 
-const page = usePage<{ site: { locale: string } }>();
-
 const props = defineProps<{
     widget: PublicationWidget;
     tone?: 'surface' | 'grid';
 }>();
+
+const page = usePage<{ site: { locale: string } }>();
 
 const isFrench = computed(() => page.props.site.locale === 'fr');
 const hasHeader = computed(

@@ -58,9 +58,9 @@ const props = defineProps<{
                     </p>
 
                     <MediaEmbed
+                        :id="props.embedDemo.id"
                         :title="props.embedDemo.title"
                         :service="props.embedDemo.service"
-                        :id="props.embedDemo.id"
                     />
                 </Panel>
             </div>

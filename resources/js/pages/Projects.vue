@@ -24,8 +24,6 @@ type ExperienceSection = {
     marginalia?: { author: string; quote: string };
 };
 
-const page = usePage<{ site: SiteProps }>();
-
 const props = defineProps<{
     seo: SeoPayload;
     hero: {
@@ -46,6 +44,8 @@ const props = defineProps<{
     lookingFor: string;
     cvDownloads: Array<{ label: string; href: string }>;
 }>();
+
+const page = usePage<{ site: SiteProps }>();
 
 const copy = computed(() =>
     page.props.site.locale === 'fr'
@@ -166,8 +166,8 @@ const signageItems = computed(() =>
             <div class="experience-page__spreads">
                 <EditorialSpread
                     v-for="spread in allSpreads"
-                    :key="spread.id"
                     :id="spread.id"
+                    :key="spread.id"
                     :eyebrow="spread.eyebrow"
                     :title="spread.title"
                     :summary="spread.summary"

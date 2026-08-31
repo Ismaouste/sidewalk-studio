@@ -13,13 +13,13 @@ import Panel from '@/components/ui/Panel.vue';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
 
-const page = usePage<{ site: SiteProps }>();
-
 const props = defineProps<{
     seo: SeoPayload;
     item: ContentItem;
     related?: ContentItem[];
 }>();
+
+const page = usePage<{ site: SiteProps }>();
 
 const copy = computed(() =>
     page.props.site.locale === 'fr'

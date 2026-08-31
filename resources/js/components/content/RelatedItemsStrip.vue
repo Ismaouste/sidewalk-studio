@@ -4,13 +4,13 @@ import ContentVisual from '@/components/content/ContentVisual.vue';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SiteProps } from '@/types';
 
-const page = usePage<{ site: SiteProps }>();
-
 defineProps<{
     items: ContentItem[];
     eyebrow: string;
     title: string;
 }>();
+
+const page = usePage<{ site: SiteProps }>();
 </script>
 
 <template>

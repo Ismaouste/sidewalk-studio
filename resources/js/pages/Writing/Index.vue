@@ -11,12 +11,12 @@ import SiteLayout from '@/layouts/SiteLayout.vue';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
 
-const page = usePage<{ site: SiteProps }>();
-
 const props = defineProps<{
     seo: SeoPayload;
     items: ContentItem[];
 }>();
+
+const page = usePage<{ site: SiteProps }>();
 
 function writingMeta(item: ContentItem) {
     return [

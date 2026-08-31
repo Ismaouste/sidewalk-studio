@@ -23,9 +23,6 @@ type CosmicPalette = {
     surfaceDeep: string;
 };
 
-const LOADER_REPLAY_EVENT = 'sidewalk:loader:replay';
-const page = usePage<{ site: SiteProps }>();
-
 const props = defineProps<{
     seo: SeoPayload;
     hero: {
@@ -52,6 +49,8 @@ const props = defineProps<{
     repoUrl: string;
     githubProfileUrl: string | null;
 }>();
+const LOADER_REPLAY_EVENT = 'sidewalk:loader:replay';
+const page = usePage<{ site: SiteProps }>();
 
 const shuffleActive = ref(false);
 const currentPalette = ref<CosmicPalette | null>(null);

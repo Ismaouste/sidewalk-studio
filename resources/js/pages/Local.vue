@@ -12,8 +12,6 @@ import SiteLayout from '@/layouts/SiteLayout.vue';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
 
-const page = usePage<{ site: SiteProps }>();
-
 const props = defineProps<{
     seo: SeoPayload;
     hero: {
@@ -48,6 +46,8 @@ const props = defineProps<{
     };
     notes: ContentItem[];
 }>();
+
+const page = usePage<{ site: SiteProps }>();
 
 const copy = computed(() =>
     page.props.site.locale === 'fr'

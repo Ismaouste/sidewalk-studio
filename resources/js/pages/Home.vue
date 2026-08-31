@@ -17,8 +17,6 @@ import type {
     SiteProps,
 } from '@/types';
 
-const page = usePage<{ site: SiteProps }>();
-
 const props = defineProps<{
     seo: SeoPayload;
     hero: {
@@ -51,6 +49,8 @@ const props = defineProps<{
         href: string;
     }>;
 }>();
+
+const page = usePage<{ site: SiteProps }>();
 
 const heroCapabilities = computed(() =>
     page.props.site.locale === 'fr'

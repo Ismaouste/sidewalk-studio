@@ -10,9 +10,6 @@ import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { FlashProps, SeoPayload, SiteContact, SiteProps } from '@/types';
 
-const page = usePage<{ site: SiteProps; flash: FlashProps }>();
-const isStaticPreview = computed(() => page.props.site.runtime.staticPreview);
-
 const props = defineProps<{
     seo: SeoPayload;
     contact: SiteContact;
@@ -59,6 +56,8 @@ const props = defineProps<{
         summary: string;
     };
 }>();
+const page = usePage<{ site: SiteProps; flash: FlashProps }>();
+const isStaticPreview = computed(() => page.props.site.runtime.staticPreview);
 
 const serviceTones = ['dominant', 'green', 'coral'] as const;
 

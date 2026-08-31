@@ -3,28 +3,39 @@ import {
     vueTsConfigs,
 } from '@vue/eslint-config-typescript';
 import prettier from 'eslint-config-prettier/flat';
-import importPlugin from 'eslint-plugin-import';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
+import importX from 'eslint-plugin-import-x';
 import vue from 'eslint-plugin-vue';
 
 export default defineConfigWithVueTs(
-    vue.configs['flat/essential'],
+    vue.configs['flat/recommended'],
     vueTsConfigs.recommended,
     {
         plugins: {
-            import: importPlugin,
+            'import-x': importX,
         },
         settings: {
-            'import/resolver': {
-                typescript: {
+            // The solution config references both the app and the build-tooling
+            // projects, so pointing at it covers every import in one pass.
+            'import-x/resolver-next': [
+                createTypeScriptImportResolver({
                     alwaysTryTypes: true,
                     project: './tsconfig.json',
-                },
-                node: true,
-            },
+                }),
+            ],
         },
         rules: {
+            // Single-word page and layout components are the convention here
+            // (Home.vue, Contact.vue), and Inertia resolves pages by filename.
             'vue/multi-word-component-names': 'off',
-            '@typescript-eslint/no-explicit-any': 'off',
+
+            'vue/component-api-style': ['error', ['script-setup']],
+            'vue/define-macros-order': [
+                'error',
+                { order: ['defineProps', 'defineEmits'] },
+            ],
+            'vue/prefer-true-attribute-shorthand': 'error',
+
             '@typescript-eslint/consistent-type-imports': [
                 'error',
                 {
@@ -32,7 +43,16 @@ export default defineConfigWithVueTs(
                     fixStyle: 'separate-type-imports',
                 },
             ],
-            'import/order': [
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                {
+                    argsIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                    caughtErrorsIgnorePattern: '^_',
+                },
+            ],
+
+            'import-x/order': [
                 'error',
                 {
                     groups: [
@@ -49,10 +69,19 @@ export default defineConfigWithVueTs(
                     },
                 },
             ],
-            'import/consistent-type-specifier-style': [
+            'import-x/consistent-type-specifier-style': [
                 'error',
                 'prefer-top-level',
             ],
+            'import-x/no-duplicates': 'error',
+
+            // console.warn/error are used deliberately for optional-module
+            // failures that must stay visible; console.log is not.
+            'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
+            eqeqeq: ['error', 'always', { null: 'ignore' }],
+            'object-shorthand': ['error', 'always'],
+            'prefer-const': ['error', { destructuring: 'all' }],
+            'no-var': 'error',
         },
     },
     {

@@ -4,8 +4,6 @@ import { computed } from 'vue';
 import { localizePublicHref, resolvePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
-const page = usePage<{ site: SiteProps }>();
-
 const props = withDefaults(
     defineProps<{
         href?: string;
@@ -36,6 +34,8 @@ const props = withDefaults(
 const emit = defineEmits<{
     click: [event: MouseEvent];
 }>();
+
+const page = usePage<{ site: SiteProps }>();
 
 const isInternalLink = computed(
     () => Boolean(props.href) && !props.external && props.href?.startsWith('/'),
