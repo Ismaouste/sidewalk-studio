@@ -2,7 +2,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
 import legacy from './legacy'
 /**
 * @see \App\Http\Controllers\WritingController::index
-* @see app/Http/Controllers/WritingController.php:16
+* @see app/Http/Controllers/WritingController.php:17
 * @route '/{locale}/journal'
 */
 export const index = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -17,7 +17,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\WritingController::index
-* @see app/Http/Controllers/WritingController.php:16
+* @see app/Http/Controllers/WritingController.php:17
 * @route '/{locale}/journal'
 */
 index.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -46,7 +46,7 @@ index.url = (args: { locale: string | number } | [locale: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\WritingController::index
-* @see app/Http/Controllers/WritingController.php:16
+* @see app/Http/Controllers/WritingController.php:17
 * @route '/{locale}/journal'
 */
 index.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -56,7 +56,7 @@ index.get = (args: { locale: string | number } | [locale: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\WritingController::index
-* @see app/Http/Controllers/WritingController.php:16
+* @see app/Http/Controllers/WritingController.php:17
 * @route '/{locale}/journal'
 */
 index.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -66,7 +66,7 @@ index.head = (args: { locale: string | number } | [locale: string | number ] | s
 
 /**
 * @see \App\Http\Controllers\WritingController::index
-* @see app/Http/Controllers/WritingController.php:16
+* @see app/Http/Controllers/WritingController.php:17
 * @route '/{locale}/journal'
 */
 const indexForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -76,7 +76,7 @@ const indexForm = (args: { locale: string | number } | [locale: string | number 
 
 /**
 * @see \App\Http\Controllers\WritingController::index
-* @see app/Http/Controllers/WritingController.php:16
+* @see app/Http/Controllers/WritingController.php:17
 * @route '/{locale}/journal'
 */
 indexForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -86,7 +86,7 @@ indexForm.get = (args: { locale: string | number } | [locale: string | number ] 
 
 /**
 * @see \App\Http\Controllers\WritingController::index
-* @see app/Http/Controllers/WritingController.php:16
+* @see app/Http/Controllers/WritingController.php:17
 * @route '/{locale}/journal'
 */
 indexForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -103,7 +103,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\WritingController::show
-* @see app/Http/Controllers/WritingController.php:40
+* @see app/Http/Controllers/WritingController.php:41
 * @route '/{locale}/journal/{slug}'
 */
 export const show = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -118,7 +118,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\WritingController::show
-* @see app/Http/Controllers/WritingController.php:40
+* @see app/Http/Controllers/WritingController.php:41
 * @route '/{locale}/journal/{slug}'
 */
 show.url = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions) => {
@@ -146,7 +146,7 @@ show.url = (args: { locale: string | number, slug: string | number } | [locale: 
 
 /**
 * @see \App\Http\Controllers\WritingController::show
-* @see app/Http/Controllers/WritingController.php:40
+* @see app/Http/Controllers/WritingController.php:41
 * @route '/{locale}/journal/{slug}'
 */
 show.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -156,7 +156,7 @@ show.get = (args: { locale: string | number, slug: string | number } | [locale: 
 
 /**
 * @see \App\Http\Controllers\WritingController::show
-* @see app/Http/Controllers/WritingController.php:40
+* @see app/Http/Controllers/WritingController.php:41
 * @route '/{locale}/journal/{slug}'
 */
 show.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -166,7 +166,7 @@ show.head = (args: { locale: string | number, slug: string | number } | [locale:
 
 /**
 * @see \App\Http\Controllers\WritingController::show
-* @see app/Http/Controllers/WritingController.php:40
+* @see app/Http/Controllers/WritingController.php:41
 * @route '/{locale}/journal/{slug}'
 */
 const showForm = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -176,7 +176,7 @@ const showForm = (args: { locale: string | number, slug: string | number } | [lo
 
 /**
 * @see \App\Http\Controllers\WritingController::show
-* @see app/Http/Controllers/WritingController.php:40
+* @see app/Http/Controllers/WritingController.php:41
 * @route '/{locale}/journal/{slug}'
 */
 showForm.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -186,7 +186,7 @@ showForm.get = (args: { locale: string | number, slug: string | number } | [loca
 
 /**
 * @see \App\Http\Controllers\WritingController::show
-* @see app/Http/Controllers/WritingController.php:40
+* @see app/Http/Controllers/WritingController.php:41
 * @route '/{locale}/journal/{slug}'
 */
 showForm.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

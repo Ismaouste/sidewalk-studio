@@ -40,19 +40,34 @@ defineProps<{
     background: transparent;
 }
 
+/* A trail that wraps onto a second line stops reading as a trail and starts
+   reading as a paragraph, so it stays on one line and the current page gives
+   up its width instead. */
 .breadcrumb-trail__list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--sw-space-4xs);
     margin: 0;
     padding: 0;
     list-style: none;
+    min-width: 0;
 }
 
 .breadcrumb-trail__item {
     display: inline-flex;
     align-items: center;
     gap: var(--sw-space-4xs);
+    /* The ancestors are the trail; they keep their full width. */
+    flex: none;
+    min-width: 0;
+}
+
+/* Only the last crumb yields. It is the one the reader can already see in the
+   page heading below, so it is the one that can afford to be cut. */
+.breadcrumb-trail__item:last-child {
+    flex: 0 1 auto;
+    overflow: hidden;
 }
 
 .breadcrumb-trail__item:not(:last-child)::after {
@@ -83,6 +98,17 @@ defineProps<{
         var(--sw-text-secondary) 92%,
         var(--sw-text-primary)
     );
+    /* `text-overflow` only applies to a block container, so this one cannot be
+       the flex box its siblings are. It keeps their line-height rather than
+       inventing one — a taller line box puts the glyphs on a different
+       baseline, which is what made this crumb sit a fraction below the others
+       — and gives up its min-height so the parent item centres it instead. */
+    display: block;
+    min-height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
 @media (hover: hover) {
@@ -102,11 +128,21 @@ defineProps<{
     }
 
     .breadcrumb-trail__list {
-        flex-wrap: nowrap;
         overflow-x: auto;
-        gap: 4px;
         padding: 0.08rem 0 0;
         scrollbar-width: none;
+    }
+
+    /* On a phone the trail scrolls rather than truncates: there is no room to
+       shorten into, and swiping keeps the whole path reachable. */
+    .breadcrumb-trail__item:last-child {
+        flex: none;
+        overflow: visible;
+    }
+
+    .breadcrumb-trail__current {
+        overflow: visible;
+        text-overflow: clip;
     }
 
     .breadcrumb-trail__list::-webkit-scrollbar {

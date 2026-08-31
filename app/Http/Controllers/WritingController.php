@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ContentRepository;
+use App\Support\PublicLocale;
 use App\Support\Seo;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -25,7 +26,7 @@ class WritingController extends Controller
             [
                 'robots' => 'index,follow',
                 'breadcrumb' => [
-                    ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => 'Journal', 'path' => '/journal'],
                 ],
             ],
@@ -63,7 +64,7 @@ class WritingController extends Controller
                 ],
                 'section' => 'Journal',
                 'breadcrumb' => [
-                    ['name' => $isFrench ? 'Accueil' : 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => 'Journal', 'path' => '/journal'],
                     ['name' => $item['title'], 'path' => '/journal/'.$item['slug']],
                 ],

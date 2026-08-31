@@ -74,7 +74,7 @@ class SiteController extends Controller
             '/local',
             $this->pageSeoOptions($page, [
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => app()->getLocale() === 'fr' ? 'Localisation' : 'Local', 'path' => '/local'],
                 ],
             ]),
@@ -111,7 +111,7 @@ class SiteController extends Controller
             $this->pageSeoOptions($page, [
                 'robots' => 'noindex,nofollow',
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => 'Sparkle', 'path' => '/sparkle'],
                 ],
             ]),
@@ -152,7 +152,7 @@ class SiteController extends Controller
                     ],
                 ],
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => 'Projects', 'path' => '/projects'],
                 ],
             ]),
@@ -237,7 +237,7 @@ class SiteController extends Controller
             '/labs',
             [
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => 'Labs', 'path' => '/labs'],
                 ],
             ],
@@ -266,7 +266,7 @@ class SiteController extends Controller
             $this->pageSeoOptions($page, [
                 'robots' => 'noindex,follow',
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => 'Contact', 'path' => '/contact'],
                 ],
             ]),
@@ -293,7 +293,7 @@ class SiteController extends Controller
             '/data-processing',
             $this->pageSeoOptions($page, [
                 'breadcrumb' => [
-                    ['name' => 'Home', 'path' => '/'],
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
                     ['name' => 'Data processing', 'path' => '/data-processing'],
                 ],
                 'robots' => 'noindex,nofollow',
