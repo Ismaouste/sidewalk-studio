@@ -29,15 +29,19 @@ jobs:
         # local toolchain uses. Both are tested so neither can drift unnoticed.
         php: ['8.4', '8.5']
     name: validate (PHP ${{ matrix.php }})
+    # Deliberately no DB, cache, session or queue settings here. A job-level
+    # `env` becomes a real environment variable, and phpunit.xml's <env> only
+    # fills in values that are not already set — so anything named here would
+    # silently outrank it and the test run would use different infrastructure
+    # from the one developers run locally. That divergence is what made two
+    # content tests fail only in CI: phpunit.xml asks for an in-memory
+    # database, CI handed them a file one that a RefreshDatabase case had
+    # already emptied. The artisan steps below get their connection from .env,
+    # which the prepare step writes from .env.example.
     env:
       APP_ENV: testing
       APP_DEBUG: false
       APP_URL: http://127.0.0.1:8088
-      DB_CONNECTION: sqlite
-      DB_DATABASE: database/database.sqlite
-      CACHE_STORE: database
-      SESSION_DRIVER: database
-      QUEUE_CONNECTION: database
       ADMIN_SEED_EMAIL: ''
       ADMIN_SEED_PASSWORD: ''
       ADMIN_SEED_NAME: ''

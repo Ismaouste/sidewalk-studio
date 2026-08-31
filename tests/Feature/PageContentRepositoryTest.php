@@ -40,14 +40,19 @@ class PageContentRepositoryTest extends TestCase
 
     public function test_it_prefers_markdown_over_database_overrides_for_public_pages(): void
     {
-        if (! Schema::hasTable('pages')) {
+        // Checks for the seeded row as well as the table, for the reason
+        // spelled out in ContentRepositoryTest: after a RefreshDatabase case
+        // the table is present and empty, which `Schema::hasTable` alone
+        // reports as fine.
+        $seededPage = fn () => Page::query()
+            ->where('page_key', 'projects')
+            ->where('locale', 'fr');
+
+        if (! Schema::hasTable('pages') || $seededPage()->doesntExist()) {
             $this->artisan('migrate:fresh', ['--seed' => true]);
         }
 
-        $pageRecord = Page::query()
-            ->where('page_key', 'projects')
-            ->where('locale', 'fr')
-            ->firstOrFail();
+        $pageRecord = $seededPage()->firstOrFail();
 
         $payload = $pageRecord->payload ?? [];
         $payload['hero']['title'] = 'Old database hero title';
