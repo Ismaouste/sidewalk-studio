@@ -51,7 +51,8 @@ Characteristics:
 
 Palette direction:
 - base neutrals: mineral, chalk, paper, concrete
-- mobility accent: green
+- mobility accent: green in `Morning Grid`, electric cyan in `Sunset Signal`
+  (the `--sw-accent-green` token slot keeps its name; only its value changes)
 - culture accent: deep red or violet
 
 The interface should feel:

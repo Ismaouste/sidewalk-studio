@@ -1,1 +1,0 @@
-const o=(t,r)=>{const e=t.__vccOpts||t;for(const[n,s]of r)e[n]=s;return e};function c(t,r,e){if(!t.startsWith("/")||!r)return t;const n=i(e);return!n||n==="/"?t:t==="/"?n:t.startsWith(n)?t:`${n}${t.slice(1)}`}function i(t){if(!t)return"/";const r=t.trim();return!r||r==="/"?"/":`/${r.replace(/^\/+|\/+$/g,"")}/`}export{o as _,c as r};

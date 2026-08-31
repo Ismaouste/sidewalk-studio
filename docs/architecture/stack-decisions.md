@@ -2,7 +2,7 @@
 
 ## Kept for v0
 
-- Laravel 12 for routing, configuration, content loading, and testable backend behavior
+- Laravel 13 for routing, configuration, content loading, and testable backend behavior
 - Inertia + Vue 3 + TypeScript for the public shell because the repo is also meant to demonstrate modern app ergonomics
 - SQLite for local development because it removes service friction on Windows
 - No CSS framework. Styling is hand-authored against the `--sw-*` tokens in `resources/css/tokens.css`, with base element normalisation owned by `resources/css/base.css`. Local font packages avoid remote font requests.

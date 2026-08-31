@@ -9,7 +9,10 @@ Personal portfolio site for Isma. Stack: Laravel 13 + Inertia 3 + Vue 3 + Vite 8
 - Public content lives in FR/EN under `resources/content/pages/{fr,en}/<slug>.md` and must stay in shape parity (same frontmatter keys, same array lengths, same nested-object shape).
 - Follow the GitHub Spec Kit workflow under `.specify/` and `specs/`. Use the `spec-kit-bootstrap` skill when starting a new feature.
 - Never hardcode colors, fonts, spacing, or motion values in components — consume `--sw-*` tokens from `resources/css/tokens.css`.
-- Two themes only: `morning` (light, architectural) and `sunset` (dark, cinematic). Both must be tested on visual changes.
+- Two themes only: `morning` (light, architectural) and `sunset` (dark, violet glass). Both must be tested on visual changes.
+- `sunset` carries no green and no amber: warm hues over a dark base collapse toward brown. Blurred surfaces saturate above 1, never below.
+- Bilingual UI copy lives in `resources/js/copy/<locale>/<group>/<domain>.ts`, never inline in components. Each French module ends in `satisfies typeof import('../../en/<group>/<domain>').default`, and keys stay sorted (`sort-keys` enforces it).
+- Prefer platform primitives over components: `popover`, `<details>`, `@layer`, `content-visibility`, scroll-driven animations, Inertia `prefetch`.
 
 ## Subagents and skills available in this repo
 
@@ -23,8 +26,25 @@ Personal portfolio site for Isma. Stack: Laravel 13 + Inertia 3 + Vue 3 + Vite 8
 - PostToolUse → `node .claude/hooks/format-on-edit.mjs` formats `.vue/.ts/.tsx/.js/.css/.json` via Prettier on every Edit/Write/MultiEdit.
 - PreToolUse → `node .claude/hooks/block-secrets.mjs` refuses Edit/Write/MultiEdit on `.env*`, `*credentials*`, `*.pem`, `*.key`, `id_rsa*`, `secrets.{json,yaml,yml,toml}`.
 
+## Local toolchain
+
+PHP and Composer are not on `PATH` in the Bash tool. Prepend the PHP directory
+and call Composer through the phar:
+
+```
+export PATH="/c/Users/ismae/AppData/Local/Microsoft/WinGet/Packages/PHP.PHP.8.4_Microsoft.Winget.Source_8wekyb3d8bbwe:$PATH"
+php /c/Users/ismae/.local/bin/composer.phar <command>
+```
+
+If `composer install` fails with HTTP 400 on `codeload.github.com`, that is
+unauthenticated GitHub rate limiting: export
+`COMPOSER_AUTH` built from `gh auth token`. Do not fall back to
+`--prefer-source` — `vlucas/phpdotenv` ships `tests/fixtures/env/nul.env`, and
+`nul` is a reserved Windows device name that aborts the whole checkout.
+
 ## Validation baseline
 
+- Everything at once: `npm run check` (lint + format + types) and `composer run lint:check`
 - Backend: `php artisan test`
 - Frontend: `npm run types:check && npm run build`
 - Lint/format: `npm run lint:check && npm run format:check`

@@ -1,1 +1,0 @@
-import{d as o,e as s,t as a,s as t,o as p}from"./app-DbdgpePa.js";import{_ as c}from"./publicHref-CLPshY5M.js";const r=o({__name:"LegendChip",props:{label:{},tone:{default:"dominant"}},setup(n){const e=n;return(l,i)=>(p(),s("span",{class:t(["legend-chip",`legend-chip--${e.tone}`])},a(e.label),3))}}),m=c(r,[["__scopeId","data-v-83c06bc7"]]);export{m as L};

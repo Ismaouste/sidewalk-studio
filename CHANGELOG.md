@@ -2,13 +2,33 @@
 
 ## [Unreleased]
 
-### Added
-
-- Repo-owned Vercel preview runtime support through `api/index.php`, `vercel.json`, and `.vercelignore` for more faithful Laravel previews than the static export alone.
-- Architecture and tracking docs for the supported Vercel preview workflow, including its temp-storage bootstrap behavior and local CLI deployment constraints.
-
 ### Changed
 
+- Moved the stack a full major generation forward: Laravel 12 to 13, Inertia 2 to 3 on both sides, Vite 7 to 8 (Rolldown replaces Rollup), ESLint 9 to 10, PHPUnit 11 to 13, and Wayfinder 0.1.11 to 0.1.21. TypeScript stays on 5.9: TypeScript 7 is the native Go compiler and no longer exposes the JavaScript compiler API that `vue-tsc` and `typescript-eslint` both drive.
+- Removed Tailwind, which shipped in every build without a single utility class being used. Base element normalisation is now owned by `resources/css/base.css` inside `@layer reset`. The main stylesheet dropped from 65.2 kB to 27.3 kB and the client build from 3.1s to 1.6s.
+- Retuned the `Sunset Signal` dark theme from a warm palette that read brown to electric violet and magenta on deep aubergine glass, with one cyan accent. No green and no amber remain in that theme, and blurred surfaces now saturate above 1 instead of below it.
+- Moved every bilingual UI string out of components into `resources/js/copy/<locale>/<group>/`, where each French module is checked against its English counterpart at compile time and keys are kept sorted by lint.
+- Wired the lint, format and Pint gates into CI, which previously ran only type checks, the build and the test suite. CI now also runs a PHP 8.4 / 8.5 matrix so the version Vercel serves is exercised.
+- Moved `laravel/tinker` to `require-dev` and build-only npm packages to `devDependencies`.
+
+### Fixed
+
+- The boost-contrast accessibility mode was unreachable: its composable ignored its own argument and always wrote `default`, while the panel advertised the control as "Soon". Its tokens were already fully authored.
+- The static preview export silently stopped rewriting URLs under Inertia 3, which moves the page payload from a `data-page` attribute into a `<script type="application/json">` element.
+- `startViewTransition` rejections were never caught, surfacing an `InvalidStateError` in the console on interrupted navigations.
+- Anchor links landed underneath the sticky header for want of `scroll-padding-top`.
+
+### Removed
+
+- `.codex-tmp/`, a full 11 MB duplicate of the project including `vendor/` and `public/build/`, committed by accident and holding stale copies of every source file.
+- Dead dependencies with no importer: `@vueuse/core`, `clsx`, `tailwind-merge`, `class-variance-authority`, and the `lib/utils.ts` helper that was their only consumer.
+- `docs/ai/blockers.md`, whose only entry (GitHub CLI unreachable) is no longer true, and `docs/career/CODEX_NEXT_PROMPT.md`, a superseded handoff.
+
+### Added
+
+- Hover prefetching on primary navigation and content links, and `content-visibility: auto` on below-the-fold sections.
+- Repo-owned Vercel preview runtime support through `api/index.php`, `vercel.json`, and `.vercelignore` for more faithful Laravel previews than the static export alone.
+- Architecture and tracking docs for the supported Vercel preview workflow, including its temp-storage bootstrap behavior and local CLI deployment constraints.
 - Clarified that GitHub Pages remains the static approximation while Vercel preview is the runtime-oriented preview path.
 
 ## [0.2.0] - 2026-03-08

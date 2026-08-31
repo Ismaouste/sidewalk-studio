@@ -32,12 +32,13 @@ The portfolio is intentionally opinionated:
 ## Stack
 
 - Laravel 13
-- PHP 8.4 for CI/static preview
-- Inertia.js
+- PHP 8.3+ — CI runs a 8.4 / 8.5 matrix; Vercel serves 8.5 via `vercel-php@0.9.0`
+- Inertia.js 3
 - Vue 3
-- TypeScript
-- Vite
+- TypeScript 5.9
+- Vite 8 (Rolldown)
 - SQLite by default
+- No CSS framework: styling is hand-authored against `--sw-*` tokens
 - token-based CSS design system
 - package-hosted fonts via `@fontsource`
 - CookieConsent + IframeManager for consent-aware embeds
