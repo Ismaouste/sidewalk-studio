@@ -95,7 +95,7 @@ onMounted(() => {
                         <div class="writing-index__body">
                             <div class="writing-index__meta">
                                 <span
-                                    class="type-meta writing-index__new"
+                                    class="writing-index__new"
                                     :title="copy.newBadgeDescription"
                                 >
                                     {{ copy.newBadge }}
@@ -199,17 +199,29 @@ onMounted(() => {
 /* The badge ships on every card and CSS decides which ones show it, so the
    only thing script does is set an attribute. `display: none` also keeps the
    hidden ones out of the accessibility tree, which a visually-hidden
-   treatment would not. */
+   treatment would not.
+
+   Outlined, not filled, and the label takes --sw-text-primary rather than an
+   accent. Both filled and tinted treatments were measured and both fail in
+   morning at this size — accent-on-transparent lands at 3.7:1, and the
+   primary button's own pair is near-white on orange at 2.95:1. Text-primary
+   is legible on a card surface in either theme by construction, so the accent
+   carries the emphasis through the border where contrast rules are 3:1 and
+   not 4.5:1. Typography mirrors LegendChip, which sits beside it — two chips
+   in one row should not be set in two typefaces. */
 .writing-index__new {
     display: none;
     align-items: center;
-    padding: 0.1rem var(--sw-space-3xs);
-    border: 1px solid
-        color-mix(in srgb, var(--sw-accent-dominant) 34%, transparent);
+    padding-inline: var(--sw-space-4xs);
+    border: var(--sw-runtime-line-thickness, 1px) solid
+        var(--sw-accent-dominant);
     border-radius: var(--sw-radius-sm);
-    background: color-mix(in srgb, var(--sw-accent-dominant) 12%, transparent);
-    color: var(--sw-accent-dominant);
-    cursor: default;
+    color: var(--sw-text-primary);
+    font-family: var(--sw-font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
 }
 
 .writing-index__link[data-new] .writing-index__new {
