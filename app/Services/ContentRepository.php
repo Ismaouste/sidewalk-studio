@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Content\ContentSource;
 use App\Content\Schema\PublicationSchemas;
 use App\Models\Publication;
 use App\Models\PublicationTypeSetting;
@@ -37,14 +38,7 @@ class ContentRepository
                 return $leftPriority <=> $rightPriority;
             }
 
-            $leftSourcePriority = $left['source_driver'] === 'file' ? 0 : 1;
-            $rightSourcePriority = $right['source_driver'] === 'file' ? 0 : 1;
-
-            if ($leftSourcePriority !== $rightSourcePriority) {
-                return $leftSourcePriority <=> $rightSourcePriority;
-            }
-
-            return strcmp($right['published_at'] ?: '', $left['published_at'] ?: '');
+            return self::compareByDateThenSlug($left, $right);
         })
             ->unique(fn (array $item): string => "{$item['section']}:{$item['slug']}")
             ->values();
@@ -72,7 +66,7 @@ class ContentRepository
                 $filters['locale'] ?? app()->getLocale(),
                 (bool) ($filters['include_fallback'] ?? false),
             ))
-            ->sortByDesc(fn (array $item) => $item['published_at'])
+            ->sort(self::compareByDateThenSlug(...))
             ->values();
 
         if (! empty($filters['tag'])) {
@@ -142,7 +136,7 @@ class ContentRepository
         $locales = $locale ? [$locale] : ['en', 'fr'];
         $items = collect($locales)
             ->flatMap(fn (string $entryLocale) => $this->mergedAllTypes($entryLocale, false))
-            ->sortByDesc(fn (array $item) => $item['published_at'] ?: '0000-00-00')
+            ->sort(self::compareByDateThenSlug(...))
             ->values();
 
         return [
@@ -299,6 +293,7 @@ class ContentRepository
             ],
             [
                 'title' => $item['title'],
+                'translation_key' => $item['translation_key'] ?? $item['slug'],
                 'summary' => $item['summary'],
                 'body_markdown' => '',
                 'status' => $item['status'],
@@ -344,6 +339,38 @@ class ContentRepository
     }
 
     /**
+     * Newest first, then by slug.
+     *
+     * The slug tie-break is not decoration. Three journal entries share
+     * 2026-03-08 and the sort used to stop at the date, so their order was
+     * whatever order the source happened to enumerate them in — readdir order
+     * for files, primary-key order for rows. It looked stable because one
+     * machine's filesystem is consistent with itself, and the seed-fidelity
+     * test is what showed the two sources disagreeing.
+     *
+     * A source-independent order was also required for the precedence
+     * reversal to be a no-op for readers, which is the whole claim being
+     * made about it.
+     *
+     * The old tie-break preferred file-sourced items and is gone. It could
+     * only ever fire between two *different* publications, since identical
+     * keys are de-duplicated upstream, so it was ordering the journal by
+     * where its entries were stored — and it would have contradicted the
+     * configured precedence the moment the database started winning.
+     *
+     * @param  array<string, mixed>  $left
+     * @param  array<string, mixed>  $right
+     */
+    protected static function compareByDateThenSlug(array $left, array $right): int
+    {
+        $byDate = strcmp($right['published_at'] ?: '', $left['published_at'] ?: '');
+
+        return $byDate !== 0
+            ? $byDate
+            : strcmp($left['slug'], $right['slug']);
+    }
+
+    /**
      * @return Collection<int, array<string, mixed>>
      */
     protected function mergedItems(string $section, string $locale, bool $includeFallback): Collection
@@ -351,12 +378,23 @@ class ContentRepository
         $databaseItems = $this->databaseItemsForSection($section, $locale, $includeFallback);
         $fileItems = $this->fileItems($section, $locale, $includeFallback);
 
-        return $fileItems
-            ->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug']))
-            ->union(
-                $databaseItems->keyBy(fn (array $item): string => $this->itemKey($item['publication_type'], $item['locale'], $item['slug'])),
-            )
-            ->values();
+        $key = fn (array $item): string => $this->itemKey(
+            $item['publication_type'],
+            $item['locale'],
+            $item['slug'],
+        );
+
+        /**
+         * `union` keeps the receiver's entry when both sides hold a key, so
+         * the winning source is whichever one it is called on. The two
+         * collections are otherwise identical in shape and this is the only
+         * place the precedence is expressed.
+         */
+        [$winner, $loser] = ContentSource::databaseWins()
+            ? [$databaseItems, $fileItems]
+            : [$fileItems, $databaseItems];
+
+        return $winner->keyBy($key)->union($loser->keyBy($key))->values();
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Content\ContentSource;
 use App\Content\Schema\PageSchemas;
 use App\Models\Page;
 use Illuminate\Support\Collection;
@@ -125,20 +126,38 @@ class PageContentRepository
     }
 
     /**
-     * Public pages should stay file-first so versioned content never mixes with
-     * stale database payload fragments on the live site.
+     * One source wins outright; the other is a fallback for what it does not
+     * hold. They are never merged field by field, in either direction — a
+     * page assembled half from a row and half from a file is a page nobody
+     * wrote, and reviewing it means reading both.
      *
      * @return array<string, mixed>|null
      */
     protected function publicPage(string $page, string $locale): ?array
     {
-        $filePayload = $this->loadFilePage($page, $locale);
+        return ContentSource::databaseWins()
+            ? ($this->loadDatabasePage($page, $locale) ?? $this->loadFilePage($page, $locale))
+            : ($this->loadFilePage($page, $locale) ?? $this->loadDatabasePage($page, $locale));
+    }
 
-        if ($filePayload !== null) {
-            return $filePayload;
-        }
-
-        return $this->loadDatabasePage($page, $locale);
+    /**
+     * The page as its Markdown file states it, whatever the live source is.
+     *
+     * This is the revert path. The Markdown stays on disk and the admin never
+     * writes to it, so it remains the addressable seed after the database
+     * becomes authoritative — which is what lets an operator put a page back
+     * without a developer.
+     *
+     * It reverts to what the file says *now*, not to what it said at seed
+     * time. That is the more useful of the two: the file is the reviewed,
+     * versioned copy, and reverting to a snapshot of an older version of it
+     * would restore something nobody could find in git.
+     *
+     * @return array<string, mixed>|null
+     */
+    public function seededPage(string $page, string $locale): ?array
+    {
+        return $this->loadFilePage($page, $locale);
     }
 
     /**

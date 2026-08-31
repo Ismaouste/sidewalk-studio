@@ -387,6 +387,39 @@ MD);
     }
 
     /**
+     * Three journal entries share 2026-03-08, and until the seed-fidelity
+     * test caught it the sort stopped at the date. Their order was therefore
+     * whatever order the source enumerated them in — readdir order for files,
+     * primary-key order for rows — which looked stable only because one
+     * machine's filesystem is consistent with itself.
+     *
+     * The listing order of a published journal is visible content. It should
+     * not depend on which of two equivalent sources served it, or on how a
+     * filesystem happens to return a directory.
+     */
+    public function test_entries_published_on_the_same_day_have_a_deterministic_order(): void
+    {
+        $items = app(ContentRepository::class)->published('writing', 'en', false);
+
+        $sameDay = $items
+            ->where('published_at', '2026-03-08')
+            ->pluck('slug')
+            ->values()
+            ->all();
+
+        $this->assertGreaterThan(
+            1,
+            count($sameDay),
+            'This test needs at least two entries sharing a date to mean anything.',
+        );
+
+        $sorted = $sameDay;
+        sort($sorted);
+
+        $this->assertSame($sorted, $sameDay);
+    }
+
+    /**
      * Every publication in the repository validates against its own
      * declaration. This is the check that runs in CI, and the one that would
      * have made the /fr/projects defect impossible to ship.

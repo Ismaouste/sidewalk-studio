@@ -16,6 +16,13 @@
  */
 return [
     'settings_source' => env('SITE_SETTINGS_SOURCE', 'files'),
+
+    /**
+     * `files` or `database` — which source wins when both hold the same page
+     * or publication. See `App\Content\ContentSource` for what the choice
+     * means and why it is a setting rather than an edit.
+     */
+    'content_source' => env('SITE_CONTENT_SOURCE', 'files'),
     'name' => env('SITE_NAME', 'Sidewalk Studio'),
     'tagline' => env('SITE_TAGLINE', 'Fullstack ecommerce. Cross-functional data, reliable flows.'),
     'description' => env('SITE_DESCRIPTION', 'Fullstack web development for ecommerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO.'),
