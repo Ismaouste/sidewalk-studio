@@ -76,6 +76,25 @@ final class PageSchemas
         'open_graph_image',
     ];
 
+    /**
+     * The public path a page key is read at.
+     *
+     * Not the inverse of `ROUTE_COMPOSITION`, quite: `/projects` composes two
+     * keys, so both `projects` and `experience` are previewed there. It is
+     * also why `/experience` is a 301 rather than a page — the record it is
+     * named after has no route of its own.
+     */
+    public static function routeFor(string $key): string
+    {
+        foreach (self::ROUTE_COMPOSITION as $route => $composedKeys) {
+            if (in_array($key, $composedKeys, true)) {
+                return $route === 'home' ? '/' : "/{$route}";
+            }
+        }
+
+        throw new RuntimeException("No route composes the page key [{$key}].");
+    }
+
     public static function for(string $key): ContentSchema
     {
         return match ($key) {

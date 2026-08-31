@@ -17,6 +17,8 @@ class Page extends Model
         'canonical_url',
         'open_graph_image',
         'payload',
+        'draft_payload',
+        'draft_saved_at',
         'source_path',
         'source_driver',
     ];
@@ -25,6 +27,8 @@ class Page extends Model
     {
         return [
             'payload' => 'array',
+            'draft_payload' => 'array',
+            'draft_saved_at' => 'datetime',
         ];
     }
 }

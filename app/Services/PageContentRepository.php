@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Content\ContentPreview;
 use App\Content\ContentSource;
 use App\Content\Schema\PageSchemas;
 use App\Models\Page;
@@ -79,6 +80,9 @@ class PageContentRepository
                 'canonical_url' => $payload['canonical_url'] ?: null,
                 'open_graph_image' => $payload['open_graph_image'] ?: null,
                 'payload' => $payload['payload'] ?? [],
+                // Publishing settles the question the draft was asking.
+                'draft_payload' => null,
+                'draft_saved_at' => null,
                 'source_path' => $payload['source_path'] ?? null,
                 'source_driver' => 'database',
             ],
@@ -128,9 +132,105 @@ class PageContentRepository
      */
     protected function publicPage(string $page, string $locale): ?array
     {
-        return ContentSource::databaseWins()
+        $resolved = ContentSource::databaseWins()
             ? ($this->loadDatabasePage($page, $locale) ?? $this->loadFilePage($page, $locale))
             : ($this->loadFilePage($page, $locale) ?? $this->loadDatabasePage($page, $locale));
+
+        return ContentPreview::isRequested()
+            ? $this->withDraft($page, $locale, $resolved)
+            : $resolved;
+    }
+
+    /**
+     * The draft, laid over the published page, for a signed-in operator who
+     * asked for it.
+     *
+     * A draft holds the whole payload, so it replaces rather than merges: a
+     * page half from a draft and half from what is published is a page nobody
+     * wrote, which is the same reason the two sources are never merged either.
+     *
+     * @param  array<string, mixed>|null  $resolved
+     * @return array<string, mixed>|null
+     */
+    protected function withDraft(string $page, string $locale, ?array $resolved): ?array
+    {
+        $draft = $this->loadDraft($page, $locale);
+
+        if ($draft === null || $resolved === null) {
+            return $resolved;
+        }
+
+        return [
+            ...$resolved,
+            ...$draft,
+            'payload' => $draft,
+            'source_driver' => 'draft',
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    protected function loadDraft(string $page, string $locale): ?array
+    {
+        if (! Schema::hasTable('pages')) {
+            return null;
+        }
+
+        $draft = Page::query()
+            ->where('page_key', $page)
+            ->where('locale', $locale)
+            ->value('draft_payload');
+
+        return is_array($draft) && $draft !== [] ? $draft : null;
+    }
+
+    /**
+     * Stores an unpublished edit and returns nothing but the fact it worked.
+     *
+     * Saving a page clears its draft: once the edit is published there is
+     * nothing left to preview, and a stale draft sitting behind
+     * `?preview=1` would show an operator a version of the page that no
+     * longer exists anywhere.
+     *
+     * @param  array<string, mixed>  $payload
+     */
+    public function saveDraft(string $pageKey, string $locale, array $payload): void
+    {
+        Page::query()->updateOrCreate(
+            ['page_key' => $pageKey, 'locale' => $locale],
+            [
+                'draft_payload' => $this->asFrontmatter($payload),
+                'draft_saved_at' => now(),
+                ...$this->publishedColumnsFor($pageKey, $locale),
+            ],
+        );
+    }
+
+    /**
+     * A draft may be the first thing ever written for a page key that has no
+     * row yet, so `updateOrCreate` has to be able to fill the non-nullable
+     * columns. It fills them from what is published, or from the seed.
+     *
+     * @return array<string, mixed>
+     */
+    protected function publishedColumnsFor(string $pageKey, string $locale): array
+    {
+        if (Page::query()->where('page_key', $pageKey)->where('locale', $locale)->exists()) {
+            return [];
+        }
+
+        $seed = $this->loadFilePage($pageKey, $locale) ?? [
+            'seo_title' => $pageKey,
+            'seo_description' => '',
+            'payload' => [],
+        ];
+
+        return [
+            'seo_title' => $seed['seo_title'],
+            'seo_description' => $seed['seo_description'],
+            'payload' => $seed['payload'] ?? [],
+        ];
     }
 
     /**

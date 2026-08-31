@@ -172,6 +172,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::get('/pages/{page}/{locale}', [AdminPageController::class, 'edit'])->name('pages.edit');
         Route::put('/pages/{page}/{locale}', [AdminPageController::class, 'update'])->name('pages.update');
         Route::post('/pages/{page}/{locale}/revert', [AdminPageController::class, 'revert'])->name('pages.revert');
+        Route::post('/pages/{page}/{locale}/preview', [AdminPageController::class, 'preview'])->name('pages.preview');
         Route::get('/publications', [AdminPublicationController::class, 'index'])->name('publications.index');
         Route::get('/publications/create/{type}', [AdminPublicationController::class, 'create'])->name('publications.create');
         Route::post('/publications', [AdminPublicationController::class, 'store'])->name('publications.store');

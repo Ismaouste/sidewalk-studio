@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Content\ContentPreview;
 use App\Content\Schema\PageSchemas;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -83,6 +84,37 @@ class AdminPageController extends Controller
 
         return to_route('admin.pages.edit', ['page' => $page, 'locale' => $locale])
             ->with('status', 'Page reverted to its Markdown seed.');
+    }
+
+    /**
+     * Saves the current edit as a draft and sends the operator to the page
+     * itself, rendered from it.
+     *
+     * Deliberately not gated on the declaration or on locale parity. A
+     * preview answers "does this look right", which is a question worth
+     * asking about content that is still wrong — and refusing to show an
+     * operator their own work until it validates would make the check an
+     * obstacle rather than a guardrail. Publishing is where both apply.
+     */
+    public function preview(Request $request, string $page, string $locale): RedirectResponse
+    {
+        $payload = $request->validate([
+            'title' => ['nullable', 'string', 'max:160'],
+            'description' => ['nullable', 'string', 'max:500'],
+            'seo_title' => ['nullable', 'string', 'max:160'],
+            'seo_description' => ['nullable', 'string', 'max:500'],
+            'robots' => ['nullable', 'string', 'max:40'],
+            'canonical_url' => ['nullable', 'string', 'max:255'],
+            'open_graph_image' => ['nullable', 'string', 'max:255'],
+            'payload' => ['required', 'array'],
+        ]);
+
+        $this->pages->saveDraft($page, $locale, $payload);
+
+        return redirect(ContentPreview::url(
+            PageSchemas::routeFor($page),
+            $locale,
+        ));
     }
 
     public function update(Request $request, string $page, string $locale): RedirectResponse

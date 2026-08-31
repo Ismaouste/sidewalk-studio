@@ -148,6 +148,78 @@ const payloadErrors = computed<string[]>(() => {
     return value ? [value] : [];
 });
 
+/**
+ * The guided pass, and the three cases it is for.
+ *
+ * A wizard is the wrong default surface here and the numbers say so: the
+ * experience record alone has 64 leaf fields, and walking 64 questions to fix
+ * one typo is worse than a form in every way. So the sectioned form is the
+ * default, and a question sequence runs only where the operator genuinely
+ * does not yet know what the page wants — a page never saved, a page being
+ * authored for the first time, and a slot a developer has just added to the
+ * declaration that no existing content fills.
+ *
+ * The third is the one that actually happens on a site this old, and it is
+ * the reason this is generated rather than written: adding a field to
+ * `app/Content/Schema` makes it appear here, unanswered, by itself.
+ */
+type GuidedStep = {
+    path: string;
+    label: string;
+    help?: string;
+};
+
+function collectUnanswered(
+    fields: ContentField[],
+    value: JsonValue,
+    trail: string[],
+): GuidedStep[] {
+    const steps: GuidedStep[] = [];
+
+    for (const field of fields) {
+        const here = [...trail, field.label || field.name];
+        const held = isRecord(value) ? value[field.name] : undefined;
+
+        if (field.repeats) {
+            // An empty repeating field is a legitimate state — a section
+            // family waiting for its first entry — so it is not a question.
+            continue;
+        }
+
+        if (field.type === 'group') {
+            steps.push(
+                ...collectUnanswered(field.children ?? [], held ?? {}, here),
+            );
+
+            continue;
+        }
+
+        if (!field.required) {
+            continue;
+        }
+
+        if (typeof held !== 'string' || held.trim() === '') {
+            steps.push({
+                path: here.join(' › '),
+                label: field.label || field.name,
+                help: field.help,
+            });
+        }
+    }
+
+    return steps;
+}
+
+function isRecord(value: JsonValue): value is JsonObject {
+    return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+const guidedSteps = computed<GuidedStep[]>(() =>
+    collectUnanswered(contentSchemaFields.value, payload.value, []),
+);
+
+const guidedOpen = ref(false);
+
 function metaValue(name: string): JsonValue {
     return (form as unknown as Record<string, JsonValue>)[name] ?? '';
 }
@@ -166,6 +238,18 @@ function submit(): void {
 function revert(): void {
     router.post(
         `/admin/pages/${props.page.page_key}/${props.page.locale}/revert`,
+    );
+}
+
+/**
+ * The preview is the real route, rendered from a saved draft — not a mock
+ * inside the editor. For a site whose value is how it looks, a preview that
+ * is not the page cannot answer the question being asked of it.
+ */
+function preview(): void {
+    router.post(
+        `/admin/pages/${props.page.page_key}/${props.page.locale}/preview`,
+        { ...form.data(), payload: payload.value },
     );
 }
 </script>
@@ -191,6 +275,13 @@ function revert(): void {
                 <div class="admin-page-edit__actions">
                     <span v-if="status" class="type-meta">{{ status }}</span>
                     <button
+                        type="button"
+                        class="admin-page-edit__revert"
+                        @click="preview"
+                    >
+                        Preview
+                    </button>
+                    <button
                         v-if="hasSeed"
                         type="button"
                         class="admin-page-edit__revert"
@@ -203,6 +294,34 @@ function revert(): void {
                     </Button>
                 </div>
             </header>
+
+            <details
+                v-if="guidedSteps.length > 0"
+                class="admin-page-edit__guided"
+                :open="guidedOpen"
+                @toggle="
+                    guidedOpen = ($event.target as HTMLDetailsElement).open
+                "
+            >
+                <summary class="admin-page-edit__guided-summary">
+                    {{ guidedSteps.length }}
+                    {{ guidedSteps.length === 1 ? 'field is' : 'fields are' }}
+                    declared but not filled in
+                </summary>
+                <p class="type-body-sm admin-page-edit__guided-copy">
+                    These are usually slots added to
+                    <code>app/Content/Schema</code> after this page was written.
+                    Each one is somewhere in the form below.
+                </p>
+                <ol class="admin-page-edit__guided-list">
+                    <li v-for="step in guidedSteps" :key="step.path">
+                        <span class="type-nav">{{ step.path }}</span>
+                        <span v-if="step.help" class="type-meta">
+                            {{ step.help }}
+                        </span>
+                    </li>
+                </ol>
+            </details>
 
             <p
                 v-if="payloadErrors.length > 0"
@@ -294,6 +413,47 @@ function revert(): void {
 .admin-page-edit__revert:focus-visible {
     outline: 2px solid var(--sw-border-focus);
     outline-offset: 2px;
+}
+
+.admin-page-edit__guided {
+    border: 1px solid
+        color-mix(
+            in srgb,
+            var(--sw-accent-sun, var(--sw-border)) 45%,
+            var(--sw-border)
+        );
+    border-radius: var(--sw-radius-md);
+    padding: var(--sw-space-3xs) var(--sw-space-xs);
+}
+
+.admin-page-edit__guided-summary {
+    cursor: pointer;
+    padding-block: var(--sw-space-4xs);
+    color: var(--sw-text-primary);
+    font-weight: 500;
+}
+
+.admin-page-edit__guided-summary:focus-visible {
+    outline: 2px solid var(--sw-border-focus);
+    outline-offset: 2px;
+}
+
+.admin-page-edit__guided-copy {
+    margin: 0 0 var(--sw-space-3xs);
+    color: var(--sw-text-secondary);
+}
+
+.admin-page-edit__guided-list {
+    display: grid;
+    gap: var(--sw-space-4xs);
+    margin: 0;
+    padding-inline-start: var(--sw-space-xs);
+    color: var(--sw-text-secondary);
+}
+
+.admin-page-edit__guided-list li {
+    display: grid;
+    gap: 0.1em;
 }
 
 .admin-page-edit__errors {
