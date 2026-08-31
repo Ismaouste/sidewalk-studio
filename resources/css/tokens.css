@@ -118,6 +118,20 @@ html[data-theme='morning'] {
     --sw-shadow-md: none;
     --sw-header-bg: linear-gradient(160deg, #fafaf8, #f6f5f1, #f3f2ee);
 
+    /* Ambient page wash. Two soft flares on paper: daylight, not atmosphere. */
+    --sw-body-wash:
+        radial-gradient(
+            circle at 15% 12%,
+            color-mix(in srgb, var(--sw-accent-sun) 18%, transparent),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 82% 8%,
+            color-mix(in srgb, var(--sw-accent-dominant) 18%, transparent),
+            transparent 26%
+        ),
+        var(--sw-bg-base);
+
     /* Sun + ambient atmosphere — derive from accents so editing
        the accent block above flows through automatically. */
     --sw-sun-gradient: radial-gradient(
@@ -181,51 +195,83 @@ html[data-theme='morning'] {
 }
 
 /* ============================================================
- * THEME: Sunset Signal (dark, cinematic, electric dusk)
- * Palette intent: glowing primaries on deep mineral surfaces.
+ * THEME: Sunset Signal (dark, cinematic, violet dusk)
+ * Palette intent: electric violet and magenta on deep aubergine
+ * glass. Every surface is translucent and blurred, so the base
+ * gradient reads through the whole interface rather than sitting
+ * behind flat panels.
+ *
+ * Deliberately no green and no amber here: mixed over a dark base
+ * they collapse toward brown, which is what this palette replaces.
  * Edit the accent block below to retune the whole sunset theme.
  * ============================================================ */
 html[data-theme='sunset'] {
     color-scheme: dark;
 
-    /* Surfaces — deep mineral */
-    --sw-bg-base: #131316;
-    --sw-bg-surface: rgba(255, 255, 255, 0.04);
-    --sw-bg-grid: #1c1c20;
-    --sw-bg-elevated: rgba(255, 255, 255, 0.07);
+    /* Surfaces — deep aubergine, violet-tinted glass.
+       The surfaces carry a violet tint rather than plain white alpha,
+       so blurred panels pick up the palette instead of greying it. */
+    --sw-bg-base: #0d0a17;
+    --sw-bg-surface: rgba(158, 130, 255, 0.055);
+    --sw-bg-grid: #151027;
+    --sw-bg-elevated: rgba(170, 143, 255, 0.095);
 
-    /* Text */
-    --sw-text-primary: #e8e8e6;
-    --sw-text-secondary: #8a8a8a;
-    --sw-text-muted: #5a5a5a;
-    --sw-text-inverse: #131316;
+    /* Text — warmed slightly toward violet so it sits in the palette */
+    --sw-text-primary: #ece8f8;
+    --sw-text-secondary: #a49bc4;
+    --sw-text-muted: #6d648c;
+    --sw-text-inverse: #0d0a17;
 
-    /* === Accents — Electric Triad (glowing primaries) ===
-       Edit these 5 hexes to retune the entire sunset palette. */
-    --sw-accent-sun: #ffb155; /* warm sun amber */
-    --sw-accent-dominant: #ff6f5e; /* electric coral */
-    --sw-accent-green: #3acb86; /* phosphorescent green */
-    --sw-accent-violet: #5a78ff; /* glowing wayfinding blue */
-    --sw-accent-coral: #ff5e4d; /* vivid magenta-coral */
+    /* === Accents — Violet Signal ===
+       Edit these 5 hexes to retune the entire sunset palette.
+       `--sw-accent-green` keeps its slot name because components
+       reference it as a tone; in this theme it holds electric cyan,
+       the one cool note that keeps the palette from going monochrome. */
+    --sw-accent-sun: #b98cff; /* bright lilac — carries the ambient glow */
+    --sw-accent-dominant: #ff4ecd; /* hot magenta */
+    --sw-accent-green: #3ad8ff; /* electric cyan (no green in this theme) */
+    --sw-accent-violet: #7c5cff; /* electric indigo */
+    --sw-accent-coral: #e264ff; /* orchid */
 
-    /* Lines / borders / focus */
-    --sw-border: rgba(255, 255, 255, 0.06);
+    /* Lines / borders / focus — violet-tinted, the glass edge highlight */
+    --sw-border: rgba(176, 154, 255, 0.12);
     --sw-border-focus: var(--sw-accent-violet);
-    --sw-card-hover-border: rgba(255, 255, 255, 0.12);
-    --sw-grid-line: rgba(255, 255, 255, 0.05);
+    --sw-card-hover-border: rgba(196, 174, 255, 0.26);
+    --sw-grid-line: rgba(160, 138, 255, 0.07);
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
-    --sw-header-bg: linear-gradient(160deg, #16161a, #141417, #131316);
+    --sw-header-bg: linear-gradient(160deg, #1a1230, #140e26, #0d0a17);
+
+    /* Ambient page wash. Three wide ellipses rather than two small circles:
+       the blurred surfaces above need a gradient large enough to still be
+       varying across a panel, otherwise glass reads as flat tinted plastic. */
+    --sw-body-wash:
+        radial-gradient(
+            ellipse 120% 80% at 8% 0%,
+            color-mix(in oklch, var(--sw-accent-violet) 30%, transparent),
+            transparent 58%
+        ),
+        radial-gradient(
+            ellipse 100% 70% at 92% 4%,
+            color-mix(in oklch, var(--sw-accent-dominant) 22%, transparent),
+            transparent 55%
+        ),
+        radial-gradient(
+            ellipse 110% 70% at 50% 104%,
+            color-mix(in oklch, var(--sw-accent-sun) 18%, transparent),
+            transparent 62%
+        ),
+        var(--sw-bg-base);
 
     /* Sun + ambient — token-driven, glow via color-mix */
     --sw-sun-gradient: radial-gradient(
         circle at 62% 62%,
-        color-mix(in oklch, var(--sw-accent-sun) 48%, transparent),
-        color-mix(in oklch, var(--sw-accent-dominant) 24%, transparent) 30%,
-        color-mix(in oklch, var(--sw-accent-violet) 14%, transparent) 58%,
+        color-mix(in oklch, var(--sw-accent-sun) 52%, transparent),
+        color-mix(in oklch, var(--sw-accent-dominant) 28%, transparent) 30%,
+        color-mix(in oklch, var(--sw-accent-violet) 18%, transparent) 58%,
         transparent 85%
     );
-    --sw-sun-glow: color-mix(in oklch, var(--sw-accent-sun) 20%, transparent);
+    --sw-sun-glow: color-mix(in oklch, var(--sw-accent-sun) 24%, transparent);
     --sw-ambient-flare: var(--sw-accent-dominant);
     --sw-ambient-flare-soft: color-mix(
         in oklch,
@@ -240,10 +286,10 @@ html[data-theme='sunset'] {
     --sw-sun-right: -48px;
     --sw-header-glow-opacity: 0.92;
     --sw-header-glow-blur-factor: 0.26;
-    --sw-tab-active: #e8e8e6;
-    --sw-tab-inactive: rgba(232, 232, 230, 0.52);
-    --sw-tab-line: var(--sw-accent-coral);
-    --sw-tab-surface: rgba(201, 151, 106, 0.1);
+    --sw-tab-active: #ece8f8;
+    --sw-tab-inactive: rgba(236, 232, 248, 0.52);
+    --sw-tab-line: var(--sw-accent-dominant);
+    --sw-tab-surface: rgba(150, 120, 255, 0.13);
     --sw-button-primary-bg: var(--sw-accent-sun);
     --sw-button-primary-border: color-mix(
         in srgb,
@@ -252,12 +298,15 @@ html[data-theme='sunset'] {
     );
     --sw-button-primary-bg-hover: color-mix(
         in srgb,
-        var(--sw-accent-sun) 78%,
-        var(--sw-accent-coral) 22%
+        var(--sw-accent-sun) 74%,
+        var(--sw-accent-dominant) 26%
     );
     --sw-button-primary-text: var(--sw-text-inverse);
     --sw-runtime-surface-blur: 24px;
-    --sw-surface-backdrop-filter: blur(24px) saturate(0.85) brightness(0.95);
+    /* Saturate above 1 rather than below it. The previous value desaturated
+       and dimmed every blurred surface, which is what pushed the warm accents
+       toward brown; pushing saturation up is what makes glass read as glass. */
+    --sw-surface-backdrop-filter: blur(26px) saturate(1.45);
     --sw-sun-vx: calc(
         78% - (12% * var(--sw-ambient-progress)) -
             (2.6% * var(--sw-ambient-navigation-shift))

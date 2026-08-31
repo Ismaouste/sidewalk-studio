@@ -86,6 +86,8 @@ function formattedDate(value: string): string {
                 v-for="item in props.widget.items"
                 :key="`${item.section}-${item.slug}`"
                 :href="item.url"
+                prefetch="hover"
+                cache-for="30s"
                 class="publication-widget__link"
                 :class="{
                     'publication-widget__link--note':

@@ -222,6 +222,8 @@ onBeforeUnmount(() => {
                     v-for="item in panelItems"
                     :key="item.href"
                     :href="item.href"
+                    prefetch="hover"
+                    cache-for="30s"
                     class="nav-tabs__link"
                     :class="{
                         'nav-tabs__link--active':

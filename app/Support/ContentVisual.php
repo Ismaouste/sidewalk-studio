@@ -55,33 +55,39 @@ class ContentVisual
     {
         $tone = self::tone($item);
         $palette = match ($tone) {
+            // Tuned to the sunset palette in tokens.css: violet, magenta,
+            // indigo and one cyan. These render identically in both themes, so
+            // they have to sit in the family the dark theme establishes rather
+            // than reintroduce the green and amber it deliberately drops.
+            // The tone keys stay as they are because content frontmatter and
+            // the LegendChip tones reference them by name.
             'green' => [
-                'bgA' => '#0f3b2e',
-                'bgB' => '#1f6d54',
-                'ink' => '#e8f4ef',
-                'accent' => '#b6f09c',
-                'line' => 'rgba(182, 240, 156, 0.18)',
+                'bgA' => '#062f49',
+                'bgB' => '#0d6a92',
+                'ink' => '#e6f7ff',
+                'accent' => '#3ad8ff',
+                'line' => 'rgba(58, 216, 255, 0.18)',
             ],
             'violet' => [
-                'bgA' => '#29134f',
-                'bgB' => '#4c2387',
-                'ink' => '#f6e9a2',
-                'accent' => '#f6e9a2',
-                'line' => 'rgba(246, 233, 162, 0.16)',
+                'bgA' => '#241046',
+                'bgB' => '#4a1f96',
+                'ink' => '#efe8ff',
+                'accent' => '#b98cff',
+                'line' => 'rgba(185, 140, 255, 0.18)',
             ],
             'coral' => [
-                'bgA' => '#4d1714',
-                'bgB' => '#8e2d26',
-                'ink' => '#f9d4b8',
-                'accent' => '#f7b36f',
-                'line' => 'rgba(247, 179, 111, 0.16)',
+                'bgA' => '#3d0d38',
+                'bgB' => '#8a1c78',
+                'ink' => '#ffe9fb',
+                'accent' => '#ff4ecd',
+                'line' => 'rgba(255, 78, 205, 0.18)',
             ],
             default => [
-                'bgA' => '#12274b',
-                'bgB' => '#2b5e99',
-                'ink' => '#e9f1ff',
-                'accent' => '#f2c15f',
-                'line' => 'rgba(242, 193, 95, 0.18)',
+                'bgA' => '#171048',
+                'bgB' => '#3a2b9e',
+                'ink' => '#eceaff',
+                'accent' => '#7c5cff',
+                'line' => 'rgba(124, 92, 255, 0.2)',
             ],
         };
 

@@ -12,6 +12,9 @@ html {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
+    /* Anchor jumps land under the sticky header without it: the browser
+       scrolls the target to y=0, which the header then covers. */
+    scroll-padding-top: calc(var(--sw-header-offset) + var(--sw-space-xs));
     scrollbar-gutter: stable;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -24,18 +27,9 @@ body {
     min-height: 100vh;
     margin: 0;
     overflow-x: hidden;
-    background:
-        radial-gradient(
-            circle at 15% 12%,
-            color-mix(in srgb, var(--sw-accent-sun) 18%, transparent),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 82% 8%,
-            color-mix(in srgb, var(--sw-accent-dominant) 18%, transparent),
-            transparent 26%
-        ),
-        var(--sw-bg-base);
+    /* The ambient wash every translucent surface refracts. Defined per theme
+       in tokens.css so the two themes can differ in shape, not just in hue. */
+    background: var(--sw-body-wash);
     color: var(--sw-text-primary);
     transition:
         background-color var(--sw-motion-sun),

@@ -66,6 +66,8 @@ function entryLabel(item: ContentItem): string {
                     v-for="item in props.items"
                     :key="item.slug"
                     :href="item.url"
+                    prefetch="hover"
+                    cache-for="30s"
                     class="writing-index__link"
                 >
                     <Panel class="writing-index__card" tone="surface">

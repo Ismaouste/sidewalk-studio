@@ -71,6 +71,8 @@ const copy = computed(
                     v-for="item in props.items"
                     :key="item.slug"
                     :href="item.url"
+                    prefetch="hover"
+                    cache-for="30s"
                     class="case-studies-index__link"
                 >
                     <Panel class="case-studies-index__card" tone="grid">
