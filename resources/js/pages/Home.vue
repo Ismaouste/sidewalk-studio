@@ -9,6 +9,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { heroCapabilityCopy, homeCopy } from '@/copy/home';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type {
     ContentItem,
@@ -52,56 +53,15 @@ const props = defineProps<{
 
 const page = usePage<{ site: SiteProps }>();
 
+const copy = computed(() => homeCopy[page.props.site.locale]);
+
+// The static half of each capability is translated copy; the summary line comes
+// from the page's own content payload, so the two are joined here by position.
 const heroCapabilities = computed(() =>
-    page.props.site.locale === 'fr'
-        ? [
-              {
-                  label: 'Sites marchands',
-                  tone: 'violet' as const,
-                  details:
-                      'WooCommerce / PrestaShop / Shopify / Alokai (ex Vue Storefront)',
-                  panelDetails: 'WooCommerce / PrestaShop / Shopify / Alokai',
-                  summary: props.heroPanel[0] ?? '',
-              },
-              {
-                  label: 'Laravel',
-                  tone: 'green' as const,
-                  details: 'Laravel / PHP / APIs / CI-CD',
-                  panelDetails: 'Laravel / PHP / APIs / CI-CD',
-                  summary: props.heroPanel[1] ?? '',
-              },
-              {
-                  label: 'Data produit et SEO',
-                  tone: 'sun' as const,
-                  details: 'PIM / JSON-LD / Merchant Center / Data layer',
-                  panelDetails: 'PIM / JSON-LD / Merchant Center / Data layer',
-                  summary: props.heroPanel[2] ?? '',
-              },
-          ]
-        : [
-              {
-                  label: 'E-commerce',
-                  tone: 'violet' as const,
-                  details:
-                      'WooCommerce / PrestaShop / Shopify / Alokai (formerly Vue Storefront)',
-                  panelDetails: 'WooCommerce / PrestaShop / Shopify / Alokai',
-                  summary: props.heroPanel[0] ?? '',
-              },
-              {
-                  label: 'Laravel',
-                  tone: 'green' as const,
-                  details: 'Laravel / PHP / APIs / CI/CD',
-                  panelDetails: 'Laravel / PHP / APIs / CI/CD',
-                  summary: props.heroPanel[1] ?? '',
-              },
-              {
-                  label: 'Product data and SEO',
-                  tone: 'sun' as const,
-                  details: 'PIM / JSON-LD / Merchant Center / Data layer',
-                  panelDetails: 'PIM / JSON-LD / Merchant Center / Data layer',
-                  summary: props.heroPanel[2] ?? '',
-              },
-          ],
+    heroCapabilityCopy[page.props.site.locale].map((capability, index) => ({
+        ...capability,
+        summary: props.heroPanel[index] ?? '',
+    })),
 );
 
 const heroAccentChips = computed(() =>
@@ -114,96 +74,6 @@ const heroAccentChips = computed(() =>
 
 const heroLeadPoints = computed(() =>
     props.heroPanel.filter((point) => point.trim() !== '').slice(0, 3),
-);
-
-const copy = computed(() =>
-    page.props.site.locale === 'fr'
-        ? {
-              projectsCta: 'Lire les expériences',
-              contactCta: 'Prendre contact',
-              currentFrameLabel: "Aujourd'hui",
-              heroPanelTitle: 'Développeur e-commerce chez Jewely / Flippad',
-              heroPanelSummarySuffix:
-                  'écosystème HBJO, ERP, PIM, flux produit, tracking et SEO technique.',
-              hbjoatDefinition:
-                  'Horlogerie, bijouterie, joaillerie et orfèvrerie.',
-              cmsDefinition:
-                  'Content Management System : système de gestion de contenu.',
-              phpDefinition:
-                  'PHP : langage serveur largement utilisé pour les applications web et e-commerce.',
-              apiDefinition:
-                  "API : interface d'échange entre services, outils métier et applications.",
-              ciCdDefinition:
-                  'CI/CD : intégration et déploiement continus pour fiabiliser les mises en ligne.',
-              seoDefinition:
-                  'SEO : optimisation technique et éditoriale pour rendre un site lisible par les moteurs et utile aux visiteurs.',
-              pimDefinition:
-                  'PIM : Product Information Management, le socle qui centralise et structure la donnée produit.',
-              jsonLdDefinition:
-                  'JSON-LD : format de données structurées lisible par les moteurs et les plateformes.',
-              merchantCenterDefinition:
-                  'Google Merchant Center : flux catalogue et diffusion produit vers les surfaces shopping Google.',
-              dataLayerDefinition:
-                  'Data layer : couche de données partagée entre le site, le tracking et les outils marketing.',
-              whatIDoLabel: 'Ce que je fais',
-              focusTitle:
-                  'Un positionnement net dans des environnements complexes.',
-              focusDescription:
-                  'Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privée et besoin de garder des systèmes compréhensibles après mise en production.',
-              selectedWorkLabel: 'Expérience',
-              projectsTitle: 'Études de cas et repères à ouvrir ensuite.',
-              projectsDescription:
-                  'Études de cas, notes et références pour entrer dans des situations plus concrètes.',
-              openProjectsCta: 'Découvrir les projets',
-              internalBuildLabel: 'Interne',
-              notesLabel: 'Notes',
-              contactLabel: 'Contact',
-              startConversationCta: 'Prendre contact',
-              referencesCta: 'Lire les expériences',
-              archiveCta: 'Découvrir toutes les études de cas',
-          }
-        : {
-              projectsCta: 'View experiences',
-              contactCta: 'Start a conversation',
-              currentFrameLabel: 'Current role',
-              heroPanelTitle: 'E-commerce developer at Jewely / Flippad',
-              heroPanelSummarySuffix:
-                  'HBJO commerce, ERP, PIM, product flows, tracking, and technical SEO.',
-              hbjoatDefinition:
-                  'Watchmaking, jewelry, silverware, and tableware.',
-              cmsDefinition: 'CMS: Content Management System.',
-              phpDefinition:
-                  'PHP: a server-side language widely used for web and e-commerce applications.',
-              apiDefinition:
-                  'API: an interface used to connect services, business tools, and applications.',
-              ciCdDefinition:
-                  'CI/CD: continuous integration and delivery practices that make releases safer.',
-              seoDefinition:
-                  'SEO: technical and editorial optimization that helps a site stay legible for search engines and useful for people.',
-              pimDefinition:
-                  'PIM: Product Information Management, the layer that centralizes and structures product data.',
-              jsonLdDefinition:
-                  'JSON-LD: a structured-data format understood by search engines and platforms.',
-              merchantCenterDefinition:
-                  'Google Merchant Center: product feed distribution across Google shopping surfaces.',
-              dataLayerDefinition:
-                  'Data layer: the shared data layer used by the site, tracking, and marketing tools.',
-              whatIDoLabel: 'What I do',
-              focusTitle: 'A legible practice for complex environments.',
-              focusDescription:
-                  'The work usually sits between product delivery, legacy modernization, technical SEO, privacy, and the need to keep systems readable after launch.',
-              selectedWorkLabel: 'Experience',
-              projectsTitle: 'Case studies and pointers worth opening next.',
-              projectsDescription:
-                  'Case studies, notes, and references that open more concrete implementation contexts.',
-              openProjectsCta: 'Open case studies',
-              internalBuildLabel: 'Internal build',
-              notesLabel: 'Notes',
-              contactLabel: 'Contact',
-              startConversationCta: 'Start a conversation',
-              referencesCta: 'View experiences',
-              archiveCta: 'Browse all case studies',
-          },
 );
 </script>
 

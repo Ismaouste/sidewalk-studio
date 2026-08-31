@@ -1,3 +1,10 @@
+/**
+ * The locales the backend can resolve, mirroring PublicLocale::supported().
+ * Kept as a union rather than `string` so a copy table keyed by locale is
+ * exhaustive at compile time.
+ */
+export type PublicLocale = 'en' | 'fr';
+
 export type NavItem = {
     label: string;
     href: string;
@@ -73,7 +80,7 @@ export type LoaderQuote = {
     text: string;
     type: 'message' | 'quote';
     author: string | null;
-    locale: 'en' | 'fr';
+    locale: PublicLocale;
     is_active: boolean;
     theme_target: 'morning' | 'sunset' | null;
     weight: number;
@@ -119,7 +126,7 @@ export type SiteProps = {
     name: string;
     tagline: string;
     description: string;
-    locale: string;
+    locale: PublicLocale;
     url: string;
     navigation: NavItem[];
     author: SiteAuthor;
@@ -193,7 +200,7 @@ export type SeoPayload = {
 
 export type ContentItem = {
     section: 'writing' | 'case-studies';
-    locale: string;
+    locale: PublicLocale;
     title: string;
     slug: string;
     summary: string;

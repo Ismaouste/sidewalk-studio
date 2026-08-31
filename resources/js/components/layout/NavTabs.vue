@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { isNavPath, navActionCopy } from '@/copy/navigation';
 import type { SiteProps } from '@/types';
 
 type NavItem = {
@@ -103,27 +104,9 @@ const panelItems = computed(() =>
 function linkAction(item: NavItem): string {
     const itemPath = stripLocalePrefix(item.href);
 
-    if (page.props.site.locale === 'fr') {
-        return (
-            {
-                '/': 'Entrer',
-                '/local': 'Voir la base',
-                '/projects': 'Voir le parcours',
-                '/journal': 'Lire les notes',
-                '/contact': 'Écrire',
-            }[itemPath] ?? page.props.site.shell.navOpenLabel
-        );
-    }
-
-    return (
-        {
-            '/': 'Enter',
-            '/local': 'Read local',
-            '/projects': 'View work',
-            '/journal': 'Read notes',
-            '/contact': 'Write',
-        }[itemPath] ?? page.props.site.shell.navOpenLabel
-    );
+    return isNavPath(itemPath)
+        ? navActionCopy[page.props.site.locale][itemPath]
+        : page.props.site.shell.navOpenLabel;
 }
 
 function isContact(item: NavItem): boolean {
