@@ -7,10 +7,15 @@ function shouldAudit() {
         return false;
     }
 
-    return import.meta.env.DEV || new URLSearchParams(window.location.search).has('audit');
+    return (
+        import.meta.env.DEV ||
+        new URLSearchParams(window.location.search).has('audit')
+    );
 }
 
-function classifyCacheState(entry: PerformanceResourceTiming): ResourceEntry['cacheState'] {
+function classifyCacheState(
+    entry: PerformanceResourceTiming,
+): ResourceEntry['cacheState'] {
     if (entry.transferSize === 0 && entry.decodedBodySize > 0) {
         return 'cache';
     }
@@ -41,9 +46,13 @@ function snapshotResources(): ResourceEntry[] {
         .slice(0, 20);
 }
 
-function updateWindowAudit(longTasks: Array<{ name: string; duration: number }>) {
+function updateWindowAudit(
+    longTasks: Array<{ name: string; duration: number }>,
+) {
     const resources = snapshotResources();
-    const cacheHits = resources.filter((entry) => entry.cacheState === 'cache').length;
+    const cacheHits = resources.filter(
+        (entry) => entry.cacheState === 'cache',
+    ).length;
 
     window.__SIDEWALK_PERF_AUDIT__ = {
         resources,

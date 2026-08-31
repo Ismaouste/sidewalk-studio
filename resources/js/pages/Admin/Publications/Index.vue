@@ -4,7 +4,11 @@ import { computed } from 'vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
-import type { FlashProps, PublicationAdminEntry, PublicationTypeSetting } from '@/types';
+import type {
+    FlashProps,
+    PublicationAdminEntry,
+    PublicationTypeSetting,
+} from '@/types';
 
 const props = defineProps<{
     groups: Record<'note' | 'journal' | 'case_study', PublicationAdminEntry[]>;
@@ -40,12 +44,20 @@ function submitTypeSettings() {
             <header class="admin-collection__header">
                 <div>
                     <p class="type-eyebrow">Publications</p>
-                    <h1 class="type-h1 admin-collection__title">Manage notes, journal entries, and case studies.</h1>
+                    <h1 class="type-h1 admin-collection__title">
+                        Manage notes, journal entries, and case studies.
+                    </h1>
                     <p class="type-body admin-collection__copy">
-                        Database metadata powers indexing, SEO, and admin filters. Long-form editorial bodies stay in versioned markdown files.
+                        Database metadata powers indexing, SEO, and admin
+                        filters. Long-form editorial bodies stay in versioned
+                        markdown files.
                     </p>
                 </div>
-                <span v-if="status" class="type-meta admin-collection__status">{{ status }}</span>
+                <span
+                    v-if="status"
+                    class="type-meta admin-collection__status"
+                    >{{ status }}</span
+                >
             </header>
 
             <Panel class="admin-collection__settings" tone="elevated">
@@ -54,14 +66,20 @@ function submitTypeSettings() {
                         <p class="type-eyebrow">Type presentation settings</p>
                         <h2 class="type-h3">CTA and accent controls</h2>
                     </div>
-                    <Button type="button" :disabled="settingsForm.processing || !settingsForm.isDirty" @click="submitTypeSettings">
+                    <Button
+                        type="button"
+                        :disabled="
+                            settingsForm.processing || !settingsForm.isDirty
+                        "
+                        @click="submitTypeSettings"
+                    >
                         Save type settings
                     </Button>
                 </div>
 
                 <div class="admin-collection__settings-grid">
                     <Panel
-                        v-for="(setting, index) in settingsForm.settings"
+                        v-for="setting in settingsForm.settings"
                         :key="setting.type"
                         class="admin-collection__setting-card"
                         tone="grid"
@@ -69,15 +87,27 @@ function submitTypeSettings() {
                         <p class="type-nav">{{ labelFor(setting.type) }}</p>
                         <label class="admin-collection__field">
                             <span class="type-meta">CTA label</span>
-                            <input v-model="settingsForm.settings[index].cta_label" class="admin-collection__input" type="text" />
+                            <input
+                                v-model="setting.cta_label"
+                                class="admin-collection__input"
+                                type="text"
+                            />
                         </label>
                         <label class="admin-collection__field">
                             <span class="type-meta">CTA target</span>
-                            <input v-model="settingsForm.settings[index].cta_target" class="admin-collection__input" type="text" />
+                            <input
+                                v-model="setting.cta_target"
+                                class="admin-collection__input"
+                                type="text"
+                            />
                         </label>
                         <label class="admin-collection__field">
                             <span class="type-meta">Accent color token</span>
-                            <input v-model="settingsForm.settings[index].accent_color" class="admin-collection__input" type="text" />
+                            <input
+                                v-model="setting.accent_color"
+                                class="admin-collection__input"
+                                type="text"
+                            />
                         </label>
                     </Panel>
                 </div>
@@ -91,9 +121,13 @@ function submitTypeSettings() {
                 <div class="admin-collection__section-head">
                     <div>
                         <p class="type-eyebrow">{{ labelFor(type) }}</p>
-                        <h2 class="type-h2">{{ props.groups[type].length }} entries</h2>
+                        <h2 class="type-h2">
+                            {{ props.groups[type].length }} entries
+                        </h2>
                     </div>
-                    <Button :href="`/admin/publications/create/${type}`">Create {{ labelFor(type).slice(0, -1) }}</Button>
+                    <Button :href="`/admin/publications/create/${type}`"
+                        >Create {{ labelFor(type).slice(0, -1) }}</Button
+                    >
                 </div>
 
                 <div class="admin-collection__list">
@@ -107,16 +141,27 @@ function submitTypeSettings() {
                             <div>
                                 <p class="type-nav">{{ item.title }}</p>
                                 <p class="type-meta admin-collection__meta">
-                                    {{ item.locale.toUpperCase() }} · {{ item.status }} · {{ item.source_driver }}
+                                    {{ item.locale.toUpperCase() }} ·
+                                    {{ item.status }} · {{ item.source_driver }}
                                 </p>
                             </div>
-                            <Link :href="`/admin/publications/${item.publication_type}/${item.locale}/${item.slug}`" class="admin-collection__link">
+                            <Link
+                                :href="`/admin/publications/${item.publication_type}/${item.locale}/${item.slug}`"
+                                class="admin-collection__link"
+                            >
                                 Edit
                             </Link>
                         </div>
-                        <p class="type-body-sm admin-collection__summary">{{ item.summary }}</p>
-                        <p class="type-meta admin-collection__meta">Slug: {{ item.slug }}</p>
-                        <p class="type-meta admin-collection__meta">Source: {{ item.source_path ?? 'Auto-managed path' }}</p>
+                        <p class="type-body-sm admin-collection__summary">
+                            {{ item.summary }}
+                        </p>
+                        <p class="type-meta admin-collection__meta">
+                            Slug: {{ item.slug }}
+                        </p>
+                        <p class="type-meta admin-collection__meta">
+                            Source:
+                            {{ item.source_path ?? 'Auto-managed path' }}
+                        </p>
                     </Panel>
                 </div>
             </section>

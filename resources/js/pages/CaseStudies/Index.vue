@@ -7,9 +7,9 @@ import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
-import { formatPublicDate } from '@/lib/formatDate';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
+import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
@@ -23,7 +23,11 @@ function caseStudyMeta(item: ContentItem) {
     return [
         {
             label: copy.value.publishedLabel,
-            value: formatPublicDate(item.published_at, page.props.site.locale, 'month'),
+            value: formatPublicDate(
+                item.published_at,
+                page.props.site.locale,
+                'month',
+            ),
         },
         {
             label: copy.value.stackLabel,

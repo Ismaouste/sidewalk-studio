@@ -233,11 +233,7 @@ onBeforeUnmount(() => {
             class="nav-tabs__viewport"
             :class="{ 'nav-tabs__viewport--open': mobileMenuOpen }"
         >
-            <div
-                v-if="panelItems.length"
-                :id="menuId"
-                class="nav-tabs__panel"
-            >
+            <div v-if="panelItems.length" :id="menuId" class="nav-tabs__panel">
                 <Link
                     v-for="item in panelItems"
                     :key="item.href"
@@ -424,7 +420,11 @@ onBeforeUnmount(() => {
     background:
         radial-gradient(
             circle at 18% 22%,
-            color-mix(in srgb, var(--sw-accent-dominant) 14%, var(--sw-bg-grid)),
+            color-mix(
+                in srgb,
+                var(--sw-accent-dominant) 14%,
+                var(--sw-bg-grid)
+            ),
             transparent 44%
         ),
         linear-gradient(
@@ -523,7 +523,11 @@ onBeforeUnmount(() => {
             var(--sw-accent-dominant) 24%,
             var(--sw-border)
         );
-        background: color-mix(in srgb, var(--sw-bg-base) 76%, var(--sw-bg-grid));
+        background: color-mix(
+            in srgb,
+            var(--sw-bg-base) 76%,
+            var(--sw-bg-grid)
+        );
         color: var(--sw-text-primary);
     }
 
@@ -668,7 +672,8 @@ onBeforeUnmount(() => {
         opacity: 1;
         transform: scale(1);
         background: var(--sw-tab-surface, transparent);
-        border: 1px solid color-mix(in srgb, var(--sw-tab-active) 10%, transparent);
+        border: 1px solid
+            color-mix(in srgb, var(--sw-tab-active) 10%, transparent);
     }
 }
 

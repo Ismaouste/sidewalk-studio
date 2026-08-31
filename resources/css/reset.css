@@ -98,20 +98,15 @@ html[data-motion='reduced'] *::before,
 html[data-motion='reduced'] *::after {
     animation: none !important;
     transition-property:
-        opacity,
-        color,
-        background-color,
-        border-color,
-        box-shadow,
-        outline-color,
-        text-decoration-color,
-        filter !important;
+        opacity, color, background-color, border-color, box-shadow,
+        outline-color, text-decoration-color, filter !important;
     transition-duration: 100ms !important;
     transition-delay: 0ms !important;
     scroll-behavior: auto !important;
 }
 
-html[data-motion='reduced'] :is(
+html[data-motion='reduced']
+    :is(
         .ambient-grid__sun,
         .ambient-grid__plane,
         .ambient-grid__shadow,

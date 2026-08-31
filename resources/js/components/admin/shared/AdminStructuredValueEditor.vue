@@ -38,20 +38,25 @@ function addScalarArrayEntry() {
 }
 
 function addObjectArrayEntry() {
-    const items = ((props.value as unknown[]) ?? []);
+    const items = (props.value as unknown[]) ?? [];
     const template = firstObjectTemplate(items);
     emit('update:value', [...items, template]);
 }
 
 function firstObjectTemplate(items: unknown[]) {
-    const firstObject = items.find((item) => isObject(item)) as Record<string, unknown> | undefined;
+    const firstObject = items.find((item) => isObject(item)) as
+        | Record<string, unknown>
+        | undefined;
 
     if (!firstObject) {
         return {};
     }
 
     return Object.fromEntries(
-        Object.entries(firstObject).map(([key, value]) => [key, defaultForValue(value)]),
+        Object.entries(firstObject).map(([key, value]) => [
+            key,
+            defaultForValue(value),
+        ]),
     );
 }
 
@@ -62,7 +67,10 @@ function defaultForValue(value: unknown): unknown {
 
     if (isObject(value)) {
         return Object.fromEntries(
-            Object.entries(value).map(([key, item]) => [key, defaultForValue(item)]),
+            Object.entries(value).map(([key, item]) => [
+                key,
+                defaultForValue(item),
+            ]),
         );
     }
 
@@ -86,7 +94,10 @@ function isObject(value: unknown): value is Record<string, unknown> {
 }
 
 function isScalarArray(value: unknown): boolean {
-    return Array.isArray(value) && value.every((item) => !isObject(item) && !Array.isArray(item));
+    return (
+        Array.isArray(value) &&
+        value.every((item) => !isObject(item) && !Array.isArray(item))
+    );
 }
 
 function isObjectArray(value: unknown): boolean {
@@ -94,7 +105,10 @@ function isObjectArray(value: unknown): boolean {
 }
 
 function shouldUseTextarea(value: unknown): boolean {
-    return typeof value === 'string' && (value.includes('\n') || value.length > 110);
+    return (
+        typeof value === 'string' &&
+        (value.includes('\n') || value.length > 110)
+    );
 }
 
 function prettify(key: string): string {
@@ -116,7 +130,9 @@ function prettify(key: string): string {
                     <AdminStructuredValueEditor
                         :label="prettify(String(entryKey))"
                         :value="entryValue"
-                        @update:value="updateObjectEntry(String(entryKey), $event)"
+                        @update:value="
+                            updateObjectEntry(String(entryKey), $event)
+                        "
                     />
                 </div>
             </div>
@@ -134,13 +150,23 @@ function prettify(key: string): string {
                         :value="String(entryValue ?? '')"
                         class="structured-editor__input"
                         type="text"
-                        @input="updateArrayEntry(index, ($event.target as HTMLInputElement).value)"
+                        @input="
+                            updateArrayEntry(
+                                index,
+                                ($event.target as HTMLInputElement).value,
+                            )
+                        "
                     />
                     <label v-else class="structured-editor__toggle">
                         <input
                             :checked="entryValue"
                             type="checkbox"
-                            @change="updateArrayEntry(index, ($event.target as HTMLInputElement).checked)"
+                            @change="
+                                updateArrayEntry(
+                                    index,
+                                    ($event.target as HTMLInputElement).checked,
+                                )
+                            "
                         />
                         <span>{{ label }} {{ index + 1 }}</span>
                     </label>
@@ -152,7 +178,11 @@ function prettify(key: string): string {
                         Remove
                     </button>
                 </div>
-                <button class="structured-editor__add" type="button" @click="addScalarArrayEntry">
+                <button
+                    class="structured-editor__add"
+                    type="button"
+                    @click="addScalarArrayEntry"
+                >
                     Add item
                 </button>
             </div>
@@ -182,7 +212,11 @@ function prettify(key: string): string {
                         @update:value="updateArrayEntry(index, $event)"
                     />
                 </Panel>
-                <button class="structured-editor__add" type="button" @click="addObjectArrayEntry">
+                <button
+                    class="structured-editor__add"
+                    type="button"
+                    @click="addObjectArrayEntry"
+                >
                     Add block
                 </button>
             </div>
@@ -193,7 +227,11 @@ function prettify(key: string): string {
                 <input
                     :checked="value"
                     type="checkbox"
-                    @change="updateScalar(($event.target as HTMLInputElement).checked)"
+                    @change="
+                        updateScalar(
+                            ($event.target as HTMLInputElement).checked,
+                        )
+                    "
                 />
                 <span>{{ label }}</span>
             </label>
@@ -207,14 +245,20 @@ function prettify(key: string): string {
                     class="structured-editor__input structured-editor__input--textarea"
                     rows="4"
                     :value="String(value ?? '')"
-                    @input="updateScalar(($event.target as HTMLTextAreaElement).value)"
+                    @input="
+                        updateScalar(
+                            ($event.target as HTMLTextAreaElement).value,
+                        )
+                    "
                 />
                 <input
                     v-else
                     class="structured-editor__input"
                     type="text"
                     :value="String(value ?? '')"
-                    @input="updateScalar(($event.target as HTMLInputElement).value)"
+                    @input="
+                        updateScalar(($event.target as HTMLInputElement).value)
+                    "
                 />
             </label>
         </template>

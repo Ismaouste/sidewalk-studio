@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { Head } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import type { SeoPayload } from '@/types';
 
 const props = defineProps<{
@@ -54,6 +54,13 @@ const jsonLdPayloads = computed(() =>
             :content="props.seo.twitter.image"
         />
 
+        <!--
+            Vue's template compiler strips literal <script> tags, so JSON-LD has
+            to be emitted through a dynamic component. `:is` resolves to a native
+            element rather than a Vue component, which makes v-text safe here —
+            the lint rule cannot see that through the dynamic binding.
+        -->
+        <!-- eslint-disable vue/no-v-text-v-html-on-component -->
         <component
             :is="'script'"
             v-for="(schema, index) in jsonLdPayloads"
@@ -62,5 +69,6 @@ const jsonLdPayloads = computed(() =>
             type="application/ld+json"
             v-text="schema"
         />
+        <!-- eslint-enable vue/no-v-text-v-html-on-component -->
     </Head>
 </template>

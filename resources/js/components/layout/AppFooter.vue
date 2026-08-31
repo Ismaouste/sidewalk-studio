@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
-import AccessibilityPanel from '@/components/layout/AccessibilityPanel.vue';
+import { computed } from 'vue';
 import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue';
+import AccessibilityPanel from '@/components/layout/AccessibilityPanel.vue';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
 import { localizePublicHref } from '@/lib/publicHref';

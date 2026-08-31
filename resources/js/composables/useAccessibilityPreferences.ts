@@ -11,6 +11,27 @@ const contrastPreference = ref<ContrastPreference>('default');
 
 let initialized = false;
 
+/**
+ * Storage access throws rather than returning null in private browsing modes
+ * and when a user blocks site data, so every call is guarded. A preference we
+ * cannot persist still applies for the current page.
+ */
+function readStoredPreference(key: string): string | null {
+    try {
+        return window.localStorage.getItem(key);
+    } catch {
+        return null;
+    }
+}
+
+function writeStoredPreference(key: string, value: string): void {
+    try {
+        window.localStorage.setItem(key, value);
+    } catch {
+        /* Preference stays in memory for this session only. */
+    }
+}
+
 function applyPreferences(): void {
     if (typeof document === 'undefined') {
         return;
@@ -31,10 +52,14 @@ function initializeAccessibilityPreferences(): void {
         return;
     }
 
-    const storedMotion = window.localStorage.getItem(MOTION_STORAGE_KEY);
     motionPreference.value =
-        storedMotion === 'reduced' ? 'reduced' : 'full';
-    contrastPreference.value = 'default';
+        readStoredPreference(MOTION_STORAGE_KEY) === 'reduced'
+            ? 'reduced'
+            : 'full';
+    contrastPreference.value =
+        readStoredPreference(CONTRAST_STORAGE_KEY) === 'boost'
+            ? 'boost'
+            : 'default';
 
     applyPreferences();
     initialized = true;
@@ -46,13 +71,13 @@ export function useAccessibilityPreferences() {
     function setMotionPreference(preference: MotionPreference): void {
         motionPreference.value = preference;
         applyPreferences();
-        window.localStorage.setItem(MOTION_STORAGE_KEY, preference);
+        writeStoredPreference(MOTION_STORAGE_KEY, preference);
     }
 
     function setContrastPreference(preference: ContrastPreference): void {
-        contrastPreference.value = 'default';
+        contrastPreference.value = preference;
         applyPreferences();
-        window.localStorage.setItem(CONTRAST_STORAGE_KEY, 'default');
+        writeStoredPreference(CONTRAST_STORAGE_KEY, preference);
     }
 
     function toggleReducedMotion(): void {
@@ -62,7 +87,9 @@ export function useAccessibilityPreferences() {
     }
 
     function toggleBoostContrast(): void {
-        setContrastPreference('default');
+        setContrastPreference(
+            contrastPreference.value === 'boost' ? 'default' : 'boost',
+        );
     }
 
     return {

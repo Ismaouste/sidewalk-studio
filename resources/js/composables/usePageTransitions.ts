@@ -16,7 +16,6 @@ const state = reactive({
 let listenersInstalled = false;
 let staticPreviewListenersInstalled = false;
 let transitionMode: 'unset' | 'inertia' | 'static' = 'unset';
-let lastStart = 0;
 let shownAt = 0;
 let showTimer: number | undefined;
 let finishTimer: number | undefined;
@@ -104,7 +103,6 @@ function startTransition() {
     }
 
     clearTimers();
-    lastStart = window.performance.now();
     state.isSettling = false;
     state.isLoading = false;
     window.dispatchEvent(new CustomEvent('sidewalk:navigation-start'));
@@ -120,7 +118,6 @@ function startTransition() {
 
 function startTransitionImmediately() {
     clearTimers();
-    lastStart = window.performance.now();
     state.isSettling = false;
     state.isLoading = true;
     state.isReady = true;
@@ -149,7 +146,6 @@ function installTransitionListeners() {
     }
 
     listenersInstalled = true;
-    lastStart = window.performance.now();
 
     router.on('start', () => {
         beginViewTransition();

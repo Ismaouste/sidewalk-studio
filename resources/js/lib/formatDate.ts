@@ -5,7 +5,9 @@ const localeMap: Record<string, string> = {
 
 type Variant = 'month' | 'long';
 
-function parseIsoDate(value: string): { year: number; month: number; day: number } | null {
+function parseIsoDate(
+    value: string,
+): { year: number; month: number; day: number } | null {
     const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value.trim());
 
     if (!match) {

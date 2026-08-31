@@ -8,9 +8,15 @@ defineProps<{
 </script>
 
 <template>
-    <div class="brand-mark" :class="[className, `brand-mark--${branding.fallback_variant}`]">
+    <div
+        class="brand-mark"
+        :class="[className, `brand-mark--${branding.fallback_variant}`]"
+    >
         <img
-            v-if="branding.asset_mode === 'uploaded' && branding.uploaded_asset_path"
+            v-if="
+                branding.asset_mode === 'uploaded' &&
+                branding.uploaded_asset_path
+            "
             :src="branding.uploaded_asset_path"
             :alt="branding.active_alt"
             class="brand-mark__image"

@@ -42,20 +42,35 @@ function submit() {
             <header class="admin-quotes__header">
                 <div>
                     <p class="type-eyebrow">Loader quotes</p>
-                    <h1 class="type-h1">Managed flash lines for loader and admin hover states.</h1>
+                    <h1 class="type-h1">
+                        Managed flash lines for loader and admin hover states.
+                    </h1>
                     <p class="type-body admin-quotes__copy">
-                        Edit inline, preview instantly, and keep the same quote library across runtime surfaces.
+                        Edit inline, preview instantly, and keep the same quote
+                        library across runtime surfaces.
                     </p>
                 </div>
                 <div class="admin-quotes__actions">
                     <span v-if="status" class="type-meta">{{ status }}</span>
-                    <Button type="submit" :disabled="form.processing">Save loader quotes</Button>
+                    <Button type="submit" :disabled="form.processing"
+                        >Save loader quotes</Button
+                    >
                 </div>
             </header>
 
             <div class="admin-quotes__buttons">
-                <Button type="button" variant="secondary" @click="addQuote('en')">Add English line</Button>
-                <Button type="button" variant="secondary" @click="addQuote('fr')">Add French line</Button>
+                <Button
+                    type="button"
+                    variant="secondary"
+                    @click="addQuote('en')"
+                    >Add English line</Button
+                >
+                <Button
+                    type="button"
+                    variant="secondary"
+                    @click="addQuote('fr')"
+                    >Add French line</Button
+                >
             </div>
 
             <div class="admin-quotes__list">
@@ -66,31 +81,50 @@ function submit() {
                     tone="surface"
                 >
                     <div class="admin-quotes__fields">
-                        <label class="admin-quotes__field admin-quotes__field--wide">
+                        <label
+                            class="admin-quotes__field admin-quotes__field--wide"
+                        >
                             <span class="type-meta">Text</span>
-                            <textarea v-model="form.quotes[index].text" class="admin-quotes__input admin-quotes__input--textarea" rows="3" />
+                            <textarea
+                                v-model="quote.text"
+                                class="admin-quotes__input admin-quotes__input--textarea"
+                                rows="3"
+                            />
                         </label>
                         <label class="admin-quotes__field">
                             <span class="type-meta">Type</span>
-                            <select v-model="form.quotes[index].type" class="admin-quotes__input">
+                            <select
+                                v-model="quote.type"
+                                class="admin-quotes__input"
+                            >
                                 <option value="message">Message</option>
                                 <option value="quote">Quote</option>
                             </select>
                         </label>
                         <label class="admin-quotes__field">
                             <span class="type-meta">Locale</span>
-                            <select v-model="form.quotes[index].locale" class="admin-quotes__input">
+                            <select
+                                v-model="quote.locale"
+                                class="admin-quotes__input"
+                            >
                                 <option value="en">English</option>
                                 <option value="fr">French</option>
                             </select>
                         </label>
                         <label class="admin-quotes__field">
                             <span class="type-meta">Author</span>
-                            <input v-model="form.quotes[index].author" class="admin-quotes__input" type="text" />
+                            <input
+                                v-model="quote.author"
+                                class="admin-quotes__input"
+                                type="text"
+                            />
                         </label>
                         <label class="admin-quotes__field">
                             <span class="type-meta">Theme target</span>
-                            <select v-model="form.quotes[index].theme_target" class="admin-quotes__input">
+                            <select
+                                v-model="quote.theme_target"
+                                class="admin-quotes__input"
+                            >
                                 <option :value="null">All themes</option>
                                 <option value="morning">Morning</option>
                                 <option value="sunset">Sunset</option>
@@ -98,10 +132,16 @@ function submit() {
                         </label>
                         <label class="admin-quotes__field">
                             <span class="type-meta">Weight</span>
-                            <input v-model="form.quotes[index].weight" class="admin-quotes__input" type="number" min="0" max="999" />
+                            <input
+                                v-model="quote.weight"
+                                class="admin-quotes__input"
+                                type="number"
+                                min="0"
+                                max="999"
+                            />
                         </label>
                         <label class="admin-quotes__toggle">
-                            <input v-model="form.quotes[index].is_active" type="checkbox" />
+                            <input v-model="quote.is_active" type="checkbox" />
                             <span>Active</span>
                         </label>
                     </div>

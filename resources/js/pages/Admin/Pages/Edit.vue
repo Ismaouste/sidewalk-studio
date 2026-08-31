@@ -35,14 +35,19 @@ function submit() {
             <header class="admin-page-edit__header">
                 <div>
                     <p class="type-eyebrow">Page editor</p>
-                    <h1 class="type-h1 admin-page-edit__title">{{ page.page_key }} · {{ page.locale.toUpperCase() }}</h1>
+                    <h1 class="type-h1 admin-page-edit__title">
+                        {{ page.page_key }} · {{ page.locale.toUpperCase() }}
+                    </h1>
                     <p class="type-body admin-page-edit__copy">
-                        Structured edits update runtime SEO fields and page payload blocks without touching rendering code.
+                        Structured edits update runtime SEO fields and page
+                        payload blocks without touching rendering code.
                     </p>
                 </div>
                 <div class="admin-page-edit__actions">
                     <span v-if="status" class="type-meta">{{ status }}</span>
-                    <Button type="submit" :disabled="form.processing">Save page</Button>
+                    <Button type="submit" :disabled="form.processing"
+                        >Save page</Button
+                    >
                 </div>
             </header>
 
@@ -50,37 +55,71 @@ function submit() {
                 <Panel class="admin-page-edit__panel" tone="elevated">
                     <label class="admin-page-edit__field">
                         <span class="type-nav">Title</span>
-                        <input v-model="form.title" class="admin-page-edit__input" type="text" />
+                        <input
+                            v-model="form.title"
+                            class="admin-page-edit__input"
+                            type="text"
+                        />
                     </label>
                     <label class="admin-page-edit__field">
                         <span class="type-nav">Description</span>
-                        <textarea v-model="form.description" class="admin-page-edit__input admin-page-edit__input--textarea" rows="4" />
+                        <textarea
+                            v-model="form.description"
+                            class="admin-page-edit__input admin-page-edit__input--textarea"
+                            rows="4"
+                        />
                     </label>
                     <label class="admin-page-edit__field">
                         <span class="type-nav">SEO title</span>
-                        <input v-model="form.seo_title" class="admin-page-edit__input" type="text" />
+                        <input
+                            v-model="form.seo_title"
+                            class="admin-page-edit__input"
+                            type="text"
+                        />
                     </label>
                     <label class="admin-page-edit__field">
                         <span class="type-nav">SEO description</span>
-                        <textarea v-model="form.seo_description" class="admin-page-edit__input admin-page-edit__input--textarea" rows="4" />
+                        <textarea
+                            v-model="form.seo_description"
+                            class="admin-page-edit__input admin-page-edit__input--textarea"
+                            rows="4"
+                        />
                     </label>
                     <label class="admin-page-edit__field">
                         <span class="type-nav">Robots</span>
-                        <input v-model="form.robots" class="admin-page-edit__input" type="text" />
+                        <input
+                            v-model="form.robots"
+                            class="admin-page-edit__input"
+                            type="text"
+                        />
                     </label>
                     <label class="admin-page-edit__field">
                         <span class="type-nav">Canonical URL</span>
-                        <input v-model="form.canonical_url" class="admin-page-edit__input" type="text" />
+                        <input
+                            v-model="form.canonical_url"
+                            class="admin-page-edit__input"
+                            type="text"
+                        />
                     </label>
                     <label class="admin-page-edit__field">
                         <span class="type-nav">Open Graph image</span>
-                        <input v-model="form.open_graph_image" class="admin-page-edit__input" type="text" />
+                        <input
+                            v-model="form.open_graph_image"
+                            class="admin-page-edit__input"
+                            type="text"
+                        />
                     </label>
                 </Panel>
 
                 <Panel class="admin-page-edit__panel" tone="surface">
                     <p class="type-eyebrow">Structured payload</p>
-                    <AdminStructuredValueEditor label="Payload" :value="form.payload" @update:value="form.payload = $event as Record<string, unknown>" />
+                    <AdminStructuredValueEditor
+                        label="Payload"
+                        :value="form.payload"
+                        @update:value="
+                            form.payload = $event as Record<string, unknown>
+                        "
+                    />
                 </Panel>
             </div>
         </form>

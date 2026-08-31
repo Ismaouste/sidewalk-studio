@@ -8,7 +8,12 @@ const page = usePage<{ site: SiteProps }>();
 const isOpen = ref(false);
 const rootRef = ref<HTMLElement | null>(null);
 
-const { motionPreference, toggleReducedMotion } = useAccessibilityPreferences();
+const {
+    motionPreference,
+    contrastPreference,
+    toggleReducedMotion,
+    toggleBoostContrast,
+} = useAccessibilityPreferences();
 
 const copy = computed(() =>
     page.props.site.locale === 'fr'
@@ -21,8 +26,7 @@ const copy = computed(() =>
                   'Fond ambient, loader et transitions plus sobres.',
               contrast: 'Contraste renforcé',
               contrastHint:
-                  'Prévu ensuite. Le mode est affiché mais pas encore disponible.',
-              unavailable: 'Bientôt',
+                  'Textes secondaires et bordures plus appuyés sur les deux thèmes.',
           }
         : {
               buttonLabel: 'Accessibility',
@@ -33,8 +37,7 @@ const copy = computed(() =>
                   'Ambient background, loader, and transitions become quieter.',
               contrast: 'Boost contrast',
               contrastHint:
-                  'Planned next. The control is visible but not available yet.',
-              unavailable: 'Soon',
+                  'Secondary text and borders gain weight in both themes.',
           },
 );
 
@@ -116,6 +119,7 @@ onBeforeUnmount(() => {
                     'accessibility-panel__option--active':
                         motionPreference === 'reduced',
                 }"
+                :aria-pressed="motionPreference === 'reduced'"
                 @click="toggleReducedMotion"
             >
                 <span class="accessibility-panel__option-copy">
@@ -133,9 +137,13 @@ onBeforeUnmount(() => {
 
             <button
                 type="button"
-                class="accessibility-panel__option accessibility-panel__option--disabled"
-                disabled
-                aria-disabled="true"
+                class="accessibility-panel__option"
+                :class="{
+                    'accessibility-panel__option--active':
+                        contrastPreference === 'boost',
+                }"
+                :aria-pressed="contrastPreference === 'boost'"
+                @click="toggleBoostContrast"
             >
                 <span class="accessibility-panel__option-copy">
                     <span class="accessibility-panel__option-title">
@@ -146,7 +154,7 @@ onBeforeUnmount(() => {
                     </span>
                 </span>
                 <span class="accessibility-panel__state">
-                    {{ copy.unavailable }}
+                    {{ contrastPreference === 'boost' ? 'On' : 'Off' }}
                 </span>
             </button>
         </div>
@@ -302,17 +310,6 @@ onBeforeUnmount(() => {
     );
 }
 
-.accessibility-panel__option--disabled {
-    opacity: 0.58;
-    cursor: not-allowed;
-}
-
-.accessibility-panel__option--disabled .accessibility-panel__option-title,
-.accessibility-panel__option--disabled .accessibility-panel__option-hint,
-.accessibility-panel__option--disabled .accessibility-panel__state {
-    color: color-mix(in srgb, var(--sw-text-muted) 88%, transparent);
-}
-
 @media (hover: hover) {
     .accessibility-panel__trigger:hover {
         border-color: color-mix(
@@ -331,11 +328,6 @@ onBeforeUnmount(() => {
             var(--sw-accent-dominant) 24%,
             var(--sw-border)
         );
-    }
-
-    .accessibility-panel__option--disabled:hover {
-        transform: none;
-        border-color: color-mix(in srgb, var(--sw-border) 74%, transparent);
     }
 }
 </style>

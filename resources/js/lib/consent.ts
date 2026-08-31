@@ -92,7 +92,7 @@ const consentTranslations = {
                 {
                     title: 'Analytics',
                     description:
-                        "Réservé à des outils de mesure plus respectueux de la vie privée. En v0, le driver par défaut ne charge rien.",
+                        'Réservé à des outils de mesure plus respectueux de la vie privée. En v0, le driver par défaut ne charge rien.',
                     linkedCategory: 'analytics',
                 },
                 {

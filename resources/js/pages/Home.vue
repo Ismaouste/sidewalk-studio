@@ -52,9 +52,7 @@ const props = defineProps<{
     }>;
 }>();
 
-const heroPanelTones = ['dominant', 'green', 'coral'] as const;
-
-                const heroCapabilities = computed(() =>
+const heroCapabilities = computed(() =>
     page.props.site.locale === 'fr'
         ? [
               {
@@ -62,8 +60,7 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                   tone: 'violet' as const,
                   details:
                       'WooCommerce / PrestaShop / Shopify / Alokai (ex Vue Storefront)',
-                  panelDetails:
-                      'WooCommerce / PrestaShop / Shopify / Alokai',
+                  panelDetails: 'WooCommerce / PrestaShop / Shopify / Alokai',
                   summary: props.heroPanel[0] ?? '',
               },
               {
@@ -77,8 +74,7 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                   label: 'Data produit et SEO',
                   tone: 'sun' as const,
                   details: 'PIM / JSON-LD / Merchant Center / Data layer',
-                  panelDetails:
-                      'PIM / JSON-LD / Merchant Center / Data layer',
+                  panelDetails: 'PIM / JSON-LD / Merchant Center / Data layer',
                   summary: props.heroPanel[2] ?? '',
               },
           ]
@@ -88,8 +84,7 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                   tone: 'violet' as const,
                   details:
                       'WooCommerce / PrestaShop / Shopify / Alokai (formerly Vue Storefront)',
-                  panelDetails:
-                      'WooCommerce / PrestaShop / Shopify / Alokai',
+                  panelDetails: 'WooCommerce / PrestaShop / Shopify / Alokai',
                   summary: props.heroPanel[0] ?? '',
               },
               {
@@ -103,8 +98,7 @@ const heroPanelTones = ['dominant', 'green', 'coral'] as const;
                   label: 'Product data and SEO',
                   tone: 'sun' as const,
                   details: 'PIM / JSON-LD / Merchant Center / Data layer',
-                  panelDetails:
-                      'PIM / JSON-LD / Merchant Center / Data layer',
+                  panelDetails: 'PIM / JSON-LD / Merchant Center / Data layer',
                   summary: props.heroPanel[2] ?? '',
               },
           ],
@@ -142,31 +136,31 @@ const copy = computed(() =>
               ciCdDefinition:
                   'CI/CD : intégration et déploiement continus pour fiabiliser les mises en ligne.',
               seoDefinition:
-                  "SEO : optimisation technique et éditoriale pour rendre un site lisible par les moteurs et utile aux visiteurs.",
+                  'SEO : optimisation technique et éditoriale pour rendre un site lisible par les moteurs et utile aux visiteurs.',
               pimDefinition:
-                  "PIM : Product Information Management, le socle qui centralise et structure la donnée produit.",
+                  'PIM : Product Information Management, le socle qui centralise et structure la donnée produit.',
               jsonLdDefinition:
                   'JSON-LD : format de données structurées lisible par les moteurs et les plateformes.',
               merchantCenterDefinition:
                   'Google Merchant Center : flux catalogue et diffusion produit vers les surfaces shopping Google.',
               dataLayerDefinition:
-                  "Data layer : couche de données partagée entre le site, le tracking et les outils marketing.",
+                  'Data layer : couche de données partagée entre le site, le tracking et les outils marketing.',
               whatIDoLabel: 'Ce que je fais',
               focusTitle:
                   'Un positionnement net dans des environnements complexes.',
               focusDescription:
-                  "Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privée et besoin de garder des systèmes compréhensibles après mise en production.",
+                  'Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privée et besoin de garder des systèmes compréhensibles après mise en production.',
               selectedWorkLabel: 'Expérience',
               projectsTitle: 'Études de cas et repères à ouvrir ensuite.',
               projectsDescription:
-                  "Études de cas, notes et références pour entrer dans des situations plus concrètes.",
-              openProjectsCta: "Découvrir les projets",
+                  'Études de cas, notes et références pour entrer dans des situations plus concrètes.',
+              openProjectsCta: 'Découvrir les projets',
               internalBuildLabel: 'Interne',
               notesLabel: 'Notes',
               contactLabel: 'Contact',
               startConversationCta: 'Prendre contact',
               referencesCta: 'Lire les expériences',
-              archiveCta: "Découvrir toutes les études de cas",
+              archiveCta: 'Découvrir toutes les études de cas',
           }
         : {
               projectsCta: 'View experiences',
@@ -177,8 +171,7 @@ const copy = computed(() =>
                   'HBJO commerce, ERP, PIM, product flows, tracking, and technical SEO.',
               hbjoatDefinition:
                   'Watchmaking, jewelry, silverware, and tableware.',
-              cmsDefinition:
-                  'CMS: Content Management System.',
+              cmsDefinition: 'CMS: Content Management System.',
               phpDefinition:
                   'PHP: a server-side language widely used for web and e-commerce applications.',
               apiDefinition:
@@ -200,8 +193,7 @@ const copy = computed(() =>
               focusDescription:
                   'The work usually sits between product delivery, legacy modernization, technical SEO, privacy, and the need to keep systems readable after launch.',
               selectedWorkLabel: 'Experience',
-              projectsTitle:
-                  'Case studies and pointers worth opening next.',
+              projectsTitle: 'Case studies and pointers worth opening next.',
               projectsDescription:
                   'Case studies, notes, and references that open more concrete implementation contexts.',
               openProjectsCta: 'Open case studies',
@@ -373,7 +365,9 @@ const copy = computed(() =>
                                 </template>
                             </p>
                             <p class="type-body-sm home-hero__highlight-copy">
-                                <template v-if="item.label === 'Sites marchands'">
+                                <template
+                                    v-if="item.label === 'Sites marchands'"
+                                >
                                     Développement e-commerce et
                                     <InlineTermTooltip
                                         label="CMS"
@@ -381,10 +375,11 @@ const copy = computed(() =>
                                         tone="violet"
                                     />
                                     sur WooCommerce, PrestaShop, Shopify et
-                                    fronts découplés quand le projet le
-                                    demande.
+                                    fronts découplés quand le projet le demande.
                                 </template>
-                                <template v-else-if="item.label === 'E-commerce'">
+                                <template
+                                    v-else-if="item.label === 'E-commerce'"
+                                >
                                     E-commerce and
                                     <InlineTermTooltip
                                         label="CMS"
@@ -405,9 +400,9 @@ const copy = computed(() =>
                                         tone="sun"
                                     />
                                     technique, données structurées, flux
-                                    produit, PIM, catalogues marketing,
-                                    tracking et data layer au même niveau que
-                                    la mise en ligne.
+                                    produit, PIM, catalogues marketing, tracking
+                                    et data layer au même niveau que la mise en
+                                    ligne.
                                 </template>
                                 <template
                                     v-else-if="
@@ -420,8 +415,8 @@ const copy = computed(() =>
                                         tone="sun"
                                     />
                                     , structured data, product feeds, PIM,
-                                    marketing catalogs, tracking, and data
-                                    layer handled at the same level as go-live.
+                                    marketing catalogs, tracking, and data layer
+                                    handled at the same level as go-live.
                                 </template>
                                 <template v-else>
                                     {{ item.summary }}
@@ -615,12 +610,20 @@ const copy = computed(() =>
     margin-top: 0.52rem;
     flex: none;
     border-radius: 999px;
-    background: color-mix(in srgb, var(--sw-accent-sun) 72%, var(--sw-accent-dominant));
+    background: color-mix(
+        in srgb,
+        var(--sw-accent-sun) 72%,
+        var(--sw-accent-dominant)
+    );
 }
 
 .home-hero__lead-copy {
     margin: 0;
-    color: color-mix(in srgb, var(--sw-text-primary) 82%, var(--sw-text-secondary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-primary) 82%,
+        var(--sw-text-secondary)
+    );
     line-height: 1.48;
 }
 
@@ -696,8 +699,16 @@ const copy = computed(() =>
 .home-accent-chip--violet .home-accent-chip__tooltip,
 .home-accent-chip--green .home-accent-chip__tooltip,
 .home-accent-chip--sun .home-accent-chip__tooltip {
-    border-color: color-mix(in srgb, var(--home-accent-color) 28%, var(--sw-border));
-    background: color-mix(in srgb, var(--sw-bg-elevated) 88%, var(--home-accent-color) 12%);
+    border-color: color-mix(
+        in srgb,
+        var(--home-accent-color) 28%,
+        var(--sw-border)
+    );
+    background: color-mix(
+        in srgb,
+        var(--sw-bg-elevated) 88%,
+        var(--home-accent-color) 12%
+    );
 }
 
 .home-accent-chip--violet :deep(.legend-chip),
@@ -734,7 +745,11 @@ const copy = computed(() =>
     font-size: clamp(1rem, 1.25vw, 1.12rem);
     font-weight: 600;
     line-height: 1.35;
-    color: color-mix(in srgb, var(--sw-text-primary) 82%, var(--sw-text-secondary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-primary) 82%,
+        var(--sw-text-secondary)
+    );
 }
 
 .home-hero__panel-summary {
@@ -900,7 +915,11 @@ const copy = computed(() =>
 
 .home-contact__title {
     padding-block: 14px 10px;
-    color: color-mix(in srgb, var(--sw-text-primary) 76%, var(--sw-text-secondary));
+    color: color-mix(
+        in srgb,
+        var(--sw-text-primary) 76%,
+        var(--sw-text-secondary)
+    );
 }
 
 .home-contact__summary {

@@ -5,8 +5,8 @@ import ContentVisual from '@/components/content/ContentVisual.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import Button from '@/components/ui/Button.vue';
-import { formatPublicDate } from '@/lib/formatDate';
 import Panel from '@/components/ui/Panel.vue';
+import { formatPublicDate } from '@/lib/formatDate';
 import type { PublicationWidget } from '@/types';
 
 const page = usePage<{ site: { locale: string } }>();
@@ -45,7 +45,11 @@ function widgetChipTone(
     return section === 'writing' ? 'violet' : 'green';
 }
 
-function widgetChipLabel(section: string, category: string, client: string): string {
+function widgetChipLabel(
+    section: string,
+    category: string,
+    client: string,
+): string {
     if (section === 'case-studies') {
         return client || (isFrench.value ? 'Référence' : 'Reference');
     }
@@ -54,7 +58,7 @@ function widgetChipLabel(section: string, category: string, client: string): str
         ? 'Journal'
         : isFrench.value
           ? 'Note'
-        : 'Note';
+          : 'Note';
 }
 
 function formattedDate(value: string): string {
@@ -84,7 +88,8 @@ function formattedDate(value: string): string {
                 class="publication-widget__link"
                 :class="{
                     'publication-widget__link--note':
-                        item.section === 'writing' && item.category !== 'journal',
+                        item.section === 'writing' &&
+                        item.category !== 'journal',
                 }"
             >
                 <Panel
@@ -100,11 +105,24 @@ function formattedDate(value: string): string {
                     <div class="publication-widget__body">
                         <div class="publication-widget__meta">
                             <LegendChip
-                                :label="widgetChipLabel(item.section, item.category, item.client)"
-                                :tone="widgetChipTone(item.accent_tone, item.section)"
+                                :label="
+                                    widgetChipLabel(
+                                        item.section,
+                                        item.category,
+                                        item.client,
+                                    )
+                                "
+                                :tone="
+                                    widgetChipTone(
+                                        item.accent_tone,
+                                        item.section,
+                                    )
+                                "
                                 class="publication-widget__meta-chip"
                             />
-                            <span class="type-meta publication-widget__meta-date">
+                            <span
+                                class="type-meta publication-widget__meta-date"
+                            >
                                 {{ formattedDate(item.published_at) }}
                             </span>
                         </div>
@@ -284,7 +302,9 @@ function formattedDate(value: string): string {
         align-items: center;
     }
 
-    .publication-widget__grid--single .publication-widget__card :deep(.content-visual) {
+    .publication-widget__grid--single
+        .publication-widget__card
+        :deep(.content-visual) {
         min-height: 6.6rem;
     }
 }

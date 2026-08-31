@@ -21,7 +21,11 @@ const forms = Object.fromEntries(
     ]),
 ) as Record<string, ReturnType<typeof useForm<any>>>;
 
-const activeFile = computed(() => props.files.find((file) => file.key === activeKey.value) ?? props.files[0]);
+const activeFile = computed(
+    () =>
+        props.files.find((file) => file.key === activeKey.value) ??
+        props.files[0],
+);
 
 function save(key: string) {
     forms[key].put(`/admin/language-files/${key}`);
@@ -36,7 +40,9 @@ function save(key: string) {
             <header class="admin-language__header">
                 <div>
                     <p class="type-eyebrow">Managed copy files</p>
-                    <h1 class="type-h1 admin-language__title">Edit visible site strings without touching PHP syntax.</h1>
+                    <h1 class="type-h1 admin-language__title">
+                        Edit visible site strings without touching PHP syntax.
+                    </h1>
                 </div>
                 <span v-if="status" class="type-meta">{{ status }}</span>
             </header>
@@ -47,7 +53,10 @@ function save(key: string) {
                         v-for="file in props.files"
                         :key="file.key"
                         class="admin-language__tab"
-                        :class="{ 'admin-language__tab--active': file.key === activeKey }"
+                        :class="{
+                            'admin-language__tab--active':
+                                file.key === activeKey,
+                        }"
                         type="button"
                         @click="activeKey = file.key"
                     >
@@ -55,19 +64,29 @@ function save(key: string) {
                     </button>
                 </Panel>
 
-                <form class="admin-language__editor" @submit.prevent="save(activeFile.key)">
+                <form
+                    class="admin-language__editor"
+                    @submit.prevent="save(activeFile.key)"
+                >
                     <Panel class="admin-language__panel" tone="surface">
                         <div class="admin-language__panel-head">
                             <div>
                                 <p class="type-nav">{{ activeFile.label }}</p>
                                 <p class="type-meta">{{ activeFile.path }}</p>
                             </div>
-                            <Button type="submit" :disabled="forms[activeFile.key].processing">Save file</Button>
+                            <Button
+                                type="submit"
+                                :disabled="forms[activeFile.key].processing"
+                                >Save file</Button
+                            >
                         </div>
                         <AdminStructuredValueEditor
                             label="Language payload"
                             :value="forms[activeFile.key].payload"
-                            @update:value="forms[activeFile.key].payload = $event as Record<string, unknown>"
+                            @update:value="
+                                forms[activeFile.key].payload =
+                                    $event as Record<string, unknown>
+                            "
                         />
                     </Panel>
                 </form>

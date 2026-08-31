@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
+import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
-import { formatPublicDate } from '@/lib/formatDate';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
+import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
@@ -81,7 +81,11 @@ function publicationMeta(item: ContentItem) {
     return [
         {
             label: copy.value.publishedLabel,
-            value: formatPublicDate(item.published_at, page.props.site.locale, 'month'),
+            value: formatPublicDate(
+                item.published_at,
+                page.props.site.locale,
+                'month',
+            ),
         },
         {
             label: copy.value.readLabel,
@@ -342,7 +346,8 @@ function publicationMeta(item: ContentItem) {
     gap: var(--sw-space-xs);
     max-width: 52rem;
     padding-bottom: var(--sw-space-xs);
-    border-bottom: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--sw-border) 72%, transparent);
 }
 
 .local-page__note-link {

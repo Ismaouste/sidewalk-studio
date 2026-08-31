@@ -1,11 +1,5 @@
-import {
-    onCLS,
-    onFCP,
-    onINP,
-    onLCP,
-    onTTFB,
-    type Metric,
-} from 'web-vitals';
+import { onCLS, onFCP, onINP, onLCP, onTTFB } from 'web-vitals';
+import type { Metric } from 'web-vitals';
 
 type WebVitalEntry = {
     id: string;

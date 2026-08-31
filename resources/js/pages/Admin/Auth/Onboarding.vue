@@ -23,30 +23,60 @@ function submit() {
         <div class="admin-login__panel">
             <div class="admin-login__intro">
                 <p class="type-eyebrow">First-run onboarding</p>
-                <h1 class="type-h1 admin-login__title">Create the first operator</h1>
+                <h1 class="type-h1 admin-login__title">
+                    Create the first operator
+                </h1>
                 <p class="type-body admin-login__copy">
-                    This flow is the production-safe bootstrap. It creates the first
-                    operator account and initializes site settings from committed defaults.
+                    This flow is the production-safe bootstrap. It creates the
+                    first operator account and initializes site settings from
+                    committed defaults.
                 </p>
             </div>
 
             <form class="admin-login__form" @submit.prevent="submit">
                 <label class="admin-login__field">
                     <span class="type-nav">Name</span>
-                    <input v-model="form.name" class="admin-login__input" type="text" required />
-                    <span v-if="form.errors.name" class="type-meta admin-login__error">{{ form.errors.name }}</span>
+                    <input
+                        v-model="form.name"
+                        class="admin-login__input"
+                        type="text"
+                        required
+                    />
+                    <span
+                        v-if="form.errors.name"
+                        class="type-meta admin-login__error"
+                        >{{ form.errors.name }}</span
+                    >
                 </label>
 
                 <label class="admin-login__field">
                     <span class="type-nav">Email</span>
-                    <input v-model="form.email" class="admin-login__input" type="email" required />
-                    <span v-if="form.errors.email" class="type-meta admin-login__error">{{ form.errors.email }}</span>
+                    <input
+                        v-model="form.email"
+                        class="admin-login__input"
+                        type="email"
+                        required
+                    />
+                    <span
+                        v-if="form.errors.email"
+                        class="type-meta admin-login__error"
+                        >{{ form.errors.email }}</span
+                    >
                 </label>
 
                 <label class="admin-login__field">
                     <span class="type-nav">Password</span>
-                    <input v-model="form.password" class="admin-login__input" type="password" required />
-                    <span v-if="form.errors.password" class="type-meta admin-login__error">{{ form.errors.password }}</span>
+                    <input
+                        v-model="form.password"
+                        class="admin-login__input"
+                        type="password"
+                        required
+                    />
+                    <span
+                        v-if="form.errors.password"
+                        class="type-meta admin-login__error"
+                        >{{ form.errors.password }}</span
+                    >
                 </label>
 
                 <label class="admin-login__field">
@@ -76,8 +106,16 @@ function submit() {
     place-items: center;
     padding: 24px;
     background:
-        radial-gradient(circle at top, color-mix(in srgb, var(--sw-accent-green) 16%, transparent), transparent 28%),
-        linear-gradient(180deg, color-mix(in srgb, var(--sw-bg-grid) 82%, white 18%), var(--sw-bg-base));
+        radial-gradient(
+            circle at top,
+            color-mix(in srgb, var(--sw-accent-green) 16%, transparent),
+            transparent 28%
+        ),
+        linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--sw-bg-grid) 82%, white 18%),
+            var(--sw-bg-base)
+        );
 }
 
 .admin-login__panel {

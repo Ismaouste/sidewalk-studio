@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
+import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
-import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { SeoPayload, SiteProps } from '@/types';
