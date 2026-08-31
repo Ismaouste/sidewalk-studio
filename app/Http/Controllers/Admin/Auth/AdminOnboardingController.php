@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Services\AdminAuditLogService;
 use App\Services\AdminOnboardingService;
 use Illuminate\Http\RedirectResponse;

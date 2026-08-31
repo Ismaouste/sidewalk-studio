@@ -84,6 +84,4 @@ AdminEntryControllerForm.head = (options?: RouteQueryOptions): RouteFormDefiniti
 
 AdminEntryController.form = AdminEntryControllerForm
 
-
-
 export default AdminEntryController

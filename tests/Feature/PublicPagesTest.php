@@ -89,7 +89,7 @@ class PublicPagesTest extends TestCase
         $this->get('/fr/projects')
             ->assertOk()
             ->assertDontSee('Un goût pour les systèmes qui doivent vraiment tourner.')
-            ->assertDontSee('{&quot;Delivery sur plusieurs niveaux à la fois&quot;')
+            ->assertDontSee('{"Delivery sur plusieurs niveaux à la fois"', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('hero.title', 'Projets e-commerce')
                 ->where(

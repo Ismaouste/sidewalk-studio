@@ -2,11 +2,11 @@
 
 namespace App\SiteSettings;
 
+use App\SiteSettings\Data\AdminStateSettings;
+use App\SiteSettings\Data\BrandingSettings;
 use App\SiteSettings\Data\ConsentCopySettings;
 use App\SiteSettings\Data\ContactDetailsSettings;
 use App\SiteSettings\Data\FeatureTogglesSettings;
-use App\SiteSettings\Data\AdminStateSettings;
-use App\SiteSettings\Data\BrandingSettings;
 use App\SiteSettings\Data\PublishingStateSettings;
 use App\SiteSettings\Data\SeoDefaultsSettings;
 use App\SiteSettings\Data\SiteIdentitySettings;

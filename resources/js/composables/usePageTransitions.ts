@@ -22,10 +22,16 @@ let finishTimer: number | undefined;
 let settlingTimer: number | undefined;
 let safetyTimer: number | undefined;
 
+type ViewTransition = {
+    finished: Promise<void>;
+    ready: Promise<void>;
+    updateCallbackDone: Promise<void>;
+};
+
 type ViewTransitionDocument = Document & {
-    startViewTransition?: (callback: () => void | Promise<void>) => {
-        finished: Promise<void>;
-    };
+    startViewTransition?: (
+        callback: () => void | Promise<void>,
+    ) => ViewTransition;
 };
 
 let viewTransitionResolve: (() => void) | null = null;
@@ -44,7 +50,17 @@ function beginViewTransition(): void {
     const transitionPromise = new Promise<void>((resolve) => {
         viewTransitionResolve = resolve;
     });
-    doc.startViewTransition(() => transitionPromise);
+
+    const transition = doc.startViewTransition(() => transitionPromise);
+
+    // A transition that never completes — the document unloading mid-visit,
+    // another transition superseding this one — rejects all three promises
+    // with InvalidStateError. That is an expected outcome of navigating, not
+    // a failure, but unhandled it surfaces as a console exception.
+    const ignoreAbort = () => {};
+    void transition.finished.catch(ignoreAbort);
+    void transition.ready.catch(ignoreAbort);
+    void transition.updateCallbackDone.catch(ignoreAbort);
 }
 
 function completeViewTransition(): void {
@@ -162,12 +178,14 @@ function installTransitionListeners() {
         completeViewTransition();
     });
 
-    router.on('invalid', () => {
+    // Renamed in Inertia 3: 'invalid' -> 'httpException' (a non-Inertia
+    // response) and 'exception' -> 'networkError' (the request never landed).
+    router.on('httpException', () => {
         finishTransition();
         completeViewTransition();
     });
 
-    router.on('exception', () => {
+    router.on('networkError', () => {
         finishTransition();
         completeViewTransition();
     });

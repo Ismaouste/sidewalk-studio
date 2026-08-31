@@ -200,11 +200,9 @@ showForm.head = (args: { locale: string | number, slug: string | number } | [loc
 
 show.form = showForm
 
-
-
 const caseStudies = {
     index: Object.assign(index, index),
-    show: Object.assign(show, show),
+show: Object.assign(show, show),
 }
 
 export default caseStudies

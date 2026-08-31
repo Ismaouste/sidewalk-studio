@@ -214,12 +214,10 @@ rebuildForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =>
 
 rebuild.form = rebuildForm
 
-
-
 const theme = {
     edit: Object.assign(edit, edit),
-    update: Object.assign(update, update),
-    rebuild: Object.assign(rebuild, rebuild),
+update: Object.assign(update, update),
+rebuild: Object.assign(rebuild, rebuild),
 }
 
 export default theme

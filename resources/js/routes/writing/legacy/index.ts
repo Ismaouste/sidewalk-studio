@@ -92,8 +92,6 @@ showForm.head = (args: { locale: string | number, slug: string | number } | [loc
 
 show.form = showForm
 
-
-
 const legacy = {
     show: Object.assign(show, show),
 }

@@ -154,11 +154,9 @@ updateForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => (
 
 update.form = updateForm
 
-
-
 const loaderQuotes = {
     index: Object.assign(index, index),
-    update: Object.assign(update, update),
+update: Object.assign(update, update),
 }
 
 export default loaderQuotes

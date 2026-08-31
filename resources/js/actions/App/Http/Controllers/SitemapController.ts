@@ -84,6 +84,4 @@ SitemapControllerForm.head = (options?: RouteQueryOptions): RouteFormDefinition<
 
 SitemapController.form = SitemapControllerForm
 
-
-
 export default SitemapController

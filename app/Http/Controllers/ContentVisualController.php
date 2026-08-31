@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\ContentRepository;
-use App\Support\PublicLocale;
 use App\Support\ContentVisual;
+use App\Support\PublicLocale;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

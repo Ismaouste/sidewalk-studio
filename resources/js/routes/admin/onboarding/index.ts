@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::create
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:23
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:22
 * @route '/admin/onboarding'
 */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::create
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:23
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:22
 * @route '/admin/onboarding'
 */
 create.url = (options?: RouteQueryOptions) => {
@@ -29,7 +29,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::create
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:23
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:22
 * @route '/admin/onboarding'
 */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -39,7 +39,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::create
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:23
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:22
 * @route '/admin/onboarding'
 */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -49,7 +49,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::create
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:23
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:22
 * @route '/admin/onboarding'
 */
 const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -59,7 +59,7 @@ const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::create
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:23
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:22
 * @route '/admin/onboarding'
 */
 createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -69,7 +69,7 @@ createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::create
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:23
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:22
 * @route '/admin/onboarding'
 */
 createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -86,7 +86,7 @@ create.form = createForm
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::store
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:34
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:33
 * @route '/admin/onboarding'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -101,7 +101,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::store
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:34
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:33
 * @route '/admin/onboarding'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -114,7 +114,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::store
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:34
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:33
 * @route '/admin/onboarding'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -124,7 +124,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::store
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:34
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:33
 * @route '/admin/onboarding'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -134,7 +134,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\Admin\Auth\AdminOnboardingController::store
-* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:34
+* @see app/Http/Controllers/Admin/Auth/AdminOnboardingController.php:33
 * @route '/admin/onboarding'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -144,11 +144,9 @@ storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => (
 
 store.form = storeForm
 
-
-
 const onboarding = {
     create: Object.assign(create, create),
-    store: Object.assign(store, store),
+store: Object.assign(store, store),
 }
 
 export default onboarding

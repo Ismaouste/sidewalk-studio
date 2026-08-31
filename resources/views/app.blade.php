@@ -20,7 +20,7 @@
             })();
         </script>
 
-        <title inertia>{{ $seo['title'] ?? config('site.name') }}</title>
+        <title data-inertia>{{ $seo['title'] ?? config('site.name') }}</title>
         <meta name="description" content="{{ $seo['description'] ?? config('site.description') }}">
         <meta name="robots" content="{{ $seo['robots'] ?? 'index,follow' }}">
         <link rel="canonical" href="{{ $seo['canonical'] ?? config('site.url') }}">

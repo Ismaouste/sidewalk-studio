@@ -158,7 +158,7 @@ class PublicLocale
                 'navFallbackLabel' => 'Navigation',
                 'navCurrentLabel' => 'Actif',
                 'navOpenLabel' => 'Lire plus',
-                'footerNote' => "Développement web, donnée produit, connecteurs, outils internes et SEO technique pour des équipes qui ont déjà du réel à faire tourner.",
+                'footerNote' => 'Développement web, donnée produit, connecteurs, outils internes et SEO technique pour des équipes qui ont déjà du réel à faire tourner.',
                 'privacyControlsLabel' => 'Réglages vie privée',
             ];
         }

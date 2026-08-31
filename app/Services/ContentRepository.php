@@ -204,7 +204,7 @@ class ContentRepository
         );
 
         if (! $record instanceof Publication) {
-            $record = new Publication();
+            $record = new Publication;
         }
 
         $sourcePath = $this->normalizeSourcePath(

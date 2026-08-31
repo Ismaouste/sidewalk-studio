@@ -201,12 +201,10 @@ showForm.head = (args: { locale: string | number, slug: string | number } | [loc
 
 show.form = showForm
 
-
-
 const writing = {
     legacy: Object.assign(legacy, legacy),
-    index: Object.assign(index, index),
-    show: Object.assign(show, show),
+index: Object.assign(index, index),
+show: Object.assign(show, show),
 }
 
 export default writing

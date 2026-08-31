@@ -69,8 +69,11 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr'))
-            ->assertSee('&quot;url&quot;:&quot;\/fr\/projects&quot;', false)
-            ->assertDontSee('&quot;url&quot;:&quot;\/fr\/projects?path=fr%2Fprojects&quot;', false);
+            // Inertia 3 ships the page object as raw JSON inside
+            // <script type="application/json">, not as an HTML-escaped
+            // data-page attribute, so these assert on unescaped JSON.
+            ->assertSee('"url":"\/fr\/projects"', false)
+            ->assertDontSee('"url":"\/fr\/projects?path=fr%2Fprojects"', false);
     }
 
     public function test_newly_localized_contact_page_renders_french_content(): void

@@ -4,9 +4,9 @@ use App\Models\User;
 use App\Services\AdminAuditLogService;
 use App\Services\SiteSettingsService;
 use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Command\Command;
 
 use function Laravel\Prompts\password;

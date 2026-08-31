@@ -75,8 +75,6 @@ storeForm.post = (args: { locale: string | number } | [locale: string | number ]
 
 store.form = storeForm
 
-
-
 const contact = {
     store: Object.assign(store, store),
 }

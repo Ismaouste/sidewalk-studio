@@ -144,11 +144,9 @@ updateForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 update.form = updateForm
 
-
-
 const branding = {
     edit: Object.assign(edit, edit),
-    update: Object.assign(update, update),
+update: Object.assign(update, update),
 }
 
 export default branding
