@@ -49,6 +49,9 @@ const props = defineProps<{
 const page = usePage<{ site: SiteProps }>();
 
 const copy = computed(() => copyTree[page.props.site.locale].pages.projects);
+const landmarks = computed(
+    () => copyTree[page.props.site.locale].layout.landmarks,
+);
 
 function slugify(input: string): string {
     return input
@@ -196,7 +199,10 @@ const signageItems = computed(() =>
                 </div>
             </Panel>
 
-            <nav class="experience-page__nudge" aria-label="Next step">
+            <nav
+                class="experience-page__nudge"
+                :aria-label="landmarks.nextStep"
+            >
                 <Button href="/journal" variant="ghost" arrow>
                     {{ copy.nudgeJournalCta }}
                 </Button>

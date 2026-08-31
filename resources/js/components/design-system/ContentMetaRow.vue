@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { copy as copyTree } from '@/copy';
+import type { SiteProps } from '@/types';
+
 defineProps<{
     items: Array<{
         label?: string;
@@ -6,10 +11,19 @@ defineProps<{
         tone?: 'default' | 'sun' | 'green' | 'coral' | 'violet';
     }>;
 }>();
+
+/**
+ * The only global this primitive reads, and it reads it for one reason: the
+ * list is an `aria-label`led region, so the label is copy, and copy does not
+ * belong inline in a component. Passing it from all five call sites would put
+ * the same import in five pages to say the same thing.
+ */
+const page = usePage<{ site: SiteProps }>();
+const copy = computed(() => copyTree[page.props.site.locale].layout.landmarks);
 </script>
 
 <template>
-    <ul class="content-meta-row" aria-label="Content metadata">
+    <ul class="content-meta-row" :aria-label="copy.contentMeta">
         <li
             v-for="item in items"
             :key="`${item.label ?? 'meta'}-${item.value}`"

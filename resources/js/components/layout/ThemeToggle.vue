@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { useTheme } from '@/composables/useTheme';
+import { copy as copyTree } from '@/copy';
+import type { SiteProps } from '@/types';
 
 const props = withDefaults(
     defineProps<{
@@ -12,7 +15,14 @@ const props = withDefaults(
 );
 
 const { currentTheme, setTheme } = useTheme();
+const page = usePage<{ site: SiteProps }>();
+const copy = computed(() => copyTree[page.props.site.locale].layout.landmarks);
 
+/**
+ * The two theme names are the design system's own nouns, not copy: `morning`
+ * and `sunset` are what `docs/style/` calls them and what `data-theme` carries.
+ * They stay untranslated on purpose.
+ */
 const options = [
     { label: 'Morning', value: 'morning' },
     { label: 'Sunset', value: 'sunset' },
@@ -48,7 +58,7 @@ function handleKeydown(event: KeyboardEvent): void {
         class="theme-toggle"
         :class="{ 'theme-toggle--compact': props.compact }"
         role="radiogroup"
-        aria-label="Color theme"
+        :aria-label="copy.colorTheme"
         @keydown="handleKeydown"
     >
         <span

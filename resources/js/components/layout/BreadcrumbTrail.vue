@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import type { BreadcrumbItem } from '@/types';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { copy as copyTree } from '@/copy';
+import type { BreadcrumbItem, SiteProps } from '@/types';
 
 defineProps<{
     items: BreadcrumbItem[];
 }>();
+
+const page = usePage<{ site: SiteProps }>();
+const copy = computed(() => copyTree[page.props.site.locale].layout.landmarks);
 </script>
 
 <template>
-    <nav class="breadcrumb-trail" aria-label="Breadcrumb">
+    <nav class="breadcrumb-trail" :aria-label="copy.breadcrumb">
         <ol class="breadcrumb-trail__list">
             <li
                 v-for="(item, index) in items"

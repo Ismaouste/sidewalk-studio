@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
+import { copy as copyTree } from '@/copy';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SiteProps } from '@/types';
 
@@ -11,13 +13,14 @@ defineProps<{
 }>();
 
 const page = usePage<{ site: SiteProps }>();
+const copy = computed(() => copyTree[page.props.site.locale].layout.landmarks);
 </script>
 
 <template>
     <section
         v-if="items.length > 0"
         class="related-items-strip"
-        aria-label="Related items"
+        :aria-label="copy.relatedItems"
     >
         <header class="related-items-strip__header">
             <p class="type-eyebrow">{{ eyebrow }}</p>

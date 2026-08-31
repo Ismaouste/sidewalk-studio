@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import MediaEmbed from '@/components/MediaEmbed.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
-import type { LabItem, SeoPayload } from '@/types';
+import type { LabItem, SeoPayload, SiteProps } from '@/types';
 
 const props = defineProps<{
     seo: SeoPayload;
@@ -18,6 +21,9 @@ const props = defineProps<{
         id: string;
     };
 }>();
+
+const page = usePage<{ site: SiteProps }>();
+const copy = computed(() => copyTree[page.props.site.locale].pages.labs);
 </script>
 
 <template>
@@ -27,29 +33,28 @@ const props = defineProps<{
         <section class="sw-section labs-page">
             <div class="labs-page__hero">
                 <SectionIntro
-                    eyebrow="Labs"
-                    title="Sandbox the risky parts before they reach production code."
-                    description="Focused proving grounds for consent, structured data, and future interface decisions that still need real-world pressure."
+                    :eyebrow="copy.eyebrow"
+                    :title="copy.title"
+                    :description="copy.description"
                 >
                     <template #actions>
-                        <Button href="/case-studies">See shipped slices</Button>
+                        <Button href="/case-studies">
+                            {{ copy.shippedSlicesCta }}
+                        </Button>
                         <Button href="/contact" variant="secondary">
-                            Discuss an audit
+                            {{ copy.auditCta }}
                         </Button>
                     </template>
 
                     <LegendChip
-                        :label="`${props.labs.length} active surfaces`"
+                        :label="copy.activeSurfaces(props.labs.length)"
                         tone="sun"
                     />
-                    <LegendChip
-                        label="Exploratory, not detached"
-                        tone="violet"
-                    />
+                    <LegendChip :label="copy.exploratoryChip" tone="violet" />
                 </SectionIntro>
 
                 <Panel class="labs-page__demo" tone="grid">
-                    <p class="type-eyebrow">Consent demo</p>
+                    <p class="type-eyebrow">{{ copy.demoEyebrow }}</p>
                     <h2 class="type-h2 labs-page__demo-title">
                         {{ props.embedDemo.title }}
                     </h2>
@@ -74,7 +79,9 @@ const props = defineProps<{
                 >
                     <div class="labs-page__card-top">
                         <LegendChip :label="lab.status" tone="sun" />
-                        <span class="type-meta">Lab 0{{ index + 1 }}</span>
+                        <span class="type-meta">
+                            {{ copy.labIndex(index + 1) }}
+                        </span>
                     </div>
 
                     <h3 class="type-h2 labs-page__card-title">

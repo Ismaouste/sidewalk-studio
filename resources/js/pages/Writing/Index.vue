@@ -30,6 +30,9 @@ function writingMeta(item: ContentItem) {
 const copy = computed(
     () => copyTree[page.props.site.locale].pages.writingIndex,
 );
+const landmarks = computed(
+    () => copyTree[page.props.site.locale].layout.landmarks,
+);
 
 function entryLabel(item: ContentItem): string {
     return item.category === 'journal'
@@ -139,7 +142,7 @@ onMounted(() => {
                 </Link>
             </div>
 
-            <nav class="writing-index__nudge" aria-label="Next step">
+            <nav class="writing-index__nudge" :aria-label="landmarks.nextStep">
                 <Button href="/contact" variant="ghost" arrow>
                     {{ copy.nudgeContactCta }}
                 </Button>
