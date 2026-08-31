@@ -7,7 +7,12 @@ export type PublicLocale = 'en' | 'fr';
 
 export type NavItem = {
     label: string;
+    /** Localized, ready to hand to `<Link>`. */
     href: string;
+    /** Locale-stripped route, and the key the navigation copy table uses. */
+    path: string;
+    /** Resolved by `PublicLocale::navigation()`, never recomputed client-side. */
+    active: boolean;
 };
 
 export type BreadcrumbItem = {

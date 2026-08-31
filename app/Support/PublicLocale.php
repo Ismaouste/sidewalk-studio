@@ -112,9 +112,19 @@ class PublicLocale
     }
 
     /**
-     * @return array<int, array{label: string, href: string}>
+     * `$currentPath` is a locale-stripped path, as returned by
+     * `pathForRequest()`. Resolving the active entry here rather than in the
+     * client keeps one implementation of the rule: the routing table already
+     * lives on this side, and a second copy in TypeScript can only drift from
+     * it.
+     *
+     * `path` is the locale-stripped route the entry points at. It is the key
+     * the client copy tables are indexed by, so shipping it removes the last
+     * reason for the client to take a localized href apart.
+     *
+     * @return array<int, array{label: string, href: string, path: string, active: bool}>
      */
-    public static function navigation(string $locale): array
+    public static function navigation(string $locale, ?string $currentPath = null): array
     {
         $labels = $locale === 'fr'
             ? [
@@ -126,12 +136,40 @@ class PublicLocale
             ]
             : [];
 
+        $current = self::normalizeSectionPath($currentPath ?? '/');
+
         return collect(config('site.navigation'))
             ->map(fn (array $item): array => [
                 'label' => $labels[$item['href']] ?? $item['label'],
                 'href' => self::localizedPath($item['href'], $locale),
+                'path' => self::normalizeSectionPath($item['href']),
+                'active' => self::isActiveSection($current, $item['href']),
             ])
             ->all();
+    }
+
+    /**
+     * A section owns its whole subtree, so `/journal` stays lit on
+     * `/journal/<slug>`. Home is the exception: it owns only itself, or the
+     * prefix rule would light it up on every page.
+     */
+    protected static function isActiveSection(string $currentPath, string $sectionHref): bool
+    {
+        $section = self::normalizeSectionPath($sectionHref);
+
+        if ($section === '/') {
+            return $currentPath === '/';
+        }
+
+        return $currentPath === $section
+            || str_starts_with($currentPath, $section.'/');
+    }
+
+    protected static function normalizeSectionPath(string $path): string
+    {
+        $normalized = self::stripLocaleFromPath($path);
+
+        return rtrim($normalized, '/') ?: '/';
     }
 
     /**
