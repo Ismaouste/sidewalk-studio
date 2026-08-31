@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import type { AdminAuditLogEntry } from '@/types';
@@ -54,7 +54,7 @@ function subjectLabel(subject: string): string {
 
 <template>
     <AdminLayout>
-        <Head title="Admin Audit Log" />
+        <AdminHead title="Admin Audit Log" />
 
         <div class="admin-audit-log">
             <header class="admin-audit-log__header">

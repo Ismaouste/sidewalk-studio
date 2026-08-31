@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
@@ -38,7 +39,7 @@ function submitTypeSettings() {
 
 <template>
     <AdminLayout>
-        <Head title="Admin Publications" />
+        <AdminHead title="Admin Publications" />
 
         <div class="admin-collection">
             <header class="admin-collection__header">

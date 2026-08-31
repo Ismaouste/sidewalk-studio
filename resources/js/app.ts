@@ -8,8 +8,6 @@ import { initializeStaticPreviewNavigation } from '@/lib/staticPreview';
 import type { ConsentConfig, SiteProps, ThemeSettings } from '@/types';
 import '../css/app.css';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Sidewalk Studio';
-
 function applyThemeSettings(settings?: ThemeSettings) {
     if (!settings || typeof document === 'undefined') {
         return;
@@ -49,7 +47,6 @@ function scheduleIdleTask(task: () => void) {
 }
 
 createInertiaApp({
-    title: (title) => (title ? `${title} | ${appName}` : appName),
     resolve: (name) =>
         resolvePageComponent(
             `./pages/${name}.vue`,

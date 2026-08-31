@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
@@ -52,7 +53,7 @@ function previewStyle(variant: 'morning' | 'sunset') {
 
 <template>
     <AdminLayout>
-        <Head title="Admin Theme and Publishing" />
+        <AdminHead title="Admin Theme and Publishing" />
 
         <form class="admin-theme" @submit.prevent="submit">
             <header class="admin-theme__header">

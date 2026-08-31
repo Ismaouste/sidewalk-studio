@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Head, router, useForm, usePage } from '@inertiajs/vue3';
+import { router, useForm, usePage } from '@inertiajs/vue3';
 import { computed, ref, watch } from 'vue';
 import SchemaField from '@/components/admin/schema/SchemaField.vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
@@ -256,7 +257,7 @@ function preview(): void {
 
 <template>
     <AdminLayout>
-        <Head :title="`Edit ${page.page_key}`" />
+        <AdminHead :title="`Edit ${page.page_key}`" />
 
         <form class="admin-page-edit" @submit.prevent="submit">
             <header class="admin-page-edit__header">

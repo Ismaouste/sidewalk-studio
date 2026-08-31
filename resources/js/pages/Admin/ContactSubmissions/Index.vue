@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import type { ContactSubmissionEntry } from '@/types';
@@ -24,7 +24,7 @@ const submissions = computed(() =>
 
 <template>
     <AdminLayout>
-        <Head title="Contact submissions" />
+        <AdminHead title="Contact submissions" />
 
         <div class="admin-contact-submissions">
             <header class="admin-contact-submissions__header">

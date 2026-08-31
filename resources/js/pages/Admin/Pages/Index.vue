@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import Panel from '@/components/ui/Panel.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import type { AdminPageEntry, FlashProps } from '@/types';
@@ -12,7 +13,7 @@ const status = computed(() => page.props.flash?.status ?? null);
 
 <template>
     <AdminLayout>
-        <Head title="Admin Pages" />
+        <AdminHead title="Admin Pages" />
 
         <div class="admin-pages">
             <header class="admin-pages__header">

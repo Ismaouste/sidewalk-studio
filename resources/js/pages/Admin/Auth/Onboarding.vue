@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import Button from '@/components/ui/Button.vue';
 
 const form = useForm({
@@ -17,7 +18,7 @@ function submit() {
 </script>
 
 <template>
-    <Head title="Admin Onboarding" />
+    <AdminHead title="Admin Onboarding" />
 
     <div class="admin-login">
         <div class="admin-login__panel">

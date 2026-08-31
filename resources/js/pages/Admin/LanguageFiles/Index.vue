@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head, router, usePage } from '@inertiajs/vue3';
+import { router, usePage } from '@inertiajs/vue3';
 import { computed, reactive, ref } from 'vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import AdminStructuredValueEditor from '@/components/admin/shared/AdminStructuredValueEditor.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
@@ -61,7 +62,7 @@ function save(key: string) {
 
 <template>
     <AdminLayout>
-        <Head title="Admin Language Files" />
+        <AdminHead title="Admin Language Files" />
 
         <div class="admin-language">
             <header class="admin-language__header">

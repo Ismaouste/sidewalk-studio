@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import AdminSettingsSection from '@/components/admin/settings/AdminSettingsSection.vue';
 import AdminSettingsSectionJumpNav from '@/components/admin/settings/AdminSettingsSectionJumpNav.vue';
 import AdminSettingsToggleCard from '@/components/admin/settings/AdminSettingsToggleCard.vue';
 import AdminSettingsValidationSummary from '@/components/admin/settings/AdminSettingsValidationSummary.vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import { useUnsavedChangesWarning } from '@/composables/useUnsavedChangesWarning';
@@ -89,7 +90,7 @@ function errorFor(field: string) {
 
 <template>
     <AdminLayout>
-        <Head title="Admin Settings" />
+        <AdminHead title="Admin Settings" />
 
         <div class="admin-settings">
             <header class="admin-settings__header">

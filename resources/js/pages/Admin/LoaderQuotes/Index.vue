@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import QuoteLinePreview from '@/components/shared/QuoteLinePreview.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
@@ -36,7 +37,7 @@ function submit() {
 
 <template>
     <AdminLayout>
-        <Head title="Admin Loader Quotes" />
+        <AdminHead title="Admin Loader Quotes" />
 
         <form class="admin-quotes" @submit.prevent="submit">
             <header class="admin-quotes__header">

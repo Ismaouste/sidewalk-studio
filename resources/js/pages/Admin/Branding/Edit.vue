@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AdminHead from '@/components/admin/shared/AdminHead.vue';
 import BrandMark from '@/components/branding/BrandMark.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
@@ -37,7 +38,7 @@ function setUpload(event: Event) {
 
 <template>
     <AdminLayout>
-        <Head title="Admin Branding" />
+        <AdminHead title="Admin Branding" />
 
         <form class="admin-branding" @submit.prevent="submit">
             <header class="admin-branding__header">
