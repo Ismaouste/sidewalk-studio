@@ -145,15 +145,17 @@ class AdminPageController extends Controller
 
         if ($differences !== []) {
             /**
-             * `back()->withErrors()` rather than a `ValidationException`,
-             * because the exception handler reflashes the whole request input
-             * with the errors — and the whole request input here is a page.
+             * `back()->withErrors()` rather than a `ValidationException`.
+             * These differences are not field validation — they are a
+             * comparison against the declaration and against the other
+             * locale — so the redirect says so directly rather than dressing
+             * them as input errors.
              *
-             * Sessions are cookie-backed, so a session over 4KB is silently
-             * dropped by the browser. The symptom was the worst possible one:
-             * the save was correctly refused, and the operator was told
-             * nothing at all. Nothing needs the old input anyway; the form
-             * still holds what was typed.
+             * The size of what travels back is handled at the boundary:
+             * `bootstrap/app.php` keeps `payload` out of the flashed input,
+             * because sessions here are cookie-backed and a browser silently
+             * drops a cookie over ~4KB. Nothing needs the old input anyway;
+             * the form still holds what was typed.
              */
             return back()->withErrors(['payload' => $differences]);
         }
