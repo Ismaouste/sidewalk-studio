@@ -1,4 +1,5 @@
 import { readonly, ref } from 'vue';
+import { readStorage, writeStorage } from '@/lib/safeStorage';
 
 type MotionPreference = 'full' | 'reduced';
 type ContrastPreference = 'default' | 'boost';
@@ -11,25 +12,14 @@ const contrastPreference = ref<ContrastPreference>('default');
 
 let initialized = false;
 
-/**
- * Storage access throws rather than returning null in private browsing modes
- * and when a user blocks site data, so every call is guarded. A preference we
- * cannot persist still applies for the current page.
- */
+// A preference we cannot persist still applies for the current page; the
+// guard that makes that true lives in `safeStorage`.
 function readStoredPreference(key: string): string | null {
-    try {
-        return window.localStorage.getItem(key);
-    } catch {
-        return null;
-    }
+    return readStorage('local', key);
 }
 
 function writeStoredPreference(key: string, value: string): void {
-    try {
-        window.localStorage.setItem(key, value);
-    } catch {
-        /* Preference stays in memory for this session only. */
-    }
+    writeStorage('local', key, value);
 }
 
 function applyPreferences(): void {

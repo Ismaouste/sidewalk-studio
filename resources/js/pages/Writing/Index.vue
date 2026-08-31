@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { useLocalMemory } from '@/composables/useLocalMemory';
 import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import { formatPublicDate } from '@/lib/formatDate';
@@ -35,6 +36,24 @@ function entryLabel(item: ContentItem): string {
         ? copy.value.entryLabelJournal
         : copy.value.entryLabelNote;
 }
+
+/**
+ * Which entries are new is a fact about this browser, so it cannot be part of
+ * the server-rendered markup — everyone is served the same HTML. The set stays
+ * empty through the first render and fills in on mount, which is also why
+ * there is no hydration mismatch to reconcile.
+ */
+const newSlugs = ref(new Set<string>());
+
+onMounted(() => {
+    const { isNewSinceLastVisit } = useLocalMemory();
+
+    newSlugs.value = new Set(
+        props.items
+            .filter((item) => isNewSinceLastVisit(item.published_at))
+            .map((item) => item.slug),
+    );
+});
 </script>
 
 <template>
@@ -69,11 +88,18 @@ function entryLabel(item: ContentItem): string {
                     prefetch="hover"
                     cache-for="30s"
                     class="writing-index__link"
+                    :data-new="newSlugs.has(item.slug) ? '' : null"
                 >
                     <Panel class="writing-index__card" tone="surface">
                         <ContentVisual :item="item" compact />
                         <div class="writing-index__body">
                             <div class="writing-index__meta">
+                                <span
+                                    class="type-meta writing-index__new"
+                                    :title="copy.newBadgeDescription"
+                                >
+                                    {{ copy.newBadge }}
+                                </span>
                                 <LegendChip
                                     :label="entryLabel(item)"
                                     :tone="
@@ -168,6 +194,26 @@ function entryLabel(item: ContentItem): string {
     display: inline-flex;
     align-items: baseline;
     color: var(--sw-text-muted);
+}
+
+/* The badge ships on every card and CSS decides which ones show it, so the
+   only thing script does is set an attribute. `display: none` also keeps the
+   hidden ones out of the accessibility tree, which a visually-hidden
+   treatment would not. */
+.writing-index__new {
+    display: none;
+    align-items: center;
+    padding: 0.1rem var(--sw-space-3xs);
+    border: 1px solid
+        color-mix(in srgb, var(--sw-accent-dominant) 34%, transparent);
+    border-radius: var(--sw-radius-sm);
+    background: color-mix(in srgb, var(--sw-accent-dominant) 12%, transparent);
+    color: var(--sw-accent-dominant);
+    cursor: default;
+}
+
+.writing-index__link[data-new] .writing-index__new {
+    display: inline-flex;
 }
 
 .writing-index__meta-item::before {

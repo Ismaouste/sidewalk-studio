@@ -9,6 +9,7 @@ import { usePageTransitions } from '@/composables/usePageTransitions';
 import { useTheme } from '@/composables/useTheme';
 import { loaderQuotes } from '@/data/loaderQuotes';
 import type { AppLoaderQuote } from '@/data/loaderQuotes';
+import { readStorage, writeStorage } from '@/lib/safeStorage';
 import type { SeoPayload, SiteProps } from '@/types';
 
 const page = usePage<{ seo?: SeoPayload; site: SiteProps }>();
@@ -89,7 +90,7 @@ function startLoaderSequence(force = false): void {
     loaderPointerActive.value = false;
 
     if (!force) {
-        window.sessionStorage.setItem(LOADER_SESSION_KEY, '1');
+        writeStorage('session', LOADER_SESSION_KEY, '1');
     }
 
     advanceLoaderSequence();
@@ -144,7 +145,7 @@ onMounted(() => {
     });
     window.addEventListener('pointerleave', loaderPointerLeaveListener);
 
-    const seen = window.sessionStorage.getItem(LOADER_SESSION_KEY) === '1';
+    const seen = readStorage('session', LOADER_SESSION_KEY) === '1';
 
     if (seen) {
         return;

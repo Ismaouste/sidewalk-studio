@@ -10,6 +10,12 @@ export default {
     entryLabelJournal: 'Journal',
     entryLabelNote: 'Note',
     eyebrow: 'Journal',
+    /** On the badge itself, where there is room for one word. */
+    newBadge: 'New',
+    /**
+     * The badge's accessible name, which has to say what "new" is relative to.
+     */
+    newBadgeDescription: 'Published since your last visit',
     nudgeContactCta: 'Talk about a similar context',
     projectsCta: 'Browse references',
     publishedEntriesLabel: (count: number) => `${count} publications`,

@@ -1,3 +1,5 @@
+import { readStorage, removeStorage, writeStorage } from '@/lib/safeStorage';
+
 const NAVIGATION_STORAGE_KEY = 'sidewalk-static-preview:navigation';
 const STALE_NAVIGATION_MS = 8000;
 const PREFETCH_INTENT_DEBOUNCE_MS = 100;
@@ -70,7 +72,7 @@ export function clearStaticPreviewNavigation(): void {
         return;
     }
 
-    window.sessionStorage.removeItem(NAVIGATION_STORAGE_KEY);
+    removeStorage('session', NAVIGATION_STORAGE_KEY);
 }
 
 function announcePendingNavigation(): void {
@@ -125,10 +127,7 @@ function handleDocumentClick(event: MouseEvent): void {
         startedAt: Date.now(),
     };
 
-    window.sessionStorage.setItem(
-        NAVIGATION_STORAGE_KEY,
-        JSON.stringify(payload),
-    );
+    writeStorage('session', NAVIGATION_STORAGE_KEY, JSON.stringify(payload));
 
     window.dispatchEvent(
         new CustomEvent('sidewalk:static-preview-start', {
@@ -286,7 +285,7 @@ function normalizeBasePath(basePath: string | null): string {
 }
 
 function readNavigationPayload(): NavigationPayload | null {
-    const raw = window.sessionStorage.getItem(NAVIGATION_STORAGE_KEY);
+    const raw = readStorage('session', NAVIGATION_STORAGE_KEY);
 
     if (!raw) {
         return null;

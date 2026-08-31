@@ -5,7 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script>
             (() => {
-                const stored = window.localStorage.getItem('sidewalk-theme');
+                // Reading localStorage throws, rather than returning null,
+                // when a visitor blocks site data. This runs before anything
+                // else on the page, so an unguarded read here takes the
+                // document down with it.
+                let stored = null;
+
+                try {
+                    stored = window.localStorage.getItem('sidewalk-theme');
+                } catch (error) {
+                    stored = null;
+                }
+
                 const theme =
                     stored === 'morning' || stored === 'sunset'
                         ? stored

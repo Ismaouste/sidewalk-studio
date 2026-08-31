@@ -13,6 +13,8 @@ export default {
     entryLabelJournal: 'Journal',
     entryLabelNote: 'Note',
     eyebrow: 'Journal',
+    newBadge: 'Nouveau',
+    newBadgeDescription: 'Publié depuis votre dernière visite',
     nudgeContactCta: 'Échangeons sur un contexte proche',
     projectsCta: 'Voir les références',
     publishedEntriesLabel: (count: number) => `${count} publications`,

@@ -1,4 +1,5 @@
 import { readonly, ref } from 'vue';
+import { readStorage, removeStorage, writeStorage } from '@/lib/safeStorage';
 
 export type ThemeMode = 'morning' | 'sunset';
 
@@ -15,7 +16,7 @@ function resolveSystemTheme(): ThemeMode {
 }
 
 function readStoredTheme(): ThemeMode | null {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const stored = readStorage('local', STORAGE_KEY);
 
     return stored === 'morning' || stored === 'sunset' ? stored : null;
 }
@@ -60,12 +61,12 @@ export function useTheme() {
         currentTheme.value = theme;
         hasManualPreference.value = true;
         writeTheme(theme);
-        window.localStorage.setItem(STORAGE_KEY, theme);
+        writeStorage('local', STORAGE_KEY, theme);
     }
 
     function resetTheme(): void {
         hasManualPreference.value = false;
-        window.localStorage.removeItem(STORAGE_KEY);
+        removeStorage('local', STORAGE_KEY);
 
         const theme = resolveSystemTheme();
         currentTheme.value = theme;
