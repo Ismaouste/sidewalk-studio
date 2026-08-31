@@ -171,6 +171,23 @@ class PageContentRepository
     }
 
     /**
+     * How a payload fails its declaration, in the form the admin can show.
+     *
+     * `savePage()` throws on the same violations, and keeps doing so: it is
+     * the last guard for callers that are not an HTTP request, the seeder
+     * among them. But a 500 is a poor way to tell an operator that a field
+     * holds the wrong kind of value, so the controller asks first and turns
+     * the answer into a message beside the form.
+     *
+     * @param  array<string, mixed>  $payload
+     * @return array<int, string>
+     */
+    public function declarationViolations(string $pageKey, array $payload): array
+    {
+        return PageSchemas::for($pageKey)->violations($this->asFrontmatter($payload));
+    }
+
+    /**
      * Blocks a save that would leave the two locales holding different
      * shapes, naming the field that differs.
      *

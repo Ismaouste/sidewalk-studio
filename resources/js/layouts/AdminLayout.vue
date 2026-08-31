@@ -24,7 +24,9 @@ const navigation = [
     {
         label: 'Pages',
         href: '/admin/pages',
-        note: 'SEO and structured payload overrides for public pages',
+        // Not "overrides" any more: since the precedence reversal these edits
+        // are what the public site serves, and the Markdown is the seed.
+        note: 'The content of every public page, checked against its schema',
     },
     {
         label: 'Language files',

@@ -116,7 +116,19 @@ class AdminEditsReachThePublicSiteTest extends TestCase
 
         $this->actingAs($this->operator())
             ->put('/admin/pages/colophon/en', $payload)
-            ->assertSessionHasErrors('payload');
+            ->assertSessionHasErrors('payload')
+            /**
+             * And the refusal has to survive the round trip to be worth
+             * anything. Sessions here are cookie-backed, so anything over 4KB
+             * is silently dropped by the browser — and Laravel's default
+             * handling of a `ValidationException` reflashes the entire request
+             * input alongside the errors. The entire request input is a page.
+             *
+             * The symptom was the worst available: the save was correctly
+             * refused and the operator was told nothing at all. Nothing needs
+             * the old input, because the form still holds what was typed.
+             */
+            ->assertSessionMissing('_old_input');
 
         $this->get('/en/colophon')
             ->assertOk()
@@ -127,8 +139,9 @@ class AdminEditsReachThePublicSiteTest extends TestCase
     }
 
     /**
-     * The declaration is enforced at the save, not only in CI. A payload with
-     * a wrongly typed value never becomes a row.
+     * The declaration is enforced at the save, not only in CI, and it is
+     * enforced as a message rather than as a 500. A payload with a wrongly
+     * typed value never becomes a row, and the operator is told which field.
      */
     public function test_a_save_that_does_not_match_the_declaration_is_refused(): void
     {
@@ -138,6 +151,34 @@ class AdminEditsReachThePublicSiteTest extends TestCase
         $this->actingAs($this->operator())
             ->put('/admin/pages/colophon/en', $payload)
             ->assertSessionHasErrors('payload');
+
+        $errors = session('errors')->get('payload');
+
+        $this->assertContains(
+            '[hero.title] should be a line, got a mapping (not).',
+            $errors,
+        );
+    }
+
+    /**
+     * A violation the parity check cannot see, because both locales would
+     * hold the same wrong shape. This is the case that would have reached
+     * `savePage()` and come back as a 500 before the controller asked the
+     * declaration directly.
+     */
+    public function test_an_undeclared_key_is_refused_with_a_message_rather_than_a_server_error(): void
+    {
+        $payload = $this->editablePayload('colophon', 'en');
+        $payload['payload']['surprise'] = 'a key nothing declares';
+
+        $this->actingAs($this->operator())
+            ->put('/admin/pages/colophon/en', $payload)
+            ->assertSessionHasErrors('payload');
+
+        $this->assertContains(
+            '[surprise] is not declared in the [colophon] schema.',
+            session('errors')->get('payload'),
+        );
     }
 
     /**

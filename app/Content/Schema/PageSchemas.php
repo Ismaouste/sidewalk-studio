@@ -57,6 +57,25 @@ final class PageSchemas
         'data-processing' => ['data-processing'],
     ];
 
+    /**
+     * The fields a page stores in columns rather than in its JSON payload.
+     *
+     * Declared once and read by both sides: the repository splits on it when
+     * reassembling a save for validation, and the editor splits on it when
+     * deciding which half of the form a field belongs to. Two copies of this
+     * list would be two ways for the form to offer a field the save then
+     * misplaces.
+     */
+    public const META_FIELDS = [
+        'seo_title',
+        'seo_description',
+        'title',
+        'description',
+        'robots',
+        'canonical_url',
+        'open_graph_image',
+    ];
+
     public static function for(string $key): ContentSchema
     {
         return match ($key) {
@@ -342,7 +361,8 @@ final class PageSchemas
             Field::text('seo_description', 'SEO description'),
             Field::line('title', 'Title')->optional(),
             Field::text('description', 'Description')->optional(),
-            Field::line('robots', 'Robots')->optional(),
+            Field::line('robots', 'Robots')->optional()
+                ->withHelp('Defaults to index,follow.'),
             Field::url('canonical_url', 'Canonical URL')->optional(),
             Field::url('open_graph_image', 'Social image')->optional(),
         ];

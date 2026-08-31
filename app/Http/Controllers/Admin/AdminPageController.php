@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Content\Schema\PageSchemas;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\AdminAuditLogService;
@@ -9,7 +10,6 @@ use App\Services\PageContentRepository;
 use App\Services\SiteSettingsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -32,6 +32,15 @@ class AdminPageController extends Controller
     {
         return Inertia::render('Admin/Pages/Edit', [
             'page' => $this->pages->adminFind($page, $locale),
+            /**
+             * The editor is generated from the same declaration the save path
+             * validates against, so the form cannot offer a field the server
+             * will reject, and a field cannot be added to the content model
+             * without the form growing an input for it.
+             */
+            'schema' => PageSchemas::for($page)->toArray(),
+            'metaFields' => PageSchemas::META_FIELDS,
+            'hasSeed' => $this->pages->seededPage($page, $locale) !== null,
         ]);
     }
 
@@ -97,12 +106,24 @@ class AdminPageController extends Controller
          * naming the field. This converts the editor's biggest risk into the
          * feature's main guarantee.
          */
-        $differences = $this->pages->localeShapeDifferences($page, $locale, $payload);
+        $differences = [
+            ...$this->pages->declarationViolations($page, $payload),
+            ...$this->pages->localeShapeDifferences($page, $locale, $payload),
+        ];
 
         if ($differences !== []) {
-            throw ValidationException::withMessages([
-                'payload' => $differences,
-            ]);
+            /**
+             * `back()->withErrors()` rather than a `ValidationException`,
+             * because the exception handler reflashes the whole request input
+             * with the errors — and the whole request input here is a page.
+             *
+             * Sessions are cookie-backed, so a session over 4KB is silently
+             * dropped by the browser. The symptom was the worst possible one:
+             * the save was correctly refused, and the operator was told
+             * nothing at all. Nothing needs the old input anyway; the form
+             * still holds what was typed.
+             */
+            return back()->withErrors(['payload' => $differences]);
         }
 
         $saved = $this->pages->savePage($page, $locale, $payload);
