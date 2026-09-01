@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ContentRepository;
+use App\Services\ExperienceEntryRepository;
 use App\Services\PageContentRepository;
 use App\Services\SiteSettingsService;
 use App\Support\CareerAsset;
@@ -20,7 +21,35 @@ class SiteController extends Controller
         protected ContentRepository $content,
         protected PageContentRepository $pages,
         protected SiteSettingsService $siteSettings,
+        protected ExperienceEntryRepository $experienceEntries,
     ) {}
+
+    /**
+     * The three section families, from the rows when there are rows.
+     *
+     * The payload is not a legacy path to be removed later. Production ships
+     * no SQLite and every database entry point here is guarded, so on Vercel
+     * this falls through to exactly what the page has always served. The rows
+     * win where they exist because that is where the dates are, and the dates
+     * are what put the chronology in order without anyone maintaining it.
+     *
+     * @param  array<string, mixed>  $experience
+     * @return array<string, array<int, array<string, mixed>>>
+     */
+    protected function experienceSections(array $experience): array
+    {
+        $locale = app()->getLocale();
+
+        if (! $this->experienceEntries->hasEntries($locale)) {
+            return [
+                'professional' => $experience['professional_sections'],
+                'side_project' => $experience['side_project_sections'],
+                'associative' => $experience['associative_sections'],
+            ];
+        }
+
+        return $this->experienceEntries->sectionsFor($locale);
+    }
 
     public function home(): Response
     {
@@ -127,6 +156,7 @@ class SiteController extends Controller
     {
         $page = $this->pages->get('projects');
         $experience = $this->pages->get('experience');
+        $sections = $this->experienceSections($experience);
         $seo = Seo::page(
             $page['seo_title'],
             $page['seo_description'],
@@ -161,9 +191,9 @@ class SiteController extends Controller
             'stackGroups' => $experience['stack_groups'],
             'careerSnapshot' => $experience['career_snapshot'],
             'lookingFor' => $experience['looking_for'],
-            'professionalSections' => $experience['professional_sections'],
-            'associativeSections' => $experience['associative_sections'],
-            'sideProjectSections' => $experience['side_project_sections'],
+            'professionalSections' => $sections['professional'],
+            'associativeSections' => $sections['associative'],
+            'sideProjectSections' => $sections['side_project'],
             'trajectory' => $experience['trajectory'],
             'strengths' => $experience['strengths'],
             'focusAreas' => $experience['focus_areas'],

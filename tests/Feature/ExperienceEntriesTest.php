@@ -138,6 +138,74 @@ class ExperienceEntriesTest extends TestCase
     }
 
     /**
+     * The point of the whole move: the reader sees the rows.
+     *
+     * Both halves matter. An edit to a row has to reach `/fr/projects`, and
+     * the order has to come from the dates rather than from the order someone
+     * typed the entries in — so the dates are set deliberately against the
+     * seeded position here, and the page is expected to disagree with it.
+     */
+    public function test_the_public_chronology_follows_the_rows_and_their_dates(): void
+    {
+        $professional = ExperienceEntry::query()
+            ->where('locale', 'fr')
+            ->where('kind', 'professional')
+            ->orderBy('position')
+            ->get();
+
+        $this->assertGreaterThanOrEqual(2, $professional->count());
+
+        $last = $professional->last();
+        $first = $professional->first();
+
+        // The entry typed last is given the most recent start date.
+        $last->update([
+            'organisation' => 'Maison la plus récente',
+            'date_label' => null,
+            'started_on' => '2030-01-01',
+            'ended_on' => null,
+        ]);
+        $first->update(['started_on' => '2001-01-01', 'date_label' => null, 'ended_on' => '2002-01-01']);
+
+        $response = $this->get('/fr/projects')->assertOk();
+
+        $sections = $response->viewData('page')['props']['professionalSections'];
+
+        $this->assertSame(
+            'Maison la plus récente',
+            $sections[0]['title'],
+            'The chronology is still following the order the entries were typed in.',
+        );
+        $this->assertSame(
+            $last->role.ExperienceEntryRepository::EYEBROW_SEPARATOR.'Depuis 2030',
+            $sections[0]['eyebrow'],
+            'The eyebrow is not being composed from the row.',
+        );
+        $range = fn (array $section): string => explode(
+            ExperienceEntryRepository::EYEBROW_SEPARATOR,
+            (string) $section['eyebrow'],
+        )[1] ?? '';
+
+        $this->assertSame(
+            '2001–2002',
+            $range($sections[1]),
+            'The older dated entry did not follow the current one.',
+        );
+
+        /**
+         * The third entry still has no start date, so it closes the list
+         * behind both dated ones and keeps showing the label it was seeded
+         * with. That ordering is the rule, not an accident of this fixture:
+         * an undated row means "before everything dated here".
+         */
+        $this->assertSame(
+            '2024-2026',
+            $range(end($sections)),
+            'An undated entry did not close the chronology.',
+        );
+    }
+
+    /**
      * What a row says about its own dates once nobody is telling it.
      *
      * The label is the escape hatch for imprecise history and it wins while it
