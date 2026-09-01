@@ -27,6 +27,11 @@ const navigation = [
         note: 'Every position held, in the order its dates put it',
     },
     {
+        label: 'Questionnaire',
+        href: '/admin/questionnaire',
+        note: 'What the site asks you, and where the answers surface',
+    },
+    {
         label: 'Pages',
         href: '/admin/pages',
         // Not "overrides" any more: since the precedence reversal these edits

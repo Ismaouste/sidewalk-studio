@@ -8,7 +8,15 @@ defineProps<{
     pills?: string[];
     items?: string[];
     railLabel?: string;
-    marginalia?: { author: string; quote: string };
+    /**
+     * A marginal note beside the spread.
+     *
+     * `prompt` is the question that produced the quote, and it is what turns
+     * a pull quote into a Q&A: the caption reads as the thing that was asked
+     * rather than as an attribution, so it takes no em dash. `author` is the
+     * older shape and still renders with one.
+     */
+    marginalia?: { quote: string; author?: string; prompt?: string };
 }>();
 </script>
 
@@ -59,7 +67,12 @@ defineProps<{
                         {{ marginalia.quote }}
                     </blockquote>
                     <figcaption class="editorial-spread__author">
-                        — {{ marginalia.author }}
+                        <template v-if="marginalia.prompt">{{
+                            marginalia.prompt
+                        }}</template>
+                        <template v-else-if="marginalia.author"
+                            >— {{ marginalia.author }}</template
+                        >
                     </figcaption>
                 </figure>
             </aside>

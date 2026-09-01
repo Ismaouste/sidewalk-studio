@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminLanguageFileController;
 use App\Http\Controllers\Admin\AdminLoaderQuoteController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminPublicationController;
+use App\Http\Controllers\Admin\AdminQuestionnaireController;
 use App\Http\Controllers\Admin\AdminThemeController;
 use App\Http\Controllers\Admin\Auth\AdminOnboardingController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
@@ -180,6 +181,8 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::get('/experience/{entry}', [AdminExperienceEntryController::class, 'edit'])->name('experience.edit');
         Route::put('/experience/{entry}', [AdminExperienceEntryController::class, 'update'])->name('experience.update');
         Route::delete('/experience/{entry}', [AdminExperienceEntryController::class, 'destroy'])->name('experience.destroy');
+        Route::get('/questionnaire', [AdminQuestionnaireController::class, 'index'])->name('questionnaire.index');
+        Route::put('/questionnaire', [AdminQuestionnaireController::class, 'update'])->name('questionnaire.update');
         Route::get('/publications', [AdminPublicationController::class, 'index'])->name('publications.index');
         Route::get('/publications/create/{type}', [AdminPublicationController::class, 'create'])->name('publications.create');
         Route::post('/publications', [AdminPublicationController::class, 'store'])->name('publications.store');

@@ -22,7 +22,7 @@ type ExperienceSection = {
         items: string[];
         pills?: string[];
     }>;
-    marginalia?: { author: string; quote: string };
+    marginalia?: { quote: string; author?: string; prompt?: string };
 };
 
 const props = defineProps<{

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Content\Questionnaire\PoeticQuestions;
 use App\Services\ContentRepository;
 use App\Services\ExperienceEntryRepository;
 use App\Services\PageContentRepository;
+use App\Services\QuestionnaireRepository;
 use App\Services\SiteSettingsService;
 use App\Support\CareerAsset;
 use App\Support\PublicCopy;
@@ -22,6 +24,7 @@ class SiteController extends Controller
         protected PageContentRepository $pages,
         protected SiteSettingsService $siteSettings,
         protected ExperienceEntryRepository $experienceEntries,
+        protected QuestionnaireRepository $questionnaire,
     ) {}
 
     /**
@@ -40,15 +43,61 @@ class SiteController extends Controller
     {
         $locale = app()->getLocale();
 
-        if (! $this->experienceEntries->hasEntries($locale)) {
-            return [
+        $sections = $this->experienceEntries->hasEntries($locale)
+            ? $this->experienceEntries->sectionsFor($locale)
+            : [
                 'professional' => $experience['professional_sections'],
                 'side_project' => $experience['side_project_sections'],
                 'associative' => $experience['associative_sections'],
             ];
+
+        return $this->withMarginalia($sections, $locale);
+    }
+
+    /**
+     * The answered questions, laid beside the spreads.
+     *
+     * `EditorialSpread` has carried a marginalia slot since it was written —
+     * an italic display quote over a micro-typographic caption — and nothing
+     * has ever filled it. The declared schema would in fact refuse a
+     * `marginalia` key in the page payload, because it is not declared there.
+     * So the slot has been waiting for a source that is not the content: the
+     * questionnaire is that source.
+     *
+     * The pairing is positional and the declaration owns the order, so the
+     * first question lands beside the most recent position. Unanswered
+     * questions are skipped rather than left as holes, and a spread with no
+     * note renders exactly as it does today.
+     *
+     * @param  array<string, array<int, array<string, mixed>>>  $sections
+     * @return array<string, array<int, array<string, mixed>>>
+     */
+    protected function withMarginalia(array $sections, string $locale): array
+    {
+        $notes = $this->questionnaire->marginaliaFor(
+            PoeticQuestions::SURFACE_EXPERIENCE,
+            $locale,
+        );
+
+        if ($notes === []) {
+            return $sections;
         }
 
-        return $this->experienceEntries->sectionsFor($locale);
+        foreach (array_values($sections['professional'] ?? []) as $index => $section) {
+            if (! isset($notes[$index])) {
+                break;
+            }
+
+            $sections['professional'][$index] = [
+                ...$section,
+                'marginalia' => [
+                    'quote' => $notes[$index]['quote'],
+                    'prompt' => $notes[$index]['prompt'],
+                ],
+            ];
+        }
+
+        return $sections;
     }
 
     public function home(): Response

@@ -115,6 +115,31 @@ return [
         'present' => 'present',
     ],
 
+    /**
+     * The questions the site asks its owner, and the nudge shown beside each
+     * one in the admin. A reader sees the prompt: it becomes the caption
+     * under the answer, which is what makes a marginal note read as a Q&A
+     * rather than as a pull quote from nowhere.
+     */
+    'questionnaire' => [
+        'first_repair' => [
+            'prompt' => 'What do you repair first, in a system you inherit?',
+            'hint' => 'Short. It sits in a caption beside a spread, not in a paragraph.',
+        ],
+        'changed_mind' => [
+            'prompt' => 'What changed your mind this year?',
+            'hint' => 'One belief, and what moved it. Naming the thing you were wrong about is the point.',
+        ],
+        'owed_to_the_reader' => [
+            'prompt' => 'What does a document owe the person reading it?',
+            'hint' => 'One obligation, stated plainly.',
+        ],
+        'what_a_system_says' => [
+            'prompt' => 'What should a system be able to say once you have left it?',
+            'hint' => 'The sentence you would want the next maintainer to be able to write.',
+        ],
+    ],
+
     'widgets' => [
         'home_journal' => [
             'eyebrow' => 'Journal',

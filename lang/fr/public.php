@@ -66,6 +66,25 @@ return [
         'present' => 'aujourd’hui',
     ],
 
+    'questionnaire' => [
+        'first_repair' => [
+            'prompt' => 'Que répare-t-on en premier, dans un système dont on hérite ?',
+            'hint' => 'Court. La réponse tient dans une légende à côté d’une double page, pas dans un paragraphe.',
+        ],
+        'changed_mind' => [
+            'prompt' => 'Qu’est-ce qui vous a fait changer d’avis cette année ?',
+            'hint' => 'Une conviction, et ce qui l’a déplacée. Nommer ce sur quoi on avait tort est l’intérêt.',
+        ],
+        'owed_to_the_reader' => [
+            'prompt' => 'Que doit un document à celui qui le lit ?',
+            'hint' => 'Une obligation, dite simplement.',
+        ],
+        'what_a_system_says' => [
+            'prompt' => 'Que devrait pouvoir dire un système une fois que vous l’avez quitté ?',
+            'hint' => 'La phrase que vous voudriez voir écrite par la personne qui reprend.',
+        ],
+    ],
+
     'widgets' => [
         'home_journal' => [
             'eyebrow' => 'Journal',
