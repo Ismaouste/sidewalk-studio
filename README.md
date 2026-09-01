@@ -1,52 +1,42 @@
 # Sidewalk Studio
 
-Sidewalk Studio is a local-first Laravel portfolio site and a reusable reference for editorial publishing, consent-aware front-end work, SEO, and release-oriented documentation.
+The open-source site of a working freelance practice: web and e-commerce
+engineering with published prices, part-time technical direction, and a
+consent-first approach to marketing — built as a living reference you can
+read, run, and fork.
 
-This repository now serves two purposes at once:
+The live site is the portfolio of [Ismaël Rodmacq](https://github.com/Ismaouste)
+(tech lead / e-commerce engineer, Nancy, France). This repository is the case
+study behind it: every feature the site sells is demonstrated by the site
+itself.
 
-- a public portfolio surface for Ismael Rodmacq
-- a reusable Laravel/Inertia/Vue reference for content, metadata, consent, static preview export, and Vercel runtime preview
+## What this project demonstrates
 
-## What ships in the current release
-
-- Laravel 13 + Inertia.js 3 + Vue 3 + TypeScript application shell
-- reusable public design system with token-driven `Morning` and `Sunset` themes
-- public pages for `Hello`, `Experience`, `Journal`, `Contact`, `Projects`, `Case Studies`, `Local`, and `Labs`
-- Markdown-driven public content in French and English for pages, notes, journal entries, and case studies
-- contact form persistence with a lightweight admin inbox
-- consent-aware embeds and privacy controls for analytics/media categories
-- server-rendered metadata, canonical tags, JSON-LD, `robots.txt`, and `sitemap.xml`
-- static preview export for GitHub Pages
-- static preview shell with client-side prefetch, installable manifest, and partial offline support
-- Vercel preview runtime support for the real Laravel app through a local CLI deployment flow
-
-## Product direction
-
-The portfolio is intentionally opinionated:
-
-- local-first development with SQLite and Laravel's built-in server
-- public content shaped around real work: ecommerce delivery, product data, CMS work, tracking, consent, connectors, structured data, and editorial systems
-- SSR-compatible structure without making SSR runtime mandatory for day-to-day development
-- repo-local specs, plans, and release notes kept alongside the codebase
+- **A declared content schema** — pages are typed declarations
+  (`app/Content/Schema/`), stored as FR/EN Markdown in strict shape parity,
+  editable from a generated back office, with the database and the files as
+  interchangeable sources.
+- **Consent-first marketing machinery** — a consent orchestration layer
+  (`config/consent.php`, `docs/rgpd/`) that ships with zero analytics
+  installed and gates everything else behind explicit categories.
+- **Platform primitives over components** — Popover API, `<details>`,
+  `@starting-style`, scroll-driven animations, View Transitions, Speculation
+  Rules, `@layer`, `content-visibility`; smart CSS over lifecycle hooks.
+- **A hand-authored design system** — no CSS framework; two themes
+  (`morning`, architectural daylight; `sunset`, violet glass) retunable from
+  a six-hex accent block in `resources/css/tokens.css`.
+- **Bilingual publishing with guarantees** — FR/EN parity enforced by tests
+  at the copy, lang-file, and content-frontmatter layers.
+- **SEO as engineering** — hand-rolled sitemap, canonical strategy, JSON-LD
+  variants, per-article generated SVG visuals, Core Web Vitals budget.
 
 ## Stack
 
-- Laravel 13
-- PHP 8.3+ — CI runs a 8.4 / 8.5 matrix; Vercel serves 8.5 via `vercel-php@0.9.0`
-- Inertia.js 3
-- Vue 3
-- TypeScript 5.9
-- Vite 8 (Rolldown)
-- SQLite by default
-- No CSS framework: styling is hand-authored against `--sw-*` tokens
-- token-based CSS design system
-- package-hosted fonts via `@fontsource`
-- CookieConsent + IframeManager for consent-aware embeds
-- `web-vitals` for front-end metrics instrumentation
+Laravel 13 · Inertia 3 · Vue 3 · TypeScript 5.9 · Vite 8 (Rolldown) ·
+SQLite locally, no database required in production · Vercel runtime +
+GitHub Pages static export.
 
-## Local development
-
-Use PowerShell on Windows.
+## Quickstart
 
 ```powershell
 Copy-Item .env.example .env
@@ -60,98 +50,47 @@ php artisan serve --host=127.0.0.1 --port=8088
 npm run dev
 ```
 
-For a production-like local check:
-
-```powershell
-npm run build
-Remove-Item public\hot -ErrorAction SilentlyContinue
-php artisan serve --host=127.0.0.1 --port=8088
-```
-
 ## Validation baseline
 
-These commands are the current baseline and were used for the `0.2.0` release:
-
 ```powershell
+npm run check          # lint + format + types
 php artisan test
-npm run types:check
 npm run build
 php artisan route:list
-php artisan site:export-static-preview --locales=fr,en --output=dist/static-preview --base=/sidewalk-studio/
 ```
 
-GitHub Actions now mirrors the application-focused checks on pull requests to `main`, on pushes to `main`, and on manual dispatch:
+CI mirrors these on every push and pull request (`.github/workflows/ci.yml`).
 
-- workflow: `.github/workflows/ci.yml`
-- checks: `php artisan test`, `npm run types:check`, `npm run build`, `php artisan route:list`
+## Forking it
 
-## Static preview
+The machine is yours under the MIT license; the words are not. Identity
+lives in exactly two places — `lang/{locale}/site.php` and
+`database/seeders/data/site-settings.json` — and `SiteIsAgnosticTest` fails
+if a name leaks anywhere else. Replace those two files and
+`resources/content/`, and the site is yours. See [LICENSE](LICENSE) for the
+scope note and [CONTRIBUTING.md](CONTRIBUTING.md) for what is open.
 
-The repository includes a GitHub Pages preview workflow that exports the public front-end as static HTML with a small app-like shell.
+## Previews
 
-- workflow: `.github/workflows/github-pages-preview.yml`
-- exported base path: `/sidewalk-studio/`
-- live preview: [https://ismaouste.github.io/sidewalk-studio/](https://ismaouste.github.io/sidewalk-studio/)
-
-The static preview keeps the visual shell, theme switcher, loader, and front-end interactions, while leaving Laravel runtime features such as real form handling and admin behavior out of the public preview.
-
-It now also includes:
-
-- route prefetching for internal links in static preview mode
-- a generated `manifest.webmanifest`
-- a generated `sw.js` service worker for aggressive asset caching and partial offline navigation
-- a portable handoff for another machine: `docs/ai/public-static-handoff.md`
-
-For a more faithful Laravel runtime preview, use the Vercel flow below.
-
-## Vercel preview runtime
-
-The repo now includes a tracked Vercel preview runtime for the Laravel application itself.
-
-```powershell
-npm run build
-npx vercel deploy
-```
-
-Notes:
-
-- the supported path is a local CLI preview from a prepared workspace, not a Git-driven production pipeline
-- `public/build` must exist before deployment so the browser assets are available in preview
-- if the preview needs the current SQLite-backed admin or form state, keep `database/database.sqlite` present locally before deploy
-- runtime details and constraints live in `docs/architecture/vercel-preview-runtime.md`
-
-## Portable public data
-
-The public version of the site can now be reconstructed from committed files without relying on a local database.
-
-- localized public identity and contact defaults: `lang/en/site.php`, `lang/fr/site.php`
-- public content: `resources/content/`
-- fallback site settings snapshot: `database/seeders/data/site-settings.json`
-- environment template for file-backed mode: `.env.example`
-
-For the lightweight public setup, keep:
-
-- `SITE_SETTINGS_SOURCE=files`
-
-Admin is now a first-class product surface and uses first-run onboarding under `/admin` when no operator exists yet. Public-only static preview remains a separate concern.
+- **Static preview** (GitHub Pages, public shell only):
+  [ismaouste.github.io/sidewalk-studio](https://ismaouste.github.io/sidewalk-studio/)
+  — exported by `php artisan site:export-static-preview`, with prefetch,
+  manifest, and partial offline support.
+- **Vercel runtime preview** — the real Laravel app via `npx vercel deploy`
+  from a prepared workspace; see
+  `docs/architecture/vercel-preview-runtime.md`.
 
 ## Repository map
 
-- `.specify/` stores the repo-local GitHub Spec Kit constitution, templates, and reserved helper-script location
-- `specs/` stores feature-level `spec.md`, `plan.md`, and `tasks.md`
-- `docs/` stores architecture, consent, SEO, style, AI workflow, career, and release references
-- `resources/content/` stores versioned Markdown for pages, writing, and case studies
-- `tools/codex/skills/` stores repo-local skills that can be synced into `$CODEX_HOME/skills`
+- `.specify/` + `specs/` — GitHub Spec Kit constitution and feature specs
+- `docs/` — architecture, style, RGPD, SEO, AI-workflow, and release notes
+- `docs/superpowers/` — design docs and implementation plans, committed as
+  they are used
+- `resources/content/` — versioned FR/EN Markdown (all rights reserved)
+- `app/Content/Schema/` — the declared content model
 
-## Release references
+## License
 
-- roadmap: `Roadmap.md`
-- changelog: `CHANGELOG.md`
-- detailed `0.2.0` release note: `docs/ai/release-0.2.0-public-surface.md`
-
-## Near-term follow-up
-
-- locale-path migration from `?lang=` to `/fr/...` and `/en/...`
-- richer case studies and public notes based on the new editorial backlog
-- footer accessibility controls for motion reduction, theme-transition reduction, and alternate contrast/color modes
-- additional front-end performance audits and bundle hygiene
+Code under [MIT](LICENSE). Content (`resources/content/`, `docs/career/`),
+name, and brand assets: all rights reserved — the scope note in the LICENSE
+file draws the exact line.

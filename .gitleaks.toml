@@ -1,0 +1,16 @@
+# Gitleaks configuration for this repository.
+#
+# The full-history scan before the repo went public (2026-09-01) found three
+# JWT matches, all in one accidentally committed Vercel error-page dump
+# (`.codex-tmp/…/error-page.html`, commit 9067e91e). They are Vercel
+# serverless error tokens with a 15-minute lifetime, expired since
+# 2026-03-18 — dead on arrival, not credentials. History was left intact
+# rather than rewritten for inert tokens; this allowlist records that
+# decision so future scans stay green and anything NEW still fails.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Expired 15-minute Vercel error-page JWTs in a deleted temp dump"
+paths = ['''\.codex-tmp/.*error-page\.html''']

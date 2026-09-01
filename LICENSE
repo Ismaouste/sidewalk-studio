@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Ismael Rodmacq
+Copyright (c) 2026 Ismaël Rodmacq
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,21 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Scope note — what the MIT grant above covers, and what it does not.
+
+The MIT license applies to the CODE in this repository: the application,
+the design-system machinery, the build and deployment tooling, and the tests.
+
+It does NOT apply to the following, which remain all rights reserved:
+
+- `resources/content/` — the written content (pages, journal entries, case
+  studies) in both languages;
+- `docs/career/` — CV and career material;
+- the site owner's name, likeness, brand assets, and photographs.
+
+A fork replaces those directories with its own content and identity — the
+code is built for exactly that (see `lang/{locale}/site.php` and
+`SiteIsAgnosticTest`).
