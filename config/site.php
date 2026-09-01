@@ -68,34 +68,29 @@ return [
         ['label' => 'Journal', 'href' => '/journal'],
         ['label' => 'Contact ✍🏽', 'href' => '/contact'],
     ],
+    // The labs registry: structure and proper nouns only. Titles, summaries
+    // and status labels live in lang/{locale}/public.php under `labs`, keyed
+    // by these slugs, so the page renders in the resolved locale.
     'labs' => [
         [
             'slug' => 'cwv-audit',
-            'title' => 'Core Web Vitals Audit',
-            'status' => 'Active',
-            'summary' => 'Enter a URL, get a branded CWV + SEO mini-report by email. One PageSpeed Insights call in, one useful document out.',
+            'status' => 'active',
             'stack' => ['Laravel', 'PageSpeed Insights', 'CrUX', 'Markdown mail'],
             'href' => '/labs/audit',
         ],
         [
             'slug' => 'consent-sandbox',
-            'title' => 'Consent Sandbox',
-            'status' => 'Active',
-            'summary' => 'A live area to validate cookie categories, iframe gating, and script orchestration before shipping analytics integrations.',
+            'status' => 'active',
             'stack' => ['Laravel', 'Inertia', 'CookieConsent', 'IframeManager'],
         ],
         [
             'slug' => 'structured-data-playground',
-            'title' => 'Structured Data Playground',
-            'status' => 'Active',
-            'summary' => 'An internal test surface for JSON-LD payloads, canonical decisions, and sitemap assumptions.',
+            'status' => 'active',
             'stack' => ['Laravel', 'Schema.org', 'XML'],
         ],
         [
             'slug' => 'theme-experiments',
-            'title' => 'Theme Experiments',
-            'status' => 'Planned',
-            'summary' => 'Reserved for the later theme-and-motion spec, once the content model and SEO shell are stable.',
+            'status' => 'planned',
             'stack' => ['Vue', 'Tailwind v4'],
         ],
     ],

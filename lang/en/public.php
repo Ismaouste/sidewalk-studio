@@ -100,6 +100,41 @@ return [
     ],
 
     /**
+     * The labs surfaces. `config('site.labs')` owns the registry — slugs,
+     * status keys, stack chips, links — and this owns every sentence a
+     * visitor reads, so the page can follow the resolved locale. Stack chips
+     * are proper nouns and stay in the config on purpose.
+     */
+    'labs' => [
+        'demo' => [
+            'title' => 'Consent-gated YouTube demo',
+            'description' => 'This embed stays blocked until the media category is accepted. It proves the iframe orchestration path without loading analytics by default.',
+        ],
+        'status' => [
+            'active' => 'Active',
+            'planned' => 'Planned',
+        ],
+        'items' => [
+            'cwv-audit' => [
+                'title' => 'Core Web Vitals Audit',
+                'summary' => 'Enter a URL, get a branded CWV + SEO mini-report by email. One PageSpeed Insights call in, one useful document out.',
+            ],
+            'consent-sandbox' => [
+                'title' => 'Consent Sandbox',
+                'summary' => 'A live area to validate cookie categories, iframe gating, and script orchestration before shipping analytics integrations.',
+            ],
+            'structured-data-playground' => [
+                'title' => 'Structured Data Playground',
+                'summary' => 'An internal test surface for JSON-LD payloads, canonical decisions, and sitemap assumptions.',
+            ],
+            'theme-experiments' => [
+                'title' => 'Theme Experiments',
+                'summary' => 'Reserved for the later theme-and-motion spec, once the content model and SEO shell are stable.',
+            ],
+        ],
+    ],
+
+    /**
      * The mailto: the contact form opens. The visitor reads it in their own
      * mail client before sending it, so it is copy like any other — and it
      * was the last pair of locale-branched strings left in a controller.

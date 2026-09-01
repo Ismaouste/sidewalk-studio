@@ -70,6 +70,35 @@ return [
         ],
     ],
 
+    'labs' => [
+        'demo' => [
+            'title' => 'Démo YouTube conditionnée au consentement',
+            'description' => "Cette intégration reste bloquée tant que la catégorie média n'est pas acceptée. Elle prouve le chemin d'orchestration des iframes sans charger d'analytics par défaut.",
+        ],
+        'status' => [
+            'active' => 'Actif',
+            'planned' => 'Prévu',
+        ],
+        'items' => [
+            'cwv-audit' => [
+                'title' => 'Audit Core Web Vitals',
+                'summary' => 'Entrez une URL, recevez un mini-rapport CWV + SEO par email. Un appel PageSpeed Insights en entrée, un document utile en sortie.',
+            ],
+            'consent-sandbox' => [
+                'title' => 'Bac à sable du consentement',
+                'summary' => "Une zone vivante pour valider les catégories de cookies, le blocage des iframes et l'orchestration des scripts avant de livrer des intégrations analytics.",
+            ],
+            'structured-data-playground' => [
+                'title' => 'Terrain de jeu des données structurées',
+                'summary' => 'Une surface de test interne pour les payloads JSON-LD, les décisions de canonique et les hypothèses de sitemap.',
+            ],
+            'theme-experiments' => [
+                'title' => 'Expérimentations de thème',
+                'summary' => 'Réservé à la future spec thème et animation, une fois le modèle de contenu et le socle SEO stabilisés.',
+            ],
+        ],
+    ],
+
     'audit_mail' => [
         'subject' => 'Votre mini-rapport Core Web Vitals & SEO',
         'heading' => 'Mini-rapport Core Web Vitals & SEO',

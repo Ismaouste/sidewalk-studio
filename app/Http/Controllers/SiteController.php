@@ -320,12 +320,22 @@ class SiteController extends Controller
             ],
         );
 
+        $labs = collect(config('site.labs'))
+            ->map(fn (array $lab): array => [
+                ...$lab,
+                'title' => PublicCopy::line("labs.items.{$lab['slug']}.title"),
+                'summary' => PublicCopy::line("labs.items.{$lab['slug']}.summary"),
+                'status' => PublicCopy::line("labs.status.{$lab['status']}"),
+            ])
+            ->values()
+            ->all();
+
         return Inertia::render('Labs', [
             'seo' => $seo,
-            'labs' => config('site.labs'),
+            'labs' => $labs,
             'embedDemo' => [
-                'title' => 'Consent-gated YouTube demo',
-                'description' => 'This embed stays blocked until the media category is accepted. It proves the iframe orchestration path without loading analytics by default.',
+                'title' => PublicCopy::line('labs.demo.title'),
+                'description' => PublicCopy::line('labs.demo.description'),
                 'service' => 'youtube',
                 'id' => 'dQw4w9WgXcQ',
             ],

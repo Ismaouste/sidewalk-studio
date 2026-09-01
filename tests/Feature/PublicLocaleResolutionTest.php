@@ -94,15 +94,18 @@ class PublicLocaleResolutionTest extends TestCase
                 ->where('site.languageSwitcher.visible', true));
     }
 
-    public function test_pages_without_french_source_stay_on_english_even_with_french_preference(): void
+    public function test_labs_page_renders_french_from_language_files(): void
     {
         $this->withCookie(ResolvePublicLocale::COOKIE_NAME, 'fr')
             ->get('/fr/labs')
             ->assertOk()
-            ->assertHeader('content-language', 'en')
+            ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('site.locale', 'en')
-                ->where('site.languageSwitcher.visible', false));
+                ->where('site.locale', 'fr')
+                ->where('labs.0.title', 'Audit Core Web Vitals')
+                ->where('labs.0.status', 'Actif')
+                ->where('embedDemo.title', 'Démo YouTube conditionnée au consentement')
+                ->where('site.languageSwitcher.visible', true));
     }
 
     public function test_writing_index_renders_french_entries_when_french_locale_is_resolved(): void
