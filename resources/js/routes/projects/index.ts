@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\SiteController::legacy
-* @see app/Http/Controllers/SiteController.php:144
+* @see app/Http/Controllers/SiteController.php:153
 * @route '/{locale}/projects'
 */
 export const legacy = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ legacy.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::legacy
-* @see app/Http/Controllers/SiteController.php:144
+* @see app/Http/Controllers/SiteController.php:153
 * @route '/{locale}/projects'
 */
 legacy.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -45,7 +45,7 @@ legacy.url = (args: { locale: string | number } | [locale: string | number ] | s
 
 /**
 * @see \App\Http\Controllers\SiteController::legacy
-* @see app/Http/Controllers/SiteController.php:144
+* @see app/Http/Controllers/SiteController.php:153
 * @route '/{locale}/projects'
 */
 legacy.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -55,7 +55,7 @@ legacy.get = (args: { locale: string | number } | [locale: string | number ] | s
 
 /**
 * @see \App\Http\Controllers\SiteController::legacy
-* @see app/Http/Controllers/SiteController.php:144
+* @see app/Http/Controllers/SiteController.php:153
 * @route '/{locale}/projects'
 */
 legacy.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -65,7 +65,7 @@ legacy.head = (args: { locale: string | number } | [locale: string | number ] | 
 
 /**
 * @see \App\Http\Controllers\SiteController::legacy
-* @see app/Http/Controllers/SiteController.php:144
+* @see app/Http/Controllers/SiteController.php:153
 * @route '/{locale}/projects'
 */
 const legacyForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -75,7 +75,7 @@ const legacyForm = (args: { locale: string | number } | [locale: string | number
 
 /**
 * @see \App\Http\Controllers\SiteController::legacy
-* @see app/Http/Controllers/SiteController.php:144
+* @see app/Http/Controllers/SiteController.php:153
 * @route '/{locale}/projects'
 */
 legacyForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -85,7 +85,7 @@ legacyForm.get = (args: { locale: string | number } | [locale: string | number ]
 
 /**
 * @see \App\Http\Controllers\SiteController::legacy
-* @see app/Http/Controllers/SiteController.php:144
+* @see app/Http/Controllers/SiteController.php:153
 * @route '/{locale}/projects'
 */
 legacyForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

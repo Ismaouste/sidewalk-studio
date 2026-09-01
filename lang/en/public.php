@@ -58,6 +58,7 @@ return [
         'labs' => 'Labs',
         'local' => 'Local',
         'projects' => 'Experience',
+        'services' => 'Services',
         'sparkle' => 'Sparkle',
     ],
 

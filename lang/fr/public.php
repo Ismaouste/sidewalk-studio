@@ -36,6 +36,7 @@ return [
          * the reader had to work out they were the same place.
          */
         'projects' => 'Expériences',
+        'services' => 'Services',
         'sparkle' => 'Sparkle',
     ],
 

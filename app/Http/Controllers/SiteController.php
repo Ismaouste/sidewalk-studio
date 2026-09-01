@@ -332,6 +332,33 @@ class SiteController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
+    public function services(): Response
+    {
+        $page = $this->pages->get('services');
+        $seo = Seo::page(
+            $page['seo_title'],
+            $page['seo_description'],
+            '/services',
+            $this->pageSeoOptions($page, [
+                'breadcrumb' => [
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
+                    ['name' => PublicCopy::line('breadcrumbs.services'), 'path' => '/services'],
+                ],
+            ]),
+        );
+
+        return Inertia::render('Services', [
+            'seo' => $seo,
+            'hero' => $page['hero'],
+            'offers' => $page['offers'],
+            'modifiers' => $page['modifiers'],
+            'engagement' => $page['engagement'],
+            'legalNote' => $page['legal_note'],
+            'contactCta' => $page['contact_cta'],
+            'cvDownloads' => $this->cvDownloads(),
+        ])->withViewData(['seo' => $seo]);
+    }
+
     public function contact(): Response
     {
         $settings = $this->siteSettings->current();

@@ -16,6 +16,7 @@ class PublicPagesTest extends TestCase
             '/en/local' => 'Local · Ismael Rodmacq',
             '/en/experience' => 'Tech Lead Ecommerce in Nancy · Ismael Rodmacq',
             '/en/labs' => 'Labs · Ismael Rodmacq',
+            '/en/services' => 'Services · Ismael Rodmacq',
             '/en/journal' => 'Journal · Ismael Rodmacq',
             '/en/case-studies' => 'Case Studies · Ismael Rodmacq',
             '/en/contact' => 'Contact · Ismael Rodmacq',
@@ -44,6 +45,7 @@ class PublicPagesTest extends TestCase
             '/local',
             '/experience',
             '/labs',
+            '/services',
             '/contact',
             '/data-processing',
             '/colophon',
@@ -105,6 +107,8 @@ class PublicPagesTest extends TestCase
             ->assertSee(url('/fr/local'), false)
             ->assertSee(url('/en/contact'), false)
             ->assertSee(url('/fr/contact'), false)
+            ->assertSee(url('/en/services'), false)
+            ->assertSee(url('/fr/services'), false)
             ->assertSee(url('/en/journal'), false)
             ->assertSee(url('/fr/journal'), false)
             ->assertSee(url('/en/case-studies'), false)

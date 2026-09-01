@@ -211,6 +211,7 @@ class ExportStaticPreviewCommand extends Command
         $routes = [
             '/',
             '/experience',
+            '/services',
             '/local',
             '/journal',
             '/contact',

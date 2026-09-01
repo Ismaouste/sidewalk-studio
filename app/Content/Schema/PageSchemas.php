@@ -36,6 +36,7 @@ final class PageSchemas
         'home',
         'projects',
         'experience',
+        'services',
         'local',
         'contact',
         'sparkle',
@@ -50,6 +51,7 @@ final class PageSchemas
     public const ROUTE_COMPOSITION = [
         'home' => ['home'],
         'experience' => ['projects', 'experience'],
+        'services' => ['services'],
         'local' => ['local'],
         'contact' => ['contact'],
         'sparkle' => ['sparkle'],
@@ -101,6 +103,7 @@ final class PageSchemas
             'home' => self::home(),
             'projects' => self::projects(),
             'experience' => self::experience(),
+            'services' => self::services(),
             'local' => self::local(),
             'contact' => self::contact(),
             'sparkle' => self::sparkle(),
@@ -244,6 +247,45 @@ final class PageSchemas
                 Field::text('items', 'Items')->repeating(),
             ], 'Engagements')->repeating(itemLabel: 'title'),
             self::intro('notes_section', 'Notes section'),
+        ]);
+    }
+
+    /**
+     * The offer, priced. The price lines are content, not code, so retuning
+     * an anchor is an /admin edit rather than a deploy — the grid publishes
+     * "from" ranges and the negotiation happens off the page.
+     */
+    public static function services(): ContentSchema
+    {
+        return new ContentSchema('services', 'Services', [
+            ...self::meta(),
+            self::hero(),
+            Field::group('offers', [
+                Field::line('label', 'Label'),
+                Field::line('title', 'Title'),
+                Field::text('summary', 'Summary'),
+                Field::line('price', 'Price line'),
+                Field::line('price_meta', 'Price meta')->optional(),
+                Field::text('points', 'Included points')->repeating(),
+                Field::line('cta', 'Call to action'),
+                Field::line('tone', 'Tone'),
+            ], 'Offers')->repeating(itemLabel: 'title'),
+            Field::group('modifiers', [
+                Field::line('title', 'Title'),
+                Field::text('summary', 'Summary'),
+            ], 'Modifiers'),
+            Field::group('engagement', [
+                Field::line('title', 'Title'),
+                Field::group('steps', [
+                    Field::line('title', 'Title'),
+                    Field::text('summary', 'Summary'),
+                ], 'Steps')->repeating(itemLabel: 'title'),
+            ], 'Engagement'),
+            Field::text('legal_note', 'Legal note'),
+            Field::group('contact_cta', [
+                Field::line('title', 'Title'),
+                Field::text('summary', 'Summary'),
+            ], 'Contact call to action'),
         ]);
     }
 
