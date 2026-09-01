@@ -46,7 +46,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
-                ->where('hero.eyebrow', 'Développeur e-commerce · Nancy')
+                ->where('hero.eyebrow', 'E-commerce & direction technique · Nancy')
                 ->where('site.locale', 'fr'));
     }
 
