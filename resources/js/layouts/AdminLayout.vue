@@ -22,6 +22,11 @@ const navigation = [
         note: 'Notes, journal entries, case studies, and CTA settings',
     },
     {
+        label: 'Experience',
+        href: '/admin/experience',
+        note: 'Every position held, in the order its dates put it',
+    },
+    {
         label: 'Pages',
         href: '/admin/pages',
         // Not "overrides" any more: since the precedence reversal these edits

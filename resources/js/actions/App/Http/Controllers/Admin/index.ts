@@ -7,6 +7,7 @@ import AdminThemeController from './AdminThemeController'
 import AdminBrandingController from './AdminBrandingController'
 import AdminLoaderQuoteController from './AdminLoaderQuoteController'
 import AdminPageController from './AdminPageController'
+import AdminExperienceEntryController from './AdminExperienceEntryController'
 import AdminPublicationController from './AdminPublicationController'
 import AdminLanguageFileController from './AdminLanguageFileController'
 const Admin = {
@@ -19,6 +20,7 @@ AdminThemeController: Object.assign(AdminThemeController, AdminThemeController),
 AdminBrandingController: Object.assign(AdminBrandingController, AdminBrandingController),
 AdminLoaderQuoteController: Object.assign(AdminLoaderQuoteController, AdminLoaderQuoteController),
 AdminPageController: Object.assign(AdminPageController, AdminPageController),
+AdminExperienceEntryController: Object.assign(AdminExperienceEntryController, AdminExperienceEntryController),
 AdminPublicationController: Object.assign(AdminPublicationController, AdminPublicationController),
 AdminLanguageFileController: Object.assign(AdminLanguageFileController, AdminLanguageFileController),
 }

@@ -7,6 +7,7 @@ import theme from './theme'
 import branding from './branding'
 import loaderQuotes from './loader-quotes'
 import pages from './pages'
+import experience from './experience'
 import publications from './publications'
 import languageFiles from './language-files'
 /**
@@ -311,6 +312,7 @@ theme: Object.assign(theme, theme),
 branding: Object.assign(branding, branding),
 loaderQuotes: Object.assign(loaderQuotes, loaderQuotes),
 pages: Object.assign(pages, pages),
+experience: Object.assign(experience, experience),
 publications: Object.assign(publications, publications),
 languageFiles: Object.assign(languageFiles, languageFiles),
 logout: Object.assign(logout, logout),
