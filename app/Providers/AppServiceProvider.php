@@ -5,6 +5,9 @@ namespace App\Providers;
 use App\Audience\AudienceSink;
 use App\Audience\LogAudienceSink;
 use App\Audience\PostHogAudienceSink;
+use App\Newsletter\BrevoNewsletterDriver;
+use App\Newsletter\LogNewsletterDriver;
+use App\Newsletter\NewsletterDriver;
 use App\Services\SiteSettingsService;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
@@ -25,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AudienceSink::class, fn (): AudienceSink => match (config('audience.sink')) {
             'posthog' => new PostHogAudienceSink,
             default => new LogAudienceSink,
+        });
+
+        $this->app->bind(NewsletterDriver::class, fn (): NewsletterDriver => match (config('newsletter.driver')) {
+            'brevo' => new BrevoNewsletterDriver,
+            default => new LogNewsletterDriver,
         });
     }
 

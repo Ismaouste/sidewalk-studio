@@ -18,6 +18,7 @@ use App\Http\Controllers\AudiencePingController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\ContentVisualController;
+use App\Http\Controllers\NewsletterSubscriptionController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\WritingController;
@@ -46,6 +47,24 @@ Route::get('/', function (Request $request) {
  */
 Route::post('/audience', AudiencePingController::class)
     ->name('audience.ping')
+    ->withoutMiddleware([
+        StartSession::class,
+        ShareErrorsFromSession::class,
+        PreventRequestForgery::class,
+        ResolvePublicLocale::class,
+        HandleInertiaRequests::class,
+        AddLinkHeadersForPreloadedAssets::class,
+        CachePublicResponse::class,
+    ]);
+
+/*
+ * Newsletter signup is stateless for the same reason /audience is: the
+ * blocks render on cached public pages, so there is no per-visitor CSRF
+ * token to rely on. Abuse is bounded by the throttle and the honeypot.
+ */
+Route::post('/newsletter', NewsletterSubscriptionController::class)
+    ->name('newsletter.subscribe')
+    ->middleware('throttle:6,1')
     ->withoutMiddleware([
         StartSession::class,
         ShareErrorsFromSession::class,
