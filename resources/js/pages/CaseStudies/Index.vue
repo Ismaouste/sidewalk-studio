@@ -52,10 +52,19 @@ const copy = computed(
                 :title="copy.title"
                 :description="copy.description"
             >
+                <!--
+                    Contact leads here, and only here among the section
+                    intros. A case study is the end of the reading funnel, not
+                    a step inside it: someone who has just read one has the
+                    context to write, and sending them back to the experience
+                    record points them at what they already came through. The
+                    experience link stays as the secondary, because leaving is
+                    not the only reason to be on this page.
+                -->
                 <template #actions>
-                    <Button href="/projects">{{ copy.projectsCta }}</Button>
-                    <Button href="/contact" variant="secondary">
-                        {{ copy.contactCta }}
+                    <Button href="/contact">{{ copy.contactCta }}</Button>
+                    <Button href="/experience" variant="secondary">
+                        {{ copy.projectsCta }}
                     </Button>
                 </template>
 
