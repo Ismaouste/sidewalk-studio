@@ -1,10 +1,11 @@
 # Commercial repositioning — from portfolio to offer-driven open-source flagship
 
 - **Date:** 2026-09-01
-- **Status:** Draft for review. Brainstorm output only — no implementation has started.
-- **Decision mode:** Isma delegated the calls for this session. Everything below is
-  decided unless explicitly tagged **[VALIDATE]** (business/legal calls only Isma can
-  make) or **[NEEDS ASSETS]** (material to collect before a phase can ship).
+- **Status:** Approved by Isma on 2026-09-01 ("c'est tout ok"). Remaining open calls
+  were delegated back and resolved the same day (§12). The duo offer with a video
+  creative was cut on Isma's correction — the site is a personal showcase.
+- **Decision mode:** Isma delegated the calls. Items tagged **[NEEDS ASSETS]** name
+  material to collect before a phase ships; nothing else is pending.
 
 ## 1. Context
 
@@ -31,24 +32,24 @@ Isma's goals, restated:
    (synced product catalogs, Meta DPA, Google Shopping, maybe TikTok; structured
    data, Core Web Vitals), (c) preferential-rate work for local associations and
    public/cultural institutions (independent music venues, museums), and
-   microbreweries — some of it as a duo with a local video creative.
+   microbreweries.
 
 Three proof pillars are available, each on a different axis:
 
-| Pillar                      | Axis                                                                                                 | Constraint                                                                                           |
-| --------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Atlas Dépannage             | B2B platform, de-facto CTO role (state machine, signed documents, business-model pivot, FR/MA legal) | Proprietary, **not** open source — tell the architecture and decisions, never the code               |
-| Crown DP (crown-dp.com)     | E-commerce + fully custom CMS, luxury vintage                                                        | **[NEEDS ASSETS]** screenshots, stack notes, metrics; **[VALIDATE]** whether the client can be named |
-| Sidewalk Studio (this repo) | Bleeding-edge front-end, consent-first marketing, open source, reproducible                          | Becomes public — see §10                                                                             |
+| Pillar                      | Axis                                                                                                 | Constraint                                                                                       |
+| --------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Atlas Dépannage             | B2B platform, de-facto CTO role (state machine, signed documents, business-model pivot, FR/MA legal) | Proprietary, **not** open source — tell the architecture and decisions, never the code           |
+| Crown DP (crown-dp.com)     | E-commerce + fully custom CMS, luxury vintage                                                        | Named by its public URL; **[NEEDS ASSETS]** screenshots from the live site, stack notes, metrics |
+| Sidewalk Studio (this repo) | Bleeding-edge front-end, consent-first marketing, open source, reproducible                          | Becomes public — see §10                                                                         |
 
 ## 2. Positioning
 
 - **Primary brand stays personal:** Ismaël Rodmacq — tech lead heading to CTO,
   engineering depth plus cultural/creative sensibility. This is the existing profile
   line; the repositioning makes it _commercially legible_, it does not replace it.
-- **Sidewalk Studio becomes the umbrella** for productized offers and for the duo
-  offer with the video creative. The name already exists; no rebrand needed. The
-  site header keeps the personal identity; the services page speaks as the studio.
+- **Sidewalk Studio becomes the umbrella** for the productized offers. The name
+  already exists; no rebrand needed. The site header keeps the personal identity;
+  the services page speaks as the studio.
 - **Three audiences, one site:** founders/CTOs hiring part-time technical direction;
   local merchants and cultural institutions buying a site, a shop, or campaigns;
   peers/recruiters reading the journal (they validate credibility for the first two).
@@ -74,7 +75,8 @@ Hello (/) · Services (/services) · Case studies (/case-studies) · Journal (/j
   remote), newsletter hook low on the page.
 - **Contact** gains a light qualification form: project type, budget band, timeline —
   fed by the same declared-schema machinery the admin already uses. WhatsApp handoff
-  stays; a booking link (cal.com) can come later **[VALIDATE tool choice]**.
+  stays; a cal.com booking link ships with S3 (decided — free tier, open-source
+  core, fits the narrative).
 
 ### Funnel stages (the shared vocabulary for analytics, email, and ads)
 
@@ -91,9 +93,11 @@ stages — no tool gets to invent its own funnel.
 
 ## 4. Offer and pricing
 
-Three lines plus two modifiers. All prices are **proposed anchors** for the French
-market (Grand Est + remote) and are **[VALIDATE]** — publish as "à partir de" ranges,
-never fixed quotes.
+Three lines plus one modifier. Prices below are **the published anchors** (Isma
+delegated the call, 2026-09-01) for the French market (Grand Est + remote) —
+published as "à partir de" ranges, never fixed quotes. They live in the services
+page's content frontmatter, so Isma can retune them from the admin back office
+without a deploy.
 
 | Offer                                                                                                                               | Shape                     | Proposed anchor           |
 | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------------------- |
@@ -103,29 +107,31 @@ never fixed quotes.
 | **Direction technique** — part-time CTO / tech lead + full-stack (the Atlas shape)                                                  | Daily rate, 1–3 days/week | TJM €650 HT (target €750) |
 | **Forfait plateforme** — scoped product builds                                                                                      | Negotiated fixed price    | on quote                  |
 
-Modifiers:
+Modifier:
 
 - **Associations:** −30% on packages. Cultural institutions and independent music
   venues: adapted quote, stated explicitly on the page (it is a positioning signal,
   not a discount buried in email).
-- **Duo studio** (with the video creative): content production + engineering bundles
-  for microbreweries, venues, museums — on quote, presented as its own block with
-  her credited **[VALIDATE with her: name, terms, revenue split]**.
 
-Business admin: current micro-entrepreneur revenue ceilings and the 2025–2026 TVA
-franchise threshold changes must be checked against the mix of retainers + packages
-before the grid is published **[VALIDATE with up-to-date figures]**.
+Business admin (decided approach): prices display as € HT; the current
+micro-entrepreneur ceilings and 2026 TVA-franchise thresholds get verified with a
+live web check during S1 implementation, and the legally required mention (e.g.
+"TVA non applicable, art. 293 B du CGI" while the franchise applies) is wired into
+the services page content, not hardcoded.
 
 ## 5. Proof: case studies
 
 - **Atlas Dépannage** — the flagship "directeur technique ET dev full stack" story:
   the pivot (mirror, new free-tier infra, virgin DB), the 5-phase mission state
   machine and its sealed guards, signed-document flows, the inverted money flow, the
-  FR/MA legal identity work. Architecture diagrams and product decisions only; no
-  proprietary code, no client data. **[VALIDATE]** what the director allows: naming,
-  screenshots, which production numbers may be public.
+  FR/MA legal identity work. Decided telling policy: the platform may be named —
+  Isma owns the IP — with architecture diagrams and product decisions only; no
+  proprietary code, no client or partner names, no financial production numbers
+  (qualitative and order-of-magnitude metrics only, e.g. "a 15-step technician
+  flow", "5-phase state machine", "in production since August 2026").
 - **Crown DP** — the e-commerce/CMS proof aimed exactly at the local-commerce target:
-  custom CMS, catalog, luxury-vintage constraints. **[NEEDS ASSETS]**.
+  custom CMS, catalog, luxury-vintage constraints. Named by its public URL, no
+  confidential numbers. **[NEEDS ASSETS]** screenshots and stack notes.
 - **Sidewalk Studio** — the open, reproducible one: every phase of this design ships
   with a journal post, and the site publishes its own metrics (§6, "open metrics").
 
@@ -169,7 +175,7 @@ open-source flip.
   relevant case study; V3 → qualification + booking. Written in both locales.
 - **Remarketing (T4 consent only):** stage-based audiences (V2 prospects get offer
   ads, V1 readers get content ads). TikTok catalog is deferred until a client
-  project needs it — YAGNI **[VALIDATE priority]**.
+  project needs it — YAGNI, decided.
 
 ## 8. Demos, labs, media
 
@@ -184,11 +190,12 @@ open-source flip.
   queries. CSS anchor positioning stays parked — tried and reverted (db61a48,
   Chromium misplacement) — revisit only when `position-try-fallbacks` fires
   reliably.
-- **Vertical demo kits** (fictional but production-grade, filmable with the duo
-  partner): a microbrewery shop (age gate done right, click-and-collect, live
-  product feed), a music-venue event page (Event JSON-LD, ticket funnel), an
-  association donation page (accessibility-first). These are the images/videos that
-  illustrate the prospecting — **[NEEDS ASSETS]** shot with the video creative.
+- **Vertical demo kits** (fictional but production-grade): a microbrewery shop
+  (age gate done right, click-and-collect, live product feed), a music-venue event
+  page (Event JSON-LD, ticket funnel), an association donation page
+  (accessibility-first). These are the images/videos that illustrate the
+  prospecting — produced solo: polished screen captures, code-driven motion (the
+  site can demo itself), and generated stills. No external creative involved.
 - **Media pipeline:** AVIF stills; short demo loops self-hosted (`<video>` +
   poster, lazy, no third party); long-form on YouTube behind the _existing_ `media`
   consent category. No new consent surface needed.
@@ -202,7 +209,7 @@ open-source flip.
 4. "Product feeds are an engineering problem": catalog sync, DPA, Shopping.
 5. "Core Web Vitals for local commerce" + the audit tool write-up.
 6. One post per platform-primitive demo shipped.
-7. Duo videos: vertical demo kit walkthroughs, before/after reels.
+7. Screencast walkthroughs of the vertical demo kits, self-produced.
 
 ## 10. Open-source policy
 
@@ -222,24 +229,35 @@ Each phase is one spec-kit spec, shipped and pushed to main (deploy-on-push, ful
 baseline before every push). Order optimizes for "commercial spine first, measure
 before you market":
 
-| Phase               | Scope                                                                                                                                                                                    | Depends on                  |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| S1 Commercial spine | New nav, `/services` + price grid, case studies promoted, Home rework, contact qualification; fold in hygiene fixes (title suffix, experience/projects collapse, reduced-motion seeding) | pricing validation          |
-| S2 Measurement      | Consent tiers T1–T3, PostHog EU, T1 endpoint, funnel-stage events                                                                                                                        | —                           |
-| S3 Capture          | Brevo newsletter, audit lead magnet, sequences                                                                                                                                           | S2 (stages)                 |
-| S4 Marketing        | T4: Conversions API relay, Google Ads + Consent Mode v2, stage audiences                                                                                                                 | S2, S3                      |
-| S5 Show             | Vertical demo kits, labs additions, media pipeline, primitive demos                                                                                                                      | duo assets                  |
-| S6 Tell + open      | Case studies Atlas/Crown DP, content wave, open-source flip                                                                                                                              | asset/permission validation |
+| Phase               | Scope                                                                                                                                                                                                                                     | Depends on      |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| S1 Commercial spine | New nav, `/services` + price grid, case studies promoted, Home rework, contact qualification; fold in hygiene fixes (title suffix, experience/projects collapse, reduced-motion seeding); close with the open-source flip (§10 checklist) | —               |
+| S2 Measurement      | Consent tiers T1–T3, PostHog EU, T1 endpoint, funnel-stage events                                                                                                                                                                         | —               |
+| S3 Capture          | Brevo newsletter, audit lead magnet, sequences                                                                                                                                                                                            | S2 (stages)     |
+| S4 Marketing        | T4: Conversions API relay, Google Ads + Consent Mode v2, stage audiences                                                                                                                                                                  | S2, S3          |
+| S5 Show             | Vertical demo kits, labs additions, media pipeline, primitive demos                                                                                                                                                                       | —               |
+| S6 Tell             | Case studies Atlas/Crown DP, content wave                                                                                                                                                                                                 | Crown DP assets |
 
 S1 and S2 can start immediately after this document is approved; nothing in them
 blocks on external assets.
 
-## 12. Open questions for Isma
+## 12. Resolved decisions (2026-09-01 follow-up)
 
-1. Pricing anchors and TJM (§4) — adjust before S1 ships the grid.
-2. Atlas: what may be named/shown publicly, and which production numbers.
-3. Crown DP: can the client be named; where do assets/repo live.
-4. Duo partner: naming, credit, terms.
-5. Micro-entrepreneur ceilings / TVA franchise 2026 — verify current figures.
-6. Repo public flip timing: with S6, or earlier as motivation?
-7. Booking tool (cal.com vs none for now) and TikTok catalog priority.
+Isma approved the design and delegated every remaining call ("j'ai aucune idée,
+fais des propositions"). Resolutions:
+
+1. **Pricing:** the §4 anchors ship as-is; they are content-managed, so retuning
+   is an admin edit, not a deploy.
+2. **Atlas:** platform named (Isma owns the IP); architecture and decisions only;
+   no client/partner names, no financial production numbers.
+3. **Crown DP:** named by its public URL; assets collected from the live site;
+   no confidential numbers.
+4. **Duo offer: cut.** Isma does not do creative production; the site is a
+   personal showcase. All media is self-produced (§8).
+5. **Micro-entrepreneur / TVA:** verified with a live web check during S1; the
+   legal mention is content-managed.
+6. **Open-source flip: end of S1** (after the secret scan, LICENSE, README,
+   CONTRIBUTING) rather than S6 — so S2 through S6 happen in public and the
+   build-in-public journal covers the whole arc. §10's checklist moves into S1's
+   scope; §11's S6 keeps only the case studies and content wave.
+7. **Booking:** cal.com, in S3. **TikTok catalog:** deferred, YAGNI.
