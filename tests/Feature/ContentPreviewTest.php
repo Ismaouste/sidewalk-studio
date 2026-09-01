@@ -199,13 +199,13 @@ class ContentPreviewTest extends TestCase
                 '/admin/pages/projects/en/preview',
                 $this->draftedPayload('projects', 'en', 'Drafted hero'),
             )
-            ->assertRedirect('/en/projects?preview=1');
+            ->assertRedirect('/en/experience?preview=1');
 
         $this->actingAs($operator)
             ->post(
                 '/admin/pages/experience/en/preview',
                 $this->draftedPayload('experience', 'en', 'Drafted hero'),
             )
-            ->assertRedirect('/en/projects?preview=1');
+            ->assertRedirect('/en/experience?preview=1');
     }
 }

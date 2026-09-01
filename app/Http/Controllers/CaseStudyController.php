@@ -81,7 +81,7 @@ class CaseStudyController extends Controller
     {
         return [
             ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-            ['name' => PublicCopy::line('breadcrumbs.projects'), 'path' => '/projects'],
+            ['name' => PublicCopy::line('breadcrumbs.projects'), 'path' => '/experience'],
             ['name' => PublicCopy::line('breadcrumbs.case_studies'), 'path' => '/case-studies'],
         ];
     }

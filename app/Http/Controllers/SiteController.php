@@ -132,9 +132,27 @@ class SiteController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
-    public function experience(): RedirectResponse
+    /**
+     * The address the record used to answer at.
+     *
+     * This redirect used to point the other way. `/experience` was the alias
+     * and `/projects` was the page, which left the site calling one thing two
+     * names — the menu said one, the URL and the crumb said the other. The
+     * page took the name it was already being called by, so the old address
+     * keeps its links working and says where they went.
+     */
+    /**
+     * The locale comes from the route, not from the app.
+     *
+     * `localizedPath()` falls back to `app()->getLocale()`, which is resolved
+     * from headers and cookies before it is resolved from the URL — so a
+     * French reader following an old `/fr/projects` link was answered with
+     * `/en/experience`, losing the one thing the URL was certain about. The
+     * redirect this replaced had the same shape and the same fault.
+     */
+    public function projectsLegacy(string $locale): RedirectResponse
     {
-        return redirect(PublicLocale::localizedPath('/projects'), 301);
+        return redirect(PublicLocale::localizedPath('/experience', $locale), 301);
     }
 
     public function local(): Response
@@ -201,7 +219,7 @@ class SiteController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
-    public function projects(): Response
+    public function experience(): Response
     {
         $page = $this->pages->get('projects');
         $experience = $this->pages->get('experience');
@@ -209,7 +227,7 @@ class SiteController extends Controller
         $seo = Seo::page(
             $page['seo_title'],
             $page['seo_description'],
-            '/projects',
+            '/experience',
             $this->pageSeoOptions($page, [
                 'schema_variant' => 'person_surface',
                 'person' => [
@@ -226,7 +244,7 @@ class SiteController extends Controller
                 ],
                 'breadcrumb' => [
                     ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
-                    ['name' => PublicCopy::line('breadcrumbs.projects'), 'path' => '/projects'],
+                    ['name' => PublicCopy::line('breadcrumbs.projects'), 'path' => '/experience'],
                 ],
             ]),
         );

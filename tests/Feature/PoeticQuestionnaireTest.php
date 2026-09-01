@@ -29,7 +29,7 @@ class PoeticQuestionnaireTest extends TestCase
 
     protected function spreads(string $locale = 'fr'): array
     {
-        return $this->get("/{$locale}/projects")
+        return $this->get("/{$locale}/experience")
             ->assertOk()
             ->viewData('page')['props']['professionalSections'];
     }

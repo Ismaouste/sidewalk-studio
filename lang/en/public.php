@@ -42,7 +42,7 @@ return [
      */
     'navigation' => [
         '/' => 'Hello',
-        '/projects' => 'Experience',
+        '/experience' => 'Experience',
         '/journal' => 'Journal',
         '/contact' => 'Contact ✍🏽',
     ],
@@ -57,7 +57,7 @@ return [
         'journal' => 'Journal',
         'labs' => 'Labs',
         'local' => 'Local',
-        'projects' => 'Projects',
+        'projects' => 'Experience',
         'sparkle' => 'Sparkle',
     ],
 
@@ -101,11 +101,6 @@ return [
     ],
 
     /**
-     * Publication widgets, keyed by the page they sit on and the feed they
-     * pull. The items come from the content repository; this is the framing
-     * around them.
-     */
-    /**
      * How a date range reads when the record computes it rather than being
      * told. An entry with no end date is the one being lived, and it is the
      * reason the chronology stops needing an edit every January.
@@ -140,6 +135,11 @@ return [
         ],
     ],
 
+    /**
+     * Publication widgets, keyed by the page they sit on and the feed they
+     * pull. The items come from the content repository; this is the framing
+     * around them.
+     */
     'widgets' => [
         'home_journal' => [
             'eyebrow' => 'Journal',

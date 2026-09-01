@@ -44,7 +44,7 @@ class ContentSeedFidelityTest extends TestCase
     {
         return [
             '/en',
-            '/en/projects',
+            '/en/experience',
             '/en/local',
             '/en/contact',
             '/en/colophon',
@@ -55,7 +55,7 @@ class ContentSeedFidelityTest extends TestCase
             '/en/case-studies',
             '/en/case-studies/consent-orchestration-before-analytics',
             '/fr',
-            '/fr/projects',
+            '/fr/experience',
             '/fr/local',
             '/fr/contact',
             '/fr/journal',

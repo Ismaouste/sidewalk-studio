@@ -70,7 +70,7 @@ onMounted(() => {
                 :description="copy.description"
             >
                 <template #actions>
-                    <Button href="/projects">{{ copy.projectsCta }}</Button>
+                    <Button href="/experience">{{ copy.projectsCta }}</Button>
                     <Button href="/contact" variant="secondary">
                         {{ copy.contactCta }}
                     </Button>

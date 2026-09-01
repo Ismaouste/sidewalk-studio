@@ -9,7 +9,7 @@ class PublicLanguageSwitcherTest extends TestCase
 {
     public function test_supported_pages_expose_a_language_switcher_with_same_path_links(): void
     {
-        $this->get('/en/projects')
+        $this->get('/en/experience')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.languageSwitcher.visible', true)
@@ -17,12 +17,12 @@ class PublicLanguageSwitcherTest extends TestCase
                 ->where('site.languageSwitcher.options.0.code', 'en')
                 ->where(
                     'site.languageSwitcher.options.0.href',
-                    fn (string $href): bool => str_ends_with($href, '/en/projects'),
+                    fn (string $href): bool => str_ends_with($href, '/en/experience'),
                 )
                 ->where('site.languageSwitcher.options.1.code', 'fr')
                 ->where(
                     'site.languageSwitcher.options.1.href',
-                    fn (string $href): bool => str_ends_with($href, '/fr/projects'),
+                    fn (string $href): bool => str_ends_with($href, '/fr/experience'),
                 ));
     }
 

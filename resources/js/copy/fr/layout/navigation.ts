@@ -9,8 +9,8 @@ export default {
     action: {
         '/': 'Entrer',
         '/contact': 'Écrire',
+        '/experience': 'Voir le parcours',
         '/journal': 'Lire les notes',
         '/local': 'Voir la base',
-        '/projects': 'Voir le parcours',
     },
 } satisfies Reference;

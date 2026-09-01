@@ -13,7 +13,7 @@ focus_areas:
     - label: Projects
       title: Ecommerce experience
       summary: Four core contexts that show the work, the delivery frame, and the kind of technical choices I make on live systems.
-      href: /projects
+      href: /experience
       cta: View projects
       tone: dominant
     - label: Case studies

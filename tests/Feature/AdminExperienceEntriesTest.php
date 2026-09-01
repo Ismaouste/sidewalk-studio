@@ -90,7 +90,7 @@ class AdminExperienceEntriesTest extends TestCase
             ]))
             ->assertSessionHasNoErrors();
 
-        $sections = $this->get('/fr/projects')
+        $sections = $this->get('/fr/experience')
             ->assertOk()
             ->viewData('page')['props']['professionalSections'];
 

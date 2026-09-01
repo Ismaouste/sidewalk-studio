@@ -49,7 +49,7 @@ final class PageSchemas
      */
     public const ROUTE_COMPOSITION = [
         'home' => ['home'],
-        'projects' => ['projects', 'experience'],
+        'experience' => ['projects', 'experience'],
         'local' => ['local'],
         'contact' => ['contact'],
         'sparkle' => ['sparkle'],

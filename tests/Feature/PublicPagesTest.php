@@ -14,7 +14,7 @@ class PublicPagesTest extends TestCase
         $pages = [
             '/en' => 'Ismael Rodmacq',
             '/en/local' => 'Local · Ismael Rodmacq',
-            '/en/projects' => 'Tech Lead Ecommerce in Nancy · Ismael Rodmacq',
+            '/en/experience' => 'Tech Lead Ecommerce in Nancy · Ismael Rodmacq',
             '/en/labs' => 'Labs · Ismael Rodmacq',
             '/en/journal' => 'Journal · Ismael Rodmacq',
             '/en/case-studies' => 'Case Studies · Ismael Rodmacq',
@@ -42,7 +42,7 @@ class PublicPagesTest extends TestCase
     {
         $paths = [
             '/local',
-            '/projects',
+            '/experience',
             '/labs',
             '/contact',
             '/data-processing',
@@ -56,19 +56,34 @@ class PublicPagesTest extends TestCase
         }
     }
 
-    public function test_legacy_routes_redirect_to_projects(): void
+    public function test_legacy_routes_redirect_to_the_experience_record(): void
     {
         $this->get('/about')
-            ->assertRedirect('/en/projects');
+            ->assertRedirect('/en/experience');
 
-        $this->get('/experience')
-            ->assertRedirect('/en/projects');
+        $this->get('/projects')
+            ->assertRedirect('/en/experience');
 
         $this->get('/writing')
             ->assertRedirect('/en/journal');
 
         $this->get('/writing/content-systems-routing-and-metadata')
             ->assertRedirect('/en/journal/content-systems-routing-and-metadata');
+    }
+
+    /**
+     * A retired address keeps the reader's language.
+     *
+     * `localizedPath()` falls back to `app()->getLocale()`, which is resolved
+     * from headers and cookies before it is resolved from the URL — so a
+     * French reader following an old `/fr/projects` link was answered with
+     * `/en/experience`, losing the one thing that URL was certain about. The
+     * locale has to come from the route.
+     */
+    public function test_the_retired_path_redirects_within_the_readers_language(): void
+    {
+        $this->get('/fr/projects')->assertRedirect('/fr/experience');
+        $this->get('/en/projects')->assertRedirect('/en/experience');
     }
 
     public function test_machine_readable_endpoints_are_available(): void
@@ -84,8 +99,8 @@ class PublicPagesTest extends TestCase
             ->assertDontSee(url('/en/labs'), false)
             ->assertDontSee(url('/en/sparkle'), false)
             ->assertDontSee(url('/fr/sparkle'), false)
-            ->assertSee(url('/en/projects'), false)
-            ->assertSee(url('/fr/projects'), false)
+            ->assertSee(url('/en/experience'), false)
+            ->assertSee(url('/fr/experience'), false)
             ->assertSee(url('/en/local'), false)
             ->assertSee(url('/fr/local'), false)
             ->assertSee(url('/en/contact'), false)
@@ -113,7 +128,7 @@ class PublicPagesTest extends TestCase
 
     public function test_french_projects_page_uses_current_markdown_content(): void
     {
-        $this->get('/fr/projects')
+        $this->get('/fr/experience')
             ->assertOk()
             ->assertDontSee('Un goût pour les systèmes qui doivent vraiment tourner.')
             ->assertDontSee('{"Delivery sur plusieurs niveaux à la fois"', false)
@@ -149,7 +164,7 @@ class PublicPagesTest extends TestCase
 
     public function test_projects_page_exposes_thesis_line_for_manifesto_opener(): void
     {
-        $this->get('/fr/projects')
+        $this->get('/fr/experience')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where(
@@ -158,7 +173,7 @@ class PublicPagesTest extends TestCase
                 )
             );
 
-        $this->get('/en/projects')
+        $this->get('/en/experience')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where(

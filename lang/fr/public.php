@@ -20,7 +20,7 @@ return [
 
     'navigation' => [
         '/' => 'Hello',
-        '/projects' => 'Expériences',
+        '/experience' => 'Expériences',
         '/journal' => 'Journal',
         '/contact' => 'Contact ✍🏽',
     ],
@@ -30,7 +30,12 @@ return [
         'journal' => 'Journal',
         'labs' => 'Labs',
         'local' => 'Localisation',
-        'projects' => 'Projets',
+        /**
+         * What the menu calls it. The navigation has said `Expériences` and
+         * the crumb said `Projets`, so the site named one page two ways and
+         * the reader had to work out they were the same place.
+         */
+        'projects' => 'Expériences',
         'sparkle' => 'Sparkle',
     ],
 

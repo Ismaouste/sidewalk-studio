@@ -33,12 +33,12 @@ class PublicNavigationStateTest extends TestCase
     public function test_the_rule_is_locale_independent(): void
     {
         $this->assertSame(['/journal'], $this->activePaths('/fr/journal'));
-        $this->assertSame(['/projects'], $this->activePaths('/fr/projects'));
+        $this->assertSame(['/experience'], $this->activePaths('/fr/experience'));
     }
 
     public function test_hrefs_stay_localized_while_paths_stay_bare(): void
     {
-        $entries = collect($this->navigationFor('/fr/projects'))
+        $entries = collect($this->navigationFor('/fr/experience'))
             ->keyBy('path');
 
         $this->assertSame('/fr', $entries['/']['href']);

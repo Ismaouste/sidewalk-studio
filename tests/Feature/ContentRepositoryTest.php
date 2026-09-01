@@ -381,7 +381,7 @@ MD);
      * A colon-space inside an unquoted YAML scalar makes the parser return a
      * one-key mapping instead of a string. The value is still *there*, so a
      * presence list passes it, and the page renders a JSON blob at its
-     * readers — which is exactly what /fr/projects did until step 0 of this
+     * readers — which is exactly what /fr/experience did until step 0 of this
      * spec.
      *
      * The trap is only silent inside a *sequence*, which is why the defect
@@ -463,7 +463,7 @@ MD);
     /**
      * Every publication in the repository validates against its own
      * declaration. This is the check that runs in CI, and the one that would
-     * have made the /fr/projects defect impossible to ship.
+     * have made the /fr/experience defect impossible to ship.
      */
     public function test_every_publication_on_disk_validates_against_its_declaration(): void
     {

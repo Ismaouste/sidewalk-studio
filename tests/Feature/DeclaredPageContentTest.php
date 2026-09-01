@@ -18,7 +18,7 @@ use Tests\TestCase;
  * shape, which is a real discipline and caught real drift — but a person
  * comparing two Markdown files does not evaluate YAML scalar resolution
  * rules, and that is exactly what shipped a JSON blob to the body copy of
- * /fr/projects.
+ * /fr/experience.
  */
 class DeclaredPageContentTest extends TestCase
 {
@@ -161,7 +161,7 @@ class DeclaredPageContentTest extends TestCase
      * `fr/experience.md` held an unquoted YAML scalar containing a
      * colon-space. YAML resolved it to a one-key mapping,
      * `EditorialSpread.vue` declares `paragraphs: string[]`, and Vue
-     * serialized the object into the body copy of /fr/projects. Two of the
+     * serialized the object into the body copy of /fr/experience. Two of the
      * forty-four keys a page can hold were checked at the time, and neither
      * was this one.
      *

@@ -13,7 +13,7 @@ focus_areas:
     - label: Projets
       title: Expérience e-commerce
       summary: Quatre contextes principaux pour lire le parcours, la façon de livrer et les choix techniques qui tiennent en production.
-      href: /projects
+      href: /experience
       cta: Voir les projets
       tone: dominant
     - label: Études de cas

@@ -6,8 +6,8 @@ export default {
     action: {
         '/': 'Enter',
         '/contact': 'Write',
+        '/experience': 'View work',
         '/journal': 'Read notes',
         '/local': 'Read local',
-        '/projects': 'View work',
     },
 };

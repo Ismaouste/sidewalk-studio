@@ -47,7 +47,7 @@ class CareerDownloadsTest extends TestCase
                 ->where('cvDownloads.0.href', fn (string $href): bool => str_ends_with($href, '/cv/en'))
                 ->where('cvDownloads.1.href', fn (string $href): bool => str_ends_with($href, '/cv/fr')));
 
-        $this->get('/en/projects')
+        $this->get('/en/experience')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('cvDownloads.0.href', fn (string $href): bool => str_ends_with($href, '/cv/en'))
@@ -72,7 +72,7 @@ class CareerDownloadsTest extends TestCase
                 ->has('featuredCaseStudies', 2)
                 ->has('journalWidget.items', 2));
 
-        $this->get('/en/projects')
+        $this->get('/en/experience')
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->has('journalWidget.items', 2)

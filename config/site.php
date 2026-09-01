@@ -57,7 +57,7 @@ return [
     ],
     'navigation' => [
         ['label' => 'Hello', 'href' => '/'],
-        ['label' => 'Experience', 'href' => '/projects'],
+        ['label' => 'Experience', 'href' => '/experience'],
         ['label' => 'Journal', 'href' => '/journal'],
         ['label' => 'Contact ✍🏽', 'href' => '/contact'],
     ],

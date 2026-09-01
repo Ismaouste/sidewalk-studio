@@ -10,7 +10,7 @@ class PublicLocaleResolutionTest extends TestCase
 {
     public function test_browser_language_prefers_french_page_content(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/fr/projects';
+        $canonical = rtrim((string) config('site.url'), '/').'/fr/experience';
         $response = $this->followingRedirects()->withHeaders([
             'Accept-Language' => 'fr-FR,fr;q=0.9,en;q=0.8',
         ])->get('/projects');
@@ -52,11 +52,17 @@ class PublicLocaleResolutionTest extends TestCase
 
     public function test_legacy_public_query_parameters_are_redirected_to_clean_canonical_urls(): void
     {
-        $this->get('/fr/projects?path=fr%2Fprojects')
-            ->assertRedirect('/fr/projects');
+        $this->get('/fr/experience?path=fr%2Fexperience')
+            ->assertRedirect('/fr/experience');
 
-        $this->get('/projects?lang=fr&path=projects')
-            ->assertRedirect('/fr/projects')
+        /**
+         * A live path, not a legacy one. Asked on `/projects` this now takes
+         * two hops — the query cleanup localizes the path it was given before
+         * the route's own 301 moves it to `/experience` — which is correct
+         * for a retired address but says nothing about the cleanup itself.
+         */
+        $this->get('/experience?lang=fr&path=experience')
+            ->assertRedirect('/fr/experience')
             ->assertCookie(ResolvePublicLocale::COOKIE_NAME, 'fr');
     }
 
@@ -64,7 +70,7 @@ class PublicLocaleResolutionTest extends TestCase
     {
         $this->withHeaders([
             'X-Vercel-Id' => 'cdg1::test-request',
-        ])->get('/fr/projects?path=fr%2Fprojects')
+        ])->get('/fr/experience?path=fr%2Fexperience')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
@@ -72,8 +78,8 @@ class PublicLocaleResolutionTest extends TestCase
             // Inertia 3 ships the page object as raw JSON inside
             // <script type="application/json">, not as an HTML-escaped
             // data-page attribute, so these assert on unescaped JSON.
-            ->assertSee('"url":"\/fr\/projects"', false)
-            ->assertDontSee('"url":"\/fr\/projects?path=fr%2Fprojects"', false);
+            ->assertSee('"url":"\/fr\/experience"', false)
+            ->assertDontSee('"url":"\/fr\/experience?path=fr%2Fexperience"', false);
     }
 
     public function test_newly_localized_contact_page_renders_french_content(): void
@@ -285,7 +291,7 @@ MD);
 
     public function test_unsupported_locale_falls_back_to_english_canonical_response(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/en/projects';
+        $canonical = rtrim((string) config('site.url'), '/').'/en/experience';
 
         $this->followingRedirects()->withHeaders([
             'Accept-Language' => 'de-DE,de;q=0.9',

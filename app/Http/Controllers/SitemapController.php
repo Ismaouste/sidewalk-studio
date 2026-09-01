@@ -43,11 +43,11 @@ class SitemapController extends Controller
         return collect([
             ['locale' => 'en', 'path' => '/'],
             ['locale' => 'en', 'path' => '/local'],
-            ['locale' => 'en', 'path' => '/projects'],
+            ['locale' => 'en', 'path' => '/experience'],
             ['locale' => 'en', 'path' => '/contact'],
             ['locale' => 'fr', 'path' => '/'],
             ['locale' => 'fr', 'path' => '/local'],
-            ['locale' => 'fr', 'path' => '/projects'],
+            ['locale' => 'fr', 'path' => '/experience'],
             ['locale' => 'fr', 'path' => '/contact'],
         ])
             ->map(fn (array $entry): array => [

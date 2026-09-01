@@ -23,9 +23,9 @@ class SeoAndConsentTest extends TestCase
 
     public function test_projects_page_renders_breadcrumb_metadata(): void
     {
-        $canonical = rtrim((string) config('site.url'), '/').'/en/projects';
+        $canonical = rtrim((string) config('site.url'), '/').'/en/experience';
 
-        $this->get('/en/projects')
+        $this->get('/en/experience')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
             ->assertSee('Tech Lead Ecommerce in Nancy · Ismael Rodmacq')

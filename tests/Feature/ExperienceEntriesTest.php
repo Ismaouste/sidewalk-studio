@@ -140,7 +140,7 @@ class ExperienceEntriesTest extends TestCase
     /**
      * The point of the whole move: the reader sees the rows.
      *
-     * Both halves matter. An edit to a row has to reach `/fr/projects`, and
+     * Both halves matter. An edit to a row has to reach `/fr/experience`, and
      * the order has to come from the dates rather than from the order someone
      * typed the entries in — so the dates are set deliberately against the
      * seeded position here, and the page is expected to disagree with it.
@@ -167,7 +167,7 @@ class ExperienceEntriesTest extends TestCase
         ]);
         $first->update(['started_on' => '2001-01-01', 'date_label' => null, 'ended_on' => '2002-01-01']);
 
-        $response = $this->get('/fr/projects')->assertOk();
+        $response = $this->get('/fr/experience')->assertOk();
 
         $sections = $response->viewData('page')['props']['professionalSections'];
 

@@ -130,7 +130,7 @@ const heroLeadPoints = computed(() =>
                         </div>
 
                         <div class="home-hero__actions">
-                            <Button href="/projects">
+                            <Button href="/experience">
                                 {{ copy.projectsCta }}
                             </Button>
                             <Button href="/contact" variant="secondary">
@@ -413,7 +413,7 @@ const heroLeadPoints = computed(() =>
                         <Button href="/contact">{{
                             copy.startConversationCta
                         }}</Button>
-                        <Button href="/projects" variant="secondary">
+                        <Button href="/experience" variant="secondary">
                             {{ copy.referencesCta }}
                         </Button>
                     </div>

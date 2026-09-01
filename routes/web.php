@@ -35,13 +35,20 @@ Route::prefix('{locale}')
     ->whereIn('locale', PublicLocale::supported())
     ->group(function (): void {
         Route::get('/', [SiteController::class, 'home'])->name('home');
+        /**
+         * The record is read at `/experience`, which is what the menu, the
+         * crumb and the page itself have always called it. It answered at
+         * `/projects` until that name was the only place on the site still
+         * saying the other word, so the two routes swapped: the page moved up
+         * to the name, and the old address became the redirect.
+         */
         Route::get('/experience', [SiteController::class, 'experience'])->name('experience');
+        Route::get('/projects', [SiteController::class, 'projectsLegacy'])->name('projects.legacy');
         Route::get('/madeof', function (string $locale) {
             return redirect("/{$locale}/sparkle", 302);
         });
         Route::get('/sparkle', [SiteController::class, 'sparkle'])->name('sparkle');
         Route::get('/local', [SiteController::class, 'local'])->name('local');
-        Route::get('/projects', [SiteController::class, 'projects'])->name('projects');
         Route::get('/labs', [SiteController::class, 'labs'])->name('labs');
         Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
         Route::post('/contact', [ContactSubmissionController::class, 'store'])
@@ -65,7 +72,7 @@ Route::prefix('{locale}')
 
 Route::get('/about', function (Request $request) {
     return redirect()->to(
-        PublicLocale::localizedPath('/projects', PublicLocale::preferredLocaleForRequest($request)),
+        PublicLocale::localizedPath('/experience', PublicLocale::preferredLocaleForRequest($request)),
         301,
     );
 });
@@ -78,7 +85,7 @@ Route::get('/about', function (Request $request) {
  */
 foreach ([
     '/local',
-    '/projects',
+    '/experience',
     '/labs',
     '/contact',
     '/data-processing',
@@ -108,9 +115,9 @@ Route::get('/sparkle', function (Request $request) {
     );
 });
 
-Route::get('/experience', function (Request $request) {
+Route::get('/projects', function (Request $request) {
     return redirect()->to(
-        PublicLocale::localizedPath('/projects', PublicLocale::preferredLocaleForRequest($request)),
+        PublicLocale::localizedPath('/experience', PublicLocale::preferredLocaleForRequest($request)),
         301,
     );
 });

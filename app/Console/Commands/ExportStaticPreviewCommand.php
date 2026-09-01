@@ -210,7 +210,7 @@ class ExportStaticPreviewCommand extends Command
          */
         $routes = [
             '/',
-            '/projects',
+            '/experience',
             '/local',
             '/journal',
             '/contact',
