@@ -1,24 +1,24 @@
 ---
-seo_title: Développeur e-commerce à Nancy
-seo_description: "Ismael Rodmacq, développeur e-commerce à Nancy. Laravel, Vue, Docker, intégration ERP et conformité RGPD pour des sites de vente en ligne."
+seo_title: Développeur e-commerce & tech lead à Nancy
+seo_description: "Ismaël Rodmacq, développeur e-commerce et tech lead à Nancy. Sites web, boutiques en ligne, ingénierie growth et direction technique à temps partiel — avec la grille tarifaire publiée."
 hero:
-    eyebrow: Développeur e-commerce · Nancy
+    eyebrow: E-commerce & direction technique · Nancy
     title: Ismaël Rodmacq
-    summary: Développement e-commerce pour l'écosystème HBJO, avec ERP, PIM, donnée produit, analytics, tracking et SEO technique dans le même cadre.
+    summary: Des sites et des boutiques pour le commerce local, de l'ingénierie growth qui respecte le consentement, et de la direction technique à temps partiel pour les équipes qui veulent les décisions et la livraison dans la même personne.
 hero_panel:
-    - Ecommerce HBJO sur des sites déjà en ligne, avec catalogue, stock, médias et contraintes métier.
-    - Intégration ERP, PIM, APIs, donnée produit et delivery Laravel sur des bases qui doivent rester lisibles.
-    - SEO technique, RGPD, tracking, analytics et mise en ligne traités au même niveau que le développement.
+    - Sites et e-commerce pour commerçants, salles et institutions, construits mobile d'abord sur budget de performance.
+    - Donnée produit, ERP, PIM, flux catalogues et delivery Laravel sur des bases qui restent lisibles en livrant.
+    - SEO technique, RGPD, tracking et analytics traités dans le même cadre — et tarifés sur une grille publique.
 focus_areas:
-    - label: Projets
-      title: Expérience e-commerce
-      summary: Quatre contextes principaux pour lire le parcours, la façon de livrer et les choix techniques qui tiennent en production.
-      href: /experience
-      cta: Voir les projets
+    - label: Services
+      title: Sites, boutiques, growth, direction
+      summary: 'Cinq offres avec les tarifs d''appel publiés : un site local, une boutique e-commerce, un abonnement growth, un TJM de direction technique et des plateformes sur périmètre cadré.'
+      href: /services
+      cta: Voir les offres
       tone: dominant
     - label: Études de cas
-      title: Incidents, données produit, consentement
-      summary: Cas concrets autour de Docker Swarm, du catalogue, du consentement et des décisions prises en contexte réel.
+      title: Des preuves, en production
+      summary: Une plateforme de dispatch menée en CTO de fait, un CMS e-commerce sur mesure pour le vintage de luxe, et ce site open source lui-même — chacun documenté comme un cas.
       href: /case-studies
       cta: Lire les études de cas
       tone: green
@@ -36,6 +36,6 @@ local_teaser:
         - Remote quand le cadre, le produit et l'équipe le permettent.
         - Parcours entre e-commerce, associatif et outils utiles.
 contact_cta:
-    title: Basé à Nancy, disponible pour un poste ou une mission ciblée.
-    summary: "Refonte, stabilisation, intégration ERP, SEO technique ou delivery e-commerce : un message direct avec le contexte suffit."
+    title: Basé à Nancy, disponible pour une mission, un projet ou de la direction à temps partiel.
+    summary: "Les offres et leurs tarifs d'appel sont sur la page services : un court message avec le contexte et l'échéance suffit pour démarrer."
 ---

@@ -1,24 +1,24 @@
 ---
-seo_title: Ecommerce developer in Nancy
-seo_description: 'Ismael Rodmacq, ecommerce developer in Nancy. Laravel, Vue, Docker, ERP integration, and privacy-aware delivery for online selling systems.'
+seo_title: Ecommerce developer & tech lead in Nancy
+seo_description: 'Ismael Rodmacq, ecommerce developer and tech lead in Nancy. Websites, online shops, growth engineering, and part-time technical direction — with the price grid published.'
 hero:
-    eyebrow: Ecommerce developer · Nancy
+    eyebrow: Ecommerce & technical direction · Nancy
     title: Ismael Rodmacq
-    summary: Ecommerce delivery for the jewelry and watch ecosystem, with ERP, PIM, product data, analytics, tracking, and technical SEO handled together.
+    summary: Websites and shops for local commerce, growth engineering that respects consent, and part-time technical direction for teams that need decisions and delivery from the same person.
 hero_panel:
-    - HBJO ecommerce on systems that are already live, with catalog, stock, media, and business constraints moving together.
-    - ERP, PIM, APIs, product data, and Laravel delivery on platforms that need to stay readable while shipping.
-    - Technical SEO, privacy, tracking, analytics, and go-live work handled in the same delivery frame.
+    - Sites and e-commerce for merchants, venues, and institutions, built mobile-first on a performance budget.
+    - Product data, ERP, PIM, catalog feeds, and Laravel delivery on platforms that stay readable while shipping.
+    - Technical SEO, privacy, tracking, and analytics handled in the same frame — and priced on a public grid.
 focus_areas:
-    - label: Projects
-      title: Ecommerce experience
-      summary: Four core contexts that show the work, the delivery frame, and the kind of technical choices I make on live systems.
-      href: /experience
-      cta: View projects
+    - label: Services
+      title: Sites, shops, growth, direction
+      summary: 'Five offers with the anchors published: a local site, an e-commerce build, a growth retainer, a daily rate for technical direction, and scoped platform builds.'
+      href: /services
+      cta: See the offers
       tone: dominant
     - label: Case studies
-      title: Incidents, product data, consent
-      summary: Practical notes on Docker Swarm incidents, catalog flows, consent orchestration, and decisions made under real constraints.
+      title: Proof, in production
+      summary: A dispatch platform run as de-facto CTO, a custom e-commerce CMS for luxury vintage, and this open-source site itself — each one documented as a case.
       href: /case-studies
       cta: Read case studies
       tone: green
@@ -36,6 +36,6 @@ local_teaser:
         - Remote when the team, product, and scope fit.
         - Experience across ecommerce, nonprofit, and practical tools.
 contact_cta:
-    title: Based in Nancy and available for a role or a focused mission.
-    summary: 'Redesign, stabilization, ERP integration, technical SEO, or ecommerce delivery: a short message with context is enough.'
+    title: Based in Nancy and available for a mission, a build, or part-time direction.
+    summary: 'The offers and their anchors are on the services page: a short message with the context and the timeline is enough to start.'
 ---
