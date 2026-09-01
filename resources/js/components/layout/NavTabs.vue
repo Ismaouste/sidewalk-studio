@@ -234,7 +234,14 @@ onBeforeUnmount(() => {
    system background and `display: none` when closed. All of it is UA-origin,
    so these author declarations win — including the desktop block below, which
    is why the row needs no JavaScript to exist. Being in the top layer also
-   means the sheet needs no z-index: it cannot be covered. */
+   means the sheet needs no z-index: it cannot be covered.
+
+   `display` is the one declaration that must not be here, and it was. Beating
+   the UA on it is the desktop block's whole trick, but doing it unconditionally
+   meant the closed sheet stayed laid out below the breakpoint too: a 373x190
+   box under the header, invisible at `opacity: 0`, swallowing every tap inside
+   it on every page. It is declared on `:popover-open` and in the desktop block,
+   and nowhere else. */
 .nav-tabs__panel {
     position: fixed;
     inset: calc(var(--sw-public-header-height, 104px) + var(--sw-space-4xs))
@@ -247,7 +254,6 @@ onBeforeUnmount(() => {
     height: auto;
     max-height: none;
     margin: 0;
-    display: grid;
     gap: 10px;
     padding: var(--sw-space-2xs);
     border: 1px solid color-mix(in srgb, var(--sw-border) 92%, transparent);
@@ -265,6 +271,7 @@ onBeforeUnmount(() => {
 }
 
 .nav-tabs__panel:popover-open {
+    display: grid;
     opacity: 1;
     translate: none;
 }

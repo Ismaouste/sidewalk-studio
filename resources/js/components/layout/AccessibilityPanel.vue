@@ -171,7 +171,15 @@ function handleToggle(event: ToggleEvent): void {
     height: auto;
     max-height: none;
     margin: 0;
-    display: grid;
+    /**
+     * No `display` here on purpose. The UA sheet gives every closed `[popover]`
+     * `display: none`, and any author declaration on this class beats it — so a
+     * `display: grid` in this rule left the panel laid out while closed. It was
+     * invisible, because the entry transition starts at `opacity: 0`, but it
+     * kept a 304x212 box over the footer and swallowed the clicks meant for the
+     * accessibility and privacy buttons sitting inside it. The display belongs
+     * to the open state, below.
+     */
     gap: var(--sw-space-3xs);
     padding: 10px;
     padding-top: 28px;
@@ -192,6 +200,7 @@ function handleToggle(event: ToggleEvent): void {
 }
 
 .accessibility-panel__popover:popover-open {
+    display: grid;
     opacity: 1;
     translate: none;
 }
