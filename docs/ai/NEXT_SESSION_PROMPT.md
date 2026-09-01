@@ -35,7 +35,7 @@ and
 ## Baseline that must stay green
 
 `npm run check`, `composer run lint:check`, `php artisan test`
-(**131 tests / 1541 assertions** on `main`), `npm run build:ssr`. Both themes
+(**158 tests / 1718 assertions** on `main`), `npm run build:ssr`. Both themes
 get checked in a browser on any visual change.
 
 Because `main` deploys to Vercel on push, that baseline is a pre-push gate now,
@@ -91,6 +91,28 @@ Two things deliberately **not** done on that branch, both stated in the spec:
 - Publications still use the tree editor at `/admin/publications`; only pages
   have a generated form. Their declaration exists and validates, so the same
   `SchemaField` component can drive them.
+
+### 1b. The editorial back office — shipped, and what it left open
+
+`specs/017-editorial-back-office/` is built: the chronology is rows with real
+dates (`experience_entries`), `/admin/experience` edits it in both languages at
+once, four declared poetic questions surface as the marginalia beside the
+spreads, and `/admin` opens on what is unfinished rather than on Settings.
+
+Left deliberately open:
+
+- **The four questions have no answers yet.** They are the owner's voice, so
+  nothing was written into them. Until they are answered the chronology has no
+  marginal notes, which is a resting state and not a bug.
+- **The seeded positions have no dates**, only the labels they were seeded
+  with. Filling `started_on` and clearing `date_label` is what hands the range
+  to the record and stops the page needing a January edit.
+- **Positions cannot be reordered by hand.** `position` exists as a tie-break
+  inside one date and is not exposed, because the dates are meant to do that
+  work. If two entries ever need a manual order inside the same month, that is
+  the field to surface.
+- **Publications still use the tree editor.** Their declaration exists and
+  validates, so the same `SchemaField` can drive them.
 
 ### 2. The rest of the configurability map
 
