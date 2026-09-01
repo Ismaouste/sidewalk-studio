@@ -57,17 +57,49 @@ function installTransitionListeners() {
     // the durations for both `prefers-reduced-motion` and the site's own
     // data-motion switch, so one rule covers both and this file does not have
     // to know about either.
+    // Prefetch requests travel the same event pipeline as navigations but
+    // never swap the page, so they must not start a view transition or a
+    // settle: with `prefetch="hover"` a pointer resting on a link would
+    // otherwise dim the content once for the prefetch and once for the click.
+    //
+    // `cancel`, `httpException` and `networkError` carry no visit in their
+    // detail, so they cannot check the flag themselves — this count is how
+    // they tell the two apart. It is a count and not a boolean because the
+    // two overlap in exactly the case `prefetch="hover"` creates: a prefetch
+    // cancelled while a real navigation is still in flight would clear a
+    // boolean and settle early, ending the dim before the swap it belongs to.
+    let navigationsInFlight = 0;
+
     router.on('before', (event) => {
+        if (event.detail.visit.prefetch) {
+            return;
+        }
+
+        navigationsInFlight += 1;
         event.detail.visit.viewTransition = true;
     });
 
-    router.on('finish', () => settle());
-    router.on('cancel', () => settle());
+    router.on('finish', (event) => {
+        if (event.detail.visit.prefetch) {
+            return;
+        }
+
+        navigationsInFlight = Math.max(0, navigationsInFlight - 1);
+        settle();
+    });
 
     // Renamed in Inertia 3: 'invalid' -> 'httpException' (a non-Inertia
     // response) and 'exception' -> 'networkError' (the request never landed).
-    router.on('httpException', () => settle());
-    router.on('networkError', () => settle());
+    for (const event of ['cancel', 'httpException', 'networkError'] as const) {
+        router.on(event, () => {
+            if (navigationsInFlight === 0) {
+                return;
+            }
+
+            navigationsInFlight -= 1;
+            settle();
+        });
+    }
 }
 
 function installStaticPreviewTransitionListeners() {
