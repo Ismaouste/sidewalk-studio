@@ -35,7 +35,7 @@ and
 ## Baseline that must stay green
 
 `npm run check`, `composer run lint:check`, `php artisan test`
-(**130 tests / 1477 assertions** on `main`), `npm run build:ssr`. Both themes
+(**131 tests / 1541 assertions** on `main`), `npm run build:ssr`. Both themes
 get checked in a browser on any visual change.
 
 Because `main` deploys to Vercel on push, that baseline is a pre-push gate now,
@@ -62,17 +62,26 @@ session that wrote this. Use the Edit tool.
 
 ## Open work
 
-### 1. Browser pass on the generated page editor
+### 1. ~~Browser pass on the generated page editor~~ — done
 
-The branch is merged, so what is left of this item is the check that never
-happened before it landed: `/admin/pages/experience/fr`, the heaviest page and
-the one the generated editor was designed around. The precedence is reversed
-behind `config('site.content_source')`, so it is still one default to change
-back — `SITE_CONTENT_SOURCE=files` — if that pass disagrees.
+Run on `/admin/pages/experience/fr`. The editor itself held up: all 22 declared
+top-level keys render, the counts match the content, `SchemaField` recurses
+correctly through three levels — repeating group, nested repeating group,
+repeating scalar — `pills` renders as both optional and repeating, the item
+labels populate each `<summary>`, and both themes are conformant. No console
+errors.
 
-Vercel is unaffected either way: it ships no SQLite, every database entry point
-is guarded by `Schema::hasTable`, and the two migrations in this merge are
-local-only.
+**Saving was broken, and had been for every page carrying an empty string.**
+An identity save was refused. Laravel's default `ConvertEmptyStringsToNull`
+walks nested arrays, so every `''` in a payload arrived as `null`; four of the
+sixteen page/locale pairs — `experience` and `contact` in both languages —
+could not be saved at all. Fixed in `bootstrap/app.php` and held by
+`AdminEditsReachThePublicSiteTest::test_every_page_and_locale_survives_a_save_that_changes_nothing`,
+which iterates all sixteen rather than naming one. The previous tests all used
+`colophon`, which carries no empty string.
+
+**`SITE_CONTENT_SOURCE=files` is not needed.** The declaration and the database
+were both right; the request was wrong. The default stays `database`.
 
 Two things deliberately **not** done on that branch, both stated in the spec:
 
@@ -114,12 +123,30 @@ current two, and runtime-editable design tokens.
   when a pointer rests on it, so it crossfades twice. A prefetch-policy call.
 - `--sw-tab-line` and `--sw-header-bg` have no consumers;
   `html[data-scroll-lock]` in `reset.css` has no writer. `@property
-  --sw-grid-line-opacity` at `tokens.css:12` is registered and read by nothing
+--sw-grid-line-opacity` at `tokens.css:12` is registered and read by nothing
   — it survived the substrate plan that introduced it.
 - `actions/checkout@v4` and `actions/setup-node@v4` are forced onto Node 24 —
   move to `@v5`.
 - ContentVisual SVGs are served `max-age=3600`, so a palette change takes up to
   an hour to reach returning visitors.
+- A refused save shows **one** violation out of however many there are. The
+  controller flashes them all under the `payload` key, but Inertia's
+  `resolveValidationErrors` returns `$errors[0]` per key unless `withAllErrors`
+  is set, and it is `false` by default. `Edit.vue:145` already does
+  `if (Array.isArray(value)) return value;` — the front end is written for the
+  list it can never receive. The eight `experience` violations reached the
+  browser as one, so an operator would have fixed them one save at a time.
+  `HandleInertiaRequests` extends that middleware, so the property can be
+  overridden there — but it would turn **every** error prop in the app from a
+  string into an array, which the other forms are not written for. Override
+  `resolveValidationErrors()` for the `payload` key alone.
+- The admin shell preloads the four public display faces — `dm-sans` 400/500,
+  `fraunces` 400 italic, `syne` 700 — and uses none of them, so every
+  back-office page logs four "preloaded but not used" warnings and spends the
+  bytes.
+- A `public/hot` file can survive a killed `npm run dev` and point at a dead
+  Vite server. Laravel did not honour it in the case seen, but it is a live
+  landmine for an unstyled admin. Delete it when the dev server is not running.
 
 ## Conventions
 
