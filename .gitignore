@@ -32,3 +32,4 @@ yarn-error.log
 /.local
 /.codex-tmp
 /.playwright-mcp
+.env*
