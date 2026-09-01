@@ -198,18 +198,32 @@ html[data-theme='morning'] {
     --sw-tab-active: #1a1a1a;
     --sw-tab-inactive: rgba(26, 26, 26, 0.56);
     --sw-tab-surface: rgba(184, 132, 92, 0.08);
+    /* Ink on the barrier orange, not paper on it. `--sw-text-inverse` means
+       the opposite of the theme's own text, which quietly assumes the button
+       ground follows the theme's lightness. Sunset's lilac does; this
+       mid-tone orange does not, so the inversion put near-white on a mid
+       value and measured 2.95:1 — against the 4.5:1 that 14px/500 text needs,
+       and 13px in the sm size. Ink measures 5.71:1 and leaves the accent
+       untouched, which matters because the same hex drives the ambient flare:
+       darkening the ground to rescue the label would have dimmed the whole
+       morning atmosphere. Black on orange is also the pairing a works site
+       actually uses, which is what the palette above already claims to quote. */
     --sw-button-primary-bg: var(--sw-accent-sun);
     --sw-button-primary-border: color-mix(
         in srgb,
         var(--sw-accent-sun) 84%,
         black 8%
     );
+    /* Lifted toward the page ground rather than deepened. With ink on top the
+       hover has to gain lightness to gain contrast, so the old move — 92%
+       coral, which darkened — now reads backwards and measured 4.01:1. The
+       coral shift survives the lift, at 5.36:1. */
     --sw-button-primary-bg-hover: color-mix(
         in srgb,
-        var(--sw-accent-coral) 92%,
-        white 8%
+        var(--sw-accent-coral) 74%,
+        var(--sw-bg-base)
     );
-    --sw-button-primary-text: var(--sw-text-inverse);
+    --sw-button-primary-text: var(--sw-text-primary);
     --sw-surface-backdrop-filter: blur(20px) saturate(1.3);
     /* The dimming behind a top-layer surface. Built from the page ground
        rather than from black so it darkens the theme instead of draining it. */
