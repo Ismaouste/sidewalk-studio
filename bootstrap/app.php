@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -28,6 +29,36 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'admin.auth' => AdminAuthenticate::class,
+        ]);
+
+        /**
+         * A content document is not a form field.
+         *
+         * `ConvertEmptyStringsToNull` is in Laravel's default global stack —
+         * it is written nowhere in this file, which is most of why this took
+         * a browser to find. It exists so `?q=` reads as absent, and it walks
+         * nested arrays to do it. The editors in /admin do not post fields;
+         * they post a document, and every `''` in that document, at any
+         * depth, arrived as `null`.
+         *
+         * The declaration is right to refuse null for a required line, so the
+         * refusal was correct and the request was wrong. Four of the sixteen
+         * page/locale pairs could not be saved at all — `experience` holds
+         * eight empty strings across its two widget groups, `contact` one —
+         * and an identity save, changing nothing, was refused. The database
+         * stores `''` correctly; only the round trip lost it, which is why
+         * every test calling the repository directly stayed green.
+         *
+         * Scoped by path rather than by route: global middleware runs before
+         * the router, so `routeIs()` is always false here. `payload` is the
+         * key every editor in /admin posts its document under.
+         *
+         * The metadata columns are unaffected. `PageContentRepository::savePage`
+         * writes them through `?:`, so an empty title still lands as null.
+         */
+        $middleware->convertEmptyStringsToNull(except: [
+            fn (Request $request): bool => $request->is('admin/*')
+                && $request->has('payload'),
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

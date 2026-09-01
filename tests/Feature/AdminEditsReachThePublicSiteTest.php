@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Console\Commands\ExportStaticPreviewCommand;
+use App\Content\Schema\PageSchemas;
 use App\Models\Publication;
 use App\Models\User;
 use App\Services\ContentImportService;
@@ -212,5 +213,53 @@ class AdminEditsReachThePublicSiteTest extends TestCase
             $after,
             'An entry unpublished from the admin is still being exported.',
         );
+    }
+
+    /**
+     * A save that changes nothing must change nothing.
+     *
+     * This is the weakest promise an editor can make and it was not being
+     * kept. Opening `experience` and pressing Save, touching no field, was
+     * refused: `[associative_note_widget.eyebrow] should be a line, got
+     * null`. The record holds eight empty strings across its two widget
+     * groups and `contact` holds one, and Laravel's default
+     * `ConvertEmptyStringsToNull` — which walks nested arrays — turned each
+     * of them into a null on the way in. Four of the sixteen pairs could not
+     * be saved at all, so the generated editor was read-only for the two
+     * heaviest records on the site.
+     *
+     * Every test above this one uses `colophon`, which carries no empty
+     * string and therefore never noticed. That is the whole reason this
+     * iterates: the bug lived in the pages the suite did not name, and the
+     * only honest fix is to stop naming one.
+     *
+     * Both halves are asserted. A refusal is caught by the session errors; a
+     * silent rewrite — the more frightening failure, since an operator would
+     * see a success message — is caught by comparing the stored payload.
+     */
+    public function test_every_page_and_locale_survives_a_save_that_changes_nothing(): void
+    {
+        $operator = $this->operator();
+        $pages = app(PageContentRepository::class);
+
+        foreach (PageSchemas::KEYS as $page) {
+            foreach (['en', 'fr'] as $locale) {
+                $before = $pages->adminFind($page, $locale)['payload'];
+
+                $this->actingAs($operator)
+                    ->put(
+                        "/admin/pages/{$page}/{$locale}",
+                        $this->editablePayload($page, $locale),
+                    )
+                    ->assertSessionHasNoErrors()
+                    ->assertRedirect("/admin/pages/{$page}/{$locale}");
+
+                $this->assertSame(
+                    $before,
+                    $pages->adminFind($page, $locale)['payload'],
+                    "Saving [{$page}] in [{$locale}] without editing it changed the stored payload.",
+                );
+            }
+        }
     }
 }
