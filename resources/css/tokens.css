@@ -34,8 +34,8 @@
     --sw-container-lg: 1200px;
     --sw-container-xl: 1280px;
     --sw-shell-max-width: var(--sw-container-lg);
-    --sw-admin-shell-max-width: 1180px;
-    --sw-admin-nav-width: 220px;
+    --sw-admin-shell-max-width: 1320px;
+    --sw-admin-nav-width: clamp(240px, 19vw, 300px);
 
     --sw-layout-gutter-lg: 40px;
     --sw-layout-gutter-md: 32px;

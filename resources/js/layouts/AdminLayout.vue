@@ -294,12 +294,48 @@ function pickHoverQuote() {
     padding-block: clamp(var(--sw-space-md), 4vw, var(--sw-space-xl));
 }
 
+/**
+ * A sticky panel has to say how tall it is allowed to be.
+ *
+ * `align-self: start` sizes this to its content, and the content — a title, a
+ * paragraph, nine links and the boundaries note — is 894px tall. Pinned at
+ * `--sw-header-offset` in a 900px viewport, its last 84px sat below the fold
+ * with no way to reach them: the page scroll moves the main column, and a
+ * sticky element does not travel with it. Nothing was clipped, so nothing
+ * looked broken; the note was simply unreachable.
+ *
+ * The two declarations are a pair. `max-block-size` gives the panel a reason
+ * to stop at the viewport, and `overflow-y` gives the part beyond it a way to
+ * be reached. Either one alone leaves the same dead zone.
+ *
+ * The gutter subtracted is the body's own `padding-block`, not a round
+ * number, because the panel sits at two different heights. Once pinned it
+ * starts at `--sw-header-offset`; at the top of the page it has not stuck
+ * yet and starts lower, below that padding. Sizing against the pinned height
+ * alone left it 9px past the fold before the first scroll — the same bug in
+ * miniature. Subtracting the larger offset fits both states, at the cost of
+ * a gap under the pinned panel that no one can see.
+ */
 .admin-shell__nav {
     position: sticky;
     top: var(--sw-header-offset);
     display: grid;
     gap: var(--sw-space-xs);
     align-self: start;
+    max-block-size: calc(
+        100dvh - var(--sw-header-offset) -
+            clamp(var(--sw-space-md), 4vw, var(--sw-space-xl))
+    );
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /**
+     * The default scrollbar is a light slab on both themes and sits inside
+     * the rounded corner. Thin, and drawn from the panel's own border colour,
+     * it reads as part of the frame rather than as chrome laid over it.
+     */
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--sw-border) 85%, transparent)
+        transparent;
     border: 1px solid var(--sw-border);
     border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-surface) 92%, transparent);
@@ -374,8 +410,15 @@ function pickHoverQuote() {
         grid-template-columns: minmax(0, 1fr);
     }
 
+    /**
+     * The cap above exists only because the panel is pinned. Once it scrolls
+     * with the page there is nothing to reach past, and keeping the cap would
+     * invent a second scrollbar inside a column that is already the full page.
+     */
     .admin-shell__nav {
         position: static;
+        max-block-size: none;
+        overflow-y: visible;
     }
 }
 
