@@ -35,7 +35,7 @@ and
 ## Baseline that must stay green
 
 `npm run check`, `composer run lint:check`, `php artisan test`
-(**128 tests / 1462 assertions** on `main`), `npm run build:ssr`. Both themes
+(**130 tests / 1477 assertions** on `main`), `npm run build:ssr`. Both themes
 get checked in a browser on any visual change.
 
 Because `main` deploys to Vercel on push, that baseline is a pre-push gate now,
@@ -101,10 +101,11 @@ current two, and runtime-editable design tokens.
 
 ## Known debts, to take when they cross the path
 
-- `useAccessibilityPreferences` never seeds `data-motion` from
-  `prefers-reduced-motion`, so the site's own switch and the media query
-  disagree for anyone who set neither. This is the root fix behind several
-  reduced-motion inconsistencies.
+- ~~`useAccessibilityPreferences` never seeds `data-motion` from
+  `prefers-reduced-motion`.~~ Fixed in `cbb59a7`, contrast with it, and seeded
+  from the document head rather than at hydration — the composable alone would
+  have set the attribute after the first paint. Held by
+  `AccessibilityPreferencesFollowTheSystemTest`.
 - ~~`--sw-button-primary-bg` on `--sw-button-primary-text` measures 2.95:1.~~
   Fixed in `17d6e4f`: morning now puts ink on the untouched orange (5.71:1),
   and hover lifts toward the page ground instead of deepening, which had been
