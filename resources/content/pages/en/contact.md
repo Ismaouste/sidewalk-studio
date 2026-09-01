@@ -18,6 +18,25 @@ form:
     summary_label: Project brief
     summary_placeholder: Context, timeline, priorities, and what you would love to bring to life.
     summary_meta: Keep it short. The message will open in WhatsApp so the conversation can continue directly.
+    project_type_label: Project type
+    project_type_options:
+        - Technical direction / CTO time
+        - E-commerce build
+        - Website
+        - Campaigns & growth
+        - Something else
+    budget_label: Budget band
+    budget_options:
+        - Under €3k
+        - €3–8k
+        - €8–20k
+        - Over €20k
+        - Daily rate
+    timeline_label: Timeline
+    timeline_options:
+        - Urgent
+        - This quarter
+        - Exploring
     primary_cta: Open WhatsApp
     secondary_cta: Write an email
 details:

@@ -18,6 +18,25 @@ form:
     summary_label: Brief projet
     summary_placeholder: Contexte, calendrier, priorités, et ce que vous aimeriez voir prendre forme.
     summary_meta: Rester bref. Le message sera repris dans WhatsApp pour continuer directement.
+    project_type_label: Type de projet
+    project_type_options:
+        - Direction technique / temps CTO
+        - Boutique e-commerce
+        - Site web
+        - Campagnes & growth
+        - Autre chose
+    budget_label: Fourchette de budget
+    budget_options:
+        - Moins de 3 k€
+        - 3–8 k€
+        - 8–20 k€
+        - Plus de 20 k€
+        - Au TJM
+    timeline_label: Échéance
+    timeline_options:
+        - Urgent
+        - Ce trimestre
+        - En exploration
     primary_cta: Ouvrir WhatsApp
     secondary_cta: Écrire un mail
 details:

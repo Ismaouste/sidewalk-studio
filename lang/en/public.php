@@ -100,6 +100,9 @@ return [
         'name' => 'Name: ',
         'email' => 'Email: ',
         'company' => 'Company or product: ',
+        'project_type' => 'Project type: ',
+        'budget' => 'Budget band: ',
+        'timeline' => 'Timeline: ',
     ],
 
     /**

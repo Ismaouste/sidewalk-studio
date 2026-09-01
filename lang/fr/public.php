@@ -66,6 +66,9 @@ return [
         'name' => 'Nom : ',
         'email' => 'Email : ',
         'company' => 'Entreprise ou produit : ',
+        'project_type' => 'Type de projet : ',
+        'budget' => 'Fourchette de budget : ',
+        'timeline' => 'Échéance : ',
     ],
 
     'experience' => [

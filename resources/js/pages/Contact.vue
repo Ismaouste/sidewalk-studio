@@ -32,6 +32,12 @@ const props = defineProps<{
         summary_label: string;
         summary_placeholder: string;
         summary_meta: string;
+        project_type_label: string;
+        project_type_options: string[];
+        budget_label: string;
+        budget_options: string[];
+        timeline_label: string;
+        timeline_options: string[];
         primary_cta: string;
         secondary_cta: string;
     };
@@ -67,6 +73,9 @@ const inquiry = useForm({
     email: '',
     company: '',
     summary: '',
+    project_type: '',
+    budget: '',
+    timeline: '',
 });
 
 const copy = computed(() => copyTree[page.props.site.locale].pages.contact);
@@ -98,6 +107,10 @@ const mailtoHref = computed(() => {
             `${copy.value.bodyEmailLabel}: ${inquiry.email.trim()}`,
         inquiry.company.trim() &&
             `${copy.value.bodyCompanyLabel}: ${inquiry.company.trim()}`,
+        inquiry.project_type &&
+            `${props.form.project_type_label}: ${inquiry.project_type}`,
+        inquiry.budget && `${props.form.budget_label}: ${inquiry.budget}`,
+        inquiry.timeline && `${props.form.timeline_label}: ${inquiry.timeline}`,
         '',
         inquiry.summary.trim() || copy.value.bodyBriefFallback,
     ].filter(Boolean);
@@ -256,6 +269,68 @@ function submitInquiry(): void {
                             >
                                 {{ inquiry.errors.company }}
                             </span>
+                        </label>
+
+                        <label class="contact-page__field">
+                            <span class="type-nav">
+                                {{ props.form.project_type_label }}
+                            </span>
+                            <select
+                                v-model="inquiry.project_type"
+                                class="contact-page__input contact-page__input--select"
+                                name="project_type"
+                            >
+                                <option value=""></option>
+                                <option
+                                    v-for="option in props.form
+                                        .project_type_options"
+                                    :key="option"
+                                    :value="option"
+                                >
+                                    {{ option }}
+                                </option>
+                            </select>
+                        </label>
+
+                        <label class="contact-page__field">
+                            <span class="type-nav">
+                                {{ props.form.budget_label }}
+                            </span>
+                            <select
+                                v-model="inquiry.budget"
+                                class="contact-page__input contact-page__input--select"
+                                name="budget"
+                            >
+                                <option value=""></option>
+                                <option
+                                    v-for="option in props.form.budget_options"
+                                    :key="option"
+                                    :value="option"
+                                >
+                                    {{ option }}
+                                </option>
+                            </select>
+                        </label>
+
+                        <label class="contact-page__field">
+                            <span class="type-nav">
+                                {{ props.form.timeline_label }}
+                            </span>
+                            <select
+                                v-model="inquiry.timeline"
+                                class="contact-page__input contact-page__input--select"
+                                name="timeline"
+                            >
+                                <option value=""></option>
+                                <option
+                                    v-for="option in props.form
+                                        .timeline_options"
+                                    :key="option"
+                                    :value="option"
+                                >
+                                    {{ option }}
+                                </option>
+                            </select>
                         </label>
 
                         <label
@@ -605,6 +680,30 @@ function submitInquiry(): void {
 
 .contact-page__input::placeholder {
     color: var(--sw-text-muted);
+}
+
+/*
+ * A native select in the input's clothes. `appearance: none` drops the UA
+ * arrow, so a token-colored chevron is drawn with two gradients on top of
+ * the themed field background. The `:hover` selector below carries the
+ * extra `.contact-page__field` ancestor because the shared input hover
+ * writes the `background` shorthand, which would otherwise erase the arrow
+ * the moment the pointer arrives.
+ */
+.contact-page__input--select,
+.contact-page__field .contact-page__input--select:hover {
+    appearance: none;
+    cursor: pointer;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--sw-text-secondary) 50%),
+        linear-gradient(135deg, var(--sw-text-secondary) 50%, transparent 50%);
+    background-position:
+        calc(100% - 1.25rem) 50%,
+        calc(100% - 0.95rem) 50%;
+    background-size:
+        0.3rem 0.3rem,
+        0.3rem 0.3rem;
+    background-repeat: no-repeat;
 }
 
 .contact-page__input--textarea {
