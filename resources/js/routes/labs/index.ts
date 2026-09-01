@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\SiteController::audit
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:345
 * @route '/{locale}/labs/audit'
 */
 export const audit = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ audit.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::audit
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:345
 * @route '/{locale}/labs/audit'
 */
 audit.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -45,7 +45,7 @@ audit.url = (args: { locale: string | number } | [locale: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\SiteController::audit
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:345
 * @route '/{locale}/labs/audit'
 */
 audit.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -55,7 +55,7 @@ audit.get = (args: { locale: string | number } | [locale: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\SiteController::audit
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:345
 * @route '/{locale}/labs/audit'
 */
 audit.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -65,7 +65,7 @@ audit.head = (args: { locale: string | number } | [locale: string | number ] | s
 
 /**
 * @see \App\Http\Controllers\SiteController::audit
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:345
 * @route '/{locale}/labs/audit'
 */
 const auditForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -75,7 +75,7 @@ const auditForm = (args: { locale: string | number } | [locale: string | number 
 
 /**
 * @see \App\Http\Controllers\SiteController::audit
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:345
 * @route '/{locale}/labs/audit'
 */
 auditForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -85,7 +85,7 @@ auditForm.get = (args: { locale: string | number } | [locale: string | number ] 
 
 /**
 * @see \App\Http\Controllers\SiteController::audit
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:345
 * @route '/{locale}/labs/audit'
 */
 auditForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
