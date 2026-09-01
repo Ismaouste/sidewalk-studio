@@ -5,6 +5,7 @@ export { default as home } from './home';
 export { default as labs } from './labs';
 export { default as local } from './local';
 export { default as projects } from './projects';
+export { default as services } from './services';
 export { default as sparkle } from './sparkle';
 export { default as writingIndex } from './writingIndex';
 export { default as writingShow } from './writingShow';
