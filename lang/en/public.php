@@ -88,6 +88,10 @@ return [
             'title' => 'Labs',
             'description' => 'Sandbox areas reserved for consent, structured data, and later design-system experiments.',
         ],
+        'newsletter_confirmed' => [
+            'title' => 'Subscription confirmed',
+            'description' => 'Your newsletter subscription is confirmed.',
+        ],
     ],
 
     /**

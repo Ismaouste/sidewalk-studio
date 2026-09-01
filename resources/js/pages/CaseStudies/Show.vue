@@ -7,6 +7,7 @@ import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import ArticleShowLayout from '@/components/layout/ArticleShowLayout.vue';
+import NewsletterSignup from '@/components/NewsletterSignup.vue';
 import RichText from '@/components/RichText.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
@@ -140,6 +141,8 @@ const caseStudyMeta = computed(() => [
                     </li>
                 </ul>
             </Panel>
+
+            <NewsletterSignup segment="local-business" context="case-study" />
         </template>
 
         <template v-if="props.related && props.related.length > 0" #footer>

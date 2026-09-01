@@ -332,6 +332,19 @@ class SiteController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
+    public function newsletterConfirmed(): Response
+    {
+        $seo = Seo::page(
+            PublicCopy::line('seo.newsletter_confirmed.title'),
+            PublicCopy::line('seo.newsletter_confirmed.description'),
+            '/newsletter/confirmed',
+            ['robots' => 'noindex,nofollow'],
+        );
+
+        return Inertia::render('NewsletterConfirmed', ['seo' => $seo])
+            ->withViewData(['seo' => $seo]);
+    }
+
     public function services(): Response
     {
         $page = $this->pages->get('services');

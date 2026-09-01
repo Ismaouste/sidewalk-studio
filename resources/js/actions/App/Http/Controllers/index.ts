@@ -1,4 +1,5 @@
 import AudiencePingController from './AudiencePingController'
+import NewsletterSubscriptionController from './NewsletterSubscriptionController'
 import SiteController from './SiteController'
 import ContactSubmissionController from './ContactSubmissionController'
 import WritingController from './WritingController'
@@ -8,6 +9,7 @@ import Admin from './Admin'
 import SitemapController from './SitemapController'
 const Controllers = {
     AudiencePingController: Object.assign(AudiencePingController, AudiencePingController),
+NewsletterSubscriptionController: Object.assign(NewsletterSubscriptionController, NewsletterSubscriptionController),
 SiteController: Object.assign(SiteController, SiteController),
 ContactSubmissionController: Object.assign(ContactSubmissionController, ContactSubmissionController),
 WritingController: Object.assign(WritingController, WritingController),

@@ -101,6 +101,7 @@ Route::prefix('{locale}')
             ->name('contact.store');
         Route::get('/data-processing', [SiteController::class, 'dataProcessing'])->name('data-processing');
         Route::get('/colophon', [SiteController::class, 'colophon'])->name('colophon');
+        Route::get('/newsletter/confirmed', [SiteController::class, 'newsletterConfirmed'])->name('newsletter.confirmed');
 
         Route::get('/writing', function (string $locale) {
             return redirect("/{$locale}/journal", 301);

@@ -142,6 +142,21 @@ class NewsletterSubscriptionTest extends TestCase
         Http::assertNothingSent();
     }
 
+    public function test_the_confirmation_landing_page_renders_and_stays_out_of_the_index(): void
+    {
+        $response = $this->get('/en/newsletter/confirmed');
+
+        $response->assertOk();
+        $response->assertSee('noindex', false);
+
+        // The page has no per-locale content file, so its availability had
+        // to be declared in PublicLocale — without that, the French Brevo
+        // confirmation link would land on an English page.
+        $french = $this->get('/fr/newsletter/confirmed');
+        $french->assertOk();
+        $french->assertSee('lang="fr"', false);
+    }
+
     public function test_a_brevo_error_becomes_a_delivery_exception(): void
     {
         config()->set('newsletter.brevo.key', 'brevo-test-key');

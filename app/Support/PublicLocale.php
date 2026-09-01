@@ -234,6 +234,9 @@ class PublicLocale
         }
 
         return match ($request->route()?->getName()) {
+            // Translated entirely from lang/ and the copy modules — no
+            // per-locale content file gates these routes.
+            'newsletter.confirmed' => true,
             'writing.index' => self::localizedCollectionExists('writing', $locale),
             'writing.show' => self::localizedCollectionSlugExists(
                 'writing',

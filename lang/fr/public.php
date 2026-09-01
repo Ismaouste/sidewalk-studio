@@ -59,6 +59,10 @@ return [
             'title' => 'Labs',
             'description' => 'Terrains d’essai réservés au consentement, aux données structurées et aux expérimentations de design system à venir.',
         ],
+        'newsletter_confirmed' => [
+            'title' => 'Inscription confirmée',
+            'description' => 'Votre inscription à la newsletter est confirmée.',
+        ],
     ],
 
     'contact_mail' => [
