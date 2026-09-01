@@ -44,6 +44,12 @@ details:
     email_label: Email
     location_label: Localisation
     availability_label: Disponibilité
+booking:
+    eyebrow: Réserver directement
+    title: Un appel de 30 minutes, sans ping-pong de mails.
+    summary: Choisissez un créneau qui vous convient — l'appel est gratuit, cadré, et se termine par une prochaine étape claire ou un « pas pertinent » honnête.
+    cta_label: Réserver un appel
+    url: ''
 services:
     eyebrow: Où je peux aider
     items:

@@ -322,6 +322,13 @@ final class PageSchemas
                 Field::line('location_label', 'Location label'),
                 Field::line('availability_label', 'Availability label'),
             ], 'Details'),
+            Field::group('booking', [
+                Field::line('eyebrow', 'Eyebrow'),
+                Field::line('title', 'Title'),
+                Field::text('summary', 'Summary'),
+                Field::line('cta_label', 'Button label'),
+                Field::url('url', 'Booking URL'),
+            ], 'Booking'),
             Field::group('services', [
                 Field::line('eyebrow', 'Eyebrow'),
                 Field::group('items', [

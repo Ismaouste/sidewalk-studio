@@ -48,6 +48,13 @@ const props = defineProps<{
         location_label: string;
         availability_label: string;
     };
+    booking: {
+        eyebrow: string;
+        title: string;
+        summary: string;
+        cta_label: string;
+        url: string;
+    };
     cvDownloads: Array<{
         label: string;
         href: string;
@@ -130,6 +137,10 @@ function submitInquiry(): void {
 
 function markWhatsappIntent(): void {
     capture('lead_intent', { channel: 'whatsapp', funnel_stage: 'V3' });
+}
+
+function markBookingIntent(): void {
+    capture('lead_intent', { channel: 'booking', funnel_stage: 'V3' });
 }
 </script>
 
@@ -442,6 +453,36 @@ function markWhatsappIntent(): void {
                         </dl>
                     </Panel>
 
+                    <!--
+                        Content-managed and self-hiding: the block appears the
+                        day a booking URL is pasted into the admin, without a
+                        deploy — and stays invisible until then.
+                    -->
+                    <Panel
+                        v-if="props.booking.url"
+                        class="contact-page__booking"
+                        tone="grid"
+                    >
+                        <p class="type-eyebrow">{{ props.booking.eyebrow }}</p>
+                        <h2 class="type-h3 contact-page__booking-title">
+                            {{ props.booking.title }}
+                        </h2>
+                        <p class="type-body-sm contact-page__booking-summary">
+                            {{ props.booking.summary }}
+                        </p>
+                        <div class="contact-page__booking-actions">
+                            <Button
+                                :href="props.booking.url"
+                                target="_blank"
+                                rel="noopener"
+                                external
+                                @click="markBookingIntent"
+                            >
+                                {{ props.booking.cta_label }}
+                            </Button>
+                        </div>
+                    </Panel>
+
                     <Panel class="contact-page__services" tone="surface">
                         <p class="type-eyebrow">{{ props.services.eyebrow }}</p>
 
@@ -611,6 +652,28 @@ function markWhatsappIntent(): void {
     min-width: 0;
     overflow-x: clip;
     padding: clamp(18px, 2.8vw, var(--sw-space-sm));
+}
+
+.contact-page__booking {
+    display: grid;
+    gap: var(--sw-space-xs);
+    min-width: 0;
+    padding: clamp(18px, 2.8vw, var(--sw-space-sm));
+}
+
+.contact-page__booking-title,
+.contact-page__booking-summary {
+    margin: 0;
+}
+
+.contact-page__booking-summary {
+    color: var(--sw-text-secondary);
+}
+
+.contact-page__booking-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-xs);
 }
 
 .contact-page__form-intro {

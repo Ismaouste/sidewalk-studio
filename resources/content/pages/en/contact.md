@@ -44,6 +44,12 @@ details:
     email_label: Email
     location_label: Location
     availability_label: Availability
+booking:
+    eyebrow: Book directly
+    title: A 30-minute call, without the back-and-forth.
+    summary: Pick a slot that suits you — the call is free, focused, and ends with a clear next step or an honest "not a fit".
+    cta_label: Book a call
+    url: ''
 services:
     eyebrow: Where I can help
     items:

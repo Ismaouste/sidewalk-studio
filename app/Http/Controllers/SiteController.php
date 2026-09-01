@@ -414,6 +414,7 @@ class SiteController extends Controller
             'hero' => $page['hero'],
             'form' => $page['form'],
             'details' => $page['details'],
+            'booking' => $page['booking'],
             'cvDownloads' => $this->cvDownloads(),
             'services' => $page['services'],
             'recruiterShortcut' => $page['recruiter_shortcut'],
