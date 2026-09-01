@@ -37,19 +37,43 @@ function applyPreferences(): void {
     );
 }
 
+// An explicit stored choice wins over the system one in both directions:
+// someone who turned motion back on asked for it. Only the absence of a
+// stored value falls through to the media query. Testing for one value alone
+// -- which is what this did -- cannot tell a deliberate opt-out from a
+// visitor who has never touched the control, and so reported motion as full
+// to everyone who had only ever set it at the operating system.
+//
+// `app.blade.php` resolves the same three preferences the same way before
+// first paint. This runs after hydration and must agree with it, or the panel
+// would report a state the document does not have.
+function resolvePreference<T extends string>(
+    stored: string | null,
+    values: readonly [T, T],
+    query: string,
+): T {
+    if (values.includes(stored as T)) {
+        return stored as T;
+    }
+
+    return window.matchMedia(query).matches ? values[0] : values[1];
+}
+
 function initializeAccessibilityPreferences(): void {
     if (initialized || typeof window === 'undefined') {
         return;
     }
 
-    motionPreference.value =
-        readStoredPreference(MOTION_STORAGE_KEY) === 'reduced'
-            ? 'reduced'
-            : 'full';
-    contrastPreference.value =
-        readStoredPreference(CONTRAST_STORAGE_KEY) === 'boost'
-            ? 'boost'
-            : 'default';
+    motionPreference.value = resolvePreference(
+        readStoredPreference(MOTION_STORAGE_KEY),
+        ['reduced', 'full'],
+        '(prefers-reduced-motion: reduce)',
+    );
+    contrastPreference.value = resolvePreference(
+        readStoredPreference(CONTRAST_STORAGE_KEY),
+        ['boost', 'default'],
+        '(prefers-contrast: more)',
+    );
 
     applyPreferences();
     initialized = true;

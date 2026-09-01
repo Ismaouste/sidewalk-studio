@@ -9,23 +9,55 @@
                 // when a visitor blocks site data. This runs before anything
                 // else on the page, so an unguarded read here takes the
                 // document down with it.
-                let stored = null;
+                const read = (key) => {
+                    try {
+                        return window.localStorage.getItem(key);
+                    } catch (error) {
+                        return null;
+                    }
+                };
 
-                try {
-                    stored = window.localStorage.getItem('sidewalk-theme');
-                } catch (error) {
-                    stored = null;
-                }
-
-                const theme =
-                    stored === 'morning' || stored === 'sunset'
+                // One shape for all three: an explicit stored choice wins in
+                // both directions, and only its absence falls through to what
+                // the system asks for. Testing for one value alone would read
+                // a deliberate opt-out as an absent preference.
+                const resolve = (stored, values, query, whenMatched) =>
+                    values.includes(stored)
                         ? stored
-                        : window.matchMedia('(prefers-color-scheme: dark)')
-                                .matches
-                          ? 'sunset'
-                          : 'morning';
+                        : window.matchMedia(query).matches
+                          ? whenMatched
+                          : values[values.length - 1];
+
+                const theme = resolve(
+                    read('sidewalk-theme'),
+                    ['sunset', 'morning'],
+                    '(prefers-color-scheme: dark)',
+                    'sunset',
+                );
+
+                // Seeded here rather than at hydration, for the reason the
+                // theme is: an attribute that lands after the first paint
+                // lands too late to stop the animation it exists to prevent.
+                const motion = resolve(
+                    read('sidewalk-accessibility-motion'),
+                    ['reduced', 'full'],
+                    '(prefers-reduced-motion: reduce)',
+                    'reduced',
+                );
+
+                const contrast = resolve(
+                    read('sidewalk-accessibility-contrast'),
+                    ['boost', 'default'],
+                    '(prefers-contrast: more)',
+                    'boost',
+                );
 
                 document.documentElement.setAttribute('data-theme', theme);
+                document.documentElement.setAttribute('data-motion', motion);
+                document.documentElement.setAttribute(
+                    'data-contrast',
+                    contrast,
+                );
                 document.documentElement.style.colorScheme =
                     theme === 'sunset' ? 'dark' : 'light';
             })();
