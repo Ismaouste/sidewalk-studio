@@ -910,7 +910,7 @@ contact.form = contactForm
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:423
+* @see app/Http/Controllers/SiteController.php:424
 * @route '/{locale}/data-processing'
 */
 export const dataProcessing = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -925,7 +925,7 @@ dataProcessing.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:423
+* @see app/Http/Controllers/SiteController.php:424
 * @route '/{locale}/data-processing'
 */
 dataProcessing.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -954,7 +954,7 @@ dataProcessing.url = (args: { locale: string | number } | [locale: string | numb
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:423
+* @see app/Http/Controllers/SiteController.php:424
 * @route '/{locale}/data-processing'
 */
 dataProcessing.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -964,7 +964,7 @@ dataProcessing.get = (args: { locale: string | number } | [locale: string | numb
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:423
+* @see app/Http/Controllers/SiteController.php:424
 * @route '/{locale}/data-processing'
 */
 dataProcessing.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -974,7 +974,7 @@ dataProcessing.head = (args: { locale: string | number } | [locale: string | num
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:423
+* @see app/Http/Controllers/SiteController.php:424
 * @route '/{locale}/data-processing'
 */
 const dataProcessingForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -984,7 +984,7 @@ const dataProcessingForm = (args: { locale: string | number } | [locale: string 
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:423
+* @see app/Http/Controllers/SiteController.php:424
 * @route '/{locale}/data-processing'
 */
 dataProcessingForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -994,7 +994,7 @@ dataProcessingForm.get = (args: { locale: string | number } | [locale: string | 
 
 /**
 * @see \App\Http\Controllers\SiteController::dataProcessing
-* @see app/Http/Controllers/SiteController.php:423
+* @see app/Http/Controllers/SiteController.php:424
 * @route '/{locale}/data-processing'
 */
 dataProcessingForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -1011,7 +1011,7 @@ dataProcessing.form = dataProcessingForm
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:449
+* @see app/Http/Controllers/SiteController.php:450
 * @route '/{locale}/colophon'
 */
 export const colophon = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -1026,7 +1026,7 @@ colophon.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:449
+* @see app/Http/Controllers/SiteController.php:450
 * @route '/{locale}/colophon'
 */
 colophon.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -1055,7 +1055,7 @@ colophon.url = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:449
+* @see app/Http/Controllers/SiteController.php:450
 * @route '/{locale}/colophon'
 */
 colophon.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -1065,7 +1065,7 @@ colophon.get = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:449
+* @see app/Http/Controllers/SiteController.php:450
 * @route '/{locale}/colophon'
 */
 colophon.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -1075,7 +1075,7 @@ colophon.head = (args: { locale: string | number } | [locale: string | number ] 
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:449
+* @see app/Http/Controllers/SiteController.php:450
 * @route '/{locale}/colophon'
 */
 const colophonForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -1085,7 +1085,7 @@ const colophonForm = (args: { locale: string | number } | [locale: string | numb
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:449
+* @see app/Http/Controllers/SiteController.php:450
 * @route '/{locale}/colophon'
 */
 colophonForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -1095,7 +1095,7 @@ colophonForm.get = (args: { locale: string | number } | [locale: string | number
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:449
+* @see app/Http/Controllers/SiteController.php:450
 * @route '/{locale}/colophon'
 */
 colophonForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -1213,7 +1213,7 @@ newsletterConfirmed.form = newsletterConfirmedForm
 
 /**
 * @see \App\Http\Controllers\SiteController::downloadCv
-* @see app/Http/Controllers/SiteController.php:467
+* @see app/Http/Controllers/SiteController.php:468
 * @route '/cv/{locale}'
 */
 export const downloadCv = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -1228,7 +1228,7 @@ downloadCv.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::downloadCv
-* @see app/Http/Controllers/SiteController.php:467
+* @see app/Http/Controllers/SiteController.php:468
 * @route '/cv/{locale}'
 */
 downloadCv.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -1257,7 +1257,7 @@ downloadCv.url = (args: { locale: string | number } | [locale: string | number ]
 
 /**
 * @see \App\Http\Controllers\SiteController::downloadCv
-* @see app/Http/Controllers/SiteController.php:467
+* @see app/Http/Controllers/SiteController.php:468
 * @route '/cv/{locale}'
 */
 downloadCv.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -1267,7 +1267,7 @@ downloadCv.get = (args: { locale: string | number } | [locale: string | number ]
 
 /**
 * @see \App\Http\Controllers\SiteController::downloadCv
-* @see app/Http/Controllers/SiteController.php:467
+* @see app/Http/Controllers/SiteController.php:468
 * @route '/cv/{locale}'
 */
 downloadCv.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -1277,7 +1277,7 @@ downloadCv.head = (args: { locale: string | number } | [locale: string | number 
 
 /**
 * @see \App\Http\Controllers\SiteController::downloadCv
-* @see app/Http/Controllers/SiteController.php:467
+* @see app/Http/Controllers/SiteController.php:468
 * @route '/cv/{locale}'
 */
 const downloadCvForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -1287,7 +1287,7 @@ const downloadCvForm = (args: { locale: string | number } | [locale: string | nu
 
 /**
 * @see \App\Http\Controllers\SiteController::downloadCv
-* @see app/Http/Controllers/SiteController.php:467
+* @see app/Http/Controllers/SiteController.php:468
 * @route '/cv/{locale}'
 */
 downloadCvForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -1297,7 +1297,7 @@ downloadCvForm.get = (args: { locale: string | number } | [locale: string | numb
 
 /**
 * @see \App\Http\Controllers\SiteController::downloadCv
-* @see app/Http/Controllers/SiteController.php:467
+* @see app/Http/Controllers/SiteController.php:468
 * @route '/cv/{locale}'
 */
 downloadCvForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

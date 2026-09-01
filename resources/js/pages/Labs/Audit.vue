@@ -118,7 +118,7 @@ async function runAudit(): Promise<void> {
             <Panel class="labs-audit__form-panel" tone="grid">
                 <form class="labs-audit__form" @submit.prevent="runAudit">
                     <div class="labs-audit__field">
-                        <label class="type-meta" for="audit-url">
+                        <label class="type-nav" for="audit-url">
                             {{ copy.urlLabel }}
                         </label>
                         <input
@@ -131,7 +131,7 @@ async function runAudit(): Promise<void> {
                         />
                     </div>
                     <div class="labs-audit__field">
-                        <label class="type-meta" for="audit-email">
+                        <label class="type-nav" for="audit-email">
                             {{ copy.emailLabel }}
                         </label>
                         <input
@@ -168,6 +168,7 @@ async function runAudit(): Promise<void> {
                     <p
                         v-else-if="state === 'error'"
                         class="type-body-sm labs-audit__error"
+                        role="alert"
                     >
                         {{ copy.errorNote }}
                     </p>
@@ -291,9 +292,22 @@ async function runAudit(): Promise<void> {
     color: var(--sw-text-muted);
 }
 
+@media (hover: hover) {
+    .labs-audit__input:hover {
+        border-color: color-mix(
+            in srgb,
+            var(--sw-accent-dominant) 24%,
+            var(--sw-border)
+        );
+        background: color-mix(in srgb, var(--sw-bg-elevated) 94%, transparent);
+    }
+}
+
 .labs-audit__input:focus-visible {
-    outline: 2px solid var(--sw-border-focus);
-    outline-offset: 2px;
+    border-color: var(--sw-border-focus);
+    box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--sw-border-focus) 18%, transparent);
+    outline: none;
 }
 
 /* Same visually-hidden honeypot recipe as the newsletter block. */
@@ -317,7 +331,11 @@ async function runAudit(): Promise<void> {
 }
 
 .labs-audit__error {
-    color: var(--sw-accent-dominant);
+    color: color-mix(
+        in srgb,
+        var(--sw-accent-coral) 88%,
+        var(--sw-text-primary)
+    );
 }
 
 .labs-audit__privacy {

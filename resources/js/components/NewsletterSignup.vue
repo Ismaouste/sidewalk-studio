@@ -84,10 +84,7 @@ async function subscribe(): Promise<void> {
             class="newsletter-signup__form"
             @submit.prevent="subscribe"
         >
-            <label
-                class="type-meta newsletter-signup__label"
-                :for="`newsletter-${context}`"
-            >
+            <label class="type-nav" :for="`newsletter-${context}`">
                 {{ copy.emailLabel }}
             </label>
             <div class="newsletter-signup__row">
@@ -127,6 +124,7 @@ async function subscribe(): Promise<void> {
             <p
                 v-if="state === 'error'"
                 class="type-body-sm newsletter-signup__error"
+                role="alert"
             >
                 {{ copy.errorNote }}
             </p>
@@ -185,9 +183,22 @@ async function subscribe(): Promise<void> {
     color: var(--sw-text-muted);
 }
 
+@media (hover: hover) {
+    .newsletter-signup__input:hover {
+        border-color: color-mix(
+            in srgb,
+            var(--sw-accent-dominant) 24%,
+            var(--sw-border)
+        );
+        background: color-mix(in srgb, var(--sw-bg-elevated) 94%, transparent);
+    }
+}
+
 .newsletter-signup__input:focus-visible {
-    outline: 2px solid var(--sw-border-focus);
-    outline-offset: 2px;
+    border-color: var(--sw-border-focus);
+    box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--sw-border-focus) 18%, transparent);
+    outline: none;
 }
 
 /*
@@ -209,6 +220,10 @@ async function subscribe(): Promise<void> {
 }
 
 .newsletter-signup__error {
-    color: var(--sw-accent-dominant);
+    color: color-mix(
+        in srgb,
+        var(--sw-accent-coral) 88%,
+        var(--sw-text-primary)
+    );
 }
 </style>

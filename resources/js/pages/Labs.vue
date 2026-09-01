@@ -144,6 +144,12 @@ const copy = computed(() => copyTree[page.props.site.locale].pages.labs);
     color: var(--sw-text-secondary);
 }
 
+.labs-page__card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sw-space-xs);
+}
+
 .labs-page__grid {
     display: grid;
     gap: var(--sw-space-sm);

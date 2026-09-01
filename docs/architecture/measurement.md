@@ -72,6 +72,9 @@ a pluggable sink (`app/Audience/AudienceSink`), bound from
 
 ## Activation runbook
 
+Capture (newsletter, audit lead magnet, booking) has its own runbook in
+`capture.md`.
+
 Everything degrades to a working site with zero env vars. To turn PostHog
 on (an env change on Vercel, no deploy):
 
