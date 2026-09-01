@@ -172,7 +172,7 @@ class SiteSettingsService
             ],
             'branding_settings' => [
                 'asset_mode' => 'uploaded',
-                'uploaded_asset_path' => '/images/contact-avatar.png',
+                'uploaded_asset_path' => '/images/contact-avatar.webp',
                 'fallback_variant' => 'monogram_circle',
                 'fallback_label' => 'IR',
                 'fallback_subtitle' => 'Sidewalk Studio',
