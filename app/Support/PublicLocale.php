@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Services\ContentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -95,20 +96,60 @@ class PublicLocale
         };
     }
 
-    public static function writingSlugForRequest(Request $request): ?string
+    /**
+     * The publication a request is showing, or null when the route shows
+     * none.
+     *
+     * @return array{section: string, slug: string}|null
+     */
+    public static function publicationForRequest(Request $request): ?array
     {
-        return match ($request->route()?->getName()) {
-            'writing.show', 'writing.legacy.show' => (string) $request->route('slug'),
+        $section = match ($request->route()?->getName()) {
+            'writing.show', 'writing.legacy.show' => 'writing',
+            'case-studies.show' => 'case-studies',
             default => null,
         };
+
+        if ($section === null) {
+            return null;
+        }
+
+        $slug = (string) $request->route('slug');
+
+        return $slug === '' ? null : ['section' => $section, 'slug' => $slug];
     }
 
-    public static function caseStudySlugForRequest(Request $request): ?string
+    /**
+     * The same publication's slug in another language, or null when it has no
+     * edition there.
+     *
+     * Eight of the fifteen publications carry a different slug in French —
+     * which is the whole point of localizing a slug — and `translation_key`
+     * is what pairs them. Asking instead whether the *same* slug exists in
+     * the other language, which is what this used to do, answers "no French
+     * edition" for every one of them. Both halves of that were live: the
+     * switcher hid itself on the English article, and on the French one it
+     * offered an English href built by swapping the locale prefix on a
+     * French slug, which 404s.
+     */
+    public static function translatedPublicationSlug(string $section, string $slug, string $locale): ?string
     {
-        return match ($request->route()?->getName()) {
-            'case-studies.show' => (string) $request->route('slug'),
-            default => null,
-        };
+        $content = app(ContentRepository::class);
+
+        $source = collect(self::supported())
+            ->map(fn (string $candidate): mixed => $content
+                ->published($section, $candidate, false)
+                ->firstWhere('slug', $slug))
+            ->first(fn (mixed $item): bool => is_array($item));
+
+        if (! is_array($source)) {
+            return null;
+        }
+
+        $translated = $content->published($section, $locale, false)
+            ->firstWhere('translation_key', $source['translation_key']);
+
+        return is_array($translated) ? (string) $translated['slug'] : null;
     }
 
     /**
@@ -223,6 +264,20 @@ class PublicLocale
 
     public static function isAvailableForRequest(Request $request, string $locale): bool
     {
+        // Publications are asked about before the default-locale shortcut
+        // below, because they are the one thing this site can hold in a
+        // single language: "English is always there" is not true of an entry
+        // that only ever existed in French.
+        $publication = self::publicationForRequest($request);
+
+        if ($publication !== null) {
+            return self::translatedPublicationSlug(
+                $publication['section'],
+                $publication['slug'],
+                $locale,
+            ) !== null;
+        }
+
         if ($locale === self::default()) {
             return true;
         }
@@ -236,22 +291,42 @@ class PublicLocale
         return match ($request->route()?->getName()) {
             // Translated entirely from lang/ and the copy modules — no
             // per-locale content file gates these routes.
+            'labs' => true,
             'labs.audit' => true,
             'newsletter.confirmed' => true,
             'writing.index' => self::localizedCollectionExists('writing', $locale),
-            'writing.show' => self::localizedCollectionSlugExists(
-                'writing',
-                self::writingSlugForRequest($request),
-                $locale,
-            ),
             'case-studies.index' => self::localizedCollectionExists('case-studies', $locale),
-            'case-studies.show' => self::localizedCollectionSlugExists(
-                'case-studies',
-                self::caseStudySlugForRequest($request),
-                $locale,
-            ),
             default => false,
         };
+    }
+
+    /**
+     * `$path` is locale-stripped. For a publication whose slug differs
+     * between languages, the destination is not the same path under another
+     * prefix — it is the sibling entry, which carries its own slug. Every
+     * publication route ends in that slug, so replacing the last segment
+     * covers `/journal/…`, `/case-studies/…` and the legacy `/writing/…`
+     * redirect from one rule.
+     */
+    protected static function pathInLocale(Request $request, string $path, string $locale): string
+    {
+        $publication = self::publicationForRequest($request);
+
+        if ($publication === null) {
+            return $path;
+        }
+
+        $translatedSlug = self::translatedPublicationSlug(
+            $publication['section'],
+            $publication['slug'],
+            $locale,
+        );
+
+        if ($translatedSlug === null || $translatedSlug === $publication['slug']) {
+            return $path;
+        }
+
+        return preg_replace('/[^\/]+$/', $translatedSlug, $path) ?? $path;
     }
 
     protected static function localizedCollectionExists(string $section, string $locale): bool
@@ -264,15 +339,6 @@ class PublicLocale
 
         return collect(File::files($directory))
             ->contains(fn ($file): bool => $file->getExtension() === 'md');
-    }
-
-    protected static function localizedCollectionSlugExists(string $section, ?string $slug, string $locale): bool
-    {
-        if ($slug === null || $slug === '') {
-            return false;
-        }
-
-        return File::exists(resource_path("content/{$section}/{$locale}/{$slug}.md"));
     }
 
     /**
@@ -306,12 +372,15 @@ class PublicLocale
                     'href' => null,
                 ];
             })
-            ->map(function (array $option) use ($path, $query): array {
+            ->map(function (array $option) use ($request, $path, $query): array {
                 if (! $option['available']) {
                     return $option;
                 }
 
-                $href = self::localizedPath($path, $option['code']);
+                $href = self::localizedPath(
+                    self::pathInLocale($request, $path, $option['code']),
+                    $option['code'],
+                );
 
                 if ($query !== []) {
                     $href .= '?'.http_build_query($query);
@@ -325,7 +394,11 @@ class PublicLocale
             ->all();
 
         return [
-            'visible' => self::isAvailableForRequest($request, 'fr'),
+            // Somewhere to switch *to* is what makes the control worth
+            // showing, and asking whether French exists was only the same
+            // question while English was assumed to always exist. It is not:
+            // a publication written only in French has no English edition.
+            'visible' => collect($options)->where('available', true)->count() > 1,
             'current' => $currentLocale,
             'preferred' => $preferredLocale,
             'options' => $options,
