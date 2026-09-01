@@ -15,7 +15,27 @@ type AdminPageProps = {
 };
 
 const page = usePage<AdminPageProps>();
+/**
+ * A prefix match, except for the one entry that is a prefix of every other.
+ *
+ * `/admin/pages` starts with `/admin`, so the dashboard would have read as
+ * active on every screen in the shell — two links lit at once, and the
+ * highlight stops meaning anything. The root is matched exactly; everything
+ * below it keeps the prefix match its sub-routes rely on, so
+ * `/admin/experience/12` still lights Experience.
+ */
+function isActive(href: string): boolean {
+    const url = page.url.split('?')[0] ?? '';
+
+    return href === '/admin' ? url === '/admin' : url.startsWith(href);
+}
+
 const navigation = [
+    {
+        label: 'Dashboard',
+        href: '/admin',
+        note: 'What is unfinished, and what the site does about it meanwhile',
+    },
     {
         label: 'Publications',
         href: '/admin/publications',
@@ -158,8 +178,9 @@ function pickHoverQuote() {
                         :href="item.href"
                         class="admin-shell__nav-link"
                         :class="{
-                            'admin-shell__nav-link--active':
-                                page.url.startsWith(item.href),
+                            'admin-shell__nav-link--active': isActive(
+                                item.href,
+                            ),
                         }"
                     >
                         {{ item.label }}

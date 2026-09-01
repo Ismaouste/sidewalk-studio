@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 const AdminEntryController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ AdminEntryController.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 AdminEntryController.url = (options?: RouteQueryOptions) => {
@@ -29,7 +29,7 @@ AdminEntryController.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 AdminEntryController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -39,7 +39,7 @@ AdminEntryController.get = (options?: RouteQueryOptions): RouteDefinition<'get'>
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 AdminEntryController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -49,7 +49,7 @@ AdminEntryController.head = (options?: RouteQueryOptions): RouteDefinition<'head
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 const AdminEntryControllerForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -59,7 +59,7 @@ const AdminEntryControllerForm = (options?: RouteQueryOptions): RouteFormDefinit
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 AdminEntryControllerForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -69,7 +69,7 @@ AdminEntryControllerForm.get = (options?: RouteQueryOptions): RouteFormDefinitio
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 AdminEntryControllerForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

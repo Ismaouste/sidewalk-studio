@@ -13,7 +13,7 @@ import publications from './publications'
 import languageFiles from './language-files'
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -28,7 +28,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -41,7 +41,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -51,7 +51,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -61,7 +61,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -71,7 +71,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -81,7 +81,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Admin\AdminEntryController::__invoke
-* @see app/Http/Controllers/Admin/AdminEntryController.php:12
+* @see app/Http/Controllers/Admin/AdminEntryController.php:27
 * @route '/admin'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
