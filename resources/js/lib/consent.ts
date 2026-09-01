@@ -45,7 +45,7 @@ const consentTranslations = {
                 {
                     title: 'Analytics',
                     description:
-                        'Reserved for later privacy-first measurement adapters. In v0 the default driver is a no-op placeholder.',
+                        'Product analytics through PostHog, hosted in the EU. Used to understand which pages and offers get read. Session replay and heatmaps are a separate, explicit switch on the data-processing page — never part of "Accept all".',
                     linkedCategory: 'analytics',
                 },
                 {
@@ -92,7 +92,7 @@ const consentTranslations = {
                 {
                     title: 'Analytics',
                     description:
-                        'Réservé à des outils de mesure plus respectueux de la vie privée. En v0, le driver par défaut ne charge rien.',
+                        "Mesure d'audience produit via PostHog, hébergé dans l'Union européenne. Sert à comprendre quelles pages et offres sont lues. La relecture de session et les cartes de chaleur ont leur propre interrupteur explicite sur la page traitement des données — jamais inclus dans « Tout accepter ».",
                     linkedCategory: 'analytics',
                 },
                 {
@@ -137,7 +137,7 @@ function resolveConsentLocale(locale?: string): ConsentLocale {
     return locale === 'fr' ? 'fr' : 'en';
 }
 
-function registerDefaults(driver: ConsentConfig['driver']) {
+function registerDefaults(config: ConsentConfig) {
     registerEmbed('youtube', 'media', {
         embedUrl: 'https://www.youtube-nocookie.com/embed/{data-id}',
         thumbnailUrl: 'https://i3.ytimg.com/vi/{data-id}/hqdefault.jpg',
@@ -157,21 +157,18 @@ function registerDefaults(driver: ConsentConfig['driver']) {
     registerScript({
         key: 'analytics-driver',
         category: 'analytics',
-        load: () => {
-            if (driver === 'none') {
+        load: async () => {
+            if (config.driver === 'none') {
                 return;
             }
 
-            window.dispatchEvent(
-                new CustomEvent('sidewalk:analytics:enabled', {
-                    detail: { driver },
-                }),
-            );
+            const { enableAnalytics } = await import('@/lib/analytics');
+            enableAnalytics(config);
         },
         unload: () => {
-            window.dispatchEvent(
-                new CustomEvent('sidewalk:analytics:disabled'),
-            );
+            void import('@/lib/analytics').then(({ disableAnalytics }) => {
+                disableAnalytics();
+            });
         },
     });
 }
@@ -192,7 +189,7 @@ export async function initializeConsent(
         return;
     }
 
-    registerDefaults(config.driver);
+    registerDefaults(config);
 
     const iframeManager = window.iframemanager?.();
 
@@ -252,6 +249,8 @@ export async function initializeConsent(
 
     window.SidewalkConsent = {
         showPreferences: () => CookieConsent.showPreferences(),
+        acceptedCategory: (category: string) =>
+            CookieConsent.acceptedCategory(category),
     };
 
     initialized = true;

@@ -62,6 +62,7 @@ declare global {
         };
         SidewalkConsent?: {
             showPreferences: () => void;
+            acceptedCategory: (category: string) => boolean;
         };
         __SIDEWALK_WEB_VITALS__?: SidewalkWebVital[];
         __SIDEWALK_PERF_AUDIT__?: SidewalkPerformanceAudit;

@@ -994,7 +994,7 @@ sitemapForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 sitemap.form = sitemapForm
 
 /**
-* @see routes/web.php:208
+* @see routes/web.php:233
 * @route '/robots.txt'
 */
 export const robots = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -1008,7 +1008,7 @@ robots.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:208
+* @see routes/web.php:233
 * @route '/robots.txt'
 */
 robots.url = (options?: RouteQueryOptions) => {
@@ -1020,7 +1020,7 @@ robots.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/web.php:208
+* @see routes/web.php:233
 * @route '/robots.txt'
 */
 robots.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -1029,7 +1029,7 @@ robots.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:208
+* @see routes/web.php:233
 * @route '/robots.txt'
 */
 robots.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -1038,7 +1038,7 @@ robots.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/web.php:208
+* @see routes/web.php:233
 * @route '/robots.txt'
 */
 const robotsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -1047,7 +1047,7 @@ const robotsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 })
 
 /**
-* @see routes/web.php:208
+* @see routes/web.php:233
 * @route '/robots.txt'
 */
 robotsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -1056,7 +1056,7 @@ robotsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:208
+* @see routes/web.php:233
 * @route '/robots.txt'
 */
 robotsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
