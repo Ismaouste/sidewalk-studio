@@ -15,7 +15,7 @@ return [
         [
             'key' => 'analytics',
             'label' => 'Analytics',
-            'description' => 'Reserved for privacy-first metrics adapters such as Matomo or PostHog once the dedicated spec lands.',
+            'description' => 'Product analytics via PostHog EU Cloud, loaded only after opt-in. Session replay and heatmaps stay behind their own explicit switch on the data-processing page.',
             'readonly' => false,
             'enabled' => false,
         ],
@@ -30,6 +30,10 @@ return [
     'services' => [
         'analytics' => [
             'driver' => env('ANALYTICS_DRIVER', 'none'),
+            'posthog' => [
+                'key' => env('POSTHOG_KEY'),
+                'host' => env('POSTHOG_HOST', 'https://eu.i.posthog.com'),
+            ],
         ],
         'media' => [
             'youtube' => [

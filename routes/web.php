@@ -14,15 +14,23 @@ use App\Http\Controllers\Admin\AdminThemeController;
 use App\Http\Controllers\Admin\Auth\AdminOnboardingController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\SiteSettingsController as AdminSiteSettingsController;
+use App\Http\Controllers\AudiencePingController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\ContentVisualController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\WritingController;
+use App\Http\Middleware\CachePublicResponse;
+use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\ResolvePublicLocale;
 use App\Support\PublicLocale;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
+use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 Route::get('/', function (Request $request) {
     return redirect()->to(
@@ -30,6 +38,23 @@ Route::get('/', function (Request $request) {
         302,
     );
 });
+
+/*
+ * The T1 audience ping is deliberately stateless: no session, no CSRF
+ * (there is no session to protect), no cookie in the response - the
+ * absence of state is what makes the endpoint exemptable.
+ */
+Route::post('/audience', AudiencePingController::class)
+    ->name('audience.ping')
+    ->withoutMiddleware([
+        StartSession::class,
+        ShareErrorsFromSession::class,
+        PreventRequestForgery::class,
+        ResolvePublicLocale::class,
+        HandleInertiaRequests::class,
+        AddLinkHeadersForPreloadedAssets::class,
+        CachePublicResponse::class,
+    ]);
 
 Route::prefix('{locale}')
     ->whereIn('locale', PublicLocale::supported())

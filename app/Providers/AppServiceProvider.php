@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Audience\AudienceSink;
+use App\Audience\LogAudienceSink;
+use App\Audience\PostHogAudienceSink;
 use App\Services\SiteSettingsService;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
@@ -18,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(SiteSettingsService::class);
+
+        $this->app->bind(AudienceSink::class, fn (): AudienceSink => match (config('audience.sink')) {
+            'posthog' => new PostHogAudienceSink,
+            default => new LogAudienceSink,
+        });
     }
 
     /**
