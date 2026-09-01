@@ -1,4 +1,5 @@
 import { router } from '@inertiajs/vue3';
+import type posthogClient from 'posthog-js';
 import { readStorage } from '@/lib/safeStorage';
 import type { ConsentConfig } from '@/types';
 
@@ -12,7 +13,7 @@ import type { ConsentConfig } from '@/types';
  * started by "Accept all" alone.
  */
 
-type PostHog = typeof import('posthog-js').default;
+type PostHog = typeof posthogClient;
 
 export const REPLAY_STORAGE_KEY = 'sidewalk:replay-opt-in';
 

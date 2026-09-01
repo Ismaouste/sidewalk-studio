@@ -809,7 +809,7 @@ dataProcessing.form = dataProcessingForm
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:416
+* @see app/Http/Controllers/SiteController.php:417
 * @route '/{locale}/colophon'
 */
 export const colophon = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -824,7 +824,7 @@ colophon.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:416
+* @see app/Http/Controllers/SiteController.php:417
 * @route '/{locale}/colophon'
 */
 colophon.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -853,7 +853,7 @@ colophon.url = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:416
+* @see app/Http/Controllers/SiteController.php:417
 * @route '/{locale}/colophon'
 */
 colophon.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -863,7 +863,7 @@ colophon.get = (args: { locale: string | number } | [locale: string | number ] |
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:416
+* @see app/Http/Controllers/SiteController.php:417
 * @route '/{locale}/colophon'
 */
 colophon.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -873,7 +873,7 @@ colophon.head = (args: { locale: string | number } | [locale: string | number ] 
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:416
+* @see app/Http/Controllers/SiteController.php:417
 * @route '/{locale}/colophon'
 */
 const colophonForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -883,7 +883,7 @@ const colophonForm = (args: { locale: string | number } | [locale: string | numb
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:416
+* @see app/Http/Controllers/SiteController.php:417
 * @route '/{locale}/colophon'
 */
 colophonForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -893,7 +893,7 @@ colophonForm.get = (args: { locale: string | number } | [locale: string | number
 
 /**
 * @see \App\Http\Controllers\SiteController::colophon
-* @see app/Http/Controllers/SiteController.php:416
+* @see app/Http/Controllers/SiteController.php:417
 * @route '/{locale}/colophon'
 */
 colophonForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

@@ -16,9 +16,10 @@ itself.
   (`app/Content/Schema/`), stored as FR/EN Markdown in strict shape parity,
   editable from a generated back office, with the database and the files as
   interchangeable sources.
-- **Consent-first marketing machinery** — a consent orchestration layer
-  (`config/consent.php`, `docs/rgpd/`) that ships with zero analytics
-  installed and gates everything else behind explicit categories.
+- **Consent-first marketing machinery** — a three-tier measurement design
+  (`config/consent.php`, `docs/architecture/measurement.md`, `docs/rgpd/`):
+  a first-party CNIL-exemptable audience ping, PostHog EU behind explicit
+  opt-in, session replay behind its own switch — never part of "Accept all".
 - **Platform primitives over components** — Popover API, `<details>`,
   `@starting-style`, scroll-driven animations, View Transitions, Speculation
   Rules, `@layer`, `content-visibility`; smart CSS over lifecycle hooks.

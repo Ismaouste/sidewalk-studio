@@ -1,5 +1,7 @@
 # S2 Measurement Implementation Plan
 
+> **Status: EXECUTED 2026-09-01** — all six tasks shipped to main, full baseline green (174 tests / 1817 assertions, lint, format, types, Pint, build), both themes visually verified on /data-processing, T1 loop verified end to end locally (browser ping → 204 → structured stderr log line, no IP). Two corrections found while executing: Laravel 13's web group registers `PreventRequestForgery` (not its `ValidateCsrfToken` alias), so the stateless route must exclude that class; and the V1 sentinel needed a block wrapper because a bare child of the article panel's grid costs one row gap. PostHog activation awaits env vars on Vercel (see `docs/architecture/measurement.md` runbook).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Ship consent tiers T1–T3 — a first-party CNIL-exemptable audience ping, PostHog EU Cloud behind the `analytics` consent category, session replay behind its own explicit switch — plus the V0–V4 funnel-stage events.
