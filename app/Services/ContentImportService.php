@@ -24,10 +24,13 @@ class ContentImportService
     public function __construct(
         protected ContentRepository $content,
         protected PageContentRepository $pages,
+        protected ExperienceEntryRepository $experience,
     ) {}
 
     public function importAll(): void
     {
+        $experiencePayloads = [];
+
         foreach (PublicLocale::supported() as $locale) {
             foreach ($this->content->fileBackedItems($locale) as $publication) {
                 $this->content->importPublication($publication);
@@ -41,7 +44,24 @@ class ContentImportService
                 }
 
                 $this->pages->savePage($pageKey, $locale, $page);
+
+                if ($pageKey === 'experience') {
+                    $experiencePayloads[$locale] = $page['payload'] ?? [];
+                }
             }
         }
+
+        /**
+         * The experience rows are filed from the same file-backed payload the
+         * page was just seeded with, and for the same reason the rest of this
+         * service insists on files: seeding from whichever source currently
+         * wins would read the database and write it back, preserving exactly
+         * the edits it exists to overwrite.
+         *
+         * It runs after the loop rather than inside it because the two
+         * locales are paired by position, so both have to be in hand before
+         * either can be given a translation key.
+         */
+        $this->experience->seedFromPayloads($experiencePayloads);
     }
 }

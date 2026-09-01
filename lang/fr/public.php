@@ -61,6 +61,11 @@ return [
         'company' => 'Entreprise ou produit : ',
     ],
 
+    'experience' => [
+        'since' => 'Depuis :year',
+        'present' => 'aujourd’hui',
+    ],
+
     'widgets' => [
         'home_journal' => [
             'eyebrow' => 'Journal',

@@ -105,6 +105,16 @@ return [
      * pull. The items come from the content repository; this is the framing
      * around them.
      */
+    /**
+     * How a date range reads when the record computes it rather than being
+     * told. An entry with no end date is the one being lived, and it is the
+     * reason the chronology stops needing an edit every January.
+     */
+    'experience' => [
+        'since' => 'Since :year',
+        'present' => 'present',
+    ],
+
     'widgets' => [
         'home_journal' => [
             'eyebrow' => 'Journal',
