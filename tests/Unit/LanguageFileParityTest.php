@@ -101,6 +101,8 @@ class LanguageFileParityTest extends TestCase
             'breadcrumbs.services',
             'breadcrumbs.journal',
             'breadcrumbs.labs',
+            // "Audit" is the same word in both languages.
+            'breadcrumbs.labs_audit',
             'breadcrumbs.sparkle',
             'sections.journal',
             'seo.labs.title',

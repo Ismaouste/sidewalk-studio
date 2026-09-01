@@ -332,6 +332,25 @@ class SiteController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
+    public function labsAudit(): Response
+    {
+        $seo = Seo::page(
+            PublicCopy::line('seo.labs_audit.title'),
+            PublicCopy::line('seo.labs_audit.description'),
+            '/labs/audit',
+            [
+                'breadcrumb' => [
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
+                    ['name' => PublicCopy::line('breadcrumbs.labs'), 'path' => '/labs'],
+                    ['name' => PublicCopy::line('breadcrumbs.labs_audit'), 'path' => '/labs/audit'],
+                ],
+            ],
+        );
+
+        return Inertia::render('Labs/Audit', ['seo' => $seo])
+            ->withViewData(['seo' => $seo]);
+    }
+
     public function newsletterConfirmed(): Response
     {
         $seo = Seo::page(

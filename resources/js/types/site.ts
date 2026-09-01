@@ -262,4 +262,5 @@ export type LabItem = {
     status: string;
     summary: string;
     stack: string[];
+    href?: string;
 };

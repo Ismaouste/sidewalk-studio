@@ -18,6 +18,7 @@ export default {
     exploratoryChip: 'Exploratory, not detached',
     eyebrow: 'Labs',
     labIndex: (index: number) => `Lab ${String(index).padStart(2, '0')}`,
+    openLabCta: 'Open the lab',
     shippedSlicesCta: 'See shipped slices',
     title: 'Sandbox the risky parts before they reach production code.',
 };

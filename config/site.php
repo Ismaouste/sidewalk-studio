@@ -70,6 +70,14 @@ return [
     ],
     'labs' => [
         [
+            'slug' => 'cwv-audit',
+            'title' => 'Core Web Vitals Audit',
+            'status' => 'Active',
+            'summary' => 'Enter a URL, get a branded CWV + SEO mini-report by email. One PageSpeed Insights call in, one useful document out.',
+            'stack' => ['Laravel', 'PageSpeed Insights', 'CrUX', 'Markdown mail'],
+            'href' => '/labs/audit',
+        ],
+        [
             'slug' => 'consent-sandbox',
             'title' => 'Consent Sandbox',
             'status' => 'Active',

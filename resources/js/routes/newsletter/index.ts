@@ -61,7 +61,7 @@ subscribe.form = subscribeForm
 
 /**
 * @see \App\Http\Controllers\SiteController::confirmed
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:354
 * @route '/{locale}/newsletter/confirmed'
 */
 export const confirmed = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -76,7 +76,7 @@ confirmed.definition = {
 
 /**
 * @see \App\Http\Controllers\SiteController::confirmed
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:354
 * @route '/{locale}/newsletter/confirmed'
 */
 confirmed.url = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -105,7 +105,7 @@ confirmed.url = (args: { locale: string | number } | [locale: string | number ] 
 
 /**
 * @see \App\Http\Controllers\SiteController::confirmed
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:354
 * @route '/{locale}/newsletter/confirmed'
 */
 confirmed.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -115,7 +115,7 @@ confirmed.get = (args: { locale: string | number } | [locale: string | number ] 
 
 /**
 * @see \App\Http\Controllers\SiteController::confirmed
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:354
 * @route '/{locale}/newsletter/confirmed'
 */
 confirmed.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -125,7 +125,7 @@ confirmed.head = (args: { locale: string | number } | [locale: string | number ]
 
 /**
 * @see \App\Http\Controllers\SiteController::confirmed
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:354
 * @route '/{locale}/newsletter/confirmed'
 */
 const confirmedForm = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -135,7 +135,7 @@ const confirmedForm = (args: { locale: string | number } | [locale: string | num
 
 /**
 * @see \App\Http\Controllers\SiteController::confirmed
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:354
 * @route '/{locale}/newsletter/confirmed'
 */
 confirmedForm.get = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -145,7 +145,7 @@ confirmedForm.get = (args: { locale: string | number } | [locale: string | numbe
 
 /**
 * @see \App\Http\Controllers\SiteController::confirmed
-* @see app/Http/Controllers/SiteController.php:335
+* @see app/Http/Controllers/SiteController.php:354
 * @route '/{locale}/newsletter/confirmed'
 */
 confirmedForm.head = (args: { locale: string | number } | [locale: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

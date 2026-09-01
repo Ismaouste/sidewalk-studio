@@ -134,6 +134,15 @@ class AuditRequestTest extends TestCase
         Mail::assertNothingSent();
     }
 
+    public function test_the_audit_page_renders_in_both_locales(): void
+    {
+        $this->get('/en/labs/audit')->assertOk();
+
+        $french = $this->get('/fr/labs/audit');
+        $french->assertOk();
+        $french->assertSee('lang="fr"', false);
+    }
+
     public function test_the_report_mail_renders_in_both_locales(): void
     {
         $report = AuditReport::fromPageSpeed($this->pageSpeedResponse());

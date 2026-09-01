@@ -30,6 +30,7 @@ return [
         'case_studies' => 'Études de cas',
         'journal' => 'Journal',
         'labs' => 'Labs',
+        'labs_audit' => 'Audit',
         'local' => 'Localisation',
         /**
          * What the menu calls it. The navigation has said `Expériences` and
@@ -58,6 +59,10 @@ return [
         'labs' => [
             'title' => 'Labs',
             'description' => 'Terrains d’essai réservés au consentement, aux données structurées et aux expérimentations de design system à venir.',
+        ],
+        'labs_audit' => [
+            'title' => 'Audit de site gratuit',
+            'description' => 'Entrez une URL, recevez un mini-rapport Core Web Vitals et SEO par email — propulsé par PageSpeed Insights et les données terrain CrUX.',
         ],
         'newsletter_confirmed' => [
             'title' => 'Inscription confirmée',

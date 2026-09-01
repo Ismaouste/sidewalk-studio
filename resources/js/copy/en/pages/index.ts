@@ -4,6 +4,7 @@ export { default as contact } from './contact';
 export { default as dataProcessing } from './dataProcessing';
 export { default as home } from './home';
 export { default as labs } from './labs';
+export { default as labsAudit } from './labsAudit';
 export { default as local } from './local';
 export { default as newsletterConfirmed } from './newsletterConfirmed';
 export { default as projects } from './projects';

@@ -15,6 +15,7 @@ export default {
     exploratoryChip: 'Exploratoire, pas détaché',
     eyebrow: 'Labs',
     labIndex: (index: number) => `Lab ${String(index).padStart(2, '0')}`,
+    openLabCta: 'Ouvrir le lab',
     shippedSlicesCta: 'Voir les tranches livrées',
     title: 'Éprouver ce qui est risqué avant que ça touche le code de production.',
 } satisfies Reference;

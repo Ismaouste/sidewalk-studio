@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
-* @see routes/web.php:109
+* @see routes/web.php:128
 * @route '/{locale}/writing/{slug}'
 */
 export const show = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:109
+* @see routes/web.php:128
 * @route '/{locale}/writing/{slug}'
 */
 show.url = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions) => {
@@ -41,7 +41,7 @@ show.url = (args: { locale: string | number, slug: string | number } | [locale: 
 }
 
 /**
-* @see routes/web.php:109
+* @see routes/web.php:128
 * @route '/{locale}/writing/{slug}'
 */
 show.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -50,7 +50,7 @@ show.get = (args: { locale: string | number, slug: string | number } | [locale: 
 })
 
 /**
-* @see routes/web.php:109
+* @see routes/web.php:128
 * @route '/{locale}/writing/{slug}'
 */
 show.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -59,7 +59,7 @@ show.head = (args: { locale: string | number, slug: string | number } | [locale:
 })
 
 /**
-* @see routes/web.php:109
+* @see routes/web.php:128
 * @route '/{locale}/writing/{slug}'
 */
 const showForm = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -68,7 +68,7 @@ const showForm = (args: { locale: string | number, slug: string | number } | [lo
 })
 
 /**
-* @see routes/web.php:109
+* @see routes/web.php:128
 * @route '/{locale}/writing/{slug}'
 */
 showForm.get = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -77,7 +77,7 @@ showForm.get = (args: { locale: string | number, slug: string | number } | [loca
 })
 
 /**
-* @see routes/web.php:109
+* @see routes/web.php:128
 * @route '/{locale}/writing/{slug}'
 */
 showForm.head = (args: { locale: string | number, slug: string | number } | [locale: string | number, slug: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

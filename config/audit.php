@@ -9,8 +9,10 @@ return [
     |
     | One PageSpeed Insights v5 call per request (mobile strategy — the
     | positioning is mobile-first). The response already embeds CrUX field
-    | data, so no second API call. Works keyless at low volume; the key
-    | raises the quota to 25k/day and is recommended in production.
+    | data, so no second API call. In practice the keyless quota is zero
+    | (observed: instant 429), so the free API key (25k/day) is required
+    | for the tool to answer; without it the endpoint degrades to a clean
+    | 502 "unavailable" and the page says try again later.
     |
     */
 

@@ -101,6 +101,12 @@ const copy = computed(() => copyTree[page.props.site.locale].pages.labs);
                             {{ item }}
                         </span>
                     </div>
+
+                    <div v-if="lab.href" class="labs-page__card-actions">
+                        <Button :href="lab.href" size="sm">
+                            {{ copy.openLabCta }}
+                        </Button>
+                    </div>
                 </Panel>
             </div>
         </section>

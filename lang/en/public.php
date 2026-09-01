@@ -57,6 +57,7 @@ return [
         'case_studies' => 'Case Studies',
         'journal' => 'Journal',
         'labs' => 'Labs',
+        'labs_audit' => 'Audit',
         'local' => 'Local',
         'projects' => 'Experience',
         'services' => 'Services',
@@ -87,6 +88,10 @@ return [
         'labs' => [
             'title' => 'Labs',
             'description' => 'Sandbox areas reserved for consent, structured data, and later design-system experiments.',
+        ],
+        'labs_audit' => [
+            'title' => 'Free site audit',
+            'description' => 'Enter a URL, get a Core Web Vitals and SEO mini-report by email — powered by PageSpeed Insights and CrUX field data.',
         ],
         'newsletter_confirmed' => [
             'title' => 'Subscription confirmed',

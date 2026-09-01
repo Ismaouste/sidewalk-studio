@@ -112,6 +112,7 @@ Route::prefix('{locale}')
         Route::get('/sparkle', [SiteController::class, 'sparkle'])->name('sparkle');
         Route::get('/local', [SiteController::class, 'local'])->name('local');
         Route::get('/labs', [SiteController::class, 'labs'])->name('labs');
+        Route::get('/labs/audit', [SiteController::class, 'labsAudit'])->name('labs.audit');
         Route::get('/services', [SiteController::class, 'services'])->name('services');
         Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
         Route::post('/contact', [ContactSubmissionController::class, 'store'])

@@ -236,6 +236,7 @@ class PublicLocale
         return match ($request->route()?->getName()) {
             // Translated entirely from lang/ and the copy modules — no
             // per-locale content file gates these routes.
+            'labs.audit' => true,
             'newsletter.confirmed' => true,
             'writing.index' => self::localizedCollectionExists('writing', $locale),
             'writing.show' => self::localizedCollectionSlugExists(
