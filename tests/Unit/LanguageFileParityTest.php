@@ -104,6 +104,12 @@ class LanguageFileParityTest extends TestCase
             'breadcrumbs.sparkle',
             'sections.journal',
             'seo.labs.title',
+            // Metric vocabulary that French borrows as-is in the audit
+            // report: the discipline says "Performance" and "SEO" in both
+            // languages, and the signature is a proper name.
+            'audit_mail.performance_label',
+            'audit_mail.seo_label',
+            'audit_mail.signature',
             'shell.nav_menu_label',
             'shell.nav_fallback_label',
             'widgets.home_journal.eyebrow',

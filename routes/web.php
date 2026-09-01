@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Auth\AdminOnboardingController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\SiteSettingsController as AdminSiteSettingsController;
 use App\Http\Controllers\AudiencePingController;
+use App\Http\Controllers\AuditRequestController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\ContentVisualController;
@@ -65,6 +66,23 @@ Route::post('/audience', AudiencePingController::class)
 Route::post('/newsletter', NewsletterSubscriptionController::class)
     ->name('newsletter.subscribe')
     ->middleware('throttle:6,1')
+    ->withoutMiddleware([
+        StartSession::class,
+        ShareErrorsFromSession::class,
+        PreventRequestForgery::class,
+        ResolvePublicLocale::class,
+        HandleInertiaRequests::class,
+        AddLinkHeadersForPreloadedAssets::class,
+        CachePublicResponse::class,
+    ]);
+
+/*
+ * The audit request is throttled harder than the other stateless POSTs:
+ * each accepted request costs a 20-35 s PageSpeed run and an email.
+ */
+Route::post('/labs/audit', AuditRequestController::class)
+    ->name('labs.audit.request')
+    ->middleware('throttle:3,10')
     ->withoutMiddleware([
         StartSession::class,
         ShareErrorsFromSession::class,

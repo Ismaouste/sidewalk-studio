@@ -65,6 +65,26 @@ return [
         ],
     ],
 
+    'audit_mail' => [
+        'subject' => 'Votre mini-rapport Core Web Vitals & SEO',
+        'heading' => 'Mini-rapport Core Web Vitals & SEO',
+        'intro' => 'Voici la lecture automatisée de',
+        'scores_heading' => 'Scores Lighthouse (mobile)',
+        'performance_label' => 'Performance',
+        'seo_label' => 'SEO',
+        'metric_label' => 'Métrique',
+        'value_label' => 'Vos visiteurs (p75)',
+        'rating_label' => 'Verdict',
+        'field_note' => 'Données terrain — ce que de vrais utilisateurs Chrome ont vécu sur votre site ces 28 derniers jours.',
+        'no_field_data' => 'Google n’a pas encore de données terrain pour ce site (trafic réel insuffisant). Les mesures labo ci-dessous restent valables.',
+        'lab_note' => 'Instantané labo de cette mesure :',
+        'ratings' => ['FAST' => 'Bon', 'AVERAGE' => 'À travailler', 'SLOW' => 'Faible', 'NONE' => 'Pas de donnée'],
+        'opportunities_heading' => 'Les corrections à plus fort impact d’abord',
+        'outro' => 'Chacun de ces points a une correction concrète — souvent quelques jours ciblés, pas une refonte.',
+        'cta' => 'Voir comment je peux aider',
+        'signature' => 'Ismaël Rodmacq — Sidewalk Studio, Nancy',
+    ],
+
     'contact_mail' => [
         'subject' => 'Prise de contact',
         'name' => 'Nom : ',

@@ -99,6 +99,31 @@ return [
      * mail client before sending it, so it is copy like any other — and it
      * was the last pair of locale-branched strings left in a controller.
      */
+    /**
+     * The audit lead magnet's emailed mini-report. Rendered by the markdown
+     * mailable, so every line lands in a stranger's inbox — it sells by
+     * being useful, not by pitching.
+     */
+    'audit_mail' => [
+        'subject' => 'Your Core Web Vitals & SEO mini-report',
+        'heading' => 'Core Web Vitals & SEO mini-report',
+        'intro' => 'Here is the automated read on',
+        'scores_heading' => 'Lighthouse scores (mobile)',
+        'performance_label' => 'Performance',
+        'seo_label' => 'SEO',
+        'metric_label' => 'Metric',
+        'value_label' => 'Your visitors (p75)',
+        'rating_label' => 'Rating',
+        'field_note' => 'Field data — what real Chrome users experienced on your site over the last 28 days.',
+        'no_field_data' => 'Google has no field data for this site yet (not enough real-user traffic recorded). The lab numbers below still apply.',
+        'lab_note' => 'Lab snapshot from this run:',
+        'ratings' => ['FAST' => 'Good', 'AVERAGE' => 'Needs work', 'SLOW' => 'Poor', 'NONE' => 'No data'],
+        'opportunities_heading' => 'Highest-impact fixes first',
+        'outro' => 'Each of these has a concrete fix — most are a few focused days of work, not a rebuild.',
+        'cta' => 'See how I can help',
+        'signature' => 'Ismaël Rodmacq — Sidewalk Studio, Nancy',
+    ],
+
     'contact_mail' => [
         'subject' => 'Inquiry',
         'name' => 'Name: ',
