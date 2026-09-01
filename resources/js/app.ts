@@ -80,6 +80,18 @@ createInertiaApp({
             return;
         }
 
+        const consent = props.initialPage.props.consent as ConsentConfig;
+
+        scheduleIdleTask(() => {
+            void import('@/lib/audience')
+                .then(({ initializeAudience }) => {
+                    initializeAudience(consent.audience);
+                })
+                .catch(() => {
+                    /* the ping is expendable */
+                });
+        });
+
         scheduleIdleTask(() => {
             void import('@/lib/webVitals')
                 .then(({ initializeWebVitals }) => {
@@ -108,10 +120,7 @@ createInertiaApp({
 
         void import('@/lib/consent')
             .then(({ initializeConsent }) =>
-                initializeConsent(
-                    props.initialPage.props.consent as ConsentConfig,
-                    site.locale,
-                ),
+                initializeConsent(consent, site.locale),
             )
             .catch((error: unknown) => {
                 const message =

@@ -113,6 +113,10 @@ class HandleInertiaRequests extends Middleware
                 'cookieName' => config('consent.cookie_name'),
                 'categories' => config('consent.categories'),
                 'services' => config('consent.services'),
+                'audience' => [
+                    'enabled' => (bool) config('audience.enabled'),
+                    'endpoint' => (string) config('audience.endpoint'),
+                ],
             ],
         ];
     }

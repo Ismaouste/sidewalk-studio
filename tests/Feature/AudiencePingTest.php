@@ -116,6 +116,13 @@ class AudiencePingTest extends TestCase
         $this->assertCount(0, $this->events);
     }
 
+    public function test_the_consent_share_tells_the_client_where_to_ping(): void
+    {
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('"audience":{"enabled":true,"endpoint":"\/audience"}', false);
+    }
+
     public function test_the_log_sink_writes_one_structured_line(): void
     {
         Log::spy();

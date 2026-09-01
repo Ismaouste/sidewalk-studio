@@ -190,7 +190,14 @@ export type ConsentConfig = {
     driver: 'none' | 'matomo' | 'posthog';
     cookieName: string;
     categories: ConsentCategory[];
-    services: Record<string, unknown>;
+    services: {
+        analytics: {
+            driver: string;
+            posthog: { key: string | null; host: string };
+        };
+        media: Record<string, unknown>;
+    };
+    audience: { enabled: boolean; endpoint: string };
 };
 
 export type SeoPayload = {

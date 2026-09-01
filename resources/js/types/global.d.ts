@@ -45,6 +45,10 @@ declare global {
         };
     };
 
+    interface Navigator {
+        globalPrivacyControl?: boolean;
+    }
+
     interface Window {
         requestIdleCallback?: (
             callback: (deadline: IdleDeadline) => void,
