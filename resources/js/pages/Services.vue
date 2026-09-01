@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
+import { capture } from '@/lib/analytics';
 import type { SeoPayload, SiteProps } from '@/types';
 
 export interface ServiceOffer {
@@ -46,6 +47,10 @@ defineProps<{
 
 const page = usePage<{ site: SiteProps }>();
 const copy = computed(() => copyTree[page.props.site.locale].pages.services);
+
+onMounted(() => {
+    capture('services_viewed', { funnel_stage: 'V2' });
+});
 </script>
 
 <template>

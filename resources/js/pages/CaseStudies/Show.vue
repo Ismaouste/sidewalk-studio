@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import ContentVisual from '@/components/content/ContentVisual.vue';
 import RelatedItemsStrip from '@/components/content/RelatedItemsStrip.vue';
 import ContentMetaRow from '@/components/design-system/ContentMetaRow.vue';
@@ -10,6 +10,7 @@ import ArticleShowLayout from '@/components/layout/ArticleShowLayout.vue';
 import RichText from '@/components/RichText.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { useReaderEngagement } from '@/composables/useReaderEngagement';
 import { copy as copyTree } from '@/copy';
 import { formatPublicDate } from '@/lib/formatDate';
 import type { ContentItem, SeoPayload, SiteProps } from '@/types';
@@ -21,6 +22,9 @@ const props = defineProps<{
 }>();
 
 const page = usePage<{ site: SiteProps }>();
+
+const engagementSentinel = ref<HTMLElement | null>(null);
+useReaderEngagement(engagementSentinel, 'case-studies');
 
 const copy = computed(
     () => copyTree[page.props.site.locale].pages.caseStudiesShow,
@@ -75,7 +79,14 @@ const caseStudyMeta = computed(() => [
 
         <template #article>
             <ContentVisual :item="props.item" />
-            <RichText :html="props.item.body_html" />
+            <!--
+                The sentinel rides inside a block wrapper on purpose: as a
+                direct child of the panel's grid it would cost one row gap.
+            -->
+            <div>
+                <RichText :html="props.item.body_html" />
+                <div ref="engagementSentinel" aria-hidden="true"></div>
+            </div>
         </template>
 
         <template #aside>

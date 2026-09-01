@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
 import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
+import { capture } from '@/lib/analytics';
 import type { FlashProps, SeoPayload, SiteContact, SiteProps } from '@/types';
 
 const props = defineProps<{
@@ -122,8 +123,13 @@ const mailtoHref = computed(() => {
 
 function submitInquiry(): void {
     if (typeof window !== 'undefined') {
+        capture('lead_intent', { channel: 'email', funnel_stage: 'V3' });
         window.location.href = mailtoHref.value;
     }
+}
+
+function markWhatsappIntent(): void {
+    capture('lead_intent', { channel: 'whatsapp', funnel_stage: 'V3' });
 }
 </script>
 
@@ -167,6 +173,7 @@ function submitInquiry(): void {
                                 rel="nofollow noopener noreferrer"
                                 :aria-label="copy.whatsappLabel"
                                 :title="copy.whatsappLabel"
+                                @click="markWhatsappIntent"
                             >
                                 <svg
                                     viewBox="0 0 24 24"
