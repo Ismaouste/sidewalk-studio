@@ -36,6 +36,13 @@ const dataProcessingHref = computed(() =>
 const colophonHref = computed(() =>
     localizePublicHref('/colophon', page.props.site.locale),
 );
+/**
+ * The résumé record left the primary menu when the offer and the proof took
+ * its place, so this footer is now the one persistent way back to it.
+ */
+const experienceHref = computed(() =>
+    localizePublicHref('/experience', page.props.site.locale),
+);
 const copy = computed(() => copyTree[page.props.site.locale].layout.footer);
 
 function backToTop(): void {
@@ -93,6 +100,9 @@ function backToTop(): void {
                             rel="nofollow"
                         >
                             {{ copy.dataLabel }}
+                        </a>
+                        <a class="app-footer__link" :href="experienceHref">
+                            {{ copy.experienceLabel }}
                         </a>
                         <a class="app-footer__link" :href="colophonHref">
                             {{ copy.colophonLabel }}

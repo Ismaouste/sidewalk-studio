@@ -8,9 +8,11 @@ type Reference = typeof import('../../en/layout/navigation').default;
 export default {
     action: {
         '/': 'Entrer',
+        '/case-studies': 'Lire les preuves',
         '/contact': 'Écrire',
         '/experience': 'Voir le parcours',
         '/journal': 'Lire les notes',
         '/local': 'Voir la base',
+        '/services': 'Voir les offres',
     },
 } satisfies Reference;

@@ -42,7 +42,8 @@ return [
      */
     'navigation' => [
         '/' => 'Hello',
-        '/experience' => 'Experience',
+        '/services' => 'Services',
+        '/case-studies' => 'Case studies',
         '/journal' => 'Journal',
         '/contact' => 'Contact ✍🏽',
     ],

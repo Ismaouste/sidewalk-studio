@@ -8,6 +8,7 @@ export default {
     consentNote: 'Analytics stays explicit opt-in.',
     contactLabel: 'Direct contact',
     dataLabel: 'Data processing',
+    experienceLabel: 'Experience',
     licenseLabel: '© MIT',
     linkedinLabel: 'LinkedIn',
     staticPreviewNote:

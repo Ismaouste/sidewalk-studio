@@ -95,6 +95,10 @@ class LanguageFileParityTest extends TestCase
             'navigation./',
             'navigation./journal',
             'navigation./contact',
+            // "Services" reads the same in both languages, on the menu and
+            // in the crumb pointing at the page it names.
+            'navigation./services',
+            'breadcrumbs.services',
             'breadcrumbs.journal',
             'breadcrumbs.labs',
             'breadcrumbs.sparkle',

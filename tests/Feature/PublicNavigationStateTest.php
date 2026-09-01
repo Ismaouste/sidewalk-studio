@@ -30,10 +30,26 @@ class PublicNavigationStateTest extends TestCase
         $this->assertSame([], $this->activePaths('/en/colophon'));
     }
 
+    public function test_services_and_case_studies_are_primary_sections(): void
+    {
+        $this->assertSame(['/services'], $this->activePaths('/en/services'));
+        $this->assertSame(['/case-studies'], $this->activePaths('/en/case-studies'));
+        $this->assertSame(
+            ['/case-studies'],
+            $this->activePaths('/en/case-studies/consent-orchestration-before-analytics'),
+        );
+    }
+
+    public function test_experience_left_the_menu_but_keeps_its_page(): void
+    {
+        $this->assertSame([], $this->activePaths('/en/experience'));
+    }
+
     public function test_the_rule_is_locale_independent(): void
     {
         $this->assertSame(['/journal'], $this->activePaths('/fr/journal'));
-        $this->assertSame(['/experience'], $this->activePaths('/fr/experience'));
+        $this->assertSame(['/services'], $this->activePaths('/fr/services'));
+        $this->assertSame([], $this->activePaths('/fr/experience'));
     }
 
     public function test_hrefs_stay_localized_while_paths_stay_bare(): void

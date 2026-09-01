@@ -11,6 +11,7 @@ export default {
     consentNote: 'Mesure d’audience en opt-in explicite.',
     contactLabel: 'Mail',
     dataLabel: 'Traitement des données',
+    experienceLabel: 'Expériences',
     licenseLabel: '© MIT',
     linkedinLabel: 'LinkedIn',
     staticPreviewNote:

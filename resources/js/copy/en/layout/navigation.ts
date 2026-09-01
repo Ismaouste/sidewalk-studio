@@ -5,9 +5,11 @@
 export default {
     action: {
         '/': 'Enter',
+        '/case-studies': 'Read the proof',
         '/contact': 'Write',
         '/experience': 'View work',
         '/journal': 'Read notes',
         '/local': 'Read local',
+        '/services': 'See offers',
     },
 };

@@ -20,7 +20,8 @@ return [
 
     'navigation' => [
         '/' => 'Hello',
-        '/experience' => 'Expériences',
+        '/services' => 'Services',
+        '/case-studies' => 'Études de cas',
         '/journal' => 'Journal',
         '/contact' => 'Contact ✍🏽',
     ],

@@ -55,9 +55,16 @@ return [
             explode(',', env('SITE_SAME_AS', '')),
         ))),
     ],
+    /**
+     * The commercial spine: the offer and the proof sit in the menu, the
+     * résumé record stepped back to the footer. Labels are localized at
+     * render by `PublicLocale::navigation()`; these are the structural
+     * defaults a fork starts from.
+     */
     'navigation' => [
         ['label' => 'Hello', 'href' => '/'],
-        ['label' => 'Experience', 'href' => '/experience'],
+        ['label' => 'Services', 'href' => '/services'],
+        ['label' => 'Case studies', 'href' => '/case-studies'],
         ['label' => 'Journal', 'href' => '/journal'],
         ['label' => 'Contact ✍🏽', 'href' => '/contact'],
     ],
