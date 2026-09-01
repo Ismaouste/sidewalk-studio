@@ -8,8 +8,8 @@ Current motion behaviors in code:
 - theme transitions driven by token changes on `html[data-theme]`
 - slow atmospheric drift on `SunAnchor`
 - surface pill behind the active navigation tab, scaled and faded in on
-  `::before` — this replaced an earlier line reveal, and `--sw-tab-line` is
-  left over from it
+  `::before` — this replaced an earlier line reveal, whose `--sw-tab-line`
+  token has since been removed
 - popover open and close on the mobile navigation sheet and the accessibility
   panel: opacity and `translate` under `@starting-style`, with
   `transition-behavior: allow-discrete` on `display` and `overlay` so the

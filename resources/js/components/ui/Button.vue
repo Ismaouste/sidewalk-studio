@@ -126,7 +126,7 @@ const componentProps = computed(() => {
     align-items: center;
     justify-content: center;
     gap: var(--sw-space-3xs);
-    border-radius: 3px;
+    border-radius: var(--sw-radius-md);
     font-family:
         var(--sw-font-body), 'Apple Color Emoji', 'Segoe UI Emoji',
         'Noto Color Emoji';

@@ -20,7 +20,8 @@ defineProps<{
             :src="branding.uploaded_asset_path"
             :alt="branding.active_alt"
             class="brand-mark__image"
-            loading="lazy"
+            width="40"
+            height="40"
             decoding="async"
         />
         <div v-else class="brand-mark__fallback">
@@ -43,15 +44,27 @@ defineProps<{
 }
 
 .brand-mark {
+    /* The shape belongs to the variant, not to the layer. Both overrides
+       below used to name `.brand-mark__fallback` only, so a brand with an
+       uploaded asset kept the circle on a wordmark's auto-width box — the
+       logo rendered with semicircle ends beside a fallback at 3px. Holding
+       it here makes image and fallback agree by construction. */
+    --brand-mark-radius: var(--sw-radius-pill);
+
     inline-size: 2.5rem;
     block-size: 2.5rem;
+}
+
+.brand-mark--monogram_square,
+.brand-mark--wordmark {
+    --brand-mark-radius: var(--sw-radius-md);
 }
 
 .brand-mark__image,
 .brand-mark__fallback {
     inline-size: 100%;
     block-size: 100%;
-    border-radius: 999px;
+    border-radius: var(--brand-mark-radius);
 }
 
 .brand-mark__image {
@@ -68,10 +81,6 @@ defineProps<{
     color: var(--sw-text-primary);
 }
 
-.brand-mark--monogram_square .brand-mark__fallback {
-    border-radius: var(--sw-radius-md);
-}
-
 .brand-mark--wordmark {
     inline-size: auto;
     min-inline-size: 5rem;
@@ -82,7 +91,6 @@ defineProps<{
     block-size: auto;
     gap: 0.1rem;
     padding: 0.45rem 0.7rem;
-    border-radius: var(--sw-radius-md);
     justify-items: start;
 }
 

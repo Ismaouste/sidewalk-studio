@@ -68,7 +68,7 @@ function update(value: boolean) {
 }
 
 .admin-settings-toggle-card__state {
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     background: color-mix(in srgb, var(--sw-bg-surface) 92%, transparent);
     padding: 0.35rem 0.65rem;
     color: var(--sw-text-secondary);

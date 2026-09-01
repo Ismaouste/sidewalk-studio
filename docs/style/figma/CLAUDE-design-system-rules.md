@@ -27,27 +27,29 @@ CSS custom properties, prefix `--sw-`, three declaration blocks:
 ```css
 /* 1. SHARED — constant across both themes */
 :root {
-  --sw-font-display: 'Fraunces', serif;
-  --sw-radius-md: 8px;
+  --sw-font-display: 'Fraunces', Georgia, serif;
+  --sw-radius-md: 3px;
   --sw-space-sm: 24px;
   /* … */
 }
 
 /* 2. MORNING GRID (default / light) */
 :root,
-[data-theme="morning"] {
-  --sw-bg-base: #F4F1EA;
-  --sw-accent-sun: #C97D0A;
-  /* … */
+html[data-theme='morning'] {
+  --sw-bg-base: /* … */;
+  --sw-accent-sun: /* … */;
 }
 
 /* 3. SUNSET SIGNAL (dark) */
-[data-theme="sunset"] {
-  --sw-bg-base: #0D0F1C;
-  --sw-accent-sun: #F0700A;
-  /* … */
+html[data-theme='sunset'] {
+  --sw-bg-base: /* … */;
+  --sw-accent-sun: /* … */;
 }
 ```
+
+The shape is the point here, not the values — those live in
+`resources/css/tokens.css`, and writing them twice is what let the table
+below this section go two palettes out of date.
 
 Theme switch = `data-theme` attribute on `<html>`. No class toggling. No JS-injected inline colors.
 
@@ -82,37 +84,18 @@ Theme switch = `data-theme` attribute on `<html>`. No class toggling. No JS-inje
 
 ### Theme tokens — Morning Grid vs Sunset Signal
 
-| Token | Morning Grid | Sunset Signal |
-|---|---|---|
-| `--sw-bg-base` | `#F4F1EA` | `#0D0F1C` |
-| `--sw-bg-surface` | `#FAFAF6` | `#141728` |
-| `--sw-bg-grid` | `#EAE6DC` | `#1A1D32` |
-| `--sw-bg-elevated` | `#FFFFFF` | `#20243C` |
-| `--sw-text-primary` | `#141210` | `#E8E2F2` |
-| `--sw-text-secondary` | `#4A4138` | `#867EA0` |
-| `--sw-text-muted` | `#8A8070` | `#443E5A` |
-| `--sw-text-inverse` | `#F4F1EA` | `#0D0F1C` |
-| `--sw-accent-dominant` | `#1E4B8F` | `#7C5CE8` |
-| `--sw-accent-green` | `#1A6B4A` | `#2DD4A0` |
-| `--sw-accent-sun` | `#C97D0A` | `#F0700A` |
-| `--sw-accent-coral` | `#B83528` | `#D95880` |
-| `--sw-accent-violet` | `#5B21B6` | `#5290E8` |
-| `--sw-border` | `#D8D0C2` | `#252840` |
-| `--sw-border-focus` | `#C97D0A` | `#F0700A` |
-| `--sw-grid-line` | `rgba(30,75,143,.07)` | `rgba(124,92,232,.08)` |
-| `--sw-shadow-sm` | `0 1px 4px rgba(20,18,16,.06)` | `0 1px 4px rgba(0,0,0,.25)` |
-| `--sw-shadow-md` | `0 4px 16px rgba(20,18,16,.09)` | `0 4px 20px rgba(0,0,0,.35)` |
-| `--sw-header-bg` | `linear-gradient(160deg,#B4CBE4,#D0E4F2,#EBF3FB)` | `linear-gradient(160deg,#1A0F3C,#1E1640,#0C0E1A)` |
-| `--sw-sun-gradient` | `radial-gradient(circle at 38% 38%,#FBBF24EE,#C97D0A88 45%,transparent 85%)` | `radial-gradient(circle at 62% 62%,#F0700AEE,#7C5CE888 45%,transparent 85%)` |
-| `--sw-sun-glow` | `rgba(201,125,10,.28)` | `rgba(240,112,10,.25)` |
-| `--sw-sun-size` | `200px` | `240px` |
-| `--sw-sun-top` | `-48px` | `auto` |
-| `--sw-sun-left` | `-48px` | `auto` |
-| `--sw-sun-bottom` | `auto` | `-48px` |
-| `--sw-sun-right` | `auto` | `-48px` |
-| `--sw-tab-active` | `#141210` | `#E8E2F2` |
-| `--sw-tab-inactive` | `rgba(20,18,16,.38)` | `rgba(232,226,242,.32)` |
-| `--sw-tab-line` | `#C97D0A` | `#F0700A` |
+This section used to reproduce every theme token as a table of hexes. It is
+gone on purpose. The table was a copy of `tokens.css`, and a copy of a source
+of truth drifts from it silently — this one had: it still carried the amber
+and green of the pre-rework palette, values `52d6fc5` replaced when the dark
+theme was retuned to violet glass, and two tokens that no longer exist at all.
+Anyone reading it was reading March 2026.
+
+Read the values from `resources/css/tokens.css` directly. The morning block
+starts at `:root, html[data-theme='morning']`, the sunset block at
+`html[data-theme='sunset']`, and each accent block carries the comment
+explaining what the hue is doing there — which a table of hexes could never
+carry anyway.
 
 ### Figma variable → CSS token mapping
 

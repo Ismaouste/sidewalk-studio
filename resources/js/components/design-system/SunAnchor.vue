@@ -12,7 +12,7 @@
     z-index: 0;
     width: var(--sw-sun-size);
     height: var(--sw-sun-size);
-    border-radius: 9999px;
+    border-radius: var(--sw-radius-pill);
     background: var(--sw-sun-gradient);
     pointer-events: none;
     transition:

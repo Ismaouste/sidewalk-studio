@@ -55,6 +55,12 @@
     --sw-radius-lg: 6px;
     --sw-radius-xl: 6px;
     --sw-radius-full: 6px;
+    /* `--sw-radius-full` caps the architectural scale at 6px on purpose: this
+       system does not round its rectangles. A pill or a circle is a different
+       shape, not a larger radius, so it needs its own name — without one,
+       eighteen rules across the tree reached for a bare `999px`/`9999px`
+       instead, which is exactly the literal the design rules forbid. */
+    --sw-radius-pill: 999px;
 
     --sw-space-4xs: 4px;
     --sw-space-3xs: 8px;
@@ -145,7 +151,6 @@ html[data-theme='morning'] {
     --sw-grid-line: color-mix(in srgb, var(--sw-accent-sky) 20%, transparent);
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
-    --sw-header-bg: linear-gradient(160deg, #fafaf8, #f6f5f1, #f3f2ee);
 
     /* Ambient page wash. Two soft flares on paper: daylight, not atmosphere.
        NOTE: this token currently paints nothing. `body` carries it, but
@@ -323,7 +328,6 @@ html[data-theme='sunset'] {
     );
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
-    --sw-header-bg: linear-gradient(160deg, #1a1230, #140e26, #0d0a17);
 
     /* Ambient page wash. Three wide ellipses rather than two small circles:
        the blurred surfaces above need a gradient large enough to still be
@@ -372,7 +376,6 @@ html[data-theme='sunset'] {
     --sw-header-glow-blur-factor: 0.26;
     --sw-tab-active: #ece8f8;
     --sw-tab-inactive: rgba(236, 232, 248, 0.52);
-    --sw-tab-line: var(--sw-accent-dominant);
     --sw-tab-surface: rgba(150, 120, 255, 0.13);
     --sw-button-primary-bg: var(--sw-accent-sun);
     --sw-button-primary-border: color-mix(

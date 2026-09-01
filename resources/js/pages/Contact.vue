@@ -159,9 +159,11 @@ function markBookingIntent(): void {
                 <div class="contact-page__hero-toolbar">
                     <figure class="contact-page__portrait">
                         <img
-                            src="/images/contact-avatar.png"
+                            src="/images/contact-avatar.webp"
                             :alt="copy.portraitAlt(page.props.site.name)"
                             class="contact-page__portrait-image"
+                            width="336"
+                            height="336"
                             loading="lazy"
                             decoding="async"
                         />
@@ -177,9 +179,11 @@ function markBookingIntent(): void {
                             >
                                 {{ copy.emailHeroCta }}
                             </Button>
-                            <a
+                            <Button
                                 class="contact-page__whatsapp-button"
+                                variant="secondary"
                                 :href="whatsappHref"
+                                external
                                 target="_blank"
                                 rel="nofollow noopener noreferrer"
                                 :aria-label="copy.whatsappLabel"
@@ -196,7 +200,7 @@ function markBookingIntent(): void {
                                         d="M12 3.2a8.8 8.8 0 0 0-7.5 13.4l-1 4.2 4.3-1A8.8 8.8 0 1 0 12 3.2Zm0 15.9a7.1 7.1 0 0 1-3.6-1l-.3-.2-2.5.6.6-2.4-.2-.4a7.1 7.1 0 1 1 6 3.4Zm3.9-5.3c-.2-.1-1.1-.5-1.3-.6s-.3-.1-.5.1-.5.6-.6.7-.2.2-.4.1a5.9 5.9 0 0 1-1.7-1.1 6.5 6.5 0 0 1-1.2-1.5c-.1-.2 0-.3.1-.4l.3-.3.2-.3.1-.4c0-.1-.5-1.2-.7-1.6s-.4-.3-.5-.3h-.4a.8.8 0 0 0-.6.3 2.5 2.5 0 0 0-.8 1.8c0 1.1.8 2.1.9 2.2s1.6 2.5 3.9 3.4c2.3 1 2.3.7 2.8.7s1.4-.5 1.6-1 .2-.9.1-1-.2-.1-.4-.2Z"
                                     />
                                 </svg>
-                            </a>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -584,7 +588,7 @@ function markBookingIntent(): void {
     flex: 1 1 18rem;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--sw-space-2xs);
     min-width: 0;
     max-width: 100%;
 }
@@ -592,7 +596,7 @@ function markBookingIntent(): void {
 .contact-page__hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--sw-space-2xs);
     align-items: center;
 }
 
@@ -601,20 +605,17 @@ function markBookingIntent(): void {
     margin: 0;
 }
 
+/*
+ * Sizing only: this is `Button` in its secondary variant, so surface, ink,
+ * hover and reduced-motion behaviour all come from the primitive. It used to
+ * be a hand-rolled `<a>` painted with a literal WhatsApp green — the one
+ * surface on the site blind to the theme, carrying a white glyph at 1.9:1,
+ * and sitting outside the reduced-motion transform allowlist that its twin
+ * `.sw-button` is inside. The glyph is what makes the affordance
+ * recognizable; the green was never doing that work on its own.
+ */
 .contact-page__whatsapp-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    border: 1px solid color-mix(in srgb, #25d366 76%, black 14%);
-    border-radius: 3px;
-    background: #25d366;
-    color: #fff;
-    transition:
-        transform var(--sw-motion-fast),
-        background-color var(--sw-motion-fast),
-        border-color var(--sw-motion-fast);
+    padding-inline: var(--sw-space-2xs);
 }
 
 .contact-page__whatsapp-icon {
@@ -626,7 +627,7 @@ function markBookingIntent(): void {
     display: block;
     width: 56px;
     height: 56px;
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     object-fit: cover;
 }
 
@@ -704,7 +705,7 @@ function markBookingIntent(): void {
 
 .contact-page__field {
     display: grid;
-    gap: 10px;
+    gap: var(--sw-space-3xs);
 }
 
 .contact-page__field--full {
@@ -719,7 +720,7 @@ function markBookingIntent(): void {
     margin: 0;
     border: 1px solid
         color-mix(in srgb, var(--sw-accent-green) 24%, transparent);
-    border-radius: 4px;
+    border-radius: var(--sw-radius-md);
     background: color-mix(in srgb, var(--sw-accent-green) 8%, transparent);
     padding: 0.9rem 1rem;
     color: color-mix(
@@ -737,7 +738,7 @@ function markBookingIntent(): void {
     min-height: 3rem;
     width: 100%;
     border: 1px solid color-mix(in srgb, var(--sw-border) 88%, transparent);
-    border-radius: 4px;
+    border-radius: var(--sw-radius-md);
     background: color-mix(in srgb, var(--sw-bg-elevated) 88%, transparent);
     padding: 0.9rem 1rem;
     font: inherit;
@@ -854,12 +855,6 @@ function markBookingIntent(): void {
         );
         background: color-mix(in srgb, var(--sw-bg-elevated) 94%, transparent);
     }
-
-    .contact-page__whatsapp-button:hover {
-        transform: translateY(-1px);
-        background: color-mix(in srgb, #25d366 86%, white 14%);
-        border-color: color-mix(in srgb, #25d366 84%, black 12%);
-    }
 }
 
 .contact-page__input:focus-visible {
@@ -905,11 +900,6 @@ function markBookingIntent(): void {
     .contact-page__hero-actions {
         flex: 1 1 auto;
         gap: var(--sw-space-3xs);
-    }
-
-    .contact-page__whatsapp-button {
-        width: 2.4rem;
-        height: 2.4rem;
     }
 
     .contact-page__form {

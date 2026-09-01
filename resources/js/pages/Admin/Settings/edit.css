@@ -71,7 +71,7 @@
 
 .admin-settings__pill {
     border: 1px solid color-mix(in srgb, var(--sw-border) 78%, transparent);
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     background: color-mix(in srgb, var(--sw-bg-base) 78%, transparent);
     padding: 0.35rem 0.65rem;
     color: var(--sw-text-secondary);

@@ -187,7 +187,7 @@ onBeforeUnmount(() => {
     );
     transform-origin: 0 50%;
     transform: scaleX(0);
-    border-radius: 0 999px 999px 0;
+    border-radius: 0 var(--sw-radius-pill) var(--sw-radius-pill) 0;
     animation: article-read-progress linear both;
     animation-timeline: scroll(root block);
     pointer-events: none;

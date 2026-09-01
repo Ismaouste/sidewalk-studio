@@ -36,7 +36,7 @@ defineProps<{
 }
 
 .admin-settings-jump-nav__link {
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     border: 1px solid color-mix(in srgb, var(--sw-border) 80%, transparent);
     background: color-mix(in srgb, var(--sw-bg-base) 76%, transparent);
     padding: 0.45rem 0.75rem;

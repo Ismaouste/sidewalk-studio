@@ -476,7 +476,7 @@ const heroLeadPoints = computed(() =>
     height: 0.42rem;
     margin-top: 0.52rem;
     flex: none;
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     background: color-mix(
         in srgb,
         var(--sw-accent-sun) 72%,

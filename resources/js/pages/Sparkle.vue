@@ -287,7 +287,7 @@ function replayLoader(): void {
     inset: auto;
     width: clamp(14rem, 24vw, 20rem);
     aspect-ratio: 1;
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     pointer-events: none;
     filter: blur(26px);
     opacity: 0.82;
@@ -384,7 +384,7 @@ function replayLoader(): void {
     height: 7px;
     margin-top: 10px;
     flex: none;
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     background: linear-gradient(
         135deg,
         var(--sparkle-accent),

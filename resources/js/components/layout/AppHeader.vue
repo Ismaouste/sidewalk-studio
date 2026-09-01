@@ -319,7 +319,7 @@ onBeforeUnmount(() => {
     flex: 0 0 auto;
     inline-size: 36px;
     block-size: 36px;
-    border-radius: 9999px;
+    border-radius: var(--sw-radius-pill);
     object-fit: cover;
 }
 

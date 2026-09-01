@@ -274,7 +274,7 @@ const signageItems = computed(() =>
     align-items: center;
     padding: 0.22rem 0.7rem;
     border: 1px solid color-mix(in srgb, var(--sw-border) 70%, transparent);
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     background: color-mix(in srgb, var(--sw-bg-surface) 60%, transparent);
     color: var(--sw-text-secondary);
 }

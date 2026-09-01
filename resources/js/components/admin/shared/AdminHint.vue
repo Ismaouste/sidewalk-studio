@@ -41,7 +41,7 @@ function togglePinned() {
 .admin-hint__trigger {
     inline-size: 1.55rem;
     block-size: 1.55rem;
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     border: 1px solid var(--sw-border);
     font-size: 0.76rem;
     color: var(--sw-text-secondary);

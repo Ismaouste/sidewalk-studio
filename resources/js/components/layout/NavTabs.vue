@@ -198,7 +198,7 @@ onBeforeUnmount(() => {
     left: 0;
     width: 100%;
     height: 2px;
-    border-radius: 9999px;
+    border-radius: var(--sw-radius-pill);
     background: currentColor;
     transition: transform var(--sw-motion-fast);
 }

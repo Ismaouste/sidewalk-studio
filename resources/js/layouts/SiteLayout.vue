@@ -319,7 +319,7 @@ onBeforeUnmount(() => {
     z-index: 0;
     width: clamp(7rem, 11vw, 10rem);
     aspect-ratio: 1;
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     pointer-events: none;
     transform: translate(-50%, -50%);
     filter: blur(18px);
@@ -349,7 +349,7 @@ onBeforeUnmount(() => {
     display: block;
     width: clamp(8.5rem, 22vw, 12rem);
     height: 8px;
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     overflow: hidden;
     background: color-mix(in srgb, var(--sw-bg-elevated) 74%, transparent);
     border: 1px solid color-mix(in srgb, var(--sw-border) 44%, transparent);

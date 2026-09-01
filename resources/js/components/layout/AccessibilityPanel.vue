@@ -144,7 +144,7 @@ function handleToggle(event: ToggleEvent): void {
     align-items: center;
     justify-content: center;
     border: 0;
-    border-radius: 999px;
+    border-radius: var(--sw-radius-pill);
     background: transparent;
     color: var(--sw-text-muted);
     font-family: var(--sw-font-body);

@@ -21,11 +21,14 @@ Current token families:
 
 - typography: `--sw-font-display`, `--sw-font-heading`, `--sw-font-body`, `--sw-font-code`
 - spacing: `--sw-space-4xs` through `--sw-space-3xl`
-- radius: `--sw-radius-none` through `--sw-radius-full`
+- radius: `--sw-radius-none` through `--sw-radius-full`, plus `--sw-radius-pill`
+  — the architectural scale stops at 6px because this system does not round
+  its rectangles, so a pill or a circle is a separate shape with its own token
+  rather than a larger rung. Reach for `--sw-radius-pill`, never a bare `999px`.
 - motion: `--sw-motion-fast`, `--sw-motion-smooth`, `--sw-motion-reveal`, `--sw-motion-sun`
 - surfaces and text: `--sw-bg-*`, `--sw-text-*`
 - accents and chrome: `--sw-accent-*`, `--sw-border`, `--sw-grid-line`, `--sw-shadow-*`
-- atmospheric shell tokens: `--sw-header-bg`, `--sw-body-wash`, `--sw-sun-*`, `--sw-tab-*`
+- atmospheric shell tokens: `--sw-body-wash`, `--sw-sun-*`, `--sw-tab-*`
 - layout measures: `--sw-container-*`, `--sw-shell-max-width`, `--sw-layout-gutter-*`, `--sw-header-offset`, `--sw-admin-shell-max-width`, `--sw-admin-nav-width`
 - glass and top layer: `--sw-surface-backdrop-filter`, `--sw-scrim`, `--sw-scrim-backdrop-filter`
 

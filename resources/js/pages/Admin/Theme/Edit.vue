@@ -33,11 +33,21 @@ function rebuild() {
     form.post('/admin/theme/rebuild');
 }
 
+/**
+ * The two swatches preview a theme other than the one the admin is wearing,
+ * and `tokens.css` scopes each palette to `html[data-theme=…]` — a nested
+ * element cannot pick up the theme it is not in, so these values are written
+ * out. That makes them a copy, and this copy had gone two palettes stale:
+ * it still showed the pre-`52d6fc5` sand and mauve while the real themes are
+ * chalk and violet glass, so the preview disagreed with the page around it.
+ * If these drift again, read the current values off `--sw-bg-base` and
+ * `--sw-bg-grid` in `resources/css/tokens.css`.
+ */
 function previewStyle(variant: 'morning' | 'sunset') {
     const background =
         variant === 'morning'
-            ? `linear-gradient(${form.theme_settings.gradient_angle}deg, #f4ede2, #ddd8ce)`
-            : `linear-gradient(${form.theme_settings.gradient_angle}deg, #2f3242, #6b4d55)`;
+            ? `linear-gradient(${form.theme_settings.gradient_angle}deg, #fafaf8, #f3f2ee)`
+            : `linear-gradient(${form.theme_settings.gradient_angle}deg, #1a1230, #0d0a17)`;
 
     return {
         background,

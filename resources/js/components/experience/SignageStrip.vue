@@ -133,7 +133,7 @@ defineProps<{
 
     .signage-strip::-webkit-scrollbar-thumb {
         background: color-mix(in srgb, var(--sw-accent-coral) 45%, transparent);
-        border-radius: 999px;
+        border-radius: var(--sw-radius-pill);
         transition: background-color var(--sw-motion-fast);
     }
 
