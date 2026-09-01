@@ -120,22 +120,29 @@ html[data-theme='morning'] {
 
     /* Lines / borders / focus — mixed from the accents above rather than
        hand-copied from their channels, so the retune promise on line 107
-       actually holds for them. */
-    --sw-border: color-mix(in srgb, var(--sw-accent-violet) 11%, transparent);
+       actually holds for them.
+
+       The resting edge is deliberately near the threshold of visibility: it
+       separates surfaces without drawing them. Hover is kept at roughly twice
+       the resting weight — the ratio, not the number, is what makes the
+       response read as the same gesture in both themes. Neither passes the
+       3:1 of WCAG 1.4.11 and neither is asked to: the focus ring below does
+       (5.5:1 here, 4.5:1 in sunset), and that is the affordance the success
+       criterion actually protects. */
+    --sw-border: color-mix(in srgb, var(--sw-accent-violet) 6%, transparent);
     --sw-border-focus: var(--sw-accent-violet);
     --sw-card-hover-border: color-mix(
         in srgb,
-        var(--sw-accent-violet) 24%,
+        var(--sw-accent-violet) 13%,
         transparent
     );
-    /* Blueprint lines, not pencil, and a major every fifth division: it is
-       the major that makes a grid read as something measured. */
-    --sw-grid-line: color-mix(in srgb, var(--sw-accent-sky) 28%, transparent);
-    --sw-grid-line-major: color-mix(
-        in srgb,
-        var(--sw-accent-violet) 44%,
-        transparent
-    );
+    /* One axis. The noise this used to make was the second axis crossing it
+       at every angle of the scroll rotation, not the weight of the line, so
+       the weight barely had to move: measured on the hero at 1440, a column
+       peaks 6.8 luma above its backdrop here against 11 before. Dropping it
+       to 7% instead — the first attempt — cost 3.6 and put the line under the
+       threshold of a mid-range display. */
+    --sw-grid-line: color-mix(in srgb, var(--sw-accent-sky) 20%, transparent);
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
     --sw-header-bg: linear-gradient(160deg, #fafaf8, #f6f5f1, #f3f2ee);
@@ -282,25 +289,22 @@ html[data-theme='sunset'] {
     --sw-accent-sky: #2bb8e6;
 
     /* Lines / borders / focus — the glass edge highlight, nearly colourless
-       for the same reason the surfaces are. The violet used to carry part of
-       the separation between surface tiers as chroma; with that gone the edge
-       has to carry it alone, so it is heavier than the tint it replaced.
-       WCAG 1.4.11 wants 3:1 on the boundary of a control, and the panel option
-       buttons are controls. */
-    --sw-border: rgba(226, 222, 248, 0.22);
+       for the same reason the surfaces are, and now nearly weightless too.
+       The edge had been carrying the separation between surface tiers on its
+       own and had grown loud doing it; the tiers differ by fill as well, so
+       it only has to confirm a boundary the surface already suggests.
+       Hover lifts to 0.20 — a smaller step than morning's doubling, because a
+       dark base makes the same delta read larger. */
+    --sw-border: rgba(226, 222, 248, 0.13);
     --sw-border-focus: var(--sw-accent-violet);
-    --sw-card-hover-border: rgba(226, 222, 248, 0.24);
-    /* Violet minors, cool majors: the second colour earns its keep by carrying
-       the measure rather than by being sprinkled around. Mixed from the
-       accents so the retune promise above holds for them too. */
+    --sw-card-hover-border: rgba(226, 222, 248, 0.2);
+    /* One axis, and two points heavier than morning: a dark base swallows
+       more of a thin line than paper does, so parity of number would not be
+       parity of effect. 22 here and 20 there both measure ~6.8 luma of peak
+       against their own backdrop, which is the parity that matters. */
     --sw-grid-line: color-mix(
         in srgb,
-        var(--sw-accent-violet) 26%,
-        transparent
-    );
-    --sw-grid-line-major: color-mix(
-        in srgb,
-        var(--sw-accent-sky) 40%,
+        var(--sw-accent-violet) 22%,
         transparent
     );
     --sw-shadow-sm: none;

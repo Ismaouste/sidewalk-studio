@@ -25,12 +25,11 @@ defineOptions({ name: 'AmbientGrid' });
 
 <style scoped>
 .ambient-grid {
+    /* Columns only. The plane rotates through 88deg on scroll, so a second
+       axis crosses the first at every angle in between; the moire that
+       produced read as noise over the text rather than as measure. One axis
+       turning is legible, two are not. */
     --grid-columns: 12;
-    /* A setting-out grid, so it needs rows as well as columns and a major
-       division: it is the every-fifth line that makes a grid read as
-       something measured rather than as a pattern. */
-    --grid-row: 5.2rem;
-    --grid-major: 5;
     /* Placed opposite the warm one, low, so the two lights come from
        different directions instead of stacking into a single tint. */
     --ambient-cool-x: 88%;
@@ -115,29 +114,14 @@ html[data-theme='sunset'] .ambient-grid {
 }
 
 .ambient-grid__plane {
-    opacity: 0.95;
+    opacity: 0.8;
     transform: translate3d(var(--ambient-grid-x), var(--ambient-grid-y), 0)
         rotate(var(--ambient-grid-rotate)) scale(var(--ambient-grid-scale));
     background-image:
         repeating-linear-gradient(
             90deg,
-            var(--sw-grid-line-major) 0 1px,
-            transparent 1px calc(100% / var(--grid-columns) * var(--grid-major))
-        ),
-        repeating-linear-gradient(
-            180deg,
-            var(--sw-grid-line-major) 0 1px,
-            transparent 1px calc(var(--grid-row) * var(--grid-major))
-        ),
-        repeating-linear-gradient(
-            90deg,
             var(--sw-grid-line) 0 1px,
             transparent 1px calc(100% / var(--grid-columns))
-        ),
-        repeating-linear-gradient(
-            180deg,
-            var(--sw-grid-line) 0 1px,
-            transparent 1px var(--grid-row)
         ),
         linear-gradient(
             180deg,
@@ -341,9 +325,6 @@ html[data-theme='sunset'] .ambient-grid {
 @media (max-width: 640px) {
     .ambient-grid {
         --grid-columns: 4;
-        /* Four columns cannot carry a major every fifth: the period would
-           exceed the whole width and no major line would ever be drawn. */
-        --grid-major: 2;
     }
 
     .ambient-grid__plane {
