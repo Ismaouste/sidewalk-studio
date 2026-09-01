@@ -1,6 +1,6 @@
 # S1 Commercial Spine Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **Status: EXECUTED 2026-09-01** — all seven tasks shipped to main (commits a0fb02f..0c6a419), full baseline green (165 tests, lint, types, build), CI success. Post-deploy smoke on the Vercel URL is the one open step: the Vercel CLI is not logged in on this machine.
 
 **Goal:** Give the site a commercial spine — a `/services` page with a content-managed price grid, Services and Case studies in the primary nav, a reworked Home, contact qualification fields — and flip the repo open source.
 
