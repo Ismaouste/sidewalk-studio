@@ -409,6 +409,7 @@ class SiteController extends Controller
             'hero' => $page['hero'],
             'storage' => $page['storage'],
             'consent' => $page['consent'],
+            'measurement' => $page['measurement'],
             'operator' => $page['operator'],
         ])->withViewData(['seo' => $seo]);
     }

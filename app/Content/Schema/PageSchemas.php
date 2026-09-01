@@ -401,6 +401,11 @@ final class PageSchemas
                 Field::line('title', 'Title'),
                 Field::text('points', 'Points')->repeating(),
             ], 'Consent'),
+            Field::group('measurement', [
+                Field::line('eyebrow', 'Eyebrow'),
+                Field::line('title', 'Title'),
+                Field::text('points', 'Points')->repeating(),
+            ], 'Measurement'),
             Field::group('operator', [
                 Field::line('eyebrow', 'Eyebrow'),
                 Field::line('title', 'Title'),

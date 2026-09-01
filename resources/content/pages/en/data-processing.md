@@ -19,6 +19,13 @@ consent:
         - External embeds stay blocked until the media category is accepted.
         - Any analytics or heatmap integration must remain disabled by default and appear only after explicit opt-in.
         - The preferences button lets you reopen the consent modal and change that choice at any time.
+measurement:
+    eyebrow: Measurement
+    title: Three tiers, each with its own switch
+    points:
+        - 'Audience: a first-party, cookieless ping counts page views with a truncated IP folded into an identifier that changes every day. It stores nothing in your browser, honors Global Privacy Control, and you can switch it off below.'
+        - 'Analytics: PostHog, hosted in the EU, loads only after the analytics category is accepted in the consent preferences - never before.'
+        - 'Replay and heatmaps: the most invasive tier has its own switch below. Accepting analytics, or pressing "Accept all", never turns it on.'
 operator:
     eyebrow: Operator
     title: Contact for privacy or deletion requests

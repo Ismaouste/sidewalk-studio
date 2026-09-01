@@ -1,6 +1,7 @@
 export { default as caseStudiesIndex } from './caseStudiesIndex';
 export { default as caseStudiesShow } from './caseStudiesShow';
 export { default as contact } from './contact';
+export { default as dataProcessing } from './dataProcessing';
 export { default as home } from './home';
 export { default as labs } from './labs';
 export { default as local } from './local';

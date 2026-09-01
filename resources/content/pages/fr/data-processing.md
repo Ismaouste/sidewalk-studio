@@ -19,6 +19,13 @@ consent:
         - Les embeds externes restent bloqués tant que la catégorie media n'est pas acceptée.
         - Une intégration analytics ou carte de chaleur doit rester désactivée par défaut et n'apparaître qu'après opt-in explicite.
         - Le bouton de préférences permet de rouvrir la modale de consentement et de modifier ce choix à tout moment.
+measurement:
+    eyebrow: Mesure
+    title: 'Trois niveaux, chacun avec son interrupteur'
+    points:
+        - "Audience : un ping first-party sans cookie compte les pages vues avec une IP tronquée, fondue dans un identifiant qui change chaque jour. Il ne stocke rien dans votre navigateur, respecte Global Privacy Control, et se désactive ci-dessous."
+        - "Analytics : PostHog, hébergé dans l'Union européenne, ne se charge qu'après acceptation de la catégorie analytics dans les préférences de consentement - jamais avant."
+        - "Relecture de session et cartes de chaleur : le niveau le plus intrusif a son propre interrupteur ci-dessous. Accepter les analytics, ou « Tout accepter », ne l'active jamais."
 operator:
     eyebrow: Opérateur
     title: Contact pour une demande RGPD ou suppression

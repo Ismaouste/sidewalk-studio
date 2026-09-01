@@ -2,6 +2,7 @@
 import { usePage } from '@inertiajs/vue3';
 import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
+import MeasurementControls from '@/components/MeasurementControls.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Panel from '@/components/ui/Panel.vue';
 import SiteLayout from '@/layouts/SiteLayout.vue';
@@ -20,6 +21,11 @@ defineProps<{
         points: string[];
     };
     consent: {
+        eyebrow: string;
+        title: string;
+        points: string[];
+    };
+    measurement: {
         eyebrow: string;
         title: string;
         points: string[];
@@ -82,6 +88,23 @@ const page = usePage<{ site: SiteProps }>();
                     </ul>
                 </Panel>
             </div>
+
+            <Panel class="data-processing-page__panel" tone="surface">
+                <p class="type-eyebrow">{{ measurement.eyebrow }}</p>
+                <h2 class="type-h2 data-processing-page__title">
+                    {{ measurement.title }}
+                </h2>
+                <ul class="data-processing-page__list">
+                    <li
+                        v-for="point in measurement.points"
+                        :key="point"
+                        class="type-body"
+                    >
+                        {{ point }}
+                    </li>
+                </ul>
+                <MeasurementControls />
+            </Panel>
 
             <Panel class="data-processing-page__panel" tone="surface">
                 <p class="type-eyebrow">{{ operator.eyebrow }}</p>
