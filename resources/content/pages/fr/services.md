@@ -4,7 +4,7 @@ seo_description: 'Forfaits web et e-commerce, abonnement growth et direction tec
 hero:
     eyebrow: Services · Nancy & remote
     title: Une offre lisible, avec les prix là où on peut les voir.
-    summary: Sites web, plateformes métier, e-commerce et direction technique. Chaque tarif ci-dessous est un point de départ, publié exprès : la conversation de cadrage commence avec les chiffres déjà sur la table.
+    summary: "Sites web, plateformes métier, e-commerce et direction technique. Chaque tarif ci-dessous est un point de départ, publié exprès : la conversation de cadrage commence avec les chiffres déjà sur la table."
 offers:
     - label: Forfait
       title: Site local

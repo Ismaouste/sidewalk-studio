@@ -173,7 +173,7 @@ class PublicPagesTest extends TestCase
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where(
                     'thesis',
-                    'Développeur e-commerce. Je construis des plateformes qui vendent, je les tiens en production, et je les fais évoluer sans jamais fermer la boutique.',
+                    'Développeur e-commerce et plateformes métier. Je construis des systèmes qui vendent ou qui font tourner une activité, je les tiens en production, et je les fais évoluer sans jamais couper le service.',
                 )
             );
 
@@ -182,7 +182,7 @@ class PublicPagesTest extends TestCase
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where(
                     'thesis',
-                    'Ecommerce developer. I build platforms that sell, I keep them running in production, and I keep changing them without ever closing the shop.',
+                    'Ecommerce and business-platform developer. I build systems that sell or that run an operation, I keep them in production, and I keep changing them without ever taking the service down.',
                 )
             );
     }
