@@ -120,4 +120,43 @@ class HandleInertiaRequests extends Middleware
             ],
         ];
     }
+
+    /**
+     * `payload` keeps all of its violations; every other key keeps one.
+     *
+     * A page save is refused by comparing a whole document against its
+     * declaration and against the other locale, so one refusal routinely
+     * names several fields. Inertia hands the client `$errors[0]` per key
+     * unless `$withAllErrors` is set — and that switch is application-wide,
+     * while every other admin form here is written against a string. So the
+     * eight reasons a save was refused reached the browser as one, and the
+     * operator fixed them one save at a time, learning each only after
+     * fixing the last.
+     *
+     * Narrowing it to the one key that carries a list keeps the other forms
+     * untouched. `Admin/Pages/Edit.vue` was already written for the array it
+     * could never receive.
+     *
+     * @return object
+     */
+    public function resolveValidationErrors(Request $request)
+    {
+        $resolved = parent::resolveValidationErrors($request);
+
+        if (! $request->hasSession() || ! $request->session()->has('errors')) {
+            return $resolved;
+        }
+
+        if (! property_exists($resolved, 'payload')) {
+            return $resolved;
+        }
+
+        $messages = $request->session()->get('errors')->getBag('default')->get('payload');
+
+        if ($messages !== []) {
+            $resolved->payload = $messages;
+        }
+
+        return $resolved;
+    }
 }

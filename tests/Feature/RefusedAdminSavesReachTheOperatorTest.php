@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Middleware\HandleInertiaRequests;
 use App\Models\User;
 use App\Services\ContentImportService;
 use App\Services\PageContentRepository;
@@ -100,6 +101,76 @@ class RefusedAdminSavesReachTheOperatorTest extends TestCase
             strlen(serialize(session()->all())),
             'The session carrying a refusal has to fit in a cookie with room to spare.',
         );
+    }
+
+    /**
+     * Every violation reaches the browser, not just the first.
+     *
+     * A page save is refused by comparing a whole document against its
+     * declaration and against the other locale, so one refusal routinely
+     * carries several violations at once. Inertia collapses each key's
+     * messages to `$errors[0]` unless `$withAllErrors` is set, and that
+     * switch is all-or-nothing across the application -- every other admin
+     * form is written against a string. So the reasons a save was refused
+     * arrived as one, and an operator would have fixed them one save at a
+     * time, learning the next only after fixing the last.
+     *
+     * `Admin/Pages/Edit.vue` was already written for the list: its
+     * `payloadErrors` does `if (Array.isArray(value)) return value`. It could
+     * simply never receive one.
+     */
+    public function test_a_refusal_carrying_several_violations_delivers_all_of_them(): void
+    {
+        $form = $this->editablePayload('home', 'fr');
+
+        // Several separate departures from the declaration, in one save.
+        unset($form['payload']['hero']['title']);
+        unset($form['payload']['contact_cta']);
+        $form['payload']['a_key_the_declaration_does_not_have'] = 'x';
+
+        $response = $this
+            ->actingAs(User::factory()->create())
+            ->from('/admin/pages/home/fr')
+            ->put('/admin/pages/home/fr', $form);
+
+        $response->assertRedirect();
+
+        $violations = session('errors')->get('payload');
+
+        $this->assertGreaterThan(
+            1,
+            count($violations),
+            'This test is only meaningful while the refusal carries several violations.',
+        );
+
+        $delivered = app(HandleInertiaRequests::class)
+            ->resolveValidationErrors(request());
+
+        $this->assertIsArray(
+            $delivered->payload,
+            'Every violation has to reach the browser, not just the first.',
+        );
+        $this->assertSame($violations, $delivered->payload);
+    }
+
+    /**
+     * The narrowing that keeps the change safe: only `payload` becomes a
+     * list. Every other key stays the string the rest of the admin is
+     * written against, which is why this cannot be `$withAllErrors`.
+     */
+    public function test_other_fields_still_arrive_as_a_single_string(): void
+    {
+        $form = $this->editablePayload('experience', 'fr');
+        $form['seo_title'] = str_repeat('a', 200);
+
+        $this
+            ->actingAs(User::factory()->create())
+            ->post('/admin/pages/experience/fr/preview', $form);
+
+        $delivered = app(HandleInertiaRequests::class)
+            ->resolveValidationErrors(request());
+
+        $this->assertIsString($delivered->seo_title);
     }
 
     public function test_the_operator_is_told_which_field_was_refused(): void

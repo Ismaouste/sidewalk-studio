@@ -35,7 +35,7 @@ and
 ## Baseline that must stay green
 
 `npm run check`, `composer run lint:check`, `php artisan test`
-(**158 tests / 1718 assertions** on `main`), `npm run build:ssr`. Both themes
+(**197 tests / 2068 assertions** on `main`), `npm run build:ssr`. Both themes
 get checked in a browser on any visual change.
 
 Because `main` deploys to Vercel on push, that baseline is a pre-push gate now,
@@ -59,6 +59,34 @@ limiting — export `COMPOSER_AUTH` from `gh auth token`. Never fall back to
 **Never use `perl -i` without a backup suffix on Windows.** It destroys the file
 and leaves a randomly-named temporary beside it. It cost `tokens.css` in the
 session that wrote this. Use the Edit tool.
+
+## The voice pass — 2026-09-02
+
+`docs/style/voice.md` is new and is the editorial contract: who reads each
+page, the positioning rule, and the failures it was written from. Read it
+before touching any string a visitor sees.
+
+The rule that matters most, in Isma's own words: **never describe the work as
+taking over what someone else built.** "Je reprends des plateformes en
+production" was the `thesis` line, and variants of it ran through five pages.
+It reads as inheriting other people's debt to a recruiter and as a repairman
+to a business owner. Build, run, keep in production, maintain, evolve.
+
+Two audiences, both of whom must understand every page they land on: a
+recruiter, and a business owner with a web need. `/services` was addressed to
+"commerçants, salles et institutions" and priced a site "conçu sur un budget
+Core Web Vitals".
+
+What that pass fixed: the home page's false "Des preuves, en production" claim,
+`/experience` promising four contexts over a list of three, a dangling
+"Atlas Dépannage" reference, a published brief-to-self in a case study, six
+French coinages and calques (*relisible*, *étapes expédiables*, *dans la même
+personne*), and the editorial-model notes that had escaped into rendered copy.
+
+What it could not fix is in `docs/ai/CONTENT_BRIEF.md`: two case studies are
+still outlines, the two strongest projects (Atlas Dépannage, Crown-DP) are
+unwritten, and the best case study has no "I" in it. All of that needs facts
+only Isma has.
 
 ## Open work
 
@@ -141,31 +169,37 @@ current two, and runtime-editable design tokens.
   Fixed in `17d6e4f`: morning now puts ink on the untouched orange (5.71:1),
   and hover lifts toward the page ground instead of deepening, which had been
   failing under both text colours at once.
-- A link with `prefetch="hover"` and `cache-for` runs **two** full visit cycles
-  when a pointer rests on it, so it crossfades twice. A prefetch-policy call.
-- `--sw-tab-line` and `--sw-header-bg` have no consumers;
-  `html[data-scroll-lock]` in `reset.css` has no writer. `@property
---sw-grid-line-opacity` at `tokens.css:12` is registered and read by nothing
-  — it survived the substrate plan that introduced it.
-- `actions/checkout@v4` and `actions/setup-node@v4` are forced onto Node 24 —
-  move to `@v5`.
-- ContentVisual SVGs are served `max-age=3600`, so a palette change takes up to
-  an hour to reach returning visitors.
-- A refused save shows **one** violation out of however many there are. The
-  controller flashes them all under the `payload` key, but Inertia's
-  `resolveValidationErrors` returns `$errors[0]` per key unless `withAllErrors`
-  is set, and it is `false` by default. `Edit.vue:145` already does
-  `if (Array.isArray(value)) return value;` — the front end is written for the
-  list it can never receive. The eight `experience` violations reached the
-  browser as one, so an operator would have fixed them one save at a time.
-  `HandleInertiaRequests` extends that middleware, so the property can be
-  overridden there — but it would turn **every** error prop in the app from a
-  string into an array, which the other forms are not written for. Override
-  `resolveValidationErrors()` for the `payload` key alone.
-- The admin shell preloads the four public display faces — `dm-sans` 400/500,
-  `fraunces` 400 italic, `syne` 700 — and uses none of them, so every
-  back-office page logs four "preloaded but not used" warnings and spends the
-  bytes.
+- ~~A link with `prefetch="hover"` runs **two** full visit cycles, so it
+  crossfades twice.~~ Fixed in `186ff2e`: prefetch visits no longer start a
+  view transition or a settle, and the events that carry no visit consult a
+  count of real navigations rather than a boolean, because the two overlap.
+- ~~`--sw-tab-line`, `--sw-header-bg`, `html[data-scroll-lock]` and
+  `@property --sw-grid-line-opacity` have no consumers.~~ All removed. Note
+  `--sw-sun-angle` was dead too and the old note missed it — check both
+  `@property` blocks, not one. `--sw-radius-pill` was **added** in the same
+  pass, because `--sw-radius-full` is 6px and eighteen rules had reached for a
+  bare `999px` with no token to name the shape.
+- ~~`actions/checkout@v4` and `actions/setup-node@v4`~~ — both on `@v5` now.
+- ContentVisual SVGs are served `max-age=3600` by their PHP route, so a palette
+  change takes up to an hour to reach returning visitors. **Deliberately not
+  fixed**: content-addressing the URL touches `ExportStaticPreviewCommand`, and
+  a palette change is rare. Everything else static is now cached properly —
+  `vercel.json` carries a `headers` block, a year and `immutable` for hashed
+  build assets, a day plus a week of `stale-while-revalidate` for images.
+- ~~A refused save shows **one** violation out of however many there are.~~
+  Fixed by overriding `resolveValidationErrors()` in `HandleInertiaRequests`
+  for the `payload` key alone — `$withAllErrors` would have turned every error
+  prop in the app into an array, which the other forms are not written for.
+  Held by two tests in `RefusedAdminSavesReachTheOperatorTest`, one for the
+  list and one asserting every other key still arrives as a string.
+- ~~The admin shell preloads four public display faces and uses none of them.~~
+  **This was checked and is wrong — do not "fix" it.** The admin uses all four:
+  `type-h1` (17 uses) is `--sw-font-display`, i.e. Fraunces 400 *italic*;
+  `type-nav` (74) and `type-eyebrow` (50) are `--sw-font-heading`, Syne 700;
+  `type-body` and `type-meta` (120) are DM Sans 400/500. Those are exactly the
+  four preloaded faces. If the console warning is real, its cause is elsewhere
+  — most likely a URL mismatch between the preload href and what the CSS
+  requests — and the preloads are correct.
 - A `public/hot` file can survive a killed `npm run dev` and point at a dead
   Vite server. Laravel did not honour it in the case seen, but it is a live
   landmine for an unstyled admin. Delete it when the dev server is not running.
@@ -182,3 +216,7 @@ current two, and runtime-editable design tokens.
   a push publishes.
 - Subagents: `design-conformance-reviewer` after any Vue component or CSS,
   `i18n-parity-reviewer` after anything under `resources/content/pages/`.
+- Public copy follows `docs/style/voice.md`. A colon inside a frontmatter
+  scalar must be quoted or the declared-schema check refuses the page, and
+  never bulk-rewrite frontmatter with a regex that can match `- key: value` —
+  that pattern quoted 92 nested mappings into scalars in one pass here.

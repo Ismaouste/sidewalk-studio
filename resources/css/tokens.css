@@ -3,18 +3,6 @@
  * Edit accent values per theme below to retune the whole site.
  * ============================================================ */
 
-@property --sw-sun-angle {
-    syntax: '<angle>';
-    inherits: true;
-    initial-value: 0deg;
-}
-
-@property --sw-grid-line-opacity {
-    syntax: '<number>';
-    inherits: true;
-    initial-value: 1;
-}
-
 :root {
     --sw-font-display: 'Fraunces', Georgia, serif;
     --sw-font-heading: 'Syne', 'Trebuchet MS', sans-serif;
