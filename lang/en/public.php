@@ -24,7 +24,7 @@ return [
      * Labels the shell shares with every page through Inertia.
      */
     'shell' => [
-        'header_tagline' => 'Full-stack e-commerce. Cross-functional data, reliable flows.',
+        'header_tagline' => 'I build and run business platforms and online shops.',
         'locale_switcher_label' => 'Language',
         'nav_aria_label' => 'Primary navigation',
         'nav_menu_label' => 'Menu',

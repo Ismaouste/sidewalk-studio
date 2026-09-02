@@ -54,11 +54,11 @@ services:
     eyebrow: Where I can help
     items:
         - title: Ecommerce and CMS development
-          summary: Takeovers, redesigns, and go-live work on commerce sites and CMS already in use.
+          summary: Building, redesigning, and launching commerce sites and CMS, including where the shop is already trading.
         - title: Product data and scripts
           summary: Product data, stock, exports, scraping, APIs, and synchronization across business tools, connectors, and web surfaces.
         - title: Front-end, integration, and connectors
-          summary: Front-end integration, internal tools, connector cleanup, and CMS work shaped around real team usage.
+          summary: Front-end integration, internal tools, CMS, and connectors between business software built around how teams actually work.
         - title: Tracking, consent, and acquisition
           summary: Data layer, pixels, analytics, Consent Mode v2, and marketing catalog sync without pushing compliance aside.
 recruiter_shortcut:

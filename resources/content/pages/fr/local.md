@@ -4,7 +4,7 @@ seo_description: Basé à Nancy, mobile Grand Est, Paris et remote selon le cont
 hero:
     eyebrow: Où suis-je ?
     title: Nancy, Grand Est, remote.
-    summary: Basé à Nancy, mobile Grand Est, Paris et remote selon le cadre. La page sert surtout à situer le terrain, pas à répéter la page d'accueil.
+    summary: Basé à Nancy, je me déplace dans le Grand Est et à Paris, et je travaille à distance quand le cadre s'y prête.
 signals:
     - Base à Nancy, déplacements réguliers dans le Grand Est et vers Paris.
     - Ouvert aux contextes conseil, institutions et équipes produit déjà en place.
@@ -12,30 +12,30 @@ signals:
 nancy:
     body:
         - Nancy reste le point de départ. Je travaille sans difficulté avec des équipes du Grand Est, de Paris ou en remote.
-        - Le lien au terrain compte surtout pour la disponibilité et pour garder un regard concret sur les services, la mobilité, la culture et les usages.
+        - "Être d'ici change deux choses concrètes : je peux passer, et je vois fonctionner les services dont on me parle — les transports, les salles, les commerces — au lieu de les imaginer."
 journal_section:
     eyebrow: Journal
     title: Quelques publications qui prolongent ce terrain.
-    summary: Des notes courtes sur le build, la donnée et les choix de structure, sans créer une rubrique à part.
+    summary: Des notes courtes sur la construction, la donnée et les choix de structure.
 engagements_intro:
     eyebrow: Mes engagements
     title: Quelques repères hors du travail salarié.
-    summary: Des engagements associatifs et culturels qui gardent le regard branché sur des usages réels.
+    summary: Des engagements associatifs et culturels qui me gardent en contact avec de vrais usages.
 engagements:
     - title: Aremedia
       summary: Aremedia relève de la prévention des risques et de la santé publique. J'y ai conçu un outil auto-hébergé de remontée de données pour des actions hors les murs.
       items:
           - Outil pensé pour des équipes de terrain.
           - Contraintes de sécurité et de confiance fortes.
-          - Reprise publique de aremedia.org.
+          - Refonte du site public aremedia.org.
     - title: Nancy Jazz Pulsations, EDEN, La Quadrature du Net
-      summary: Bénévolat culturel, sujets d'urbanisme, vélo et droits numériques. Des repères utiles pour ne pas réduire un service à son back-office.
+      summary: Bénévolat culturel, urbanisme, vélo et droits numériques. Ça m'évite de croire qu'un service se résume à son interface d'administration.
       items:
-          - Vie associative réellement fréquentée.
+          - Une vie associative que je fréquente vraiment, pas une ligne sur un CV.
           - Attention continue à la mobilité et à l'espace public.
-          - Même exigence de lisibilité que sur un produit ecommerce.
+          - La même exigence de clarté que sur une boutique en ligne.
 notes_section:
     eyebrow: Notes
-    title: Notes simples, à parcourir sans détour.
-    summary: Une liste directe des publications, pour prolonger la visite sans détour.
+    title: Des notes courtes, à lire dans l'ordre qu'on veut.
+    summary: La liste des publications, si vous voulez continuer à lire.
 ---

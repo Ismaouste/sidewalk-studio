@@ -5,7 +5,7 @@ hero:
     eyebrow: Experience
     title: Projects and experience
     summary: Ecommerce developer based in Nancy. Four core contexts to read the work, the technical choices, and the way I ship.
-thesis: 'Ecommerce developer. I take over live platforms and make them more stable, more readable, and easier to keep evolving.'
+thesis: "Ecommerce and business-platform developer. I build systems that sell or that run an operation, I keep them in production, and I keep changing them without ever taking the service down."
 positioning:
     - Understand the existing system and its constraints quickly.
     - Make decisions with the right people and the right scope.
@@ -41,8 +41,8 @@ professional_sections:
       eyebrow: Cross-cutting devops — 2024-2026
       summary: Docker Swarm deployment on AWS for the Jewely platform. Automatic pipeline through EventBridge, Lambda, and SSM, then hardening after a disk incident.
       paragraphs:
-          - The work focused on deployment automation, clearer execution feedback, and guardrails when production lies.
-          - 'After the incident, the goal was simple: make the pipeline verifiable, less misleading, and calmer to run.'
+          - I automated the deploys, then made the pipeline report what actually happened rather than what it had been asked to do.
+          - "A disk filled up and the deploy rolled back silently, reporting success. Afterwards I made the pipeline check the image the service really ended up running, catch a rollback instead of trusting the first green signal, and clear its own leftovers before they became the next incident."
       detail_groups:
           - title: Stack
             pills:
@@ -57,7 +57,7 @@ professional_sections:
       eyebrow: Full-stack developer — Before 2023
       summary: Building and maintaining WordPress, WooCommerce, and PrestaShop sites for SMB / micro-business clients — showcase sites, ecommerce, business plugins, and technical SEO.
       paragraphs:
-          - Before Jewely, several years leading or recovering WordPress and WooCommerce sites for SMB / micro-business clients. The work ranged from template integration to custom plugin work, with technical SEO and long-term maintenance throughout.
+          - "Before Jewely, I spent several years building and running WordPress and WooCommerce sites for small and mid-sized businesses: the build, custom plugins when the need went past what the platform offered, technical SEO, and maintenance over the long run."
       detail_groups:
           - title: Stack
             pills:
@@ -72,10 +72,10 @@ professional_sections:
 associative_sections:
     - title: Aremedia
       eyebrow: Nonprofit salaried — Before 2023
-      summary: Public-health salaried context. Self-hosted reporting tool for field teams and rework of the public site.
+      summary: A salaried role in public health. I built them a self-hosted reporting tool for field teams and rebuilt the public site.
       paragraphs:
-          - The work centered on prevention, trust, and simple usage.
-          - I built a secured reporting tool for field teams and reworked the public structure of aremedia.org.
+          - The people using it worked outside, often in one-off encounters, and the data was about health. That ruled out anything that needed a stable connection, a login they would forget, or a third-party server.
+          - So I built them a self-hosted reporting tool they could use in the field, and rebuilt the public site at aremedia.org.
       detail_groups:
           - title: Landmarks
             items:
@@ -95,18 +95,18 @@ side_projects_widget:
     cta_label: ''
 trajectory:
     - title: Commerce and product data
-      summary: Work on systems where catalog, stock, media, URLs, and conversion need to hold together.
+      summary: I keep catalog, stock, media, and URLs agreeing with each other across an ERP, a PIM, and a shop — currently for more than 20,000 products.
     - title: Laravel delivery
-      summary: Laravel is used as a delivery and cleanup layer on products that are already live.
-    - title: Useful documentation
-      summary: Important decisions are written down so the team can reuse them later.
+      summary: I work on Laravel platforms that are already serving customers, which means shipping changes without taking the shop down to do it.
+    - title: Writing decisions down
+      summary: When I choose between two approaches I write down which one and why, so the next person does not have to guess or ask me.
 strengths:
-    - Take over existing systems without breaking production.
-    - Connect product, technical SEO, privacy, and business integrations.
-    - Leave a system easier to read than it was before.
+    - I change platforms that are already selling, without the selling ever stopping.
+    - I work across the seams — product data, search, privacy, and the integrations between business tools — rather than in one of them.
+    - I leave a system easier to read than I found it, and that is the part I care about most.
 focus_areas:
-    - title: Laravel and legacy takeover
-      summary: Incremental refactors and useful conventions on systems that need to keep shipping.
+    - title: Laravel in production
+      summary: Evolving Laravel platforms that serve customers every day, in stages, without interrupting the service.
     - title: Technical SEO and information architecture
       summary: URLs, metadata, structured data, and public content logic.
     - title: Consent and analytics

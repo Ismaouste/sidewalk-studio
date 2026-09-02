@@ -1,14 +1,14 @@
 ---
 seo_title: Développeur e-commerce & tech lead à Nancy
-seo_description: "Ismaël Rodmacq, développeur e-commerce et tech lead à Nancy. Sites web, boutiques en ligne, ingénierie growth et direction technique à temps partiel — avec la grille tarifaire publiée."
+seo_description: "Ismaël Rodmacq, développeur e-commerce et plateformes métier à Nancy. Sites web, boutiques en ligne, flux produit et direction technique — avec la grille tarifaire publiée."
 hero:
     eyebrow: E-commerce & direction technique · Nancy
     title: Ismaël Rodmacq
-    summary: Des sites et des boutiques pour le commerce local, de l'ingénierie growth qui respecte le consentement, et de la direction technique à temps partiel pour les équipes qui veulent les décisions et la livraison dans la même personne.
+    summary: "Je construis des plateformes métier et des boutiques en ligne, puis je les fais tourner : la donnée produit qui circule entre les outils, les mises en ligne qui ne coupent pas la vente, les chiffres qui disent ce qui marche vraiment. Et quand une équipe cherche quelqu'un qui décide de l'architecture et qui l'écrit ensuite, je prends ce rôle-là aussi."
 hero_panel:
-    - Sites et e-commerce pour commerçants, salles et institutions, construits mobile d'abord sur budget de performance.
-    - Donnée produit, ERP, PIM, flux catalogues et delivery Laravel sur des bases qui restent lisibles en livrant.
-    - SEO technique, RGPD, tracking et analytics traités dans le même cadre — et tarifés sur une grille publique.
+    - Sites et boutiques en ligne pour commerces, salles et institutions. Pensés pour le téléphone d'abord, et tenus assez rapides pour le rester.
+    - "La donnée produit qui doit voyager : sortir des outils métier qui la stockent, arriver dans la boutique, puis repartir vers Google et Meta sans se casser en route."
+    - Référencement, vie privée et mesure d'audience traités ensemble plutôt qu'ajoutés après coup, aux tarifs publiés sur la page services.
 focus_areas:
     - label: Services
       title: Sites, boutiques, growth, direction
@@ -18,7 +18,7 @@ focus_areas:
       tone: dominant
     - label: Études de cas
       title: Des preuves, en production
-      summary: Une plateforme de dispatch menée en CTO de fait, un CMS e-commerce sur mesure pour le vintage de luxe, et ce site open source lui-même — chacun documenté comme un cas.
+      summary: Deux écrites à ce jour. Un pipeline de déploiement qui annonçait des succès tout en revenant en arrière sans le dire, et la couche de consentement qui fait tourner ce site — avec les décisions et les arbitrages laissés dedans.
       href: /case-studies
       cta: Lire les études de cas
       tone: green
@@ -36,6 +36,6 @@ local_teaser:
         - Remote quand le cadre, le produit et l'équipe le permettent.
         - Parcours entre e-commerce, associatif et outils utiles.
 contact_cta:
-    title: Basé à Nancy, disponible pour une mission, un projet ou de la direction à temps partiel.
+    title: Basé à Nancy, disponible pour une mission, une plateforme à construire, ou de la direction technique.
     summary: "Les offres et leurs tarifs d'appel sont sur la page services : un court message avec le contexte et l'échéance suffit pour démarrer."
 ---

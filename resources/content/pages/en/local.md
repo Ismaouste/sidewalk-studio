@@ -4,7 +4,7 @@ seo_description: Based in Nancy, available across Grand Est, Paris, and remote c
 hero:
     eyebrow: Local ground
     title: Nancy, Grand Est, remote.
-    summary: Based in Nancy, open to Grand Est, Paris, and remote work depending on the context. This page is here to situate availability, not to duplicate the home page.
+    summary: Based in Nancy. I travel across Grand Est and to Paris, and work remotely when the setup allows it.
 signals:
     - Nancy as the base, with regular movement across Grand Est and toward Paris.
     - Open to consulting, institutions, and product teams already in motion.
@@ -12,30 +12,30 @@ signals:
 nancy:
     body:
         - Nancy remains the base. I can work easily with teams in Grand Est, Paris, or fully remote.
-        - Place still matters, mostly as a way to stay close to real services, mobility issues, culture, and everyday usage rather than abstract personas.
+        - "Being from here changes two concrete things: I can come by, and I see the services people describe to me actually running — the transport, the venues, the shops — instead of imagining them."
 journal_section:
     eyebrow: Journal
     title: A few publications that extend this ground.
-    summary: Short notes about build work, data, and structural decisions, kept close to the rest of the site.
+    summary: Short notes about building things, about data, and about structural decisions.
 engagements_intro:
     eyebrow: Commitments
     title: A few markers outside salaried work.
     summary: Cultural and nonprofit commitments that keep the work tied to real usage.
 engagements:
     - title: Aremedia
-      summary: Aremedia works on harm reduction and public health. I designed a self-hosted reporting tool there for outreach work outside institutional settings.
+      summary: Aremedia works on harm reduction and public health. I built them a self-hosted reporting tool for teams working out in the field rather than from an office.
       items:
           - Built for field teams rather than office-only workflows.
           - Strong security and trust constraints.
-          - Public-site takeover on aremedia.org.
+          - Rebuilt the public site at aremedia.org.
     - title: Nancy Jazz Pulsations, EDEN, La Quadrature du Net
-      summary: Cultural volunteering, urbanism, cycling, and digital-rights topics that keep the work connected to public space and real users.
+      summary: Cultural volunteering, urbanism, cycling, and digital rights. It stops me believing a service is the same thing as its admin screen.
       items:
-          - Real contact with associative and cultural life.
+          - Nonprofit and cultural life I actually take part in, not a line on a CV.
           - Continued attention to mobility and public space.
-          - The same need for clarity as on ecommerce products.
+          - The same demand for clarity as on an online shop.
 notes_section:
     eyebrow: Notes
-    title: Simple notes, easy to browse.
-    summary: A direct list of publications, meant to extend the visit without another detour.
+    title: Short notes, in whatever order you like.
+    summary: The list of publications, if you want to keep reading.
 ---

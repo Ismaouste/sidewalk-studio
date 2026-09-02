@@ -7,7 +7,7 @@
  */
 return [
     'shell' => [
-        'header_tagline' => 'Développeur e-commerce full stack. Data transverse, flux fiables.',
+        'header_tagline' => 'Je construis et je fais tourner des plateformes métier et e-commerce.',
         'locale_switcher_label' => 'Langue',
         'nav_aria_label' => 'Navigation principale',
         'nav_menu_label' => 'Menu',

@@ -227,63 +227,22 @@ const heroLeadPoints = computed(() =>
                                     {{ item.panelDetails }}
                                 </template>
                             </p>
+                            <!--
+                                The page's own content, in whichever language
+                                the page is served in. Four branches used to sit
+                                here, each holding a paragraph of French or
+                                English prose written into the template and
+                                selected by comparing `item.label` against a
+                                translated string. Two of the three cards
+                                therefore ignored the content file entirely, and
+                                renaming a label would have silently dropped a
+                                card back to this fallback. The prose lives in
+                                `hero_panel` now, where it is editable, paired
+                                across locales, and says the same thing the rest
+                                of the page says.
+                            -->
                             <p class="type-body-sm home-hero__highlight-copy">
-                                <template
-                                    v-if="item.label === 'Sites marchands'"
-                                >
-                                    Développement e-commerce et
-                                    <InlineTermTooltip
-                                        label="CMS"
-                                        :definition="copy.cmsDefinition"
-                                        tone="violet"
-                                    />
-                                    sur WooCommerce, PrestaShop, Shopify et
-                                    fronts découplés quand le projet le demande.
-                                </template>
-                                <template
-                                    v-else-if="item.label === 'E-commerce'"
-                                >
-                                    E-commerce and
-                                    <InlineTermTooltip
-                                        label="CMS"
-                                        :definition="copy.cmsDefinition"
-                                        tone="violet"
-                                    />
-                                    development across WooCommerce, PrestaShop,
-                                    Shopify, and decoupled fronts when needed.
-                                </template>
-                                <template
-                                    v-else-if="
-                                        item.label === 'Data produit et SEO'
-                                    "
-                                >
-                                    <InlineTermTooltip
-                                        label="SEO"
-                                        :definition="copy.seoDefinition"
-                                        tone="sun"
-                                    />
-                                    technique, données structurées, flux
-                                    produit, PIM, catalogues marketing, tracking
-                                    et data layer au même niveau que la mise en
-                                    ligne.
-                                </template>
-                                <template
-                                    v-else-if="
-                                        item.label === 'Product data and SEO'
-                                    "
-                                >
-                                    <InlineTermTooltip
-                                        label="SEO"
-                                        :definition="copy.seoDefinition"
-                                        tone="sun"
-                                    />
-                                    , structured data, product feeds, PIM,
-                                    marketing catalogs, tracking, and data layer
-                                    handled at the same level as go-live.
-                                </template>
-                                <template v-else>
-                                    {{ item.summary }}
-                                </template>
+                                {{ item.summary }}
                             </p>
                         </li>
                     </ul>

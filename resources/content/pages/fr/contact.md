@@ -54,11 +54,11 @@ services:
     eyebrow: Où je peux aider
     items:
         - title: Développement ecommerce et CMS
-          summary: Reprises, refontes et mises en ligne sur des sites marchands ou des CMS déjà utilisés.
+          summary: Construction, refonte et mise en ligne de sites marchands et de CMS, y compris quand la boutique tourne déjà.
         - title: Donnée produit et scripts
           summary: Donnée produit, ERP, stock, scraping, APIs, exports et synchronisations entre outils métier et surfaces web.
         - title: Front, intégration et connecteurs
-          summary: Intégration front, outils internes, CMS et remise au propre de connecteurs selon l'usage réel.
+          summary: Intégration front, outils internes, CMS, et connecteurs entre logiciels métier conçus pour l'usage réel des équipes.
         - title: Tracking, consentement et acquisition
           summary: Data layer, pixels, analytics, Consent Mode v2 et catalogue marketing sans reléguer la conformité au second plan.
 recruiter_shortcut:

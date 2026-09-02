@@ -36,7 +36,7 @@ Ce cas d'étude décrit un terrain que je connais bien : la donnée produit ne v
 
 ## Situation
 
-L'étude de cas doit montrer qu'un connecteur n'est pas juste un tuyau. C'est souvent l'endroit où se jouent la qualité du catalogue, la confiance des équipes, la stabilité des mises en ligne et la lisibilité SEO d'un site marchand.
+Un connecteur entre deux systèmes a l'air d'un tuyau. En pratique, c'est l'endroit où se décide si le catalogue est juste, si les équipes font confiance à ce qu'elles voient, et si une mise en ligne casse quelque chose.
 
 ## Ce qui compte ici
 

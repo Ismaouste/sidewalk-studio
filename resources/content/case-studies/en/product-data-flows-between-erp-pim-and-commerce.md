@@ -36,7 +36,7 @@ This case study sits on a familiar problem: product data only becomes valuable w
 
 ## Situation
 
-A connector is never just a pipe. It is often where catalog quality, team trust, release stability, and SEO readability are won or lost.
+A connector between two systems looks like a pipe. In practice it is where you find out whether the catalog is right, whether the teams trust what they see, and whether a release breaks something.
 
 ## What matters here
 

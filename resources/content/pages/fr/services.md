@@ -1,32 +1,32 @@
 ---
 seo_title: Services
-seo_description: 'Forfaits web et e-commerce, abonnement growth et direction technique à temps partiel depuis Nancy : des tarifs d''appel publiés, des tarifs préférentiels pour les associations, et une méthode de travail menée au grand jour.'
+seo_description: 'Forfaits web et e-commerce, abonnement growth et direction technique depuis Nancy : des tarifs d''appel publiés, des tarifs préférentiels pour les associations, et une méthode de travail menée au grand jour.'
 hero:
     eyebrow: Services · Nancy & remote
     title: Une offre lisible, avec les prix là où on peut les voir.
-    summary: Sites web, e-commerce, ingénierie growth et direction technique à temps partiel. Chaque tarif ci-dessous est un point de départ publié volontairement — la conversation de cadrage commence avec les chiffres déjà posés sur la table.
+    summary: Sites web, plateformes métier, e-commerce et direction technique. Chaque tarif ci-dessous est un point de départ, publié exprès : la conversation de cadrage commence avec les chiffres déjà sur la table.
 offers:
     - label: Forfait
       title: Site local
-      summary: Un site rapide et trouvable pour commerçants, salles et institutions — conçu sur un budget Core Web Vitals, câblé pour le SEO local et les données structurées, avec un consentement traité correctement dès le premier jour.
+      summary: Un site rapide et facile à trouver, pour commerces, salles et institutions. Assez rapide pour que Google le compte comme rapide, installé pour que les recherches du coin tombent sur vous, et qui demande le consentement honnêtement dès le premier jour.
       price: à partir de 2 900 €
       price_meta: prix forfaitaire, cadré ensemble
       points:
-          - Conception et réalisation sur budget de performance, mobile d'abord.
-          - SEO local, données structurées et métadonnées propres.
-          - Consentement et vie privée bien faits, sans dark patterns.
+          - Conçu et construit pour le téléphone d'abord, avec un objectif de vitesse fixé à l'avance.
+          - Le référencement local, plus le balisage invisible qui met vos horaires et votre adresse dans les résultats Google.
+          - "Un bandeau cookies qui accepte qu'on dise non : pas de case pré-cochée, pas de bouton refuser caché."
           - Passation éditoriale pour mettre à jour le site sans développeur.
       cta: Lancer un site
       tone: dominant
     - label: Forfait
       title: Boutique
-      summary: De l'e-commerce avec la tuyauterie qui vend vraiment — catalogue produit, paiement, et flux synchronisés pour Google Shopping et Meta DPA, mesurés côté serveur.
+      summary: Une boutique en ligne avec la tuyauterie qui fait vraiment vendre. Catalogue, paiement, et vos produits tenus à jour sur Google Shopping et Instagram, avec les ventes comptées côté serveur pour qu'un bloqueur de publicité ne les fasse pas disparaître.
       price: à partir de 7 500 €
       price_meta: prix forfaitaire, cadré ensemble
       points:
           - Catalogue, paiement et commandes sur une stack choisie pour le contexte.
-          - Flux produits Google Shopping et catalogues Meta, maintenus en synchronisation.
-          - Tracking côté serveur et analytics respectueux du consentement.
+          - Vos produits envoyés vers Google Shopping et les publicités Meta, et remis à jour quand un prix ou un stock bouge.
+          - Les ventes comptées côté serveur, pour que les chiffres survivent aux bloqueurs de publicité — et seulement pour les visiteurs qui ont accepté.
           - Données structurées pour les produits, le stock et la disponibilité locale.
       cta: Ouvrir une boutique
       tone: violet
@@ -43,7 +43,7 @@ offers:
       tone: coral
     - label: TJM
       title: Direction technique
-      summary: Un CTO ou tech lead à temps partiel qui livre aussi — arbitrages d'architecture, décisions produit et développement full-stack dans la même personne, un à trois jours par semaine.
+      summary: "Un CTO ou tech lead qui code aussi : les arbitrages d'architecture, les décisions produit et le développement sont portés par la même personne, un à trois jours par semaine."
       price: '650 € / jour'
       price_meta: 1 à 3 jours par semaine, remote ou Grand Est
       points:
@@ -54,18 +54,18 @@ offers:
       tone: sun
     - label: Forfait cadré
       title: Plateforme sur mesure
-      summary: Un produit construit sur périmètre cadré — la forme Atlas Dépannage — où les machines à états, les documents et les flux d'argent sont conçus avant d'être codés.
+      summary: "Un outil métier construit sur un périmètre fixé : des dossiers qui passent d'une étape à l'autre, des documents émis en chemin, et de l'argent qui doit arriver au bon endroit. Tout ça dessiné avant d'être codé."
       price: sur devis
       price_meta: cadré et livré par étapes, ensemble
       points:
           - Spécification et architecture avant l'implémentation.
-          - Livraison par étapes expédiables, chacune relisible.
+          - Une livraison par étapes, chacune mise en ligne et relue avant la suivante.
           - Une documentation que le développeur suivant peut vraiment utiliser.
       cta: Cadrer un projet
       tone: green
 modifiers:
     title: Des tarifs préférentiels, affichés ici plutôt que négociés en coulisse.
-    summary: Les associations bénéficient de −30 % sur tous les forfaits. Les institutions culturelles et les salles de musiques actuelles indépendantes reçoivent un devis adapté — l'idée, c'est que la porte est ouverte, et que c'est écrit sur la porte.
+    summary: Les associations bénéficient de −30 % sur tous les forfaits. Les institutions culturelles et les salles de musiques actuelles indépendantes reçoivent un devis adapté. C'est écrit ici pour que personne n'ait à le demander.
 engagement:
     title: Comment se déroule une mission
     steps:
@@ -74,7 +74,7 @@ engagement:
         - title: Une proposition cadrée par écrit
           summary: Ce qui est livré, ce que ça coûte, ce dont ça dépend et ce qui est explicitement hors périmètre — un document, pas de surprise facturée plus tard.
         - title: Construit au grand jour
-          summary: Le travail arrive par incréments expédiables que vous pouvez voir, avec des décisions argumentées par écrit au fur et à mesure.
+          summary: Le travail arrive par morceaux que vous pouvez voir tourner, et chaque décision est écrite au moment où elle est prise.
         - title: Une passation mesurée
           summary: Documentation, accès, et les chiffres qui disent ce qui a changé — le projet se termine avec les clés entre vos mains.
 legal_note: 'Prix hors taxes. TVA non applicable, article 293 B du CGI (franchise en base de TVA, seuil 2026 : 37 500 € pour les prestations de services). Les tarifs affichés sont des points de départ ; chaque mission est cadrée et chiffrée par écrit avant de commencer.'

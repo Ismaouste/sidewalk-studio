@@ -4,20 +4,22 @@ seo_description: Tech lead ecommerce work from Nancy, Grand Est, across platform
 hero:
     eyebrow: Experience
     title: Ecommerce projects
-    summary: "Four main contexts first, then case studies for the deeper technical detail."
+    summary: "Four places I have worked, in full, with the decisions left in."
 tracks_section:
-    label: Landmarks
+    label: The four
     intro:
         eyebrow: Read
-        title: One page to read the work directly.
-        summary: Projects, context, stack, and decisions. The detailed writeups live in the case studies.
+        title: What I have worked on, and what it asked for.
+        summary: Each context below is written out further down the page — what the work was, which systems it touched, and what I decided.
     items:
         - title: Ecommerce
-          summary: Delivery, catalog work, integrations, and go-live constraints.
+          summary: Multi-tenant Laravel platform for jewellery houses. Product data, catalog, integrations, and releases that never interrupt the selling.
         - title: Infrastructure
-          summary: Docker Swarm, AWS, incidents, and safeguards.
-        - title: Case studies
-          summary: Public writeups that go deeper into the technical decisions.
+          summary: Docker Swarm on AWS. Automated deploys, and the safeguards added after an incident the pipeline had hidden.
+        - title: Freelance
+          summary: WordPress, WooCommerce, and PrestaShop sites for small businesses, from build to long-term upkeep.
+        - title: Nonprofit
+          summary: A self-hosted reporting tool for public-health outreach teams, where the data was sensitive and the budget was not there.
 case_studies_section:
     label: Public references
     eyebrow: References

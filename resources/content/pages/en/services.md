@@ -1,32 +1,32 @@
 ---
 seo_title: Services
-seo_description: 'Web and e-commerce packages, growth retainers, and part-time technical direction from Nancy: published price anchors, preferential rates for nonprofits, and an engagement model built in the open.'
+seo_description: 'Web and e-commerce packages, growth retainers, and technical direction from Nancy: published price anchors, preferential rates for nonprofits, and an engagement model built in the open.'
 hero:
     eyebrow: Services · Nancy & remote
     title: An offer you can read, priced where you can see it.
-    summary: Websites, e-commerce, growth engineering, and part-time technical direction. Every anchor below is a starting point published on purpose — the scope conversation happens with the numbers already on the table.
+    summary: "Websites, business platforms, online shops, and technical direction. Every price below is a starting point, published on purpose: the scoping conversation begins with the numbers already on the table."
 offers:
     - label: Package
       title: Site local
-      summary: A fast, findable site for merchants, venues, and institutions — designed against a Core Web Vitals budget, wired for local SEO and structured data, with consent handled correctly from day one.
+      summary: A fast, findable site for shops, venues, and public bodies. Fast enough that Google counts it as fast, set up so local searches find you, and asking for consent honestly from the first day.
       price: from €2,900
       price_meta: fixed price, scoped together
       points:
-          - Design and build on a performance budget, mobile first.
-          - Local SEO, structured data, and clean metadata.
-          - Consent and privacy done right, no dark patterns.
+          - Designed and built for phones first, with a speed target agreed up front.
+          - Local search, plus the hidden markup that puts your hours and address in Google results.
+          - "A cookie banner that takes no for an answer: no pre-ticked boxes, no hidden refuse button."
           - Editorial handover so the site can be updated without a developer.
       cta: Start a site
       tone: dominant
     - label: Package
       title: Boutique
-      summary: E-commerce with the plumbing that actually sells — product catalog, payments, and synchronized product feeds for Google Shopping and Meta DPA, measured server-side.
+      summary: An online shop with the plumbing that actually sells. Catalog, payments, and your products kept in step with Google Shopping and Instagram, with sales counted on the server so an ad blocker cannot lose them.
       price: from €7,500
       price_meta: fixed price, scoped together
       points:
           - Catalog, payments, and order flow on a stack chosen for the context.
-          - Product feeds for Google Shopping and Meta catalog ads, kept in sync.
-          - Server-side tracking and consent-aware analytics.
+          - Your products pushed to Google Shopping and Meta ads, and kept in step when prices or stock change.
+          - Sales counted on the server, so the numbers survive ad blockers — and only for visitors who agreed.
           - Structured data for products, stock, and local availability.
       cta: Open a shop
       tone: violet
@@ -54,18 +54,18 @@ offers:
       tone: sun
     - label: Fixed scope
       title: Platform build
-      summary: A scoped product build — the Atlas Dépannage shape — where the state machines, documents, and money flows are designed before they are coded.
+      summary: "A business tool built to a fixed scope: jobs that move through stages, documents that get issued along the way, and money that has to end up in the right place. All of it drawn before any of it is coded."
       price: on quote
       price_meta: scoped and staged together
       points:
           - Specification and architecture before implementation.
-          - Delivery in shippable stages, each one reviewable.
+          - Delivered in stages, each one live and reviewed before the next starts.
           - Documentation the next developer can actually use.
       cta: Scope a build
       tone: green
 modifiers:
     title: Preferential rates, stated here rather than negotiated quietly.
-    summary: Associations take 30% off any package. Cultural institutions and independent music venues get an adapted quote — the point is that the door is open, and it says so on the door.
+    summary: Nonprofits take 30% off any package. Cultural institutions and independent music venues get an adapted quote. It is written here so nobody has to ask for it.
 engagement:
     title: How an engagement runs
     steps:

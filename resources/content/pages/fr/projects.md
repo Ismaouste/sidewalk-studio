@@ -4,20 +4,22 @@ seo_description: Tech lead e-commerce à Nancy, Grand Est, pour des missions rem
 hero:
     eyebrow: Expérience
     title: Projets e-commerce
-    summary: "Quatre contextes principaux, puis des études de cas pour entrer dans le détail."
+    summary: "Quatre endroits où j'ai travaillé, racontés en entier, avec les décisions dedans."
 tracks_section:
-    label: Repères
+    label: Les quatre
     intro:
         eyebrow: Lecture
-        title: Une page pour lire le travail sans détour.
-        summary: Projets, contexte, stack et décisions. Le détail technique est dans les études de cas.
+        title: Ce sur quoi j'ai travaillé, et ce que ça demandait.
+        summary: "Chacun des quatre contextes ci-dessous est développé plus bas dans la page : ce qu'était le travail, quels systèmes il touchait, ce que j'ai décidé."
     items:
         - title: E-commerce
-          summary: Delivery, catalogue, intégrations et mise en ligne.
+          summary: Plateforme Laravel multi-tenant pour des maisons de joaillerie. Donnée produit, catalogue, intégrations, et des mises en ligne qui ne coupent pas la vente.
         - title: Infrastructure
-          summary: Docker Swarm, AWS, incidents et garde-fous.
-        - title: Études de cas
-          summary: Cas publics pour lire les décisions techniques plus en profondeur.
+          summary: Docker Swarm sur AWS. Déploiements automatisés, et les garde-fous ajoutés après un incident que le pipeline avait masqué.
+        - title: Freelance
+          summary: Sites WordPress, WooCommerce et PrestaShop pour des TPE et PME, de la construction à la maintenance sur la durée.
+        - title: Associatif
+          summary: Un outil de remontée de données auto-hébergé pour des équipes de prévention santé, où la donnée était sensible et le budget absent.
 case_studies_section:
     label: Références publiques
     eyebrow: Références

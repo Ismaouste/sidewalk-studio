@@ -5,7 +5,7 @@ hero:
     eyebrow: Expérience
     title: Projets et expérience
     summary: Développeur e-commerce à Nancy. Quatre contextes principaux pour lire le travail, les choix techniques et la façon de livrer.
-thesis: 'Développeur e-commerce. Je reprends des plateformes en production et je les rends plus stables, plus lisibles, plus simples à faire évoluer.'
+thesis: "Développeur e-commerce et plateformes métier. Je construis des systèmes qui vendent ou qui font tourner une activité, je les tiens en production, et je les fais évoluer sans jamais couper le service."
 positioning:
     - Comprendre vite l'existant et ses contraintes.
     - Décider proprement avec les bons interlocuteurs.
@@ -41,8 +41,8 @@ professional_sections:
       eyebrow: Devops transversal — 2024-2026
       summary: Déploiement Docker Swarm sur AWS pour la plateforme Jewely. Pipeline automatique via EventBridge, Lambda et SSM, puis durcissement après incident disque.
       paragraphs:
-          - Le travail a porté sur l'automatisation du déploiement, la lecture des retours d'exécution et les garde-fous quand la production ment.
-          - "Après incident, l'objectif était simple : rendre le pipeline vérifiable, moins trompeur et plus calme à exploiter."
+          - J'ai automatisé les déploiements, puis j'ai fait en sorte que le pipeline rende compte de ce qui s'est réellement passé, et non de ce qu'on lui avait demandé de faire.
+          - "Un disque s'est rempli et le déploiement est revenu en arrière sans le dire, en annonçant un succès. Ensuite, j'ai fait vérifier au pipeline quelle image tournait vraiment, détecter un retour en arrière au lieu de croire le premier feu vert, et nettoyer ses propres résidus avant qu'ils deviennent l'incident suivant."
       detail_groups:
           - title: Stack
             pills:
@@ -57,7 +57,7 @@ professional_sections:
       eyebrow: Développeur full-stack — Avant 2023
       summary: Réalisation et maintenance de sites WordPress, WooCommerce et PrestaShop pour des clients TPE/PME — vitrines, e-commerce, plugins métier et SEO technique.
       paragraphs:
-          - Avant Jewely, plusieurs années à mener et à reprendre des sites WordPress et WooCommerce pour des clients PME/TPE. Le travail allait de l'intégration de templates au développement de plugins métier, en passant par l'optimisation SEO et la maintenance long terme.
+          - "Avant Jewely, j'ai construit et fait vivre pendant plusieurs années des sites WordPress et WooCommerce pour des TPE et des PME : l'intégration, les plugins métier quand le besoin sortait du standard, le référencement, et la maintenance dans la durée."
       detail_groups:
           - title: Stack
             pills:
@@ -72,10 +72,10 @@ professional_sections:
 associative_sections:
     - title: Aremedia
       eyebrow: Salarié associatif — Avant 2023
-      summary: Contexte salarié de santé publique. Outil auto-hébergé pour les équipes de terrain et reprise du site public.
+      summary: Poste salarié en santé publique. J'y ai construit un outil auto-hébergé pour les équipes de terrain et refait le site public.
       paragraphs:
-          - Travail centré sur la prévention, la confiance et la clarté d'usage.
-          - Développement d'un outil de remontée de données sécurisé, puis reprise de la structure publique de aremedia.org.
+          - Les personnes qui s'en servaient travaillaient dehors, souvent lors de rencontres uniques, et la donnée touchait à la santé. Ça excluait tout ce qui demandait une connexion stable, un mot de passe qu'on oublie, ou un serveur chez un tiers.
+          - Je leur ai donc construit un outil de remontée de données auto-hébergé, utilisable sur le terrain, et j'ai repris le site public aremedia.org.
       detail_groups:
           - title: Repères
             items:
@@ -95,18 +95,18 @@ side_projects_widget:
     cta_label: ''
 trajectory:
     - title: Commerce et données produit
-      summary: Travail sur des systèmes où catalogue, stock, médias, URLs et conversion se tiennent ensemble.
-    - title: Delivery Laravel
-      summary: Laravel sert de base de livraison, de cadrage et de remise au propre sur des produits déjà en service.
-    - title: Documentation utile
-      summary: Les décisions importantes sont écrites pour pouvoir être relues et reprises par l'équipe.
+      summary: Je fais en sorte que le catalogue, le stock, les médias et les URLs disent la même chose entre un ERP, un PIM et une boutique — aujourd'hui sur plus de 20 000 produits.
+    - title: Livraison Laravel
+      summary: Je travaille sur des plateformes Laravel qui servent déjà des clients, donc je livre des changements sans avoir à fermer la boutique pour le faire.
+    - title: Écrire les décisions
+      summary: Quand je tranche entre deux approches, j'écris laquelle et pourquoi, pour que la personne suivante n'ait ni à deviner ni à me le demander.
 strengths:
-    - Reprendre un existant sans casser la production.
-    - Relier produit, SEO technique, vie privée et intégrations métier.
-    - Laisser un système plus lisible qu'à l'arrivée.
+    - Je fais évoluer des plateformes qui vendent déjà, sans jamais couper la vente.
+    - Je travaille sur les jointures — donnée produit, référencement, vie privée, intégrations entre outils métier — plutôt qu'à l'intérieur d'une seule.
+    - Je laisse un système plus lisible que je ne l'ai trouvé, et c'est la partie qui m'intéresse le plus.
 focus_areas:
-    - title: Laravel et reprise d'existant
-      summary: Refactors progressifs et conventions utiles sur des systèmes qui doivent continuer à livrer.
+    - title: Laravel en production
+      summary: Faire évoluer par étapes des plateformes Laravel qui servent des clients tous les jours, sans interrompre le service.
     - title: SEO technique et architecture de l'information
       summary: URLs, métadonnées, données structurées et logique de contenu public.
     - title: Consentement et analytics
