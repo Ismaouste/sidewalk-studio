@@ -70,19 +70,28 @@ const MIN_WIDTH = 92;
 
 /** The box of a node, sized from its longest line so a long French label still fits. */
 export function nodeBox(node: SchemaNode): NodeBox {
-    const lines = node.label.split('\n').map((line) => line.trim()).filter(Boolean);
+    const lines = node.label
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean);
     const longest = lines.reduce((max, line) => Math.max(max, line.length), 0);
 
     return {
         node,
         lines: lines.length > 0 ? lines : [node.id],
-        width: Math.max(MIN_WIDTH, Math.round(longest * CHAR_WIDTH + PAD_X * 2)),
+        width: Math.max(
+            MIN_WIDTH,
+            Math.round(longest * CHAR_WIDTH + PAD_X * 2),
+        ),
         height: Math.max(1, lines.length) * LINE_HEIGHT + PAD_Y * 2,
     };
 }
 
 /** Where the segment from a box centre toward a point leaves the box. */
-function exit(box: NodeBox, toward: { x: number; y: number }): { x: number; y: number } {
+function exit(
+    box: NodeBox,
+    toward: { x: number; y: number },
+): { x: number; y: number } {
     const dx = toward.x - box.node.x;
     const dy = toward.y - box.node.y;
 
@@ -136,7 +145,13 @@ export function edgeGeometry(data: SchemaData): EdgeGeometry[] {
         out.push({
             edge,
             d,
-            mid: bend === 0 ? { x: mx, y: my } : { x: (start.x + 2 * cx + end.x) / 4, y: (start.y + 2 * cy + end.y) / 4 },
+            mid:
+                bend === 0
+                    ? { x: mx, y: my }
+                    : {
+                          x: (start.x + 2 * cx + end.x) / 4,
+                          y: (start.y + 2 * cy + end.y) / 4,
+                      },
         });
     }
 
@@ -145,12 +160,23 @@ export function edgeGeometry(data: SchemaData): EdgeGeometry[] {
 
 /** The text equivalent: one line per lot, then one per interface. The drawing itself is `aria-hidden`. */
 export function describeSchema(data: SchemaData, arrow = '→'): string[] {
-    const name = new Map(data.nodes.map((node) => [node.id, node.label.replace(/\s*\n\s*/g, ' ')]));
-    const lines = data.nodes.map((node) => (node.note ? `${name.get(node.id)} — ${node.note}` : (name.get(node.id) ?? node.id)));
+    const name = new Map(
+        data.nodes.map((node) => [
+            node.id,
+            node.label.replace(/\s*\n\s*/g, ' '),
+        ]),
+    );
+    const lines = data.nodes.map((node) =>
+        node.note
+            ? `${name.get(node.id)} — ${node.note}`
+            : (name.get(node.id) ?? node.id),
+    );
 
     for (const edge of data.edges ?? []) {
         if (name.has(edge.from) && name.has(edge.to)) {
-            lines.push(`${name.get(edge.from)} ${arrow} ${name.get(edge.to)}${edge.label ? ` (${edge.label})` : ''}`);
+            lines.push(
+                `${name.get(edge.from)} ${arrow} ${name.get(edge.to)}${edge.label ? ` (${edge.label})` : ''}`,
+            );
         }
     }
 

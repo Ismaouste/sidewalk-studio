@@ -73,7 +73,10 @@ export function useStage(canvas: Ref<HTMLCanvasElement | null>): void {
     function readTokens(): void {
         const style = getComputedStyle(document.documentElement);
         color = style.getPropertyValue('--sw-particle').trim() || color;
-        baseOpacity = Number.parseFloat(style.getPropertyValue('--sw-particle-opacity')) || baseOpacity;
+        baseOpacity =
+            Number.parseFloat(
+                style.getPropertyValue('--sw-particle-opacity'),
+            ) || baseOpacity;
     }
 
     function seed(): void {
@@ -115,10 +118,21 @@ export function useStage(canvas: Ref<HTMLCanvasElement | null>): void {
         const t = now / 1000;
 
         for (const p of particles) {
-            const px = (((p.x * width + (offsetX + shiftX) * p.depth) % width) + width) % width;
-            const py = (((p.y * height + (offsetY + shiftY - scrollY * 0.04) * p.depth) % height) + height) % height;
+            const px =
+                (((p.x * width + (offsetX + shiftX) * p.depth) % width) +
+                    width) %
+                width;
+            const py =
+                (((p.y * height +
+                    (offsetY + shiftY - scrollY * 0.04) * p.depth) %
+                    height) +
+                    height) %
+                height;
             const tw = 0.6 + 0.4 * Math.sin(t * (0.6 + p.depth) + p.phase);
-            context.globalAlpha = Math.min(1, baseOpacity * tw * (0.55 + p.depth * 0.6) * (1 + twinkle * 0.9));
+            context.globalAlpha = Math.min(
+                1,
+                baseOpacity * tw * (0.55 + p.depth * 0.6) * (1 + twinkle * 0.9),
+            );
             context.fillRect(px, py, p.r * 1.4, p.r * 1.4);
         }
 
@@ -207,7 +221,8 @@ export function useStage(canvas: Ref<HTMLCanvasElement | null>): void {
             () => window.removeEventListener('pointermove', onPointer),
             () => window.removeEventListener('scroll', onScroll),
             () => window.removeEventListener('deviceorientation', onTilt),
-            () => document.removeEventListener('visibilitychange', onVisibility),
+            () =>
+                document.removeEventListener('visibilitychange', onVisibility),
         );
 
         // The preference can change while the page is open.

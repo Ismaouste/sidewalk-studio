@@ -21,9 +21,12 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { describeSchema, edgeGeometry, nodeBox } from './schema';
 import type { SchemaData, SchemaTone } from './schema';
 
-defineOptions({ name: 'SchemaDrawing' });
+const props = withDefaults(
+    defineProps<{ data: SchemaData; arrow?: string }>(),
+    { arrow: '→' },
+);
 
-const props = withDefaults(defineProps<{ data: SchemaData; arrow?: string }>(), { arrow: '→' });
+defineOptions({ name: 'SchemaDrawing' });
 
 const svg = ref<SVGSVGElement | null>(null);
 
@@ -35,7 +38,9 @@ const boxes = computed(() =>
             ...box,
             left: node.x - box.width / 2,
             top: node.y - box.height / 2,
-            tone: (node.id === props.data.here ? 'here' : (node.tone ?? 'ink')) as SchemaTone,
+            tone: (node.id === props.data.here
+                ? 'here'
+                : (node.tone ?? 'ink')) as SchemaTone,
             external: !!node.href && /^https?:\/\//.test(node.href),
         };
     }),
@@ -55,7 +60,11 @@ onMounted(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     let visible = true;
     const update = () => {
-        if (reduced.matches || !visible || document.documentElement.getAttribute('data-motion') === 'reduced') {
+        if (
+            reduced.matches ||
+            !visible ||
+            document.documentElement.getAttribute('data-motion') === 'reduced'
+        ) {
             el.pauseAnimations();
         } else {
             el.unpauseAnimations();
@@ -89,21 +98,56 @@ onBeforeUnmount(() => cleanups.forEach((fn) => fn()));
             focusable="false"
         >
             <!-- Interfaces between the lots -->
-            <g v-for="(geometry, i) in edges" :key="`e${i}`" :class="`schema__edge schema__edge--${geometry.edge.tone ?? 'path'}`">
+            <g
+                v-for="(geometry, i) in edges"
+                :key="`e${i}`"
+                :class="`schema__edge schema__edge--${geometry.edge.tone ?? 'path'}`"
+            >
                 <path class="schema__line" :d="geometry.d" />
                 <path class="schema__arrow" d="M-6 -4L3 0L-6 4Z">
-                    <animateMotion :path="geometry.d" dur="5s" repeatCount="indefinite" rotate="auto" :begin="`${(i % 4) * -1.1}s`" />
+                    <animateMotion
+                        :path="geometry.d"
+                        dur="5s"
+                        repeatCount="indefinite"
+                        rotate="auto"
+                        :begin="`${(i % 4) * -1.1}s`"
+                    />
                 </path>
-                <text v-if="geometry.edge.label" class="schema__edge-label" :x="geometry.mid.x" :y="geometry.mid.y - 6" text-anchor="middle">
+                <text
+                    v-if="geometry.edge.label"
+                    class="schema__edge-label"
+                    :x="geometry.mid.x"
+                    :y="geometry.mid.y - 6"
+                    text-anchor="middle"
+                >
                     {{ geometry.edge.label }}
                 </text>
             </g>
 
             <!-- Dimension lines -->
-            <g v-for="(dimension, i) in data.dimensions ?? []" :key="`d${i}`" class="schema__dimension">
-                <line :x1="dimension.from[0]" :y1="dimension.from[1]" :x2="dimension.to[0]" :y2="dimension.to[1]" />
-                <line :x1="dimension.from[0]" :y1="dimension.from[1] - 5" :x2="dimension.from[0]" :y2="dimension.from[1] + 5" />
-                <line :x1="dimension.to[0]" :y1="dimension.to[1] - 5" :x2="dimension.to[0]" :y2="dimension.to[1] + 5" />
+            <g
+                v-for="(dimension, i) in data.dimensions ?? []"
+                :key="`d${i}`"
+                class="schema__dimension"
+            >
+                <line
+                    :x1="dimension.from[0]"
+                    :y1="dimension.from[1]"
+                    :x2="dimension.to[0]"
+                    :y2="dimension.to[1]"
+                />
+                <line
+                    :x1="dimension.from[0]"
+                    :y1="dimension.from[1] - 5"
+                    :x2="dimension.from[0]"
+                    :y2="dimension.from[1] + 5"
+                />
+                <line
+                    :x1="dimension.to[0]"
+                    :y1="dimension.to[1] - 5"
+                    :x2="dimension.to[0]"
+                    :y2="dimension.to[1] + 5"
+                />
                 <text
                     :x="(dimension.from[0] + dimension.to[0]) / 2"
                     :y="(dimension.from[1] + dimension.to[1]) / 2 - 6"
@@ -118,10 +162,28 @@ onBeforeUnmount(() => cleanups.forEach((fn) => fn()));
                 :is="box.node.href ? (box.external ? 'a' : Link) : 'g'"
                 v-for="box in boxes"
                 :key="box.node.id"
-                v-bind="box.node.href ? (box.external ? { href: box.node.href, target: '_blank', rel: 'noopener' } : { href: box.node.href }) : {}"
+                v-bind="
+                    box.node.href
+                        ? box.external
+                            ? {
+                                  href: box.node.href,
+                                  target: '_blank',
+                                  rel: 'noopener',
+                              }
+                            : { href: box.node.href }
+                        : {}
+                "
             >
-                <g :class="`schema__lot schema__lot--${box.tone}`" :data-lot="box.node.id">
-                    <rect :x="box.left" :y="box.top" :width="box.width" :height="box.height" />
+                <g
+                    :class="`schema__lot schema__lot--${box.tone}`"
+                    :data-lot="box.node.id"
+                >
+                    <rect
+                        :x="box.left"
+                        :y="box.top"
+                        :width="box.width"
+                        :height="box.height"
+                    />
                     <text
                         v-for="(line, li) in box.lines"
                         :key="li"
@@ -131,26 +193,55 @@ onBeforeUnmount(() => cleanups.forEach((fn) => fn()));
                     >
                         {{ line }}
                     </text>
-                    <circle v-if="box.tone === 'here'" class="schema__here" :cx="box.left + 8" :cy="box.top + 8" r="3.4" />
+                    <circle
+                        v-if="box.tone === 'here'"
+                        class="schema__here"
+                        :cx="box.left + 8"
+                        :cy="box.top + 8"
+                        r="3.4"
+                    />
                 </g>
             </component>
 
             <!-- Compass rose: turns with the scroll -->
-            <g v-if="data.compass" class="schema__compass" :transform="`translate(${data.compass.x} ${data.compass.y})`">
+            <g
+                v-if="data.compass"
+                class="schema__compass"
+                :transform="`translate(${data.compass.x} ${data.compass.y})`"
+            >
                 <g class="schema__compass-rose">
                     <circle r="20" />
                     <path d="M0 -22L4 0L0 22L-4 0Z" />
-                    <path d="M-22 0L0 -4L22 0L0 4Z" class="schema__compass-minor" />
+                    <path
+                        d="M-22 0L0 -4L22 0L0 4Z"
+                        class="schema__compass-minor"
+                    />
                 </g>
                 <text y="-28" text-anchor="middle">N</text>
             </g>
 
             <!-- Graphic scale -->
-            <g v-if="data.scale" class="schema__scale" :transform="`translate(${data.scale.x} ${data.scale.y})`">
+            <g
+                v-if="data.scale"
+                class="schema__scale"
+                :transform="`translate(${data.scale.x} ${data.scale.y})`"
+            >
                 <rect x="0" y="0" width="30" height="5" />
-                <rect x="30" y="0" width="30" height="5" class="schema__scale-fill" />
+                <rect
+                    x="30"
+                    y="0"
+                    width="30"
+                    height="5"
+                    class="schema__scale-fill"
+                />
                 <rect x="60" y="0" width="30" height="5" />
-                <rect x="90" y="0" width="30" height="5" class="schema__scale-fill" />
+                <rect
+                    x="90"
+                    y="0"
+                    width="30"
+                    height="5"
+                    class="schema__scale-fill"
+                />
                 <text x="0" y="18">{{ data.scale.label }}</text>
             </g>
         </svg>

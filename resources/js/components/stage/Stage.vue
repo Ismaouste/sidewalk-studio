@@ -12,10 +12,10 @@
  * reduced motion.
  */
 import { onMounted, ref } from 'vue';
+import { readStorage, writeStorage } from '@/lib/safeStorage';
 import { layoutStains } from './stains';
 import type { Stain } from './stains';
 import { useStage } from './useStage';
-import { readStorage, writeStorage } from '@/lib/safeStorage';
 
 defineOptions({ name: 'StageBackground' });
 
@@ -28,7 +28,9 @@ useStage(canvas);
 onMounted(() => {
     // One arrangement for the whole session; storage may be blocked, then it is random.
     const stored = Number.parseInt(readStorage('session', SEED_KEY) ?? '', 10);
-    const seed = Number.isFinite(stored) ? stored : Math.floor(Math.random() * 2 ** 31);
+    const seed = Number.isFinite(stored)
+        ? stored
+        : Math.floor(Math.random() * 2 ** 31);
     writeStorage('session', SEED_KEY, String(seed));
     stains.value = layoutStains(seed);
 });
@@ -86,7 +88,8 @@ function styleOf(stain: Stain): Record<string, string> {
     position: absolute;
     mix-blend-mode: var(--sw-stain-blend);
     will-change: transform;
-    animation: stage-drift var(--dur) ease-in-out var(--delay) infinite alternate;
+    animation: stage-drift var(--dur) ease-in-out var(--delay) infinite
+        alternate;
 }
 
 .stage__stain path {

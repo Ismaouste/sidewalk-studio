@@ -8,11 +8,11 @@
  */
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import { buildPlan } from './planLayout';
-import Schema from './Schema.vue';
 import { copy as copyTree } from '@/copy';
 import { localizePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
+import { buildPlan } from './planLayout';
+import Schema from './Schema.vue';
 
 defineOptions({ name: 'HomePlan' });
 
@@ -31,7 +31,10 @@ const wide = computed(() => buildPlan(plan.value, 'wide', localize));
         <h2 id="home-plan-title" class="type-h2">{{ plan.title }}</h2>
         <p class="type-body home-plan__caption">{{ plan.caption }}</p>
 
-        <Schema class="home-plan__sheet home-plan__sheet--compact" :data="compact" />
+        <Schema
+            class="home-plan__sheet home-plan__sheet--compact"
+            :data="compact"
+        />
         <Schema class="home-plan__sheet home-plan__sheet--wide" :data="wide" />
 
         <ul class="type-meta home-plan__legend">

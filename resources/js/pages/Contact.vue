@@ -769,8 +769,7 @@ function markBookingIntent(): void {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0h10L5 6z' fill='%235c5c57'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: calc(100% - 1rem) 50%;
-    background-size:
-        0.6rem 0.36rem;
+    background-size: 0.6rem 0.36rem;
 }
 
 .contact-page__input--textarea {

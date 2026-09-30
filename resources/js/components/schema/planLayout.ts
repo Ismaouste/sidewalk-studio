@@ -35,12 +35,38 @@ interface LotSpec {
 /** The lots. Atlas Dépannage has no public address yet, so it has no link. */
 export const LOTS: LotSpec[] = [
     { id: 'home', wide: [100, 200], compact: [180, 50] },
-    { id: 'astralmanach', tone: 'path', href: 'https://astralmanach.eu', wide: [400, 80], compact: [270, 170] },
-    { id: 'uavv', href: 'https://www.uavv.fr', wide: [400, 200], compact: [90, 170] },
-    { id: 'florian', href: 'https://florianrosinski.fr', wide: [700, 200], compact: [90, 290] },
+    {
+        id: 'astralmanach',
+        tone: 'path',
+        href: 'https://astralmanach.eu',
+        wide: [400, 80],
+        compact: [270, 170],
+    },
+    {
+        id: 'uavv',
+        href: 'https://www.uavv.fr',
+        wide: [400, 200],
+        compact: [90, 170],
+    },
+    {
+        id: 'florian',
+        href: 'https://florianrosinski.fr',
+        wide: [700, 200],
+        compact: [90, 290],
+    },
     { id: 'atlas', wide: [700, 80], compact: [270, 290] },
-    { id: 'services', href: '/services', wide: [250, 350], compact: [180, 400] },
-    { id: 'cases', href: '/case-studies', wide: [480, 350], compact: [180, 470] },
+    {
+        id: 'services',
+        href: '/services',
+        wide: [250, 350],
+        compact: [180, 400],
+    },
+    {
+        id: 'cases',
+        href: '/case-studies',
+        wide: [480, 350],
+        compact: [180, 470],
+    },
     { id: 'contact', href: '/contact', wide: [710, 350], compact: [180, 540] },
 ];
 
@@ -63,7 +89,15 @@ export const EDGES: EdgeSpec[] = [
     { from: 'cases', to: 'contact', tone: 'ink' },
 ];
 
-const SHEET: Record<PlanLayoutName, { width: number; height: number; compass: [number, number]; scale: [number, number] }> = {
+const SHEET: Record<
+    PlanLayoutName,
+    {
+        width: number;
+        height: number;
+        compass: [number, number];
+        scale: [number, number];
+    }
+> = {
     wide: { width: 880, height: 450, compass: [830, 40], scale: [30, 415] },
     compact: { width: 360, height: 620, compass: [320, 40], scale: [20, 590] },
 };
@@ -86,7 +120,11 @@ export function buildPlan(
             x,
             y,
             tone: lot.tone,
-            href: lot.href ? (lot.href.startsWith('/') ? localize(lot.href) : lot.href) : undefined,
+            href: lot.href
+                ? lot.href.startsWith('/')
+                    ? localize(lot.href)
+                    : lot.href
+                : undefined,
         };
     });
     const edges: SchemaEdge[] = EDGES.map((edge) => ({

@@ -44,7 +44,7 @@ function enableGa4(config: ConsentConfig): void {
         return;
     }
 
-    const w = window as GtagWindow;
+    const w = window as unknown as GtagWindow;
     w[`ga-disable-${id}`] = false;
 
     if (ga4Id === id) {
@@ -77,9 +77,11 @@ function disableGa4(): void {
         return;
     }
 
-    (window as GtagWindow)[`ga-disable-${ga4Id}`] = true;
+    (window as unknown as GtagWindow)[`ga-disable-${ga4Id}`] = true;
 
-    for (const name of document.cookie.split(';').map((c) => c.split('=')[0].trim())) {
+    for (const name of document.cookie
+        .split(';')
+        .map((c) => (c.split('=')[0] ?? '').trim())) {
         if (name === '_ga' || name.startsWith('_ga_')) {
             document.cookie = `${name}=; Max-Age=0; path=/`;
         }
@@ -165,7 +167,7 @@ function hookNavigation(): void {
         client?.capture('$pageview');
 
         if (ga4Id) {
-            (window as GtagWindow).gtag?.('config', ga4Id, {
+            (window as unknown as GtagWindow).gtag?.('config', ga4Id, {
                 page_location: window.location.href,
                 page_path: window.location.pathname,
             });
