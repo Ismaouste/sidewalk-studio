@@ -103,15 +103,8 @@ function positionPopup(): void {
     max-width: min(17rem, calc(100vw - 2rem));
     border: 1px solid
         color-mix(in srgb, var(--inline-term-accent) 22%, var(--sw-border));
-    border-radius: 6px;
-    background: color-mix(
-        in srgb,
-        var(--sw-bg-elevated) 56%,
-        var(--inline-term-accent) 4%
-    );
-    box-shadow:
-        0 12px 32px -16px color-mix(in srgb, black 36%, transparent),
-        0 0 0 1px color-mix(in srgb, white 6%, transparent) inset;
+    border-radius: var(--sw-radius-lg);
+    background: var(--sw-bg-elevated);
     padding: 0.6rem 0.8rem;
     color: var(--sw-text-primary);
     font-family: var(--sw-font-body);

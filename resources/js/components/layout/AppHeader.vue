@@ -238,7 +238,7 @@ onBeforeUnmount(() => {
     font-size: clamp(12px, 2.6vw, 14px);
     font-weight: 500;
     line-height: 1.4;
-    color: color-mix(in srgb, var(--sw-text-secondary) 78%, white 22%);
+    color: var(--sw-text-secondary);
 }
 
 .app-header__controls {

@@ -318,10 +318,6 @@ onBeforeUnmount(() => {
     overflow: hidden;
     background: color-mix(in srgb, var(--sw-bg-elevated) 74%, transparent);
     border: 1px solid color-mix(in srgb, var(--sw-border) 44%, transparent);
-    box-shadow:
-        inset 0 0 0 1px color-mix(in srgb, white 8%, transparent),
-        0 0 24px
-            color-mix(in srgb, var(--app-loader-rail-glow) 34%, transparent);
 }
 
 .app-loader__rail--morning {

@@ -252,15 +252,15 @@ function replayLoader(): void {
     display: grid;
     gap: clamp(16px, 2.2vw, 24px);
     overflow: hidden;
-    --sparkle-accent: hsl(286 82% 72%);
-    --sparkle-accent-soft: hsl(197 76% 68%);
-    --sparkle-accent-hot: hsl(34 96% 72%);
+    --sparkle-accent: var(--sw-path);
+    --sparkle-accent-soft: var(--sw-path);
+    --sparkle-accent-hot: var(--sw-here);
     --sparkle-glow: hsla(286 88% 72% / 0.28);
     --sparkle-border: hsla(286 72% 76% / 0.22);
-    --sparkle-surface: hsla(240 26% 14% / 0.74);
-    --sparkle-surface-deep: hsla(248 30% 10% / 0.88);
-    --sparkle-text: hsl(0 0% 96%);
-    --sparkle-muted: hsl(240 18% 78%);
+    --sparkle-surface: var(--sw-bg-surface);
+    --sparkle-surface-deep: var(--sw-bg-elevated);
+    --sparkle-text: var(--sw-text-primary);
+    --sparkle-muted: var(--sw-text-secondary);
     padding: clamp(20px, 3vw, 32px);
     border: 1px solid color-mix(in srgb, var(--sparkle-border) 82%, transparent);
     border-radius: var(--sw-radius-lg);
@@ -362,8 +362,6 @@ function replayLoader(): void {
     flex: none;
     border-radius: var(--sw-radius-pill);
     background: var(--sw-mark);
-    box-shadow: 0 0 0 4px
-        color-mix(in srgb, var(--sparkle-glow) 48%, transparent);
 }
 
 .sparkle-page__facts {
