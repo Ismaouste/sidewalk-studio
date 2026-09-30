@@ -6,7 +6,7 @@
 type Reference = typeof import('../../en/pages/services').default;
 
 export default {
-    contactCta: 'Engager la conversation',
-    contactLabel: 'Contact',
-    includedLabel: 'Ce qui est compris',
+    contactCta: 'Contact',
+    rangesLabel: 'Tarifs de départ',
+    stacksLabel: 'Stacks',
 } satisfies Reference;

@@ -3,7 +3,7 @@
  * against. Keys are sorted; `sort-keys` enforces it in lint.
  */
 export default {
-    contactCta: 'Start a conversation',
-    contactLabel: 'Contact',
-    includedLabel: "What's included",
+    contactCta: 'Contact',
+    rangesLabel: 'Starting prices',
+    stacksLabel: 'Stacks',
 };

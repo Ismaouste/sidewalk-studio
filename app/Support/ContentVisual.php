@@ -53,43 +53,17 @@ class ContentVisual
      */
     public static function placeholderSvg(array $item): string
     {
-        $tone = self::tone($item);
-        $palette = match ($tone) {
-            // Tuned to the sunset palette in tokens.css: violet, magenta,
-            // indigo and one cyan. These render identically in both themes, so
-            // they have to sit in the family the dark theme establishes rather
-            // than reintroduce the green and amber it deliberately drops.
-            // The tone keys stay as they are because content frontmatter and
-            // the LegendChip tones reference them by name.
-            'green' => [
-                'bgA' => '#062f49',
-                'bgB' => '#0d6a92',
-                'ink' => '#e6f7ff',
-                'accent' => '#3ad8ff',
-                'line' => 'rgba(58, 216, 255, 0.18)',
-            ],
-            'violet' => [
-                'bgA' => '#241046',
-                'bgB' => '#4a1f96',
-                'ink' => '#efe8ff',
-                'accent' => '#b98cff',
-                'line' => 'rgba(185, 140, 255, 0.18)',
-            ],
-            'coral' => [
-                'bgA' => '#3d0d38',
-                'bgB' => '#8a1c78',
-                'ink' => '#ffe9fb',
-                'accent' => '#ff4ecd',
-                'line' => 'rgba(255, 78, 205, 0.18)',
-            ],
-            default => [
-                'bgA' => '#171048',
-                'bgB' => '#3a2b9e',
-                'ink' => '#eceaff',
-                'accent' => '#7c5cff',
-                'line' => 'rgba(124, 92, 255, 0.2)',
-            ],
-        };
+        // Flat paper and ink, like the site (specs/018-site-refresh): no gradient,
+        // no blur. Case studies take the path blue, the rest stay in ink. The tone
+        // keys in content frontmatter are unchanged but no longer pick a colour.
+        $isCase = ($item['section'] ?? 'writing') === 'case-studies';
+        $palette = [
+            'bg' => '#f5f4f0',
+            'ink' => '#121212',
+            'muted' => '#5c5c57',
+            'accent' => $isCase ? '#1f4fd1' : '#121212',
+            'line' => 'rgba(18, 18, 18, 0.16)',
+        ];
 
         $slug = Str::of((string) ($item['slug'] ?? 'content'))
             ->replace('-', ' ')
@@ -142,36 +116,27 @@ class ContentVisual
   <title id="title">{$safeTitle}</title>
   <desc id="desc">Placeholder visual for {$safeTitle}</desc>
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="{$palette['bgA']}" />
-      <stop offset="100%" stop-color="{$palette['bgB']}" />
-    </linearGradient>
     <clipPath id="titleClip">
-      <rect x="86" y="174" width="508" height="176" rx="12" />
+      <rect x="86" y="174" width="508" height="176" />
     </clipPath>
     <clipPath id="summaryClip">
-      <rect x="88" y="386" width="520" height="120" rx="12" />
+      <rect x="88" y="386" width="520" height="120" />
     </clipPath>
-    <filter id="blur">
-      <feGaussianBlur stdDeviation="44" />
-    </filter>
   </defs>
-  <rect width="1200" height="630" rx="24" fill="url(#bg)" />
-  <g opacity="0.72">
-    <circle cx="940" cy="130" r="180" fill="{$palette['accent']}" filter="url(#blur)" />
-    <circle cx="260" cy="520" r="220" fill="{$palette['accent']}" filter="url(#blur)" />
+  <rect width="1200" height="630" fill="{$palette['bg']}" />
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="{$palette['ink']}" stroke-width="2" />
+  <g>
+    <path d="M24 120 H1176" stroke="{$palette['line']}" stroke-width="2" />
+    <path d="M24 300 H1176" stroke="{$palette['line']}" stroke-width="2" />
+    <path d="M24 480 H1176" stroke="{$palette['line']}" stroke-width="2" />
+    <path d="M700 24 V606" stroke="{$palette['line']}" stroke-width="2" />
   </g>
-  <g opacity="0.9">
-    <path d="M0 120 H1200" stroke="{$palette['line']}" stroke-width="2" />
-    <path d="M0 210 H1200" stroke="{$palette['line']}" stroke-width="2" />
-    <path d="M0 300 H1200" stroke="{$palette['line']}" stroke-width="2" />
-    <path d="M0 390 H1200" stroke="{$palette['line']}" stroke-width="2" />
-    <path d="M0 480 H1200" stroke="{$palette['line']}" stroke-width="2" />
-  </g>
-  <rect x="72" y="78" width="248" height="34" rx="10" fill="rgba(255,255,255,0.08)" />
-  <text x="88" y="100" fill="{$palette['ink']}" font-family="DM Sans, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="2.4">{$safeSlug}</text>
-  <text x="86" y="214" fill="{$palette['ink']}" font-family="Fraunces, Georgia, serif" font-size="28" font-weight="400" opacity="0.97" clip-path="url(#titleClip)">{$titleMarkup}</text>
-  <text x="88" y="406" fill="{$palette['ink']}" font-family="DM Sans, Arial, sans-serif" font-size="18" opacity="0.76" clip-path="url(#summaryClip)">{$summaryMarkup}</text>
+  <rect x="760" y="210" width="60" height="44" fill="{$palette['bg']}" stroke="{$palette['ink']}" stroke-width="2" />
+  <path d="M826 232 L940 232" stroke="{$palette['accent']}" stroke-width="2" stroke-dasharray="10 8" />
+  <rect x="946" y="210" width="60" height="44" fill="{$palette['accent']}" stroke="{$palette['accent']}" stroke-width="2" />
+  <text x="88" y="100" fill="{$palette['muted']}" font-family="DM Mono, Courier New, monospace" font-size="18" letter-spacing="2.4">{$safeSlug}</text>
+  <text x="86" y="214" fill="{$palette['ink']}" font-family="Switzer, Helvetica Neue, Arial, sans-serif" font-size="30" font-weight="600" clip-path="url(#titleClip)">{$titleMarkup}</text>
+  <text x="88" y="406" fill="{$palette['muted']}" font-family="Switzer, Helvetica Neue, Arial, sans-serif" font-size="18" clip-path="url(#summaryClip)">{$summaryMarkup}</text>
 </svg>
 SVG;
     }

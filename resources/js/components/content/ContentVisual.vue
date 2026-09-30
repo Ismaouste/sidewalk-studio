@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
+import { rng } from '@/components/stage/stains';
 import { copy as copyTree } from '@/copy';
 import type { ContentItem, SiteProps } from '@/types';
 
@@ -30,6 +31,42 @@ const isPlaceholder = computed(() => props.item.image.kind === 'placeholder');
 function handleImageLoad(): void {
     imageLoaded.value = true;
 }
+
+// The placeholder is a plate drawn here, not an image from the server: it reads
+// the theme tokens, so it follows the light and the night theme. Case studies
+// take the path blue, the journal stays in ink.
+const isCase = computed(() => props.item.section === 'case-studies');
+const plateLabel = computed(() =>
+    isCase.value ? copy.value.caseLabel : copy.value.journalLabel,
+);
+const plateDate = computed(() => props.item.published_at?.slice(0, 7) ?? '');
+
+function seedOf(text: string): number {
+    let h = 2166136261;
+
+    for (let i = 0; i < text.length; i += 1) {
+        h = Math.imul(h ^ text.charCodeAt(i), 16777619);
+    }
+
+    return h >>> 0;
+}
+
+/** A small abstract drawing of lots and interfaces, the same for a given slug. */
+const drawing = computed(() => {
+    const random = rng(seedOf(props.item.slug));
+    const count = 3 + Math.floor(random() * 3);
+    const nodes = Array.from({ length: count }, (_, i) => ({
+        x: 14 + (i * 172) / (count - 1) + (random() - 0.5) * 14,
+        y: 14 + random() * 52,
+    }));
+    const edges = nodes.slice(0, -1).map((a, i) => {
+        const b = nodes[i + 1] ?? a;
+
+        return `M${(a.x + 8).toFixed(1)} ${(a.y + 4).toFixed(1)}L${(b.x - 2).toFixed(1)} ${(b.y + 4).toFixed(1)}`;
+    });
+
+    return { nodes, edges };
+});
 </script>
 
 <template>
@@ -42,7 +79,46 @@ function handleImageLoad(): void {
             'content-visual--placeholder': isPlaceholder,
         }"
     >
+        <div
+            v-if="isPlaceholder"
+            class="content-visual__plate"
+            :class="{ 'content-visual__plate--case': isCase }"
+            role="img"
+            :aria-label="props.item.image_alt || props.item.title"
+        >
+            <p class="content-visual__plate-meta">
+                <span>{{ plateLabel }}</span>
+                <span v-if="plateDate">{{ plateDate }}</span>
+            </p>
+            <svg
+                class="content-visual__plate-drawing"
+                viewBox="0 0 200 80"
+                aria-hidden="true"
+                focusable="false"
+            >
+                <path
+                    v-for="(edge, i) in drawing.edges"
+                    :key="`e${i}`"
+                    class="content-visual__plate-edge"
+                    :d="edge"
+                />
+                <rect
+                    v-for="(node, i) in drawing.nodes"
+                    :key="`n${i}`"
+                    class="content-visual__plate-node"
+                    :class="{
+                        'content-visual__plate-node--here':
+                            i === drawing.nodes.length - 1,
+                    }"
+                    :x="node.x"
+                    :y="node.y"
+                    width="10"
+                    height="8"
+                />
+            </svg>
+        </div>
         <img
+            v-else
             class="content-visual__image"
             :src="props.item.image_url"
             :alt="props.item.image_alt"
@@ -170,6 +246,78 @@ function handleImageLoad(): void {
         aspect-ratio: 16 / 7;
         max-height: 22rem;
     }
+}
+
+/* The plate: paper ground, a hairline under the label, a small drawing of lots. */
+.content-visual__plate {
+    --plate-accent: var(--sw-text-primary);
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--sw-space-2xs);
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: var(--sw-space-xs);
+    background: var(--sw-bg-surface);
+    color: var(--sw-text-primary);
+}
+
+.content-visual__plate--case {
+    --plate-accent: var(--sw-path);
+}
+
+.content-visual__plate-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--sw-space-xs);
+    margin: 0;
+    padding-bottom: var(--sw-space-3xs);
+    border-bottom: var(--sw-hairline) solid var(--sw-border);
+    color: var(--sw-text-muted);
+    font-family: var(--sw-font-code);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.content-visual__plate-drawing {
+    align-self: center;
+    justify-self: center;
+    width: min(100%, 24rem);
+    height: auto;
+    overflow: visible;
+}
+
+.content-visual__plate-edge {
+    fill: none;
+    stroke: var(--plate-accent);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+}
+
+.content-visual__plate-node {
+    fill: var(--sw-bg-surface);
+    stroke: var(--sw-text-primary);
+    stroke-width: 1;
+}
+
+.content-visual__plate-node--here {
+    fill: var(--plate-accent);
+    stroke: var(--plate-accent);
+}
+
+.content-visual__plate-meta span {
+    white-space: nowrap;
+}
+
+/* In a small plate only the label fits; the date is on the card. */
+.content-visual--compact .content-visual__plate-meta span:nth-child(2) {
+    display: none;
+}
+
+.content-visual--compact .content-visual__plate {
+    padding: var(--sw-space-2xs);
 }
 
 .content-visual__overlay {

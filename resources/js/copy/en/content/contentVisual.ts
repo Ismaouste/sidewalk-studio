@@ -3,5 +3,7 @@
  * against. Keys are sorted; `sort-keys` enforces it in lint.
  */
 export default {
+    caseLabel: 'Case study',
+    journalLabel: 'Journal',
     videoLabel: 'video ready',
 };

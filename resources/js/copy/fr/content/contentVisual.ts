@@ -6,5 +6,7 @@
 type Reference = typeof import('../../en/content/contentVisual').default;
 
 export default {
+    caseLabel: 'Étude de cas',
+    journalLabel: 'Journal',
     videoLabel: 'vidéo prête',
 } satisfies Reference;

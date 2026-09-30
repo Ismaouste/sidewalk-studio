@@ -287,32 +287,17 @@ final class PageSchemas
         return new ContentSchema('services', 'Services', [
             ...self::meta(),
             self::hero(),
-            Field::group('offers', [
-                Field::line('label', 'Label'),
+            Field::group('stacks', [
                 Field::line('title', 'Title'),
-                Field::text('summary', 'Summary'),
+                Field::text('items', 'Items')->repeating(),
+            ], 'Stacks')->repeating(itemLabel: 'title'),
+            Field::group('offers', [
+                Field::line('title', 'Title'),
+                Field::text('summary', 'Summary')->optional(),
                 Field::line('price', 'Price line'),
                 Field::line('price_meta', 'Price meta')->optional(),
-                Field::text('points', 'Included points')->repeating(),
-                Field::line('cta', 'Call to action'),
-                Field::line('tone', 'Tone'),
-            ], 'Offers')->repeating(itemLabel: 'title'),
-            Field::group('modifiers', [
-                Field::line('title', 'Title'),
-                Field::text('summary', 'Summary'),
-            ], 'Modifiers'),
-            Field::group('engagement', [
-                Field::line('title', 'Title'),
-                Field::group('steps', [
-                    Field::line('title', 'Title'),
-                    Field::text('summary', 'Summary'),
-                ], 'Steps')->repeating(itemLabel: 'title'),
-            ], 'Engagement'),
+            ], 'Starting prices')->repeating(itemLabel: 'title'),
             Field::text('legal_note', 'Legal note'),
-            Field::group('contact_cta', [
-                Field::line('title', 'Title'),
-                Field::text('summary', 'Summary'),
-            ], 'Contact call to action'),
         ]);
     }
 

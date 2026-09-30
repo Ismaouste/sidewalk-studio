@@ -416,11 +416,9 @@ class SiteController extends Controller
         return Inertia::render('Services', [
             'seo' => $seo,
             'hero' => $page['hero'],
+            'stacks' => $page['stacks'],
             'offers' => $page['offers'],
-            'modifiers' => $page['modifiers'],
-            'engagement' => $page['engagement'],
             'legalNote' => $page['legal_note'],
-            'contactCta' => $page['contact_cta'],
             'cvDownloads' => $this->cvDownloads(),
         ])->withViewData(['seo' => $seo]);
     }
