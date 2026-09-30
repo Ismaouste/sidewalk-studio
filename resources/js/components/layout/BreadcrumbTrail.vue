@@ -217,8 +217,6 @@ const copy = computed(() => copyTree[page.props.site.locale].layout.landmarks);
    and sunset's has to stay above 1. */
 @keyframes breadcrumb-stuck {
     to {
-        -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-        backdrop-filter: var(--sw-surface-backdrop-filter);
     }
 }
 </style>

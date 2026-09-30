@@ -207,17 +207,7 @@ function pickHoverQuote() {
 <style scoped>
 .admin-shell {
     min-height: 100vh;
-    background:
-        radial-gradient(
-            circle at top left,
-            color-mix(in srgb, var(--sw-accent-green) 10%, transparent),
-            transparent 34%
-        ),
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--sw-bg-grid) 84%, white 16%),
-            var(--sw-bg-base)
-        );
+    background: var(--sw-bg-base);
     color: var(--sw-text-primary);
 }
 
@@ -228,7 +218,6 @@ function pickHoverQuote() {
     border-bottom: 1px solid
         color-mix(in srgb, var(--sw-border) 82%, transparent);
     background: color-mix(in srgb, var(--sw-bg-base) 88%, transparent);
-    backdrop-filter: blur(var(--sw-runtime-surface-blur, 18px));
 }
 
 .admin-shell__bar,

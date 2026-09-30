@@ -109,8 +109,6 @@ function positionPopup(): void {
         var(--sw-bg-elevated) 56%,
         var(--inline-term-accent) 4%
     );
-    -webkit-backdrop-filter: blur(14px) saturate(132%);
-    backdrop-filter: blur(14px) saturate(132%);
     box-shadow:
         0 12px 32px -16px color-mix(in srgb, black 36%, transparent),
         0 0 0 1px color-mix(in srgb, white 6%, transparent) inset;

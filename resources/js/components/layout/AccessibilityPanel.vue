@@ -188,8 +188,6 @@ function handleToggle(event: ToggleEvent): void {
     background: color-mix(in srgb, var(--sw-bg-elevated) 92%, transparent);
     color: var(--sw-text-primary);
     overflow: visible;
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
     opacity: 0;
     translate: 0 var(--sw-space-4xs);
     transition:
@@ -280,8 +278,6 @@ function handleToggle(event: ToggleEvent): void {
        reduced motion without a rule of its own. */
     .accessibility-panel__popover::backdrop {
         background: var(--sw-scrim);
-        -webkit-backdrop-filter: var(--sw-scrim-backdrop-filter);
-        backdrop-filter: var(--sw-scrim-backdrop-filter);
         opacity: 0;
         transition:
             opacity var(--sw-motion-fast),

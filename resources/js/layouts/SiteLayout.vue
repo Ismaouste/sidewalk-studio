@@ -272,34 +272,10 @@ onBeforeUnmount(() => {
     pointer-events: none;
     overflow: hidden;
     padding-inline: clamp(1rem, 7vw, 6.5rem);
-    background:
-        radial-gradient(
-            circle at 18% 18%,
-            color-mix(in srgb, var(--sw-ambient-flare-soft) 14%, transparent),
-            transparent 34%
-        ),
-        radial-gradient(
-            circle at 82% 22%,
-            color-mix(in srgb, var(--sw-ambient-flare) 12%, transparent),
-            transparent 36%
-        ),
-        radial-gradient(
-            circle at 50% 72%,
-            color-mix(in srgb, var(--sw-ambient-flare-deep) 10%, transparent),
-            transparent 42%
-        ),
-        color-mix(in srgb, var(--sw-bg-base) 34%, transparent);
-    -webkit-backdrop-filter: blur(
-            calc(var(--sw-runtime-surface-blur, 20px) * 1.2)
-        )
-        saturate(1.06);
-    backdrop-filter: blur(calc(var(--sw-runtime-surface-blur, 20px) * 1.2))
-        saturate(1.06);
+    background: var(--sw-bg-base);
     transition:
         opacity 0.48s ease,
-        background-color 0.48s ease,
-        -webkit-backdrop-filter 0.48s ease,
-        backdrop-filter 0.48s ease;
+        background-color 0.48s ease;
 }
 
 .app-loader__content {
@@ -322,26 +298,15 @@ onBeforeUnmount(() => {
     border-radius: var(--sw-radius-pill);
     pointer-events: none;
     transform: translate(-50%, -50%);
-    filter: blur(18px);
     transition: opacity 160ms ease;
 }
 
 .app-loader__cursor-halo--morning {
-    background: radial-gradient(
-        circle,
-        color-mix(in srgb, var(--sw-accent-green) 26%, transparent),
-        color-mix(in srgb, var(--sw-accent-sun) 16%, transparent) 38%,
-        transparent 72%
-    );
+    background: none;
 }
 
 .app-loader__cursor-halo--sunset {
-    background: radial-gradient(
-        circle,
-        color-mix(in srgb, var(--sw-accent-violet) 30%, transparent),
-        color-mix(in srgb, var(--sw-accent-coral) 18%, transparent) 36%,
-        transparent 72%
-    );
+    background: none;
 }
 
 .app-loader__rail {
@@ -408,29 +373,7 @@ onBeforeUnmount(() => {
 
 .app-loader__rail::before {
     inset: 1px;
-    background:
-        radial-gradient(
-            circle at 14% 50%,
-            color-mix(in srgb, var(--app-loader-rail-bright) 96%, transparent),
-            transparent 24%
-        ),
-        radial-gradient(
-            circle at 52% 50%,
-            color-mix(in srgb, var(--app-loader-rail-core) 94%, transparent),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 86% 50%,
-            color-mix(in srgb, var(--app-loader-rail-deep) 88%, transparent),
-            transparent 24%
-        ),
-        linear-gradient(
-            90deg,
-            color-mix(in srgb, var(--app-loader-rail-deep) 74%, transparent),
-            var(--app-loader-rail-core) 34%,
-            var(--app-loader-rail-bright) 58%,
-            color-mix(in srgb, var(--app-loader-rail-deep) 78%, transparent)
-        );
+    background: none;
     background-size:
         32% 180%,
         36% 180%,
@@ -449,18 +392,9 @@ onBeforeUnmount(() => {
 
 .app-loader__rail::after {
     inset: -1px;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        transparent 28%,
-        color-mix(in srgb, white 44%, var(--app-loader-rail-bright)) 46%,
-        color-mix(in srgb, white 18%, transparent) 54%,
-        transparent 72%,
-        transparent 100%
-    );
+    background: none;
     mix-blend-mode: screen;
     opacity: 0.72;
-    filter: blur(4px);
     transform: translateX(-132%);
     animation: app-loader-rail-sweep 2.8s ease-in-out infinite;
 }

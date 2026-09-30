@@ -29,8 +29,6 @@ const props = withDefaults(
     min-width: 0;
     border: var(--sw-runtime-line-thickness, 1px) solid var(--sw-border);
     border-radius: var(--sw-radius-lg);
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .panel-frame--surface {

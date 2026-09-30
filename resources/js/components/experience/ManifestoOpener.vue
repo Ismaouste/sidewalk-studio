@@ -39,11 +39,7 @@ defineProps<{
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: radial-gradient(
-        ellipse at 14% 8%,
-        color-mix(in oklch, var(--sw-twilight-glow) 26%, transparent),
-        transparent 64%
-    );
+    background: none;
     pointer-events: none;
     border-radius: var(--sw-radius-lg);
 }

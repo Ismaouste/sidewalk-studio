@@ -114,37 +114,13 @@ onBeforeUnmount(() => {
     position: absolute;
     inset: 0 0 auto;
     height: calc(100% + clamp(40px, 8vw, 96px));
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--sw-bg-base) 98%, transparent) 0%,
-        color-mix(in srgb, var(--sw-bg-base) 90%, transparent) 34%,
-        color-mix(in srgb, var(--sw-bg-base) 52%, transparent) 68%,
-        color-mix(in srgb, var(--sw-bg-base) 16%, transparent) 88%,
-        transparent 100%
-    );
+    background: none;
     pointer-events: none;
     z-index: 0;
 }
 
 :global(html[data-theme='sunset']) .app-header::before {
-    background:
-        radial-gradient(
-            circle at 14% 0%,
-            color-mix(in srgb, var(--sw-accent-sun) 22%, transparent),
-            transparent 34%
-        ),
-        radial-gradient(
-            circle at 82% 14%,
-            color-mix(in srgb, var(--sw-accent-violet) 20%, transparent),
-            transparent 42%
-        ),
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--sw-bg-base) 96%, transparent) 0%,
-            color-mix(in srgb, var(--sw-bg-base) 84%, transparent) 28%,
-            color-mix(in srgb, var(--sw-bg-base) 48%, transparent) 66%,
-            transparent 100%
-        );
+    background: none;
 }
 
 .app-header__shell {
@@ -164,20 +140,8 @@ onBeforeUnmount(() => {
     overflow: visible;
     border: 1px solid color-mix(in srgb, var(--sw-border) 84%, transparent);
     border-radius: var(--sw-radius-lg);
-    background:
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--sw-bg-elevated) 24%, transparent),
-            transparent 58%
-        ),
-        linear-gradient(
-            160deg,
-            color-mix(in srgb, var(--sw-bg-surface) 52%, transparent),
-            color-mix(in srgb, var(--sw-bg-elevated) 36%, transparent)
-        );
+    background: var(--sw-bg-base);
     padding: clamp(10px, 1.8vw, var(--sw-space-xs));
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 :global(html[data-theme='sunset']) .app-header__inner {
@@ -186,35 +150,7 @@ onBeforeUnmount(() => {
         var(--sw-accent-violet) 18%,
         var(--sw-border)
     );
-    background:
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--sw-bg-elevated) 36%, transparent),
-            transparent 60%
-        ),
-        linear-gradient(
-            135deg,
-            color-mix(
-                in srgb,
-                var(--sw-bg-surface) 80%,
-                var(--sw-accent-violet) 20%
-            ),
-            color-mix(
-                in srgb,
-                var(--sw-bg-elevated) 78%,
-                var(--sw-accent-sun) 22%
-            )
-        ),
-        radial-gradient(
-            circle at 14% 0%,
-            color-mix(in srgb, var(--sw-accent-coral) 12%, transparent),
-            transparent 34%
-        ),
-        radial-gradient(
-            circle at 88% 120%,
-            color-mix(in srgb, var(--sw-accent-violet) 16%, transparent),
-            transparent 46%
-        );
+    background: var(--sw-bg-base);
 }
 
 .app-header__inner::before {
@@ -223,24 +159,7 @@ onBeforeUnmount(() => {
     inset: -20px -56px -12px -56px;
     pointer-events: none;
     border-radius: inherit;
-    background:
-        radial-gradient(
-            circle at var(--sw-sun-vx, 14%) var(--sw-sun-vy, 10%),
-            color-mix(in srgb, var(--sw-accent-sun) 30%, transparent),
-            color-mix(in srgb, var(--sw-accent-dominant) 10%, transparent) 24%,
-            transparent 40%
-        ),
-        linear-gradient(
-            var(--sw-sun-ray-angle, 32deg),
-            color-mix(in srgb, var(--sw-accent-dominant) 12%, transparent),
-            transparent 58%
-        );
-    filter: blur(
-        calc(
-            var(--sw-sun-blur-global, 120px) *
-                var(--sw-header-glow-blur-factor, 0.24)
-        )
-    );
+    background: none;
     opacity: calc(
         var(--sw-sun-opacity-global, 0.68) * var(--sw-header-glow-opacity, 1)
     );
@@ -249,25 +168,7 @@ onBeforeUnmount(() => {
 
 :global(html[data-theme='sunset']) .app-header__inner::before {
     inset: -34px -72px -20px -72px;
-    background:
-        radial-gradient(
-            circle at var(--sw-sun-vx, 78%) var(--sw-sun-vy, 18%),
-            color-mix(in srgb, var(--sw-accent-sun) 46%, transparent),
-            color-mix(in srgb, var(--sw-accent-coral) 24%, transparent) 18%,
-            color-mix(in srgb, var(--sw-accent-violet) 18%, transparent) 36%,
-            transparent 54%
-        ),
-        radial-gradient(
-            circle at 22% 110%,
-            color-mix(in srgb, var(--sw-accent-violet) 22%, transparent),
-            transparent 48%
-        ),
-        linear-gradient(
-            118deg,
-            color-mix(in srgb, var(--sw-accent-violet) 12%, transparent),
-            color-mix(in srgb, var(--sw-accent-sun) 12%, transparent) 34%,
-            transparent 66%
-        );
+    background: none;
     background-size:
         160% 160%,
         180% 180%,
@@ -389,8 +290,6 @@ onBeforeUnmount(() => {
         border-inline: 0;
         padding-inline: var(--sw-space-sm);
         background: color-mix(in srgb, var(--sw-bg-base) 94%, transparent);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
     }
 
     .app-header__inner::before {

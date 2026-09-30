@@ -264,22 +264,7 @@ function replayLoader(): void {
     padding: clamp(20px, 3vw, 32px);
     border: 1px solid color-mix(in srgb, var(--sparkle-border) 82%, transparent);
     border-radius: var(--sw-radius-lg);
-    background:
-        radial-gradient(
-            circle at 16% 12%,
-            var(--sparkle-glow),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 82% 18%,
-            color-mix(in srgb, var(--sparkle-accent-hot) 26%, transparent),
-            transparent 34%
-        ),
-        linear-gradient(
-            140deg,
-            color-mix(in srgb, var(--sparkle-surface) 88%, transparent),
-            color-mix(in srgb, var(--sparkle-surface-deep) 92%, transparent)
-        );
+    background: var(--sw-bg-base);
 }
 
 .sparkle-page__halo {
@@ -289,24 +274,19 @@ function replayLoader(): void {
     aspect-ratio: 1;
     border-radius: var(--sw-radius-pill);
     pointer-events: none;
-    filter: blur(26px);
     opacity: 0.82;
 }
 
 .sparkle-page__halo--left {
     top: -4rem;
     left: -5rem;
-    background: radial-gradient(circle, var(--sparkle-glow), transparent 66%);
+    background: none;
 }
 
 .sparkle-page__halo--right {
     right: -5rem;
     bottom: -6rem;
-    background: radial-gradient(
-        circle,
-        color-mix(in srgb, var(--sparkle-accent-hot) 34%, transparent),
-        transparent 68%
-    );
+    background: none;
 }
 
 .sparkle-page__actions,
@@ -329,11 +309,7 @@ function replayLoader(): void {
     gap: 14px;
     padding: clamp(16px, 2vw, 20px);
     border-color: color-mix(in srgb, var(--sparkle-border) 86%, transparent);
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--sparkle-surface) 86%, transparent),
-        color-mix(in srgb, var(--sparkle-surface-deep) 92%, transparent)
-    );
+    background: var(--sw-bg-surface);
     color: var(--sparkle-text);
 }
 
@@ -385,11 +361,7 @@ function replayLoader(): void {
     margin-top: 10px;
     flex: none;
     border-radius: var(--sw-radius-pill);
-    background: linear-gradient(
-        135deg,
-        var(--sparkle-accent),
-        var(--sparkle-accent-hot)
-    );
+    background: var(--sw-mark);
     box-shadow: 0 0 0 4px
         color-mix(in srgb, var(--sparkle-glow) 48%, transparent);
 }

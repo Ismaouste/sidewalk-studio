@@ -765,16 +765,12 @@ function markBookingIntent(): void {
 .contact-page__field .contact-page__input--select:hover {
     appearance: none;
     cursor: pointer;
-    background-image:
-        linear-gradient(45deg, transparent 50%, var(--sw-text-secondary) 50%),
-        linear-gradient(135deg, var(--sw-text-secondary) 50%, transparent 50%);
-    background-position:
-        calc(100% - 1.25rem) 50%,
-        calc(100% - 0.95rem) 50%;
-    background-size:
-        0.3rem 0.3rem,
-        0.3rem 0.3rem;
+    /* The arrow is a small flat chevron, drawn inline. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0h10L5 6z' fill='%235c5c57'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
+    background-position: calc(100% - 1rem) 50%;
+    background-size:
+        0.6rem 0.36rem;
 }
 
 .contact-page__input--textarea {

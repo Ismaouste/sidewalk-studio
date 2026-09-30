@@ -1,6 +1,22 @@
 /* ============================================================
  * Sidewalk Studio — design tokens (single source of truth)
- * Edit accent values per theme below to retune the whole site.
+ *
+ * The site is drawn as a site plan (specs/018-site-refresh): paper and ink,
+ * flat surfaces, hairlines. Two themes, mirrors of one token set:
+ *   `morning` — paper: ink on paper (the default)
+ *   `sunset`  — night: clear on black
+ * The identifiers are historical; nothing is renamed so that no type, test or
+ * loader quote has to change.
+ *
+ * Colour is paper, ink and greys plus three primaries that CARRY MEANING and
+ * never decorate:
+ *   --sw-mark  (yellow)  a marker, a highlight
+ *   --sw-path  (blue)    a link, a dimension line, a path
+ *   --sw-here  (red)     "you are here", what needs attention
+ * Never two primaries in one area of the screen.
+ *
+ * Old atmosphere tokens (sun, flares, glass blur) keep their names so that no
+ * component breaks, and hold neutral values (`none`, `transparent`, `0`).
  * ============================================================ */
 
 :root {
@@ -37,17 +53,14 @@
     --sw-z-overlay: 40;
     --sw-z-modal: 50;
 
+    /* The scale is flat: a plan does not round its rectangles. `--sw-radius-pill`
+       stays for the few round controls (a dot, a toggle knob). */
     --sw-radius-none: 0px;
-    --sw-radius-sm: 2px;
-    --sw-radius-md: 3px;
-    --sw-radius-lg: 6px;
-    --sw-radius-xl: 6px;
-    --sw-radius-full: 6px;
-    /* `--sw-radius-full` caps the architectural scale at 6px on purpose: this
-       system does not round its rectangles. A pill or a circle is a different
-       shape, not a larger radius, so it needs its own name — without one,
-       eighteen rules across the tree reached for a bare `999px`/`9999px`
-       instead, which is exactly the literal the design rules forbid. */
+    --sw-radius-sm: 0px;
+    --sw-radius-md: 0px;
+    --sw-radius-lg: 2px;
+    --sw-radius-xl: 2px;
+    --sw-radius-full: 2px;
     --sw-radius-pill: 999px;
 
     --sw-space-4xs: 4px;
@@ -61,352 +74,206 @@
     --sw-space-2xl: 128px;
     --sw-space-3xl: 192px;
 
+    /* Motion is rich but bounded: transform, opacity, stroke-dashoffset and
+       motion paths. The drift tokens drive the background Stage. */
     --sw-motion-fast: 120ms ease;
     --sw-motion-smooth: 280ms cubic-bezier(0.4, 0, 0.2, 1);
     --sw-motion-reveal: 600ms cubic-bezier(0.22, 1, 0.36, 1);
-    --sw-motion-sun: 900ms cubic-bezier(0.4, 0, 0.2, 1);
+    --sw-motion-sun: 0ms linear;
+    --sw-motion-drift: 96s linear;
+    --sw-motion-flow: 2.4s linear;
     --sw-ambient-progress: 0;
     --sw-ambient-navigation-shift: 0;
-    --sw-runtime-gradient-angle: 132deg;
-    --sw-runtime-surface-blur: 20px;
+    --sw-runtime-gradient-angle: 0deg;
+    --sw-runtime-surface-blur: 0px;
     --sw-runtime-line-thickness: 1px;
-    --sw-surface-backdrop-filter: blur(20px) saturate(1.3);
+
+    /* Hairlines of the drawing. */
+    --sw-hairline: 1px;
+    --sw-hairline-strong: 2px;
 }
 
 /* ============================================================
- * THEME: Morning Grid (light, architectural, civic daylight)
- * Palette intent: vibrant urban primaries on chalk neutrals.
- * Edit the accent block below to retune the whole morning theme;
- * sun-gradient and ambient flares derive from these via color-mix.
+ * THEME: morning — paper. Ink on paper.
  * ============================================================ */
 :root,
 html[data-theme='morning'] {
     color-scheme: light;
 
-    /* Surfaces — chalk / paper / concrete */
-    --sw-bg-base: #fafaf8;
-    --sw-bg-surface: rgba(255, 255, 255, 0.45);
-    --sw-bg-grid: #f3f2ee;
-    --sw-bg-elevated: rgba(255, 255, 255, 0.64);
+    /* Paper, ink, greys. */
+    --sw-paper: #f5f4f0;
+    --sw-ink: #121212;
+    --sw-grey-1: #ecebe5;
+    --sw-grey-2: #d8d6ce;
+    --sw-grey-3: #a9a79f;
+    --sw-grey-4: #6b6a65;
+    --sw-grey-5: #3a3a37;
 
-    /* Text — the neutrals carry a blue cast rather than being true grey.
-       Pure grey beside a warm accent reads as dust; the same value pulled a
-       few degrees toward the sky accent reads as shade. */
-    --sw-text-primary: #17191d;
-    --sw-text-secondary: #5c636f;
-    /* Drives `.type-meta` — 11px, uppercase, tracked — across breadcrumbs,
-       archive cards and the footer, so it is measured against the worst case:
-       over the ambient cool lamp, not against the bare base colour. */
-    --sw-text-muted: #5f6675;
-    --sw-text-inverse: #fafaf8;
+    /* The three primaries, by role. Yellow is a fill (ink text on it); blue
+       and red are also used as text and lines, so they are kept above 4.5:1
+       on paper. */
+    --sw-mark: #f2be1a;
+    --sw-path: #1f4fd1;
+    --sw-here: #c8321f;
 
-    /* === Accents — Civic Triad (vibrant primaries) ===
-       Edit these 6 hexes to retune the entire morning palette.
+    /* Surfaces are flat. */
+    --sw-bg-base: var(--sw-paper);
+    --sw-bg-surface: #fbfaf7;
+    --sw-bg-grid: var(--sw-grey-1);
+    --sw-bg-elevated: #ffffff;
 
-       The pairing is the one a works site actually uses: orange for the
-       barrier, blue for the sign that tells you where to go instead. */
-    --sw-accent-sun: #e6722e; /* warm urban orange */
-    --sw-accent-dominant: #d83a2a; /* signal coral red */
-    --sw-accent-green: #2a8754; /* civic / mobility green */
-    --sw-accent-violet: #1f5fd6; /* wayfinding blue */
-    --sw-accent-coral: #c2462a; /* brick red */
-    --sw-accent-sky: #4f9bff; /* setting-out blue — the cool counterweight */
+    --sw-text-primary: var(--sw-ink);
+    --sw-text-secondary: #4a4a47;
+    --sw-text-muted: #5c5c57;
+    --sw-text-inverse: var(--sw-paper);
 
-    /* Lines / borders / focus — mixed from the accents above rather than
-       hand-copied from their channels, so the retune promise on line 107
-       actually holds for them.
+    /* Old accent slots, mapped onto the three primaries and the greys. Two
+       slots may hold one value: they were names for tones, and the tones are
+       now roles. */
+    --sw-accent-sun: var(--sw-mark);
+    --sw-accent-dominant: var(--sw-here);
+    --sw-accent-green: var(--sw-grey-5);
+    --sw-accent-violet: var(--sw-path);
+    --sw-accent-coral: var(--sw-here);
+    --sw-accent-sky: var(--sw-path);
 
-       The resting edge is deliberately near the threshold of visibility: it
-       separates surfaces without drawing them. Hover is kept at roughly twice
-       the resting weight — the ratio, not the number, is what makes the
-       response read as the same gesture in both themes. Neither passes the
-       3:1 of WCAG 1.4.11 and neither is asked to: the focus ring below does
-       (5.5:1 here, 4.5:1 in sunset), and that is the affordance the success
-       criterion actually protects. */
-    --sw-border: color-mix(in srgb, var(--sw-accent-violet) 6%, transparent);
-    --sw-border-focus: var(--sw-accent-violet);
-    --sw-card-hover-border: color-mix(
-        in srgb,
-        var(--sw-accent-violet) 13%,
-        transparent
-    );
-    /* One axis. The noise this used to make was the second axis crossing it
-       at every angle of the scroll rotation, not the weight of the line, so
-       the weight barely had to move: measured on the hero at 1440, a column
-       peaks 6.8 luma above its backdrop here against 11 before. Dropping it
-       to 7% instead — the first attempt — cost 3.6 and put the line under the
-       threshold of a mid-range display. */
-    --sw-grid-line: color-mix(in srgb, var(--sw-accent-sky) 20%, transparent);
+    /* Lines. The resting edge is a hairline of ink; hover doubles it; focus is
+       the path blue (7:1 on paper). */
+    --sw-border: color-mix(in srgb, var(--sw-ink) 18%, transparent);
+    --sw-border-focus: var(--sw-path);
+    --sw-card-hover-border: color-mix(in srgb, var(--sw-ink) 42%, transparent);
+    --sw-grid-line: color-mix(in srgb, var(--sw-path) 12%, transparent);
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
 
-    /* Ambient page wash. Two soft flares on paper: daylight, not atmosphere.
-       NOTE: this token currently paints nothing. `body` carries it, but
-       `.sw-shell` is the first child of #app and paints an opaque gradient of
-       its own over the whole document (layout.css:5-22). Left in place because
-       removing a documented token is a decision of its own, but do not add
-       stops here expecting to see them — the ambient layer is where a light
-       that has to be visible belongs. */
-    --sw-body-wash:
-        radial-gradient(
-            circle at 15% 12%,
-            color-mix(in srgb, var(--sw-accent-sun) 18%, transparent),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 82% 8%,
-            color-mix(in srgb, var(--sw-accent-dominant) 16%, transparent),
-            transparent 26%
-        ),
-        var(--sw-bg-base);
-
-    /* Sun + ambient atmosphere — derive from accents so editing
-       the accent block above flows through automatically. */
-    --sw-sun-gradient: radial-gradient(
-        circle at 38% 38%,
-        color-mix(in oklch, var(--sw-accent-sun) 56%, transparent),
-        color-mix(in oklch, var(--sw-accent-sun) 28%, transparent) 34%,
-        color-mix(in oklch, var(--sw-accent-coral) 16%, transparent) 56%,
-        transparent 85%
-    );
-    --sw-sun-glow: color-mix(in oklch, var(--sw-accent-sun) 22%, transparent);
-    --sw-ambient-flare: var(--sw-accent-sun);
-    --sw-ambient-flare-soft: color-mix(
-        in oklch,
-        var(--sw-accent-sun) 60%,
-        white 40%
-    );
-    --sw-ambient-flare-deep: var(--sw-accent-coral);
-    /* The second lamp. The page wash is as tall as the document, so a cool
-       note placed there only shows near the footer; this one rides the
-       viewport-fixed ambient layer and is in frame from the first screen. */
-    --sw-ambient-flare-cool: var(--sw-accent-sky);
-    --sw-sun-size: 224px;
-    --sw-sun-top: -72px;
-    --sw-sun-left: -72px;
+    /* No wash, no sun, no flare: the page is paper. */
+    --sw-body-wash: var(--sw-bg-base);
+    --sw-sun-gradient: none;
+    --sw-sun-glow: transparent;
+    --sw-ambient-flare: transparent;
+    --sw-ambient-flare-soft: transparent;
+    --sw-ambient-flare-deep: transparent;
+    --sw-ambient-flare-cool: transparent;
+    --sw-sun-size: 0px;
+    --sw-sun-top: auto;
+    --sw-sun-left: auto;
     --sw-sun-bottom: auto;
     --sw-sun-right: auto;
-    --sw-header-glow-opacity: 1.16;
-    --sw-header-glow-blur-factor: 0.34;
-    --sw-tab-active: #1a1a1a;
-    --sw-tab-inactive: rgba(26, 26, 26, 0.56);
-    --sw-tab-surface: rgba(184, 132, 92, 0.08);
-    /* Ink on the barrier orange, not paper on it. `--sw-text-inverse` means
-       the opposite of the theme's own text, which quietly assumes the button
-       ground follows the theme's lightness. Sunset's lilac does; this
-       mid-tone orange does not, so the inversion put near-white on a mid
-       value and measured 2.95:1 — against the 4.5:1 that 14px/500 text needs,
-       and 13px in the sm size. Ink measures 5.71:1 and leaves the accent
-       untouched, which matters because the same hex drives the ambient flare:
-       darkening the ground to rescue the label would have dimmed the whole
-       morning atmosphere. Black on orange is also the pairing a works site
-       actually uses, which is what the palette above already claims to quote. */
-    --sw-button-primary-bg: var(--sw-accent-sun);
-    --sw-button-primary-border: color-mix(
-        in srgb,
-        var(--sw-accent-sun) 84%,
-        black 8%
-    );
-    /* Lifted toward the page ground rather than deepened. With ink on top the
-       hover has to gain lightness to gain contrast, so the old move — 92%
-       coral, which darkened — now reads backwards and measured 4.01:1. The
-       coral shift survives the lift, at 5.36:1. */
-    --sw-button-primary-bg-hover: color-mix(
-        in srgb,
-        var(--sw-accent-coral) 74%,
-        var(--sw-bg-base)
-    );
-    --sw-button-primary-text: var(--sw-text-primary);
-    --sw-surface-backdrop-filter: blur(20px) saturate(1.3);
-    /* The dimming behind a top-layer surface. Built from the page ground
-       rather than from black so it darkens the theme instead of draining it. */
-    --sw-scrim: color-mix(in srgb, var(--sw-bg-base) 68%, transparent);
-    --sw-scrim-backdrop-filter: blur(2px) saturate(1.1);
-    --sw-sun-vx: calc(
-        14% + (34% * var(--sw-ambient-progress)) +
-            (2% * var(--sw-ambient-navigation-shift))
-    );
-    --sw-sun-vy: calc(
-        10% + (22% * var(--sw-ambient-progress)) +
-            (1% * var(--sw-ambient-navigation-shift))
-    );
-    --sw-sun-blur-global: calc(
-        124px + (24px * var(--sw-ambient-progress)) +
-            (10px * var(--sw-ambient-navigation-shift))
-    );
-    --sw-sun-opacity-global: calc(
-        0.72 - (0.04 * var(--sw-ambient-progress)) +
-            (0.02 * var(--sw-ambient-navigation-shift))
-    );
-    --sw-sun-ray-angle: calc(
-        32deg + (118deg * var(--sw-ambient-progress)) +
-            (10deg * var(--sw-ambient-navigation-shift))
-    );
+    --sw-header-glow-opacity: 0;
+    --sw-header-glow-blur-factor: 0;
+    --sw-sun-vx: 0%;
+    --sw-sun-vy: 0%;
+    --sw-sun-blur-global: 0px;
+    --sw-sun-opacity-global: 0;
+    --sw-sun-ray-angle: 0deg;
+
+    --sw-tab-active: var(--sw-ink);
+    --sw-tab-inactive: color-mix(in srgb, var(--sw-ink) 60%, transparent);
+    --sw-tab-surface: transparent;
+
+    /* Buttons: ink on paper, squared. Hover takes the path blue. */
+    --sw-button-primary-bg: var(--sw-ink);
+    --sw-button-primary-border: var(--sw-ink);
+    --sw-button-primary-bg-hover: var(--sw-path);
+    --sw-button-primary-text: var(--sw-paper);
+
+    --sw-scrim: color-mix(in srgb, var(--sw-bg-base) 82%, transparent);
+
+    /* The Stage: what the canvas reads to draw its particles (ink specks on
+       paper), and the stain tones (greys, one primary at low opacity). */
+    --sw-particle: var(--sw-ink);
+    --sw-particle-opacity: 0.42;
+    --sw-stain-grey: var(--sw-ink);
+    --sw-stain-grey-opacity: 0.05;
+    --sw-stain-mark-opacity: 0.14;
+    --sw-stain-path-opacity: 0.08;
+    --sw-stain-here-opacity: 0.08;
+    --sw-stain-blend: multiply;
 }
 
 /* ============================================================
- * THEME: Sunset Signal (dark, cinematic, violet dusk)
- * Palette intent: electric violet and magenta on deep aubergine
- * glass. Every surface is translucent and blurred, so the base
- * gradient reads through the whole interface rather than sitting
- * behind flat panels.
- *
- * Deliberately no green and no amber here: mixed over a dark base
- * they collapse toward brown, which is what this palette replaces.
- * Edit the accent block below to retune the whole sunset theme.
+ * THEME: sunset — night. Clear on black, the mirror of morning.
+ * The same roles, the same greys reversed; no violet, no glass.
  * ============================================================ */
 html[data-theme='sunset'] {
     color-scheme: dark;
 
-    /* Surfaces — deep aubergine, and glass that is nearly colourless.
-       The violet used to be mixed into every surface, which is what made it
-       read as thick paint. It lives in the wash now: the panels are clear and
-       pick the colour up through their own blur, so the same violet arrives as
-       light falling on glass rather than as a coat applied to it. */
-    --sw-bg-base: #0d0a17;
-    --sw-bg-surface: rgba(232, 228, 250, 0.06);
-    --sw-bg-grid: #131120;
-    --sw-bg-elevated: rgba(232, 228, 250, 0.1);
+    --sw-paper: #0e0e0f;
+    --sw-ink: #edede9;
+    --sw-grey-1: #1a1a1c;
+    --sw-grey-2: #2a2a2d;
+    --sw-grey-3: #5d5d61;
+    --sw-grey-4: #9a9a9e;
+    --sw-grey-5: #c9c9c5;
 
-    /* Text — warmed slightly toward violet so it sits in the palette */
-    --sw-text-primary: #ece8f8;
-    --sw-text-secondary: #a49bc4;
-    /* Raised with the surfaces below: once the panels stopped carrying a
-       violet body, this stopped having anything to sit against. */
-    --sw-text-muted: #8b82ab;
-    --sw-text-inverse: #0d0a17;
+    --sw-mark: #f2be1a;
+    --sw-path: #6f8fff;
+    --sw-here: #ff5a47;
 
-    /* === Accents — Violet Signal ===
-       Edit these 6 hexes to retune the entire sunset palette.
-       `--sw-accent-green` keeps its slot name because components
-       reference it as a tone; in this theme it holds electric cyan,
-       the one cool note that keeps the palette from going monochrome. */
-    --sw-accent-sun: #b98cff; /* bright lilac — carries the ambient glow */
-    --sw-accent-dominant: #ff4ecd; /* hot magenta */
-    --sw-accent-green: #3ad8ff; /* electric cyan (no green in this theme) */
-    --sw-accent-violet: #7c5cff; /* electric indigo */
-    --sw-accent-coral: #e264ff; /* orchid */
-    /* The cool counterweight, and the same slot morning fills with its
-       setting-out blue. Violet against more violet has nothing to measure
-       itself by; the cool note is what gives the violet a temperature.
-       Deliberately not the same value as `--sw-accent-green` above: two named
-       slots holding one hex cannot be told apart, and retuning one would
-       silently drag the other. This sits a step deeper so the majors read as
-       structure rather than as another chip colour. */
-    --sw-accent-sky: #2bb8e6;
+    --sw-bg-base: var(--sw-paper);
+    --sw-bg-surface: #151516;
+    --sw-bg-grid: var(--sw-grey-1);
+    --sw-bg-elevated: #1c1c1e;
 
-    /* Lines / borders / focus — the glass edge highlight, nearly colourless
-       for the same reason the surfaces are, and now nearly weightless too.
-       The edge had been carrying the separation between surface tiers on its
-       own and had grown loud doing it; the tiers differ by fill as well, so
-       it only has to confirm a boundary the surface already suggests.
-       Hover lifts to 0.20 — a smaller step than morning's doubling, because a
-       dark base makes the same delta read larger. */
-    --sw-border: rgba(226, 222, 248, 0.13);
-    --sw-border-focus: var(--sw-accent-violet);
-    --sw-card-hover-border: rgba(226, 222, 248, 0.2);
-    /* One axis, and two points heavier than morning: a dark base swallows
-       more of a thin line than paper does, so parity of number would not be
-       parity of effect. 22 here and 20 there both measure ~6.8 luma of peak
-       against their own backdrop, which is the parity that matters. */
-    --sw-grid-line: color-mix(
-        in srgb,
-        var(--sw-accent-violet) 22%,
-        transparent
-    );
+    --sw-text-primary: var(--sw-ink);
+    --sw-text-secondary: #b9b9b4;
+    --sw-text-muted: #9d9d98;
+    --sw-text-inverse: var(--sw-paper);
+
+    --sw-accent-sun: var(--sw-mark);
+    --sw-accent-dominant: var(--sw-here);
+    --sw-accent-green: var(--sw-grey-5);
+    --sw-accent-violet: var(--sw-path);
+    --sw-accent-coral: var(--sw-here);
+    --sw-accent-sky: var(--sw-path);
+
+    --sw-border: color-mix(in srgb, var(--sw-ink) 20%, transparent);
+    --sw-border-focus: var(--sw-path);
+    --sw-card-hover-border: color-mix(in srgb, var(--sw-ink) 46%, transparent);
+    --sw-grid-line: color-mix(in srgb, var(--sw-path) 16%, transparent);
     --sw-shadow-sm: none;
     --sw-shadow-md: none;
 
-    /* Ambient page wash. Three wide ellipses rather than two small circles:
-       the blurred surfaces above need a gradient large enough to still be
-       varying across a panel, otherwise glass reads as flat tinted plastic. */
-    --sw-body-wash:
-        radial-gradient(
-            ellipse 120% 80% at 8% 0%,
-            color-mix(in oklch, var(--sw-accent-violet) 40%, transparent),
-            transparent 58%
-        ),
-        radial-gradient(
-            ellipse 100% 70% at 92% 4%,
-            color-mix(in oklch, var(--sw-accent-dominant) 28%, transparent),
-            transparent 55%
-        ),
-        radial-gradient(
-            ellipse 110% 70% at 50% 104%,
-            color-mix(in oklch, var(--sw-accent-sun) 18%, transparent),
-            transparent 62%
-        ),
-        var(--sw-bg-base);
-
-    /* Sun + ambient — token-driven, glow via color-mix */
-    --sw-sun-gradient: radial-gradient(
-        circle at 62% 62%,
-        color-mix(in oklch, var(--sw-accent-sun) 52%, transparent),
-        color-mix(in oklch, var(--sw-accent-dominant) 28%, transparent) 30%,
-        color-mix(in oklch, var(--sw-accent-violet) 18%, transparent) 58%,
-        transparent 85%
-    );
-    --sw-sun-glow: color-mix(in oklch, var(--sw-accent-sun) 24%, transparent);
-    --sw-ambient-flare: var(--sw-accent-dominant);
-    --sw-ambient-flare-soft: color-mix(
-        in oklch,
-        var(--sw-accent-sun) 56%,
-        var(--sw-accent-coral) 44%
-    );
-    --sw-ambient-flare-deep: var(--sw-accent-violet);
-    --sw-ambient-flare-cool: var(--sw-accent-sky);
-    --sw-sun-size: 240px;
+    --sw-body-wash: var(--sw-bg-base);
+    --sw-sun-gradient: none;
+    --sw-sun-glow: transparent;
+    --sw-ambient-flare: transparent;
+    --sw-ambient-flare-soft: transparent;
+    --sw-ambient-flare-deep: transparent;
+    --sw-ambient-flare-cool: transparent;
+    --sw-sun-size: 0px;
     --sw-sun-top: auto;
     --sw-sun-left: auto;
-    --sw-sun-bottom: -48px;
-    --sw-sun-right: -48px;
-    --sw-header-glow-opacity: 0.92;
-    --sw-header-glow-blur-factor: 0.26;
-    --sw-tab-active: #ece8f8;
-    --sw-tab-inactive: rgba(236, 232, 248, 0.52);
-    --sw-tab-surface: rgba(150, 120, 255, 0.13);
-    --sw-button-primary-bg: var(--sw-accent-sun);
-    --sw-button-primary-border: color-mix(
-        in srgb,
-        var(--sw-accent-sun) 88%,
-        black 12%
-    );
-    --sw-button-primary-bg-hover: color-mix(
-        in srgb,
-        var(--sw-accent-sun) 74%,
-        var(--sw-accent-dominant) 26%
-    );
-    --sw-button-primary-text: var(--sw-text-inverse);
-    --sw-runtime-surface-blur: 24px;
-    /* Saturate above 1 rather than below it. The previous value desaturated
-       and dimmed every blurred surface, which is what pushed the warm accents
-       toward brown; pushing saturation up is what makes glass read as glass. */
-    --sw-surface-backdrop-filter: blur(26px) saturate(1.45);
-    /* Aubergine, not black: this base is already dark, so a black scrim would
-       flatten the violet wash to neutral. Saturation stays above 1 here for
-       the same reason the surface filter does. */
-    --sw-scrim: color-mix(in srgb, var(--sw-bg-base) 74%, transparent);
-    --sw-scrim-backdrop-filter: blur(3px) saturate(1.25);
-    --sw-sun-vx: calc(
-        78% - (12% * var(--sw-ambient-progress)) -
-            (2.6% * var(--sw-ambient-navigation-shift))
-    );
-    --sw-sun-vy: calc(
-        18% + (36% * var(--sw-ambient-progress)) +
-            (1.6% * var(--sw-ambient-navigation-shift))
-    );
-    --sw-sun-blur-global: calc(
-        136px + (26px * var(--sw-ambient-progress)) +
-            (12px * var(--sw-ambient-navigation-shift))
-    );
-    --sw-sun-opacity-global: calc(
-        0.38 + (0.04 * var(--sw-ambient-progress)) +
-            (0.03 * var(--sw-ambient-navigation-shift))
-    );
-    --sw-sun-ray-angle: calc(
-        18deg + (128deg * var(--sw-ambient-progress)) +
-            (14deg * var(--sw-ambient-navigation-shift))
-    );
+    --sw-sun-bottom: auto;
+    --sw-sun-right: auto;
+    --sw-header-glow-opacity: 0;
+    --sw-header-glow-blur-factor: 0;
+    --sw-sun-vx: 0%;
+    --sw-sun-vy: 0%;
+    --sw-sun-blur-global: 0px;
+    --sw-sun-opacity-global: 0;
+    --sw-sun-ray-angle: 0deg;
+
+    --sw-tab-active: var(--sw-ink);
+    --sw-tab-inactive: color-mix(in srgb, var(--sw-ink) 58%, transparent);
+    --sw-tab-surface: transparent;
+
+    --sw-button-primary-bg: var(--sw-ink);
+    --sw-button-primary-border: var(--sw-ink);
+    --sw-button-primary-bg-hover: var(--sw-path);
+    --sw-button-primary-text: var(--sw-paper);
+
+    --sw-scrim: color-mix(in srgb, var(--sw-bg-base) 84%, transparent);
+
+    /* Clear specks on black; stains screen instead of multiply. */
+    --sw-particle: var(--sw-ink);
+    --sw-particle-opacity: 0.7;
+    --sw-stain-grey: var(--sw-ink);
+    --sw-stain-grey-opacity: 0.05;
+    --sw-stain-mark-opacity: 0.1;
+    --sw-stain-path-opacity: 0.12;
+    --sw-stain-here-opacity: 0.1;
+    --sw-stain-blend: screen;
 }
 
 html[data-motion='reduced'] {
@@ -414,6 +281,8 @@ html[data-motion='reduced'] {
     --sw-motion-smooth: 0ms linear;
     --sw-motion-reveal: 0ms linear;
     --sw-motion-sun: 0ms linear;
+    --sw-motion-drift: 0ms linear;
+    --sw-motion-flow: 0ms linear;
 }
 
 html[data-motion='reduced'] * {
@@ -426,6 +295,8 @@ html[data-motion='reduced'] * {
         --sw-motion-smooth: 0ms linear;
         --sw-motion-reveal: 0ms linear;
         --sw-motion-sun: 0ms linear;
+        --sw-motion-drift: 0ms linear;
+        --sw-motion-flow: 0ms linear;
     }
 
     * {
@@ -433,33 +304,14 @@ html[data-motion='reduced'] * {
     }
 }
 
-/* === Twilight interpolation tokens ===
-   Mix Morning + Sunset endpoints. Reserved for the experience-page
-   hero in Phase 2; defined here so they auto-flip with the theme.
-   --sw-twilight-sky is the soft sky band used by atmospheric page
-   backdrops (notably the colophon page) — light cyan in morning,
-   dusk lavender in sunset. */
+/* === Twilight tokens ===
+   Kept by name for the pages that still read them; flat now. */
 :root,
 html[data-theme='morning'],
 html[data-theme='sunset'] {
-    --sw-twilight-anchor: color-mix(
-        in oklch,
-        var(--sw-bg-base) 88%,
-        var(--sw-accent-coral) 12%
-    );
-    --sw-twilight-glow: color-mix(
-        in oklch,
-        var(--sw-accent-sun) 58%,
-        var(--sw-bg-elevated) 42%
-    );
-}
-
-html[data-theme='morning'] {
-    --sw-twilight-sky: oklch(82% 0.08 235);
-}
-
-html[data-theme='sunset'] {
-    --sw-twilight-sky: oklch(58% 0.13 295);
+    --sw-twilight-anchor: var(--sw-bg-base);
+    --sw-twilight-glow: var(--sw-bg-elevated);
+    --sw-twilight-sky: var(--sw-bg-grid);
 }
 
 html[data-contrast='boost'] {

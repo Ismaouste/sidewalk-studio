@@ -104,24 +104,8 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
     position: absolute;
     inset: -8vh -12vw 30% -12vw;
     z-index: -1;
-    background:
-        radial-gradient(
-            ellipse 70% 60% at 50% 0%,
-            color-mix(in oklch, var(--sw-twilight-sky) 32%, transparent),
-            transparent 72%
-        ),
-        radial-gradient(
-            ellipse 40% 30% at 18% 8%,
-            color-mix(in oklch, var(--sw-twilight-sky) 22%, transparent),
-            transparent 68%
-        ),
-        radial-gradient(
-            ellipse 35% 25% at 82% 12%,
-            color-mix(in oklch, var(--sw-twilight-glow) 18%, transparent),
-            transparent 70%
-        );
+    background: none;
     pointer-events: none;
-    filter: blur(36px);
     transform-origin: 50% 0%;
     will-change: transform;
 }

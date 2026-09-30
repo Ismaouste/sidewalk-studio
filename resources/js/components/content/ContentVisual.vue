@@ -104,7 +104,6 @@ function handleImageLoad(): void {
     object-fit: cover;
     border-radius: 0;
     opacity: 0;
-    filter: blur(18px) saturate(88%);
     transform: scale(1.035);
     transition:
         opacity 220ms ease-out,
@@ -114,7 +113,6 @@ function handleImageLoad(): void {
 
 .content-visual--loaded .content-visual__image {
     opacity: 1;
-    filter: blur(0) saturate(100%);
     transform: scale(1);
 }
 
@@ -181,11 +179,7 @@ function handleImageLoad(): void {
     justify-content: space-between;
     gap: var(--sw-space-xs);
     padding: var(--sw-space-xs);
-    background: linear-gradient(
-        180deg,
-        transparent,
-        color-mix(in srgb, var(--sw-bg-base) 88%, transparent)
-    );
+    background: color-mix(in srgb, var(--sw-bg-base) 64%, transparent);
 }
 
 .content-visual__badge {

@@ -47,8 +47,6 @@ const currentHref = computed(() => sanitizePublicHref(page.url));
     border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-surface) 86%, transparent);
     padding: 3px;
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .locale-switcher__option {

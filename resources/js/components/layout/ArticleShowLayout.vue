@@ -180,11 +180,7 @@ onBeforeUnmount(() => {
     z-index: 1;
     height: 2px;
     margin-bottom: calc(-1 * var(--sw-space-sm));
-    background: linear-gradient(
-        90deg,
-        var(--sw-accent-coral),
-        var(--sw-accent-sun)
-    );
+    background: var(--sw-path);
     transform-origin: 0 50%;
     transform: scaleX(0);
     border-radius: 0 var(--sw-radius-pill) var(--sw-radius-pill) 0;

@@ -44,14 +44,13 @@ function rebuild() {
  * `--sw-bg-grid` in `resources/css/tokens.css`.
  */
 function previewStyle(variant: 'morning' | 'sunset') {
-    const background =
-        variant === 'morning'
-            ? `linear-gradient(${form.theme_settings.gradient_angle}deg, #fafaf8, #f3f2ee)`
-            : `linear-gradient(${form.theme_settings.gradient_angle}deg, #1a1230, #0d0a17)`;
+    // Flat paper and night (specs/018-site-refresh): the preview no longer
+    // paints a gradient or a blur, so the angle and blur settings stay stored
+    // but do not draw.
+    const background = variant === 'morning' ? '#f5f4f0' : '#0e0e0f';
 
     return {
         background,
-        backdropFilter: `blur(${form.theme_settings.surface_blur}px)`,
         boxShadow:
             variant === 'morning'
                 ? `inset 0 0 0 ${form.theme_settings.line_thickness}px rgba(65, 63, 58, 0.12)`

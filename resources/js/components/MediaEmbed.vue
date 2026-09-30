@@ -23,8 +23,6 @@ const props = defineProps<{
     border-radius: var(--sw-radius-lg);
     background: var(--sw-bg-surface);
     padding: var(--sw-space-3xs);
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .media-embed__frame {

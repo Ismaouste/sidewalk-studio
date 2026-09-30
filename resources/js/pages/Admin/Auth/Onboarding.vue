@@ -106,17 +106,7 @@ function submit() {
     display: grid;
     place-items: center;
     padding: 24px;
-    background:
-        radial-gradient(
-            circle at top,
-            color-mix(in srgb, var(--sw-accent-green) 16%, transparent),
-            transparent 28%
-        ),
-        linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--sw-bg-grid) 82%, white 18%),
-            var(--sw-bg-base)
-        );
+    background: var(--sw-bg-base);
 }
 
 .admin-login__panel {

@@ -109,8 +109,6 @@ html[data-theme='sunset'] .cm__body {
 .cm__body {
     border: var(--sw-runtime-line-thickness, 1px) solid
         color-mix(in srgb, var(--sw-border) 86%, transparent);
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 #cc-main .cm__desc,

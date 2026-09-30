@@ -7,18 +7,7 @@ html {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background:
-        radial-gradient(
-            circle at top left,
-            color-mix(in srgb, var(--sw-accent-dominant) 8%, transparent),
-            transparent 36%
-        ),
-        linear-gradient(
-            140deg,
-            color-mix(in srgb, var(--sw-bg-grid) 42%, var(--sw-bg-base)) 0%,
-            var(--sw-bg-base) 58%,
-            color-mix(in srgb, var(--sw-bg-grid) 28%, var(--sw-bg-base)) 100%
-        );
+    background: var(--sw-bg-base);
 }
 
 /* The shell's gutter, named once so that a child meant to bleed past it can
@@ -90,8 +79,7 @@ html {
 /*
  * Sections below the fold skip layout, paint and style work until they scroll
  * near the viewport. On these pages that is most of the document, and it is
- * what keeps scrolling smooth now that every surface is blurred glass —
- * backdrop-filter is expensive precisely because it samples what is behind it.
+ * what keeps scrolling smooth on long pages.
  *
  * `contain-intrinsic-size: auto <fallback>` lets the browser remember each
  * section's real height after it has been rendered once, so the scrollbar stops
@@ -134,8 +122,6 @@ html {
     border: 1px solid var(--sw-border);
     border-radius: var(--sw-radius-lg);
     background: var(--sw-bg-surface);
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .ambient-grid {

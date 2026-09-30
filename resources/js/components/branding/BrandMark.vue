@@ -73,11 +73,7 @@ defineProps<{
 
 .brand-mark__fallback {
     border: 1px solid color-mix(in srgb, var(--sw-border) 88%, transparent);
-    background: linear-gradient(
-        145deg,
-        color-mix(in srgb, var(--sw-bg-elevated) 92%, white 8%),
-        color-mix(in srgb, var(--sw-bg-surface) 88%, transparent)
-    );
+    background: var(--sw-text-primary);
     color: var(--sw-text-primary);
 }
 

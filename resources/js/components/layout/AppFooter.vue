@@ -370,7 +370,6 @@ function backToTop(): void {
     border-color: color-mix(in srgb, var(--sw-border) 84%, transparent);
     background: color-mix(in srgb, var(--sw-bg-surface) 34%, transparent);
     box-shadow: none;
-    backdrop-filter: none;
 }
 
 .app-footer :deep(.theme-toggle--compact .theme-toggle__thumb) {

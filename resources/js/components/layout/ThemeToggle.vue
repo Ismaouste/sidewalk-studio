@@ -95,8 +95,6 @@ function handleKeydown(event: KeyboardEvent): void {
     border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-surface) 78%, transparent);
     padding: 3px;
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
 }
 
 .theme-toggle__thumb {

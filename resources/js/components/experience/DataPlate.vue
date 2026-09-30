@@ -70,8 +70,6 @@ defineProps<{
     border: 1px solid color-mix(in srgb, var(--sw-border) 72%, transparent);
     border-radius: var(--sw-radius-lg);
     background: color-mix(in srgb, var(--sw-bg-surface) 92%, transparent);
-    -webkit-backdrop-filter: var(--sw-surface-backdrop-filter);
-    backdrop-filter: var(--sw-surface-backdrop-filter);
     min-width: 0;
 }
 

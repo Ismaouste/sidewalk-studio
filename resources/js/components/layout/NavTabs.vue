@@ -313,21 +313,7 @@ onBeforeUnmount(() => {
     inset: 0;
     border-radius: inherit;
     pointer-events: none;
-    background:
-        radial-gradient(
-            circle at 18% 22%,
-            color-mix(
-                in srgb,
-                var(--sw-accent-dominant) 14%,
-                var(--sw-bg-grid)
-            ),
-            transparent 44%
-        ),
-        linear-gradient(
-            140deg,
-            color-mix(in srgb, white 8%, transparent),
-            transparent 62%
-        );
+    background: none;
     opacity: 0;
     transform: scale(0.96);
     transition:
