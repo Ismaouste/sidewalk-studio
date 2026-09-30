@@ -50,7 +50,9 @@
 
 ### 018-site-refresh
 
-- Redraw the public site as a flat, square, light-first object in the same visual family as astralmanach.eu and uavv.fr: no blur, no decorative gradient, one accent at most, two typographic voices.
+- Redraw the public site as a site plan (*plan de chantier*): the home page is a plan whose lots are the public projects and the services, arrows are the interfaces between trades, and each page carries a revision index.
+- Sober colour: paper, ink and greys, with the three primaries in fixed roles; light and dark themes as mirrors of one token set; no blur, no decorative gradient.
+- A persistent Stage (particles and slow flat stains) and a Schema component for animated diagrams, mobile first, still under reduced motion.
 - Add a Work page that names the public work (the astralmanach library, API and tools; the uavv.fr and florianrosinski.fr sites; Atlas Dépannage), with claims a link can confirm.
 - Amend Principle 9 of the constitution first; nothing visual ships before it.
 - See `specs/018-site-refresh/spec.md` — the open questions are the owner's to answer.
