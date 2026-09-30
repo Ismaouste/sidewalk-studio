@@ -16,7 +16,8 @@ that improve the machine are welcome; the words are not open for editing.
 - `resources/content/**` and `docs/career/**` are the owner's writing and
   identity — all rights reserved, no PRs.
 - Design-direction changes (palette, fonts, themes) — the art direction in
-  `docs/style/` is a deliberate, documented choice.
+  `docs/style/` and the site-plan concept in `specs/018-site-refresh` are a
+  deliberate, documented choice.
 
 ## Ground rules
 

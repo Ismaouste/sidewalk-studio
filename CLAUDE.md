@@ -9,8 +9,9 @@ Personal portfolio site for Isma. Stack: Laravel 13 + Inertia 3 + Vue 3 + Vite 8
 - Public content lives in FR/EN under `resources/content/pages/{fr,en}/<slug>.md` and must stay in shape parity (same frontmatter keys, same array lengths, same nested-object shape).
 - Follow the GitHub Spec Kit workflow under `.specify/` and `specs/`. Use the `spec-kit-bootstrap` skill when starting a new feature.
 - Never hardcode colors, fonts, spacing, or motion values in components — consume `--sw-*` tokens from `resources/css/tokens.css`.
-- Two themes only: `morning` (light, architectural) and `sunset` (dark, violet glass). Both must be tested on visual changes.
-- `sunset` carries no green and no amber: warm hues over a dark base collapse toward brown. Blurred surfaces saturate above 1, never below.
+- Two themes only, mirrors of one token set: `morning` (paper: light, ink on paper) and `sunset` (night: plain dark, clear on black). The identifiers are historical; the look is a site plan (see `specs/018-site-refresh`). Both must be tested on visual changes.
+- Flat surfaces: no `backdrop-filter`, no blur, no decorative gradient. Colour is paper, ink and greys plus three primaries with fixed roles (marker yellow, path blue, "here" red), never two primaries in one screen area.
+- Motion is rich but bounded: `transform`, `opacity`, `stroke-dashoffset` and motion paths only; paused when hidden or out of view; still under `prefers-reduced-motion`. The background Stage lives in the persistent layout and must not restart on navigation.
 - Bilingual UI copy lives in `resources/js/copy/<locale>/<group>/<domain>.ts`, never inline in components. Each French module ends in `satisfies typeof import('../../en/<group>/<domain>').default`, and keys stay sorted (`sort-keys` enforces it).
 - Prefer platform primitives over components: `popover`, `<details>`, `@layer`, `content-visibility`, scroll-driven animations, Inertia `prefetch`.
 

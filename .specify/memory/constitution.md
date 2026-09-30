@@ -134,17 +134,32 @@ It is a trust mechanism.
 
 The visual identity should feel distinctive, cultivated and memorable.
 
-Sidewalk Studio draws inspiration from:
-- urbanism
-- public space
-- cartography
+*Amended by `specs/018-site-refresh`: the earlier text named "poetic dusk
+atmospheres", which described a glossy, blurred, gradient look that the owner
+no longer wants. The restraint and the functional requirements below are
+kept; the atmosphere is replaced by the language of a site plan.*
+
+Sidewalk Studio is drawn as a **site plan** (*plan de chantier*): the owner is a
+multi-skilled project lead who coordinates trades, and the site shows how he
+works. It draws inspiration from:
+- worksite and architectural drawings: plans, sections, dimension lines,
+  phases, revision indices
+- cartography and wayfinding
+- scenography and stage management
 - modernist grids
-- poetic dusk atmospheres
+
+The palette is paper, ink and greys. Three primaries carry meaning and never
+decorate: yellow for a marker, blue for a link, a dimension or a path, red for
+"you are here" and for what needs attention. There are two themes, light
+(paper) and dark (night), which mirror each other.
 
 However:
 - visual style must remain functional
 - typography must remain readable
-- effects must remain optional
+- surfaces are flat: no blur, no decorative gradient, no glass
+- motion is allowed and rich, but bounded: it must never block input, must
+  pause when out of view, and must stop under `prefers-reduced-motion`
+- every diagram must have a text equivalent
 - layout must remain calm and intentional
 
 ---
