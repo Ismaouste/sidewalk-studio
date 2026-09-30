@@ -56,39 +56,73 @@ export default {
     pimDefinition:
         'PIM: Product Information Management, the layer that centralizes and structures product data.',
     plan: {
-        caption: 'Public projects and services, and how they connect.',
+        caption: 'The pages of the site, the projects and what each holds.',
         edges: {
             design: 'design',
             engine: 'engine',
         },
         legend: [
             'Red: you are here',
-            'Blue: a link or an interface between two lots',
-            'Yellow: a marker',
+            'Ink: the pages of the site',
+            'Blue: astralmanach and its parts',
+            'A line between two lots: a link or an interface',
         ],
         lots: {
+            api: { label: 'Public API', note: 'OpenAPI, Postman, 34 sources' },
             app: {
                 label: 'DD le Dépanneur\nAtlas Dépannage',
                 note: 'One app, two brands',
             },
+            aremedia: { label: 'Aremedia', note: 'Public health and popular education, Paris: a self-hosted field tool and the public site' },
             astralmanach: {
                 label: 'astralmanach',
-                note: 'npm library (MIT), public API and three tools',
+                note: 'The sky of a date, as data',
             },
-            cases: { label: 'Case studies', note: 'Two written cases' },
+            caseConsent: {
+                label: 'Consent and measurement',
+                note: 'Case study: consent before measurement',
+            },
+            caseDeploy: {
+                label: 'E-commerce deployment',
+                note: 'Case study: a deployment pipeline',
+            },
+            caseFlux: {
+                label: 'ERP and PIM flows',
+                note: 'Case study: product data between ERP, PIM and shop',
+            },
+            cases: { label: 'Case studies', note: 'Four written cases' },
+            caseTools: {
+                label: 'Non-profit tool',
+                note: 'Case study: self-hosting and sensitive data',
+            },
             contact: { label: 'Contact', note: 'Nancy, Paris, remote' },
+            experience: { label: 'Experience', note: 'Jewely, Aremedia, Parcours le Monde' },
             florian: {
                 label: 'florianrosinski.fr',
                 note: 'Portfolio of Florian Rosinski, which I developed',
             },
             home: { label: 'Home', note: 'You are here' },
-            services: { label: 'Services', note: 'Offers and starting prices' },
+            jewely: { label: 'Jewely / Flippad', note: 'ERP, PIM and e-commerce for watchmaking and jewellery' },
+            journal: { label: 'Journal', note: 'Working notes' },
+            labs: { label: 'Labs', note: 'Core Web Vitals audit and sandboxes' },
+            lib: { label: 'npm library', note: 'MIT licence, ESM and types' },
+            obs: {
+                label: 'Observations',
+                note: 'A printable plate of the sky of a date',
+            },
+            plm: { label: 'Parcours le Monde', note: 'International mobility for young people, still active in Marseille' },
+            services: { label: 'Services', note: 'Stacks and starting prices' },
+            tools: {
+                label: 'Theme, Sky,\nCertificate',
+                note: 'Three public tools',
+            },
             uavv: {
                 label: 'Un art voulu voyant',
                 note: 'Website of an art project by Florian Rosinski, which I developed',
             },
+            work: { label: 'Work', note: 'Four lots, one per project' },
         },
-        revision: 'Rev. A · 2026-09-30',
+        revision: 'Rev. B · 2026-10-01',
         scale: '1 block = 1 lot',
         title: 'Plan of the work',
     },

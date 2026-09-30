@@ -1,9 +1,9 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::index
-* @see app/Http/Controllers/Admin/AdminPageController.php:25
-* @route '/admin/pages'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:25
+ * @route '/admin/pages'
+ */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
     method: 'get',
@@ -16,79 +16,72 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::index
-* @see app/Http/Controllers/Admin/AdminPageController.php:25
-* @route '/admin/pages'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:25
+ * @route '/admin/pages'
+ */
 index.url = (options?: RouteQueryOptions) => {
-
-
-
-
     return index.definition.url + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::index
-* @see app/Http/Controllers/Admin/AdminPageController.php:25
-* @route '/admin/pages'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:25
+ * @route '/admin/pages'
+ */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
     method: 'get',
 })
-
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::index
-* @see app/Http/Controllers/Admin/AdminPageController.php:25
-* @route '/admin/pages'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:25
+ * @route '/admin/pages'
+ */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
     method: 'head',
 })
 
-/**
+    /**
 * @see \App\Http\Controllers\Admin\AdminPageController::index
-* @see app/Http/Controllers/Admin/AdminPageController.php:25
-* @route '/admin/pages'
-*/
-const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
+ * @see app/Http/Controllers/Admin/AdminPageController.php:25
+ * @route '/admin/pages'
+ */
+    const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: index.url(options),
+        method: 'get',
+    })
 
-/**
+            /**
 * @see \App\Http\Controllers\Admin\AdminPageController::index
-* @see app/Http/Controllers/Admin/AdminPageController.php:25
-* @route '/admin/pages'
-*/
-indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url(options),
-    method: 'get',
-})
-
-/**
+ * @see app/Http/Controllers/Admin/AdminPageController.php:25
+ * @route '/admin/pages'
+ */
+        indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url(options),
+            method: 'get',
+        })
+            /**
 * @see \App\Http\Controllers\Admin\AdminPageController::index
-* @see app/Http/Controllers/Admin/AdminPageController.php:25
-* @route '/admin/pages'
-*/
-indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: index.url({
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-index.form = indexForm
-
+ * @see app/Http/Controllers/Admin/AdminPageController.php:25
+ * @route '/admin/pages'
+ */
+        indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: index.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    index.form = indexForm
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::edit
-* @see app/Http/Controllers/Admin/AdminPageController.php:32
-* @route '/admin/pages/{page}/{locale}'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:32
+ * @route '/admin/pages/{page}/{locale}'
+ */
 export const edit = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
@@ -101,25 +94,23 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::edit
-* @see app/Http/Controllers/Admin/AdminPageController.php:32
-* @route '/admin/pages/{page}/{locale}'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:32
+ * @route '/admin/pages/{page}/{locale}'
+ */
 edit.url = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions) => {
-
     if (Array.isArray(args)) {
         args = {
-            page: args[0],
-            locale: args[1],
-        }
+                    page: args[0],
+                    locale: args[1],
+                }
     }
 
     args = applyUrlDefaults(args)
 
-
     const parsedArgs = {
-        page: args.page,
-        locale: args.locale,
-    }
+                        page: args.page,
+                                locale: args.locale,
+                }
 
     return edit.definition.url
             .replace('{page}', parsedArgs.page.toString())
@@ -129,66 +120,63 @@ edit.url = (args: { page: string | number, locale: string | number } | [page: st
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::edit
-* @see app/Http/Controllers/Admin/AdminPageController.php:32
-* @route '/admin/pages/{page}/{locale}'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:32
+ * @route '/admin/pages/{page}/{locale}'
+ */
 edit.get = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: edit.url(args, options),
     method: 'get',
 })
-
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::edit
-* @see app/Http/Controllers/Admin/AdminPageController.php:32
-* @route '/admin/pages/{page}/{locale}'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:32
+ * @route '/admin/pages/{page}/{locale}'
+ */
 edit.head = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: edit.url(args, options),
     method: 'head',
 })
 
-/**
+    /**
 * @see \App\Http\Controllers\Admin\AdminPageController::edit
-* @see app/Http/Controllers/Admin/AdminPageController.php:32
-* @route '/admin/pages/{page}/{locale}'
-*/
-const editForm = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: edit.url(args, options),
-    method: 'get',
-})
+ * @see app/Http/Controllers/Admin/AdminPageController.php:32
+ * @route '/admin/pages/{page}/{locale}'
+ */
+    const editForm = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(args, options),
+        method: 'get',
+    })
 
-/**
+            /**
 * @see \App\Http\Controllers\Admin\AdminPageController::edit
-* @see app/Http/Controllers/Admin/AdminPageController.php:32
-* @route '/admin/pages/{page}/{locale}'
-*/
-editForm.get = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: edit.url(args, options),
-    method: 'get',
-})
-
-/**
+ * @see app/Http/Controllers/Admin/AdminPageController.php:32
+ * @route '/admin/pages/{page}/{locale}'
+ */
+        editForm.get = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, options),
+            method: 'get',
+        })
+            /**
 * @see \App\Http\Controllers\Admin\AdminPageController::edit
-* @see app/Http/Controllers/Admin/AdminPageController.php:32
-* @route '/admin/pages/{page}/{locale}'
-*/
-editForm.head = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-    action: edit.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'HEAD',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'get',
-})
-
-edit.form = editForm
-
+ * @see app/Http/Controllers/Admin/AdminPageController.php:32
+ * @route '/admin/pages/{page}/{locale}'
+ */
+        editForm.head = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::update
-* @see app/Http/Controllers/Admin/AdminPageController.php:120
-* @route '/admin/pages/{page}/{locale}'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:120
+ * @route '/admin/pages/{page}/{locale}'
+ */
 export const update = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
@@ -201,25 +189,23 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::update
-* @see app/Http/Controllers/Admin/AdminPageController.php:120
-* @route '/admin/pages/{page}/{locale}'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:120
+ * @route '/admin/pages/{page}/{locale}'
+ */
 update.url = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions) => {
-
     if (Array.isArray(args)) {
         args = {
-            page: args[0],
-            locale: args[1],
-        }
+                    page: args[0],
+                    locale: args[1],
+                }
     }
 
     args = applyUrlDefaults(args)
 
-
     const parsedArgs = {
-        page: args.page,
-        locale: args.locale,
-    }
+                        page: args.page,
+                                locale: args.locale,
+                }
 
     return update.definition.url
             .replace('{page}', parsedArgs.page.toString())
@@ -229,51 +215,50 @@ update.url = (args: { page: string | number, locale: string | number } | [page: 
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::update
-* @see app/Http/Controllers/Admin/AdminPageController.php:120
-* @route '/admin/pages/{page}/{locale}'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:120
+ * @route '/admin/pages/{page}/{locale}'
+ */
 update.put = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
 
-/**
+    /**
 * @see \App\Http\Controllers\Admin\AdminPageController::update
-* @see app/Http/Controllers/Admin/AdminPageController.php:120
-* @route '/admin/pages/{page}/{locale}'
-*/
-const updateForm = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PUT',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
+ * @see app/Http/Controllers/Admin/AdminPageController.php:120
+ * @route '/admin/pages/{page}/{locale}'
+ */
+    const updateForm = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
 
-/**
+            /**
 * @see \App\Http\Controllers\Admin\AdminPageController::update
-* @see app/Http/Controllers/Admin/AdminPageController.php:120
-* @route '/admin/pages/{page}/{locale}'
-*/
-updateForm.put = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: update.url(args, {
-        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-            _method: 'PUT',
-            ...(options?.query ?? options?.mergeQuery ?? {}),
-        }
-    }),
-    method: 'post',
-})
-
-update.form = updateForm
-
+ * @see app/Http/Controllers/Admin/AdminPageController.php:120
+ * @route '/admin/pages/{page}/{locale}'
+ */
+        updateForm.put = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update.form = updateForm
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::revert
-* @see app/Http/Controllers/Admin/AdminPageController.php:61
-* @route '/admin/pages/{page}/{locale}/revert'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:61
+ * @route '/admin/pages/{page}/{locale}/revert'
+ */
 export const revert = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: revert.url(args, options),
     method: 'post',
@@ -286,25 +271,23 @@ revert.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::revert
-* @see app/Http/Controllers/Admin/AdminPageController.php:61
-* @route '/admin/pages/{page}/{locale}/revert'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:61
+ * @route '/admin/pages/{page}/{locale}/revert'
+ */
 revert.url = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions) => {
-
     if (Array.isArray(args)) {
         args = {
-            page: args[0],
-            locale: args[1],
-        }
+                    page: args[0],
+                    locale: args[1],
+                }
     }
 
     args = applyUrlDefaults(args)
 
-
     const parsedArgs = {
-        page: args.page,
-        locale: args.locale,
-    }
+                        page: args.page,
+                                locale: args.locale,
+                }
 
     return revert.definition.url
             .replace('{page}', parsedArgs.page.toString())
@@ -314,41 +297,40 @@ revert.url = (args: { page: string | number, locale: string | number } | [page: 
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::revert
-* @see app/Http/Controllers/Admin/AdminPageController.php:61
-* @route '/admin/pages/{page}/{locale}/revert'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:61
+ * @route '/admin/pages/{page}/{locale}/revert'
+ */
 revert.post = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: revert.url(args, options),
     method: 'post',
 })
 
-/**
+    /**
 * @see \App\Http\Controllers\Admin\AdminPageController::revert
-* @see app/Http/Controllers/Admin/AdminPageController.php:61
-* @route '/admin/pages/{page}/{locale}/revert'
-*/
-const revertForm = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: revert.url(args, options),
-    method: 'post',
-})
+ * @see app/Http/Controllers/Admin/AdminPageController.php:61
+ * @route '/admin/pages/{page}/{locale}/revert'
+ */
+    const revertForm = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: revert.url(args, options),
+        method: 'post',
+    })
 
-/**
+            /**
 * @see \App\Http\Controllers\Admin\AdminPageController::revert
-* @see app/Http/Controllers/Admin/AdminPageController.php:61
-* @route '/admin/pages/{page}/{locale}/revert'
-*/
-revertForm.post = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: revert.url(args, options),
-    method: 'post',
-})
-
-revert.form = revertForm
-
+ * @see app/Http/Controllers/Admin/AdminPageController.php:61
+ * @route '/admin/pages/{page}/{locale}/revert'
+ */
+        revertForm.post = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: revert.url(args, options),
+            method: 'post',
+        })
+    
+    revert.form = revertForm
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::preview
-* @see app/Http/Controllers/Admin/AdminPageController.php:99
-* @route '/admin/pages/{page}/{locale}/preview'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:99
+ * @route '/admin/pages/{page}/{locale}/preview'
+ */
 export const preview = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: preview.url(args, options),
     method: 'post',
@@ -361,25 +343,23 @@ preview.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::preview
-* @see app/Http/Controllers/Admin/AdminPageController.php:99
-* @route '/admin/pages/{page}/{locale}/preview'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:99
+ * @route '/admin/pages/{page}/{locale}/preview'
+ */
 preview.url = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions) => {
-
     if (Array.isArray(args)) {
         args = {
-            page: args[0],
-            locale: args[1],
-        }
+                    page: args[0],
+                    locale: args[1],
+                }
     }
 
     args = applyUrlDefaults(args)
 
-
     const parsedArgs = {
-        page: args.page,
-        locale: args.locale,
-    }
+                        page: args.page,
+                                locale: args.locale,
+                }
 
     return preview.definition.url
             .replace('{page}', parsedArgs.page.toString())
@@ -389,36 +369,35 @@ preview.url = (args: { page: string | number, locale: string | number } | [page:
 
 /**
 * @see \App\Http\Controllers\Admin\AdminPageController::preview
-* @see app/Http/Controllers/Admin/AdminPageController.php:99
-* @route '/admin/pages/{page}/{locale}/preview'
-*/
+ * @see app/Http/Controllers/Admin/AdminPageController.php:99
+ * @route '/admin/pages/{page}/{locale}/preview'
+ */
 preview.post = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: preview.url(args, options),
     method: 'post',
 })
 
-/**
+    /**
 * @see \App\Http\Controllers\Admin\AdminPageController::preview
-* @see app/Http/Controllers/Admin/AdminPageController.php:99
-* @route '/admin/pages/{page}/{locale}/preview'
-*/
-const previewForm = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: preview.url(args, options),
-    method: 'post',
-})
+ * @see app/Http/Controllers/Admin/AdminPageController.php:99
+ * @route '/admin/pages/{page}/{locale}/preview'
+ */
+    const previewForm = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: preview.url(args, options),
+        method: 'post',
+    })
 
-/**
+            /**
 * @see \App\Http\Controllers\Admin\AdminPageController::preview
-* @see app/Http/Controllers/Admin/AdminPageController.php:99
-* @route '/admin/pages/{page}/{locale}/preview'
-*/
-previewForm.post = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-    action: preview.url(args, options),
-    method: 'post',
-})
-
-preview.form = previewForm
-
+ * @see app/Http/Controllers/Admin/AdminPageController.php:99
+ * @route '/admin/pages/{page}/{locale}/preview'
+ */
+        previewForm.post = (args: { page: string | number, locale: string | number } | [page: string | number, locale: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: preview.url(args, options),
+            method: 'post',
+        })
+    
+    preview.form = previewForm
 const AdminPageController = { index, edit, update, revert, preview }
 
 export default AdminPageController

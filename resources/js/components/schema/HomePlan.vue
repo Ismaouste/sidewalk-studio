@@ -2,9 +2,10 @@
 /**
  * The plan of the work, on the home page (specs/018-site-refresh): the public
  * projects and the services drawn as lots, with the interfaces between them.
- * Two arrangements of one plan: a portrait strip first (phones), a landscape
- * sheet from 720 px. Only one is displayed; the other is `display: none`, so
- * it is out of the accessibility tree as well.
+ * Three arrangements of one plan: a portrait strip first (phones), a landscape
+ * sheet from 720 px, and from 1400 px the same sheet with the career branch
+ * (Jewely, Aremedia, Parcours le Monde) on its left. Only one is displayed; the
+ * others are `display: none`, so they are out of the accessibility tree too.
  */
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
@@ -23,6 +24,7 @@ const localize = (href: string) => localizePublicHref(href, locale.value);
 
 const compact = computed(() => buildPlan(plan.value, 'compact', localize));
 const wide = computed(() => buildPlan(plan.value, 'wide', localize));
+const ultra = computed(() => buildPlan(plan.value, 'ultra', localize));
 </script>
 
 <template>
@@ -36,6 +38,7 @@ const wide = computed(() => buildPlan(plan.value, 'wide', localize));
             :data="compact"
         />
         <Schema class="home-plan__sheet home-plan__sheet--wide" :data="wide" />
+        <Schema class="home-plan__sheet home-plan__sheet--ultra" :data="ultra" />
 
         <ul class="type-meta home-plan__legend">
             <li v-for="line in plan.legend" :key="line">{{ line }}</li>
@@ -66,7 +69,8 @@ const wide = computed(() => buildPlan(plan.value, 'wide', localize));
     margin-top: var(--sw-space-xs);
 }
 
-.home-plan__sheet--wide {
+.home-plan__sheet--wide,
+.home-plan__sheet--ultra {
     display: none;
 }
 
@@ -86,6 +90,16 @@ const wide = computed(() => buildPlan(plan.value, 'wide', localize));
     }
 
     .home-plan__sheet--wide {
+        display: block;
+    }
+}
+
+@media (min-width: 1400px) {
+    .home-plan__sheet--wide {
+        display: none;
+    }
+
+    .home-plan__sheet--ultra {
         display: block;
     }
 }
