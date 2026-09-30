@@ -10,7 +10,7 @@ return [
         'contact_details' => [
             'email' => 'ismael@rodmacq.com',
             'location' => 'Nancy, Grand-Est',
-            'availability' => 'Currently working at Jewely and open to conversations, part-time freelance work, and new opportunities.',
+            'availability' => 'Available for a position or a freelance mission.',
         ],
         'social_links' => [
             'github_url' => 'https://github.com/Ismaouste',

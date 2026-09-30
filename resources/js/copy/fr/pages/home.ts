@@ -14,7 +14,7 @@ export default {
     cmsDefinition: 'Content Management System : système de gestion de contenu.',
     contactCta: 'Prendre contact',
     contactLabel: 'Contact',
-    currentFrameLabel: "Aujourd'hui",
+    currentFrameLabel: 'Dernier poste',
     dataLayerDefinition:
         'Data layer : couche de données partagée entre le site, le tracking et les outils marketing.',
     focusDescription:
@@ -45,7 +45,7 @@ export default {
     ],
     heroPanelSummarySuffix:
         'écosystème HBJO, ERP, PIM, flux produit, tracking et SEO technique.',
-    heroPanelTitle: 'Développeur e-commerce chez Jewely / Flippad',
+    heroPanelTitle: 'Développeur e-commerce, Jewely / Flippad (2023–2026)',
     internalBuildLabel: 'Interne',
     jsonLdDefinition:
         'JSON-LD : format de données structurées lisible par les moteurs et les plateformes.',
