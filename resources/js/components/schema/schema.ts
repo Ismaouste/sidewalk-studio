@@ -53,6 +53,8 @@ export interface SchemaData {
     scale?: { x: number; y: number; label: string };
     /** The node that carries "you are here" (red). */
     here?: string;
+    /** Wrap labels longer than this many characters at spaces (narrow sheets). */
+    wrap?: number;
 }
 
 export interface NodeBox {
@@ -68,12 +70,34 @@ const PAD_X = 14;
 const PAD_Y = 10;
 const MIN_WIDTH = 92;
 
+/** Breaks a line at spaces so that no line is longer than `max` (a single long word stays whole). */
+export function wrapLine(line: string, max: number): string[] {
+    const out: string[] = [];
+    let current = '';
+
+    for (const word of line.split(/\s+/).filter(Boolean)) {
+        if (current !== '' && current.length + 1 + word.length > max) {
+            out.push(current);
+            current = word;
+        } else {
+            current = current === '' ? word : `${current} ${word}`;
+        }
+    }
+
+    if (current !== '') {
+        out.push(current);
+    }
+
+    return out;
+}
+
 /** The box of a node, sized from its longest line so a long French label still fits. */
-export function nodeBox(node: SchemaNode): NodeBox {
+export function nodeBox(node: SchemaNode, wrap?: number): NodeBox {
     const lines = node.label
         .split('\n')
         .map((line) => line.trim())
-        .filter(Boolean);
+        .filter(Boolean)
+        .flatMap((line) => (wrap ? wrapLine(line, wrap) : [line]));
     const longest = lines.reduce((max, line) => Math.max(max, line.length), 0);
 
     return {
@@ -116,7 +140,9 @@ export interface EdgeGeometry {
 
 /** The geometry of every edge whose two ends exist; an edge to a missing node is dropped, never thrown. */
 export function edgeGeometry(data: SchemaData): EdgeGeometry[] {
-    const boxes = new Map(data.nodes.map((node) => [node.id, nodeBox(node)]));
+    const boxes = new Map(
+        data.nodes.map((node) => [node.id, nodeBox(node, data.wrap)]),
+    );
     const out: EdgeGeometry[] = [];
 
     for (const edge of data.edges ?? []) {

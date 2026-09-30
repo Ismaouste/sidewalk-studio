@@ -127,10 +127,11 @@ html[data-theme='morning'] {
     --sw-text-muted: #5c5c57;
     --sw-text-inverse: var(--sw-paper);
 
-    /* Old accent slots, mapped onto the three primaries and the greys. Two
-       slots may hold one value: they were names for tones, and the tones are
-       now roles. */
-    --sw-accent-sun: var(--sw-mark);
+    /* Old accent slots, mapped onto the primaries and the greys. Two slots may
+       hold one value: they were names for tones, and the tones are now roles.
+       `sun` was used as TEXT (eyebrows, chips) as well as a fill, and yellow
+       on paper is 1.6:1, so it maps to ink; the yellow marker is `--sw-mark`. */
+    --sw-accent-sun: var(--sw-ink);
     --sw-accent-dominant: var(--sw-here);
     --sw-accent-green: var(--sw-grey-5);
     --sw-accent-violet: var(--sw-path);
@@ -185,7 +186,7 @@ html[data-theme='morning'] {
     --sw-particle-opacity: 0.42;
     --sw-stain-grey: var(--sw-ink);
     --sw-stain-grey-opacity: 0.05;
-    --sw-stain-mark-opacity: 0.14;
+    --sw-stain-mark-opacity: 0.1;
     --sw-stain-path-opacity: 0.08;
     --sw-stain-here-opacity: 0.08;
     --sw-stain-blend: multiply;
@@ -220,7 +221,7 @@ html[data-theme='sunset'] {
     --sw-text-muted: #9d9d98;
     --sw-text-inverse: var(--sw-paper);
 
-    --sw-accent-sun: var(--sw-mark);
+    --sw-accent-sun: var(--sw-ink);
     --sw-accent-dominant: var(--sw-here);
     --sw-accent-green: var(--sw-grey-5);
     --sw-accent-violet: var(--sw-path);

@@ -40,21 +40,21 @@ export const LOTS: LotSpec[] = [
         tone: 'path',
         href: 'https://astralmanach.eu',
         wide: [400, 80],
-        compact: [270, 170],
+        compact: [275, 160],
     },
     {
         id: 'uavv',
         href: 'https://www.uavv.fr',
         wide: [400, 200],
-        compact: [90, 170],
+        compact: [85, 160],
     },
     {
         id: 'florian',
         href: 'https://florianrosinski.fr',
         wide: [700, 200],
-        compact: [90, 290],
+        compact: [85, 290],
     },
-    { id: 'atlas', wide: [700, 80], compact: [270, 290] },
+    { id: 'atlas', wide: [700, 80], compact: [275, 290] },
     {
         id: 'services',
         href: '/services',
@@ -141,6 +141,8 @@ export function buildPlan(
         nodes,
         edges,
         here: 'home',
+        // A portrait strip is 360 units wide: long labels break at spaces.
+        wrap: layout === 'compact' ? 13 : undefined,
         compass: { x: sheet.compass[0], y: sheet.compass[1] },
         scale: { x: sheet.scale[0], y: sheet.scale[1], label: copy.scale },
     };

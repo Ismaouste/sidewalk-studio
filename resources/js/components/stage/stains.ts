@@ -129,7 +129,7 @@ export function layoutStains(seed: number, count = 7): Stain[] {
     return cells.map((cell) => {
         const { cx, cy } = cellXY(cell);
         const primaryIndex = primaryCells.indexOf(cell);
-        const size = 34 + random() * 30;
+        const size = 30 + random() * 24;
 
         return {
             tone:

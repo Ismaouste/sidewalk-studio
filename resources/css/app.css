@@ -127,6 +127,13 @@ html[data-theme='sunset'] .cm__body {
     color: var(--sw-text-primary);
 }
 
+/* The library's own rule colours the secondary buttons in dark grey whatever
+   `--cc-btn-secondary-text-color` says: unreadable on the night theme. */
+html #cc-main .cm__btn--secondary,
+html #cc-main .pm__btn--secondary {
+    color: var(--sw-text-primary);
+}
+
 #cc-main .cm__btn,
 #cc-main .pm__btn,
 .cm__body button,

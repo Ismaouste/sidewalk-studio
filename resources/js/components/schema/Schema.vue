@@ -32,7 +32,7 @@ const svg = ref<SVGSVGElement | null>(null);
 
 const boxes = computed(() =>
     props.data.nodes.map((node) => {
-        const box = nodeBox(node);
+        const box = nodeBox(node, props.data.wrap);
 
         return {
             ...box,
