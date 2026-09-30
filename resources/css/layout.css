@@ -4,10 +4,13 @@ html {
 
 .sw-shell {
     position: relative;
+    z-index: var(--sw-z-content);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: var(--sw-bg-base);
+    /* Transparent on purpose: the page ground is the body's, and the Stage
+       (resources/js/components/stage) drifts between the two. */
+    background: transparent;
 }
 
 /* The shell's gutter, named once so that a child meant to bleed past it can

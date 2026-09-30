@@ -2,6 +2,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
+import Stage from '@/components/stage/Stage.vue';
 import { configurePageTransitions } from '@/composables/usePageTransitions';
 import { initializeTheme } from '@/composables/useTheme';
 import { initializeStaticPreviewNavigation } from '@/lib/staticPreview';
@@ -61,7 +62,9 @@ createInertiaApp({
             staticPreview: site.runtime.staticPreview,
         });
 
-        createApp({ render: () => h(App, props) })
+        // The Stage is mounted once, beside Inertia's page, so it survives every
+        // navigation (pages wrap themselves in SiteLayout, which does not).
+        createApp({ render: () => [h(Stage), h(App, props)] })
             .use(plugin)
             .mount(el);
 
