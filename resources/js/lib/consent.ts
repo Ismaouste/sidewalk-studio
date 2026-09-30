@@ -158,7 +158,12 @@ function registerDefaults(config: ConsentConfig) {
         key: 'analytics-driver',
         category: 'analytics',
         load: async () => {
-            if (config.driver === 'none') {
+            // `driver` names the product-analytics tool (PostHog). Google Analytics 4
+            // has its own identifier, so it must start even when the driver is 'none'.
+            if (
+                config.driver === 'none' &&
+                !config.services.analytics.ga4?.id
+            ) {
                 return;
             }
 
@@ -219,12 +224,12 @@ export async function initializeConsent(
             consentModal: {
                 layout: 'box wide',
                 position: 'bottom right',
-                equalWeightButtons: false,
+                equalWeightButtons: true,
             },
             preferencesModal: {
                 layout: 'box',
                 position: 'right',
-                equalWeightButtons: false,
+                equalWeightButtons: true,
             },
         },
         categories: {
