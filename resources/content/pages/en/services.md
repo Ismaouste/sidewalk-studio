@@ -52,7 +52,7 @@ offers:
       summary: Feeds, campaigns, measurement and a monthly report.
       price: from €900
       price_meta: per month
-    - title: Technical direction
+    - title: Tech lead
       summary: Architecture and development, one to three days a week.
       price: from €650
       price_meta: per day

@@ -24,7 +24,7 @@ return [
      * Labels the shell shares with every page through Inertia.
      */
     'shell' => [
-        'header_tagline' => 'E-commerce developer and technical lead.',
+        'header_tagline' => 'E-commerce developer and tech lead.',
         'locale_switcher_label' => 'Language',
         'nav_aria_label' => 'Primary navigation',
         'nav_menu_label' => 'Menu',

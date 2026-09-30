@@ -52,7 +52,7 @@ offers:
       summary: Flux, campagnes, mesure et un rapport mensuel.
       price: à partir de 900 €
       price_meta: par mois
-    - title: Direction technique
+    - title: Tech lead
       summary: Architecture et développement, un à trois jours par semaine.
       price: à partir de 650 €
       price_meta: par jour

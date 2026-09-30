@@ -7,7 +7,7 @@
  */
 return [
     'shell' => [
-        'header_tagline' => 'Développeur e-commerce et responsable technique.',
+        'header_tagline' => 'Développeur e-commerce et tech lead.',
         'locale_switcher_label' => 'Langue',
         'nav_aria_label' => 'Navigation principale',
         'nav_menu_label' => 'Menu',

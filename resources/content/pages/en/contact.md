@@ -20,7 +20,7 @@ form:
     summary_meta: Keep it short. The message will open in WhatsApp so the conversation can continue directly.
     project_type_label: Project type
     project_type_options:
-        - Technical direction / CTO time
+        - Tech lead / CTO time
         - E-commerce build
         - Website
         - Campaigns & growth

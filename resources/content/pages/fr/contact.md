@@ -20,7 +20,7 @@ form:
     summary_meta: Rester bref. Le message sera repris dans WhatsApp pour continuer directement.
     project_type_label: Type de projet
     project_type_options:
-        - Direction technique / temps CTO
+        - Tech lead / temps CTO
         - Boutique e-commerce
         - Site web
         - Campagnes & growth
