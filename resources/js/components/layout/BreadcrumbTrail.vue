@@ -136,6 +136,9 @@ const copy = computed(() => copyTree[page.props.site.locale].layout.landmarks);
         padding-block: 0.16rem 0;
         padding-inline: var(--sw-container-inset, var(--sw-space-xs));
         border-bottom: 1px solid transparent;
+        /* Opaque from the start on a phone: where the browser has no scroll
+           timelines the bar is sticky all the time, and must never be see-through. */
+        background: var(--sw-bg-base);
     }
 
     .breadcrumb-trail__list {
@@ -211,12 +214,13 @@ const copy = computed(() => copyTree[page.props.site.locale].layout.landmarks);
     }
 }
 
-/* The glass the bar picks up once it is against the header. Reading the token
-   rather than a literal is what keeps it in step with every other blurred
-   surface: morning and sunset define different blur radii and saturations,
-   and sunset's has to stay above 1. */
+/* What the bar picks up once it is against the header: the page ground, opaque,
+   and a hairline, so the text scrolling underneath never shows through. (It
+   used to be a blurred glass; the flat site has none.) */
 @keyframes breadcrumb-stuck {
     to {
+        background: var(--sw-bg-base);
+        border-bottom-color: var(--sw-border);
     }
 }
 </style>

@@ -3,7 +3,7 @@ seo_title: Data processing
 seo_description: 'Information about contact messages, consent, and explicit opt-in for optional tools on Sidewalk Studio.'
 hero:
     eyebrow: Data processing
-    title: A simple page that explains what is stored and what remains opt-in.
+    title: What is stored and what requires your consent
     summary: Contact messages are not stored on the site. The form prepares a WhatsApp message instead, while optional tools stay blocked until explicit consent exists.
 storage:
     eyebrow: Contact messages
@@ -24,7 +24,7 @@ measurement:
     title: Three tiers, each with its own switch
     points:
         - 'Audience: a first-party, cookieless ping counts page views with a truncated IP folded into an identifier that changes every day. It stores nothing in your browser, honors Global Privacy Control, and you can switch it off below.'
-        - 'Analytics: PostHog, hosted in the EU, loads only after the analytics category is accepted in the consent preferences - never before.'
+        - 'Analytics: Google Analytics 4 (Google Ireland Limited) and PostHog (hosted in the EU) load only after the analytics category is accepted in the consent preferences. Before that, nothing is loaded and nothing is sent to either of them.'
         - 'Replay and heatmaps: the most invasive tier has its own switch below. Accepting analytics, or pressing "Accept all", never turns it on.'
 operator:
     eyebrow: Operator

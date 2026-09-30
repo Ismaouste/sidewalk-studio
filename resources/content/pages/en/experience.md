@@ -101,9 +101,9 @@ trajectory:
     - title: Writing decisions down
       summary: When I choose between two approaches I write down which one and why, so the next person does not have to guess or ask me.
 strengths:
-    - I change platforms that are already selling, without the selling ever stopping.
-    - I work across the seams — product data, search, privacy, and the integrations between business tools — rather than in one of them.
-    - I leave a system easier to read than I found it, and that is the part I care about most.
+    - I change platforms that are already selling, without interrupting sales.
+    - "I work between disciplines: product data, search, privacy and the integrations between business tools."
+    - I leave a system easier to understand than I found it.
 focus_areas:
     - title: Laravel in production
       summary: Evolving Laravel platforms that serve customers every day, in stages, without interrupting the service.

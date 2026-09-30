@@ -90,7 +90,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->assertHeader('content-language', 'fr')
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
-                ->where('hero.title', "Parler d'un poste, d'une mission ou d'un sujet précis.")
+                ->where('hero.title', "Contact pour un poste, une mission ou une question précise.")
                 ->where('site.languageSwitcher.visible', true));
     }
 

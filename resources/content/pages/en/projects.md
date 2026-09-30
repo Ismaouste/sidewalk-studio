@@ -4,13 +4,13 @@ seo_description: Tech lead ecommerce work from Nancy, Grand Est, across platform
 hero:
     eyebrow: Experience
     title: Ecommerce projects
-    summary: "Four places I have worked, in full, with the decisions left in."
+    summary: "Four places where I have worked, described in detail, with the decisions I made."
 tracks_section:
     label: The four
     intro:
         eyebrow: Read
-        title: What I have worked on, and what it asked for.
-        summary: Each context below is written out further down the page — what the work was, which systems it touched, and what I decided.
+        title: What I worked on and what each context required.
+        summary: "Each context is described further down: the work, the systems involved and the decisions I made."
     items:
         - title: Ecommerce
           summary: Multi-tenant Laravel platform for jewellery houses. Product data, catalog, integrations, and releases that never interrupt the selling.

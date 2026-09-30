@@ -4,13 +4,13 @@ seo_description: Tech lead e-commerce à Nancy, Grand Est, pour des missions rem
 hero:
     eyebrow: Expérience
     title: Projets e-commerce
-    summary: "Quatre endroits où j'ai travaillé, racontés en entier, avec les décisions dedans."
+    summary: "Quatre endroits où j'ai travaillé, décrits en détail, avec les décisions que j'ai prises."
 tracks_section:
     label: Les quatre
     intro:
         eyebrow: Lecture
-        title: Ce sur quoi j'ai travaillé, et ce que ça demandait.
-        summary: "Chacun des quatre contextes ci-dessous est développé plus bas dans la page : ce qu'était le travail, quels systèmes il touchait, ce que j'ai décidé."
+        title: Sur quoi j'ai travaillé et ce que chaque contexte demandait.
+        summary: "Chaque contexte est décrit plus bas : le travail, les systèmes concernés et les décisions que j'ai prises."
     items:
         - title: E-commerce
           summary: Plateforme Laravel multi-tenant pour des maisons de joaillerie. Donnée produit, catalogue, intégrations, et des mises en ligne qui ne coupent pas la vente.

@@ -1,10 +1,13 @@
 <script setup lang="ts">
 /**
  * The Stage: the slow background of the site plan (specs/018-site-refresh).
- * Flat organic stains drift behind a canvas of specks. It is mounted ONCE, at
- * the root of the app (resources/js/app.ts), beside Inertia's page: pages wrap
+ * A few flat organic stains drift behind the page. It is mounted ONCE, at the
+ * root of the app (resources/js/app.ts), beside Inertia's page: pages wrap
  * themselves in `<SiteLayout>`, so anything inside the layout would restart at
  * every link. Here a fast navigation does not restart or stack anything.
+ *
+ * The specks of the first version (uavv's sky, mirrored) were removed at the
+ * owner's request; only the stains remain.
  *
  * Flat by rule: stains are plain SVG fills blended with `multiply` on paper
  * and `screen` on the night theme; no blur, no gradient. The drift is CSS
@@ -15,15 +18,11 @@ import { onMounted, ref } from 'vue';
 import { readStorage, writeStorage } from '@/lib/safeStorage';
 import { layoutStains } from './stains';
 import type { Stain } from './stains';
-import { useStage } from './useStage';
 
 defineOptions({ name: 'StageBackground' });
 
 const SEED_KEY = 'sidewalk-stage-seed';
-const canvas = ref<HTMLCanvasElement | null>(null);
 const stains = ref<Stain[]>([]);
-
-useStage(canvas);
 
 onMounted(() => {
     // One arrangement for the whole session; storage may be blocked, then it is random.
@@ -63,7 +62,6 @@ function styleOf(stain: Stain): Record<string, string> {
         >
             <path :d="stain.path" />
         </svg>
-        <canvas ref="canvas" class="stage__canvas" />
     </div>
 </template>
 
@@ -75,13 +73,6 @@ function styleOf(stain: Stain): Record<string, string> {
     overflow: hidden;
     pointer-events: none;
     contain: strict;
-}
-
-.stage__canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .stage__stain {

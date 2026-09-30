@@ -3,11 +3,11 @@ seo_title: Contact
 seo_description: Contact point for a tech lead ecommerce role, a focused freelance mission from Nancy, or a stabilization, integration, or delivery-heavy context.
 hero:
     eyebrow: Contact
-    title: Talk about a role, a mission, or a specific problem.
+    title: Contact for a position, a mission or a specific question.
     summary: Based in Nancy. Available for a tech lead ecommerce role or a focused mission in remote, hybrid, or Paris-based settings depending on the frame.
 form:
     eyebrow: Share the context
-    title: A simple first message is enough.
+    title: A short first message is enough.
     summary: A few lines about the context, the need, or the current constraint. The form then prepares a direct WhatsApp message, nothing more.
     name_label: Name
     name_placeholder: Your name
@@ -16,7 +16,7 @@ form:
     company_label: Company or product
     company_placeholder: Brand, product, or team
     summary_label: Project brief
-    summary_placeholder: Context, timeline, priorities, and what you would love to bring to life.
+    summary_placeholder: Context, timeline and priorities.
     summary_meta: Keep it short. The message will open in WhatsApp so the conversation can continue directly.
     project_type_label: Project type
     project_type_options:
@@ -46,8 +46,8 @@ details:
     availability_label: Availability
 booking:
     eyebrow: Book directly
-    title: A 30-minute call, without the back-and-forth.
-    summary: Pick a slot that suits you — the call is free, focused, and ends with a clear next step or an honest "not a fit".
+    title: A 30-minute call
+    summary: Pick a slot. The call is free and lasts 30 minutes. It ends with a next step, or with the answer that I am not the right person.
     cta_label: Book a call
     url: ''
 services:
@@ -58,9 +58,9 @@ services:
         - title: Product data and scripts
           summary: Product data, stock, exports, scraping, APIs, and synchronization across business tools, connectors, and web surfaces.
         - title: Front-end, integration, and connectors
-          summary: Front-end integration, internal tools, CMS, and connectors between business software built around how teams actually work.
+          summary: Front-end integration, internal tools, CMS, and connectors between business software.
         - title: Tracking, consent, and acquisition
-          summary: Data layer, pixels, analytics, Consent Mode v2, and marketing catalog sync without pushing compliance aside.
+          summary: Data layer, pixels, analytics, Consent Mode v2, and marketing catalog sync with consent handled from the start.
 recruiter_shortcut:
     eyebrow: Quick snapshot
     summary: ''

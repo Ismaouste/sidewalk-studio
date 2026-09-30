@@ -16,7 +16,7 @@ class PublicPagesTest extends TestCase
             '/en/local' => 'Local · Ismael Rodmacq',
             '/en/experience' => 'Tech Lead Ecommerce in Nancy · Ismael Rodmacq',
             '/en/labs' => 'Labs · Ismael Rodmacq',
-            '/en/services' => 'Services · Ismael Rodmacq',
+            '/en/services' => 'Services and rates · Ismael Rodmacq',
             '/en/journal' => 'Journal · Ismael Rodmacq',
             '/en/case-studies' => 'Case Studies · Ismael Rodmacq',
             '/en/contact' => 'Contact · Ismael Rodmacq',

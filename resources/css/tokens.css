@@ -180,10 +180,7 @@ html[data-theme='morning'] {
 
     --sw-scrim: color-mix(in srgb, var(--sw-bg-base) 82%, transparent);
 
-    /* The Stage: what the canvas reads to draw its particles (ink specks on
-       paper), and the stain tones (greys, one primary at low opacity). */
-    --sw-particle: var(--sw-ink);
-    --sw-particle-opacity: 0.42;
+    /* The Stage: the stain tones (greys, one primary at low opacity). */
     --sw-stain-grey: var(--sw-ink);
     --sw-stain-grey-opacity: 0.05;
     --sw-stain-mark-opacity: 0.1;
@@ -266,9 +263,7 @@ html[data-theme='sunset'] {
 
     --sw-scrim: color-mix(in srgb, var(--sw-bg-base) 84%, transparent);
 
-    /* Clear specks on black; stains screen instead of multiply. */
-    --sw-particle: var(--sw-ink);
-    --sw-particle-opacity: 0.7;
+    /* Stains screen instead of multiply on the night theme. */
     --sw-stain-grey: var(--sw-ink);
     --sw-stain-grey-opacity: 0.05;
     --sw-stain-mark-opacity: 0.1;

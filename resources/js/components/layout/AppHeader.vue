@@ -113,8 +113,10 @@ onBeforeUnmount(() => {
     content: '';
     position: absolute;
     inset: 0 0 auto;
-    height: calc(100% + clamp(40px, 8vw, 96px));
-    background: none;
+    /* The page ground behind the header, opaque: nothing scrolling underneath may
+       show through the gaps around the bar. (It used to be a soft glow.) */
+    height: 100%;
+    background: var(--sw-bg-base);
     pointer-events: none;
     z-index: 0;
 }
@@ -289,7 +291,7 @@ onBeforeUnmount(() => {
         border-radius: 0;
         border-inline: 0;
         padding-inline: var(--sw-space-sm);
-        background: color-mix(in srgb, var(--sw-bg-base) 94%, transparent);
+        background: var(--sw-bg-base);
     }
 
     .app-header__inner::before {
@@ -301,7 +303,7 @@ onBeforeUnmount(() => {
     }
 
     :global(html[data-theme='sunset']) .app-header__inner {
-        background: color-mix(in srgb, var(--sw-bg-base) 94%, transparent);
+        background: var(--sw-bg-base);
     }
 
     .app-header__identity {

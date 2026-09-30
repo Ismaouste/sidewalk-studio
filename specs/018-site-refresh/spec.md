@@ -194,6 +194,14 @@ The site is drawn the same way:
 
 ## Decisions made
 
+- **The specks are removed** (owner, 2026-09-30): the mirrored star field of the first
+  version is gone; only the flat drifting stains remain in the Stage. The
+  "mirrored light and dark" now concerns the two themes, not a particle system.
+- **Tone**: public copy is plain and factual. The home, Work, Services, Contact,
+  Projects, Local, Colophon, Data processing and Sparkle pages were rewritten
+  without changing any fact; the articles and the loader quotes are not part of
+  this pass.
+
 - **Concept**: the site plan / the worksite (owner, 2026-09-30: "a multi-skilled
   project lead — the image of the project plan and the site foreman").
 - **Both themes stay**, as mirrors of one token set; `sunset` and its violet glass

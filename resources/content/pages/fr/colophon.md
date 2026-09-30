@@ -4,11 +4,11 @@ seo_description: Comment Sidewalk Studio est construit, pensé et tenu. Constitu
 hero:
     eyebrow: Colophon
     title: 'Comment ce site est construit.'
-    summary: 'Un site personnel tenu comme une infrastructure publique. Une constitution, un build journal, une stack documentée, et un cadre vie-privée explicite.'
+    summary: 'Un site personnel. Une constitution, un journal de construction, une stack documentée et une politique de vie privée explicite.'
 sections:
     - title: Constitution
       eyebrow: Cadre
-      summary: 'Neuf principes numérotés qui tiennent les choix techniques et éditoriaux. Lisibilité avant cleverness, respect du visiteur, écriture longue avant boutons.'
+      summary: 'Neuf principes numérotés qui guident les choix techniques et éditoriaux, dont la lisibilité, le respect du visiteur et l’accessibilité.'
       cta_label: Lire la constitution
       cta_href: https://github.com/Ismaouste/sidewalk-studio/blob/main/.specify/memory/constitution.md
     - title: Build journal

@@ -3,7 +3,7 @@ seo_title: Traitement des données
 seo_description: "Informations sur les messages de contact, le consentement et l'activation explicite des outils optionnels sur Sidewalk Studio."
 hero:
     eyebrow: Traitement des données
-    title: Une page simple pour expliquer ce qui est stocké et ce qui reste opt-in.
+    title: Ce qui est stocké et ce qui demande votre accord
     summary: Les messages de contact ne sont pas conservés côté site. Le formulaire prépare un message WhatsApp et les outils optionnels restent bloqués tant qu'un consentement explicite n'existe pas.
 storage:
     eyebrow: Messages de contact
@@ -24,7 +24,7 @@ measurement:
     title: 'Trois niveaux, chacun avec son interrupteur'
     points:
         - "Audience : un ping first-party sans cookie compte les pages vues avec une IP tronquée, fondue dans un identifiant qui change chaque jour. Il ne stocke rien dans votre navigateur, respecte Global Privacy Control, et se désactive ci-dessous."
-        - "Analytics : PostHog, hébergé dans l'Union européenne, ne se charge qu'après acceptation de la catégorie analytics dans les préférences de consentement - jamais avant."
+        - "Analytics : Google Analytics 4 (Google Ireland Limited) et PostHog (hébergé dans l'Union européenne) ne se chargent qu'après acceptation de la catégorie analytics dans les préférences de consentement. Avant cela, rien n'est chargé et rien n'est envoyé à l'un ou à l'autre."
         - "Relecture de session et cartes de chaleur : le niveau le plus intrusif a son propre interrupteur ci-dessous. Accepter les analytics, ou « Tout accepter », ne l'active jamais."
 operator:
     eyebrow: Opérateur

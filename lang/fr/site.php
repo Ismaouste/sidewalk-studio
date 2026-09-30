@@ -4,7 +4,7 @@ return [
     'settings' => [
         'site_identity' => [
             'name' => 'Ismaël Rodmacq',
-            'tagline' => 'Développeur e-commerce full stack. Data transverse, flux fiables.',
+            'tagline' => 'Développeur e-commerce et responsable technique.',
             'description' => "Développement web full stack pour l'e-commerce, la circulation de la donnée produit, les CMS, le tracking sous consentement et le SEO technique.",
         ],
         'contact_details' => [

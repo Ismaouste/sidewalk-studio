@@ -4,11 +4,11 @@ seo_description: How Sidewalk Studio is built, considered, and held. Constitutio
 hero:
     eyebrow: Colophon
     title: 'How this site is built.'
-    summary: 'A personal site held as public infrastructure. A constitution, a build journal, a documented stack, and an explicit privacy frame.'
+    summary: 'A personal site. A constitution, a build journal, a documented stack and an explicit privacy policy.'
 sections:
     - title: Constitution
       eyebrow: Frame
-      summary: 'Nine numbered principles holding the technical and editorial choices. Readability over cleverness, respect for the visitor, long-form writing before buttons.'
+      summary: 'Nine numbered principles that guide the technical and editorial choices, among them readability, respect for the visitor and accessibility.'
       cta_label: Read the constitution
       cta_href: https://github.com/Ismaouste/sidewalk-studio/blob/main/.specify/memory/constitution.md
     - title: Build journal

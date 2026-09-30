@@ -4,7 +4,7 @@ return [
     'settings' => [
         'site_identity' => [
             'name' => 'Ismael Rodmacq',
-            'tagline' => 'Full-stack e-commerce. Cross-functional data, reliable flows.',
+            'tagline' => 'E-commerce developer and technical lead.',
             'description' => 'Full-stack web development for e-commerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO.',
         ],
         'contact_details' => [

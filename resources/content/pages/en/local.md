@@ -29,13 +29,13 @@ engagements:
           - Strong security and trust constraints.
           - Rebuilt the public site at aremedia.org.
     - title: Nancy Jazz Pulsations, EDEN, La Quadrature du Net
-      summary: Cultural volunteering, urbanism, cycling, and digital rights. It stops me believing a service is the same thing as its admin screen.
+      summary: Cultural volunteering, urbanism, cycling, and digital rights. It reminds me that a service is more than its administration screen.
       items:
-          - Nonprofit and cultural life I actually take part in, not a line on a CV.
+          - Non-profit and cultural activities I take part in.
           - Continued attention to mobility and public space.
           - The same demand for clarity as on an online shop.
 notes_section:
     eyebrow: Notes
-    title: Short notes, in whatever order you like.
-    summary: The list of publications, if you want to keep reading.
+    title: Short notes
+    summary: The list of publications.
 ---

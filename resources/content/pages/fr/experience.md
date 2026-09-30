@@ -101,9 +101,9 @@ trajectory:
     - title: Écrire les décisions
       summary: Quand je tranche entre deux approches, j'écris laquelle et pourquoi, pour que la personne suivante n'ait ni à deviner ni à me le demander.
 strengths:
-    - Je fais évoluer des plateformes qui vendent déjà, sans jamais couper la vente.
-    - Je travaille sur les jointures — donnée produit, référencement, vie privée, intégrations entre outils métier — plutôt qu'à l'intérieur d'une seule.
-    - Je laisse un système plus lisible que je ne l'ai trouvé, et c'est la partie qui m'intéresse le plus.
+    - Je fais évoluer des plateformes qui vendent déjà, sans interrompre les ventes.
+    - "Je travaille entre les disciplines : donnée produit, référencement, vie privée et intégrations entre outils métier."
+    - Je laisse un système plus facile à comprendre que je ne l'ai trouvé.
 focus_areas:
     - title: Laravel en production
       summary: Faire évoluer par étapes des plateformes Laravel qui servent des clients tous les jours, sans interrompre le service.

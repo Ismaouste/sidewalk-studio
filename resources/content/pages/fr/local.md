@@ -29,13 +29,13 @@ engagements:
           - Contraintes de sécurité et de confiance fortes.
           - Refonte du site public aremedia.org.
     - title: Nancy Jazz Pulsations, EDEN, La Quadrature du Net
-      summary: Bénévolat culturel, urbanisme, vélo et droits numériques. Ça m'évite de croire qu'un service se résume à son interface d'administration.
+      summary: Bénévolat culturel, urbanisme, vélo et droits numériques. Ça me rappelle qu'un service ne se résume pas à son interface d'administration.
       items:
-          - Une vie associative que je fréquente vraiment, pas une ligne sur un CV.
+          - Des activités associatives et culturelles auxquelles je participe.
           - Attention continue à la mobilité et à l'espace public.
           - La même exigence de clarté que sur une boutique en ligne.
 notes_section:
     eyebrow: Notes
-    title: Des notes courtes, à lire dans l'ordre qu'on veut.
-    summary: La liste des publications, si vous voulez continuer à lire.
+    title: Notes courtes
+    summary: La liste des publications.
 ---
