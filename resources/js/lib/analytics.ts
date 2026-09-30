@@ -53,8 +53,11 @@ function enableGa4(config: ConsentConfig): void {
 
     ga4Id = id;
     w.dataLayer = w.dataLayer ?? [];
-    w.gtag = function gtag(...args: unknown[]) {
-        w.dataLayer?.push(args);
+    // gtag.js reads `arguments` objects from the data layer, never arrays: a
+    // rest-parameter array would be ignored and no hit would ever be sent.
+    w.gtag = function gtag() {
+        // eslint-disable-next-line prefer-rest-params
+        w.dataLayer?.push(arguments);
     };
     w.gtag('consent', 'default', {
         ad_personalization: 'denied',
