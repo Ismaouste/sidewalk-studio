@@ -109,8 +109,9 @@ The site is drawn the same way:
   owner did, one link.
 - **Other pages**: each gets a header schema appropriate to its content (a flow
   for Services, an architecture diagram for a case study).
-- **SEO**: `Person` JSON-LD with `sameAs` (GitHub, astralmanach.eu, uavv.fr) and
-  a locality-only `address`; the Work page in the sitemap.
+- **SEO**: `Person` JSON-LD with `sameAs` (GitHub, LinkedIn when set, astralmanach.eu) and
+  a locality-only `address` (already present); the Work page in the sitemap. Un art voulu
+  voyant belongs to Florian Rosinski and is not an identity of the owner, so it is not `sameAs`.
 - **Measurement**: GA4 added to the consent orchestration as a provider, in
   Consent Mode v2 *basic* (no `gtag.js`, no request before consent); the decision
   against the existing first-party ping and PostHog is recorded (open question 6).

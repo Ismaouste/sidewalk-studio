@@ -21,7 +21,74 @@ let client: PostHog | null = null;
 let loading: Promise<PostHog> | null = null;
 let navigationHooked = false;
 
+/**
+ * Google Analytics 4 (Consent Mode v2, basic). Nothing here runs before the
+ * `analytics` category is accepted: gtag.js is not in the page and no request
+ * goes to Google until then. On a refusal, a measurement that was already
+ * loaded is switched off with Google's own `ga-disable` flag and its cookies
+ * are removed.
+ */
+const GA4_ID = /^G-[A-Z0-9]{6,12}$/;
+let ga4Id: string | null = null;
+
+type GtagWindow = Window & {
+    dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
+    [key: `ga-disable-${string}`]: boolean | undefined;
+};
+
+function enableGa4(config: ConsentConfig): void {
+    const id = config.services.analytics.ga4?.id ?? null;
+
+    if (!id || !GA4_ID.test(id)) {
+        return;
+    }
+
+    const w = window as GtagWindow;
+    w[`ga-disable-${id}`] = false;
+
+    if (ga4Id === id) {
+        return;
+    }
+
+    ga4Id = id;
+    w.dataLayer = w.dataLayer ?? [];
+    w.gtag = function gtag(...args: unknown[]) {
+        w.dataLayer?.push(args);
+    };
+    w.gtag('consent', 'default', {
+        ad_personalization: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        analytics_storage: 'granted',
+    });
+    w.gtag('js', new Date());
+    w.gtag('config', id, { cookie_expires: 395 * 86400 });
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    document.head.appendChild(script);
+    hookNavigation();
+}
+
+function disableGa4(): void {
+    if (!ga4Id) {
+        return;
+    }
+
+    (window as GtagWindow)[`ga-disable-${ga4Id}`] = true;
+
+    for (const name of document.cookie.split(';').map((c) => c.split('=')[0].trim())) {
+        if (name === '_ga' || name.startsWith('_ga_')) {
+            document.cookie = `${name}=; Max-Age=0; path=/`;
+        }
+    }
+}
+
 export function enableAnalytics(config: ConsentConfig): void {
+    enableGa4(config);
+
     const posthogConfig = config.services.analytics.posthog;
 
     if (config.driver !== 'posthog' || !posthogConfig.key) {
@@ -57,6 +124,8 @@ export function enableAnalytics(config: ConsentConfig): void {
 }
 
 export function disableAnalytics(): void {
+    disableGa4();
+
     if (!client) {
         return;
     }
@@ -94,5 +163,12 @@ function hookNavigation(): void {
 
     router.on('navigate', () => {
         client?.capture('$pageview');
+
+        if (ga4Id) {
+            (window as GtagWindow).gtag?.('config', ga4Id, {
+                page_location: window.location.href,
+                page_path: window.location.pathname,
+            });
+        }
     });
 }

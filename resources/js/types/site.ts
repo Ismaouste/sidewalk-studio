@@ -194,6 +194,7 @@ export type ConsentConfig = {
         analytics: {
             driver: string;
             posthog: { key: string | null; host: string };
+            ga4?: { id: string | null };
         };
         media: Record<string, unknown>;
     };
