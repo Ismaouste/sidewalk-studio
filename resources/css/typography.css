@@ -18,30 +18,27 @@ body,
 
 .type-display-xl {
     font-family: var(--sw-font-display);
-    font-optical-sizing: auto;
     font-size: clamp(52px, 6vw, 88px);
-    font-style: italic;
-    font-weight: 300;
+    font-style: normal;
+    font-weight: 560;
     letter-spacing: -0.02em;
     line-height: 0.98;
 }
 
 .type-display-l {
     font-family: var(--sw-font-display);
-    font-optical-sizing: auto;
     font-size: clamp(36px, 4vw, 56px);
-    font-style: italic;
-    font-weight: 300;
+    font-style: normal;
+    font-weight: 560;
     letter-spacing: -0.01em;
     line-height: 1.04;
 }
 
 .type-h1 {
     font-family: var(--sw-font-display);
-    font-optical-sizing: auto;
     font-size: clamp(32px, 3vw, 44px);
-    font-style: italic;
-    font-weight: 400;
+    font-style: normal;
+    font-weight: 560;
     letter-spacing: -0.02em;
     line-height: 1.08;
 }
@@ -75,24 +72,24 @@ body,
 }
 
 .type-eyebrow {
-    font-family: var(--sw-font-heading);
+    font-family: var(--sw-font-code);
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 640;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
 }
 
 .type-nav {
-    font-family: var(--sw-font-heading);
+    font-family: var(--sw-font-code);
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 640;
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 
 .type-meta {
-    font-family: var(--sw-font-body);
+    font-family: var(--sw-font-code);
     font-size: 11px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -127,10 +124,9 @@ code,
 .prose-copy h2 {
     margin-top: var(--sw-space-md);
     font-family: var(--sw-font-display);
-    font-optical-sizing: auto;
     font-size: clamp(22px, 2vw, 32px);
-    font-style: italic;
-    font-weight: 400;
+    font-style: normal;
+    font-weight: 560;
     letter-spacing: -0.02em;
     line-height: 1.16;
     color: var(--sw-text-primary);
@@ -208,10 +204,9 @@ code,
     border-left: 4px solid var(--sw-accent-sun);
     padding-left: var(--sw-space-sm);
     font-family: var(--sw-font-display);
-    font-optical-sizing: auto;
     font-size: clamp(28px, 3vw, 42px);
-    font-style: italic;
-    font-weight: 300;
+    font-style: normal;
+    font-weight: 560;
     line-height: 1.16;
     color: var(--sw-text-primary);
 }

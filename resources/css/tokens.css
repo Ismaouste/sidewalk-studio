@@ -20,10 +20,10 @@
  * ============================================================ */
 
 :root {
-    --sw-font-display: 'Fraunces', Georgia, serif;
-    --sw-font-heading: 'Syne', 'Trebuchet MS', sans-serif;
-    --sw-font-body: 'DM Sans', 'Segoe UI', sans-serif;
-    --sw-font-code: 'DM Mono', 'Courier New', monospace;
+    --sw-font-display: 'Switzer', 'Helvetica Neue', Arial, sans-serif;
+    --sw-font-heading: 'Switzer', 'Helvetica Neue', Arial, sans-serif;
+    --sw-font-body: 'Switzer', 'Helvetica Neue', Arial, sans-serif;
+    --sw-font-code: 'DM Mono', ui-monospace, 'Courier New', monospace;
 
     /* Reference-only breakpoint tokens. Keep media queries explicit because
        custom properties cannot be used directly in native @media rules. */

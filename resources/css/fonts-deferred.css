@@ -1,10 +1,6 @@
-/* Loaded from idle callback in resources/js/app.ts. Contains every
- * font weight and family that is not required for first contentful
- * paint. Browsers fetch the underlying woff2 files lazily once the
- * idle import resolves. */
+/* Loaded from idle callback in resources/js/app.ts. The text face (Switzer)
+ * is declared in fonts.css and preloaded; only the monospace voice, used in
+ * capitals for labels, legends and dimension text, loads here. */
 
-@import '@fontsource/dm-sans/300.css';
-@import '@fontsource/dm-sans/600.css';
-@import '@fontsource/fraunces/300-italic.css';
-@import '@fontsource/syne/800.css';
 @import '@fontsource/dm-mono/400.css';
+@import '@fontsource/dm-mono/500.css';

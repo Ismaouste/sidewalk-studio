@@ -2,6 +2,7 @@
 @import '@fontsource/dm-sans/500.css';
 @import '@fontsource/syne/700.css';
 @import '@fontsource/fraunces/400-italic.css';
+@import './fonts.css';
 @import './base.css';
 @import './tokens.css';
 @import './reset.css';
