@@ -93,7 +93,7 @@ class AdminAuthTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->component('Admin/Settings/Edit')
-                ->where('settings.site_identity.name', 'Ismael Rodmacq'));
+                ->where('settings.site_identity.name', 'Ismaël Rodmacq'));
     }
 
     public function test_invalid_admin_login_returns_errors(): void

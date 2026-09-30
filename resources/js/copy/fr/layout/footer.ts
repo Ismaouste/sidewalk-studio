@@ -7,6 +7,16 @@ type Reference = typeof import('../../en/layout/footer').default;
 
 export default {
     backToTopLabel: 'Retour en haut',
+    cartouche: {
+        author: 'Auteur',
+        find: 'Me trouver',
+        place: 'Lieu',
+        project: 'Projet',
+        revision: 'Ind.',
+        revisionValue: 'A · 2026-09-30',
+        scale: 'Échelle',
+        sheet: 'Planche',
+    },
     colophonLabel: 'Colophon',
     consentNote: 'Mesure d’audience en opt-in explicite.',
     contactLabel: 'Mail',

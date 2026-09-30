@@ -5,6 +5,7 @@ import ConsentPreferencesButton from '@/components/ConsentPreferencesButton.vue'
 import AccessibilityPanel from '@/components/layout/AccessibilityPanel.vue';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
+import Cartouche from '@/components/sheet/Cartouche.vue';
 import { copy as copyTree } from '@/copy';
 import { localizePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
@@ -66,6 +67,7 @@ function backToTop(): void {
 <template>
     <footer class="app-footer">
         <div class="sw-container app-footer__inner">
+            <Cartouche />
             <div class="app-footer__content">
                 <div class="app-footer__copy">
                     <p class="app-footer__note">

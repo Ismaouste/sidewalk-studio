@@ -31,7 +31,7 @@ return [
         'nav_fallback_label' => 'Navigation',
         'nav_current_label' => 'Current',
         'nav_open_label' => 'Read more',
-        'footer_note' => 'Web engineering for product data, integrations, internal tools, and technical SEO in teams already running real operations.',
+        'footer_note' => 'E-commerce developer, Nancy.',
         'privacy_controls_label' => 'Privacy controls',
     ],
 

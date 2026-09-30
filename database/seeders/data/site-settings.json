@@ -1,6 +1,6 @@
 {
     "site_identity": {
-        "name": "Ismael Rodmacq",
+        "name": "Ismaël Rodmacq",
         "tagline": "Full-stack e-commerce. Cross-functional data, reliable flows.",
         "description": "Full-stack web development for e-commerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO."
     },
@@ -14,7 +14,7 @@
         "linkedin_url": "https://www.linkedin.com/in/ismaelrodmacq"
     },
     "seo_defaults": {
-        "title_suffix": "Ismael Rodmacq",
+        "title_suffix": "Ismaël Rodmacq",
         "default_description": "Full-stack web development for e-commerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO.",
         "default_robots": "index,follow"
     },
@@ -41,7 +41,7 @@
         "fallback_variant": "monogram_circle",
         "fallback_label": "IR",
         "fallback_subtitle": "Sidewalk Studio",
-        "active_alt": "Ismael Rodmacq portrait"
+        "active_alt": "Ismaël Rodmacq portrait"
     },
     "static_export_settings": {
         "static_mode_enabled": true,

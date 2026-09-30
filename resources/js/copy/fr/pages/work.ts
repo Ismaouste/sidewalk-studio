@@ -7,7 +7,7 @@ type Reference = typeof import('../../en/pages/work').default;
 
 export default {
     lotLabel: 'Lot',
-    noLink: "Pas encore d'adresse publique",
+    noLink: 'Non public',
     revisionLabel: 'Indice',
     roleLabel: "Ce que j'ai fait",
 } satisfies Reference;

@@ -14,7 +14,7 @@ return [
         'nav_fallback_label' => 'Navigation',
         'nav_current_label' => 'Actif',
         'nav_open_label' => 'Lire plus',
-        'footer_note' => 'Développement web, donnée produit, connecteurs, outils internes et SEO technique pour des équipes qui ont déjà du réel à faire tourner.',
+        'footer_note' => 'Développeur e-commerce, Nancy.',
         'privacy_controls_label' => 'Réglages vie privée',
     ],
 

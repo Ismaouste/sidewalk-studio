@@ -132,7 +132,7 @@ html[data-theme='morning'] {
        `sun` was used as TEXT (eyebrows, chips) as well as a fill, and yellow
        on paper is 1.6:1, so it maps to ink; the yellow marker is `--sw-mark`. */
     --sw-accent-sun: var(--sw-ink);
-    --sw-accent-dominant: var(--sw-here);
+    --sw-accent-dominant: var(--sw-path);
     --sw-accent-green: var(--sw-grey-5);
     --sw-accent-violet: var(--sw-path);
     --sw-accent-coral: var(--sw-here);
@@ -219,7 +219,7 @@ html[data-theme='sunset'] {
     --sw-text-inverse: var(--sw-paper);
 
     --sw-accent-sun: var(--sw-ink);
-    --sw-accent-dominant: var(--sw-here);
+    --sw-accent-dominant: var(--sw-path);
     --sw-accent-green: var(--sw-grey-5);
     --sw-accent-violet: var(--sw-path);
     --sw-accent-coral: var(--sw-here);

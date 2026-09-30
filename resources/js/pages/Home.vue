@@ -73,10 +73,6 @@ const heroAccentChips = computed(() =>
         details,
     })),
 );
-
-const heroLeadPoints = computed(() =>
-    props.heroPanel.filter((point) => point.trim() !== '').slice(0, 3),
-);
 </script>
 
 <template>
@@ -91,25 +87,6 @@ const heroLeadPoints = computed(() =>
                     size="hero"
                 >
                     <div class="home-hero__support">
-                        <ul
-                            v-if="heroLeadPoints.length"
-                            class="home-hero__lead-points"
-                        >
-                            <li
-                                v-for="point in heroLeadPoints"
-                                :key="point"
-                                class="home-hero__lead-point"
-                            >
-                                <span
-                                    class="home-hero__lead-bullet"
-                                    aria-hidden="true"
-                                />
-                                <span class="type-body home-hero__lead-copy">
-                                    {{ point }}
-                                </span>
-                            </li>
-                        </ul>
-
                         <div class="home-accent-list">
                             <div
                                 v-for="chip in heroAccentChips"

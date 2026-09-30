@@ -70,13 +70,13 @@ export default {
             'Jaune : un repère',
         ],
         lots: {
+            app: {
+                label: 'DD le Dépanneur\nAtlas Dépannage',
+                note: 'Une app, deux marques',
+            },
             astralmanach: {
                 label: 'astralmanach',
                 note: 'bibliothèque npm (MIT), API publique et trois outils',
-            },
-            atlas: {
-                label: 'Atlas Dépannage',
-                note: '',
             },
             cases: { label: 'Études de cas', note: 'Deux cas rédigés' },
             contact: { label: 'Contact', note: 'Nancy, Paris, à distance' },

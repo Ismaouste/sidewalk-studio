@@ -4,7 +4,7 @@
  */
 export default {
     lotLabel: 'Lot',
-    noLink: 'No public address yet',
+    noLink: 'Not public',
     revisionLabel: 'Revision',
     roleLabel: 'What I did',
 };

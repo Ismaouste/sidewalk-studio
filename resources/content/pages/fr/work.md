@@ -1,34 +1,45 @@
 ---
 seo_title: Réalisations — Ismaël Rodmacq
-seo_description: "Projets publics d'Ismaël Rodmacq : la bibliothèque, l'API et les outils astralmanach, les sites Un art voulu voyant et florianrosinski.fr, et Atlas Dépannage."
+seo_description: "Projets d'Ismaël Rodmacq : la bibliothèque et l'API astralmanach, le site Un art voulu voyant, une app pour deux marques de dépannage, florianrosinski.fr."
 hero:
     eyebrow: Réalisations
-    title: Projets publics
-    summary: "Ce que j'ai réalisé et que chacun peut ouvrir : logiciels, sites et outils. Chaque entrée dit ce que c'est et ce que j'ai fait, et renvoie vers le projet."
+    title: Ce que j'ai construit
+    summary: Une bibliothèque, deux sites et une app. Quatre lots.
 lots_intro:
     eyebrow: Lots
-    title: Quatre lots publics
-    summary: Un lot est un projet avec sa propre adresse publique.
+    title: Quatre lots
+    summary: Des projets sur lesquels j'ai travaillé. Ouvrez ceux qui ont une adresse.
 lots:
-    - kind: Bibliothèque, API et outils
+    - kind: Bibliothèque, API, outils
       title: astralmanach
-      summary: "Une bibliothèque JavaScript qui calcule le ciel d'une date, d'une heure et d'un lieu : la Lune, les planètes, les éclipses, les passages de la Station spatiale et une carte des étoiles. Elle est publiée sur npm sous licence MIT, avec une API publique en lecture seule décrite en OpenAPI et une collection Postman. Trois outils s'en servent : un thème natal, le ciel d'une date, et un certificat qui met un jour en phrases."
-      role: "Conception et développement de la bibliothèque, de l'API, des outils et du site, avec les tests, la documentation et le processus de publication."
+      summary: Le ciel d'une date, d'une heure et d'un lieu, en données. Née dans UAVV.
+      facts:
+          - "Sur npm, licence MIT, ESM et types."
+          - "API publique en lecture seule : OpenAPI, Postman, 34 sources."
+          - "Trois outils : thème natal, ciel d'une date, certificat en phrases."
+          - "Tests, documentation, versions publiées avec provenance."
+      role: Tout, du premier calcul à la version publiée.
       href: https://astralmanach.eu
-      cta: Ouvrir astralmanach.eu
-    - kind: Site web, projet artistique
+      cta: astralmanach.eu
+    - kind: Site, projet artistique
       title: Un art voulu voyant
-      summary: "Le site d'un projet artistique de Florian Rosinski. Son outil Observations compose une planche imprimable du ciel pour une date, une heure et un lieu."
-      role: "Développement et intégration du site et d'Observations, sur la direction artistique de Florian Rosinski. Le calcul d'Observations est devenu la bibliothèque astralmanach."
+      summary: Un projet de Florian Rosinski sur ce qu'on lit dans les signes.
+      facts:
+          - "Observations : une planche imprimable du ciel pour une date, une heure et un lieu."
+          - "Découpes : des articles où des mains prélevées sur les réseaux voilent le texte, puis le rendent au fil de la lecture."
+          - "Un atelier privé qui prépare les mains. Exports en image ou en vectoriel."
+      role: Développement et intégration, sur la direction artistique de Florian.
       href: https://www.uavv.fr
-      cta: Ouvrir uavv.fr
-    - kind: Site web, portfolio
+      cta: uavv.fr
+    - kind: App
+      title: DD le Dépanneur, Atlas Dépannage
+      summary: Une app, deux marques. Elles ne travaillent pas avec les artisans de la même façon, en sous-traitants ou en partenaires.
+      role: Conception et développement de l'app.
+    - kind: Site, portfolio
       title: florianrosinski.fr
-      summary: "Le portfolio de Florian Rosinski, artiste et chercheur en communication."
-      role: "Développement et intégration, sur le design du site Un art voulu voyant."
+      summary: Portfolio de Florian Rosinski, artiste et chercheur en communication.
+      role: Développement.
       href: https://florianrosinski.fr
-      cta: Ouvrir florianrosinski.fr
-    - kind: Site web
-      title: Atlas Dépannage
+      cta: florianrosinski.fr
 revision: Ind. A · 2026-09-30
 ---

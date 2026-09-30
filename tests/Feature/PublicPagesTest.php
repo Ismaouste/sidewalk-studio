@@ -12,15 +12,15 @@ class PublicPagesTest extends TestCase
     public function test_public_pages_are_reachable(): void
     {
         $pages = [
-            '/en' => 'Ismael Rodmacq',
-            '/en/local' => 'Local · Ismael Rodmacq',
-            '/en/experience' => 'Tech Lead Ecommerce in Nancy · Ismael Rodmacq',
-            '/en/labs' => 'Labs · Ismael Rodmacq',
-            '/en/services' => 'Services and rates · Ismael Rodmacq',
-            '/en/journal' => 'Journal · Ismael Rodmacq',
-            '/en/case-studies' => 'Case Studies · Ismael Rodmacq',
-            '/en/contact' => 'Contact · Ismael Rodmacq',
-            '/en/colophon' => 'Colophon — how this site is built · Ismael Rodmacq',
+            '/en' => 'Ismaël Rodmacq',
+            '/en/local' => 'Local · Ismaël Rodmacq',
+            '/en/experience' => 'Tech Lead Ecommerce in Nancy · Ismaël Rodmacq',
+            '/en/labs' => 'Labs · Ismaël Rodmacq',
+            '/en/services' => 'Services and rates · Ismaël Rodmacq',
+            '/en/journal' => 'Journal · Ismaël Rodmacq',
+            '/en/case-studies' => 'Case Studies · Ismaël Rodmacq',
+            '/en/contact' => 'Contact · Ismaël Rodmacq',
+            '/en/colophon' => 'Colophon — how this site is built · Ismaël Rodmacq',
         ];
 
         foreach ($pages as $url => $expectedText) {

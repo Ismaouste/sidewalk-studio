@@ -248,6 +248,7 @@ final class PageSchemas
                 Field::line('kind', 'Kind'),
                 Field::line('title', 'Title'),
                 Field::text('summary', 'Summary')->optional(),
+                Field::text('facts', 'Facts')->repeating()->optional(),
                 Field::text('role', 'What I did')->optional(),
                 Field::url('href', 'Link')->optional(),
                 Field::line('cta', 'Link label')->optional(),

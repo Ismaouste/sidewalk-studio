@@ -54,7 +54,7 @@ export const LOTS: LotSpec[] = [
         wide: [700, 200],
         compact: [85, 290],
     },
-    { id: 'atlas', wide: [700, 80], compact: [275, 290] },
+    { id: 'app', wide: [700, 80], compact: [275, 290] },
     {
         id: 'services',
         href: '/services',

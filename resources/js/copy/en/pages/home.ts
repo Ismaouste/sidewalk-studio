@@ -67,13 +67,13 @@ export default {
             'Yellow: a marker',
         ],
         lots: {
+            app: {
+                label: 'DD le Dépanneur\nAtlas Dépannage',
+                note: 'One app, two brands',
+            },
             astralmanach: {
                 label: 'astralmanach',
                 note: 'npm library (MIT), public API and three tools',
-            },
-            atlas: {
-                label: 'Atlas Dépannage',
-                note: '',
             },
             cases: { label: 'Case studies', note: 'Two written cases' },
             contact: { label: 'Contact', note: 'Nancy, Paris, remote' },

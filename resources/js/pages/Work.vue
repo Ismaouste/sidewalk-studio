@@ -16,6 +16,7 @@ interface Lot {
     kind: string;
     title: string;
     summary?: string;
+    facts?: string[];
     role?: string;
     href?: string;
     cta?: string;
@@ -76,6 +77,11 @@ const numbered = computed(() =>
                     <p v-if="lot.summary" class="type-body work-lot__summary">
                         {{ lot.summary }}
                     </p>
+                    <ul v-if="lot.facts?.length" class="work-lot__facts">
+                        <li v-for="fact in lot.facts" :key="fact">
+                            {{ fact }}
+                        </li>
+                    </ul>
                     <p v-if="lot.role" class="type-body work-lot__role">
                         <span class="type-meta work-lot__role-label">
                             {{ copy.roleLabel }}
@@ -164,6 +170,30 @@ const numbered = computed(() =>
 
 .work-lot__role {
     color: var(--sw-text-secondary);
+}
+
+/* Facts: one short line each, set like the notes on a drawing. */
+.work-lot__facts {
+    display: grid;
+    gap: var(--sw-space-4xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 68ch;
+    font-family: var(--sw-font-code);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+}
+
+.work-lot__facts li {
+    padding-left: var(--sw-space-xs);
+    text-indent: calc(-1 * var(--sw-space-xs));
+}
+
+.work-lot__facts li::before {
+    content: '+ ';
+    color: var(--sw-path);
 }
 
 .work-lot__role-label {

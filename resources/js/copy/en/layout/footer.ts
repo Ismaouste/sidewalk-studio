@@ -4,6 +4,16 @@
  */
 export default {
     backToTopLabel: 'Back to top',
+    cartouche: {
+        author: 'By',
+        find: 'Find me',
+        place: 'Place',
+        project: 'Project',
+        revision: 'Rev.',
+        revisionValue: 'A · 2026-09-30',
+        scale: 'Scale',
+        sheet: 'Sheet',
+    },
     colophonLabel: 'Colophon',
     consentNote: 'Analytics stays explicit opt-in.',
     contactLabel: 'Direct contact',

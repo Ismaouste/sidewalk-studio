@@ -28,7 +28,7 @@ class SeoAndConsentTest extends TestCase
         $this->get('/en/experience')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
-            ->assertSee('Tech Lead Ecommerce in Nancy · Ismael Rodmacq')
+            ->assertSee('Tech Lead Ecommerce in Nancy · Ismaël Rodmacq')
             ->assertSee('"@type":"Person"', false)
             /**
              * Read from the setting rather than repeated here. The literal
@@ -49,7 +49,7 @@ class SeoAndConsentTest extends TestCase
 
         $this->get('/en/journal/content-systems-routing-and-metadata')
             ->assertOk()
-            ->assertSee('Content systems start with routing and metadata · Ismael Rodmacq')
+            ->assertSee('Content systems start with routing and metadata · Ismaël Rodmacq')
             ->assertSee('<meta property="og:type" content="article">', false)
             ->assertSee('<meta property="og:image" content="'.$ogImage.'">', false)
             ->assertSee('<meta name="twitter:image" content="'.$ogImage.'">', false)
@@ -64,7 +64,7 @@ class SeoAndConsentTest extends TestCase
 
         $this->get('/en/case-studies/pipeline-deploiement-ecommerce')
             ->assertOk()
-            ->assertSee('Making a deployment pipeline honest in a live ecommerce environment · Ismael Rodmacq')
+            ->assertSee('Making a deployment pipeline honest in a live ecommerce environment · Ismaël Rodmacq')
             ->assertSee('<meta property="og:type" content="website">', false)
             ->assertSee('<meta property="og:image" content="'.$ogImage.'">', false)
             ->assertSee('"@type":"CreativeWork"', false)
@@ -95,7 +95,7 @@ class SeoAndConsentTest extends TestCase
         $this->get('/en/sparkle')
             ->assertOk()
             ->assertSee('<meta name="robots" content="noindex,nofollow">', false)
-            ->assertSee('Sparkle mode · Ismael Rodmacq');
+            ->assertSee('Sparkle mode · Ismaël Rodmacq');
     }
 
     public function test_default_description_stays_within_155_characters(): void

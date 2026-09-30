@@ -3,7 +3,7 @@
 return [
     'settings' => [
         'site_identity' => [
-            'name' => 'Ismael Rodmacq',
+            'name' => 'Ismaël Rodmacq',
             'tagline' => 'E-commerce developer and technical lead.',
             'description' => 'Full-stack web development for e-commerce, product-data flows, CMS delivery, consent-aware tracking, and technical SEO.',
         ],
