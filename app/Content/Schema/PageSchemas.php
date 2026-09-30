@@ -38,6 +38,7 @@ final class PageSchemas
         'experience',
         'services',
         'local',
+        'work',
         'contact',
         'sparkle',
         'colophon',
@@ -53,6 +54,7 @@ final class PageSchemas
         'experience' => ['projects', 'experience'],
         'services' => ['services'],
         'local' => ['local'],
+        'work' => ['work'],
         'contact' => ['contact'],
         'sparkle' => ['sparkle'],
         'colophon' => ['colophon'],
@@ -105,6 +107,7 @@ final class PageSchemas
             'experience' => self::experience(),
             'services' => self::services(),
             'local' => self::local(),
+            'work' => self::work(),
             'contact' => self::contact(),
             'sparkle' => self::sparkle(),
             'colophon' => self::colophon(),
@@ -227,6 +230,29 @@ final class PageSchemas
             ], 'Career snapshot'),
             Field::text('looking_for', 'Looking for'),
             Field::line('hobbies', 'Hobbies')->repeating(),
+        ]);
+    }
+
+    /**
+     * The public work, one entry per lot (specs/018-site-refresh). Only the
+     * kind and the title are required: a lot with no public address and no
+     * wording the owner has approved is a name and a kind, nothing more.
+     */
+    public static function work(): ContentSchema
+    {
+        return new ContentSchema('work', 'Work', [
+            ...self::meta(),
+            self::hero(),
+            self::intro('lots_intro', 'Lots intro'),
+            Field::group('lots', [
+                Field::line('kind', 'Kind'),
+                Field::line('title', 'Title'),
+                Field::text('summary', 'Summary')->optional(),
+                Field::text('role', 'What I did')->optional(),
+                Field::url('href', 'Link')->optional(),
+                Field::line('cta', 'Link label')->optional(),
+            ], 'Lots')->repeating(itemLabel: 'title'),
+            Field::line('revision', 'Revision index'),
         ]);
     }
 

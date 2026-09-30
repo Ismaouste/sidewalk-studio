@@ -89,6 +89,7 @@ class PublicLocale
             'services' => 'services',
             'sparkle' => 'sparkle',
             'local' => 'local',
+            'work' => 'work',
             'contact' => 'contact',
             'data-processing' => 'data-processing',
             'colophon' => 'colophon',

@@ -20,6 +20,7 @@ return [
 
     'navigation' => [
         '/' => 'Hello',
+        '/work' => 'Réalisations',
         '/services' => 'Services',
         '/case-studies' => 'Études de cas',
         '/journal' => 'Journal',
@@ -40,6 +41,7 @@ return [
         'projects' => 'Expériences',
         'services' => 'Services',
         'sparkle' => 'Sparkle',
+        'work' => 'Réalisations',
     ],
 
     'sections' => [

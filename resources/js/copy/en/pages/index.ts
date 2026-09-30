@@ -10,5 +10,6 @@ export { default as newsletterConfirmed } from './newsletterConfirmed';
 export { default as projects } from './projects';
 export { default as services } from './services';
 export { default as sparkle } from './sparkle';
+export { default as work } from './work';
 export { default as writingIndex } from './writingIndex';
 export { default as writingShow } from './writingShow';

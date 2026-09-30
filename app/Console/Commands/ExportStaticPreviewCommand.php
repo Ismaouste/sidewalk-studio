@@ -213,6 +213,7 @@ class ExportStaticPreviewCommand extends Command
             '/experience',
             '/services',
             '/local',
+            '/work',
             '/journal',
             '/contact',
             '/data-processing',

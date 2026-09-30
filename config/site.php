@@ -63,6 +63,7 @@ return [
      */
     'navigation' => [
         ['label' => 'Hello', 'href' => '/'],
+        ['label' => 'Work', 'href' => '/work'],
         ['label' => 'Services', 'href' => '/services'],
         ['label' => 'Case studies', 'href' => '/case-studies'],
         ['label' => 'Journal', 'href' => '/journal'],

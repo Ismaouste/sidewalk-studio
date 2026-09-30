@@ -190,6 +190,30 @@ class SiteController extends Controller
         ])->withViewData(['seo' => $seo]);
     }
 
+    public function work(): Response
+    {
+        $page = $this->pages->get('work');
+        $seo = Seo::page(
+            $page['seo_title'],
+            $page['seo_description'],
+            '/work',
+            $this->pageSeoOptions($page, [
+                'breadcrumb' => [
+                    ['name' => PublicLocale::homeLabel(app()->getLocale()), 'path' => '/'],
+                    ['name' => PublicCopy::line('breadcrumbs.work'), 'path' => '/work'],
+                ],
+            ]),
+        );
+
+        return Inertia::render('Work', [
+            'seo' => $seo,
+            'hero' => $page['hero'],
+            'lotsIntro' => $page['lots_intro'],
+            'lots' => $page['lots'],
+            'revision' => $page['revision'],
+        ])->withViewData(['seo' => $seo]);
+    }
+
     public function sparkle(): Response
     {
         $settings = $this->siteSettings->current();
