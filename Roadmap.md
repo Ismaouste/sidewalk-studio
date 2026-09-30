@@ -48,6 +48,13 @@
 - Keep `/admin` derived. No count on the dashboard is stored or cached, and every read stays guarded so a database-less deployment renders an honest empty one.
 - Do not retire the `experience` page payload: production ships no SQLite and the payload is the fallback, not a legacy path.
 
+### 018-site-refresh
+
+- Redraw the public site as a flat, square, light-first object in the same visual family as astralmanach.eu and uavv.fr: no blur, no decorative gradient, one accent at most, two typographic voices.
+- Add a Work page that names the public work (the astralmanach library, API and tools; the uavv.fr and florianrosinski.fr sites; Atlas Dépannage), with claims a link can confirm.
+- Amend Principle 9 of the constitution first; nothing visual ships before it.
+- See `specs/018-site-refresh/spec.md` — the open questions are the owner's to answer.
+
 ## Deferred after v0 foundation
 
 ### Database strategy
