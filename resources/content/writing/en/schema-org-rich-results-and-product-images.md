@@ -2,7 +2,7 @@
 title: Schema.org, rich results, and product images
 slug: schema-org-rich-results-and-product-images
 translation_key: schema-org-rich-results-and-product-images
-summary: Product structured data only stays useful when images, offer data, and page intent remain aligned with what the catalog can really support.
+summary: "Product structured data is only useful if images, offers and page intent match the catalogue."
 status: published
 published_at: 2026-03-08
 updated_at: 2026-03-19

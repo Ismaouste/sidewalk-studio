@@ -2,7 +2,7 @@
 title: Sensitive data, poor nonprofit tooling, high standards
 slug: sensitive-data-poor-tools-high-standards
 translation_key: sensitive-data-poor-tools-high-standards
-summary: Many nonprofits handle private data with underpowered systems, not because the risks are low, but because digital public-interest work stays structurally underfunded.
+summary: "Many non-profits handle private data with weak tools, because funding is lacking."
 status: draft
 published_at: 2026-03-08
 updated_at: 2026-03-19

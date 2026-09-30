@@ -7,6 +7,16 @@ looks, this governs what it says.
 This file is in English because the repo is, but most of its examples are the
 French copy, because that is where the failures were.
 
+## Short and factual (2026-09-30)
+
+The owner asked for far less text, and for copy that does not sound written by a
+machine. The rule now: **say what a thing is and what was done, in short
+sentences, and link to it.** One idea per sentence. No rhetorical pairs ("not X
+but Y"), no lists of three for effect, no metaphors about the craft, no
+compliment to the reader. A summary is one line. Claims are limited to what a
+link can confirm. The guidance below still holds for vocabulary and positioning;
+where it asks for more words, this rule wins.
+
 ## Who is reading
 
 Two people, and the site has to work for both without splitting into two sites:

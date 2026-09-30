@@ -1,6 +1,23 @@
 # Analytics Modes
 
-## v0
+## Now
+
+- **Google Analytics 4** (`GA_MEASUREMENT_ID`), for Search Console and Analytics
+  reporting, in Consent Mode v2 **basic**: before the `analytics` category is
+  accepted, `gtag.js` is not in the page and no request goes to Google. After
+  acceptance it loads once, with `analytics_storage` granted and the ad signals
+  denied. A refusal sets Google's `ga-disable-<id>` flag and removes the `_ga`
+  cookies. Code: `resources/js/lib/analytics.ts` (`enableGa4`, `disableGa4`).
+- `ANALYTICS_DRIVER` names the product-analytics tool (`posthog` or `none`); it
+  does not gate GA4, which has its own identifier.
+- the first-party audience ping (cookieless, truncated IP) stays the baseline
+- the consent buttons carry equal weight
+
+Two gotchas seen in production: `gtag.js` reads `arguments` objects from the
+data layer, never arrays; and the consent library hides its banner from
+automated browsers (`navigator.webdriver`), so a test must mask it.
+
+## v0 (kept for history)
 
 - `ANALYTICS_DRIVER=none`
 - no analytics script is loaded
@@ -30,6 +47,6 @@ category rather than here.
 ## Planned later
 
 - Matomo for privacy-first aggregate measurement
-- PostHog for explicit opt-in product analytics if needed
+- PostHog stays available for explicit opt-in product analytics
 
 Those later adapters should plug into the existing registry instead of coupling themselves directly to the UI modal.

@@ -2,7 +2,7 @@
 title: Linux, auto-hébergement et alternatives praticables
 slug: linux-auto-hebergement-et-alternatives-praticables
 translation_key: linux-self-hosting-and-practical-alternatives
-summary: Linux et l'auto-hébergement sont utiles quand ils rendent un système plus lisible et plus autonome, pas quand ils créent une maintenance héroïque.
+summary: "Linux et l'auto-hébergement servent quand ils réduisent la dépendance, pas quand la maintenance devient un métier."
 status: draft
 published_at: 2026-03-08
 updated_at: 2026-03-19

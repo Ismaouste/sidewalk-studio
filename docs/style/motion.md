@@ -1,51 +1,33 @@
 # Motion
 
-Motion remains deliberately restrained and functional.
+Motion is allowed and can be rich, and it is bounded. Every animation uses only
+`transform`, `opacity`, `stroke-dashoffset` or a motion path, so nothing
+triggers layout or repaints a large area.
 
-Current motion behaviors in code:
+What moves:
 
-- subtle lift on buttons, cards, and navigation interactions
-- theme transitions driven by token changes on `html[data-theme]`
-- slow atmospheric drift on `SunAnchor`
-- surface pill behind the active navigation tab, scaled and faded in on
-  `::before` — this replaced an earlier line reveal, whose `--sw-tab-line`
-  token has since been removed
-- popover open and close on the mobile navigation sheet and the accessibility
-  panel: opacity and `translate` under `@starting-style`, with
-  `transition-behavior: allow-discrete` on `display` and `overlay` so the
-  closing frame is not skipped
-- page transitions on Inertia visits, wrapped around the page swap by the
-  framework rather than by this codebase
-- read-progress rail on articles, scaled along
-  `animation-timeline: scroll(root block)` — no listener, and hidden entirely
-  under `@supports not` and under `prefers-reduced-motion`
-- resuming a partly-read article jumps under a view transition, so the two
-  scroll positions crossfade; reduced motion, in either of its two forms,
-  takes the jump without it
+- **The Stage**: flat stains that drift by `transform`, 60 to 120 seconds a leg,
+  mounted once at the app root so a fast navigation does not restart them.
+- **Schemas**: dashed interface lines whose dashes flow, arrowheads that travel
+  along the line and turn with it (SMIL `animateMotion`), and a compass that
+  turns with the scroll (`animation-timeline: scroll()`, slow rotation where it
+  is not supported).
+- **The sheet frame**: the red reading mark on the ruler follows the scroll.
+- **Interface**: hover and focus colour changes, popovers and the mobile
+  navigation under `@starting-style`, page transitions wrapped around the page
+  swap by Inertia, the read-progress rail on articles.
 
-State reported through the compositor rather than animated:
-
-- `BreadcrumbTrail` reads a `view-timeline` named by a one-pixel sentinel in
-  `SiteLayout` to know it has reached the header, and swaps its backdrop with
-  `step-end`. Nothing moves; the animation only reports a scroll position, so
-  the no-parallax guardrail below does not apply to it.
+State reported through the compositor rather than animated: `BreadcrumbTrail`
+reads a `view-timeline` and swaps its ground to opaque paper when it reaches the
+header. It is opaque from the start on a phone, so it is never see-through.
 
 Guardrails:
 
-- no parallax
-- no autoplay decorative surfaces
-- no page-specific animation systems
-- reduced-motion disables the sun drift and collapses transition timing globally
-
-Reduced motion arrives through two separate paths, and they do not behave
-alike. `html[data-motion='reduced']`, the site's own switch, blanks
-`animation` outright, so a scroll-driven state animation has to opt back in by
-name — `BreadcrumbTrail` does. The `prefers-reduced-motion` media query
-instead clamps `animation-duration`, which a progress-based timeline ignores
-for range mapping, so those animations keep working untouched. Note also that
-`useAccessibilityPreferences` never seeds `data-motion` from the media query:
-a visitor whose system asks for reduced motion, and who has set no preference
-here, gets `data-motion="full"` and only the media-query path.
-
-This is enough for the public shell foundation. A broader motion spec still
-belongs to `005-theme-and-motion`.
+- pause when the tab is hidden or the drawing is out of view (SMIL is paused by
+  `IntersectionObserver`)
+- everything stops and diagrams render still under `prefers-reduced-motion` and
+  under the site's own `html[data-motion='reduced']`
+- a motion that blocks input, or that flashes more than three times a second,
+  is a bug
+- the background adds at most 25 KB of JavaScript and draws nothing per frame in
+  JavaScript: the stains are CSS

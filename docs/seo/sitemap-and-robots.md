@@ -4,11 +4,16 @@
 
 The sitemap still derives from the normalized public read layer and combines:
 
-- locale-prefixed public pages such as `/en`, `/en/local`, `/en/projects`, `/en/contact`, `/fr/journal`, `/fr/case-studies`, and `/fr/contact`
+- locale-prefixed public pages such as `/en`, `/en/local`, `/en/work`, `/en/projects`, `/en/contact`, `/fr/journal`, `/fr/case-studies`, and `/fr/contact`
 - published `note` and `journal` entries under `/{locale}/journal/{slug}`
 - published `case_study` entries under `/{locale}/case-studies/{slug}`
 
 The public domain used in sitemap entries resolves from `SITE_PUBLIC_URL` first. Repo-owned canonical overrides may still use `{{site_url}}` and are expanded before output.
+
+The XML declaration in `resources/views/sitemap.blade.php` is echoed, not written
+literally: with `short_open_tag` on (the Vercel PHP runtime), a raw `<?xml` is
+parsed as PHP and the page answers 500. On Vercel, `SITE_PUBLIC_URL` must be the
+production domain, or canonicals and sitemap entries point at the wrong host.
 
 ## Inclusion rules
 

@@ -2,7 +2,7 @@
 title: From nancyapipop to Culturedex
 slug: from-nancyapipop-to-culturedex
 translation_key: from-nancyapipop-to-culturedex
-summary: Two public-data projects around the French POP API, from a Nancy prototype to a more structured backend for exploring cultural records.
+summary: "Two projects on the French POP API, from a Nancy prototype to a structured backend."
 status: published
 published_at: 2026-03-08
 updated_at: 2026-03-19

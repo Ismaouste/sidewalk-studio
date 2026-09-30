@@ -2,7 +2,7 @@
 title: Open survey, associatif et données de santé
 slug: opensurvey-associatif-donnees-sante
 translation_key: opensurvey-nonprofit-health-data
-summary: Un outil de remontée de données pour Aremedia devait rester sobre, compréhensible et suffisamment sûr pour un usage de terrain sous contraintes de santé publique.
+summary: "Un outil de remontée de données pour Aremedia : simple, sûr, pensé pour le terrain."
 status: published
 published_at: 2026-03-06
 updated_at: 2026-03-19

@@ -2,7 +2,7 @@
 title: Orchestration du consentement avant les analytics
 slug: consent-orchestration-before-analytics
 translation_key: consent-orchestration-before-analytics
-summary: Pourquoi le système de consentement a été construit comme couche de blocage réutilisable avant toute connexion à un vrai outil analytics.
+summary: "Pourquoi le consentement a été construit comme un verrou réutilisable avant tout outil d'analyse."
 status: published
 published_at: 2026-03-08
 updated_at: 2026-03-08

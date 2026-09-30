@@ -2,7 +2,7 @@
 title: Flux produit entre ERP, PIM et surfaces ecommerce
 slug: flux-produit-erp-pim-ecommerce
 translation_key: product-data-flows-between-erp-pim-and-commerce
-summary: "Connecteurs, stocks, synchronisations et enrichissement catalogue : rendre la donnée fiable pour les équipes, le front et les robots."
+summary: "Connecteurs, stocks, synchronisation et enrichissement du catalogue entre ERP, PIM et boutique."
 status: draft
 published_at: 2026-03-08
 updated_at: 2026-03-08

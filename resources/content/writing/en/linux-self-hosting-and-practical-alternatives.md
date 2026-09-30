@@ -2,7 +2,7 @@
 title: Linux, self-hosting, and practical alternatives
 slug: linux-self-hosting-and-practical-alternatives
 translation_key: linux-self-hosting-and-practical-alternatives
-summary: Linux and self-hosting are useful when they reduce dependency and keep the system readable, not when they turn maintenance into a side job.
+summary: "Linux and self-hosting pay off when they cut dependency, not when maintenance becomes a job."
 status: draft
 published_at: 2026-03-08
 updated_at: 2026-03-19

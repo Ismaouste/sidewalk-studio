@@ -2,7 +2,7 @@
 title: Product-data flows between ERP, PIM, and commerce surfaces
 slug: product-data-flows-between-erp-pim-and-commerce
 translation_key: product-data-flows-between-erp-pim-and-commerce
-summary: "Connectors, stock, synchronization, and catalog enrichment: making product data reliable for teams, customer-facing surfaces, and robots."
+summary: "Connectors, stock, sync and catalogue enrichment between ERP, PIM and shop."
 status: draft
 published_at: 2026-03-08
 updated_at: 2026-03-08

@@ -1,151 +1,44 @@
-# Art Direction — Sidewalk Studio
+# Art Direction — the site plan
 
-## Positioning
+The site is drawn as a **site plan** (*plan de chantier*): its author is a
+multi-skilled project lead who coordinates trades, and the pages are sheets of
+a drawing. The decision and its reasons are in `specs/018-site-refresh/spec.md`
+and in Principle 9 of the constitution.
 
-The visual direction of Sidewalk Studio should feel like:
+## The sheet
 
-- a calm manifesto
-- an urban design system
-- a cultured engineering object
-- a modern public-space interface
+- **Paper and ink.** A flat paper ground, near-black ink, five greys. Light is
+  the default; the night theme is its mirror (clear on black).
+- **Three primaries, by role, never as decoration.** Yellow marks, blue links and
+  draws paths and dimensions, red says "you are here" or asks for attention.
+  Never two primaries in one area of the screen.
+- **Flat.** No blur, no gradient, no glass, no shadow. Surfaces are separated by
+  hairlines. Corners are square (2px at most); a dot or a toggle knob is a
+  separate shape (`--sw-radius-pill`).
+- **A ruled grid** under the page (`AmbientGrid`), a few **flat stains** that
+  drift slowly (`Stage`), and the **frame of the sheet**: registration crosses in
+  the corners and a graduated ruler along the left edge with a red mark that
+  follows the scroll (`SheetFrame`).
+- **A title block** (*cartouche*) closes every page: project, sheet, scale,
+  revision, author, place, and how to find the author (`Cartouche`).
+- **Drawings carry the content.** Plans, lots, interfaces with travelling arrows,
+  dimension lines, a compass and a graphic scale are drawn from data
+  (`Schema`), and each has a text equivalent.
 
-It must communicate:
+## Type
 
-- seriousness without stiffness
-- artistic sensitivity without noise
-- technical excellence without coldness
+Two voices. **Switzer** (variable, self-hosted) for text and titles, weight
+about 560. **DM Mono** in capitals for labels, legends, dimension text, the
+cartouche and buttons.
 
----
+## Voice of the copy
 
-## Core inspirations
+Short and factual. One idea per sentence. No rhetorical pairs ("not X but Y"),
+no lists of three for effect, no metaphors about the craft. A page says what a
+thing is and what was done, and links to it. Claims are limited to what a link
+can confirm. `voice.md` holds the longer guidance.
 
-Visual references include:
+## What not to reintroduce
 
-- cartography
-- urban signage
-- transport wayfinding
-- modernist editorial grids
-- pedestrianized cityscapes
-- public infrastructure aesthetics
-- art nouveau details reinterpreted through a modern system
-
-The project should evoke:
-- public space reclaimed from friction
-- softness inside structure
-- movement with discipline
-- poetry inside technical precision
-
----
-
-## Light theme
-
-The default theme is diurnal and architectural.
-
-Characteristics:
-- light background
-- visible typographic grid
-- fine lines and separators
-- map-like details
-- restrained contrast hierarchy
-- strong spacing discipline
-
-Palette direction:
-- base neutrals: mineral, chalk, paper, concrete
-- mobility accent: green in `Morning Grid`, electric cyan in `Sunset Signal`
-  (the `--sw-accent-green` token slot keeps its name; only its value changes)
-- culture accent: deep red or violet
-
-The interface should feel:
-- open
-- breathable
-- precise
-- civic
-- elegant
-
----
-
-## Dark theme
-
-The dark mode is not “tech noir”.
-It is a sunset mode.
-
-Characteristics:
-- dusk gradients
-- warmer shadows
-- deep surfaces
-- glowing but controlled accents
-- smoother atmosphere
-
-It should feel:
-- cinematic
-- poetic
-- urban at twilight
-- intimate but still readable
-
-Transitions must remain subtle and accessible.
-
----
-
-## Motion
-
-Motion should be refined, minimal and intentional.
-
-Allowed:
-- subtle reveal
-- opacity transitions
-- small directional movement
-- state transitions with clear purpose
-
-Avoid:
-- aggressive parallax
-- large animated surfaces
-- motion that competes with reading
-- decorative animation without functional value
-
-Reduced-motion must be fully respected.
-
----
-
-## Typography
-
-Typography should create a rhythm between:
-- manifesto-like headings
-- sharp intertitles
-- highly readable body text
-- structured captions and labels
-
-Desired effect:
-- editorial intelligence
-- technical confidence
-- cultural depth
-
----
-
-## Components
-
-Every component should balance:
-- clarity
-- elegance
-- spacing discipline
-- accessibility
-- reusability
-
-Preferred component qualities:
-- calm surfaces
-- clear hierarchy
-- measured contrast
-- graceful hover/focus states
-
----
-
-## Front-end philosophy
-
-The interface may be sophisticated, but never noisy.
-
-We aim for:
-- “sparkly elegance”
-- not gimmick
-- not portfolio cliché
-- not visual chaos
-
-Every effect should justify its presence.
+Frosted panels, peach or violet washes, a serif display face, more than one
+accent at a time, decorative shadows, animated glows, an illustrated sun.

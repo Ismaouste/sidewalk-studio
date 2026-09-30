@@ -148,7 +148,7 @@ class ContentRepositoryTest extends TestCase
         $item = app(ContentRepository::class)
             ->findPublished('case-studies', 'pipeline-deploiement-ecommerce', 'fr');
 
-        $this->assertStringStartsWith('Un case study e-commerce', $item['summary']);
+        $this->assertStringStartsWith('Rollbacks silencieux', $item['summary']);
     }
 
     public function test_repository_feed_can_filter_publications_by_tag_and_category(): void

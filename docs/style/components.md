@@ -3,7 +3,10 @@
 The public design system is now organized into three small layers under
 `resources/js/components/`:
 
-- `design-system/`: `SunAnchor`, `AmbientGrid`, `SectionIntro`, `SectionDivider`, `LegendChip`, `MetricStrip`, `ContentMetaRow`
+- `design-system/`: `AmbientGrid` (the ruled grid), `SectionIntro`, `SectionDivider`, `LegendChip`, `MetricStrip`, `ContentMetaRow`, `InlineTermTooltip`
+- `stage/`: `Stage` (flat drifting stains; mounted once at the app root, see `app.ts`)
+- `schema/`: `Schema` (a drawing from data: lots, interfaces, dimensions, compass, scale, with a text equivalent), `HomePlan`, `planLayout.ts`
+- `sheet/`: `SheetFrame` (corner marks and graduated ruler, mounted once at the root), `Cartouche` (the title block in the footer)
 - `layout/`: `AppHeader`, `ThemeToggle`, `NavTabs`, `BreadcrumbTrail`, `AccessibilityPanel`, `LocaleSwitcher`, `AppFooter`
 - `ui/`: `Button`, `Panel`
 
@@ -17,7 +20,9 @@ Existing content-facing components still in use:
 Current shell composition:
 
 - `SiteLayout` wraps `AmbientGrid`, `AppHeader`, the loader overlay, the
-  breadcrumb, page content, and `AppFooter`
+  breadcrumb, page content, and `AppFooter` (which opens with the `Cartouche`).
+  Pages wrap themselves in `SiteLayout`, so it is not persistent: anything that
+  must survive navigation (`Stage`, `SheetFrame`) is mounted at the app root
 - the header owns navigation and theme switching
 - the footer keeps consent access centralized
 
@@ -66,4 +71,7 @@ Component rules:
 
 - keep public primitives presentational and reusable
 - keep SEO and consent logic outside visual primitives
-- use `Fraunces` only for display moments, `Syne` for labels/nav, `DM Sans` for body/UI, and `DM Mono` for code
+- Switzer for text and titles, DM Mono in capitals for labels, legends and buttons
+- no blur, gradient, glass or shadow; hairlines separate surfaces
+- a drawing always has a text equivalent and is `aria-hidden`
+- one primary per area of the screen, used for its role only (mark, path, here)

@@ -1,37 +1,27 @@
 # Theme System
 
-Sidewalk Studio uses one visual system with two atmospheric states:
+One visual system, two mirrored themes (specs/018-site-refresh):
 
-- `Morning Grid` for light mode — vibrant civic primaries on chalk neutrals
-- `Sunset Signal` for dark mode — electric violet and magenta on deep aubergine
-  glass, with one cyan as the cool note
+- `morning` — **paper**: ink on paper. The default.
+- `sunset` — **night**: clear on black.
 
-`Sunset Signal` deliberately carries no green and no amber. Warm hues mixed
-over a dark base collapse toward brown, and blurred surfaces must saturate
-above 1 (`--sw-surface-backdrop-filter`), never below it, or the glass greys
-the palette out.
+The identifiers are historical and are kept so that no type, test or loader
+quote changes; what they mean is defined in `resources/css/tokens.css`. Both
+themes carry the same roles (paper, ink, five greys, `--sw-mark`, `--sw-path`,
+`--sw-here`), so a change made to one is a change made to both.
 
 Implementation contract:
 
 - theme selection lives on `<html data-theme="morning|sunset">`
-- `resources/css/tokens.css` defines the theme-specific values
+- `resources/css/tokens.css` defines the values of each theme
 - `resources/views/app.blade.php` applies the initial theme before the app boots
 - `resources/js/composables/useTheme.ts` keeps the runtime state in sync
 
 Default behavior:
 
-- first load follows `prefers-color-scheme`
+- first load follows `prefers-color-scheme`; light when the system has no preference
 - manual overrides are stored in `localStorage` under `sidewalk-theme`
-- no inline color injection from JavaScript
+- no inline colour injection from JavaScript
 
-Atmospheric rules already implemented:
-
-- `SunAnchor` reads `--sw-sun-*` tokens directly
-- the sun sits top-left in `Morning Grid`
-- the sun sits bottom-right in `Sunset Signal`
-- `--sw-body-wash` paints the page behind every translucent surface: two small
-  circles in `Morning Grid`, three wide ellipses in `Sunset Signal` so the
-  gradient still varies across a single glass panel
-
-This keeps the theme system portable, SSR-friendly, and easy to extend without
-introducing a heavier token pipeline.
+Every visual change is checked in both themes: text at 4.5:1 or better,
+focus visible, and the three primaries used only in their role.

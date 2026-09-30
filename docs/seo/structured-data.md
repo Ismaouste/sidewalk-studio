@@ -32,7 +32,9 @@ That means:
 - binary document downloads do not emit JSON-LD
 - `/data-processing` can keep the default `WebPage` shape, but should not grow richer editorial schema
 - `/{locale}/sparkle` keeps a plain `WebPage` payload and remains intentionally non-indexed
-- the `Person` payload must keep `name`, `jobTitle`, `url`, `email`, `sameAs`, `address`, and `knowsAbout` populated from site settings and author defaults
+- the `Person` payload must keep `name`, `jobTitle`, `url`, `email`, `sameAs`, `address`, and `knowsAbout` populated from site settings and author defaults; on Vercel the author defaults come from `SITE_AUTHOR_NAME`, `SITE_AUTHOR_TITLE`, `SITE_CONTACT_EMAIL` and `SITE_SAME_AS`, which must be set
+- `sameAs` lists the owner's own profiles and projects (GitHub, LinkedIn when set, the astralmanach site); a project that belongs to someone else (Un art voulu voyant) is not an identity of the owner
+- `address` is the locality and region only (Nancy, Grand Est), never a postal address
 
 ## Dual-mode requirement
 

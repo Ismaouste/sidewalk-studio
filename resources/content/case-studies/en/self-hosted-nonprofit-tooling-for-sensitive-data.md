@@ -2,7 +2,7 @@
 title: Clear self-hosting for nonprofit tooling under sensitive-data constraints
 slug: self-hosted-nonprofit-tooling-for-sensitive-data
 translation_key: self-hosted-nonprofit-tooling-for-sensitive-data
-summary: How to frame a self-hosted field tool when public health, security, usable workflows, and nonprofit constraints all need to hold together.
+summary: "A self-hosted field tool for a health non-profit: security, simple use, limited means."
 status: draft
 published_at: 2026-03-08
 updated_at: 2026-03-08

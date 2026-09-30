@@ -2,7 +2,7 @@
 title: SEO technique, sitemaps et données structurées côté ecommerce
 slug: seo-technique-sitemaps-et-donnees-structurees
 translation_key: technical-seo-sitemaps-and-structured-data-for-commerce
-summary: Le SEO technique ecommerce commence quand URLs, sitemap, règles robots et données structurées racontent enfin la même chose.
+summary: "SEO technique pour boutiques : URLs, sitemap, robots et données structurées qui disent la même chose."
 status: published
 published_at: 2026-03-08
 updated_at: 2026-03-19

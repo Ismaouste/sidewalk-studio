@@ -2,7 +2,7 @@
 title: Les systèmes de contenu commencent par le routage et les métadonnées
 slug: content-systems-routing-and-metadata
 translation_key: content-systems-routing-and-metadata
-summary: Un système de contenu en Markdown devient publiable quand routage, métadonnées et état de publication suffisent à produire des URLs canoniques stables.
+summary: "Un contenu en Markdown est publiable quand le routage, les métadonnées et l'état de publication sont explicites."
 status: published
 published_at: 2026-03-07
 updated_at: 2026-03-19
