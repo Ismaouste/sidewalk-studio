@@ -1,41 +1,41 @@
 ---
-seo_title: Développeur e-commerce & tech lead à Nancy
-seo_description: "Ismaël Rodmacq, développeur e-commerce et plateformes métier à Nancy. Sites web, boutiques en ligne, flux produit et direction technique — avec la grille tarifaire publiée."
+seo_title: Ismaël Rodmacq — Développeur e-commerce et responsable technique, Nancy
+seo_description: "Ismaël Rodmacq, développeur e-commerce et responsable technique à Nancy. Laravel et PHP, données produit, référencement technique. Disponible pour un poste ou une mission."
 hero:
-    eyebrow: E-commerce & direction technique · Nancy
+    eyebrow: Développeur e-commerce, responsable technique · Nancy
     title: Ismaël Rodmacq
-    summary: "Je construis des plateformes métier et des boutiques en ligne, puis je les fais tourner : la donnée produit qui circule entre les outils, les mises en ligne qui ne coupent pas la vente, les chiffres qui disent ce qui marche vraiment. Et quand une équipe cherche quelqu'un qui décide de l'architecture et qui l'écrit ensuite, je prends ce rôle-là aussi."
+    summary: "Je suis développeur e-commerce. Je travaille sur des plateformes existantes : échanges de données produit entre ERP, PIM et boutique, mises en production, suivi et référencement technique. Je peux aussi prendre la responsabilité technique d'un projet. Je suis basé à Nancy et je cherche un poste ou une mission."
 hero_panel:
-    - Sites et boutiques en ligne pour commerces, salles et institutions. Pensés pour le téléphone d'abord, et tenus assez rapides pour le rester.
-    - "La donnée produit qui doit voyager : sortir des outils métier qui la stockent, arriver dans la boutique, puis repartir vers Google et Meta sans se casser en route."
-    - Référencement, vie privée et mesure d'audience traités ensemble plutôt qu'ajoutés après coup, aux tarifs publiés sur la page services.
+    - Sites et boutiques en ligne pour des commerces, des salles et des institutions. Conçus d'abord pour le mobile, et maintenus rapides après la mise en ligne.
+    - "Données produit qui circulent des outils métier vers la boutique, puis vers Google et Meta : imports, flux et contrôles pour les garder cohérentes."
+    - Référencement, vie privée et mesure d'audience traités dans le même travail, aux tarifs publiés sur la page services.
 focus_areas:
     - label: Services
-      title: Sites, boutiques, growth, direction
-      summary: 'Cinq offres avec les tarifs d''appel publiés : un site local, une boutique e-commerce, un abonnement growth, un TJM de direction technique et des plateformes sur périmètre cadré.'
+      title: Services et tarifs
+      summary: 'Cinq offres avec un tarif de départ : un site local, une boutique e-commerce, un suivi growth mensuel, un tarif journalier de direction technique et des plateformes sur un périmètre défini.'
       href: /services
       cta: Voir les offres
       tone: dominant
     - label: Études de cas
-      title: Des preuves, en production
-      summary: Deux écrites à ce jour. Un pipeline de déploiement qui annonçait des succès tout en revenant en arrière sans le dire, et la couche de consentement qui fait tourner ce site — avec les décisions et les arbitrages laissés dedans.
+      title: Études de cas
+      summary: "Deux à ce jour : un pipeline de déploiement qui annonçait des succès alors qu'il revenait en arrière, et la couche de consentement sur laquelle tourne ce site. Les décisions et les compromis y sont détaillés."
       href: /case-studies
       cta: Lire les études de cas
       tone: green
     - label: Contact
-      title: Nancy, Paris, remote
-      summary: Basé à Nancy. Ouvert à Paris pour le conseil, et au remote pour un cadre de travail clair.
+      title: Nancy, Paris, à distance
+      summary: Basé à Nancy. Disponible à Paris pour du conseil, et à distance quand le cadre de travail est clair.
       href: /contact
       cta: Me contacter
       tone: coral
 local_teaser:
-    title: Grand Est, Nancy
-    summary: Basé à Nancy, mobile à Paris et disponible en remote selon le contexte.
+    title: Nancy, Grand Est
+    summary: Basé à Nancy, disponible à Paris et à distance selon le contexte.
     points:
-        - Grand Est et Paris pour les échanges en présence.
-        - Remote quand le cadre, le produit et l'équipe le permettent.
-        - Parcours entre e-commerce, associatif et outils utiles.
+        - Grand Est et Paris pour les rendez-vous en présentiel.
+        - "À distance quand l'équipe, le produit et le périmètre s'y prêtent."
+        - Parcours en e-commerce, dans le milieu associatif et sur des outils pratiques.
 contact_cta:
-    title: Basé à Nancy, disponible pour une mission, une plateforme à construire, ou de la direction technique.
-    summary: "Les offres et leurs tarifs d'appel sont sur la page services : un court message avec le contexte et l'échéance suffit pour démarrer."
+    title: Disponible pour un poste ou une mission.
+    summary: "Les offres et leurs tarifs de départ sont sur la page services. Un court message avec le contexte et l'échéance suffit pour commencer."
 ---

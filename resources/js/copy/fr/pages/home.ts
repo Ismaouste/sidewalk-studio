@@ -18,8 +18,8 @@ export default {
     dataLayerDefinition:
         'Data layer : couche de données partagée entre le site, le tracking et les outils marketing.',
     focusDescription:
-        'Le travail se situe souvent entre livraison produit, modernisation du legacy, SEO technique, vie privée et besoin de garder des systèmes compréhensibles après mise en production.',
-    focusTitle: 'Un positionnement net dans des environnements complexes.',
+        'Livraison produit, modernisation de systèmes existants, SEO technique et vie privée, et entretien des systèmes après la mise en production.',
+    focusTitle: 'Sur quoi je travaille',
     hbjoatDefinition: 'Horlogerie, bijouterie, joaillerie et orfèvrerie.',
     hbjoatLabel: 'HBJO',
     heroCapabilities: [
@@ -58,10 +58,46 @@ export default {
         'PHP : langage serveur largement utilisé pour les applications web et e-commerce.',
     pimDefinition:
         'PIM : Product Information Management, le socle qui centralise et structure la donnée produit.',
+    plan: {
+        caption: 'Les projets publics et les services, et leurs liens.',
+        edges: {
+            design: 'design',
+            engine: 'moteur',
+        },
+        legend: [
+            'Rouge : vous êtes ici',
+            'Bleu : un lien ou une interface entre deux lots',
+            'Jaune : un repère',
+        ],
+        lots: {
+            astralmanach: {
+                label: 'astralmanach',
+                note: 'bibliothèque npm (MIT), API publique et trois outils',
+            },
+            atlas: {
+                label: 'Atlas Dépannage',
+                note: '',
+            },
+            cases: { label: 'Études de cas', note: 'Deux cas rédigés' },
+            contact: { label: 'Contact', note: 'Nancy, Paris, à distance' },
+            florian: {
+                label: 'florianrosinski.fr',
+                note: 'Portfolio de Florian Rosinski, développé par Ismaël Rodmacq',
+            },
+            home: { label: 'Accueil', note: 'Vous êtes ici' },
+            services: { label: 'Services', note: 'Offres et tarifs de départ' },
+            uavv: {
+                label: 'Un art voulu voyant',
+                note: "Site d'un projet artistique de Florian Rosinski, développé par Ismaël Rodmacq",
+            },
+        },
+        revision: 'Ind. A · 2026-09-30',
+        scale: '1 bloc = 1 lot',
+        title: 'Plan du travail',
+    },
     projectsCta: 'Lire les expériences',
-    projectsDescription:
-        'Études de cas, notes et références pour entrer dans des situations plus concrètes.',
-    projectsTitle: 'Études de cas et repères à ouvrir ensuite.',
+    projectsDescription: 'Cas rédigés et notes sur des situations concrètes.',
+    projectsTitle: 'Études de cas et notes',
     referencesCta: 'Lire les expériences',
     selectedWorkLabel: 'Expérience',
     seoDefinition:

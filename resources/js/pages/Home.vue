@@ -6,6 +6,7 @@ import PublicationWidget from '@/components/content/PublicationWidget.vue';
 import InlineTermTooltip from '@/components/design-system/InlineTermTooltip.vue';
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
+import HomePlan from '@/components/schema/HomePlan.vue';
 import NewsletterSignup from '@/components/NewsletterSignup.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
@@ -249,6 +250,8 @@ const heroLeadPoints = computed(() =>
                 </Panel>
             </div>
         </section>
+
+        <HomePlan />
 
         <section class="sw-section sw-section--flow home-section">
             <div class="home-section__header">
