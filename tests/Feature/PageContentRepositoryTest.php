@@ -14,11 +14,11 @@ class PageContentRepositoryTest extends TestCase
         $page = app(PageContentRepository::class)->get('home');
 
         $this->assertSame(
-            'Ecommerce developer & tech lead in Nancy',
+            'Ismaël Rodmacq — E-commerce developer and technical lead, Nancy',
             $page['seo_title'],
         );
         $this->assertSame(
-            'Ismael Rodmacq',
+            'Ismaël Rodmacq',
             $page['hero']['title'],
         );
     }

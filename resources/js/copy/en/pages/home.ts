@@ -79,13 +79,13 @@ export default {
             contact: { label: 'Contact', note: 'Nancy, Paris, remote' },
             florian: {
                 label: 'florianrosinski.fr',
-                note: 'Portfolio of Florian Rosinski, developed by Ismaël Rodmacq',
+                note: 'Portfolio of Florian Rosinski, which I developed',
             },
             home: { label: 'Home', note: 'You are here' },
             services: { label: 'Services', note: 'Offers and starting prices' },
             uavv: {
                 label: 'Un art voulu voyant',
-                note: 'Website of an art project by Florian Rosinski, developed by Ismaël Rodmacq',
+                note: 'Website of an art project by Florian Rosinski, which I developed',
             },
         },
         revision: 'Rev. A · 2026-09-30',

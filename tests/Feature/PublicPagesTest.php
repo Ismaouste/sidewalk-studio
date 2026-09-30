@@ -154,7 +154,7 @@ class PublicPagesTest extends TestCase
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->component('Colophon')
                 ->has('hero.title')
-                ->has('sections', 4)
+                ->has('sections', 5)
                 ->has('closing.title')
             );
 
@@ -162,7 +162,7 @@ class PublicPagesTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->component('Colophon')
-                ->has('sections', 4)
+                ->has('sections', 5)
             );
     }
 
