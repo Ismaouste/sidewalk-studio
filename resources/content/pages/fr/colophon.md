@@ -26,6 +26,11 @@ sections:
       summary: 'Le formulaire de contact ne stocke pas de donnée. Les analytics restent en opt-in explicite. Les cookies tiers sont gérés via Vanilla Cookie Consent.'
       cta_label: Voir la page traitement
       cta_href: /data-processing
+    - title: Caractères
+      eyebrow: Typographie
+      summary: 'Switzer (Indian Type Foundry, licence ITF Free Font License) pour les textes et les titres, hébergée sur le site. DM Mono (licence SIL Open Font) pour les libellés et les légendes.'
+      cta_label: Lire la licence de Switzer
+      cta_href: /fonts/Switzer-FFL.txt
 closing:
     eyebrow: Source
     title: 'Le code, les specs et les notes.'

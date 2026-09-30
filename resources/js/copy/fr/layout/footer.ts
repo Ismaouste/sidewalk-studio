@@ -16,4 +16,5 @@ export default {
     linkedinLabel: 'LinkedIn',
     staticPreviewNote:
         'Preview statique : formulaire et préférences avancées désactivés.',
+    workLabel: 'Réalisations',
 } satisfies Reference;

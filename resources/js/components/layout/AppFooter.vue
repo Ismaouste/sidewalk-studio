@@ -40,6 +40,9 @@ const colophonHref = computed(() =>
  * The résumé record left the primary menu when the offer and the proof took
  * its place, so this footer is now the one persistent way back to it.
  */
+const workHref = computed(() =>
+    localizePublicHref('/work', page.props.site.locale),
+);
 const experienceHref = computed(() =>
     localizePublicHref('/experience', page.props.site.locale),
 );
@@ -100,6 +103,9 @@ function backToTop(): void {
                             rel="nofollow"
                         >
                             {{ copy.dataLabel }}
+                        </a>
+                        <a class="app-footer__link" :href="workHref">
+                            {{ copy.workLabel }}
                         </a>
                         <a class="app-footer__link" :href="experienceHref">
                             {{ copy.experienceLabel }}

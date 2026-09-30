@@ -13,4 +13,5 @@ export default {
     linkedinLabel: 'LinkedIn',
     staticPreviewNote:
         'Static preview: form handling and advanced preferences are disabled.',
+    workLabel: 'Work',
 };

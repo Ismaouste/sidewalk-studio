@@ -26,6 +26,11 @@ sections:
       summary: 'The contact form does not store data. Analytics stays explicit opt-in. Third-party cookies go through Vanilla Cookie Consent.'
       cta_label: Open the data-processing page
       cta_href: /data-processing
+    - title: Typefaces
+      eyebrow: Type
+      summary: 'Switzer (Indian Type Foundry, ITF Free Font License) for text and titles, self-hosted. DM Mono (SIL Open Font License) for labels and legends.'
+      cta_label: Read the Switzer licence
+      cta_href: /fonts/Switzer-FFL.txt
 closing:
     eyebrow: Source
     title: 'The code, the specs, the notes.'
