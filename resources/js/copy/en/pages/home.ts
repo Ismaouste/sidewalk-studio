@@ -95,6 +95,10 @@ export default {
                 label: 'Non-profit tool',
                 note: 'Case study: self-hosting and sensitive data',
             },
+            clientAuberi: { label: 'Auberi', note: 'Jewely client house, e-commerce site' },
+            clientCrown: { label: 'Crown-DP', note: 'Jewely client house, e-commerce site' },
+            clientGodechot: { label: 'Godechot-Pauliet', note: 'Jewely client house, e-commerce site' },
+            clientJulian: { label: 'Louis Julian', note: 'Jewely client house, e-commerce site' },
             contact: { label: 'Contact', note: 'Nancy, Paris, remote' },
             experience: { label: 'Experience', note: 'Jewely, Aremedia, Parcours le Monde' },
             florian: {
@@ -111,6 +115,8 @@ export default {
                 note: 'A printable plate of the sky of a date',
             },
             plm: { label: 'Parcours le Monde', note: 'International mobility for young people, still active in Marseille' },
+            rolexBespoke: { label: 'Rolex Bespoke', note: 'Rolex programme: I handle every request' },
+            rolexCpo: { label: 'Rolex Certified Pre-Owned', note: 'Rolex programme: I handle every request' },
             services: { label: 'Services', note: 'Stacks and starting prices' },
             tools: {
                 label: 'Theme, Sky,\nCertificate',

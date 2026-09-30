@@ -100,8 +100,14 @@ export const LOTS: LotSpec[] = [
     },
     { id: 'labs', href: '/labs', wide: [470, 700], compact: [270, 860] },
     // The career branch, on the left of the very wide sheet
-    { id: 'experience', tone: 'ink', href: '/experience', ultra: [250, 350] },
-    { id: 'jewely', href: 'https://www.flippad.com', ultra: [80, 230] },
+    { id: 'experience', tone: 'ink', href: '/experience', ultra: [270, 350] },
+    { id: 'jewely', href: 'https://www.flippad.com', ultra: [290, 200] },
+    { id: 'rolexBespoke', ultra: [455, 235] },
+    { id: 'rolexCpo', ultra: [470, 130] },
+    { id: 'clientGodechot', ultra: [90, 70] },
+    { id: 'clientCrown', ultra: [90, 135] },
+    { id: 'clientJulian', ultra: [90, 200] },
+    { id: 'clientAuberi', ultra: [90, 265] },
     { id: 'aremedia', href: 'https://aremedia.org', ultra: [80, 350] },
     { id: 'plm', href: 'https://se.parcourslemonde.org', ultra: [80, 470] },
     // astralmanach and its parts
@@ -189,6 +195,12 @@ export const EDGES: EdgeSpec[] = [
     { from: 'astralmanach', to: 'tools', tone: 'path', only: 'wide' },
     // The career: where the case studies come from
     { from: 'experience', to: 'jewely' },
+    { from: 'jewely', to: 'rolexBespoke' },
+    { from: 'jewely', to: 'rolexCpo' },
+    { from: 'jewely', to: 'clientGodechot' },
+    { from: 'jewely', to: 'clientCrown' },
+    { from: 'jewely', to: 'clientJulian' },
+    { from: 'jewely', to: 'clientAuberi' },
     { from: 'experience', to: 'aremedia' },
     { from: 'experience', to: 'plm' },
     // The case studies

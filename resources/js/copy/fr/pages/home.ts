@@ -98,6 +98,10 @@ export default {
                 label: 'Outil associatif',
                 note: 'Étude de cas : auto-hébergement et données sensibles',
             },
+            clientAuberi: { label: 'Auberi', note: 'Maison cliente de Jewely, site e-commerce' },
+            clientCrown: { label: 'Crown-DP', note: 'Maison cliente de Jewely, site e-commerce' },
+            clientGodechot: { label: 'Godechot-Pauliet', note: 'Maison cliente de Jewely, site e-commerce' },
+            clientJulian: { label: 'Louis Julian', note: 'Maison cliente de Jewely, site e-commerce' },
             contact: { label: 'Contact', note: 'Nancy, Paris, à distance' },
             experience: { label: 'Expérience', note: 'Jewely, Aremedia, Parcours le Monde' },
             florian: {
@@ -114,6 +118,8 @@ export default {
                 note: 'Une planche imprimable du ciel d’une date',
             },
             plm: { label: 'Parcours le Monde', note: 'Mobilité internationale des jeunes, toujours active à Marseille' },
+            rolexBespoke: { label: 'Rolex Bespoke', note: 'Dispositif Rolex : toutes les demandes passent par moi' },
+            rolexCpo: { label: 'Rolex Certified Pre-Owned', note: 'Dispositif Rolex : toutes les demandes passent par moi' },
             services: { label: 'Services', note: 'Stacks et tarifs de départ' },
             tools: {
                 label: 'Thème, Ciel,\nCertificat',
