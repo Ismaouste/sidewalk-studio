@@ -77,6 +77,12 @@ class ServerRenderTest extends TestCase
         $this->assertArrayHasKey('api/ssr/render.mjs', $vercel['functions']);
         $this->assertStringContainsString('bootstrap/ssr-render', $vercel['functions']['api/ssr/render.mjs']['includeFiles']);
         $this->assertFileExists(base_path('api/ssr/render.mjs'));
+
+        // The PHP entry for Vercel used to turn the render off by default; it now points at the function.
+        $entry = (string) file_get_contents(base_path('api/index.php'));
+
+        $this->assertStringContainsString("setEnvDefault('INERTIA_SSR_ENABLED', 'true')", $entry);
+        $this->assertStringContainsString('/api/ssr', $entry);
     }
 
     public function test_the_build_makes_the_bundle_of_the_function(): void

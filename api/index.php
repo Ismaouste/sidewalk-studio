@@ -87,7 +87,10 @@ $setEnvDefault('APP_DEBUG', 'false');
 $setEnvDefault('APP_KEY', 'base64:'.base64_encode(hash('sha256', $host, true)));
 $setEnvDefault('APP_URL', $publicUrl);
 $setEnvDefault('SITE_SETTINGS_SOURCE', 'files');
-$setEnvDefault('INERTIA_SSR_ENABLED', 'false');
+// Server render: the Node function of this same deployment (api/ssr/render.mjs). It times out fast and falls back to the browser render (App\Support\Ssr\TimedHttpGateway).
+$setEnvDefault('INERTIA_SSR_ENABLED', 'true');
+$setEnvDefault('INERTIA_SSR_URL', $publicUrl.'/api/ssr');
+$setEnvDefault('INERTIA_SSR_ENSURE_BUNDLE_EXISTS', 'false');
 $setEnvDefault('CACHE_STORE', 'array');
 $setEnvDefault('SESSION_DRIVER', 'cookie');
 $setEnvDefault('LOG_CHANNEL', 'stderr');
