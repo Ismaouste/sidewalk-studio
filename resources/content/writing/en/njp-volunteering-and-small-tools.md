@@ -50,4 +50,4 @@ Volunteering keeps that judgment calibrated. It reminds me that software is ofte
 
 That lesson carries back into professional work as well. In ecommerce or content projects, not every pain point deserves a new subsystem. Sometimes the best move is still a small utility, a clearer export, a tighter data flow, or a calmer admin path. The difference is not prestige. It is fitness to the problem.
 
-That is why this note belongs next to [YTMusic Liked Sorter](/en/journal/ytmusic-liked-sorter). The code itself is lighter there, but the same principle applies: a small tool can still express care, structure, and judgment. It also belongs near [From nancyapipop to Culturedex](/en/journal/from-nancyapipop-to-culturedex), where a very local question became the starting point for a more structured data project.
+That is why this note belongs next to [YTMusic Liked Sorter](/en/journal/ytmusic-liked-sorter). The code itself is lighter there, but the same principle applies: a small tool can still express care, structure, and judgment.

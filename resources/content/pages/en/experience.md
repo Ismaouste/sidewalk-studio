@@ -16,11 +16,14 @@ contexts:
     - Redesigns, ongoing delivery, infrastructure incidents, and go-live work.
 professional_sections:
     - title: Jewely Ecommerce
-      eyebrow: Ecommerce developer — 2023-2026
-      summary: Multi-tenant ecommerce platform for jewelry and watch brands. Shared Laravel / Vue core, in-house ERP, custom product PIM, marketing connectors, and ongoing delivery.
+      eyebrow: Ecommerce developer — 2021-2026
+      summary: Custom ecommerce CMS for jewelry and watch houses. One Laravel / Vue back end shared by several clients, an in-house ERP, a product PIM and marketing connectors.
       paragraphs:
-          - At Jewely / Flippad, I worked on the shared base (Laravel + Vue + Inertia), on brand-specific needs, and on the cross-cutting work that touched product data, front-end, business connectors, and go-live at the same time.
-          - 'Premium HBJO portfolio with leading houses including Godechot-Pauliet, Auberi, and Crown-DP, plus Rolex Bespoke and Rolex Certified Pre-Owned surfaces.'
+          - Five years at Jewely / Flippad, from September 2021 to the end of August 2026.
+          - '2026: I turned a simple ecommerce site into a custom CMS with one common back end. A feature is built once and reaches every client site.'
+          - '2025: Crown-DP, built alone from start to finish. I integrated the design supplied by a Strasbourg agency, and everyone was happy with the result.'
+          - 'Also for the houses: the Rolex space of Louis Julian and the Rolex Certified Pre-Owned space of Godechot-Pauliet, under NDA with Rolex. Other houses: Auberi.'
+          - Large social media campaigns for jewelry and watch retailers, for brands such as Tudor and Repossi.
           - On the in-house PIM (Product Information Manager), I built the Python scraping and enrichment algorithms now powering +20 000 product entries, their images, and their videos across the HBJO scope.
           - On the commerce side, I designed and maintained the connectors between the ERP, the PIM, and merchant catalogs — automatic product creation and synchronization toward Google Merchant Center, Facebook Catalog, and the downstream marketing pipelines.
       detail_groups:
@@ -36,7 +39,7 @@ professional_sections:
                 - Shared core, client themes, business connectors, ongoing delivery, and coordination between ERP, catalog, and front-end surfaces.
                 - Python scrape + enrichment algorithms on the HBJO PIM — +20 000 active product entries with media.
                 - Automatic product creation + sync to Google Merchant Center, Facebook Catalog, and marketing pipelines.
-                - Premium HBJO frame — Godechot-Pauliet, Auberi, Crown-DP, Rolex Bespoke, Rolex Certified Pre-Owned.
+                - 'Houses: Crown-DP, Louis Julian, Godechot-Pauliet, Auberi. Rolex spaces for Louis Julian and Godechot-Pauliet.'
     - title: Infrastructure
       eyebrow: Cross-cutting devops — 2024-2026
       summary: Docker Swarm deployment on AWS for the Jewely platform. Automatic pipeline through EventBridge, Lambda, and SSM, then hardening after a disk incident.

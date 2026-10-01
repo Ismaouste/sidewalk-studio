@@ -42,7 +42,7 @@ export default {
     ],
     heroPanelSummarySuffix:
         'HBJO commerce, ERP, PIM, product flows, tracking, and technical SEO.',
-    heroPanelTitle: 'E-commerce developer, Jewely / Flippad (2023–2026)',
+    heroPanelTitle: 'E-commerce developer, Jewely / Flippad (2021–2026)',
     internalBuildLabel: 'Internal build',
     jsonLdDefinition:
         'JSON-LD: a structured-data format understood by search engines and platforms.',

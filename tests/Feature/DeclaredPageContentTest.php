@@ -191,7 +191,7 @@ class DeclaredPageContentTest extends TestCase
         $violations = PageSchemas::for('experience')->violations(Yaml::parse($reintroduced));
 
         $this->assertContains(
-            '[professional_sections.0.paragraphs.3] should be a text, got a '
+            '[professional_sections.0.paragraphs.6] should be a text, got a '
             ."mapping (Côté commerce, j'ai conçu et tenu les connecteurs entre "
             ."l'ERP, le PIM et les catalogues marchand).",
             $violations,

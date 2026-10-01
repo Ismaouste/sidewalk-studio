@@ -10,15 +10,22 @@ stacks:
       items:
           - Laravel
           - PHP
+          - Node.js
           - Python
           - SQL
+          - Supabase
           - APIs
     - title: Front end
       items:
           - Vue 3
           - Inertia
+          - React
+          - Next.js
+          - TypeScript
+          - Tailwind CSS
     - title: E-commerce et CMS
       items:
+          - CMS e-commerce Laravel sur mesure
           - WooCommerce
           - PrestaShop
           - Shopify
@@ -41,6 +48,13 @@ stacks:
           - Docker Swarm
           - AWS (ECR, Lambda, SSM, EventBridge)
           - CI/CD
+          - Vercel
+          - Cloudflare
+    - title: Tests
+      items:
+          - PHPUnit
+          - Vitest
+          - Playwright
 offers:
     - title: Site local
       summary: Pour commerces, salles et institutions.

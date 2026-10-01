@@ -47,4 +47,4 @@ Le bénévolat aide aussi à garder une forme d'humilité technique. On voit tr�
 
 J'y tiens aussi parce que ces contextes empêchent de confondre innovation et agitation. Un outil minuscule, bien cadré et réellement utilisé vaut souvent davantage qu'une idée séduisante restée au stade du prototype bavard.
 
-Cette note rejoint [YTMusic Liked Sorter](/fr/journal/ytmusic-liked-sorter), parce qu'il s'agit du même geste technique à petite échelle. Elle prolonge aussi [De Nancy API POP à Culturedex](/fr/journal/from-nancyapipop-to-culturedex), où une question locale très concrète a servi de point de départ à un projet plus structuré.
+Cette note rejoint [YTMusic Liked Sorter](/fr/journal/ytmusic-liked-sorter), parce qu'il s'agit du même geste technique à petite échelle.

@@ -18,11 +18,10 @@ class ContentRepositoryTest extends TestCase
     {
         $items = app(ContentRepository::class)->published('writing');
 
-        $this->assertCount(9, $items);
+        $this->assertCount(7, $items);
         $this->assertContains('content-systems-routing-and-metadata', $items->pluck('slug')->all());
         $this->assertContains('opensurvey-nonprofit-health-data', $items->pluck('slug')->all());
         $this->assertContains('quand-un-deploiement-reussi-ne-lest-pas', $items->pluck('slug')->all());
-        $this->assertContains('les-interdits-comme-specification', $items->pluck('slug')->all());
         $this->assertContains('schema-org-rich-results-and-product-images', $items->pluck('slug')->all());
         $this->assertContains('technical-seo-sitemaps-and-structured-data-for-commerce', $items->pluck('slug')->all());
         $this->assertContains('ytmusic-liked-sorter', $items->pluck('slug')->all());
@@ -47,7 +46,7 @@ class ContentRepositoryTest extends TestCase
         $items = app(ContentRepository::class)->published('writing', 'fr', false);
 
         $this->assertContains('quand-un-deploiement-reussi-ne-lest-pas', $items->pluck('slug')->all());
-        $this->assertContains('les-interdits-comme-specification', $items->pluck('slug')->all());
+        $this->assertContains('seo-technique-sitemaps-et-donnees-structurees', $items->pluck('slug')->all());
         $this->assertTrue($items->every(fn (array $item) => $item['locale'] === 'fr'));
     }
 
