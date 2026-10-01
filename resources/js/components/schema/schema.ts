@@ -1,16 +1,46 @@
 /**
  * The data model and the pure geometry of the Schema component
- * (specs/018-site-refresh). A schema is a small site plan: nodes (the lots),
- * edges (the interfaces between them), dimension lines, a compass and a
- * graphic scale. It is declared as data in the page content, so its labels
- * travel in French and English like every other string, and it draws the same
- * from a one-node diagram to a dozen lots.
+ * (specs/018-site-refresh). A schema is a small drawing: nodes (the lots),
+ * edges (the interfaces between them), and, for a timeline, a time axis with
+ * period bars, column headings and leader lines from a bar to its node. It is
+ * declared as data, so its labels travel in French and English like every
+ * other string, and it draws the same from a one-node diagram to a few dozen
+ * lots.
  */
 
 export type SchemaTone = 'ink' | 'mark' | 'path' | 'here';
 
+/**
+ * What a lot is, which decides how it is drawn and what its card shows: a page
+ * of the site (ink), an external address (blue, with an arrow), a project, a
+ * notion or a technology (dashed), a house of the client portfolio, and the
+ * three kinds of publication (each with its own pictogram, all internal links).
+ */
+export type SchemaKind =
+    | 'page'
+    | 'external'
+    | 'project'
+    | 'notion'
+    | 'house'
+    | 'article'
+    | 'note'
+    | 'case';
+
+/** Pictograms, drawn on a 12 × 12 grid, stroke only: one per kind that carries one. */
+export const KIND_ICONS: Partial<Record<SchemaKind, string>> = {
+    article: 'M2.5 1.5h5l2 2v7h-7zM4.2 5.2h3.6M4.2 7.2h3.6M4.2 9h2',
+    case: 'M1.5 3.2h3l1 1.3h5v5.6h-9zM1.5 5.2h9',
+    external: 'M4 2.2h5.8v5.8M9.8 2.2L2.6 9.4',
+    note: 'M2 10l.7-2.6L8.1 2 10 3.9 4.6 9.3zM7 3.1l1.9 1.9',
+};
+
+/** The kinds that carry a pictogram in their box. */
+export const ICON_KINDS: SchemaKind[] = ['article', 'note', 'case', 'external'];
+
 /** What a lot says about itself on hover, focus or tap: a card. Every field is optional; nothing here is invented, it is copy. */
 export interface SchemaDetail {
+    /** What kind of lot this is, in words ("Case study", "Technology"): the small line above the title of the card. */
+    kicker?: string;
     /** When, as written ("2025", "2021–2026"). */
     period?: string;
     /** What I did there, in a line. */
@@ -19,6 +49,10 @@ export interface SchemaDetail {
     figures?: { value: string; label: string }[];
     /** Where to read more. `nofollow` is for a client's site: it is mentioned, not endorsed. */
     links?: { label: string; href: string; nofollow?: boolean }[];
+    /** Publications that tell this lot (read from the journal and the case studies, never written here). */
+    related?: { kind: SchemaKind; label: string; href: string }[];
+    /** The projects that used it, for a technology. */
+    usedIn?: string[];
 }
 
 export interface SchemaNode {
@@ -29,8 +63,13 @@ export interface SchemaNode {
     x: number;
     y: number;
     tone?: SchemaTone;
+    kind?: SchemaKind;
+    /** A fixed box width, in units, so a column of lots lines up. */
+    width?: number;
     /** An internal or external address; the node becomes a link. */
     href?: string;
+    /** `nofollow` for a client's site. */
+    nofollow?: boolean;
     /** The short line read after the label in the text equivalent. */
     note?: string;
     /** The card shown on hover, focus or tap. */
@@ -45,7 +84,48 @@ export interface SchemaEdge {
     tone?: SchemaTone;
     /** Bend of the line, in units. Absent: a smooth S-curve that leaves and enters the boxes square on. 0: straight. */
     bend?: number;
+    /** Which sides the curve leaves and enters by: left to right (`x`) or top to bottom (`y`). Absent: the axis the boxes are furthest apart on. */
+    route?: 'x' | 'y';
+    /** Drawn thin and pale: a relation worth seeing, not worth following. */
+    faint?: boolean;
 }
+
+/** A period bar on the time axis. */
+export interface SchemaBar {
+    id: string;
+    /** Left edge and width of the bar, in units. */
+    x: number;
+    w: number;
+    /** From and to, as vertical positions (the caller has already put the dates on its scale). */
+    y1: number;
+    y2: number;
+    /** The lot this period belongs to: pointing at the bar lights it. */
+    node?: string;
+    tone?: SchemaTone;
+}
+
+/** A line from a bar to its lot. */
+export interface SchemaLeader {
+    bar: string;
+    node: string;
+}
+
+export interface SchemaTick {
+    y: number;
+    label: string;
+    /** A year, rather than a mark of the scale. */
+    major?: boolean;
+}
+
+export interface SchemaColumn {
+    x: number;
+    y: number;
+    label: string;
+    anchor?: 'start' | 'middle';
+}
+
+/** Lots that are related without a line being drawn: pointing at one lights the other. */
+export type SchemaRelation = [string, string];
 
 export interface SchemaDimension {
     from: [number, number];
@@ -61,8 +141,12 @@ export interface SchemaData {
     nodes: SchemaNode[];
     edges?: SchemaEdge[];
     dimensions?: SchemaDimension[];
-    /** A compass rose at this centre. */
-    compass?: { x: number; y: number };
+    /** The time axis: a vertical line at `x` with its ticks. `broken` marks where the scale changes (the years before it are drawn tighter). */
+    axis?: { x: number; ticks: SchemaTick[]; broken?: number };
+    bars?: SchemaBar[];
+    leaders?: SchemaLeader[];
+    columns?: SchemaColumn[];
+    relations?: SchemaRelation[];
     /** A graphic scale bar whose left end sits here; `label` is its caption. */
     scale?: { x: number; y: number; label: string };
     /** The node that carries "you are here" (red). */
@@ -74,6 +158,8 @@ export interface SchemaData {
 export interface NodeBox {
     node: SchemaNode;
     lines: string[];
+    /** Room kept on the left of the text for the pictogram. */
+    icon: number;
     width: number;
     height: number;
 }
@@ -83,6 +169,7 @@ const LINE_HEIGHT = 16;
 const PAD_X = 14;
 const PAD_Y = 10;
 const MIN_WIDTH = 92;
+const ICON_PAD = 18;
 
 /** Breaks a line at spaces so that no line is longer than `max` (a single long word stays whole). */
 export function wrapLine(line: string, max: number): string[] {
@@ -114,13 +201,18 @@ export function nodeBox(node: SchemaNode, wrap?: number): NodeBox {
         .flatMap((line) => (wrap ? wrapLine(line, wrap) : [line]));
     const longest = lines.reduce((max, line) => Math.max(max, line.length), 0);
 
+    const icon = node.kind && ICON_KINDS.includes(node.kind) ? ICON_PAD : 0;
+
     return {
         node,
         lines: lines.length > 0 ? lines : [node.id],
-        width: Math.max(
-            MIN_WIDTH,
-            Math.round(longest * CHAR_WIDTH + PAD_X * 2),
-        ),
+        icon,
+        width:
+            node.width ??
+            Math.max(
+                MIN_WIDTH,
+                Math.round(longest * CHAR_WIDTH + PAD_X * 2 + icon),
+            ),
         height: Math.max(1, lines.length) * LINE_HEIGHT + PAD_Y * 2,
     };
 }
@@ -160,11 +252,13 @@ export interface Curve {
  * lots instead of a ruler line. The axis is the one the boxes are furthest
  * apart on; the handles are half the gap long, never shorter than 24 units.
  */
-export function smoothCurve(a: NodeBox, b: NodeBox): Curve {
+export function smoothCurve(a: NodeBox, b: NodeBox, route?: 'x' | 'y'): Curve {
     const dx = b.node.x - a.node.x;
     const dy = b.node.y - a.node.y;
     // A box wider than it is tall is read on its own proportions: 1 unit of height weighs more than 1 of width.
-    const horizontal = Math.abs(dx) * 0.6 >= Math.abs(dy);
+    const horizontal = route
+        ? route === 'x'
+        : Math.abs(dx) * 0.6 >= Math.abs(dy);
     const sign = (n: number) => (n < 0 ? -1 : 1);
 
     let start: { x: number; y: number };
@@ -206,6 +300,18 @@ export function smoothCurve(a: NodeBox, b: NodeBox): Curve {
     };
 }
 
+/** The path of a leader: from the right edge of a period bar to the left side of its lot, one gentle S. */
+export function leaderPath(
+    from: { x: number; y: number },
+    box: NodeBox,
+): string {
+    const end = { x: box.node.x - box.width / 2, y: box.node.y };
+    const k = Math.max(14, (end.x - from.x) / 2);
+    const f = (n: number) => Math.round(n * 10) / 10;
+
+    return `M${f(from.x)} ${f(from.y)}C${f(from.x + k)} ${f(from.y)} ${f(end.x - k)} ${f(end.y)} ${f(end.x)} ${f(end.y)}`;
+}
+
 export interface EdgeGeometry {
     edge: SchemaEdge;
     /** SVG path from the edge of one box to the edge of the other. */
@@ -232,7 +338,7 @@ export function edgeGeometry(data: SchemaData): EdgeGeometry[] {
         const f = (n: number) => Math.round(n * 10) / 10;
 
         if (edge.bend === undefined) {
-            const curve = smoothCurve(a, b);
+            const curve = smoothCurve(a, b, edge.route);
 
             out.push({
                 edge,

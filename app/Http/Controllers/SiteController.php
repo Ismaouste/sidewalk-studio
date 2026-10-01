@@ -129,7 +129,36 @@ class SiteController extends Controller
             'localTeaser' => $page['local_teaser'],
             'contactCta' => $page['contact_cta'],
             'cvDownloads' => $this->cvDownloads(),
+            'publications' => $this->timelinePublications(),
         ])->withViewData(['seo' => $seo]);
+    }
+
+    /**
+     * The publications the home timeline tells its notions with: every published case study, article and note, as the site
+     * has published them. Nothing is written for the timeline; a new publication appears on the card of the notion it is tagged with.
+     *
+     * @return array<int, array{slug: string, title: string, summary: string, url: string, kind: string, date: string, tags: array<int, string>}>
+     */
+    protected function timelinePublications(): array
+    {
+        $locale = app()->getLocale();
+
+        return collect([
+            ...$this->content->published('case-studies', $locale, false)->all(),
+            ...$this->content->published('writing', $locale, false)->all(),
+        ])->map(fn (array $item): array => [
+            'slug' => (string) $item['slug'],
+            'title' => (string) $item['title'],
+            'summary' => (string) ($item['summary'] ?? ''),
+            'url' => (string) $item['url'],
+            'kind' => match (true) {
+                ($item['publication_type'] ?? '') === 'case_study' => 'case',
+                ($item['category'] ?? '') === 'note' => 'note',
+                default => 'article',
+            },
+            'date' => (string) ($item['published_at'] ?? ''),
+            'tags' => array_values((array) ($item['tags'] ?? [])),
+        ])->values()->all();
     }
 
     /**

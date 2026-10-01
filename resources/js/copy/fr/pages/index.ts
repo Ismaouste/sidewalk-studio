@@ -14,3 +14,4 @@ export { default as sparkle } from './sparkle';
 export { default as work } from './work';
 export { default as writingIndex } from './writingIndex';
 export { default as writingShow } from './writingShow';
+export { default as timeline } from './timeline';

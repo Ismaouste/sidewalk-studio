@@ -9,6 +9,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import NewsletterSignup from '@/components/NewsletterSignup.vue';
 import HomeClients from '@/components/schema/HomeClients.vue';
 import HomePlan from '@/components/schema/HomePlan.vue';
+import type { Publication } from '@/components/schema/timelineLayout';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
@@ -39,6 +40,7 @@ const props = defineProps<{
     }>;
     featuredCaseStudies: ContentItem[];
     journalWidget: PublicationWidgetData;
+    publications: Publication[];
     localTeaser: {
         title: string;
         summary: string;
@@ -229,7 +231,7 @@ const heroAccentChips = computed(() =>
             </div>
         </section>
 
-        <HomePlan />
+        <HomePlan :publications="props.publications" />
 
         <HomeClients />
 

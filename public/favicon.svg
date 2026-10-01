@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <style>
-    .i{fill:none;stroke:#121212}.i.f{fill:#121212;stroke:none}.a{fill:#c8321f;stroke:none}
-    @media (prefers-color-scheme:dark){.i{stroke:#edede9}.i.f{fill:#edede9}.a{fill:#ff5a47}}
+    .b{fill:#121212}.p{fill:#f7f5ef}.m{fill:#f2be1a}
+    @media (prefers-color-scheme:dark){.b{fill:#f7f5ef}.p{fill:#121212}}
   </style>
-  <rect class="i" x="9" y="9" width="46" height="46" stroke-width="6"/><circle class="a" cx="25" cy="39" r="8"/><path class="i" d="M36 28 H47 M41.5 22.5 V33.5" stroke-width="4"/>
+  <rect class="b" width="64" height="64"/><rect class="p" x="12" y="4" width="8" height="8"/><rect class="p" x="12" y="12" width="8" height="8"/><rect class="p" x="12" y="20" width="8" height="8"/><rect class="p" x="12" y="28" width="8" height="8"/><rect class="p" x="12" y="36" width="8" height="8"/><rect class="p" x="12" y="44" width="8" height="8"/><rect class="p" x="12" y="52" width="8" height="8"/><rect class="p" x="28" y="4" width="8" height="8"/><rect class="p" x="36" y="4" width="8" height="8"/><rect class="p" x="44" y="4" width="8" height="8"/><rect class="p" x="52" y="4" width="8" height="8"/><rect class="p" x="28" y="12" width="8" height="8"/><rect class="p" x="52" y="12" width="8" height="8"/><rect class="p" x="28" y="20" width="8" height="8"/><rect class="p" x="52" y="20" width="8" height="8"/><rect class="p" x="28" y="28" width="8" height="8"/><rect class="p" x="36" y="28" width="8" height="8"/><rect class="p" x="44" y="28" width="8" height="8"/><rect class="p" x="52" y="28" width="8" height="8"/><rect class="p" x="28" y="36" width="8" height="8"/><rect class="p" x="36" y="36" width="8" height="8"/><rect class="p" x="28" y="44" width="8" height="8"/><rect class="p" x="44" y="44" width="8" height="8"/><rect class="p" x="28" y="52" width="8" height="8"/><rect class="m" x="52" y="52" width="8" height="8"/>
 </svg>
