@@ -10,5 +10,6 @@ resources/content/
 # Build output and local scratch space.
 public/build/
 bootstrap/ssr/
+bootstrap/ssr-render/
 storage/
 .codex-tmp/

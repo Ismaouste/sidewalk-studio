@@ -27,11 +27,16 @@ return [
 
         'ensure_runtime_exists' => (bool) env('INERTIA_SSR_ENSURE_RUNTIME_EXISTS', false),
 
-        'url' => env('INERTIA_SSR_URL', 'http://127.0.0.1:13714'),
+        // Where the render server is. On Vercel it is the Node function `api/ssr/render.mjs` of the same deployment (the gateway adds `/render`);
+        // anywhere else, the long-running server of `npm run build:ssr` on its usual port.
+        'url' => env('INERTIA_SSR_URL', env('VERCEL')
+            ? rtrim((string) env('SITE_PUBLIC_URL', env('APP_URL', '')), '/').'/api/ssr'
+            : 'http://127.0.0.1:13714'),
 
         'hot_url' => env('INERTIA_SSR_HOT_URL'),
 
-        'ensure_bundle_exists' => (bool) env('INERTIA_SSR_ENSURE_BUNDLE_EXISTS', true),
+        // The bundle lives in the Node function on Vercel, not next to the PHP one: there is nothing to look for there.
+        'ensure_bundle_exists' => (bool) env('INERTIA_SSR_ENSURE_BUNDLE_EXISTS', ! env('VERCEL')),
 
         // 'bundle' => base_path('bootstrap/ssr/ssr.mjs'),
 

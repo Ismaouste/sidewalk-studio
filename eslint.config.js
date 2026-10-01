@@ -117,6 +117,7 @@ export default defineConfigWithVueTs(
             'public',
             'storage',
             'bootstrap/ssr',
+            'bootstrap/ssr-render',
             '.codex-tmp',
             '_starter_v0/**',
 

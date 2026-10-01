@@ -4,8 +4,8 @@
 // The monogram is made of whole cells only, so every size is drawn exactly, with no antialiasing to go soft at 16 px.
 // No dependency: the PNGs are encoded here with zlib.
 
-import { deflateSync } from 'node:zlib';
 import { writeFileSync } from 'node:fs';
+import { deflateSync } from 'node:zlib';
 
 const INK = [0x12, 0x12, 0x12];
 const PAPER = [0xf7, 0xf5, 0xef];
@@ -172,6 +172,6 @@ function ico(sizes) {
 writeFileSync('public/favicon.svg', svg());
 writeFileSync('public/favicon.ico', ico([16, 32, 48]));
 writeFileSync('public/apple-touch-icon.png', png(180));
-console.log(
+console.info(
     'favicon.svg, favicon.ico (16, 32, 48) and apple-touch-icon.png (180) written',
 );
