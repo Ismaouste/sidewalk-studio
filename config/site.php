@@ -50,6 +50,16 @@ return [
         'name' => env('SITE_AUTHOR_NAME', 'Sidewalk Studio'),
         'job_title' => env('SITE_AUTHOR_TITLE', 'Full Stack Developer — E-commerce & Product Data'),
         'email' => env('SITE_CONTACT_EMAIL', 'hello@sidewalk-studio.test'),
+        /** What the person works with, as the CV and the services page say it: it feeds the Person node on every page. */
+        'knows_about' => [
+            'E-commerce',
+            'Laravel',
+            'Product data (PIM, ERP)',
+            'Google Merchant Center and Meta catalogs',
+            'Technical SEO',
+            'Structured data (JSON-LD)',
+            'Consent Mode v2',
+        ],
         'same_as' => array_values(array_filter(array_map(
             'trim',
             explode(',', env('SITE_SAME_AS', '')),

@@ -1,6 +1,6 @@
 ---
-seo_title: Ismaël Rodmacq — E-commerce developer, Nancy
-seo_description: 'E-commerce developer in Nancy. Laravel, product data, technical SEO. Available for a position or a mission.'
+seo_title: Ismaël Rodmacq — E-commerce developer and tech lead, Nancy
+seo_description: 'E-commerce developer and tech lead in Nancy. Laravel, product data, Google and Meta catalogs, technical SEO. Available for a position or a freelance mission.'
 hero:
     eyebrow: E-commerce developer · Nancy
     title: Ismaël Rodmacq

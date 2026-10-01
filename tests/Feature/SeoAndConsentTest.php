@@ -15,9 +15,9 @@ class SeoAndConsentTest extends TestCase
 
         $this->get('/en')
             ->assertOk()
-            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
             ->assertSee($description)
-            ->assertSee('<meta property="og:image" content="'.$ogImage.'">', false)
+            ->assertSee('<meta data-inertia property="og:image" content="'.$ogImage.'">', false)
             ->assertSee('application/ld+json', false);
     }
 
@@ -27,7 +27,7 @@ class SeoAndConsentTest extends TestCase
 
         $this->get('/en/experience')
             ->assertOk()
-            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
             ->assertSee('Tech Lead Ecommerce in Nancy · Ismaël Rodmacq')
             ->assertSee('"@type":"Person"', false)
             /**
@@ -50,9 +50,9 @@ class SeoAndConsentTest extends TestCase
         $this->get('/en/journal/content-systems-routing-and-metadata')
             ->assertOk()
             ->assertSee('Content systems start with routing and metadata · Ismaël Rodmacq')
-            ->assertSee('<meta property="og:type" content="article">', false)
-            ->assertSee('<meta property="og:image" content="'.$ogImage.'">', false)
-            ->assertSee('<meta name="twitter:image" content="'.$ogImage.'">', false)
+            ->assertSee('<meta data-inertia property="og:type" content="article">', false)
+            ->assertSee('<meta data-inertia property="og:image" content="'.$ogImage.'">', false)
+            ->assertSee('<meta data-inertia name="twitter:image" content="'.$ogImage.'">', false)
             ->assertSee('"@type":"Article"', false)
             ->assertSee('"@id":"'.$canonical.'"', false)
             ->assertSee('BreadcrumbList', false);
@@ -65,8 +65,8 @@ class SeoAndConsentTest extends TestCase
         $this->get('/en/case-studies/pipeline-deploiement-ecommerce')
             ->assertOk()
             ->assertSee('Making a deployment pipeline honest in a live ecommerce environment · Ismaël Rodmacq')
-            ->assertSee('<meta property="og:type" content="website">', false)
-            ->assertSee('<meta property="og:image" content="'.$ogImage.'">', false)
+            ->assertSee('<meta data-inertia property="og:type" content="website">', false)
+            ->assertSee('<meta data-inertia property="og:image" content="'.$ogImage.'">', false)
             ->assertSee('"@type":"CreativeWork"', false)
             ->assertSee('BreadcrumbList', false);
     }
@@ -78,7 +78,7 @@ class SeoAndConsentTest extends TestCase
         $this->withCookie('sidewalk_locale', 'fr')
             ->get('/fr/case-studies/pipeline-deploiement-ecommerce')
             ->assertOk()
-            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertSee('Rendre un pipeline de déploiement honnête en environnement e-commerce · Ismaël Rodmacq');
     }
@@ -87,14 +87,14 @@ class SeoAndConsentTest extends TestCase
     {
         $this->get('/en/contact')
             ->assertOk()
-            ->assertSee('<meta name="robots" content="noindex,follow">', false);
+            ->assertSee('<meta data-inertia name="robots" content="noindex,follow">', false);
     }
 
     public function test_sparkle_page_is_explicitly_noindex_nofollow(): void
     {
         $this->get('/en/sparkle')
             ->assertOk()
-            ->assertSee('<meta name="robots" content="noindex,nofollow">', false)
+            ->assertSee('<meta data-inertia name="robots" content="noindex,nofollow">', false)
             ->assertSee('Sparkle mode · Ismaël Rodmacq');
     }
 

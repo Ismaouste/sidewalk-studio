@@ -99,6 +99,10 @@ return [
             'title' => 'Subscription confirmed',
             'description' => 'Your newsletter subscription is confirmed.',
         ],
+        'not_found' => [
+            'title' => 'Page not found',
+            'description' => 'This page does not exist. Go back to the home page, the work or the contact page.',
+        ],
     ],
 
     /**

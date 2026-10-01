@@ -385,6 +385,20 @@ class SiteController extends Controller
             ->withViewData(['seo' => $seo]);
     }
 
+    /** The page for an address that does not exist. The caller sets the 404 status; the page is never indexed. */
+    public function notFound(): Response
+    {
+        $seo = Seo::page(
+            PublicCopy::line('seo.not_found.title'),
+            PublicCopy::line('seo.not_found.description'),
+            '/',
+            ['robots' => 'noindex,follow'],
+        );
+
+        return Inertia::render('NotFound', ['seo' => $seo])
+            ->withViewData(['seo' => $seo]);
+    }
+
     public function newsletterConfirmed(): Response
     {
         $seo = Seo::page(

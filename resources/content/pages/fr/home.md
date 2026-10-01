@@ -1,6 +1,6 @@
 ---
-seo_title: Ismaël Rodmacq — Développeur e-commerce, Nancy
-seo_description: "Développeur e-commerce à Nancy. Laravel, données produit, SEO technique. Disponible pour un poste ou une mission."
+seo_title: Ismaël Rodmacq — Développeur e-commerce et tech lead, Nancy
+seo_description: "Développeur e-commerce et tech lead à Nancy. Laravel, données produit, catalogues Google et Meta, SEO technique. Disponible pour un poste ou une mission en freelance."
 hero:
     eyebrow: Développeur e-commerce · Nancy
     title: Ismaël Rodmacq

@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+// The PHP version is nobody's business: no `X-Powered-By` header.
+ini_set('expose_php', '0');
+header_remove('X-Powered-By');
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 

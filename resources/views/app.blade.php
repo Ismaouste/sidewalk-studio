@@ -64,27 +64,27 @@
         </script>
 
         <title data-inertia>{{ $seo['title'] ?? config('site.name') }}</title>
-        <meta name="description" content="{{ $seo['description'] ?? config('site.description') }}">
-        <meta name="robots" content="{{ $seo['robots'] ?? 'index,follow' }}">
-        <link rel="canonical" href="{{ $seo['canonical'] ?? config('site.url') }}">
+        <meta data-inertia name="description" content="{{ $seo['description'] ?? config('site.description') }}">
+        <meta data-inertia name="robots" content="{{ $seo['robots'] ?? 'index,follow' }}">
+        <link data-inertia rel="canonical" href="{{ $seo['canonical'] ?? config('site.url') }}">
 
-        <meta property="og:title" content="{{ $seo['openGraph']['title'] ?? ($seo['title'] ?? config('site.name')) }}">
-        <meta property="og:description" content="{{ $seo['openGraph']['description'] ?? ($seo['description'] ?? config('site.description')) }}">
-        <meta property="og:type" content="{{ $seo['openGraph']['type'] ?? 'website' }}">
-        <meta property="og:url" content="{{ $seo['openGraph']['url'] ?? ($seo['canonical'] ?? config('site.url')) }}">
-        <meta property="og:site_name" content="{{ $seo['openGraph']['site_name'] ?? config('site.name') }}">
-        <meta property="og:locale" content="{{ $seo['openGraph']['locale'] ?? config('site.locale') }}">
+        <meta data-inertia property="og:title" content="{{ $seo['openGraph']['title'] ?? ($seo['title'] ?? config('site.name')) }}">
+        <meta data-inertia property="og:description" content="{{ $seo['openGraph']['description'] ?? ($seo['description'] ?? config('site.description')) }}">
+        <meta data-inertia property="og:type" content="{{ $seo['openGraph']['type'] ?? 'website' }}">
+        <meta data-inertia property="og:url" content="{{ $seo['openGraph']['url'] ?? ($seo['canonical'] ?? config('site.url')) }}">
+        <meta data-inertia property="og:site_name" content="{{ $seo['openGraph']['site_name'] ?? config('site.name') }}">
+        <meta data-inertia property="og:locale" content="{{ $seo['openGraph']['locale'] ?? config('site.locale') }}">
         @if (!empty($seo['openGraph']['image']))
-            <meta property="og:image" content="{{ $seo['openGraph']['image'] }}">
-            <meta property="og:image:alt" content="{{ $seo['openGraph']['image_alt'] ?? ($seo['title'] ?? config('site.name')) }}">
+            <meta data-inertia property="og:image" content="{{ $seo['openGraph']['image'] }}">
+            <meta data-inertia property="og:image:alt" content="{{ $seo['openGraph']['image_alt'] ?? ($seo['title'] ?? config('site.name')) }}">
         @endif
 
-        <meta name="twitter:card" content="{{ $seo['twitter']['card'] ?? 'summary_large_image' }}">
-        <meta name="twitter:title" content="{{ $seo['twitter']['title'] ?? ($seo['title'] ?? config('site.name')) }}">
-        <meta name="twitter:description" content="{{ $seo['twitter']['description'] ?? ($seo['description'] ?? config('site.description')) }}">
+        <meta data-inertia name="twitter:card" content="{{ $seo['twitter']['card'] ?? 'summary_large_image' }}">
+        <meta data-inertia name="twitter:title" content="{{ $seo['twitter']['title'] ?? ($seo['title'] ?? config('site.name')) }}">
+        <meta data-inertia name="twitter:description" content="{{ $seo['twitter']['description'] ?? ($seo['description'] ?? config('site.description')) }}">
         @if (!empty($seo['twitter']['image']))
-            <meta name="twitter:image" content="{{ $seo['twitter']['image'] }}">
-            <meta name="twitter:image:alt" content="{{ $seo['twitter']['image_alt'] ?? ($seo['title'] ?? config('site.name')) }}">
+            <meta data-inertia name="twitter:image" content="{{ $seo['twitter']['image'] }}">
+            <meta data-inertia name="twitter:image:alt" content="{{ $seo['twitter']['image_alt'] ?? ($seo['title'] ?? config('site.name')) }}">
         @endif
 
         <link rel="icon" href="/favicon.ico" sizes="any">
@@ -95,7 +95,7 @@
 
         @if (!empty($seo['jsonLd']))
             @foreach ($seo['jsonLd'] as $schema)
-                <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+                <script type="application/ld+json" data-inertia>{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
             @endforeach
         @endif
 

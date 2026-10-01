@@ -26,7 +26,7 @@ class PublicLocaleResolutionTest extends TestCase
 
         $response->assertOk()
             ->assertHeader('content-language', 'fr')
-            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('hero.title', 'Projets e-commerce')
@@ -116,7 +116,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->get('/fr/journal')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
-            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
@@ -144,7 +144,7 @@ class PublicLocaleResolutionTest extends TestCase
             ->get('/fr/journal/content-systems-routing-and-metadata')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
-            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
@@ -186,7 +186,7 @@ MD);
                 ->get('/fr/journal/editorial-english-fallback-public-test')
                 ->assertOk()
                 ->assertHeader('content-language', 'en')
-                ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+                ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
                 ->assertInertia(fn (Assert $page): Assert => $page
                     ->where('site.locale', 'en')
                     ->where('item.locale', 'en')
@@ -205,7 +205,7 @@ MD);
             ->get('/fr/case-studies')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
-            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
@@ -233,7 +233,7 @@ MD);
             ->get('/fr/case-studies/pipeline-deploiement-ecommerce')
             ->assertOk()
             ->assertHeader('content-language', 'fr')
-            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('site.locale', 'fr')
@@ -281,7 +281,7 @@ MD);
                 ->get('/fr/case-studies/case-study-english-fallback-public-test')
                 ->assertOk()
                 ->assertHeader('content-language', 'en')
-                ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+                ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
                 ->assertInertia(fn (Assert $page): Assert => $page
                     ->where('site.locale', 'en')
                     ->where('item.locale', 'en')
@@ -301,7 +301,7 @@ MD);
         ])->get('/projects')
             ->assertOk()
             ->assertHeader('content-language', 'en')
-            ->assertSee('<link rel="canonical" href="'.$canonical.'">', false)
+            ->assertSee('<link data-inertia rel="canonical" href="'.$canonical.'">', false)
             ->assertDontSee('hreflang', false)
             ->assertInertia(fn (Assert $page): Assert => $page
                 ->where('hero.title', 'Ecommerce projects')

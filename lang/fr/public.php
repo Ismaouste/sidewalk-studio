@@ -70,6 +70,10 @@ return [
             'title' => 'Inscription confirmée',
             'description' => 'Votre inscription à la newsletter est confirmée.',
         ],
+        'not_found' => [
+            'title' => 'Page introuvable',
+            'description' => "Cette page n'existe pas. Revenez à l'accueil, aux réalisations ou à la page de contact.",
+        ],
     ],
 
     'labs' => [

@@ -7,6 +7,7 @@ export { default as labs } from './labs';
 export { default as labsAudit } from './labsAudit';
 export { default as local } from './local';
 export { default as newsletterConfirmed } from './newsletterConfirmed';
+export { default as notFound } from './notFound';
 export { default as projects } from './projects';
 export { default as services } from './services';
 export { default as sparkle } from './sparkle';

@@ -75,6 +75,8 @@ class PublicLocale
     public static function preferredLocaleForRequest(Request $request): string
     {
         return self::resolveSupportedLocale($request->route('locale'))
+            // An address that matches no route (the 404) still says its language in its first segment.
+            ?? self::resolveSupportedLocale($request->segment(1))
             ?? self::resolveSupportedLocale($request->query('lang'))
             ?? self::resolveSupportedLocale($request->cookie(self::COOKIE_NAME))
             ?? self::resolveBrowserLocale($request)
@@ -295,6 +297,7 @@ class PublicLocale
             'labs' => true,
             'labs.audit' => true,
             'newsletter.confirmed' => true,
+            'not-found' => true,
             'writing.index' => self::localizedCollectionExists('writing', $locale),
             'case-studies.index' => self::localizedCollectionExists('case-studies', $locale),
             default => false,

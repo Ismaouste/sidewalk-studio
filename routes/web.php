@@ -19,6 +19,7 @@ use App\Http\Controllers\AuditRequestController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\ContentVisualController;
+use App\Http\Controllers\LlmsController;
 use App\Http\Controllers\NewsletterSubscriptionController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SitemapController;
@@ -269,13 +270,36 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
     });
 });
 
-Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+/*
+ * The files a crawler fetches are stateless, like the audience ping: no session,
+ * no cookie, no CSRF. A sitemap that sets three cookies cannot be cached by a
+ * CDN, and a crawler has no use for them.
+ */
+$stateless = [
+    StartSession::class,
+    ShareErrorsFromSession::class,
+    PreventRequestForgery::class,
+    ResolvePublicLocale::class,
+    HandleInertiaRequests::class,
+    AddLinkHeadersForPreloadedAssets::class,
+    CachePublicResponse::class,
+];
+
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap')->withoutMiddleware($stateless);
+Route::get('/llms.txt', LlmsController::class)->name('llms')->withoutMiddleware($stateless);
 Route::get('/robots.txt', function () {
     $content = implode(PHP_EOL, [
         'User-agent: *',
         'Allow: /',
+        'Disallow: /admin',
         'Sitemap: '.url('/sitemap.xml'),
     ]);
 
     return response($content, 200)->header('Content-Type', 'text/plain');
-})->name('robots');
+})->name('robots')->withoutMiddleware($stateless);
+
+/*
+ * Any other address: the site's own 404 (see bootstrap/app.php). The fallback is
+ * a route, so the locale and Inertia middleware run before the page is built.
+ */
+Route::fallback(fn () => abort(404))->name('not-found');

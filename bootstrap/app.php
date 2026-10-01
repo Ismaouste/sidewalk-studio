@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SiteController;
 use App\Http\Middleware\AdminAuthenticate;
 use App\Http\Middleware\CachePublicResponse;
 use App\Http\Middleware\HandleInertiaRequests;
@@ -9,6 +10,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -79,4 +81,21 @@ return Application::configure(basePath: dirname(__DIR__))
          * Inertia form still holds what was typed.
          */
         $exceptions->dontFlash(['payload']);
+
+        /**
+         * A missing public page answers with the site's own 404: its menu, its
+         * footer, a way back — not the framework's bare error page, which reads
+         * as "the whole site is down". The back office and JSON callers keep
+         * the default response.
+         */
+        $exceptions->render(function (NotFoundHttpException $exception, Request $request) {
+            if ($request->is('admin', 'admin/*', 'api/*') || $request->expectsJson()) {
+                return null;
+            }
+
+            return app(SiteController::class)
+                ->notFound()
+                ->toResponse($request)
+                ->setStatusCode(404);
+        });
     })->create();

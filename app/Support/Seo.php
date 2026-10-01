@@ -5,6 +5,7 @@ namespace App\Support;
 use App\Services\SiteSettingsService;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class Seo
 {
@@ -15,7 +16,11 @@ class Seo
         $siteUrl = rtrim((string) config('site.url'), '/');
         $locale = app()->getLocale();
         $author = config('site.author');
-        $fullTitle = $title === $siteName ? $siteName : sprintf('%s · %s', $title, $settings->seoDefaults->titleSuffix);
+        // The site name is appended once, and not at all when the page title already says it ("Name — Role, City").
+        $suffix = (string) $settings->seoDefaults->titleSuffix;
+        $namesTheSite = $title === $siteName
+            || ($suffix !== '' && str_contains(Str::lower(Str::ascii($title)), Str::lower(Str::ascii($suffix))));
+        $fullTitle = $namesTheSite ? $title : sprintf('%s · %s', $title, $suffix);
         $resolvedDescription = trim($description) !== '' ? $description : $settings->seoDefaults->defaultDescription;
         $canonical = self::resolveCanonical(
             $options['canonical_url'] ?? $options['canonical'] ?? '',
@@ -38,6 +43,17 @@ class Seo
                 siteUrl: $siteUrl,
                 description: $settings->seoDefaults->defaultDescription,
                 locale: $locale,
+            ),
+            // Who is behind the site, on every page: one Person node that the other nodes point to. A page that is itself the person
+            // surface carries it already, with its email.
+            $schemaVariant === 'person_surface' ? null : self::personSurfaceSchema(
+                author: is_array($author) ? $author : [],
+                settings: $settings,
+                sameAs: $sameAs,
+                knowsAbout: (array) config('site.author.knows_about', []),
+                email: null,
+                jobTitle: null,
+                siteUrl: $siteUrl,
             ),
             self::schemaForVariant(
                 variant: $schemaVariant,
@@ -164,10 +180,13 @@ class Seo
         return [
             '@context' => 'https://schema.org',
             '@type' => 'WebSite',
+            '@id' => $siteUrl.'/#website',
             'name' => $siteName,
             'url' => $siteUrl,
             'description' => $description,
             'inLanguage' => $locale,
+            'publisher' => ['@id' => $siteUrl.'/#person'],
+            'author' => ['@id' => $siteUrl.'/#person'],
         ];
     }
 
@@ -335,7 +354,9 @@ class Seo
         $schema = [
             '@context' => 'https://schema.org',
             '@type' => 'Person',
-            'name' => (string) ($author['name'] ?? (string) config('site.author.name')),
+            '@id' => $siteUrl.'/#person',
+            // The name the site shows, spelled as the locale spells it; the configured author name only when the settings have none.
+            'name' => (string) ($settings->siteIdentity->name ?: ($author['name'] ?? (string) config('site.author.name'))),
             'jobTitle' => $jobTitle ?: (string) ($author['job_title'] ?? 'Full Stack Developer — E-commerce & Product Data'),
             'url' => $siteUrl,
             'sameAs' => $sameAs,

@@ -129,7 +129,10 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug((string) env('APP_NAME', 'laravel')).'-session',
+        // The `__Host-` prefix makes a browser refuse the cookie unless it is Secure, set on the root path and without a Domain: it cannot be
+        // planted from a subdomain or over plain HTTP. It is only valid then, so it is only used then (production over HTTPS).
+        (filter_var(env('SESSION_SECURE_COOKIE', false), FILTER_VALIDATE_BOOLEAN) && env('SESSION_DOMAIN') === null ? '__Host-' : '')
+        .Str::slug((string) env('APP_NAME', 'laravel')).'-session',
     ),
 
     /*
