@@ -97,6 +97,8 @@ return [
             'prefix_indexes' => true,
             'search_path' => 'public',
             'sslmode' => env('DB_SSLMODE', 'prefer'),
+            // A transaction pooler (Supabase, pgbouncer) does not keep prepared statements between queries: the driver emulates them.
+            'options' => env('DB_PGBOUNCER', false) ? [PDO::ATTR_EMULATE_PREPARES => true] : [],
         ],
 
         'sqlsrv' => [
