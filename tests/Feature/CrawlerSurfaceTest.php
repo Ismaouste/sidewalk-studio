@@ -120,6 +120,15 @@ class CrawlerSurfaceTest extends TestCase
         $this->assertStringContainsString("'inline-speculation-rules'", $csp);
     }
 
+    public function test_the_back_office_is_never_indexed_or_cached(): void
+    {
+        $config = json_decode((string) file_get_contents(base_path('vercel.json')), true, flags: JSON_THROW_ON_ERROR);
+        $rule = collect($config['headers'])->firstWhere('source', '/admin(.*)');
+
+        $this->assertNotNull($rule);
+        $this->assertSame('noindex, nofollow, noarchive', collect($rule['headers'])->pluck('value', 'key')['X-Robots-Tag']);
+    }
+
     public function test_the_php_version_is_not_advertised(): void
     {
         $entry = (string) file_get_contents(base_path('api/index.php'));
