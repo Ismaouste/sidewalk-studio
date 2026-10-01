@@ -157,7 +157,8 @@ class Seo
                 settings: $settings,
                 sameAs: $sameAs,
                 knowsAbout: $options['person']['knows_about'] ?? [],
-                email: $options['person']['email'] ?? $settings->contactDetails->email,
+                // The address is not written into the page's structured data: it would sit in the HTML as plain text. The contact page shows it, decoded in the browser.
+                email: null,
                 jobTitle: $options['person']['job_title'] ?? null,
                 siteUrl: $siteUrl,
             ),

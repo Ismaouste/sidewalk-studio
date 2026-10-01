@@ -6,11 +6,13 @@ import AccessibilityPanel from '@/components/layout/AccessibilityPanel.vue';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher.vue';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
 import Cartouche from '@/components/sheet/Cartouche.vue';
+import { useDecodedEmail } from '@/composables/useDecodedEmail';
 import { copy as copyTree } from '@/copy';
 import { localizePublicHref } from '@/lib/publicHref';
 import type { SiteProps } from '@/types';
 
 const page = usePage<{ site: SiteProps }>();
+const { mailto } = useDecodedEmail(() => page.props.site.contact.email);
 const isStaticPreview = computed(() => page.props.site.runtime.staticPreview);
 const linkedinUrl = computed(() => {
     const value = page.props.site.social.linkedin_url?.trim() ?? '';
@@ -113,10 +115,7 @@ function backToTop(): void {
                             </svg>
                             {{ copy.linkedinLabel }}
                         </a>
-                        <a
-                            class="app-footer__social"
-                            :href="`mailto:${page.props.site.contact.email}`"
-                        >
+                        <a class="app-footer__social" :href="mailto()">
                             <svg
                                 class="app-footer__social-icon"
                                 viewBox="0 0 16 16"

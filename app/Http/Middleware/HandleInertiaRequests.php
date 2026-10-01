@@ -4,8 +4,10 @@ namespace App\Http\Middleware;
 
 use App\Services\LoaderQuoteService;
 use App\Services\SiteSettingsService;
+use App\Support\ObfuscatedEmail;
 use App\Support\PublicLocale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Inertia\Middleware;
 
@@ -85,8 +87,12 @@ class HandleInertiaRequests extends Middleware
                     app()->getLocale(),
                     PublicLocale::pathForRequest($request),
                 ),
-                'author' => config('site.author'),
-                'contact' => $settings->contactDetails->toArray(),
+                // No plain email in the page: the author's is left out, the contact's is encoded (App\Support\ObfuscatedEmail).
+                'author' => Arr::except((array) config('site.author'), ['email']),
+                'contact' => [
+                    ...$settings->contactDetails->toArray(),
+                    'email' => ObfuscatedEmail::encode($settings->contactDetails->email),
+                ],
                 'social' => $settings->socialLinks->toArray(),
                 'branding' => $settings->brandingSettings->toArray(),
                 'shell' => PublicLocale::shellCopy(app()->getLocale()),

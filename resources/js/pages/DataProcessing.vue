@@ -5,6 +5,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import MeasurementControls from '@/components/MeasurementControls.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { useDecodedEmail } from '@/composables/useDecodedEmail';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import type { SeoPayload, SiteProps } from '@/types';
 
@@ -38,6 +39,7 @@ defineProps<{
 }>();
 
 const page = usePage<{ site: SiteProps }>();
+const { email, mailto } = useDecodedEmail(() => page.props.site.contact.email);
 </script>
 
 <template>
@@ -116,10 +118,10 @@ const page = usePage<{ site: SiteProps }>();
                 </p>
                 <a
                     class="data-processing-page__contact"
-                    :href="`mailto:${page.props.site.contact.email}`"
+                    :href="mailto()"
                     rel="nofollow"
                 >
-                    {{ page.props.site.contact.email }}
+                    {{ email || '…' }}
                 </a>
             </Panel>
         </section>

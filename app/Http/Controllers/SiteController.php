@@ -9,6 +9,7 @@ use App\Services\PageContentRepository;
 use App\Services\QuestionnaireRepository;
 use App\Services\SiteSettingsService;
 use App\Support\CareerAsset;
+use App\Support\ObfuscatedEmail;
 use App\Support\PublicCopy;
 use App\Support\PublicLocale;
 use App\Support\Seo;
@@ -284,7 +285,6 @@ class SiteController extends Controller
             $this->pageSeoOptions($page, [
                 'schema_variant' => 'person_surface',
                 'person' => [
-                    'email' => $this->siteSettings->current()->contactDetails->email,
                     'job_title' => (string) config('site.author.job_title'),
                     'knows_about' => [
                         'E-commerce engineering',
@@ -485,7 +485,10 @@ class SiteController extends Controller
 
         return Inertia::render('Contact', [
             'seo' => $seo,
-            'contact' => $settings->contactDetails->toArray(),
+            'contact' => [
+                ...$settings->contactDetails->toArray(),
+                'email' => ObfuscatedEmail::encode($settings->contactDetails->email),
+            ],
             'hero' => $page['hero'],
             'form' => $page['form'],
             'details' => $page['details'],

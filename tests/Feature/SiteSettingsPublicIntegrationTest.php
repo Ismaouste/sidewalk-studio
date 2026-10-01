@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\SiteSetting;
 use App\Services\SiteSettingsService;
+use App\Support\ObfuscatedEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
@@ -51,7 +52,7 @@ class SiteSettingsPublicIntegrationTest extends TestCase
                 ->where('name', 'Studio Atlas')
                 ->where('site.name', 'Studio Atlas')
                 ->where('site.tagline', 'A settings-backed tagline.')
-                ->where('site.contact.email', 'hello@studio-atlas.test')
+                ->where('site.contact.email', ObfuscatedEmail::encode('hello@studio-atlas.test'))
                 ->where('site.social.github_url', 'https://github.com/studio-atlas')
                 ->where('site.social.linkedin_url', 'https://www.linkedin.com/company/studio-atlas'))
             ->assertSee('A tailored metadata default for the public site.');
@@ -72,7 +73,9 @@ class SiteSettingsPublicIntegrationTest extends TestCase
 
         $this->get('/en/contact')
             ->assertOk()
-            ->assertSee('contact@studio-atlas.test')
+            // The address is in the page encoded, never as text: the browser decodes it once loaded.
+            ->assertSee(base64_encode('contact@studio-atlas.test'), false)
+            ->assertDontSee('contact@studio-atlas.test', false)
             ->assertSee('Remote-first')
             ->assertSee('Booked for Q2 launches with room for targeted architecture work.');
     }

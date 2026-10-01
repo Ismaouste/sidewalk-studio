@@ -38,7 +38,7 @@ class SeoAndConsentTest extends TestCase
              */
             ->assertSee('"jobTitle":'.json_encode(config('site.author.job_title')), false)
             ->assertSee('"addressRegion":"Grand Est"', false)
-            ->assertSee('"email":"ismael@rodmacq.com"', false)
+            ->assertDontSee('ismael@rodmacq.com', false)
             ->assertSee('BreadcrumbList', false);
     }
 

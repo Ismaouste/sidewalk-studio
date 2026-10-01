@@ -8,6 +8,7 @@
  */
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { useDecodedEmail } from '@/composables/useDecodedEmail';
 import { copy as copyTree } from '@/copy';
 import type { SeoPayload, SiteProps } from '@/types';
 
@@ -15,6 +16,7 @@ defineOptions({ name: 'SheetCartouche' });
 
 const page = usePage<{ seo?: SeoPayload; site: SiteProps }>();
 const site = computed(() => page.props.site);
+const { email, mailto } = useDecodedEmail(() => site.value.contact.email);
 const copy = computed(
     () => copyTree[site.value.locale].layout.footer.cartouche,
 );
@@ -61,9 +63,7 @@ const github = computed(() => site.value.social.github_url?.trim() || null);
         <div class="cartouche__cell cartouche__cell--wide">
             <dt>{{ copy.find }}</dt>
             <dd class="cartouche__links">
-                <a :href="`mailto:${site.contact.email}`">{{
-                    site.contact.email
-                }}</a>
+                <a :href="mailto()">{{ email || '…' }}</a>
                 <a v-if="github" :href="github" target="_blank" rel="noopener"
                     >GitHub</a
                 >

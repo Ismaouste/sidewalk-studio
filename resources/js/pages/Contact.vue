@@ -7,6 +7,7 @@ import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
 import Panel from '@/components/ui/Panel.vue';
+import { useDecodedEmail } from '@/composables/useDecodedEmail';
 import { copy as copyTree } from '@/copy';
 import SiteLayout from '@/layouts/SiteLayout.vue';
 import { capture } from '@/lib/analytics';
@@ -103,6 +104,8 @@ const inquiryMeta = computed(() => [
 const statusMessage = computed(() => page.props.flash?.status ?? null);
 const whatsappHref = 'https://wa.me/33684907608';
 
+const { email, mailto } = useDecodedEmail(() => props.contact.email);
+
 const mailtoHref = computed(() => {
     const subjectBase = inquiry.company.trim()
         ? `${copy.value.subjectPrefix}: ${inquiry.company.trim()}`
@@ -123,7 +126,7 @@ const mailtoHref = computed(() => {
         inquiry.summary.trim() || copy.value.bodyBriefFallback,
     ].filter(Boolean);
 
-    return `mailto:${props.contact.email}?subject=${encodeURIComponent(
+    return `mailto:${email.value}?subject=${encodeURIComponent(
         subjectBase,
     )}&body=${encodeURIComponent(lines.join('\n'))}`;
 });
@@ -172,7 +175,7 @@ function markBookingIntent(): void {
                     <div class="contact-page__hero-toolbar-body">
                         <div class="contact-page__hero-actions">
                             <Button
-                                :href="`mailto:${props.contact.email}`"
+                                :href="mailto()"
                                 external
                                 target="_blank"
                                 rel="nofollow noopener noreferrer"
@@ -388,10 +391,7 @@ function markBookingIntent(): void {
                         >
                             {{ props.form.primary_cta }}
                         </Button>
-                        <Button
-                            :href="`mailto:${props.contact.email}`"
-                            variant="secondary"
-                        >
+                        <Button :href="mailto()" variant="secondary">
                             {{ props.form.secondary_cta }}
                         </Button>
                     </div>
@@ -411,7 +411,7 @@ function markBookingIntent(): void {
                     </div>
 
                     <div class="contact-page__form-actions">
-                        <Button :href="`mailto:${props.contact.email}`">
+                        <Button :href="mailto()">
                             {{ props.form.secondary_cta }}
                         </Button>
                     </div>
@@ -430,9 +430,9 @@ function markBookingIntent(): void {
                                 <dd class="type-body-sm">
                                     <a
                                         class="contact-page__detail-link"
-                                        :href="`mailto:${props.contact.email}`"
+                                        :href="mailto()"
                                     >
-                                        {{ props.contact.email }}
+                                        {{ email || '…' }}
                                     </a>
                                 </dd>
                             </div>
@@ -548,10 +548,7 @@ function markBookingIntent(): void {
                             >
                                 {{ download.label }}
                             </Button>
-                            <Button
-                                :href="`mailto:${props.contact.email}`"
-                                variant="secondary"
-                            >
+                            <Button :href="mailto()" variant="secondary">
                                 {{ props.form.secondary_cta }}
                             </Button>
                         </div>
