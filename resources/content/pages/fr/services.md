@@ -56,6 +56,9 @@ stacks:
           - Vitest
           - Playwright
 offers:
+    - title: Site vitrine
+      summary: Quelques pages, claires et rapides.
+      price: à partir de 1 400 €
     - title: Site local
       summary: Pour commerces, salles et institutions.
       price: à partir de 2 900 €
@@ -73,5 +76,8 @@ offers:
     - title: Plateforme sur mesure
       summary: Un outil métier sur un périmètre défini.
       price: sur devis
+    - title: Associations
+      summary: Écrivez-moi, nous trouverons un arrangement.
+      price: à discuter
 legal_note: 'Prix hors taxes. TVA non applicable, article 293 B du CGI. Tarifs de départ uniquement : chaque projet est chiffré par écrit.'
 ---

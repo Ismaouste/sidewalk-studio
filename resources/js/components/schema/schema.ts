@@ -9,6 +9,18 @@
 
 export type SchemaTone = 'ink' | 'mark' | 'path' | 'here';
 
+/** What a lot says about itself on hover, focus or tap: a card. Every field is optional; nothing here is invented, it is copy. */
+export interface SchemaDetail {
+    /** When, as written ("2025", "2021–2026"). */
+    period?: string;
+    /** What I did there, in a line. */
+    role?: string;
+    /** A few numbers, in large type: `value` is shown as is, `label` says what it counts. */
+    figures?: { value: string; label: string }[];
+    /** Where to read more. `nofollow` is for a client's site: it is mentioned, not endorsed. */
+    links?: { label: string; href: string; nofollow?: boolean }[];
+}
+
 export interface SchemaNode {
     id: string;
     /** One or two lines: separate them with `\n`. */
@@ -21,6 +33,8 @@ export interface SchemaNode {
     href?: string;
     /** The short line read after the label in the text equivalent. */
     note?: string;
+    /** The card shown on hover, focus or tap. */
+    detail?: SchemaDetail;
 }
 
 export interface SchemaEdge {
@@ -29,7 +43,7 @@ export interface SchemaEdge {
     /** What passes through this interface (a tiny label at mid-length). */
     label?: string;
     tone?: SchemaTone;
-    /** Bend of the line, in units: 0 is straight. */
+    /** Bend of the line, in units. Absent: a smooth S-curve that leaves and enters the boxes square on. 0: straight. */
     bend?: number;
 }
 
@@ -130,6 +144,68 @@ function exit(
     return { x: box.node.x + dx * s, y: box.node.y + dy * s };
 }
 
+export interface Curve {
+    start: { x: number; y: number };
+    c1: { x: number; y: number };
+    c2: { x: number; y: number };
+    end: { x: number; y: number };
+    /** The point at half the parameter, for the label. */
+    mid: { x: number; y: number };
+}
+
+/**
+ * A smooth S-curve (one cubic Bézier) between two boxes. It leaves the side of
+ * the first box that faces the second and enters the side of the second that
+ * faces the first, square on to both, so an arrow reads as a route between two
+ * lots instead of a ruler line. The axis is the one the boxes are furthest
+ * apart on; the handles are half the gap long, never shorter than 24 units.
+ */
+export function smoothCurve(a: NodeBox, b: NodeBox): Curve {
+    const dx = b.node.x - a.node.x;
+    const dy = b.node.y - a.node.y;
+    // A box wider than it is tall is read on its own proportions: 1 unit of height weighs more than 1 of width.
+    const horizontal = Math.abs(dx) * 0.6 >= Math.abs(dy);
+    const sign = (n: number) => (n < 0 ? -1 : 1);
+
+    let start: { x: number; y: number };
+    let end: { x: number; y: number };
+    let c1: { x: number; y: number };
+    let c2: { x: number; y: number };
+
+    if (horizontal) {
+        const s = sign(dx);
+
+        start = { x: a.node.x + (s * a.width) / 2, y: a.node.y };
+        end = { x: b.node.x - (s * b.width) / 2, y: b.node.y };
+
+        const k = Math.max(24, Math.abs(end.x - start.x) / 2);
+
+        c1 = { x: start.x + s * k, y: start.y };
+        c2 = { x: end.x - s * k, y: end.y };
+    } else {
+        const s = sign(dy);
+
+        start = { x: a.node.x, y: a.node.y + (s * a.height) / 2 };
+        end = { x: b.node.x, y: b.node.y - (s * b.height) / 2 };
+
+        const k = Math.max(24, Math.abs(end.y - start.y) / 2);
+
+        c1 = { x: start.x, y: start.y + s * k };
+        c2 = { x: end.x, y: end.y - s * k };
+    }
+
+    return {
+        start,
+        c1,
+        c2,
+        end,
+        mid: {
+            x: (start.x + 3 * c1.x + 3 * c2.x + end.x) / 8,
+            y: (start.y + 3 * c1.y + 3 * c2.y + end.y) / 8,
+        },
+    };
+}
+
 export interface EdgeGeometry {
     edge: SchemaEdge;
     /** SVG path from the edge of one box to the edge of the other. */
@@ -153,16 +229,29 @@ export function edgeGeometry(data: SchemaData): EdgeGeometry[] {
             continue;
         }
 
+        const f = (n: number) => Math.round(n * 10) / 10;
+
+        if (edge.bend === undefined) {
+            const curve = smoothCurve(a, b);
+
+            out.push({
+                edge,
+                d: `M${f(curve.start.x)} ${f(curve.start.y)}C${f(curve.c1.x)} ${f(curve.c1.y)} ${f(curve.c2.x)} ${f(curve.c2.y)} ${f(curve.end.x)} ${f(curve.end.y)}`,
+                mid: curve.mid,
+            });
+
+            continue;
+        }
+
         const start = exit(a, b.node);
         const end = exit(b, a.node);
-        const bend = edge.bend ?? 0;
+        const bend = edge.bend;
         const mx = (start.x + end.x) / 2;
         const my = (start.y + end.y) / 2;
         const length = Math.hypot(end.x - start.x, end.y - start.y) || 1;
         // The control point is pushed along the normal of the segment.
         const cx = mx + (-(end.y - start.y) / length) * bend;
         const cy = my + ((end.x - start.x) / length) * bend;
-        const f = (n: number) => Math.round(n * 10) / 10;
         const d =
             bend === 0
                 ? `M${f(start.x)} ${f(start.y)}L${f(end.x)} ${f(end.y)}`

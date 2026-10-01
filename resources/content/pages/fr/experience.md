@@ -22,7 +22,7 @@ professional_sections:
           - Cinq ans chez Jewely / Flippad, de septembre 2021 à fin août 2026.
           - "2026 : j'ai transformé un e-commerce simple en CMS sur mesure, avec un back end commun. Une fonctionnalité se construit une fois et arrive sur tous les sites clients."
           - "2025 : Crown-DP, réalisé seul de A à Z. J'ai intégré la maquette fournie par une agence de Strasbourg, et tout le monde a été ravi du résultat."
-          - "Pour les maisons aussi : l'espace Rolex de Louis Julian et l'espace Rolex Certified Pre-Owned de Godechot-Pauliet, sous NDA avec Rolex. Autre maison : Auberi."
+          - "Pour les maisons aussi : l'espace Rolex de Louis Julian et l'espace Rolex Certified Pre-Owned de Godechot-Pauliet, sous NDA avec Rolex, et le dispositif Rolex Bespoke. Autre maison : Auberi."
           - Grandes campagnes sur les réseaux sociaux pour des bijouteries-horlogeries, pour des marques comme Tudor et Repossi.
           - Sur le PIM (Product Information Manager) maison, j'ai construit les algos Python de scrap et d'enrichissement qui alimentent aujourd'hui +20 000 fiches produit, leurs images et leurs vidéos sur le périmètre HBJO.
           - "Côté commerce, j'ai conçu et tenu les connecteurs entre l'ERP, le PIM et les catalogues marchand : création produit automatique et orchestration de synchronisation vers Google Merchant Center, Facebook Catalog et les pipelines marketing aval."
@@ -39,7 +39,7 @@ professional_sections:
                 - Core partagé, thèmes par client, connecteurs métier, delivery continu et coordination entre ERP, catalogue et front.
                 - Algos Python de scrap + enrichissement PIM HBJO — +20 000 fiches produit avec médias actives.
                 - Création produit auto + sync Google Merchant Center, Facebook Catalog, pipelines marketing.
-                - 'Maisons : Crown-DP, Louis Julian, Godechot-Pauliet, Auberi. Espaces Rolex pour Louis Julian et Godechot-Pauliet.'
+                - 'Maisons : Crown-DP, Louis Julian, Godechot-Pauliet, Auberi. Espaces Rolex pour Louis Julian et Godechot-Pauliet, et Rolex Bespoke.'
     - title: Infrastructure
       eyebrow: Devops transversal — 2024-2026
       summary: Déploiement Docker Swarm sur AWS pour la plateforme Jewely. Pipeline automatique via EventBridge, Lambda et SSM, puis durcissement après incident disque.

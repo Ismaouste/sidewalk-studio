@@ -38,7 +38,10 @@ const ultra = computed(() => buildPlan(plan.value, 'ultra', localize));
             :data="compact"
         />
         <Schema class="home-plan__sheet home-plan__sheet--wide" :data="wide" />
-        <Schema class="home-plan__sheet home-plan__sheet--ultra" :data="ultra" />
+        <Schema
+            class="home-plan__sheet home-plan__sheet--ultra"
+            :data="ultra"
+        />
 
         <ul class="type-meta home-plan__legend">
             <li v-for="line in plan.legend" :key="line">{{ line }}</li>

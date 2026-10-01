@@ -9,7 +9,13 @@
  * the career branch on its left, for very wide screens only). Pure, so it can
  * be tested.
  */
-import type { SchemaData, SchemaEdge, SchemaNode, SchemaTone } from './schema';
+import type {
+    SchemaData,
+    SchemaDetail,
+    SchemaEdge,
+    SchemaNode,
+    SchemaTone,
+} from './schema';
 
 export type PlanLayoutName = 'wide' | 'compact' | 'ultra';
 
@@ -17,6 +23,8 @@ export type PlanLayoutName = 'wide' | 'compact' | 'ultra';
 export interface PlanLotCopy {
     label: string;
     note: string;
+    /** The card shown on hover, focus or tap. */
+    detail?: SchemaDetail;
 }
 
 export interface PlanCopy {
@@ -39,7 +47,7 @@ interface LotSpec {
 }
 
 /** How far the landscape sheet moves right to leave room for the career branch. */
-const ULTRA_SHIFT = 330;
+const ULTRA_SHIFT = 500;
 
 function placeOf(
     lot: LotSpec,
@@ -100,16 +108,17 @@ export const LOTS: LotSpec[] = [
     },
     { id: 'labs', href: '/labs', wide: [470, 700], compact: [270, 860] },
     // The career branch, on the left of the very wide sheet
-    { id: 'experience', tone: 'ink', href: '/experience', ultra: [270, 350] },
-    { id: 'jewely', href: 'https://www.flippad.com', ultra: [290, 200] },
-    { id: 'rolexBespoke', ultra: [455, 235] },
-    { id: 'rolexCpo', ultra: [470, 130] },
-    { id: 'clientGodechot', ultra: [90, 70] },
-    { id: 'clientCrown', ultra: [90, 135] },
-    { id: 'clientJulian', ultra: [90, 200] },
-    { id: 'clientAuberi', ultra: [90, 265] },
-    { id: 'aremedia', href: 'https://aremedia.org', ultra: [80, 350] },
-    { id: 'plm', href: 'https://se.parcourslemonde.org', ultra: [80, 470] },
+    { id: 'experience', tone: 'ink', href: '/experience', ultra: [100, 350] },
+    { id: 'jewely', href: 'https://www.flippad.com', ultra: [100, 200] },
+    { id: 'clientGodechot', ultra: [290, 60] },
+    { id: 'clientCrown', ultra: [290, 140] },
+    { id: 'clientJulian', ultra: [290, 220] },
+    { id: 'clientAuberi', ultra: [290, 300] },
+    { id: 'rolexCpo', ultra: [470, 60] },
+    { id: 'rolexJulian', ultra: [470, 220] },
+    { id: 'rolexBespoke', ultra: [290, 410] },
+    { id: 'aremedia', href: 'https://aremedia.org', ultra: [100, 480] },
+    { id: 'plm', href: 'https://se.parcourslemonde.org', ultra: [290, 540] },
     // astralmanach and its parts
     {
         id: 'astralmanach',
@@ -196,7 +205,8 @@ export const EDGES: EdgeSpec[] = [
     // The career: where the case studies come from
     { from: 'experience', to: 'jewely' },
     { from: 'jewely', to: 'rolexBespoke' },
-    { from: 'jewely', to: 'rolexCpo' },
+    { from: 'clientGodechot', to: 'rolexCpo' },
+    { from: 'clientJulian', to: 'rolexJulian' },
     { from: 'jewely', to: 'clientGodechot' },
     { from: 'jewely', to: 'clientCrown' },
     { from: 'jewely', to: 'clientJulian' },
@@ -220,7 +230,7 @@ const SHEET: Record<
     }
 > = {
     wide: { width: 880, height: 740, compass: [830, 40], scale: [30, 710] },
-    ultra: { width: 1210, height: 740, compass: [1160, 40], scale: [30, 710] },
+    ultra: { width: 1380, height: 740, compass: [1330, 40], scale: [30, 710] },
     compact: { width: 360, height: 920, compass: [320, 40], scale: [20, 890] },
 };
 
@@ -242,6 +252,17 @@ export function buildPlan(
             id: lot.id,
             label: text?.label ?? lot.id,
             note: text?.note || undefined,
+            detail: text?.detail
+                ? {
+                      ...text.detail,
+                      links: text.detail.links?.map((link) => ({
+                          ...link,
+                          href: link.href.startsWith('/')
+                              ? localize(link.href)
+                              : link.href,
+                      })),
+                  }
+                : undefined,
             x,
             y,
             tone: lot.tone,

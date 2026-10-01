@@ -113,16 +113,12 @@ onBeforeUnmount(() => {
     content: '';
     position: absolute;
     inset: 0 0 auto;
-    /* The page ground behind the header, opaque: nothing scrolling underneath may
-       show through the gaps around the bar. (It used to be a soft glow.) */
+    /* Full width and transparent: the page ground (grid, shapes) runs under the header
+       and into its side margins. Only the bar itself, below, is opaque. */
     height: 100%;
-    background: var(--sw-bg-base);
+    background: transparent;
     pointer-events: none;
     z-index: 0;
-}
-
-:global(html[data-theme='sunset']) .app-header::before {
-    background: none;
 }
 
 .app-header__shell {

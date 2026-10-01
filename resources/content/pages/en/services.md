@@ -56,6 +56,9 @@ stacks:
           - Vitest
           - Playwright
 offers:
+    - title: Showcase site
+      summary: A few pages, clear and fast.
+      price: from €1,400
     - title: Local website
       summary: For shops, venues and public bodies.
       price: from €2,900
@@ -73,5 +76,8 @@ offers:
     - title: Platform build
       summary: A business tool on a defined scope.
       price: on quote
+    - title: Non-profits
+      summary: Write to me, we will find an arrangement.
+      price: to discuss
 legal_note: 'Prices exclude VAT. TVA non applicable, article 293 B du CGI. Starting prices only: each project is quoted in writing.'
 ---

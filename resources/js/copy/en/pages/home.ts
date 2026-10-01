@@ -8,6 +8,45 @@ export default {
     archiveCta: 'Browse all case studies',
     ciCdDefinition:
         'CI/CD: continuous integration and delivery practices that make releases safer.',
+    clients: {
+        figures: [
+            { label: 'years at Jewely / Flippad', suffix: '', value: 5 },
+            { label: 'product entries enriched', suffix: '+', value: 20000 },
+            { label: 'client houses', suffix: '', value: 4 },
+        ],
+        houses: [
+            {
+                href: 'https://www.crown-dp.com/fr',
+                linkLabel: 'crown-dp.com',
+                name: 'Crown-DP',
+                period: '2025',
+                role: 'Luxury watches, Strasbourg. Built alone, from start to finish: I integrated the design supplied by a Strasbourg agency, and everyone was happy with the result.',
+            },
+            {
+                href: 'https://www.godechot-pauliet.com/en/rolex-certified-pre-owned/',
+                linkLabel: 'Rolex Certified Pre-Owned space',
+                name: 'Godechot-Pauliet',
+                period: '',
+                role: 'I built its Rolex Certified Pre-Owned space.',
+            },
+            {
+                href: '',
+                linkLabel: '',
+                name: 'Louis Julian',
+                period: '',
+                role: 'I built its Rolex space.',
+            },
+            {
+                href: '',
+                linkLabel: '',
+                name: 'Auberi',
+                period: '',
+                role: 'E-commerce site on the shared platform.',
+            },
+        ],
+        intro: 'Four houses of the Jewely client portfolio, built on one shared back end. Under NDA with Rolex; the Rolex Bespoke requests also went through me.',
+        title: 'Built for the Jewely client houses',
+    },
     cmsDefinition: 'CMS: Content Management System.',
     contactCta: 'Start a conversation',
     contactLabel: 'Contact',
@@ -73,7 +112,10 @@ export default {
                 label: 'DD le Dépanneur\nAtlas Dépannage',
                 note: 'One app, two brands',
             },
-            aremedia: { label: 'Aremedia', note: 'Public health and popular education, Paris: a self-hosted field tool and the public site' },
+            aremedia: {
+                label: 'Aremedia',
+                note: 'Public health and popular education, Paris: a self-hosted field tool and the public site',
+            },
             astralmanach: {
                 label: 'astralmanach',
                 note: 'The sky of a date, as data',
@@ -95,28 +137,99 @@ export default {
                 label: 'Non-profit tool',
                 note: 'Case study: self-hosting and sensitive data',
             },
-            clientAuberi: { label: 'Auberi', note: 'Jewely client house, e-commerce site' },
-            clientCrown: { label: 'Crown-DP', note: 'Jewely client house, e-commerce site' },
-            clientGodechot: { label: 'Godechot-Pauliet', note: 'Jewely client house, e-commerce site' },
-            clientJulian: { label: 'Louis Julian', note: 'Jewely client house, e-commerce site' },
+            clientAuberi: {
+                label: 'Auberi',
+                note: 'Jewely client house, e-commerce site',
+            },
+            clientCrown: {
+                detail: {
+                    links: [
+                        {
+                            href: 'https://www.crown-dp.com/fr',
+                            label: 'crown-dp.com',
+                            nofollow: true,
+                        },
+                    ],
+                    period: '2025',
+                    role: 'Built alone, from start to finish. I integrated the design supplied by a Strasbourg agency.',
+                },
+                label: 'Crown-DP',
+                note: 'Luxury watches, Strasbourg: custom e-commerce site',
+            },
+            clientGodechot: {
+                detail: {
+                    links: [
+                        {
+                            href: 'https://www.godechot-pauliet.com/en/rolex-certified-pre-owned/',
+                            label: 'Rolex Certified Pre-Owned space',
+                            nofollow: true,
+                        },
+                    ],
+                    role: 'Jewely client house. I built its Rolex Certified Pre-Owned space.',
+                },
+                label: 'Godechot-Pauliet',
+                note: 'Jewely client house, e-commerce site',
+            },
+            clientJulian: {
+                detail: {
+                    role: 'Jewely client house. I built its Rolex space.',
+                },
+                label: 'Louis Julian',
+                note: 'Jewely client house, e-commerce site',
+            },
             contact: { label: 'Contact', note: 'Nancy, Paris, remote' },
-            experience: { label: 'Experience', note: 'Jewely, Aremedia, Parcours le Monde' },
+            experience: {
+                label: 'Experience',
+                note: 'Jewely, Aremedia, Parcours le Monde',
+            },
             florian: {
                 label: 'florianrosinski.fr',
                 note: 'Portfolio of Florian Rosinski, which I developed',
             },
             home: { label: 'Home', note: 'You are here' },
-            jewely: { label: 'Jewely / Flippad', note: 'ERP, PIM and e-commerce for watchmaking and jewellery' },
+            jewely: {
+                detail: {
+                    figures: [
+                        { label: 'years, 2021 to 2026', value: '5' },
+                        { label: 'product entries enriched', value: '20,000+' },
+                    ],
+                    links: [
+                        { href: '/experience', label: 'Read the experience' },
+                    ],
+                    role: 'E-commerce developer. 2026: a custom CMS with one common back end for several client houses.',
+                },
+                label: 'Jewely / Flippad',
+                note: 'ERP, PIM and e-commerce for watchmaking and jewellery',
+            },
             journal: { label: 'Journal', note: 'Working notes' },
-            labs: { label: 'Labs', note: 'Core Web Vitals audit and sandboxes' },
+            labs: {
+                label: 'Labs',
+                note: 'Core Web Vitals audit and sandboxes',
+            },
             lib: { label: 'npm library', note: 'MIT licence, ESM and types' },
             obs: {
                 label: 'Observations',
                 note: 'A printable plate of the sky of a date',
             },
-            plm: { label: 'Parcours le Monde', note: 'International mobility for young people, still active in Marseille' },
-            rolexBespoke: { label: 'Rolex Bespoke', note: 'Rolex programme: I handle every request' },
-            rolexCpo: { label: 'Rolex Certified Pre-Owned', note: 'Rolex programme: I handle every request' },
+            plm: {
+                label: 'Parcours le Monde',
+                note: 'International mobility for young people, still active in Marseille',
+            },
+            rolexBespoke: {
+                detail: {
+                    role: 'Every request went through me. Under NDA with Rolex.',
+                },
+                label: 'Rolex Bespoke',
+                note: 'Rolex programme: I handle every request',
+            },
+            rolexCpo: {
+                label: 'Rolex Certified\nPre-Owned',
+                note: 'Rolex space of Godechot-Pauliet',
+            },
+            rolexJulian: {
+                label: 'Rolex space',
+                note: 'Rolex space of Louis Julian',
+            },
             services: { label: 'Services', note: 'Stacks and starting prices' },
             tools: {
                 label: 'Theme, Sky,\nCertificate',

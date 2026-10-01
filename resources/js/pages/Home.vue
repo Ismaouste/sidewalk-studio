@@ -7,6 +7,7 @@ import InlineTermTooltip from '@/components/design-system/InlineTermTooltip.vue'
 import LegendChip from '@/components/design-system/LegendChip.vue';
 import SectionIntro from '@/components/design-system/SectionIntro.vue';
 import NewsletterSignup from '@/components/NewsletterSignup.vue';
+import HomeClients from '@/components/schema/HomeClients.vue';
 import HomePlan from '@/components/schema/HomePlan.vue';
 import SeoMeta from '@/components/SeoMeta.vue';
 import Button from '@/components/ui/Button.vue';
@@ -229,6 +230,8 @@ const heroAccentChips = computed(() =>
         </section>
 
         <HomePlan />
+
+        <HomeClients />
 
         <section class="sw-section sw-section--flow home-section">
             <div class="home-section__header">
