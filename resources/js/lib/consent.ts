@@ -19,7 +19,7 @@ const consentTranslations = {
         consentModal: {
             title: 'Privacy is part of the architecture',
             description:
-                'Sidewalk Studio loads only what is needed by default. Analytics stays off and embeds remain blocked until you opt in.',
+                'This site loads only what it needs. Audience measurement stays off and embedded videos stay blocked until you choose.',
             acceptAllBtn: 'Accept all',
             acceptNecessaryBtn: 'Keep strict mode',
             showPreferencesBtn: 'Manage preferences',
@@ -34,7 +34,7 @@ const consentTranslations = {
                 {
                     title: 'Why these choices exist',
                     description:
-                        'The repo uses consent categories as a technical boundary: nothing external should load before an explicit choice exists.',
+                        'Nothing from an outside service loads before you have chosen. Each category below can be switched on or off, and changed later from the Audience button in the footer.',
                 },
                 {
                     title: 'Necessary',
@@ -66,7 +66,7 @@ const consentTranslations = {
         consentModal: {
             title: "La vie privée fait partie de l'architecture",
             description:
-                "Sidewalk Studio ne charge que le strict nécessaire par défaut. Les analytics restent coupés et les embeds sont bloqués tant que vous n'avez pas choisi.",
+                "Ce site ne charge que le nécessaire. La mesure d'audience reste coupée et les vidéos intégrées restent bloquées tant que vous n'avez pas choisi.",
             acceptAllBtn: 'Tout accepter',
             acceptNecessaryBtn: 'Rester en mode strict',
             showPreferencesBtn: 'Gérer mes choix',
@@ -81,7 +81,7 @@ const consentTranslations = {
                 {
                     title: 'Pourquoi ces choix existent',
                     description:
-                        "Le site utilise les catégories de consentement comme frontière technique : rien d'externe ne doit se charger sans choix explicite.",
+                        "Rien ne vient d'un service extérieur avant votre choix. Chaque catégorie ci-dessous s'active ou se coupe, et se change plus tard depuis le bouton Audience du pied de page.",
                 },
                 {
                     title: 'Nécessaire',

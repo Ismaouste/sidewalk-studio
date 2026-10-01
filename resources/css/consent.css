@@ -1,0 +1,223 @@
+/*
+ * The consent window (vanilla-cookieconsent), drawn like the rest of the site: a flat sheet, ink on paper, square corners, a hairline
+ * border and one hard offset shadow (no blur: the site has none), a marker-yellow rule on top, and buttons in the mono voice that
+ * fill in from the left when pointed at. Every colour comes from the site tokens, so the two themes are mirrors: ink and paper swap,
+ * and a button's text is always the opposite of its fill.
+ *
+ * The library names its variables `--cc-btn-primary-color` (not `-text-color`): the earlier theming used names that do not exist, so the
+ * text stayed white and was unreadable on the night theme's light buttons.
+ */
+
+html #cc-main,
+html .cm__body {
+    --cc-font-family: var(--sw-font-body);
+    --cc-modal-border-radius: 0;
+    --cc-btn-border-radius: 0;
+    --cc-pm-toggle-border-radius: 2px;
+    --cc-modal-transition-duration: 0.18s;
+    --cc-modal-margin: 1rem;
+    --cc-z-index: calc(var(--sw-z-modal) + 4);
+
+    --cc-bg: var(--sw-bg-surface);
+    --cc-primary-color: var(--sw-text-primary);
+    --cc-secondary-color: var(--sw-text-secondary);
+    --cc-link-color: var(--sw-path);
+    --cc-overlay-bg: color-mix(in srgb, var(--sw-paper) 72%, transparent);
+    --cc-separator-border-color: var(--sw-text-primary);
+
+    /* Primary: ink fill, paper text. Pointed at: path blue, light text. */
+    --cc-btn-primary-bg: var(--sw-ink);
+    --cc-btn-primary-color: var(--sw-paper);
+    --cc-btn-primary-border-color: var(--sw-ink);
+    --cc-btn-primary-hover-bg: var(--sw-path);
+    --cc-btn-primary-hover-color: #fff;
+    --cc-btn-primary-hover-border-color: var(--sw-path);
+
+    /* Secondary: paper fill, ink text and border. Pointed at: it fills with ink, text turns to paper. */
+    --cc-btn-secondary-bg: transparent;
+    --cc-btn-secondary-color: var(--sw-text-primary);
+    --cc-btn-secondary-border-color: var(--sw-ink);
+    --cc-btn-secondary-hover-bg: transparent;
+    --cc-btn-secondary-hover-color: var(--sw-paper);
+    --cc-btn-secondary-hover-border-color: var(--sw-ink);
+
+    --cc-toggle-on-bg: var(--sw-path);
+    --cc-toggle-off-bg: var(--sw-grey-3);
+    --cc-toggle-on-knob-bg: var(--sw-paper);
+    --cc-toggle-off-knob-bg: var(--sw-paper);
+    --cc-toggle-readonly-bg: var(--sw-grey-4);
+    --cc-toggle-readonly-knob-bg: var(--sw-paper);
+    --cc-toggle-enabled-icon-color: var(--sw-ink);
+    --cc-toggle-disabled-icon-color: var(--sw-ink);
+    --cc-toggle-readonly-knob-icon-color: var(--sw-ink);
+
+    --cc-cookie-category-block-bg: transparent;
+    --cc-cookie-category-block-border: var(--sw-border);
+    --cc-cookie-category-block-hover-bg: var(--sw-bg-base);
+    --cc-cookie-category-block-hover-border: var(--sw-text-primary);
+    --cc-cookie-category-expanded-block-bg: var(--sw-bg-base);
+    --cc-cookie-category-expanded-block-hover-bg: var(--sw-bg-base);
+    --cc-section-category-border: var(--sw-border);
+    --cc-footer-bg: var(--sw-bg-base);
+    --cc-footer-color: var(--sw-text-secondary);
+    --cc-footer-border-color: var(--sw-border);
+    --cc-webkit-scrollbar-bg: var(--sw-bg-base);
+    --cc-webkit-scrollbar-hover-bg: var(--sw-text-primary);
+
+    /* The embed manager (YouTube placeholder) follows the same buttons. */
+    --im-font-family: var(--sw-font-body);
+    --im-bg: var(--sw-bg-surface);
+    --im-color: var(--sw-text-primary);
+    --im-link-color: var(--sw-path);
+    --im-btn-bg: var(--sw-ink);
+    --im-btn-color: var(--sw-paper);
+    --im-btn-border: var(--sw-ink);
+    --im-btn-hover-bg: var(--sw-path);
+    --im-btn-hover-color: #fff;
+    --im-btn-hover-border: var(--sw-path);
+}
+
+html[data-theme='morning'] #cc-main,
+html[data-theme='morning'] .cm__body {
+    color-scheme: light;
+}
+
+html[data-theme='sunset'] #cc-main,
+html[data-theme='sunset'] .cm__body {
+    color-scheme: dark;
+}
+
+/* The sheet: hairline border, a hard offset shadow, a marker-yellow rule on top. Square: the library's own radius is zeroed above. */
+html #cc-main .cm,
+html #cc-main .pm,
+html .cm__body {
+    border: var(--sw-hairline) solid var(--sw-text-primary);
+    border-top: 4px solid var(--sw-mark);
+    border-radius: 0;
+    box-shadow: 6px 6px 0 var(--sw-text-primary);
+}
+
+html #cc-main .cm__title,
+html #cc-main .pm__title,
+html #cc-main .pm__section-title,
+html #cc-main .pm__service-title {
+    color: var(--sw-text-primary);
+    font-family: var(--sw-font-heading);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+html #cc-main .cm__desc,
+html #cc-main .pm__desc,
+html #cc-main .pm__section-desc,
+html #cc-main .pm__badge,
+html #cc-main .pm__cookie-table,
+html #cc-main .pm__cookie-title,
+html #cc-main .pm__cookie-desc {
+    color: var(--sw-text-secondary);
+}
+
+/* Buttons: the mono voice, square, a fill that sweeps in from the left when pointed at, an arrow that slides. */
+html #cc-main .cm__btn,
+html #cc-main .pm__btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 0;
+    border-width: var(--sw-hairline);
+    font-family: var(--sw-font-code);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition:
+        background-color var(--sw-motion-fast),
+        border-color var(--sw-motion-fast),
+        color var(--sw-motion-fast),
+        transform var(--sw-motion-fast);
+}
+
+html #cc-main .cm__btn:active,
+html #cc-main .pm__btn:active {
+    transform: translateY(1px);
+}
+
+/* The secondary buttons: the ink fill grows behind the text. */
+html #cc-main .cm__btn--secondary::before,
+html #cc-main .pm__btn--secondary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--sw-ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+}
+
+html #cc-main .cm__btn--secondary:hover::before,
+html #cc-main .pm__btn--secondary:hover::before,
+html #cc-main .cm__btn--secondary:focus-visible::before,
+html #cc-main .pm__btn--secondary:focus-visible::before {
+    transform: scaleX(1);
+}
+
+/* The primary buttons: a small arrow slides in on the right. */
+html #cc-main .cm__btn:not(.cm__btn--secondary)::after,
+html #cc-main .pm__btn:not(.pm__btn--secondary)::after {
+    content: '→';
+    display: inline-block;
+    margin-left: 0.5rem;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+        opacity var(--sw-motion-fast),
+        transform var(--sw-motion-fast);
+}
+
+html #cc-main .cm__btn:not(.cm__btn--secondary):hover::after,
+html #cc-main .pm__btn:not(.pm__btn--secondary):hover::after,
+html #cc-main .cm__btn:not(.cm__btn--secondary):focus-visible::after,
+html #cc-main .pm__btn:not(.pm__btn--secondary):focus-visible::after {
+    opacity: 1;
+    transform: none;
+}
+
+html #cc-main .cm__btn:focus-visible,
+html #cc-main .pm__btn:focus-visible,
+html #cc-main .pm__section-toggle:focus-visible,
+html #cc-main .section__toggle:focus-visible + .toggle__icon {
+    outline: var(--sw-hairline-strong) solid var(--sw-path);
+    outline-offset: 2px;
+}
+
+/* The toggles are square too. */
+html #cc-main .toggle__icon,
+html #cc-main .toggle__icon-circle {
+    border-radius: 2px;
+}
+
+html #cc-main .pm__section--toggle,
+html #cc-main .pm__section--expandable {
+    border-radius: 0;
+}
+
+html[data-motion='reduced'] #cc-main .cm__btn,
+html[data-motion='reduced'] #cc-main .pm__btn,
+html[data-motion='reduced'] #cc-main .cm__btn::before,
+html[data-motion='reduced'] #cc-main .pm__btn::before,
+html[data-motion='reduced'] #cc-main .cm__btn::after,
+html[data-motion='reduced'] #cc-main .pm__btn::after {
+    transition-duration: 0ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html #cc-main .cm__btn,
+    html #cc-main .pm__btn,
+    html #cc-main .cm__btn::before,
+    html #cc-main .pm__btn::before,
+    html #cc-main .cm__btn::after,
+    html #cc-main .pm__btn::after {
+        transition-duration: 0ms !important;
+    }
+}
