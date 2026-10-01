@@ -287,7 +287,8 @@ const heroAccentChips = computed(() =>
                         <ContentVisual :item="item" compact />
                         <div class="home-card__body">
                             <LegendChip
-                                :label="item.client || copy.internalBuildLabel"
+                                v-if="item.client"
+                                :label="item.client"
                                 tone="green"
                                 class="home-card__eyebrow"
                             />

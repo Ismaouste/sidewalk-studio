@@ -294,7 +294,6 @@ export function buildPlan(
         here: 'home',
         // A portrait strip is 360 units wide: long labels break at spaces.
         wrap: layout === 'compact' ? 13 : undefined,
-        compass: { x: sheet.compass[0], y: sheet.compass[1] },
         scale: { x: sheet.scale[0], y: sheet.scale[1], label: copy.scale },
     };
 }

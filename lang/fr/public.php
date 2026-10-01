@@ -15,7 +15,7 @@ return [
         'nav_current_label' => 'Actif',
         'nav_open_label' => 'Lire plus',
         'footer_note' => 'Développeur e-commerce, Nancy.',
-        'privacy_controls_label' => 'Réglages vie privée',
+        'privacy_controls_label' => 'Audience',
     ],
 
     'navigation' => [

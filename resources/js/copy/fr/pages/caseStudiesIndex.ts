@@ -10,11 +10,8 @@ export default {
     description:
         "Des cas plus précis autour des flux produit, de l'auto-hébergement, du consentement, du SEO technique et des systèmes web qui demandent de la tenue.",
     eyebrow: 'Études de cas',
-    internalBuildLabel: 'Build interne',
     projectsCta: 'Lire les expériences',
-    publicSlicesLabel: (count: number) => `${count} cas publiés`,
     publishedLabel: 'Publié',
-    reviewLabel: 'Format revue technique',
     stackLabel: 'Stack',
     title: 'Décisions techniques, outils utiles, détails qui comptent.',
     toolsSuffix: 'outils',

@@ -32,7 +32,7 @@ return [
         'nav_current_label' => 'Current',
         'nav_open_label' => 'Read more',
         'footer_note' => 'E-commerce developer, Nancy.',
-        'privacy_controls_label' => 'Privacy controls',
+        'privacy_controls_label' => 'Audience',
     ],
 
     /**

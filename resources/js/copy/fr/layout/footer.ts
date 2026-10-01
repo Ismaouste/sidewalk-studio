@@ -18,13 +18,10 @@ export default {
         sheet: 'Planche',
     },
     colophonLabel: 'Colophon',
-    consentNote: 'Mesure d’audience en opt-in explicite.',
-    contactLabel: 'Mail',
     dataLabel: 'Traitement des données',
-    experienceLabel: 'Expériences',
     licenseLabel: '© MIT',
     linkedinLabel: 'LinkedIn',
+    mailLabel: 'E-mail',
     staticPreviewNote:
         'Preview statique : formulaire et préférences avancées désactivés.',
-    workLabel: 'Réalisations',
 } satisfies Reference;

@@ -173,7 +173,7 @@ onBeforeUnmount(() => {
 .nav-tabs__trigger-label {
     font-family: var(--sw-font-heading);
     font-size: 9px;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
@@ -182,7 +182,7 @@ onBeforeUnmount(() => {
 .nav-tabs__trigger-current {
     font-family: var(--sw-font-body);
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.15;
 }
 
@@ -340,7 +340,7 @@ onBeforeUnmount(() => {
 .nav-tabs__link-label {
     font-family: var(--sw-font-body);
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.2;
 }
 
@@ -350,7 +350,7 @@ onBeforeUnmount(() => {
     gap: 0.4rem;
     font-family: var(--sw-font-heading);
     font-size: 9px;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--sw-accent-sun);
@@ -383,7 +383,7 @@ onBeforeUnmount(() => {
 }
 
 .nav-tabs__link--active .nav-tabs__link-label {
-    font-weight: 700;
+    font-weight: 500;
 }
 
 @media (hover: hover) {
@@ -497,7 +497,7 @@ onBeforeUnmount(() => {
         padding: calc(var(--sw-space-4xs) + 2px) var(--sw-space-xs);
         font-family: var(--sw-font-heading);
         font-size: 9px;
-        font-weight: 700;
+        font-weight: 400;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--sw-tab-inactive);

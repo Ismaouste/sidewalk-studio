@@ -64,7 +64,8 @@ const caseStudyMeta = computed(() => [
                 :description="props.item.summary"
             >
                 <LegendChip
-                    :label="props.item.client || copy.internalBuildLabel"
+                    v-if="props.item.client"
+                    :label="props.item.client"
                     tone="green"
                 />
                 <LegendChip
@@ -98,7 +99,7 @@ const caseStudyMeta = computed(() => [
                     <div class="case-study-show__detail">
                         <dt class="type-nav">{{ copy.clientLabel }}</dt>
                         <dd class="type-body-sm">
-                            {{ props.item.client || copy.internalBuildLabel }}
+                            {{ props.item.client || '—' }}
                         </dd>
                     </div>
 

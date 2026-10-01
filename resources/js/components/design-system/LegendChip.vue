@@ -25,7 +25,7 @@ const props = withDefaults(
     white-space: nowrap;
     font-family: var(--sw-font-heading);
     font-size: 0.72rem;
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--chip-accent);

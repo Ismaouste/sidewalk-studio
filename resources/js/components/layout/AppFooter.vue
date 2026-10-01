@@ -37,16 +37,6 @@ const dataProcessingHref = computed(() =>
 const colophonHref = computed(() =>
     localizePublicHref('/colophon', page.props.site.locale),
 );
-/**
- * The résumé record left the primary menu when the offer and the proof took
- * its place, so this footer is now the one persistent way back to it.
- */
-const workHref = computed(() =>
-    localizePublicHref('/work', page.props.site.locale),
-);
-const experienceHref = computed(() =>
-    localizePublicHref('/experience', page.props.site.locale),
-);
 const copy = computed(() => copyTree[page.props.site.locale].layout.footer);
 
 function backToTop(): void {
@@ -73,44 +63,22 @@ function backToTop(): void {
                     <p class="app-footer__note">
                         {{ page.props.site.shell.footerNote }}
                     </p>
-                    <p class="type-meta app-footer__consent-note">
-                        {{
-                            isStaticPreview
-                                ? copy.staticPreviewNote
-                                : copy.consentNote
-                        }}
+                    <p
+                        v-if="isStaticPreview"
+                        class="type-meta app-footer__consent-note"
+                    >
+                        {{ copy.staticPreviewNote }}
                     </p>
                 </div>
 
                 <div class="app-footer__actions">
                     <div class="app-footer__links">
                         <a
-                            v-if="linkedinUrl"
-                            class="app-footer__link"
-                            :href="linkedinUrl"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            {{ copy.linkedinLabel }}
-                        </a>
-                        <a
-                            class="app-footer__link"
-                            :href="`mailto:${page.props.site.contact.email}`"
-                        >
-                            {{ copy.contactLabel }}
-                        </a>
-                        <a
                             class="app-footer__link"
                             :href="dataProcessingHref"
                             rel="nofollow"
                         >
                             {{ copy.dataLabel }}
-                        </a>
-                        <a class="app-footer__link" :href="workHref">
-                            {{ copy.workLabel }}
-                        </a>
-                        <a class="app-footer__link" :href="experienceHref">
-                            {{ copy.experienceLabel }}
                         </a>
                         <a class="app-footer__link" :href="colophonHref">
                             {{ copy.colophonLabel }}
@@ -122,21 +90,48 @@ function backToTop(): void {
                         >
                             {{ copy.backToTopLabel }}
                         </button>
+                        <span
+                            class="app-footer__pipe"
+                            aria-hidden="true"
+                        ></span>
+                        <a
+                            v-if="linkedinUrl"
+                            class="app-footer__social"
+                            :href="linkedinUrl"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <svg
+                                class="app-footer__social-icon"
+                                viewBox="0 0 16 16"
+                                aria-hidden="true"
+                                focusable="false"
+                            >
+                                <path
+                                    d="M1.5 5.5h3v9h-3zM3 1.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5zM6.5 5.5h2.9v1.3h.04c.4-.76 1.4-1.56 2.88-1.56 3.08 0 3.65 2.03 3.65 4.67v4.59h-3v-4.07c0-.97-.02-2.22-1.35-2.22-1.35 0-1.56 1.06-1.56 2.15v4.14h-3z"
+                                />
+                            </svg>
+                            {{ copy.linkedinLabel }}
+                        </a>
+                        <a
+                            class="app-footer__social"
+                            :href="`mailto:${page.props.site.contact.email}`"
+                        >
+                            <svg
+                                class="app-footer__social-icon"
+                                viewBox="0 0 16 16"
+                                aria-hidden="true"
+                                focusable="false"
+                            >
+                                <path
+                                    d="M1.5 3h13a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm.5 1.6v6.9h12V4.6L8 9 2 4.6zM3.1 4 8 7.6 12.9 4z"
+                                />
+                            </svg>
+                            {{ copy.mailLabel }}
+                        </a>
                     </div>
 
                     <div class="app-footer__meta">
-                        <div class="app-footer__contact">
-                            <span class="type-meta app-footer__location">
-                                {{ page.props.site.contact.location }}
-                            </span>
-                            <a
-                                class="app-footer__mail"
-                                :href="`mailto:${page.props.site.contact.email}`"
-                            >
-                                {{ page.props.site.contact.email }}
-                            </a>
-                        </div>
-
                         <div class="app-footer__controls">
                             <LocaleSwitcher />
                             <ThemeToggle compact />
@@ -168,13 +163,9 @@ function backToTop(): void {
                 >
                     {{ copy.licenseLabel }}
                 </a>
-                <a
-                    class="app-footer__legal-link"
-                    :href="`mailto:${page.props.site.contact.email}`"
-                    rel="nofollow"
-                >
-                    {{ page.props.site.name }}
-                </a>
+                <span class="app-footer__legal-link">{{
+                    page.props.site.name
+                }}</span>
             </div>
         </div>
     </footer>
@@ -282,7 +273,6 @@ function backToTop(): void {
 }
 
 .app-footer__links,
-.app-footer__contact,
 .app-footer__controls {
     display: flex;
     flex-wrap: wrap;
@@ -311,28 +301,50 @@ function backToTop(): void {
     font: inherit;
 }
 
-.app-footer__mail {
-    display: inline-flex;
-    align-items: center;
-    color: var(--sw-accent-dominant);
-    text-decoration: none;
+/* Where to find me: after a thin vertical rule, small, monochrome, and not styled like the plain links. */
+.app-footer__pipe {
+    display: none;
+    align-self: stretch;
+    width: 1px;
+    min-height: 1.1rem;
+    background: color-mix(in srgb, var(--sw-border) 90%, transparent);
 }
 
-.app-footer__location {
+.app-footer__social {
     display: inline-flex;
     align-items: center;
+    gap: 0.4rem;
     min-height: 1.8rem;
+    padding-inline: 0.6rem;
+    border: 1px solid color-mix(in srgb, var(--sw-border) 90%, transparent);
+    color: var(--sw-text-primary);
+    font-family: var(--sw-font-code);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.app-footer__social-icon {
+    width: 0.85rem;
+    height: 0.85rem;
+    fill: currentColor;
 }
 
 @media (hover: hover) {
     .app-footer__link:hover,
-    .app-footer__mail:hover,
     .app-footer__legal-link:hover {
         color: color-mix(
             in srgb,
             var(--sw-accent-dominant) 78%,
             var(--sw-accent-sun)
         );
+    }
+}
+
+@media (min-width: 640px) {
+    .app-footer__pipe {
+        display: block;
     }
 }
 

@@ -220,6 +220,8 @@ export async function initializeConsent(
     }
 
     await CookieConsent.run({
+        // No window on arrival: until the reader chooses, only the necessary category runs (strict mode). The "Audience" button in the footer opens the choice.
+        autoShow: false,
         guiOptions: {
             consentModal: {
                 layout: 'box wide',

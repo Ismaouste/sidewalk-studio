@@ -224,7 +224,7 @@ onBeforeUnmount(() => {
 
 .app-header__name {
     font-size: clamp(12px, 1.25vw, 14px);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.08em;
     color: color-mix(in srgb, var(--sw-text-primary) 90%, transparent);
 }
@@ -232,7 +232,7 @@ onBeforeUnmount(() => {
 .app-header__tagline {
     font-family: var(--sw-font-body);
     font-size: clamp(12px, 2.6vw, 14px);
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.4;
     color: var(--sw-text-secondary);
 }
@@ -243,6 +243,57 @@ onBeforeUnmount(() => {
 
 .app-header__controls :deep(.nav-tabs) {
     min-width: 0;
+}
+
+/* Phones and tablets: one row. The logo, the name and the tagline (two lines) on the left, the menu on the right at the same height. */
+@media (max-width: 959px) {
+    .app-header__inner {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        column-gap: var(--sw-space-xs);
+    }
+
+    .app-header__controls {
+        justify-items: end;
+    }
+
+    .app-header__controls :deep(.nav-tabs) {
+        width: auto;
+        max-width: none;
+    }
+
+    .app-header__controls :deep(.nav-tabs__trigger) {
+        width: auto;
+        min-width: 7.75rem;
+    }
+
+    /* The tagline may take two lines rather than be cut: nothing is lost on a narrow phone. */
+    .app-header__tagline {
+        display: -webkit-box;
+        overflow: hidden;
+        font-size: 12px;
+        line-height: 1.3;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+}
+
+/* A phone: the menu button is just the word and its icon, so the tagline keeps its room. */
+@media (max-width: 640px) {
+    .app-header__controls :deep(.nav-tabs__trigger) {
+        min-width: 0;
+        min-height: 2.5rem;
+        padding-inline: var(--sw-space-xs);
+    }
+
+    .app-header__controls :deep(.nav-tabs__trigger-current) {
+        display: none;
+    }
+
+    .app-header__controls :deep(.nav-tabs__trigger-label) {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+    }
 }
 
 @media (min-width: 960px) {

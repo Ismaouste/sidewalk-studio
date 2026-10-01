@@ -114,6 +114,8 @@ class LanguageFileParityTest extends TestCase
             'audit_mail.signature',
             'shell.nav_menu_label',
             'shell.nav_fallback_label',
+            // The footer button that reopens the audience-measurement choice: "Audience" is the same word in both languages.
+            'shell.privacy_controls_label',
             'widgets.home_journal.eyebrow',
             'widgets.projects_notes.eyebrow',
         ];

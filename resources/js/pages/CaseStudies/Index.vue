@@ -67,12 +67,6 @@ const copy = computed(
                         {{ copy.projectsCta }}
                     </Button>
                 </template>
-
-                <LegendChip :label="copy.reviewLabel" tone="green" />
-                <LegendChip
-                    :label="copy.publicSlicesLabel(props.items.length)"
-                    tone="sun"
-                />
             </SectionIntro>
 
             <div class="case-studies-index__grid">
@@ -88,7 +82,8 @@ const copy = computed(
                         <ContentVisual :item="item" compact />
                         <div class="case-studies-index__card-top">
                             <LegendChip
-                                :label="item.client || copy.internalBuildLabel"
+                                v-if="item.client"
+                                :label="item.client"
                                 tone="green"
                             />
                             <ContentMetaRow :items="caseStudyMeta(item)" />

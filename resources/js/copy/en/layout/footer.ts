@@ -15,13 +15,10 @@ export default {
         sheet: 'Sheet',
     },
     colophonLabel: 'Colophon',
-    consentNote: 'Analytics stays explicit opt-in.',
-    contactLabel: 'Direct contact',
     dataLabel: 'Data processing',
-    experienceLabel: 'Experience',
     licenseLabel: '© MIT',
     linkedinLabel: 'LinkedIn',
+    mailLabel: 'Email',
     staticPreviewNote:
         'Static preview: form handling and advanced preferences are disabled.',
-    workLabel: 'Work',
 };
